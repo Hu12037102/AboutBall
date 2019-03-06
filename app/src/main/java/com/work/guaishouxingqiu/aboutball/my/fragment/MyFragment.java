@@ -17,7 +17,8 @@ public class MyFragment extends BaseFragment<MyPresenter>implements MyContract.V
     }
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_my;
+        return
+                R.layout.fragment_my;
     }
 
     @Override
