@@ -1,0 +1,164 @@
+package com.work.guaishouxingqiu.aboutball.home.activity;
+
+
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.FrameLayout;
+
+import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
+import com.work.guaishouxingqiu.aboutball.community.fragment.CommunityFragment;
+import com.work.guaishouxingqiu.aboutball.game.fragment.GameFragment;
+import com.work.guaishouxingqiu.aboutball.home.adapter.MainTabAdapter;
+import com.work.guaishouxingqiu.aboutball.home.bean.MainTabBean;
+import com.work.guaishouxingqiu.aboutball.home.contract.MainContract;
+import com.work.guaishouxingqiu.aboutball.home.fragment.HomeFragment;
+import com.work.guaishouxingqiu.aboutball.home.presenter.MainPresenter;
+import com.work.guaishouxingqiu.aboutball.my.fragment.MyFragment;
+import com.work.guaishouxingqiu.aboutball.venue.fragment.VenueFragment;
+
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+/**
+ * 作者: 胡庆岭
+ * 创建时间: 2019/3/4 13:36
+ * 更新时间: 2019/3/4 13:36
+ * 描述: 主页面
+ */
+public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View {
+
+
+    @BindView(R.id.rv_main_tab)
+    RecyclerView mRvMainTab;
+    @BindView(R.id.fl_main_data)
+    FrameLayout mFlMainData;
+    private MainTabAdapter mTabAdapter;
+    private HomeFragment mHomeFragment;
+    private FragmentManager mManger;
+    private GameFragment mGameFragment;
+    private VenueFragment mVenueFragment;
+    private CommunityFragment mCommunityFragment;
+    private MyFragment mMyFragment;
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void initView() {
+        mRvMainTab.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+    }
+
+    @Override
+    protected void initData() {
+        mPresenter.loadMainTab();
+        initFragment();
+    }
+
+    private void initFragment() {
+
+        mManger = getSupportFragmentManager();
+        if (mManger != null) {
+            FragmentTransaction transaction = mManger.beginTransaction();
+            if (mHomeFragment == null) {
+                mHomeFragment = HomeFragment.newInstance();
+                mGameFragment = GameFragment.newInstance();
+                mVenueFragment = new VenueFragment();
+                mCommunityFragment = new CommunityFragment();
+                mMyFragment = new MyFragment();
+                transaction.add(R.id.fl_main_data, mHomeFragment);
+                transaction.add(R.id.fl_main_data, mGameFragment);
+                transaction.hide(mGameFragment);
+                transaction.add(R.id.fl_main_data, mVenueFragment);
+                transaction.hide(mVenueFragment);
+                transaction.add(R.id.fl_main_data, mCommunityFragment);
+                transaction.hide(mCommunityFragment);
+                transaction.add(R.id.fl_main_data, mMyFragment);
+                transaction.hide(mMyFragment);
+                transaction.show(mHomeFragment);
+            }
+            transaction.commitNow();
+        }
+
+    }
+
+    @Override
+    protected void initEvent() {
+
+    }
+
+    @Override
+    protected MainPresenter createPresenter() {
+        return new MainPresenter(this);
+    }
+
+
+    @Override
+    public void loadMainTabResult(@NonNull List<MainTabBean> data) {
+        if (data.size() > 0) {
+            if (mTabAdapter == null) {
+                mTabAdapter = new MainTabAdapter(data);
+                mRvMainTab.setAdapter(mTabAdapter);
+                mTabAdapter.setOnCheckTabListener((view, position) -> {
+                    FragmentTransaction transaction = mManger.beginTransaction();
+                    switch (position) {
+                        //首页
+                        case 0:
+                            transaction.show(mHomeFragment);
+                            transaction.hide(mGameFragment);
+                            transaction.hide(mVenueFragment);
+                            transaction.hide(mCommunityFragment);
+                            transaction.hide(mMyFragment);
+                            break;
+                        //比赛
+                        case 1:
+                            transaction.hide(mHomeFragment);
+                            transaction.show(mGameFragment);
+                            transaction.hide(mVenueFragment);
+                            transaction.hide(mCommunityFragment);
+                            transaction.hide(mMyFragment);
+                            break;
+                        case 2:
+                            transaction.hide(mHomeFragment);
+                            transaction.hide(mGameFragment);
+                            transaction.show(mVenueFragment);
+                            transaction.hide(mCommunityFragment);
+                            transaction.hide(mMyFragment);
+                            break;
+
+                        case 3:
+                            transaction.hide(mHomeFragment);
+                            transaction.hide(mGameFragment);
+                            transaction.hide(mVenueFragment);
+                            transaction.show(mCommunityFragment);
+                            transaction.hide(mMyFragment);
+                            break;
+                        case 4:
+                            transaction.hide(mHomeFragment);
+                            transaction.hide(mGameFragment);
+                            transaction.hide(mVenueFragment);
+                            transaction.hide(mCommunityFragment);
+                            transaction.show(mMyFragment);
+                            break;
+                        default:
+                            break;
+                    }
+                    transaction.commitNow();
+                });
+            } else {
+                mTabAdapter.notifyDataSetChanged();
+            }
+        }
+    }
+
+
+}

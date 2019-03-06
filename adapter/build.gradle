@@ -1,0 +1,33 @@
+apply plugin: 'com.android.library'
+
+android {
+    def android = rootProject.ext.android
+    compileSdkVersion android.compileSdkVersion
+    buildToolsVersion android.buildToolsVersion
+    defaultConfig {
+        minSdkVersion android.minSdkVersion
+        targetSdkVersion android.targetSdkVersion
+        versionCode android.versionCode
+        versionName android.versionName
+        testInstrumentationRunner android.testInstrumentationRunner
+    }
+
+  /*  buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }*/
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    def dependencies = rootProject.ext.dependencies
+    implementation dependencies.appcompatV7
+    testImplementation dependencies.junit
+    androidTestImplementation dependencies.testRunner
+    androidTestImplementation dependencies.testEspresso
+    implementation dependencies.supportV4
+    implementation dependencies.recyclerviewV7
+}

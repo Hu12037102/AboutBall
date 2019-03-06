@@ -1,0 +1,57 @@
+ext {
+    android = [
+            compileSdkVersion        : 28,
+            buildToolsVersion        : "28.0.3",
+            applicationId            : "com.work.guaishouxingqiu.aboutball",
+            minSdkVersion            : 15,
+            targetSdkVersion         : 28,
+            versionCode              : 1,
+            versionName              : "1.0.0",
+            testInstrumentationRunner: "android.support.test.runner.AndroidJUnitRunner"
+    ]
+
+    dependVersion = [
+            appcompatV7       : "28.0.0",
+            constraintLayout  : "1.1.3",
+            junit             : "4.12",
+            testRunner        : "1.0.2",
+            testEspresso      : "espresso-core:3.0.2",
+            multidex          : "1.0.3",
+            retrofit          : "2.5.0",
+            loggingInterceptor: "3.7.0",
+            converterGson     : "2.2.0",
+            adapterRxjava     : "2.3.0",
+            rxjava2           : "2.2.6",
+            rxandroid         : "2.1.1",
+            supportV4         : "28.0.0",
+            cardviewV7        : "28.0.0",
+            recyclerviewV7    : "28.0.0",
+            autosize          : "1.1.2",
+            glide             : "4.9.0",
+            glideCompiler     : "4.9.0",
+            SmartRefreshLayout:"1.0.5.1",
+            SmartRefreshHeader:"1.0.5.1"
+    ]
+    dependencies = [
+            appcompatV7       : "com.android.support:appcompat-v7:${dependVersion.appcompatV7}",
+            constraintLayout  : "com.android.support.constraint:constraint-layout:${dependVersion.constraintLayout}",
+            junit             : "junit:junit:${dependVersion.junit}",
+            testRunner        : "com.android.support.test:runner:${dependVersion.testRunner}",
+            testEspresso      : "com.android.support.test.espresso:${dependVersion.testEspresso}",
+            multidex          : "com.android.support:multidex:${dependVersion.multidex}",
+            retrofit          : "com.squareup.retrofit2:retrofit:${dependVersion.retrofit}",
+            loggingInterceptor: "com.squareup.okhttp3:logging-interceptor:${dependVersion.loggingInterceptor}",
+            converterGson     : "com.squareup.retrofit2:converter-gson:${dependVersion.converterGson}",
+            adapterRxjava     : "com.squareup.retrofit2:adapter-rxjava2:${dependVersion.adapterRxjava}",
+            rxjava2           : "io.reactivex.rxjava2:rxjava:${dependVersion.rxjava2}",
+            rxandroid         : "io.reactivex.rxjava2:rxandroid:${dependVersion.rxandroid}",
+            supportV4         : "com.android.support:support-v4:${dependVersion.supportV4}",
+            cardviewV7        : "com.android.support:cardview-v7:${dependVersion.cardviewV7}",
+            recyclerviewV7    : "com.android.support:recyclerview-v7:${dependVersion.recyclerviewV7}",
+            autosize          : "me.jessyan:autosize:${dependVersion.autosize}",
+            glide             : "com.github.bumptech.glide:glide:${dependVersion.glide}",
+            glideCompiler     : "com.github.bumptech.glide:compiler:${dependVersion.glideCompiler}",
+            SmartRefreshLayout:"com.scwang.smartrefresh:SmartRefreshLayout:${dependVersion.SmartRefreshLayout}",
+            SmartRefreshHeader :"com.scwang.smartrefresh:SmartRefreshHeader:${dependVersion.SmartRefreshHeader}"
+    ]
+}
