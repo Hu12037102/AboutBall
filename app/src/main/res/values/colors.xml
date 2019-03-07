@@ -15,6 +15,10 @@
     <color name="colorFFA6A6A6">#FFA6A6A6</color>
     <color name="colorFF3586FF">#FF3586FF</color>
     <color name="colorFF1D1D1D">#FF1D1D1D</color>
+    <color name="colorFFFAF9F9">#FFFAF9F9</color>
+    <color name="colorDefaultLayout">@color/colorFFFAF9F9</color>
+    <color name="colorFFF0F0F0">#FFF0F0F0</color>
+    <color name="colorFFA2C2F2">#FFA2C2F2</color>
 
     <color name="color_1">@color/colorWhite</color>
     <color name="color_2">@color/colorFF3586FF</color>

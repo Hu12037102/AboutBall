@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 
 import butterknife.ButterKnife;
@@ -71,5 +72,9 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     public void onDestroyView() {
         super.onDestroyView();
         mBinder.unbind();
+    }
+
+    protected void $startActivity(@NonNull String path) {
+        ARouter.getInstance().build(path).navigation();
     }
 }

@@ -1,27 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/DefaultParentVerticalLinearLayout"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <com.example.item.weight.TitleView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/size_50dp"
-        app:center_data="@string/me"
-        app:back_text_size="@dimen/size_19sp"
-        app:center_text_color="@color/color_4"
-        />
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/size_105dp">
-        <io.bugtags.ui.view.rounded.CircleImageView
-            android:layout_width="@dimen/size_60dp"
-            android:layout_height="@dimen/size_60dp"
-            android:layout_marginLeft="@dimen/size_20dp"
-            android:layout_marginStart="@dimen/size_20dp"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/icon_my_default_head"
-            />
-    </RelativeLayout>
+    <LinearLayout style="@style/DefaultParentVerticalLinearLayout">
+
+        <com.example.item.weight.TitleView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_50dp"
+            app:back_text_size="@dimen/size_19sp"
+            app:center_data="@string/me"
+            app:center_text_color="@color/color_4"
+            app:group_color="@color/colorTheme" />
+
+        <RelativeLayout
+            android:id="@+id/rl_my_head"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_105dp"
+            android:background="@drawable/selector_item"
+            android:clickable="true"
+            android:focusable="true">
+
+            <io.bugtags.ui.view.rounded.CircleImageView
+                android:id="@+id/civ_my_head"
+                android:layout_width="@dimen/size_60dp"
+                android:layout_height="@dimen/size_60dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginStart="@dimen/default_margin"
+                android:src="@mipmap/icon_my_default_head" />
+
+            <TextView
+                android:id="@+id/tv_my_head_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:drawableEnd="@mipmap/ic_item_right"
+                android:drawableRight="@mipmap/ic_item_right"
+                tools:ignore="RelativeOverlap" />
+
+            <LinearLayout
+                android:id="@+id/ll_head_group"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:layout_toEndOf="@id/civ_my_head"
+                android:layout_toLeftOf="@id/tv_my_head_right"
+                android:layout_toRightOf="@id/civ_my_head"
+                android:layout_toStartOf="@id/tv_my_head_right"
+                android:gravity="center_vertical"
+                android:orientation="vertical" />
+        </RelativeLayout>
+
+        <com.example.item.weight.ItemView
+            android:id="@+id/item_about_ball"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginTop="@dimen/size_5dp"
+            android:background="@color/colorTheme"
+            app:content_right_icon="@mipmap/ic_item_right"
+            app:show_top_line="false"
+            app:title_data="@string/my_about_ball"
+            app:title_drawable_padding="@dimen/item_drawable_padding"
+            app:title_left_icon="@mipmap/icon_item_my_about_ball" />
+
+        <com.example.item.weight.ItemView
+            android:id="@+id/item_order"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/colorTheme"
+            app:content_right_icon="@mipmap/ic_item_right"
+            app:show_top_line="true"
+            app:title_data="@string/my_order"
+            app:title_drawable_padding="@dimen/item_drawable_padding"
+            app:title_left_icon="@mipmap/icon_item_my_order"
+            app:top_line_margin_left="@dimen/default_margin" />
+
+        <com.example.item.weight.ItemView
+            android:id="@+id/item_team"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/colorTheme"
+            app:content_right_icon="@mipmap/ic_item_right"
+            app:show_top_line="true"
+            app:title_data="@string/my_team"
+            app:title_drawable_padding="@dimen/item_drawable_padding"
+            app:title_left_icon="@mipmap/icon_item_my_team"
+            app:top_line_margin_left="@dimen/default_margin" />
+
+        <com.example.item.weight.ItemView
+            android:id="@+id/item_message"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/colorTheme"
+            app:content_right_icon="@mipmap/ic_item_right"
+            app:show_top_line="true"
+            app:title_data="@string/my_message"
+            app:title_drawable_padding="@dimen/item_drawable_padding"
+            app:title_left_icon="@mipmap/icon_item_my_message"
+            app:top_line_margin_left="@dimen/default_margin" />
+
+        <com.example.item.weight.ItemView
+            android:id="@+id/item_dynamic"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/colorTheme"
+            app:content_right_icon="@mipmap/ic_item_right"
+            app:show_top_line="true"
+            app:title_data="@string/my_dynamic_state"
+            app:title_drawable_padding="@dimen/item_drawable_padding"
+            app:title_left_icon="@mipmap/icon_item_my_dynamic_state"
+            app:top_line_margin_left="@dimen/default_margin" />
 
 
-</LinearLayout>
+        <com.example.item.weight.ItemView
+            android:id="@+id/item_as_referee"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/colorTheme"
+            app:content_right_icon="@mipmap/ic_item_right"
+            app:show_top_line="true"
+            app:title_data="@string/my_as_the_referee"
+            app:title_drawable_padding="@dimen/item_drawable_padding"
+            app:title_left_icon="@mipmap/icon_item_my_referee"
+            app:top_line_margin_left="@dimen/default_margin" />
+
+        <com.example.item.weight.ItemView
+            android:id="@+id/item_setting"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginTop="@dimen/size_5dp"
+            android:background="@color/colorTheme"
+            app:content_right_icon="@mipmap/ic_item_right"
+            app:show_top_line="false"
+            app:title_data="@string/setting"
+            app:title_drawable_padding="@dimen/item_drawable_padding"
+            app:title_left_icon="@mipmap/icon_item_my_setting" />
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

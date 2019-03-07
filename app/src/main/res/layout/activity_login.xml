@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorTheme"
+    android:orientation="vertical">
+
+    <com.example.item.weight.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        app:back_left_drawable="@mipmap/icon_back"
+        app:back_text_padding_left="@dimen/default_margin"
+        app:group_color="@color/colorTheme"
+        app:sure_data="@string/password_login"
+        app:sure_text_color="@color/color_4"
+        app:sure_text_padding_right="@dimen/size_20dp"
+        app:sure_text_size="@dimen/size_16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/size_20dp"
+        android:layout_marginStart="@dimen/size_20dp"
+        android:layout_marginTop="@dimen/size_30dp"
+        android:text="@string/welcome_back"
+        android:textColor="@color/color_4"
+        android:textSize="@dimen/size_28sp" />
+
+    <RelativeLayout
+        style="@style/InputRelativeLayout"
+        android:layout_marginTop="@dimen/size_40dp">
+
+        <ImageView
+            android:id="@+id/iv_clear_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@null"
+            android:src="@mipmap/icon_clear"
+            android:visibility="gone" />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/iv_clear_phone"
+            android:layout_toStartOf="@id/iv_clear_phone"
+            android:orientation="horizontal"
+            android:textColorHint="@color/color_4"
+            app:hintTextAppearance="@style/DefaultTextInputLayout">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/tet_phone"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_50dp"
+                android:background="@null"
+                android:hint="@string/phone_number"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:maxLines="1"
+                android:textColorHint="@color/color_4"
+                android:textSize="18sp" />
+        </android.support.design.widget.TextInputLayout>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_message_code"
+        style="@style/InputRelativeLayout">
+
+        <TextView
+            android:id="@+id/tv_gain_message_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingBottom="@dimen/size_10dp"
+            android:paddingTop="@dimen/size_10dp"
+            android:text="@string/gain_message_code"
+            android:textColor="@color/color_4"
+            android:textSize="14sp"
+            tools:ignore="RelativeOverlap" />
+
+        <ImageView
+            android:id="@+id/iv_clear_message_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/tv_gain_message_code"
+            android:layout_toStartOf="@id/tv_gain_message_code"
+            android:contentDescription="@null"
+            android:padding="@dimen/default_margin"
+            android:src="@mipmap/icon_clear"
+            android:visibility="gone" />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/iv_clear_message_code"
+            android:layout_toStartOf="@id/iv_clear_message_code"
+            android:orientation="horizontal"
+            android:textColorHint="@color/color_4"
+            app:hintTextAppearance="@style/DefaultTextInputLayout">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/tit_code"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_50dp"
+                android:background="@null"
+                android:hint="@string/message_code"
+                android:inputType="number"
+                android:maxLength="4"
+                android:maxLines="1"
+                android:textColorHint="@color/color_4"
+                android:textSize="18sp" />
+        </android.support.design.widget.TextInputLayout>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_password"
+        style="@style/InputRelativeLayout"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_forget_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingBottom="@dimen/size_10dp"
+            android:paddingTop="@dimen/size_10dp"
+            android:text="@string/forget_the_password"
+            android:textColor="@color/color_3"
+            tools:ignore="RelativeOverlap" />
+
+        <ImageView
+            android:id="@+id/iv_clear_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/tv_forget_password"
+            android:layout_toStartOf="@id/tv_forget_password"
+            android:contentDescription="@null"
+            android:padding="@dimen/default_margin"
+            android:src="@mipmap/icon_clear"
+            android:visibility="gone"/>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/iv_clear_password"
+            android:layout_toStartOf="@id/iv_clear_password"
+            android:orientation="horizontal"
+            android:textColorHint="@color/color_4"
+            app:hintTextAppearance="@style/DefaultTextInputLayout">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_50dp"
+                android:background="@null"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:maxLength="18"
+                android:maxLines="1"
+                android:textColorHint="@color/color_4"
+                android:textSize="18sp" />
+        </android.support.design.widget.TextInputLayout>
+
+    </RelativeLayout>
+
+    <TextView
+        style="@style/ButtonCenterText"
+        android:layout_marginTop="@dimen/size_40dp"
+        android:background="@drawable/shape_login_default_button"
+        android:text="@string/login" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/default_margin"
+            tools:ignore="UselessParent">
+
+            <View
+                android:id="@+id/line"
+                style="@style/VerticalLine"
+                android:layout_height="@dimen/size_15dp"
+                android:layout_centerInParent="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/line"
+                android:layout_toStartOf="@id/line"
+                android:paddingLeft="@dimen/default_margin"
+                android:paddingRight="@dimen/default_margin"
+                android:text="@string/wechat_login"
+                android:textColor="@color/color_4"
+                android:textSize="@dimen/size_14sp"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/line"
+                android:layout_toEndOf="@id/line"
+                android:paddingLeft="@dimen/default_margin"
+                android:paddingRight="@dimen/default_margin"
+                android:text="@string/register_account"
+                android:textColor="@color/color_4"
+                android:textSize="@dimen/size_14sp"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

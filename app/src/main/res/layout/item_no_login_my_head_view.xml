@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_name"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/click_login_or_register"
+    android:textColor="@color/color_4"
+    android:textSize="@dimen/size_17sp"
+    android:layout_gravity="center_vertical"/>
+

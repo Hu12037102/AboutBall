@@ -1,5 +1,9 @@
 package com.work.guaishouxingqiu.aboutball.util;
 
+import android.support.annotation.NonNull;
+import android.support.v4.text.TextUtilsCompat;
+import android.text.TextUtils;
+
 /**
  * 作者: 胡庆岭
  * 创建时间: 2019/3/4 13:36
@@ -13,4 +17,12 @@ public class DataUtils {
         }
         return t;
     }
+
+    public static boolean isEmpty(@NonNull String data) {
+        if (TextUtils.isEmpty(data) || TextUtils.getTrimmedLength(data) == 0) {
+            return true;
+        }
+        return false;
+    }
+
 }

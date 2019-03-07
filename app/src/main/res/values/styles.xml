@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/color_2</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:fitsSystemWindows">true</item>
@@ -13,23 +13,64 @@
     </style>
 
 
-
-    <style name="DefaultParentVerticalLinearLayout" >
+    <style name="DefaultParentVerticalLinearLayout">
         <item name="android:orientation">vertical</item>
-        <item name="android:background">@color/colorTheme</item>
+        <item name="android:background">@color/colorDefaultLayout</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
     </style>
-    <style name="DefaultParentHorizontalLinearLayout" >
+
+    <style name="DefaultParentHorizontalLinearLayout">
         <item name="android:orientation">horizontal</item>
         <item name="android:background">@color/colorTheme</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
     </style>
-    <style name="DefaultParentHorizontalRelativeLayout" >
+
+    <style name="DefaultParentHorizontalRelativeLayout">
         <item name="android:background">@color/colorTheme</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="SingLineTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="DefaultTextInputLayout" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/color_4</item>
+    </style>
+
+
+    <style name="InputRelativeLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/default_margin</item>
+        <item name="android:background">@drawable/shape_input_default_edit</item>
+        <item name="android:layout_marginLeft">@dimen/default_margin</item>
+        <item name="android:layout_marginRight">@dimen/default_margin</item>
+    </style>
+
+    <style name="ButtonCenterText">
+        <item name="android:background">@drawable/shape_login_click_button</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/size_45dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/size_16sp</item>
+        <item name="android:layout_marginLeft">@dimen/default_margin</item>
+        <item name="android:layout_marginRight">@dimen/default_margin</item>
+        <item name="android:textColor">@color/colorTheme</item>
+    </style>
+
+    <style name="VerticalLine">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">5000dp</item>
+        <item name="android:background">@color/color_4</item>
     </style>
 
 

@@ -37,6 +37,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".home.activity.WelcomeActivity" />
+        <activity android:name=".login.activity.LoginActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -2,27 +2,19 @@ package com.work.guaishouxingqiu.aboutball.base;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.os.health.SystemHealthManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
-import android.view.Window;
-import android.view.WindowManager;
-
 import com.bugtags.library.Bugtags;
+import com.example.item.util.ScreenUtils;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
-import com.work.guaishouxingqiu.aboutball.home.contract.MainContract;
 import com.work.guaishouxingqiu.aboutball.other.ActivityManger;
-import com.work.guaishouxingqiu.aboutball.util.ScreenUtils;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
-
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import me.jessyan.autosize.internal.CustomAdapt;
 
 /**
  * 作者: 胡庆岭

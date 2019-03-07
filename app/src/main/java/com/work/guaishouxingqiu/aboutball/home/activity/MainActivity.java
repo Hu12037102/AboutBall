@@ -72,9 +72,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             if (mHomeFragment == null) {
                 mHomeFragment = HomeFragment.newInstance();
                 mGameFragment = GameFragment.newInstance();
-                mVenueFragment = new VenueFragment();
-                mCommunityFragment = new CommunityFragment();
-                mMyFragment = new MyFragment();
+                mVenueFragment = VenueFragment.newInstance();
+                mCommunityFragment = CommunityFragment.newInstance();
+                mMyFragment = MyFragment.newInstance();
                 transaction.add(R.id.fl_main_data, mHomeFragment);
                 transaction.add(R.id.fl_main_data, mGameFragment);
                 transaction.hide(mGameFragment);

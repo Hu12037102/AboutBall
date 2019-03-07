@@ -3,6 +3,7 @@ package com.work.guaishouxingqiu.aboutball.base;
 import android.app.Application;
 import android.content.Context;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bugtags.library.Bugtags;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -13,6 +14,7 @@ import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.work.guaishouxingqiu.aboutball.BuildConfig;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
@@ -25,7 +27,7 @@ import me.jessyan.autosize.AutoSizeConfig;
  * 更新时间: 2019/3/4 12:17
  * 描述:
  */
-public class BaseApplication extends Application{
+public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
@@ -38,7 +40,19 @@ public class BaseApplication extends Application{
     private void init() {
         UIUtils.init(this);
         //初始化Bugtags采集
-        Bugtags.start("96481d2c6099fa3e827b8c04d036d566",this,Bugtags.BTGInvocationEventBubble);
+        Bugtags.start("96481d2c6099fa3e827b8c04d036d566", this, Bugtags.BTGInvocationEventBubble);
+        initARouter();
+    }
+
+    /**
+     * 初始化路由
+     */
+    private void initARouter() {
+        if (BuildConfig.DEBUG) {
+            ARouter.openLog();
+            ARouter.openDebug();
+        }
+        ARouter.init(this);
     }
 
     //static 代码段可以防止内存泄露

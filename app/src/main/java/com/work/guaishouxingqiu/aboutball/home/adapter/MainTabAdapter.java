@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.item.util.ScreenUtils;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.home.bean.MainTabBean;
-import com.work.guaishouxingqiu.aboutball.util.ScreenUtils;
 
 import java.util.List;
 
