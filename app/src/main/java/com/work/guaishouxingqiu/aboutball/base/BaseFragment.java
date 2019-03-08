@@ -77,4 +77,9 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     protected void $startActivity(@NonNull String path) {
         ARouter.getInstance().build(path).navigation();
     }
+
+    @Override
+    public void sendMessageCodeSucceedResult(String token) {
+
+    }
 }

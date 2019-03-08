@@ -43,7 +43,7 @@ public interface IApi {
         //服务器内部错误
         int SERVICE_IN_ERROR = -99;
         //成功
-        int SUCCEED = 200;
+        int SUCCEED = 0;
 
     }
 }

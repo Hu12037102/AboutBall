@@ -51,9 +51,9 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/default_margin</item>
-        <item name="android:background">@drawable/shape_input_default_edit</item>
+       <!-- <item name="android:background">@drawable/shape_input_default_edit</item>
         <item name="android:layout_marginLeft">@dimen/default_margin</item>
-        <item name="android:layout_marginRight">@dimen/default_margin</item>
+       <item name="android:layout_marginRight">@dimen/default_margin</item>-->
     </style>
 
     <style name="ButtonCenterText">

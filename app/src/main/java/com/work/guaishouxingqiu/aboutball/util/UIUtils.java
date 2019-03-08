@@ -1,5 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.util;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
  * 描述: 界面相关的工具类
  */
 public class UIUtils {
+    @SuppressLint("StaticFieldLeak")
     private static Context mContext;
 
     public static void init(@NonNull Context context) {

@@ -12,6 +12,8 @@ import android.widget.Button;
 
 
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
+import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.base.EventBusActivity;
 import com.work.guaishouxingqiu.aboutball.permission.imp.OnPermissionsResult;
 
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ import java.util.List;
  * @Description:
  */
 
-public abstract class PermissionActivity extends BaseActivity {
+public abstract class PermissionActivity<P extends BasePresenter> extends EventBusActivity<P> {
     private AlertDialog mForbidDialog;
     private static final int REQUEST_CODE = 100;
     private  List<String> mAllowList = new ArrayList<>();

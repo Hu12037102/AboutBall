@@ -29,27 +29,18 @@
         android:textColor="@color/color_4"
         android:textSize="@dimen/size_28sp" />
 
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
         style="@style/InputRelativeLayout"
         android:layout_marginTop="@dimen/size_40dp">
 
-        <ImageView
-            android:id="@+id/iv_clear_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:contentDescription="@null"
-            android:src="@mipmap/icon_clear"
-            android:visibility="gone" />
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/iv_clear_phone"
-            android:layout_toStartOf="@id/iv_clear_phone"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginRight="@dimen/default_margin"
+            android:background="@drawable/shape_input_default_edit"
             android:orientation="horizontal"
             android:textColorHint="@color/color_4"
             app:hintTextAppearance="@style/DefaultTextInputLayout">
@@ -64,46 +55,38 @@
                 android:maxLength="11"
                 android:maxLines="1"
                 android:textColorHint="@color/color_4"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                tools:text="123456" />
         </android.support.design.widget.TextInputLayout>
-    </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/iv_clear_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:paddingBottom="@dimen/size_15dp"
+            android:paddingLeft="@dimen/size_20dp"
+            android:paddingRight="@dimen/size_20dp"
+            android:paddingTop="@dimen/size_15dp"
+            android:src="@mipmap/icon_clear"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+    </android.support.constraint.ConstraintLayout>
 
 
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/rl_message_code"
         style="@style/InputRelativeLayout">
 
-        <TextView
-            android:id="@+id/tv_gain_message_code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:paddingBottom="@dimen/size_10dp"
-            android:paddingTop="@dimen/size_10dp"
-            android:text="@string/gain_message_code"
-            android:textColor="@color/color_4"
-            android:textSize="14sp"
-            tools:ignore="RelativeOverlap" />
 
-        <ImageView
-            android:id="@+id/iv_clear_message_code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/tv_gain_message_code"
-            android:layout_toStartOf="@id/tv_gain_message_code"
-            android:contentDescription="@null"
-            android:padding="@dimen/default_margin"
-            android:src="@mipmap/icon_clear"
-            android:visibility="gone" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/iv_clear_message_code"
-            android:layout_toStartOf="@id/iv_clear_message_code"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginRight="@dimen/default_margin"
+            android:background="@drawable/shape_input_default_edit"
             android:orientation="horizontal"
             android:textColorHint="@color/color_4"
             app:hintTextAppearance="@style/DefaultTextInputLayout">
@@ -120,44 +103,56 @@
                 android:textColorHint="@color/color_4"
                 android:textSize="18sp" />
         </android.support.design.widget.TextInputLayout>
-    </RelativeLayout>
 
 
-    <RelativeLayout
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_clear_message_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:paddingBottom="@dimen/size_15dp"
+                android:paddingLeft="@dimen/size_20dp"
+                android:paddingRight="@dimen/size_20dp"
+                android:paddingTop="@dimen/size_15dp"
+                android:src="@mipmap/icon_clear"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_gain_message_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="@dimen/size_10dp"
+                android:paddingRight="@dimen/size_20dp"
+                android:paddingTop="@dimen/size_10dp"
+                android:text="@string/gain_message_code"
+                android:textColor="@color/color_4"
+                android:textSize="14sp"
+                tools:ignore="RelativeOverlap" />
+        </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+
+
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/rl_password"
         style="@style/InputRelativeLayout"
         android:visibility="gone">
 
-        <TextView
-            android:id="@+id/tv_forget_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:paddingBottom="@dimen/size_10dp"
-            android:paddingTop="@dimen/size_10dp"
-            android:text="@string/forget_the_password"
-            android:textColor="@color/color_3"
-            tools:ignore="RelativeOverlap" />
 
-        <ImageView
-            android:id="@+id/iv_clear_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/tv_forget_password"
-            android:layout_toStartOf="@id/tv_forget_password"
-            android:contentDescription="@null"
-            android:padding="@dimen/default_margin"
-            android:src="@mipmap/icon_clear"
-            android:visibility="gone"/>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/iv_clear_password"
-            android:layout_toStartOf="@id/iv_clear_password"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginRight="@dimen/default_margin"
+            android:background="@drawable/shape_input_default_edit"
             android:orientation="horizontal"
             android:textColorHint="@color/color_4"
             app:hintTextAppearance="@style/DefaultTextInputLayout">
@@ -175,9 +170,43 @@
                 android:textSize="18sp" />
         </android.support.design.widget.TextInputLayout>
 
-    </RelativeLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+
+            <ImageView
+                android:id="@+id/iv_clear_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:paddingBottom="@dimen/size_15dp"
+                android:paddingLeft="@dimen/size_20dp"
+                android:paddingRight="@dimen/size_20dp"
+                android:paddingTop="@dimen/size_15dp"
+                android:src="@mipmap/icon_clear"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_forget_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/size_10dp"
+                android:paddingRight="@dimen/size_20dp"
+                android:paddingTop="@dimen/size_10dp"
+                android:text="@string/forget_the_password"
+                android:textColor="@color/color_3"
+                tools:ignore="RelativeOverlap" />
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
 
     <TextView
+        android:id="@+id/tv_login"
         style="@style/ButtonCenterText"
         android:layout_marginTop="@dimen/size_40dp"
         android:background="@drawable/shape_login_default_button"
@@ -198,31 +227,31 @@
                 android:id="@+id/line"
                 style="@style/VerticalLine"
                 android:layout_height="@dimen/size_15dp"
-                android:layout_centerInParent="true"/>
+                android:layout_centerInParent="true" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_toLeftOf="@id/line"
                 android:layout_toStartOf="@id/line"
                 android:paddingLeft="@dimen/default_margin"
                 android:paddingRight="@dimen/default_margin"
                 android:text="@string/wechat_login"
                 android:textColor="@color/color_4"
-                android:textSize="@dimen/size_14sp"
-                android:layout_centerVertical="true"/>
+                android:textSize="@dimen/size_14sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/line"
+                android:layout_centerVertical="true"
                 android:layout_toEndOf="@id/line"
+                android:layout_toRightOf="@id/line"
                 android:paddingLeft="@dimen/default_margin"
                 android:paddingRight="@dimen/default_margin"
                 android:text="@string/register_account"
                 android:textColor="@color/color_4"
-                android:textSize="@dimen/size_14sp"
-                android:layout_centerVertical="true"/>
+                android:textSize="@dimen/size_14sp" />
         </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

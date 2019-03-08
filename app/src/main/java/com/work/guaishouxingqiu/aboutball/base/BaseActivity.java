@@ -11,8 +11,13 @@ import com.example.item.util.ScreenUtils;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.other.ActivityManger;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -111,5 +116,21 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     }
 
+    protected void registerEventBus(){
+        EventBus.getDefault().register(this);
+    }
+    protected void unRegisterEventBus(){
+        if (EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().unregister(this);
+        }
+    }
 
+    /**
+     * 发送验证码结果回调
+     * @param token
+     */
+    @Override
+    public void sendMessageCodeSucceedResult(String token) {
+
+    }
 }

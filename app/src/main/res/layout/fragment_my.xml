@@ -10,7 +10,7 @@
         <com.example.item.weight.TitleView
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_50dp"
-            app:back_text_size="@dimen/size_19sp"
+            app:center_text_size="@dimen/size_19sp"
             app:center_data="@string/me"
             app:center_text_color="@color/color_4"
             app:group_color="@color/colorTheme" />

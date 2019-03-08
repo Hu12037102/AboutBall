@@ -1,10 +1,17 @@
 package com.work.guaishouxingqiu.aboutball.login.presenter;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
+import com.work.guaishouxingqiu.aboutball.base.BaseBean;
+import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
+import com.work.guaishouxingqiu.aboutball.login.bean.RequestLoginBean;
 import com.work.guaishouxingqiu.aboutball.login.contract.LoginContract;
 import com.work.guaishouxingqiu.aboutball.login.model.LoginModel;
+
+import io.reactivex.disposables.Disposable;
 
 /**
  * 作者: 胡庆岭
@@ -25,5 +32,31 @@ public class LoginPresenter extends BasePresenter<LoginContract.View,LoginModel>
     @Override
     public void start() {
 
+    }
+
+    @Override
+    public void login(@NonNull RequestLoginBean loginBean) {
+        mModel.login(loginBean,new BaseObserver(mCompositeDisposable, new BaseObserver.Observer<LoginResultBean>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(BaseBean<LoginResultBean> resultBeanBaseBean) {
+                Log.w("onNext--",resultBeanBaseBean.result.id_token);
+            }
+
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        }));
     }
 }

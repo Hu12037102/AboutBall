@@ -1,5 +1,9 @@
 package com.work.guaishouxingqiu.aboutball.base.imp;
 
+import android.support.annotation.NonNull;
+
+import org.greenrobot.eventbus.Subscribe;
+
 /**
  * 作者: 胡庆岭
  * 创建时间: 2019/3/4 13:26
@@ -11,4 +15,6 @@ public interface IBasePresenter {
     void deathPresenter();
 
     void start();
+
+    void sendMessageCode(@NonNull String phoneNumber, int type);
 }

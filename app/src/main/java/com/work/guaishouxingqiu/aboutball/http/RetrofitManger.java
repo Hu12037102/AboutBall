@@ -70,8 +70,8 @@ public class RetrofitManger {
                 .cache(new Cache(FileUtils.getNetCachFile(), RetrofitManger.MAX_CACHE_SIZE))
                 .addInterceptor(new NetCacheInterceptor())
                 .addInterceptor(new HeadInterceptor())
-                .readTimeout(RetrofitManger.READ_TIME_OUT, TimeUnit.MICROSECONDS)
-                .connectTimeout(RetrofitManger.CONNECT_TIME_OUT, TimeUnit.MICROSECONDS)
+                .readTimeout(RetrofitManger.READ_TIME_OUT, TimeUnit.MILLISECONDS )
+                .connectTimeout(RetrofitManger.CONNECT_TIME_OUT, TimeUnit.MILLISECONDS )
                 .build();
     }
 

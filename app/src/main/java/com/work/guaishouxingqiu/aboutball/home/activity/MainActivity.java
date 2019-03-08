@@ -1,6 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.home.activity;
 
 
+import android.Manifest;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
@@ -20,7 +21,10 @@ import com.work.guaishouxingqiu.aboutball.home.contract.MainContract;
 import com.work.guaishouxingqiu.aboutball.home.fragment.HomeFragment;
 import com.work.guaishouxingqiu.aboutball.home.presenter.MainPresenter;
 import com.work.guaishouxingqiu.aboutball.my.fragment.MyFragment;
+import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
+import com.work.guaishouxingqiu.aboutball.permission.imp.OnPermissionsResult;
 import com.work.guaishouxingqiu.aboutball.venue.fragment.VenueFragment;
+import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import java.util.List;
 
@@ -33,7 +37,7 @@ import butterknife.ButterKnife;
  * 更新时间: 2019/3/4 13:36
  * 描述: 主页面
  */
-public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View {
+public class MainActivity extends PermissionActivity<MainPresenter> implements MainContract.View {
 
 
     @BindView(R.id.rv_main_tab)
@@ -62,6 +66,28 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     protected void initData() {
         mPresenter.loadMainTab();
         initFragment();
+    }
+
+    @Override
+    public void initPermission() {
+        requestPermission(new OnPermissionsResult() {
+            @Override
+            public void onAllow(List<String> allowPermissions) {
+                MainActivity.super.initPermission();
+            }
+
+            @Override
+            public void onNoAllow(List<String> noAllowPermissions) {
+                Toasts.with().showToast(R.string.must_permission_please_allow);
+                   initPermission();
+            }
+
+            @Override
+            public void onForbid(List<String> noForbidPermissions) {
+               showForbidPermissionDialog();
+            }
+        }, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
     }
 
     private void initFragment() {

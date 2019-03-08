@@ -1,7 +1,10 @@
 package com.work.guaishouxingqiu.aboutball.login.contract;
 
+import android.support.annotation.NonNull;
+
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.login.bean.RequestLoginBean;
 
 /**
  * 作者: 胡庆岭
@@ -10,6 +13,10 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
  * 描述: 手机号码登录契约
  */
 public interface LoginContract {
-    interface View extends IBaseView{}
-    interface Presenter extends IBasePresenter{}
+    interface View extends IBaseView {
+    }
+
+    interface Presenter extends IBasePresenter {
+        void login(@NonNull RequestLoginBean loginBean);
+    }
 }
