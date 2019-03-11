@@ -5,7 +5,10 @@ import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
+import com.work.guaishouxingqiu.aboutball.login.bean.RegisterResultBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.RequestLoginBean;
+import com.work.guaishouxingqiu.aboutball.login.bean.RequestRegisterBean;
+import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -25,4 +28,10 @@ public interface LoginService {
 
     @GET(IApiService.VERIFICATION_CODE)
     Observable<BaseBean> sendMessageCode(@Query(Contast.PHONE) String phone, @Query(Contast.TYPE) int type);
+
+    @GET(IApiService.USER_ACCOUNT)
+    Observable<BaseBean<UserBean>> userAccount();
+
+    @POST(IApiService.REGISTER)
+    Observable<BaseBean<RegisterResultBean>> register(@Body RequestRegisterBean bean);
 }

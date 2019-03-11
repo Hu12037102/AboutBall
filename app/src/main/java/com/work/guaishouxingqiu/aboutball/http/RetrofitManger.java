@@ -1,10 +1,13 @@
 package com.work.guaishouxingqiu.aboutball.http;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.gson.Gson;
+import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.NetWorkUtils;
 
 import java.io.IOException;
@@ -66,15 +69,18 @@ public class RetrofitManger {
 
     private OkHttpClient createOKHttp() {
         return new OkHttpClient.Builder()
-                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                .addInterceptor(mHttpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY))
                 .cache(new Cache(FileUtils.getNetCachFile(), RetrofitManger.MAX_CACHE_SIZE))
                 .addInterceptor(new NetCacheInterceptor())
                 .addInterceptor(new HeadInterceptor())
-                .readTimeout(RetrofitManger.READ_TIME_OUT, TimeUnit.MILLISECONDS )
-                .connectTimeout(RetrofitManger.CONNECT_TIME_OUT, TimeUnit.MILLISECONDS )
+                .readTimeout(RetrofitManger.READ_TIME_OUT, TimeUnit.MILLISECONDS)
+                .connectTimeout(RetrofitManger.CONNECT_TIME_OUT, TimeUnit.MILLISECONDS)
                 .build();
     }
 
+    private  final  HttpLoggingInterceptor mHttpLoggingInterceptor = new HttpLoggingInterceptor(message -> {
+        LogUtils.w("HttpLoggingInterceptor--",message);
+    });
 
     /**
      * 网络头部请求参数
@@ -85,7 +91,10 @@ public class RetrofitManger {
         @Override
         public Response intercept(@NonNull Chain chain) throws IOException {
             Request request = chain.request();
-            request = request.newBuilder().header("Authorization", "token").build();
+
+            request = request.newBuilder()
+                    .header("Authorization", UserManger.get().getToken())
+                    .build();
             return chain.proceed(request);
         }
     }

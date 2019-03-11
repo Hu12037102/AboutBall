@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/DefaultParentVerticalLinearLayout"
+    android:background="@color/colorTheme"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.example.item.weight.TitleView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        app:group_color="@color/colorTheme"
+        app:back_left_drawable="@mipmap/icon_back"
+        app:back_text_padding_left="@dimen/default_margin"
+        app:back_text_padding_right="@dimen/default_margin"
+        />
+    <com.work.guaishouxingqiu.aboutball.weight.BaseViewPager
+       android:id="@+id/bvp_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:is_scroll="false"/>
+
+</LinearLayout>

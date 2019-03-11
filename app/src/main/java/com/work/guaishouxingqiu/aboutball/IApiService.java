@@ -11,4 +11,8 @@ public interface IApiService {
   String LOGIN = "/api/account/login";
   //发送验证码
   String VERIFICATION_CODE = "/api/commons/sms/verificationCode";
+  //获取用户信息
+  String USER_ACCOUNT = "/api/account";
+  //用户注册
+  String REGISTER = "/api/account/register";
 }

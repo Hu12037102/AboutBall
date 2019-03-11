@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.weight.Toasts;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -34,6 +37,16 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     protected abstract void initEvent();
 
     protected abstract P createPresenter();
+
+    protected void registerEventBus() {
+        EventBus.getDefault().register(this);
+    }
+
+    protected void unRegisterEventBus() {
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
+    }
 
     @Nullable
     @Override
@@ -65,12 +78,13 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
 
     @Override
     public void showToast(@NonNull String text) {
-
+        Toasts.with().showToast(text);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        mPresenter.deathPresenter();
         mBinder.unbind();
     }
 
@@ -78,8 +92,5 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
         ARouter.getInstance().build(path).navigation();
     }
 
-    @Override
-    public void sendMessageCodeSucceedResult(String token) {
 
-    }
 }

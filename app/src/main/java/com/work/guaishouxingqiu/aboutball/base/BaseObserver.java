@@ -46,30 +46,7 @@ public class BaseObserver<T> implements Observer<BaseBean<T>> {
         }
     }
 
-   /* @Override
-    public void onNext(T t) {
 
-    }*/
-
-
-
-    /*@Override
-    public void onNext(T t) {
-        if (mObserver != null) {
-            mObserver.onNext(t);
-        }else {
-            EventBus.getDefault().post(t);
-        }
-    }*/
-
-    /*@Override
-    public void onNext(BaseBean<T> baseBean) {
-        if (mObserver != null) {
-            mObserver.onNext((T) baseBean);
-        }else {
-            EventBus.getDefault().post(baseBean);
-        }
-    }*/
 
 
     @Override

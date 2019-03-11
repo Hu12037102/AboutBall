@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/DefaultParentVerticalLinearLayout"
+    android:background="@color/colorTheme">
+
+    <TextView
+        style="@style/DefaultTitleText"
+        android:text="@string/register" />
+
+    <android.support.constraint.ConstraintLayout
+        style="@style/InputRelativeLayout"
+        android:layout_marginTop="@dimen/size_40dp">
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginRight="@dimen/default_margin"
+            android:background="@drawable/shape_input_default_edit"
+            android:orientation="horizontal"
+            android:textColorHint="@color/color_4"
+            app:hintTextAppearance="@style/DefaultTextInputLayout">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/tiet_phone"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_50dp"
+                android:background="@null"
+                android:digits="@string/phone_digits"
+                android:hint="@string/phone_number"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:maxLines="1"
+                android:textColorHint="@color/color_4"
+                android:textSize="18sp"
+                tools:text="123456" />
+        </android.support.design.widget.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/iv_clear_register_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:paddingBottom="@dimen/size_15dp"
+            android:paddingLeft="@dimen/size_20dp"
+            android:paddingRight="@dimen/size_20dp"
+            android:paddingTop="@dimen/size_15dp"
+            android:src="@mipmap/icon_clear"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:visibility="gone"/>
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_next"
+        style="@style/ButtonCenterText"
+        android:layout_marginTop="@dimen/size_40dp"
+        android:background="@drawable/shape_default_button"
+        android:clickable="false"
+        android:text="@string/next" />
+</LinearLayout>

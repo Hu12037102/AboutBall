@@ -20,14 +20,9 @@
         app:sure_text_size="@dimen/size_16sp" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/size_20dp"
-        android:layout_marginStart="@dimen/size_20dp"
-        android:layout_marginTop="@dimen/size_30dp"
+       style="@style/DefaultTitleText"
         android:text="@string/welcome_back"
-        android:textColor="@color/color_4"
-        android:textSize="@dimen/size_28sp" />
+         />
 
     <android.support.constraint.ConstraintLayout
         style="@style/InputRelativeLayout"
@@ -209,7 +204,7 @@
         android:id="@+id/tv_login"
         style="@style/ButtonCenterText"
         android:layout_marginTop="@dimen/size_40dp"
-        android:background="@drawable/shape_login_default_button"
+        android:background="@drawable/shape_default_button"
         android:text="@string/login" />
 
     <RelativeLayout
@@ -242,6 +237,7 @@
                 android:textSize="@dimen/size_14sp" />
 
             <TextView
+                android:id="@+id/tv_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"

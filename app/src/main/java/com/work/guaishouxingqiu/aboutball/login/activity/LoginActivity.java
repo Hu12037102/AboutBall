@@ -17,9 +17,11 @@ import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
+import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.RequestLoginBean;
 import com.work.guaishouxingqiu.aboutball.login.contract.LoginContract;
 import com.work.guaishouxingqiu.aboutball.login.presenter.LoginPresenter;
+import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
@@ -60,6 +62,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @BindView(R.id.tv_login)
     TextView mTvLogin;
 
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_login;
@@ -72,7 +75,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     protected void initData() {
-
     }
 
     @Override
@@ -117,8 +119,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 }
                 mTvLogin.setClickable(isCanLogin);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    mTvLogin.setBackground(isCanLogin ? ContextCompat.getDrawable(LoginActivity.this, R.drawable.shape_login_click_button) :
-                            ContextCompat.getDrawable(LoginActivity.this, R.drawable.shape_login_default_button));
+                    mTvLogin.setBackground(isCanLogin ? ContextCompat.getDrawable(LoginActivity.this, R.drawable.shape_click_button) :
+                            ContextCompat.getDrawable(LoginActivity.this, R.drawable.shape_default_button));
                 }
             }
 
@@ -136,34 +138,38 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
 
-    @OnClick({R.id.iv_clear_phone, R.id.tv_gain_message_code, R.id.iv_clear_message_code,
-            R.id.tv_forget_password, R.id.iv_clear_password, R.id.tv_login})
+    @OnClick({R.id.tv_gain_message_code,
+            R.id.tv_forget_password, R.id.tv_login, R.id.tv_register})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_clear_phone:
-                break;
+
             case R.id.tv_gain_message_code:
                 clickSendMessageCode();
                 break;
-            case R.id.iv_clear_message_code:
-                break;
+
             case R.id.tv_forget_password:
                 break;
-            case R.id.iv_clear_password:
-                break;
+
             case R.id.tv_login:
                 clickLogin();
                 break;
+            case R.id.tv_register:
+                clickRegister();
+                break;
         }
+    }
+
+    private void clickRegister() {
+        $startActivity(ARouterConfig.Path.ACTIVITY_REGISTER);
     }
 
     /**
      * 发送验证码
      */
     private void clickSendMessageCode() {
-        if (DataUtils.isPhoneNumber(DataUtils.checkData(mTietPhone.getText()).toString())){
+        if (DataUtils.isPhoneNumber(DataUtils.checkData(mTietPhone.getText()).toString())) {
             mPresenter.sendMessageCode(mTietPhone.getText().toString(), Contast.TYPE_MESSAGE_CODE_LOGIN);
-        }else {
+        } else {
             Toasts.with().showToast(R.string.please_sure_phone_number);
         }
     }
@@ -186,7 +192,28 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
 
     @Override
-    public void sendMessageCodeSucceedResult(String token) {
-        super.sendMessageCodeSucceedResult(token);
+    public void sendMessageCodeSucceedResult() {
+        mPresenter.countDownTime(Contast.MESSAGE_COUNT_DOWN_LENGTH);
+    }
+
+    @Override
+    public void loginSucceedResult(LoginResultBean bean) {
+        //先更新token，再去登录,获取用户信息
+        UserManger.get().putToken(bean.id_token);
+        mPresenter.loadUserAccount();
+    }
+
+    @Override
+    public void countDownTimeComplete() {
+        mTvGainMessageCode.setClickable(true);
+        mTvGainMessageCode.setText(R.string.gain_message_code);
+        mTvGainMessageCode.setTextColor(ContextCompat.getColor(this, R.color.color_4));
+    }
+
+    @Override
+    public void countDownTimeUpdate(long time) {
+        mTvGainMessageCode.setClickable(false);
+        mTvGainMessageCode.setText(getString(R.string.regain_load_time, String.valueOf(time)));
+        mTvGainMessageCode.setTextColor(ContextCompat.getColor(this, R.color.color_3));
     }
 }

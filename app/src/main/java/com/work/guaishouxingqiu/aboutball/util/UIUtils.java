@@ -52,6 +52,11 @@ public class UIUtils {
         });
     }
 
+    /**
+     * 点击清除按钮
+     * @param view
+     * @param editText
+     */
     public static void clickClearEditData(@NonNull View view,@NonNull EditText editText){
         view.setOnClickListener(v -> {
             editText.setText(null);

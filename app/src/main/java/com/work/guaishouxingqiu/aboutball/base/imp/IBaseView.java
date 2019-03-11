@@ -17,5 +17,5 @@ public interface IBaseView {
 
     void showToast(@NonNull String text);
 
-    void sendMessageCodeSucceedResult(String token);
+
 }

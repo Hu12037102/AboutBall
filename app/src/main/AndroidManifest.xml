@@ -38,6 +38,7 @@
         </activity>
         <activity android:name=".home.activity.WelcomeActivity" />
         <activity android:name=".login.activity.LoginActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".login.activity.RegisterActivity"/>
     </application>
 
 </manifest>

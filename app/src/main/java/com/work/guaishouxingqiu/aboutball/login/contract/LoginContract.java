@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.RequestLoginBean;
 
 /**
@@ -13,10 +14,13 @@ import com.work.guaishouxingqiu.aboutball.login.bean.RequestLoginBean;
  * 描述: 手机号码登录契约
  */
 public interface LoginContract {
-    interface View extends IBaseView {
+    interface View extends MessageContract.View {
+        void loginSucceedResult(LoginResultBean bean);
     }
 
-    interface Presenter extends IBasePresenter {
+    interface Presenter extends MessageContract.Presenter {
         void login(@NonNull RequestLoginBean loginBean);
+
+        void loadUserAccount();
     }
 }

@@ -10,5 +10,6 @@ public interface ARouterConfig {
     interface Path {
         String ACTIVITY_MAIN = "/activity/main";
         String ACTIVITY_LOGIN = "/activity/login";
+        String ACTIVITY_REGISTER = "/activity/register";
     }
 }

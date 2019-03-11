@@ -49,9 +49,9 @@ public class BaseViewPager extends ViewPager {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         try {
-            return isScroll ? super.onInterceptTouchEvent(ev) : true;
+            return isScroll ? super.onInterceptTouchEvent(ev) : false;
         } catch (Exception e) {
-            return !isScroll;
+            return false;
         }
 
     }

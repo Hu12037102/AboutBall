@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <android.support.design.widget.TextInputEditText
+        android:id="@+id/tiet_text"
+        android:layout_width="@dimen/size_60dp"
+        android:layout_height="@dimen/size_55dp"
+        android:layout_marginEnd="@dimen/size_32dp"
+        android:layout_marginRight="@dimen/size_32dp"
+        android:background="@drawable/shape_register_input_default_edit"
+        android:digits="@string/phone_digits"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLength="1"
+        android:singleLine="true"
+        android:textSize="@dimen/size_25sp"
+        tools:text="5"
+        tools:ignore="LabelFor" />
+</LinearLayout>

@@ -6,11 +6,14 @@ import android.util.Log;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.RequestLoginBean;
+import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
 import com.work.guaishouxingqiu.aboutball.login.contract.LoginContract;
 import com.work.guaishouxingqiu.aboutball.login.model.LoginModel;
 
+import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 /**
@@ -19,7 +22,7 @@ import io.reactivex.disposables.Disposable;
  * 更新时间: 2019/3/7 11:37
  * 描述:登录P
  */
-public class LoginPresenter extends BasePresenter<LoginContract.View,LoginModel>implements LoginContract.Presenter {
+public class LoginPresenter extends MessagePresenter<LoginContract.View, LoginModel> implements LoginContract.Presenter {
     public LoginPresenter(@NonNull LoginContract.View view) {
         super(view);
     }
@@ -36,7 +39,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.View,LoginModel>
 
     @Override
     public void login(@NonNull RequestLoginBean loginBean) {
-        mModel.login(loginBean,new BaseObserver(mCompositeDisposable, new BaseObserver.Observer<LoginResultBean>() {
+        mModel.login(loginBean, new BaseObserver(mCompositeDisposable, new BaseObserver.Observer<LoginResultBean>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -44,7 +47,12 @@ public class LoginPresenter extends BasePresenter<LoginContract.View,LoginModel>
 
             @Override
             public void onNext(BaseBean<LoginResultBean> resultBeanBaseBean) {
-                Log.w("onNext--",resultBeanBaseBean.result.id_token);
+                if (mView == null)
+                    return;
+                if (resultBeanBaseBean.code == IApi.Code.SUCCEED && resultBeanBaseBean.result != null) {
+                    mView.loginSucceedResult(resultBeanBaseBean.result);
+                }
+                mView.showToast(resultBeanBaseBean.message);
             }
 
 
@@ -59,4 +67,31 @@ public class LoginPresenter extends BasePresenter<LoginContract.View,LoginModel>
             }
         }));
     }
+
+    @Override
+    public void loadUserAccount() {
+        mModel.loadUserAccount(new BaseObserver<>(mCompositeDisposable, new BaseObserver.Observer<UserBean>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(BaseBean<UserBean> t) {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        }));
+    }
+
+
 }

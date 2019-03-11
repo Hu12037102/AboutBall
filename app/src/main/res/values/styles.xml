@@ -57,7 +57,7 @@
     </style>
 
     <style name="ButtonCenterText">
-        <item name="android:background">@drawable/shape_login_click_button</item>
+        <item name="android:background">@drawable/shape_click_button</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/size_45dp</item>
         <item name="android:gravity">center</item>
@@ -72,6 +72,26 @@
         <item name="android:layout_height">5000dp</item>
         <item name="android:background">@color/color_4</item>
     </style>
-
+<style name="DefaultTitleText">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginLeft">@dimen/default_margin</item>
+    <item name="android:layout_marginTop">@dimen/size_30dp</item>
+    <item name="android:textColor">@color/color_4</item>
+    <item name="android:textSize">@dimen/size_28sp</item>
+</style>
+    <style name="RegisterInputCode">
+        <item name="android:layout_width">@dimen/size_60dp</item>
+        <item name="android:layout_height">@dimen/size_55dp</item>
+        <item name="android:layout_marginRight">@dimen/size_32dp</item>
+        <item name="android:background">@drawable/shape_register_input_default_edit</item>
+        <item name="android:digits">@string/phone_digits</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:maxLength">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:inputType">number</item>
+        <item name="android:textSize">@dimen/size_25sp</item>
+    </style>
 
 </resources>

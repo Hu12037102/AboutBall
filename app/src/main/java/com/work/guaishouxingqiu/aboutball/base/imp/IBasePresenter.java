@@ -16,5 +16,5 @@ public interface IBasePresenter {
 
     void start();
 
-    void sendMessageCode(@NonNull String phoneNumber, int type);
+
 }
