@@ -35,11 +35,6 @@ public abstract   class MessagePresenter<V extends MessageContract.View, M exten
     public void sendMessageCode(@NonNull String phoneNumber, int type) {
         mModel.sendMessageCode(phoneNumber, type, new BaseObserver(mCompositeDisposable, new BaseObserver.Observer() {
             @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
             public void onNext(BaseBean bean) {
                 if (mView == null)
                     return;
@@ -54,10 +49,6 @@ public abstract   class MessagePresenter<V extends MessageContract.View, M exten
 
             }
 
-            @Override
-            public void onComplete() {
-
-            }
         }));
     }
 
@@ -70,24 +61,21 @@ public abstract   class MessagePresenter<V extends MessageContract.View, M exten
             @Override
             public void onSubscribe(Disposable d) {
                 mCompositeDisposable.add(d);
-                Log.w("BasePresenter--", "onSubscribe--");
             }
 
             @Override
             public void onNext(Long time) {
                 mView.countDownTimeUpdate(time);
-                Log.w("BasePresenter--", "onNext--" + time);
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.w("BasePresenter--", "Throwable--");
+
             }
 
             @Override
             public void onComplete() {
                 mView.countDownTimeComplete();
-                Log.w("BasePresenter--", "onComplete--");
             }
         });
     }

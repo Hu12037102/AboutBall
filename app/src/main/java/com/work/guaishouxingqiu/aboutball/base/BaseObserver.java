@@ -19,6 +19,7 @@ public class BaseObserver<T> implements Observer<BaseBean<T>> {
     private CompositeDisposable mCompositeDisposable;
     private BaseObserver.Observer<T> mObserver;
 
+
     public BaseObserver(@NonNull CompositeDisposable compositeDisposable, BaseObserver.Observer<T> observer) {
         this.mCompositeDisposable = compositeDisposable;
         this.mObserver = observer;
@@ -32,9 +33,6 @@ public class BaseObserver<T> implements Observer<BaseBean<T>> {
     @Override
     public void onSubscribe(Disposable d) {
         mCompositeDisposable.add(d);
-        if (mObserver != null) {
-            mObserver.onSubscribe(d);
-        }
     }
 
     @Override
@@ -58,18 +56,14 @@ public class BaseObserver<T> implements Observer<BaseBean<T>> {
 
     @Override
     public void onComplete() {
-        if (mObserver != null) {
-            mObserver.onComplete();
-        }
+
     }
 
     public interface Observer<T> {
-        void onSubscribe(Disposable d);
 
         void onNext(BaseBean<T> t);
 
         void onError(Throwable e);
 
-        void onComplete();
     }
 }

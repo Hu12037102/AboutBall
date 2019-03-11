@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.login.bean.RequestRegisterBean;
@@ -36,6 +37,8 @@ import butterknife.ButterKnife;
 public class RegisterActivity extends BaseActivity<RegisterPresenter> implements RegisterContract.View {
     @BindView(R.id.bvp_content)
     BaseViewPager mBvpContent;
+    @BindView(R.id.title_view)
+    TitleView mTitleView;
     private RegisterPhoneFragment mPhoneFragment;
     private List<Fragment> mFragmentData;
     private RegisterCodeFragment mCodeFragment;
@@ -121,6 +124,13 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
             @Override
             public void onPageScrollStateChanged(int i) {
 
+            }
+        });
+        mTitleView.setOnBackViewClickListener(view -> {
+            if (mCurrentPager == 0) {
+               finish();
+            } else {
+                mBvpContent.setCurrentItem(mCurrentPager - 1);
             }
         });
     }

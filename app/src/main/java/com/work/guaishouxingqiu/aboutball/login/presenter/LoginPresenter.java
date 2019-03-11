@@ -39,12 +39,10 @@ public class LoginPresenter extends MessagePresenter<LoginContract.View, LoginMo
 
     @Override
     public void login(@NonNull RequestLoginBean loginBean) {
+        if (mView != null) {
+            mView.showLoadingView();
+        }
         mModel.login(loginBean, new BaseObserver(mCompositeDisposable, new BaseObserver.Observer<LoginResultBean>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
             @Override
             public void onNext(BaseBean<LoginResultBean> resultBeanBaseBean) {
                 if (mView == null)
@@ -52,45 +50,44 @@ public class LoginPresenter extends MessagePresenter<LoginContract.View, LoginMo
                 if (resultBeanBaseBean.code == IApi.Code.SUCCEED && resultBeanBaseBean.result != null) {
                     mView.loginSucceedResult(resultBeanBaseBean.result);
                 }
+                mView.dismissLoadingView();
                 mView.showToast(resultBeanBaseBean.message);
             }
-
-
             @Override
             public void onError(Throwable e) {
-
+                if (mView != null){
+                    mView.dismissLoadingView();
+                }
             }
 
-            @Override
-            public void onComplete() {
-
-            }
         }));
     }
 
     @Override
     public void loadUserAccount() {
+        if (mView != null) {
+            mView.showLoadingView();
+        }
         mModel.loadUserAccount(new BaseObserver<>(mCompositeDisposable, new BaseObserver.Observer<UserBean>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
 
             @Override
             public void onNext(BaseBean<UserBean> t) {
-
+                if (mView == null){
+                    return;
+                }
+                mView.dismissLoadingView();
             }
 
             @Override
             public void onError(Throwable e) {
-
+                if (mView != null){
+                    mView.dismissLoadingView();
+                }
             }
 
-            @Override
-            public void onComplete() {
 
-            }
         }));
+
     }
 
 

@@ -38,30 +38,28 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View, Regi
 
     @Override
     public void register(@NonNull RequestRegisterBean requestBean) {
+        if (mView != null) {
+            mView.showLoadingView();
+        }
         mModel.register(requestBean, new BaseObserver<>(mCompositeDisposable, new BaseObserver.Observer<RegisterResultBean>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
             @Override
             public void onNext(BaseBean<RegisterResultBean> bean) {
                 if (mView == null) {
                     return;
                 }
                 mView.showToast(bean.message);
+                mView.dismissLoadingView();
 
             }
 
             @Override
             public void onError(Throwable e) {
-
+                if (mView != null) {
+                    mView.dismissLoadingView();
+                }
             }
 
-            @Override
-            public void onComplete() {
 
-            }
         }));
     }
 }

@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.weight.LoadingView;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import org.greenrobot.eventbus.EventBus;
@@ -27,6 +29,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     protected P mPresenter;
     protected View mRootView;
     private Unbinder mBinder;
+    private LoadingView mLoadingView;
 
     protected abstract int getLayoutId();
 
@@ -68,12 +71,17 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
 
     @Override
     public void showLoadingView() {
-
+        if (mLoadingView == null) {
+            mLoadingView = LoadingView.with(DataUtils.checkData(getActivity()));
+        }
+        mLoadingView.showLoadingView();
     }
 
     @Override
     public void dismissLoadingView() {
-
+        if (mLoadingView != null) {
+            mLoadingView.dismissLoadingView();
+        }
     }
 
     @Override

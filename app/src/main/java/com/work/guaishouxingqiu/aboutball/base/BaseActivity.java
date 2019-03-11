@@ -15,6 +15,7 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.other.ActivityManger;
+import com.work.guaishouxingqiu.aboutball.weight.LoadingView;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import org.greenrobot.eventbus.EventBus;
@@ -33,6 +34,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     protected P mPresenter;
     protected SystemBarTintManager mStatusBarManger;
     private Unbinder mBinder;
+    private LoadingView mLoadingView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,6 +63,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         Bugtags.onDispatchTouchEvent(this, ev);
         return super.dispatchTouchEvent(ev);
     }
+
     protected void $startActivity(@NonNull String path) {
         ARouter.getInstance().build(path).navigation();
     }
@@ -97,12 +100,17 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     @Override
     public void showLoadingView() {
-
+        if (mLoadingView == null) {
+            mLoadingView = LoadingView.with(this);
+        }
+        mLoadingView.showLoadingView();
     }
 
     @Override
     public void dismissLoadingView() {
-
+        if (mLoadingView != null) {
+            mLoadingView.dismissLoadingView();
+        }
     }
 
     @Override
@@ -121,11 +129,12 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     }
 
-    protected void registerEventBus(){
+    protected void registerEventBus() {
         EventBus.getDefault().register(this);
     }
-    protected void unRegisterEventBus(){
-        if (EventBus.getDefault().isRegistered(this)){
+
+    protected void unRegisterEventBus() {
+        if (EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().unregister(this);
         }
     }
