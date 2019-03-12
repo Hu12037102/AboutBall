@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/color80000000"
+    android:background="@android:color/transparent"
     android:orientation="vertical">
 
     <LinearLayout
@@ -41,9 +41,10 @@
             android:id="@+id/tv_sure"
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_50dp"
-            android:background="?android:attr/selectableItemBackground"
+            android:background="@drawable/selector_sure_item_view"
             android:gravity="center"
             android:textColor="@color/color_2"
+            android:clickable="true"
             android:textSize="@dimen/size_16sp"
             tools:text="立即登录" />
     </LinearLayout>

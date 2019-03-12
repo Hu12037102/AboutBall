@@ -13,10 +13,10 @@
     </style>
 
 <style name="DefaultDialogStyle" parent="Theme.AppCompat.Dialog">
-    <item name="android:windowBackground">@color/color80000000</item>
+    <item name="android:windowBackground">@android:color/transparent</item>
     <item name="windowNoTitle">true</item>
     <item name="android:windowIsTranslucent">true</item>
-    <item name="android:windowContentOverlay">@null</item>
+    <item name="android:windowFrame">@null</item>
 </style>
 
     <style name="DefaultDialogAnimation" parent="android:Animation.Dialog">
