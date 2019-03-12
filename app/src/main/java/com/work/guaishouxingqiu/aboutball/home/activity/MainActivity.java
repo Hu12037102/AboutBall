@@ -23,7 +23,9 @@ import com.work.guaishouxingqiu.aboutball.home.presenter.MainPresenter;
 import com.work.guaishouxingqiu.aboutball.my.fragment.MyFragment;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
 import com.work.guaishouxingqiu.aboutball.permission.imp.OnPermissionsResult;
+import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.venue.fragment.VenueFragment;
+import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import java.util.List;
@@ -66,6 +68,8 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
     protected void initData() {
         mPresenter.loadMainTab();
         initFragment();
+
+
     }
 
     @Override

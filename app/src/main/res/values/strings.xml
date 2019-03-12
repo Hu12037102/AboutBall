@@ -29,5 +29,11 @@
     <string name="setting_password">设置密码</string>
     <string name="not_under_six_length_password">不少于6位</string>
     <string name="phone_digits">0123456789</string>
+    <style name="service_error">服务器异常</style>
+    <string name="hint">提示</string>
+    <string name="this_phone_is_register">该手机号已经注册</string>
+    <string name="this_phone_not_register">该手机号没有注册</string>
+    <string name="go_register">去注册</string>
+    <string name="login_immediately">立即登录</string>
 
 </resources>

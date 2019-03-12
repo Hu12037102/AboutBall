@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.login.contract;
 
 import android.support.annotation.NonNull;
 
+import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
@@ -15,7 +16,7 @@ import com.work.guaishouxingqiu.aboutball.login.bean.RequestLoginBean;
  */
 public interface LoginContract {
     interface View extends MessageContract.View {
-        void loginSucceedResult(LoginResultBean bean);
+        void loginSucceedResult(BaseBean<LoginResultBean> bean);
     }
 
     interface Presenter extends MessageContract.Presenter {

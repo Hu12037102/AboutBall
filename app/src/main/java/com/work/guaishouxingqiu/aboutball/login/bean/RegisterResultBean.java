@@ -7,4 +7,5 @@ package com.work.guaishouxingqiu.aboutball.login.bean;
  * 描述: 注册完成Bean
  */
 public class RegisterResultBean {
+    public String id_token;
 }

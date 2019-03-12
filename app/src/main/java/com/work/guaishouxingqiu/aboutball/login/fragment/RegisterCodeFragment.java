@@ -59,6 +59,7 @@ public class RegisterCodeFragment extends BaseFragment<RegisterCodePresenter> im
     TextInputEditText mTietInput4;
     private String mPhooneNumber;
     private RegisterInputAdapter mInputAdapter;
+    private boolean isFirst = true;
 
     public void setOnMessageCodeInputResult(OnMessageCodeInputResult mOnMessageCodeInputResult) {
         this.mOnMessageCodeInputResult = mOnMessageCodeInputResult;
@@ -95,35 +96,39 @@ public class RegisterCodeFragment extends BaseFragment<RegisterCodePresenter> im
     protected void initEvent() {
 
         mTietInput1.setOnFocusChangeListener((v, hasFocus) -> {
-            if (hasFocus){
-            mTietInput1.setBackgroundResource(R.drawable.shape_register_input_check_edit);
-            mTietInput2.setBackgroundResource(R.drawable.shape_register_input_default_edit);
-            mTietInput3.setBackgroundResource(R.drawable.shape_register_input_default_edit);
-            mTietInput4.setBackgroundResource(R.drawable.shape_register_input_default_edit);}
+            if (hasFocus) {
+                mTietInput1.setBackgroundResource(R.drawable.shape_register_input_check_edit);
+                mTietInput2.setBackgroundResource(R.drawable.shape_register_input_default_edit);
+                mTietInput3.setBackgroundResource(R.drawable.shape_register_input_default_edit);
+                mTietInput4.setBackgroundResource(R.drawable.shape_register_input_default_edit);
+            }
 
         });
         mTietInput2.setOnFocusChangeListener((v, hasFocus) -> {
-            if (hasFocus){
+            if (hasFocus) {
                 mTietInput1.setBackgroundResource(R.drawable.shape_register_input_default_edit);
                 mTietInput2.setBackgroundResource(R.drawable.shape_register_input_check_edit);
                 mTietInput3.setBackgroundResource(R.drawable.shape_register_input_default_edit);
-                mTietInput4.setBackgroundResource(R.drawable.shape_register_input_default_edit);}
+                mTietInput4.setBackgroundResource(R.drawable.shape_register_input_default_edit);
+            }
 
         });
         mTietInput3.setOnFocusChangeListener((v, hasFocus) -> {
-            if (hasFocus){
+            if (hasFocus) {
                 mTietInput1.setBackgroundResource(R.drawable.shape_register_input_default_edit);
                 mTietInput2.setBackgroundResource(R.drawable.shape_register_input_default_edit);
                 mTietInput3.setBackgroundResource(R.drawable.shape_register_input_check_edit);
-                mTietInput4.setBackgroundResource(R.drawable.shape_register_input_default_edit);}
+                mTietInput4.setBackgroundResource(R.drawable.shape_register_input_default_edit);
+            }
 
         });
         mTietInput4.setOnFocusChangeListener((v, hasFocus) -> {
-            if (hasFocus){
+            if (hasFocus) {
                 mTietInput1.setBackgroundResource(R.drawable.shape_register_input_default_edit);
                 mTietInput2.setBackgroundResource(R.drawable.shape_register_input_default_edit);
                 mTietInput3.setBackgroundResource(R.drawable.shape_register_input_default_edit);
-                mTietInput4.setBackgroundResource(R.drawable.shape_register_input_check_edit);}
+                mTietInput4.setBackgroundResource(R.drawable.shape_register_input_check_edit);
+            }
 
         });
         inputMessageCodeChangeListener(mTietInput1);
@@ -166,17 +171,18 @@ public class RegisterCodeFragment extends BaseFragment<RegisterCodePresenter> im
     }
 
 
-
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
+        if (isVisibleToUser && isFirst) {
             mPresenter.countDownTime(Contast.MESSAGE_COUNT_DOWN_LENGTH);
+            isFirst = false;
         }
+        LogUtils.w("setUserVisibleHint--",isVisibleToUser+"--");
     }
 
     @Subscribe
-    public void eventPostPhone(@NonNull EventMessagePhone bean){
+    public void eventPostPhone(@NonNull EventMessagePhone bean) {
         this.mPhooneNumber = DataUtils.checkData(bean).phone;
     }
 
@@ -207,7 +213,7 @@ public class RegisterCodeFragment extends BaseFragment<RegisterCodePresenter> im
 
     @OnClick(R.id.tv_gain_message_code)
     public void onViewClicked() {
-        mPresenter.sendMessageCode(mPhooneNumber,Contast.TYPE_MESSAGE_CODE_REGISTER);
+        mPresenter.sendMessageCode(mPhooneNumber, Contast.TYPE_MESSAGE_CODE_REGISTER);
     }
 
     @Override
@@ -222,5 +228,12 @@ public class RegisterCodeFragment extends BaseFragment<RegisterCodePresenter> im
     public void onDestroy() {
         super.onDestroy();
         unRegisterEventBus();
+    }
+
+    public void clearData() {
+        mTietInput1.setText(null);
+        mTietInput2.setText(null);
+        mTietInput3.setText(null);
+        mTietInput4.setText(null);
     }
 }

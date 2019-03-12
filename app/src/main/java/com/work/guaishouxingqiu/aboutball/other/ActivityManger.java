@@ -36,7 +36,8 @@ public class ActivityManger {
         mWeakMap.put(activity.getClass().getSimpleName(), new WeakReference<>(activity));
     }
 
-    public void removeActivity(@NonNull String key) {
+    public void removeActivity(@NonNull Class activityClass) {
+        String key = activityClass.getSimpleName();
         if (mWeakMap.containsKey(key)) {
             if (mWeakMap.get(key) != null && mWeakMap.get(key).get() != null) {
                 mWeakMap.get(key).get().finish();

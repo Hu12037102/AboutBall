@@ -18,7 +18,7 @@ import io.reactivex.disposables.Disposable;
  * 更新时间: 2019/3/11 10:43
  * 描述: 短信P
  */
-public abstract   class MessagePresenter<V extends MessageContract.View, M extends MessageModel>
+public abstract class MessagePresenter<V extends MessageContract.View, M extends MessageModel>
         extends BasePresenter<V, M> implements MessageContract.Presenter {
 
     public MessagePresenter(@NonNull V view) {
@@ -33,6 +33,9 @@ public abstract   class MessagePresenter<V extends MessageContract.View, M exten
      */
     @Override
     public void sendMessageCode(@NonNull String phoneNumber, int type) {
+        if (mView != null) {
+            mView.showLoadingView();
+        }
         mModel.sendMessageCode(phoneNumber, type, new BaseObserver(mCompositeDisposable, new BaseObserver.Observer() {
             @Override
             public void onNext(BaseBean bean) {
@@ -41,12 +44,15 @@ public abstract   class MessagePresenter<V extends MessageContract.View, M exten
                 if (bean.code == 0) {
                     mView.sendMessageCodeSucceedResult();
                 }
+                mView.dismissLoadingView();
                 mView.showToast(bean.message);
             }
 
             @Override
             public void onError(Throwable e) {
-
+                if (mView != null) {
+                    mView.dismissLoadingView();
+                }
             }
 
         }));

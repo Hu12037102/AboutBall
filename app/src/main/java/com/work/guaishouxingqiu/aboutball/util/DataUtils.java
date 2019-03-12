@@ -43,6 +43,14 @@ public class DataUtils {
         return false;
     }
 
+    public static boolean isEmpty(@NonNull CharSequence data) {
+        if (TextUtils.isEmpty(data) || TextUtils.getTrimmedLength(data) == 0) {
+            return true;
+        }
+        return false;
+    }
+
+
     public static int getTextTrimLength(@NonNull String data) {
         if (!TextUtils.isEmpty(data)) {
             return TextUtils.getTrimmedLength(data);

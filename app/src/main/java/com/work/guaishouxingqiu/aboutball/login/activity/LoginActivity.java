@@ -17,6 +17,8 @@ import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
+import com.work.guaishouxingqiu.aboutball.base.BaseBean;
+import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.RequestLoginBean;
 import com.work.guaishouxingqiu.aboutball.login.contract.LoginContract;
@@ -25,6 +27,7 @@ import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
+import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import butterknife.BindView;
@@ -197,10 +200,26 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
     @Override
-    public void loginSucceedResult(LoginResultBean bean) {
+    public void loginSucceedResult(BaseBean<LoginResultBean> bean) {
         //先更新token，再去登录,获取用户信息
-        UserManger.get().putToken(bean.id_token);
-        mPresenter.loadUserAccount();
+        if (bean.code == IApi.Code.SUCCEED) {
+            if (bean.result != null) {
+                UserManger.get().putToken(bean.result.id_token);
+                mPresenter.loadUserAccount();
+            }
+        } else if (bean.code == IApi.Code.USER_NO_EXIST) {
+            HintDialog hintDialog = new HintDialog.Builder(this)
+                    .setTitle(R.string.hint)
+                    .setBody(R.string.this_phone_not_register)
+                    .setSure(R.string.go_register)
+                    .builder();
+            hintDialog.show();
+            hintDialog.setOnItemClickListener(view -> {
+                $startActivity(ARouterConfig.Path.ACTIVITY_REGISTER);
+                hintDialog.dismiss();
+            });
+        }
+
     }
 
     @Override

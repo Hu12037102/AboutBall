@@ -1,7 +1,11 @@
 package com.work.guaishouxingqiu.aboutball.login.contract;
 
+import android.support.annotation.NonNull;
+
+import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.login.bean.RegisterResultBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.RequestRegisterBean;
 
 /**
@@ -12,6 +16,7 @@ import com.work.guaishouxingqiu.aboutball.login.bean.RequestRegisterBean;
  */
 public interface RegisterContract {
     interface View extends IBaseView {
+        void registerResult(@NonNull BaseBean<RegisterResultBean> bean);
     }
 
     interface Presenter extends IBasePresenter {

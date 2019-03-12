@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/color80000000"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_dialog_hint_group"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_100dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/default_margin"
+            android:paddingRight="@dimen/default_margin">
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/DefaultTextView"
+                android:textColor="@color/color_4"
+                android:textSize="@dimen/size_18sp"
+                tools:text="提示" />
+
+            <TextView
+                android:id="@+id/tv_body"
+                style="@style/DefaultTextView"
+                android:layout_marginTop="@dimen/size_15dp"
+                android:textColor="@color/color_3"
+                tools:text="手机已经登录" />
+        </LinearLayout>
+
+        <View style="@style/HorizontalLine" />
+
+        <TextView
+            android:id="@+id/tv_sure"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_50dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:textColor="@color/color_2"
+            android:textSize="@dimen/size_16sp"
+            tools:text="立即登录" />
+    </LinearLayout>
+</LinearLayout>

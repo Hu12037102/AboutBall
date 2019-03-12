@@ -22,4 +22,5 @@ public interface Contast {
     int TYPE_MESSAGE_CODE_RESET_PASSWORD = 3;
     int MESSAGE_COUNT_DOWN_LENGTH = 60;
 
+
 }

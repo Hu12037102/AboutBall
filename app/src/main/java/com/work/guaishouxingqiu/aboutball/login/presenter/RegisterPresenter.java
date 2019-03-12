@@ -49,7 +49,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View, Regi
                 }
                 mView.showToast(bean.message);
                 mView.dismissLoadingView();
-
+                mView.registerResult(bean);
             }
 
             @Override

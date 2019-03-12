@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.github.ybq.android.spinkit.SpinKitView;
 import com.work.guaishouxingqiu.aboutball.R;
@@ -22,26 +23,23 @@ import com.work.guaishouxingqiu.aboutball.R;
 public class LoadingView {
     private Activity mActivity;
     private View mInflateView;
-    private ViewGroup mDecorGroup;
+    private FrameLayout mDecorGroup;
 
-    public static LoadingView with(@NonNull Activity activity) {
-        return new LoadingView(activity);
-    }
 
-    private LoadingView(Activity activity) {
+    public LoadingView(Activity activity) {
         this.mActivity = activity;
     }
 
-    public void showLoadingView() {
+    public synchronized void showLoadingView() {
         View decorView = mActivity.getWindow().getDecorView();
-        if (decorView instanceof ViewGroup) {
-            mDecorGroup = (ViewGroup) decorView;
+        if (decorView instanceof FrameLayout) {
+            mDecorGroup = (FrameLayout) decorView;
             mInflateView = mActivity.getLayoutInflater().inflate(R.layout.item_loading_view, mDecorGroup, false);
             mDecorGroup.addView(mInflateView);
         }
     }
 
-    public void dismissLoadingView() {
+    public synchronized void dismissLoadingView() {
         if (mInflateView != null && mDecorGroup != null) {
             if (mDecorGroup.indexOfChild(mInflateView) > 0) {
                 mDecorGroup.removeView(mInflateView);

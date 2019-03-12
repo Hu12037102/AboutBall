@@ -15,11 +15,14 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.other.ActivityManger;
+import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.LoadingView;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -44,6 +47,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         initStatusColor();
         initPermission();
         ActivityManger.get().addActivity(this);
+        registerEventBus();
     }
 
     @Override
@@ -101,7 +105,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     @Override
     public void showLoadingView() {
         if (mLoadingView == null) {
-            mLoadingView = LoadingView.with(this);
+            mLoadingView = new LoadingView(this);
         }
         mLoadingView.showLoadingView();
     }
@@ -125,8 +129,36 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         if (mPresenter != null) {
             mPresenter.deathPresenter();
         }
-        ActivityManger.get().removeActivity(this.getClass().getSimpleName());
+        ActivityManger.get().removeActivity(this.getClass());
+        unRegisterEventBus();
 
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void requestEventResult(BaseBean baseBean) {
+        switch (baseBean.code) {
+            case IApi.Code.MESSAGES_CODE_ERROR:
+                Toasts.with().showToast(baseBean.title);
+                break;
+            case IApi.Code.USER_NO_EXIST:
+                Toasts.with().showToast(baseBean.title);
+                break;
+            case IApi.Code.SERVICE_ERROR:
+                Toasts.with().showToast(baseBean.message);
+                break;
+            case IApi.Code.USER_EXIST:
+                final HintDialog loginDialog = new HintDialog.Builder(this)
+                        .setTitle(R.string.hint)
+                        .setBody(R.string.this_phone_is_register)
+                        .setSure(R.string.login_immediately)
+                        .builder();
+                loginDialog.show();
+                loginDialog.setOnItemClickListener(view -> {
+                    finish();
+                    loginDialog.dismiss();
+                });
+            default:
+                break;
+        }
     }
 
     protected void registerEventBus() {
@@ -136,8 +168,10 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     protected void unRegisterEventBus() {
         if (EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().unregister(this);
+            EventBus.getDefault().removeStickyEvent(this);
         }
     }
+
 
 
 }

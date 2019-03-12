@@ -44,6 +44,8 @@ public interface IApi {
         int SERVICE_IN_ERROR = -99;
         //成功
         int SUCCEED = 0;
+        //服务器异常
+        int SERVICE_ERROR = 504;
 
     }
 }

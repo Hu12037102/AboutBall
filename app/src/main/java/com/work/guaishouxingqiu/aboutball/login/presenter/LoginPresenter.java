@@ -47,9 +47,7 @@ public class LoginPresenter extends MessagePresenter<LoginContract.View, LoginMo
             public void onNext(BaseBean<LoginResultBean> resultBeanBaseBean) {
                 if (mView == null)
                     return;
-                if (resultBeanBaseBean.code == IApi.Code.SUCCEED && resultBeanBaseBean.result != null) {
-                    mView.loginSucceedResult(resultBeanBaseBean.result);
-                }
+                mView.loginSucceedResult(resultBeanBaseBean);
                 mView.dismissLoadingView();
                 mView.showToast(resultBeanBaseBean.message);
             }

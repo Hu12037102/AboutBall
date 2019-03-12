@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -100,5 +101,10 @@ public class RegisterPasswordFragment extends BaseFragment<RegisterPasswordPrese
         if (mOnInputPasswordResult != null){
             mOnInputPasswordResult.onInputPassword(DataUtils.checkData(mTietPassword.getText()).toString());
         }
+    }
+    public void clearData(){
+        mTietPassword.setText(null);
+        mIvClearPassword.setVisibility(View.GONE);
+        mTvRegister.setClickable(false);
     }
 }

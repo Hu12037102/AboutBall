@@ -69,7 +69,8 @@ public class RetrofitManger {
 
     private OkHttpClient createOKHttp() {
         return new OkHttpClient.Builder()
-                .addInterceptor(mHttpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY))
+               // .addInterceptor(mHttpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY))
+                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .cache(new Cache(FileUtils.getNetCachFile(), RetrofitManger.MAX_CACHE_SIZE))
                 .addInterceptor(new NetCacheInterceptor())
                 .addInterceptor(new HeadInterceptor())

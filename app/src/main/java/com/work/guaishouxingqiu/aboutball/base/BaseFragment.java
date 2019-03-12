@@ -72,7 +72,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     @Override
     public void showLoadingView() {
         if (mLoadingView == null) {
-            mLoadingView = LoadingView.with(DataUtils.checkData(getActivity()));
+            mLoadingView = new LoadingView(DataUtils.checkData(getActivity()));
         }
         mLoadingView.showLoadingView();
     }

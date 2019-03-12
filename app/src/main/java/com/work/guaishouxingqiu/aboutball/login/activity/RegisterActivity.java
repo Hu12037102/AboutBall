@@ -11,6 +11,9 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
+import com.work.guaishouxingqiu.aboutball.base.BaseBean;
+import com.work.guaishouxingqiu.aboutball.http.IApi;
+import com.work.guaishouxingqiu.aboutball.login.bean.RegisterResultBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.RequestRegisterBean;
 import com.work.guaishouxingqiu.aboutball.login.contract.RegisterCodeContract;
 import com.work.guaishouxingqiu.aboutball.login.contract.RegisterContract;
@@ -18,8 +21,11 @@ import com.work.guaishouxingqiu.aboutball.login.fragment.RegisterCodeFragment;
 import com.work.guaishouxingqiu.aboutball.login.fragment.RegisterPasswordFragment;
 import com.work.guaishouxingqiu.aboutball.login.fragment.RegisterPhoneFragment;
 import com.work.guaishouxingqiu.aboutball.login.presenter.RegisterPresenter;
+import com.work.guaishouxingqiu.aboutball.other.ActivityManger;
+import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
+import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -128,9 +134,15 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         });
         mTitleView.setOnBackViewClickListener(view -> {
             if (mCurrentPager == 0) {
-               finish();
+                finish();
             } else {
+                if (mBvpContent.getCurrentItem() == mFragmentData.indexOf(mCodeFragment)) {
+                    mCodeFragment.clearData();
+                } else if (mBvpContent.getCurrentItem() == mFragmentData.indexOf(mPasswordFragment)) {
+                    mPasswordFragment.clearData();
+                }
                 mBvpContent.setCurrentItem(mCurrentPager - 1);
+
             }
         });
     }
@@ -146,7 +158,29 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         if (mCurrentPager == 0) {
             super.onBackPressed();
         } else {
+            if (mBvpContent.getCurrentItem() == mFragmentData.indexOf(mCodeFragment)) {
+                mCodeFragment.clearData();
+            } else if (mBvpContent.getCurrentItem() == mFragmentData.indexOf(mPasswordFragment)) {
+                mPasswordFragment.clearData();
+            }
+
             mBvpContent.setCurrentItem(mCurrentPager - 1);
+
+        }
+    }
+
+    @Override
+    public void registerResult(@NonNull BaseBean<RegisterResultBean> bean) {
+        switch (bean.code) {
+            case IApi.Code.SUCCEED:
+                if (bean.result != null) {
+                    UserManger.get().putToken(bean.result.id_token);
+                }
+                ActivityManger.get().removeActivity(LoginActivity.class);
+                finish();
+                break;
+            default:
+                break;
         }
     }
 }

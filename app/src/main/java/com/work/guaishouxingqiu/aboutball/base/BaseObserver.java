@@ -2,6 +2,10 @@ package com.work.guaishouxingqiu.aboutball.base;
 
 import android.support.annotation.NonNull;
 
+import com.work.guaishouxingqiu.aboutball.Contast;
+import com.work.guaishouxingqiu.aboutball.http.IApi;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
+
 import org.greenrobot.eventbus.EventBus;
 
 import io.reactivex.Observer;
@@ -33,15 +37,16 @@ public class BaseObserver<T> implements Observer<BaseBean<T>> {
     @Override
     public void onSubscribe(Disposable d) {
         mCompositeDisposable.add(d);
+        LogUtils.w("BaseObserver---","onSubscribe--");
     }
 
     @Override
     public void onNext(BaseBean<T> baseBean) {
         if (mObserver != null) {
             mObserver.onNext(baseBean);
-        } else {
-            EventBus.getDefault().post(baseBean);
         }
+        EventBus.getDefault().post(baseBean);
+        LogUtils.w("BaseObserver---","onNext--");
     }
 
 
@@ -52,11 +57,16 @@ public class BaseObserver<T> implements Observer<BaseBean<T>> {
         if (mObserver != null) {
             mObserver.onError(e);
         }
+        BaseBean baseBean = new BaseBean();
+        baseBean.code = IApi.Code.SERVICE_ERROR;
+        baseBean.message = "请求超时";
+        EventBus.getDefault().post(baseBean);
+        LogUtils.w("BaseObserver---","onError--");
     }
 
     @Override
     public void onComplete() {
-
+        LogUtils.w("BaseObserver---","onComplete--");
     }
 
     public interface Observer<T> {
