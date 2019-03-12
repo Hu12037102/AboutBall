@@ -42,7 +42,7 @@ public class LoginPresenter extends MessagePresenter<LoginContract.View, LoginMo
         if (mView != null) {
             mView.showLoadingView();
         }
-        mModel.login(loginBean, new BaseObserver(mCompositeDisposable, new BaseObserver.Observer<LoginResultBean>() {
+        mModel.login(loginBean, new BaseObserver(this, new BaseObserver.Observer<LoginResultBean>() {
             @Override
             public void onNext(BaseBean<LoginResultBean> resultBeanBaseBean) {
                 if (mView == null)
@@ -66,7 +66,7 @@ public class LoginPresenter extends MessagePresenter<LoginContract.View, LoginMo
         if (mView != null) {
             mView.showLoadingView();
         }
-        mModel.loadUserAccount(new BaseObserver<>(mCompositeDisposable, new BaseObserver.Observer<UserBean>() {
+        mModel.loadUserAccount(new BaseObserver<>(this, new BaseObserver.Observer<UserBean>() {
 
             @Override
             public void onNext(BaseBean<UserBean> t) {

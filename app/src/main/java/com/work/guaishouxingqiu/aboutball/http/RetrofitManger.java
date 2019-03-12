@@ -4,17 +4,21 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.work.guaishouxingqiu.aboutball.base.BaseApplication;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.NetWorkUtils;
+import com.work.guaishouxingqiu.aboutball.util.PhoneUtils;
+import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
 import okhttp3.CacheControl;
+import okhttp3.Headers;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -69,18 +73,19 @@ public class RetrofitManger {
 
     private OkHttpClient createOKHttp() {
         return new OkHttpClient.Builder()
-               // .addInterceptor(mHttpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY))
-                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+
+                // .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .cache(new Cache(FileUtils.getNetCachFile(), RetrofitManger.MAX_CACHE_SIZE))
-                .addInterceptor(new NetCacheInterceptor())
                 .addInterceptor(new HeadInterceptor())
+                .addInterceptor(new NetCacheInterceptor())
+                .addInterceptor(mHttpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY))
                 .readTimeout(RetrofitManger.READ_TIME_OUT, TimeUnit.MILLISECONDS)
                 .connectTimeout(RetrofitManger.CONNECT_TIME_OUT, TimeUnit.MILLISECONDS)
                 .build();
     }
 
-    private  final  HttpLoggingInterceptor mHttpLoggingInterceptor = new HttpLoggingInterceptor(message -> {
-        LogUtils.w("HttpLoggingInterceptor--",message);
+    private final HttpLoggingInterceptor mHttpLoggingInterceptor = new HttpLoggingInterceptor(message -> {
+        LogUtils.w("HttpLoggingInterceptor--", message);
     });
 
     /**
@@ -92,10 +97,18 @@ public class RetrofitManger {
         @Override
         public Response intercept(@NonNull Chain chain) throws IOException {
             Request request = chain.request();
+           request = request.newBuilder().header("Authorization", UserManger.get().getToken())
+                   .header("Version", "1.0.0")//版本号
+                   .header("Accept-Language", PhoneUtils.getPhoneLoca(UIUtils.getContext()).getCountry())
+                   .build();
 
-            request = request.newBuilder()
-                    .header("Authorization", UserManger.get().getToken())
+
+           /* Headers newBuilder = builder.add("Authorization", UserManger.get().getToken())
                     .build();
+            Request newRequest = request.newBuilder()
+                    .headers(newBuilder)
+                    .build();*/
+            LogUtils.w("HeadInterceptor--", UserManger.get().getToken());
             return chain.proceed(request);
         }
     }

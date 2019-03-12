@@ -17,5 +17,6 @@ public interface IBaseView {
 
     void showToast(@NonNull String text);
 
+    void resultBaseData(@NonNull BaseBean baseBean);
 
 }

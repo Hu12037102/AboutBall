@@ -22,7 +22,7 @@ import io.reactivex.disposables.Disposable;
  */
 public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> implements IBasePresenter, IBaseModelCallback {
     protected CompositeDisposable mCompositeDisposable;
-    protected V mView;
+    public V mView;
 
     protected M mModel;
 

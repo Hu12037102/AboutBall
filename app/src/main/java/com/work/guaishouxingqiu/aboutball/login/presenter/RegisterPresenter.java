@@ -41,7 +41,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View, Regi
         if (mView != null) {
             mView.showLoadingView();
         }
-        mModel.register(requestBean, new BaseObserver<>(mCompositeDisposable, new BaseObserver.Observer<RegisterResultBean>() {
+        mModel.register(requestBean, new BaseObserver<>(this, new BaseObserver.Observer<RegisterResultBean>() {
             @Override
             public void onNext(BaseBean<RegisterResultBean> bean) {
                 if (mView == null) {

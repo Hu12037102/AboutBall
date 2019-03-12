@@ -20,24 +20,25 @@ import io.reactivex.disposables.Disposable;
  */
 public class BaseObserver<T> implements Observer<BaseBean<T>> {
 
-    private CompositeDisposable mCompositeDisposable;
+    private BasePresenter mPresenter;
     private BaseObserver.Observer<T> mObserver;
 
 
-    public BaseObserver(@NonNull CompositeDisposable compositeDisposable, BaseObserver.Observer<T> observer) {
-        this.mCompositeDisposable = compositeDisposable;
+    public BaseObserver(@NonNull BasePresenter presenter, BaseObserver.Observer<T> observer) {
+        this.mPresenter = presenter;
         this.mObserver = observer;
     }
 
-    public BaseObserver(@NonNull CompositeDisposable compositeDisposable) {
-        this.mCompositeDisposable = compositeDisposable;
+    public BaseObserver(@NonNull BasePresenter presenter) {
+        this.mPresenter = presenter;
     }
 
 
     @Override
     public void onSubscribe(Disposable d) {
-        mCompositeDisposable.add(d);
-        LogUtils.w("BaseObserver---","onSubscribe--");
+        if (mPresenter != null) {
+            mPresenter.mCompositeDisposable.add(d);
+        }
     }
 
     @Override
@@ -45,11 +46,13 @@ public class BaseObserver<T> implements Observer<BaseBean<T>> {
         if (mObserver != null) {
             mObserver.onNext(baseBean);
         }
-        EventBus.getDefault().post(baseBean);
-        LogUtils.w("BaseObserver---","onNext--");
+        if (mPresenter != null && mPresenter.mView != null){
+            mPresenter.mView.resultBaseData(baseBean);
+            mPresenter.mView.showToast(baseBean.message);
+        }
+       // EventBus.getDefault().post(baseBean);
+        LogUtils.w("BaseObserver---", "onNext--");
     }
-
-
 
 
     @Override
@@ -61,12 +64,12 @@ public class BaseObserver<T> implements Observer<BaseBean<T>> {
         baseBean.code = IApi.Code.SERVICE_ERROR;
         baseBean.message = "请求超时";
         EventBus.getDefault().post(baseBean);
-        LogUtils.w("BaseObserver---","onError--");
+        LogUtils.w("BaseObserver---", "onError--");
     }
 
     @Override
     public void onComplete() {
-        LogUtils.w("BaseObserver---","onComplete--");
+        LogUtils.w("BaseObserver---", "onComplete--");
     }
 
     public interface Observer<T> {
@@ -76,4 +79,5 @@ public class BaseObserver<T> implements Observer<BaseBean<T>> {
         void onError(Throwable e);
 
     }
+
 }

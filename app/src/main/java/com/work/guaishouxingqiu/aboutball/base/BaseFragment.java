@@ -9,8 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.UIUtils;
+import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.LoadingView;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
@@ -100,5 +104,8 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
         ARouter.getInstance().build(path).navigation();
     }
 
-
+    @Override
+    public void resultBaseData(@NonNull BaseBean baseBean) {
+        UIUtils.resultBaseData(baseBean,DataUtils.checkData(getActivity()));
+    }
 }

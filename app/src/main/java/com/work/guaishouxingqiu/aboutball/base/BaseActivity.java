@@ -16,6 +16,8 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.other.ActivityManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.LoadingView;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
@@ -47,7 +49,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         initStatusColor();
         initPermission();
         ActivityManger.get().addActivity(this);
-        registerEventBus();
     }
 
     @Override
@@ -68,9 +69,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         return super.dispatchTouchEvent(ev);
     }
 
-    protected void $startActivity(@NonNull String path) {
-        ARouter.getInstance().build(path).navigation();
-    }
+
 
     /**
      * 设置状态栏颜色
@@ -130,36 +129,10 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             mPresenter.deathPresenter();
         }
         ActivityManger.get().removeActivity(this.getClass());
-        unRegisterEventBus();
 
     }
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void requestEventResult(BaseBean baseBean) {
-        switch (baseBean.code) {
-            case IApi.Code.MESSAGES_CODE_ERROR:
-                Toasts.with().showToast(baseBean.title);
-                break;
-            case IApi.Code.USER_NO_EXIST:
-                Toasts.with().showToast(baseBean.title);
-                break;
-            case IApi.Code.SERVICE_ERROR:
-                Toasts.with().showToast(baseBean.message);
-                break;
-            case IApi.Code.USER_EXIST:
-                final HintDialog loginDialog = new HintDialog.Builder(this)
-                        .setTitle(R.string.hint)
-                        .setBody(R.string.this_phone_is_register)
-                        .setSure(R.string.login_immediately)
-                        .builder();
-                loginDialog.show();
-                loginDialog.setOnItemClickListener(view -> {
-                    finish();
-                    loginDialog.dismiss();
-                });
-            default:
-                break;
-        }
-    }
+
+
 
     protected void registerEventBus() {
         EventBus.getDefault().register(this);
@@ -172,6 +145,13 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         }
     }
 
-
-
+    /**
+     * 通用事件回调
+     *
+     * @param baseBean
+     */
+    @Override
+    public void resultBaseData(@NonNull BaseBean baseBean) {
+        UIUtils.resultBaseData(baseBean, DataUtils.checkData(this));
+    }
 }

@@ -36,7 +36,7 @@ public abstract class MessagePresenter<V extends MessageContract.View, M extends
         if (mView != null) {
             mView.showLoadingView();
         }
-        mModel.sendMessageCode(phoneNumber, type, new BaseObserver(mCompositeDisposable, new BaseObserver.Observer() {
+        mModel.sendMessageCode(phoneNumber, type, new BaseObserver(this, new BaseObserver.Observer() {
             @Override
             public void onNext(BaseBean bean) {
                 if (mView == null)

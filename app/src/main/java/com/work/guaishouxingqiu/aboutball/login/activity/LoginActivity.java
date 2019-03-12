@@ -163,7 +163,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
     private void clickRegister() {
-        $startActivity(ARouterConfig.Path.ACTIVITY_REGISTER);
+        UIUtils.startActivity(ARouterConfig.Path.ACTIVITY_REGISTER);
     }
 
     /**
@@ -208,16 +208,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 mPresenter.loadUserAccount();
             }
         } else if (bean.code == IApi.Code.USER_NO_EXIST) {
-            HintDialog hintDialog = new HintDialog.Builder(this)
-                    .setTitle(R.string.hint)
-                    .setBody(R.string.this_phone_not_register)
-                    .setSure(R.string.go_register)
-                    .builder();
-            hintDialog.show();
-            hintDialog.setOnItemClickListener(view -> {
-                $startActivity(ARouterConfig.Path.ACTIVITY_REGISTER);
-                hintDialog.dismiss();
-            });
+
         }
 
     }
