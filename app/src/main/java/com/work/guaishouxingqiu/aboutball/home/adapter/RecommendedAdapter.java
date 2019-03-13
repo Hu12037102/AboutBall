@@ -1,6 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.home.adapter;
 
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,11 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.item.util.ScreenUtils;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultInformationBean;
+import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
-import com.work.guaishouxingqiu.aboutball.util.GlideUtils;
 
 import java.util.List;
 
@@ -46,7 +48,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
     @Override
     protected RecyclerView.ViewHolder onCreateDataViewHolder(@NonNull ViewGroup viewGroup, int i) {
         RecyclerView.ViewHolder viewHolder = null;
-        int imagePathSize = DataUtils.splitImagePath(mData.get(mPosition).coverUrl);
+        int imagePathSize = DataUtils.splitImagePathCount(mData.get(mPosition).coverUrl);
         switch (imagePathSize) {
             case 0:
                 viewHolder = new TextViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_recommend_text_view, viewGroup, false));
@@ -56,6 +58,8 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
                 break;
             case 3:
                 viewHolder = new ThreeViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_recommend_three_image, viewGroup, false));
+                break;
+            default:
                 break;
         }
 
@@ -70,15 +74,44 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             TextViewHolder textViewHolder = (TextViewHolder) viewHolder;
             textViewHolder.mTvData.setText(mData.get(i).title);
             textViewHolder.mTvFrom.setText(mData.get(i).releaseTime);
+            if (i == mData.size() - 1) {
+                textViewHolder.mLine.setVisibility(View.GONE);
+            } else {
+                textViewHolder.mLine.setVisibility(View.VISIBLE);
+            }
 
         } else if (viewHolder instanceof SingViewHolder) {
             SingViewHolder singViewHolder = (SingViewHolder) viewHolder;
             singViewHolder.mTvData.setText(mData.get(i).title);
             singViewHolder.mTvFrom.setText(mData.get(i).releaseTime);
-          //  GlideUtils.loadImage();
-
+            if (DataUtils.splitImagePathCount(mData.get(i).coverUrl) > 0) {
+                String[] imagePathArray = mData.get(i).coverUrl.split(",");
+                GlideManger.get().loadImage(viewHolder.itemView.getContext(), imagePathArray[0],
+                        R.drawable.shape_item_recommend_preview_item, R.drawable.shape_item_recommend_preview_item, singViewHolder.mIvData);
+            }
+            if (i == mData.size() - 1) {
+                singViewHolder.mLine.setVisibility(View.GONE);
+            } else {
+                singViewHolder.mLine.setVisibility(View.VISIBLE);
+            }
         } else if (viewHolder instanceof ThreeViewHolder) {
             ThreeViewHolder threeViewHolder = (ThreeViewHolder) viewHolder;
+            threeViewHolder.mFtvData.setText(mData.get(i).title);
+            threeViewHolder.mTvFrom.setText(mData.get(i).releaseTime);
+            if (DataUtils.splitImagePathCount(mData.get(i).coverUrl) == 3) {
+                String[] imagePathArray = mData.get(i).coverUrl.split(",");
+                GlideManger.get().loadImage(viewHolder.itemView.getContext(), imagePathArray[0],
+                        R.drawable.shape_item_recommend_preview_item, R.drawable.shape_item_recommend_preview_item, threeViewHolder.mIv1);
+                GlideManger.get().loadImage(viewHolder.itemView.getContext(), imagePathArray[1],
+                        R.drawable.shape_item_recommend_preview_item, R.drawable.shape_item_recommend_preview_item, threeViewHolder.mIv2);
+                GlideManger.get().loadImage(viewHolder.itemView.getContext(), imagePathArray[2],
+                        R.drawable.shape_item_recommend_preview_item, R.drawable.shape_item_recommend_preview_item, threeViewHolder.mIv3);
+            }
+            if (i == mData.size() - 1) {
+                threeViewHolder.mLine.setVisibility(View.GONE);
+            } else {
+                threeViewHolder.mLine.setVisibility(View.VISIBLE);
+            }
         }
 
         //  viewHolder.getAdapterPosition();
@@ -88,6 +121,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
     static class TextViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTvData, mTvFrom;
+        private View mLine;
 
         public TextViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -97,6 +131,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
         private void initView(View itemView) {
             mTvData = itemView.findViewById(R.id.tv_data);
             mTvFrom = itemView.findViewById(R.id.tv_from);
+            mLine = itemView.findViewById(R.id.line);
         }
     }
 
@@ -127,7 +162,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
         private ImageView mIv2;
         private ImageView mIv3;
         private TextView mTvFrom;
-        private View mLin;
+        private View mLine;
 
         public ThreeViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -136,11 +171,13 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
 
         private void initView(View itemView) {
             mFtvData = itemView.findViewById(R.id.ftv_data);
+            mFtvData.setTextSize(ScreenUtils.dp2px(itemView.getContext(), 17));
+            mFtvData.setColor(ContextCompat.getColor(itemView.getContext(), R.color.color_4));
             mIv1 = itemView.findViewById(R.id.iv_1);
             mIv2 = itemView.findViewById(R.id.iv_2);
             mIv3 = itemView.findViewById(R.id.iv_3);
             mTvFrom = itemView.findViewById(R.id.tv_from);
-            mLin = itemView.findViewById(R.id.line);
+            mLine = itemView.findViewById(R.id.line);
         }
     }
 }

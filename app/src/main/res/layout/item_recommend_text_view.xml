@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/size_20dp">
+        android:padding="@dimen/size_20dp"
+        tools:ignore="MissingConstraints">
 
         <TextView
             android:id="@+id/tv_data"
@@ -51,6 +52,7 @@
     </LinearLayout>
 
     <View
+        android:id="@+id/line"
         style="@style/HorizontalLine"
         android:layout_marginLeft="@dimen/default_margin"
         android:layout_marginRight="@dimen/default_margin"

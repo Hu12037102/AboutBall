@@ -25,12 +25,15 @@ import com.work.guaishouxingqiu.aboutball.util.UIUtils;
  * 描述: 加载图片管理器
  */
 public class GlideManger {
-    private GlideManger mGlideManger = new GlideManger();
+    private static GlideManger mGlideManger = new GlideManger();
 
     private GlideManger() {
         initGlide(UIUtils.getContext());
     }
 
+    public static synchronized GlideManger get(){
+        return mGlideManger;
+    }
     @SuppressLint("VisibleForTests")
     private void initGlide(Context context) {
         RequestOptions options = new RequestOptions()
@@ -45,22 +48,22 @@ public class GlideManger {
                 .setDiskCache(factory);
         Glide.init(context,mGlideBuilder);
     }
-    public static void loadImage(@NonNull Context context, @DrawableRes int resId, @DrawableRes int resPlaceholderId,
+    public void loadImage(@NonNull Context context, @DrawableRes int resId, @DrawableRes int resPlaceholderId,
                                  @DrawableRes int resErrorId, @NonNull ImageView imageView) {
         RequestOptions requestOptions = new RequestOptions().centerCrop().placeholder(resPlaceholderId).error(resErrorId);
         Glide.with(context).asDrawable().apply(requestOptions).load(resId).into(imageView);
     }
-    public static void loadImage(@NonNull Context context, @DrawableRes int resId, @NonNull ImageView imageView) {
+    public void loadImage(@NonNull Context context, @DrawableRes int resId, @NonNull ImageView imageView) {
         RequestOptions requestOptions = new RequestOptions().centerCrop();
         Glide.with(context).asDrawable().apply(requestOptions).load(resId).into(imageView);
     }
 
-    public static void loadImage(@NonNull Context context, @NonNull String imagePath, @NonNull ImageView imageView) {
+    public void loadImage(@NonNull Context context, @NonNull String imagePath, @NonNull ImageView imageView) {
         RequestOptions requestOptions = new RequestOptions().centerCrop();
         Glide.with(context).asDrawable().apply(requestOptions).load(imagePath).into(imageView);
     }
 
-    public static void loadImage(@NonNull Context context, @NonNull String imagePath, @DrawableRes int resPlaceholderId,
+    public void loadImage(@NonNull Context context, @NonNull String imagePath, @DrawableRes int resPlaceholderId,
                                  @DrawableRes int resErrorId, @NonNull ImageView imageView) {
         RequestOptions requestOptions = new RequestOptions().centerCrop().placeholder(resPlaceholderId).error(resErrorId);
         Glide.with(context).asDrawable().apply(requestOptions).load(imagePath).into(imageView);

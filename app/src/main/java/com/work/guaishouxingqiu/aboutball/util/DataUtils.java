@@ -125,12 +125,13 @@ public class DataUtils {
         return DataUtils.getTextTrimLength(messageCode) == Contast.MESSAGE_CODE_LENGTH;
     }
 
-    public static int splitImagePath(@NonNull String imagePath) {
+    public static int splitImagePathCount (@NonNull String imagePath) {
         if (DataUtils.isEmpty(imagePath)) {
             return 0;
         }
         String[] imagePathArray = imagePath.split(",");
         return imagePathArray.length;
     }
+
 
 }
