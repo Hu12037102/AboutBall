@@ -21,6 +21,8 @@ public interface Contast {
     int TYPE_MESSAGE_CODE_LOGIN = 2;
     int TYPE_MESSAGE_CODE_RESET_PASSWORD = 3;
     int MESSAGE_COUNT_DOWN_LENGTH = 60;
-
+    int REQUEST_CODE = 0;
+    String LONGITUDE = "longitude";
+    String LATITUDE = "latitude";
 
 }

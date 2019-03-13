@@ -75,22 +75,24 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
     @Override
     public void initPermission() {
         requestPermission(new OnPermissionsResult() {
-            @Override
-            public void onAllow(List<String> allowPermissions) {
-                MainActivity.super.initPermission();
-            }
+                              @Override
+                              public void onAllow(List<String> allowPermissions) {
+                                  MainActivity.super.initPermission();
+                              }
 
-            @Override
-            public void onNoAllow(List<String> noAllowPermissions) {
-                Toasts.with().showToast(R.string.must_permission_please_allow);
-                   initPermission();
-            }
+                              @Override
+                              public void onNoAllow(List<String> noAllowPermissions) {
+                                  Toasts.with().showToast(R.string.must_permission);
+                                  initPermission();
+                              }
 
-            @Override
-            public void onForbid(List<String> noForbidPermissions) {
-               showForbidPermissionDialog();
-            }
-        }, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                              @Override
+                              public void onForbid(List<String> noForbidPermissions) {
+                                  showForbidPermissionDialog();
+                              }
+                          }, Manifest.permission.WRITE_EXTERNAL_STORAGE
+                , Manifest.permission.ACCESS_COARSE_LOCATION
+                , Manifest.permission.ACCESS_FINE_LOCATION);
 
     }
 

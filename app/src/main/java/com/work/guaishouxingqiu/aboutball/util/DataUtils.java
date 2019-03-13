@@ -66,8 +66,8 @@ public class DataUtils {
      */
     public static boolean
     isPhoneNumber(@NonNull String phoneNumber) {
-        Pattern pattern =  Pattern.compile(Contast.REGEX_PHONE_NUMBER);
-        Matcher matcher = pattern.matcher( phoneNumber);
+        Pattern pattern = Pattern.compile(Contast.REGEX_PHONE_NUMBER);
+        Matcher matcher = pattern.matcher(phoneNumber);
         return matcher.matches();
     }
 
@@ -123,6 +123,14 @@ public class DataUtils {
      */
     public static boolean isMessageCode(@NonNull String messageCode) {
         return DataUtils.getTextTrimLength(messageCode) == Contast.MESSAGE_CODE_LENGTH;
+    }
+
+    public static int splitImagePath(@NonNull String imagePath) {
+        if (DataUtils.isEmpty(imagePath)) {
+            return 0;
+        }
+        String[] imagePathArray = imagePath.split(",");
+        return imagePathArray.length;
     }
 
 }

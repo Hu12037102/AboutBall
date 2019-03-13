@@ -26,6 +26,9 @@ public class BaseObserver<T> implements Observer<BaseBean<T>> {
 
     public BaseObserver(@NonNull BasePresenter presenter, BaseObserver.Observer<T> observer) {
         this.mPresenter = presenter;
+        if (mPresenter.mView != null) {
+            mPresenter.mView.showLoadingView();
+        }
         this.mObserver = observer;
     }
 
@@ -46,12 +49,17 @@ public class BaseObserver<T> implements Observer<BaseBean<T>> {
         if (mObserver != null) {
             mObserver.onNext(baseBean);
         }
-        if (mPresenter != null && mPresenter.mView != null){
+        defaultPresenter(baseBean);
+
+        // EventBus.getDefault().post(baseBean);
+        LogUtils.w("BaseObserver---", "onNext--");
+    }
+    private void defaultPresenter(BaseBean baseBean){
+        if (mPresenter != null && mPresenter.mView != null) {
             mPresenter.mView.resultBaseData(baseBean);
             mPresenter.mView.showToast(baseBean.message);
+            mPresenter.mView.dismissLoadingView();
         }
-       // EventBus.getDefault().post(baseBean);
-        LogUtils.w("BaseObserver---", "onNext--");
     }
 
 
@@ -63,8 +71,7 @@ public class BaseObserver<T> implements Observer<BaseBean<T>> {
         BaseBean baseBean = new BaseBean();
         baseBean.code = IApi.Code.SERVICE_ERROR;
         baseBean.message = "请求超时";
-        EventBus.getDefault().post(baseBean);
-        LogUtils.w("BaseObserver---", "onError--");
+        defaultPresenter(baseBean);
     }
 
     @Override

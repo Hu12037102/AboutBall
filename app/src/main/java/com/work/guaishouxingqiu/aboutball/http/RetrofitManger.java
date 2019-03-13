@@ -1,10 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.http;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
-import com.google.gson.Gson;
-import com.work.guaishouxingqiu.aboutball.base.BaseApplication;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
@@ -18,11 +15,9 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
 import okhttp3.CacheControl;
-import okhttp3.Headers;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -75,7 +70,7 @@ public class RetrofitManger {
         return new OkHttpClient.Builder()
 
                 // .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-                .cache(new Cache(FileUtils.getNetCachFile(), RetrofitManger.MAX_CACHE_SIZE))
+                .cache(new Cache(FileUtils.getNetCacheFile(), RetrofitManger.MAX_CACHE_SIZE))
                 .addInterceptor(new HeadInterceptor())
                 .addInterceptor(new NetCacheInterceptor())
                 .addInterceptor(mHttpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY))

@@ -1,18 +1,15 @@
 package com.huxiaobai.adapter;
 
-import android.content.Context;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
 /**
@@ -38,6 +35,8 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
     private int mNotDataContentRes = R.string.not_data;
     private View mHeadView;
     private View mFootView;
+    protected boolean isHaveHeadView;
+    protected boolean isHaveFootView;
 
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -64,10 +63,12 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
 
     public void addHeadView(@NonNull View headView) {
         this.mHeadView = headView;
+        isHaveHeadView = true;
     }
 
     public void addFootView(@NonNull View footView) {
         this.mFootView = footView;
+        isHaveFootView = true;
     }
 
     public BaseRecyclerAdapter(@NonNull D data) {
@@ -83,7 +84,6 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
 
     @Override
     public int getItemViewType(int position) {
-        Log.w("getItemViewType--", position + "--");
         if (mData == null || mData.size() == 0) {
             if (mIsHasNet) {
                 return TYPE_NOT_DATA;
@@ -96,7 +96,7 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
             }
             if (mFootView != null) {
                 if (mHeadView != null) {
-                    if (position == mData.size()+1) {
+                    if (position == mData.size() + 1) {
                         return TYPE_FOOT_VIEW;
                     }
                 } else {
@@ -134,7 +134,6 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
                 viewHolder = onCreateDataViewHolder(viewGroup, i);
                 break;
         }
-        Log.w("onCreateViewHolder--", i + "--");
         return (VH) viewHolder;
     }
 
@@ -165,10 +164,10 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
                     }
                 }
             });
-        } else if (getItemViewType(i) == 0) {
-                if (mHeadView != null){
-                    i--;
-                }
+        }/* else if (getItemViewType(i) == 0) {*/ else {
+            if (mHeadView != null) {
+                i--;
+            }
             onBindViewDataHolder(viewHolder, i);
         }
     }

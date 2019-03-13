@@ -15,6 +15,7 @@ public class FileUtils {
     public static final String ROOT_FILE_NAME = "AboutBall";
     private static final String CACHE_FILE_NAME = "Cache";
     private static final String NET_CACHE_NAME = "NetCache";
+    private static final String IMAGE_CACHE_NAME = "ImageCache";
 
 
     private static File getRootFolder() {
@@ -40,11 +41,21 @@ public class FileUtils {
     }
 
     /**
+     * 返回图片缓存目录
+     * @return
+     */
+    public static File getImageCacheFile(){
+        File imageCacheFile = new File(getRootFolder().getAbsolutePath(), FileUtils.IMAGE_CACHE_NAME);
+        createFolder(imageCacheFile);
+        return imageCacheFile;
+    }
+
+    /**
      * 获取缓存目录下的网络缓存
      *
      * @return
      */
-    public static File getNetCachFile() {
+    public static File getNetCacheFile() {
         File netCacheFile = new File(getCacheFile().getAbsolutePath(), FileUtils.NET_CACHE_NAME);
         createFolder(netCacheFile);
         return netCacheFile;

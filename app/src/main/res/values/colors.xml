@@ -20,6 +20,8 @@
     <color name="colorFFF0F0F0">#FFF0F0F0</color>
     <color name="colorFFA2C2F2">#FFA2C2F2</color>
     <color name="colorFF777777">#FF777777</color>
+    <color name="colorFF71A9FD">#FF71A9FD</color>
+    <color name="colorFFDCDCDC">#FFDCDCDC</color>
 
     <color name="color_1">@color/colorWhite</color>
     <color name="color_2">@color/colorFF3586FF</color>

@@ -30,7 +30,7 @@ public class LoadingView {
         this.mActivity = activity;
     }
 
-    public synchronized void showLoadingView() {
+    public void showLoadingView() {
         View decorView = mActivity.getWindow().getDecorView();
         if (decorView instanceof FrameLayout) {
             mDecorGroup = (FrameLayout) decorView;
@@ -39,7 +39,7 @@ public class LoadingView {
         }
     }
 
-    public synchronized void dismissLoadingView() {
+    public  void dismissLoadingView() {
         if (mInflateView != null && mDecorGroup != null) {
             if (mDecorGroup.indexOfChild(mInflateView) > 0) {
                 mDecorGroup.removeView(mInflateView);

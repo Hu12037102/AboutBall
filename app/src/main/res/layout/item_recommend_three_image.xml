@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/size_20dp"
+    android:paddingRight="@dimen/size_20dp"
+    android:paddingTop="@dimen/size_20dp"
+    android:background="@drawable/selector_item">
+
+    <uk.co.deanwild.flowtextview.FlowTextView
+        android:id="@+id/ftv_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_stick_view"
+            android:paddingBottom="@dimen/size_2dp"
+            android:paddingLeft="@dimen/size_4dp"
+            android:paddingRight="@dimen/size_4dp"
+            android:paddingTop="@dimen/size_2dp"
+            android:text="@string/stick"
+            android:textColor="@color/colorTheme" />
+    </uk.co.deanwild.flowtextview.FlowTextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/size_15dp">
+
+        <ImageView
+            android:id="@+id/iv_1"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="@dimen/size_80dp"
+            android:layout_marginEnd="@dimen/size_7dp"
+            android:layout_marginRight="@dimen/size_7dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_item_recommend_preview_item" />
+
+        <ImageView
+            android:id="@+id/iv_2"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="@dimen/size_80dp"
+            android:layout_marginEnd="@dimen/size_7dp"
+            android:layout_marginRight="@dimen/size_7dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_item_recommend_preview_item" />
+
+        <ImageView
+            android:id="@+id/iv_3"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="@dimen/size_80dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_item_recommend_preview_item" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_hot_text"
+            android:padding="2dp"
+            android:text="@string/hot"
+            android:textColor="@color/color_2"
+            android:textSize="@dimen/size_10sp" />
+
+        <TextView
+            android:id="@+id/tv_from"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/size_5dp"
+            android:layout_marginStart="@dimen/size_5dp"
+            android:textSize="12sp"
+            tools:text="来源：五华印象" />
+    </LinearLayout>
+    <View
+        android:id="@+id/line"
+        style="@style/HorizontalLine"
+        android:layout_marginTop="@dimen/size_20dp"
+        />
+
+</LinearLayout>
