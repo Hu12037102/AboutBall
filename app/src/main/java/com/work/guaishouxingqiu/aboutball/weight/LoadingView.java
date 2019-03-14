@@ -31,15 +31,15 @@ public class LoadingView {
     }
 
     public void showLoadingView() {
-        View decorView = mActivity.getWindow().getDecorView();
-        if (decorView instanceof FrameLayout) {
+        View decorView = mActivity.getWindow().getDecorView().getRootView();
+        if (decorView instanceof FrameLayout && mInflateView == null) {
             mDecorGroup = (FrameLayout) decorView;
             mInflateView = mActivity.getLayoutInflater().inflate(R.layout.item_loading_view, mDecorGroup, false);
             mDecorGroup.addView(mInflateView);
         }
     }
 
-    public  void dismissLoadingView() {
+    public void dismissLoadingView() {
         if (mInflateView != null && mDecorGroup != null) {
             if (mDecorGroup.indexOfChild(mInflateView) > 0) {
                 mDecorGroup.removeView(mInflateView);

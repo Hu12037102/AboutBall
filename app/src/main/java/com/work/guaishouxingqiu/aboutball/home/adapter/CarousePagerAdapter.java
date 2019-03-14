@@ -60,7 +60,7 @@ public class CarousePagerAdapter extends PagerAdapter {
         View inflate = LayoutInflater.from(container.getContext()).inflate(R.layout.item_recommend_banner_view, container, false);
         RoundedImageView rivBanner = inflate.findViewById(R.id.riv_banner);
         GlideManger.get().loadImage(container.getContext(), mData.get(position % mData.size()).coverUrl,
-                R.drawable.shape_item_recommend_banner_view, R.drawable.shape_item_recommend_banner_view,
+                R.mipmap.icon_defaulr_banner, R.mipmap.icon_defaulr_banner,
                 rivBanner);
         TextView mTvTitle = inflate.findViewById(R.id.tv_title);
         mTvTitle.setText(mData.get(position % mData.size()).title);

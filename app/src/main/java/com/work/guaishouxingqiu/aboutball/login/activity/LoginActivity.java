@@ -78,6 +78,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     protected void initData() {
+        mTvLogin.setClickable(false);
     }
 
     @Override

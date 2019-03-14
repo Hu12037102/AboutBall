@@ -205,6 +205,7 @@
         style="@style/ButtonCenterText"
         android:layout_marginTop="@dimen/size_40dp"
         android:background="@drawable/shape_default_button"
+        android:clickable="false"
         android:text="@string/login" />
 
     <RelativeLayout
