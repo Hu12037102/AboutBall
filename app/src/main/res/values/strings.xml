@@ -40,5 +40,8 @@
     <string name="go_open">去打开</string>
     <string name="hot">热</string>
     <string name="stick">置顶</string>
+    <string name="the_venue_booking">场馆预定</string>
+    <string name="about_ball_ball_friend">球友约球</string>
+    <string name="all_game">全部赛事</string>
 
 </resources>

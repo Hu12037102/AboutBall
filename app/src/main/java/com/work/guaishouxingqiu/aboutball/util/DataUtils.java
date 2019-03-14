@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.work.guaishouxingqiu.aboutball.Contast;
+import com.work.guaishouxingqiu.aboutball.base.BaseBean;
+import com.work.guaishouxingqiu.aboutball.http.IApi;
 
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
@@ -125,7 +127,7 @@ public class DataUtils {
         return DataUtils.getTextTrimLength(messageCode) == Contast.MESSAGE_CODE_LENGTH;
     }
 
-    public static int splitImagePathCount (@NonNull String imagePath) {
+    public static int splitImagePathCount(@NonNull String imagePath) {
         if (DataUtils.isEmpty(imagePath)) {
             return 0;
         }
@@ -133,5 +135,8 @@ public class DataUtils {
         return imagePathArray.length;
     }
 
+    public static boolean isResultSure(@NonNull BaseBean baseBean) {
+        return IApi.Code.SUCCEED == baseBean.code && baseBean.result != null;
+    }
 
 }

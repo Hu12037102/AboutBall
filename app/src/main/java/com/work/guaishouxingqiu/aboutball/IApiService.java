@@ -17,4 +17,8 @@ public interface IApiService {
     String REGISTER = "/api/account/register";
     //首页-推荐头部信息列表
     String RECOMMEND_HEAD = "/api/home/getHomePage";
+    //资讯列表
+    String NEWS_LIST = "/api/news/getNewsList";
+    //首页信息相关接口
+    String GET_HOME_TAB ="/api/home/getHomeLabel";
 }

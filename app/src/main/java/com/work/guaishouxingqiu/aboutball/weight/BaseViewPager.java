@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 
 import com.work.guaishouxingqiu.aboutball.R;
 
@@ -63,6 +65,8 @@ public class BaseViewPager extends ViewPager {
         } catch (Exception e) {
             return !isScroll;
         }
-
     }
+
+
+
 }

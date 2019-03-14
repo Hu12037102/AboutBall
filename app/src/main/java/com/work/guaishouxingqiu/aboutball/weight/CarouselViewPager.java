@@ -5,8 +5,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 
 /**
  * 作者: 胡庆岭
@@ -15,23 +17,31 @@ import android.view.MotionEvent;
  * 描述:自动轮播ViewPager
  */
 public class CarouselViewPager extends BaseViewPager {
-    public static final int WHAT = 100;
+   /* public static final int WHAT = 100;
 
+    private int mDefaultTime = 2000;
+    private Handler mHandler;
     public void setmDefaultTime(int mDefaultTime) {
         this.mDefaultTime = mDefaultTime;
     }
 
-    private int mDefaultTime = 2000;
-    private Handler mHandler = new Handler(msg -> {
-        switch (msg.what) {
-            case CarouselViewPager.WHAT:
-                this.setCurrentItem(this.getCurrentItem() + 1);
-                break;
-            default:
-                break;
+    public void autoCarouselPager() {
+        if (mHandler == null) {
+            mHandler = new Handler(msg -> {
+                switch (msg.what) {
+                    case CarouselViewPager.WHAT:
+                        this.setCurrentItem(this.getCurrentItem() + 1,true);
+                        mHandler.sendEmptyMessageDelayed(CarouselViewPager.WHAT, mDefaultTime);
+                        break;
+                    default:
+                        break;
+                }
+                return true;
+            });
         }
-        return true;
-    });
+        mHandler.sendEmptyMessageDelayed(CarouselViewPager.WHAT, mDefaultTime);
+    }*/
+
 
     public CarouselViewPager(@NonNull Context context) {
         super(context);
@@ -42,20 +52,32 @@ public class CarouselViewPager extends BaseViewPager {
         super(context, attrs);
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent ev) {
-        switch (ev.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                if (this.getChildCount() > 0) {
-                    mHandler.removeMessages(CarouselViewPager.WHAT, mDefaultTime);
+
+    public static class Transformer implements ViewPager.PageTransformer {
+        private static final float MAX_ALPHA = 0.5f;
+        private static final float MAX_SCALE = 0.9f;
+
+        @Override
+        public void transformPage(@NonNull View page, float position) {
+            if (position < -1 || position > 1) {
+                //不可见区域
+                page.setAlpha(MAX_ALPHA);
+                page.setScaleX(MAX_SCALE);
+                page.setScaleY(MAX_SCALE);
+            } else {
+                //可见区域，透明度效果
+                if (position <= 0) {
+                    //pos区域[-1,0)
+                    page.setAlpha(MAX_ALPHA + MAX_ALPHA * (1 + position));
+                } else {
+                    //pos区域[0,1]
+                    page.setAlpha(MAX_ALPHA + MAX_ALPHA * (1 - position));
                 }
-                break;
-            case MotionEvent.ACTION_UP:
-                if (this.getChildCount() > 0) {
-                    mHandler.sendEmptyMessageDelayed(CarouselViewPager.WHAT, mDefaultTime);
-                }
-                break;
+                //可见区域，缩放效果
+                float scale = Math.max(MAX_SCALE, 1 - Math.abs(position));
+                page.setScaleX(scale);
+                page.setScaleY(scale);
+            }
         }
-        return super.onTouchEvent(ev);
     }
 }

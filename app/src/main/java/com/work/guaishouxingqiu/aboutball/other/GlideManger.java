@@ -55,6 +55,7 @@ public class GlideManger {
     }
     public void loadImage(@NonNull Context context, @DrawableRes int resId, @NonNull ImageView imageView) {
         RequestOptions requestOptions = new RequestOptions().centerCrop();
+
         Glide.with(context).asDrawable().apply(requestOptions).load(resId).into(imageView);
     }
 

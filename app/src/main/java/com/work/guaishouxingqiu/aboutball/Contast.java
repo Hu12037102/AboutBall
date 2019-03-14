@@ -24,5 +24,19 @@ public interface Contast {
     int REQUEST_CODE = 0;
     String LONGITUDE = "longitude";
     String LATITUDE = "latitude";
+    String PAGE_NUM = "pageNum";
+    String PAGE_SIZE = "pageSize";
+    //比赛未开始
+    int GAME_STATUS_NO_START = 1;
+    //比赛进行中
+    int GAME_STATUS_STARTING = 2;
+    //比赛已结束
+    int GAME_STATUS_FINISH = 3;
+    //比赛已取消
+    int GAME_STATUS_CANCEL = 4;
+    //默认页面
+    int DEFAULT_PAGE_NUM = 1;
+    //默认页面长度
+    int DEFAULT_PAGE_SIZE = 10;
 
 }

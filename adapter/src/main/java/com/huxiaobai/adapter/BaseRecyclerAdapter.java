@@ -85,6 +85,35 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
     @Override
     public int getItemViewType(int position) {
         if (mData == null || mData.size() == 0) {
+            if (isHaveHeadView && position == 0) {
+                return TYPE_HEAD_VIEW;
+            } else if (isHaveFootView) {
+                return TYPE_FOOT_VIEW;
+            } else if (mIsHasNet) {
+                return TYPE_NOT_DATA;
+            } else {
+                return TYPE_NOT_NET;
+            }
+
+        } else {
+            if (isHaveHeadView && position == 0) {
+                return TYPE_HEAD_VIEW;
+            } else if (isHaveFootView) {
+                if (isHaveHeadView) {
+                    if (position == mData.size() + 1) {
+                        return TYPE_FOOT_VIEW;
+                    }
+                } else {
+                    if (position == mData.size()) {
+                        return TYPE_FOOT_VIEW;
+                    }
+                }
+            }
+        }
+        return super.getItemViewType(position);
+
+
+      /*  if (mData == null || mData.size() == 0) {
             if (mIsHasNet) {
                 return TYPE_NOT_DATA;
             } else {
@@ -106,7 +135,7 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
                 }
             }
             return super.getItemViewType(position);
-        }
+        }*/
 
     }
 
@@ -185,7 +214,7 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
         if (mFootView != null) {
             i++;
         }
-        return mData == null || mData.size() == 0 ? 1 : mData.size() + i;
+        return mData == null || mData.size() == 0 ? (i == 0 ? 1 : i) : mData.size() + i;
     }
 
     static class NotDataViewHolder extends RecyclerView.ViewHolder {

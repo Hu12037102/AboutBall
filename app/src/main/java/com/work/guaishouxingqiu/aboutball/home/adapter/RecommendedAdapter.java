@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.example.item.util.ScreenUtils;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.home.bean.ResultInformationBean;
+import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 
@@ -26,7 +26,7 @@ import uk.co.deanwild.flowtextview.FlowTextView;
  * 更新时间: 2019/3/13 14:32
  * 描述: 首页推荐数据
  */
-public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder, List<ResultInformationBean>> {
+public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder, List<ResultNewsBean>> {
     //纯文本内容
     public static final int TYPE_TEXT = 1000;
     //单图+文本
@@ -35,7 +35,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
     public static final int TYPE_THREE_IMAGE = 1003;
     private int mPosition;
 
-    public RecommendedAdapter(@NonNull List<ResultInformationBean> data) {
+    public RecommendedAdapter(@NonNull List<ResultNewsBean> data) {
         super(data);
     }
 
@@ -48,6 +48,9 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
     @Override
     protected RecyclerView.ViewHolder onCreateDataViewHolder(@NonNull ViewGroup viewGroup, int i) {
         RecyclerView.ViewHolder viewHolder = null;
+        if (isHaveHeadView) {
+            mPosition--;
+        }
         int imagePathSize = DataUtils.splitImagePathCount(mData.get(mPosition).coverUrl);
         switch (imagePathSize) {
             case 0:

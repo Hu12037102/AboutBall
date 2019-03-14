@@ -16,6 +16,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,9 @@ import android.view.ViewGroup;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
+import com.work.guaishouxingqiu.aboutball.home.bean.ResultHomeTabBean;
 import com.work.guaishouxingqiu.aboutball.home.contract.HomeContract;
 import com.work.guaishouxingqiu.aboutball.home.presenter.HomePresenter;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
@@ -85,26 +88,51 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                 return fragments.length;
             }
         };
+        mBvpContent.setOffscreenPageLimit(fragments.length);
         mBvpContent.setAdapter(fragmentPagerAdapter);
     }
 
     @Override
     protected void initData() {
-        String[] homeTabArray = getResources().getStringArray(R.array.home_tab_array);
-        for (int i = 0; i < homeTabArray.length; i++) {
-            mTabTitle.addTab(mTabTitle.newTab().setText(homeTabArray[i]));
-            if (i == 0) {
-                DataUtils.checkData(mTabTitle.getTabAt(0)).select();
-            }
-        }
-
+        mPresenter.start();
     }
-
 
 
     @Override
     protected void initEvent() {
+        mBvpContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
 
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                DataUtils.checkData(mTabTitle.getTabAt(i)).select();
+                mBvpContent.setCurrentItem(i, true);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
+        mTabTitle.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mBvpContent.setCurrentItem(DataUtils.checkData(tab.getPosition()), true);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     @Override
@@ -117,4 +145,15 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     public void onViewClicked() {
     }
 
+    @Override
+    public void resultTabData(@NonNull BaseBean<List<ResultHomeTabBean>> data) {
+        if (DataUtils.isResultSure(data)){
+            for (int i = 0; i < data.result.size(); i++) {
+                mTabTitle.addTab(mTabTitle.newTab().setText(data.result.get(i).labelName));
+                if (i == 0) {
+                    DataUtils.checkData(mTabTitle.getTabAt(0)).select();
+                }
+            }
+        }
+    }
 }

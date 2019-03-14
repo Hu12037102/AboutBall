@@ -1,6 +1,14 @@
 package com.work.guaishouxingqiu.aboutball.home.model;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseModel;
+import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
+import com.work.guaishouxingqiu.aboutball.home.HomeService;
+import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsBean;
+
+import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 作者: 胡庆岭
@@ -8,5 +16,19 @@ import com.work.guaishouxingqiu.aboutball.base.BaseModel;
  * 更新时间: 2019/3/12 17:40
  * 描述:
  */
-public class HotModel extends BaseModel{
+public class HotModel extends BaseModel {
+    /**
+     * 资讯列表
+     *
+     * @param pagerNum
+     * @param pagerSize
+     * @param observer
+     */
+    public void loadData(int pagerNum, int pagerSize, BaseObserver<List<ResultNewsBean>> observer) {
+        mRetrofitManger.create(HomeService.class)
+                .newsData(pagerNum, pagerSize)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
 }

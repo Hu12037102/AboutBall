@@ -26,9 +26,6 @@ public class BaseObserver<T> implements Observer<BaseBean<T>> {
 
     public BaseObserver(@NonNull BasePresenter presenter, BaseObserver.Observer<T> observer) {
         this.mPresenter = presenter;
-        if (mPresenter.mView != null) {
-            mPresenter.mView.showLoadingView();
-        }
         this.mObserver = observer;
     }
 

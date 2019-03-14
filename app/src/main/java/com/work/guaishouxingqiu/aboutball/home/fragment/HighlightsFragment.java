@@ -4,7 +4,6 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
 import com.work.guaishouxingqiu.aboutball.home.contract.HighlightsContract;
 import com.work.guaishouxingqiu.aboutball.home.presenter.HighlightsPresenter;
-import com.youth.banner.Banner;
 
 /**
  * 作者: 胡庆岭

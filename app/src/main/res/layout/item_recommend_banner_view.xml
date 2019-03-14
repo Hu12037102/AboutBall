@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/riv_banner"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_188dp"
+        app:riv_corner_radius="@dimen/size_6dp"
+        app:riv_oval="false" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@color/colorTheme"
+        android:textSize="@dimen/size_17sp"
+        app:layout_constraintBottom_toBottomOf="@id/riv_banner"
+        tools:text="阿里巴巴" />
+</android.support.constraint.ConstraintLayout>

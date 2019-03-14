@@ -32,17 +32,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tabGravity="center"
             app:tabIndicatorColor="@color/color_2"
-            app:tabSelectedTextColor="@color/color_4"
-            app:tabTextColor="@color/colorFF777777"
             app:tabIndicatorHeight="@dimen/size_2dp"
-            />
+            app:tabSelectedTextColor="@color/color_4"
+            app:tabTextColor="@color/colorFF777777" />
     </android.support.constraint.ConstraintLayout>
-<View
-    style="@style/HorizontalLine"
-    />
+
+    <View style="@style/HorizontalLine" />
+
     <com.work.guaishouxingqiu.aboutball.weight.BaseViewPager
         android:id="@+id/bvp_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:is_scroll="true" />
 
 </LinearLayout>
