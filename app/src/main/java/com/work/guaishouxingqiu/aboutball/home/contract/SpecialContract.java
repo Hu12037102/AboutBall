@@ -10,6 +10,6 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
  * 描述:专栏契约
  */
 public interface SpecialContract {
-    interface View extends IBaseView{}
-    interface Presenter extends IBasePresenter{}
+    interface View extends HomeBaseContract.View{}
+    interface Presenter extends HomeBaseContract.Presenter{}
 }

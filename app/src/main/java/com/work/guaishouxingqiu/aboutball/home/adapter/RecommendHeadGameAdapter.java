@@ -16,6 +16,7 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultRecommendDataBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import java.util.List;
 
@@ -58,14 +59,8 @@ public class RecommendHeadGameAdapter extends RecyclerView.Adapter<RecommendHead
             layoutParams.rightMargin = ScreenUtils.dp2px(viewHolder.itemView.getContext(), 10);
         }
         viewHolder.mClRoot.setLayoutParams(layoutParams);
-        switch ((int) match.stateId) {
-            case Contast.GAME_STATUS_STARTING:
-                viewHolder.mTvLiveStatus.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.icon_recommend_live_status, 0);
-                break;
-            case Contast.GAME_STATUS_FINISH:
-                viewHolder.mTvLiveStatus.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.icon_recommend_no_start, 0);
-                break;
-        }
+        UIUtils.setGameIconStatus((int) match.stateId, viewHolder.mTvLiveStatus);
+
         GlideManger.get().loadImage(viewHolder.itemView.getContext(), match.hostLogoUrl, viewHolder.mIvTopIcon);
         viewHolder.mTvTopName.setText(match.hostName);
         viewHolder.mTvTopScore.setText(String.valueOf(match.hostScore));

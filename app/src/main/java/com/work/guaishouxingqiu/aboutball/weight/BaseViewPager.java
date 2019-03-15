@@ -19,7 +19,7 @@ import com.work.guaishouxingqiu.aboutball.R;
  * 描述: 默认的ViewPager
  */
 public class BaseViewPager extends ViewPager {
-    private boolean isScroll;
+    private boolean isScroll =true;
 
     public void setViewPagerScroll(boolean isScroll) {
         this.isScroll = isScroll;

@@ -10,12 +10,15 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
@@ -39,6 +42,7 @@ public class UIUtils {
 
     /**
      * 判断清除按钮是否要不要显示
+     *
      * @param editText
      * @param imageView
      */
@@ -63,16 +67,18 @@ public class UIUtils {
 
     /**
      * 点击清除按钮
+     *
      * @param view
      * @param editText
      */
-    public static void clickClearEditData(@NonNull View view,@NonNull EditText editText){
+    public static void clickClearEditData(@NonNull View view, @NonNull EditText editText) {
         view.setOnClickListener(v -> {
             editText.setText(null);
             view.setVisibility(View.GONE);
         });
     }
-    public static void resultBaseData(@NonNull BaseBean baseBean,@NonNull Activity activity){
+
+    public static void resultBaseData(@NonNull BaseBean baseBean, @NonNull Activity activity) {
         switch (baseBean.code) {
             case IApi.Code.MESSAGES_CODE_ERROR:
                 Toasts.with().showToast(baseBean.title);
@@ -85,7 +91,7 @@ public class UIUtils {
                         .builder();
                 hintDialog.show();
                 hintDialog.setOnItemClickListener(view -> {
-                    UIUtils.startActivity(ARouterConfig.Path.ACTIVITY_REGISTER);
+                    ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_REGISTER);
                     hintDialog.dismiss();
                 });
                 Toasts.with().showToast(baseBean.title);
@@ -109,7 +115,18 @@ public class UIUtils {
         }
     }
 
-    public static void startActivity(@NonNull String path) {
-        ARouter.getInstance().build(path).navigation();
+    public static void setGameIconStatus(int stateId, TextView textView) {
+        switch (stateId) {
+            case Contast.GAME_STATUS_STARTING:
+                textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.icon_recommend_live_status, 0);
+                break;
+            case Contast.GAME_STATUS_FINISH:
+                textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.icon_recommend_no_start, 0);
+                break;
+                default:
+                    break;
+        }
     }
+
+
 }

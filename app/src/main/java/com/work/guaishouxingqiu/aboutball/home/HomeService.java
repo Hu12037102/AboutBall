@@ -26,9 +26,12 @@ public interface HomeService {
                                                            @Query(Contast.LATITUDE) String latitude);
 
     @GET(IApiService.NEWS_LIST)
-    Observable<BaseBean<List<ResultNewsBean>>> newsData(@Query(Contast.PAGE_NUM) int  pageNum,
-                                                        @Query(Contast.PAGE_SIZE) int pageSize);
+    Observable<BaseBean<List<ResultNewsBean>>> newsData(@Query(Contast.PAGE_NUM) int pageNum,
+                                                        @Query(Contast.PAGE_SIZE) int pageSize,
+                                                        @Query(Contast.TYPE_ID) int typeId);
+
     @GET(IApiService.GET_HOME_TAB)
     Observable<BaseBean<List<ResultHomeTabBean>>> getHomeTab();
+
 
 }

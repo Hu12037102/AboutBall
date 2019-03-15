@@ -8,5 +8,5 @@ import com.work.guaishouxingqiu.aboutball.base.BaseModel;
  * 更新时间: 2019/3/12 18:08
  * 描述:视频Model
  */
-public class VideoModel extends BaseModel{
+public class VideoModel extends HomeBaseModel{
 }

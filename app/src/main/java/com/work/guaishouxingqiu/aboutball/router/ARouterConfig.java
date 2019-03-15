@@ -11,5 +11,23 @@ public interface ARouterConfig {
         String ACTIVITY_MAIN = "/activity/main";
         String ACTIVITY_LOGIN = "/activity/login";
         String ACTIVITY_REGISTER = "/activity/register";
+        String FRAGMENT_GAME = "/fragment/game";
+        String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";
+        String FRAGMENT_GAME_FOLK = "/fragment/game/folk";
+        String FRAGMENT_GAME_TEACH = "/fragment/game/teach";
+        String FRAGMENT_HOME = "/fragment/home";
+        String FRAGMENT_HOT = "/fragment/hot";
+        String FRAGMENT_HIGHLIGHTS = "/fragment/highlights";
+        String FRAGMENT_RECOMMENDED = "/fragment/recommended ";
+        String FRAGMENT_SPECIAL = "/fragment/special";
+        String FRAGMENT_VIDEO = "/fragment/video";
+        String FRAGMENT_VENUE ="/fragment/venue";
+        String FRAGMENT_COMMUNITY ="/fragment/community";
+        String FRAGMENT_MY ="/fragment/my";
     }
+
+    interface Key {
+        String TAB_TYPE_ID = "tabTypeId";
+    }
+
 }

@@ -12,7 +12,7 @@ import com.work.guaishouxingqiu.aboutball.home.model.SpecialModel;
  * 更新时间: 2019/3/12 18:02
  * 描述:专栏P
  */
-public class SpecialPresenter extends BasePresenter<SpecialContract.View, SpecialModel>
+public class SpecialPresenter extends HomeBasePresenter<SpecialContract.View, SpecialModel>
         implements SpecialContract.Presenter {
     public SpecialPresenter(@NonNull SpecialContract.View view) {
         super(view);

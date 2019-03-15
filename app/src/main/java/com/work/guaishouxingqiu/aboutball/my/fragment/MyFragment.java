@@ -6,11 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.example.item.util.ScreenUtils;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
 import com.work.guaishouxingqiu.aboutball.my.contract.MyContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.MyPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,6 +27,7 @@ import io.bugtags.ui.view.rounded.CircleImageView;
  * 更新时间: 2019/3/6 15:56
  * 描述:我的Fragment
  */
+@Route(path = ARouterConfig.Path.FRAGMENT_MY)
 public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.View {
     @BindView(R.id.civ_my_head)
     CircleImageView mCivMyHead;
@@ -41,7 +45,6 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
     @Override
     protected void initView() {
-
     }
 
     @Override

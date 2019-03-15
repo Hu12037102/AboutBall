@@ -26,6 +26,9 @@ public interface Contast {
     String LATITUDE = "latitude";
     String PAGE_NUM = "pageNum";
     String PAGE_SIZE = "pageSize";
+    String OFFICIAL = "official";
+    String DATE = "date";
+    String TYPE_ID = "typeId";
     //比赛未开始
     int GAME_STATUS_NO_START = 1;
     //比赛进行中
@@ -38,5 +41,9 @@ public interface Contast {
     int DEFAULT_PAGE_NUM = 1;
     //默认页面长度
     int DEFAULT_PAGE_SIZE = 10;
+
+    //1：官方赛事； 2: 民间赛事；
+    int TYPE_GAME_OFFICIAL = 1;
+    int TYPE_GAME_FOLK = 2;
 
 }

@@ -29,6 +29,14 @@ public class BaseObserver<T> implements Observer<BaseBean<T>> {
         this.mObserver = observer;
     }
 
+    public BaseObserver(boolean isShowLoadingView, @NonNull BasePresenter presenter, BaseObserver.Observer<T> observer) {
+        this.mPresenter = presenter;
+        this.mObserver = observer;
+        if (isShowLoadingView && mPresenter.mView != null) {
+            mPresenter.mView.showLoadingView();
+        }
+    }
+
     public BaseObserver(@NonNull BasePresenter presenter) {
         this.mPresenter = presenter;
     }
@@ -51,7 +59,8 @@ public class BaseObserver<T> implements Observer<BaseBean<T>> {
         // EventBus.getDefault().post(baseBean);
         LogUtils.w("BaseObserver---", "onNext--");
     }
-    private void defaultPresenter(BaseBean baseBean){
+
+    private void defaultPresenter(BaseBean baseBean) {
         if (mPresenter != null && mPresenter.mView != null) {
             mPresenter.mView.resultBaseData(baseBean);
             mPresenter.mView.showToast(baseBean.message);

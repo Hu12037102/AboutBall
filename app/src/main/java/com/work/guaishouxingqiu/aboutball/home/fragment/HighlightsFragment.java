@@ -1,9 +1,11 @@
 package com.work.guaishouxingqiu.aboutball.home.fragment;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
 import com.work.guaishouxingqiu.aboutball.home.contract.HighlightsContract;
 import com.work.guaishouxingqiu.aboutball.home.presenter.HighlightsPresenter;
+import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 
 /**
  * 作者: 胡庆岭
@@ -11,6 +13,7 @@ import com.work.guaishouxingqiu.aboutball.home.presenter.HighlightsPresenter;
  * 更新时间: 2019/3/12 17:57
  * 描述:集锦Fragment
  */
+@Route(path = ARouterConfig.Path.FRAGMENT_HIGHLIGHTS)
 public class HighlightsFragment extends BaseFragment<HighlightsPresenter>
 implements HighlightsContract.View{
     public static HighlightsFragment newInstance() {

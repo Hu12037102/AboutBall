@@ -25,6 +25,7 @@ import com.work.guaishouxingqiu.aboutball.login.contract.LoginContract;
 import com.work.guaishouxingqiu.aboutball.login.presenter.LoginPresenter;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
@@ -164,7 +165,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
     private void clickRegister() {
-        UIUtils.startActivity(ARouterConfig.Path.ACTIVITY_REGISTER);
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_REGISTER);
     }
 
     /**

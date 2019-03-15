@@ -19,15 +19,14 @@ import java.util.List;
  * 描述:推荐契约
  */
 public interface RecommendedContract {
-    interface View extends IBaseView {
+    interface View extends HomeBaseContract.View {
         void resultBannerData(BaseBean<ResultRecommendDataBean> bean);
 
-        void resultNewsData(@NonNull BaseBean<List<ResultNewsBean>> bean);
+
     }
 
-    interface Presenter extends IBasePresenter {
+    interface Presenter extends HomeBaseContract.Presenter{
         void loadHead(RequestRecommendDataBean registerBean);
 
-        void loadNewsData();
     }
 }

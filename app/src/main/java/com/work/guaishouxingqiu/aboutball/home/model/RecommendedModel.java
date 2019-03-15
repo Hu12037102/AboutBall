@@ -20,7 +20,7 @@ import io.reactivex.schedulers.Schedulers;
  * 更新时间: 2019/3/12 17:35
  * 描述: 推荐model
  */
-public class RecommendedModel extends BaseModel {
+public class RecommendedModel extends HomeBaseModel {
     public void loadHead(@NonNull RequestRecommendDataBean bean, BaseObserver<ResultRecommendDataBean> observer) {
         mRetrofitManger.create(HomeService.class)
                 .headData(bean.longitude, bean.latitude)
@@ -29,18 +29,5 @@ public class RecommendedModel extends BaseModel {
                 .subscribe(observer);
     }
 
-    /**
-     * 资讯列表
-     *
-     * @param pagerNum
-     * @param pagerSize
-     * @param observer
-     */
-    public void loadData(int pagerNum, int pagerSize, BaseObserver<List<ResultNewsBean>> observer) {
-        mRetrofitManger.create(HomeService.class)
-                .newsData(pagerNum, pagerSize)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
-    }
+
 }

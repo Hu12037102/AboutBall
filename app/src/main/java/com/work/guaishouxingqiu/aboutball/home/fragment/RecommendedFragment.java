@@ -20,6 +20,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.item.util.ScreenUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -36,6 +38,7 @@ import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultRecommendDataBean;
 import com.work.guaishouxingqiu.aboutball.home.contract.RecommendedContract;
 import com.work.guaishouxingqiu.aboutball.home.presenter.RecommendedPresenter;
+import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.NetWorkUtils;
@@ -53,6 +56,7 @@ import butterknife.BindView;
  * 更新时间: 2019/3/12 17:37
  * 描述: 推荐Fragment
  */
+@Route(path = ARouterConfig.Path.FRAGMENT_RECOMMENDED)
 public class RecommendedFragment extends BaseFragment<RecommendedPresenter> implements RecommendedContract.View {
     private static final int WHAT = 100;
     private static final int POST_TIME = 2000;
@@ -83,6 +87,7 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
     });
     private RecommendHeadGameAdapter mHeadGameAdapter;
     private CarousePagerAdapter mCarouseAdapter;
+    private int mTypeId;
 
     public static RecommendedFragment newInstance() {
         return new RecommendedFragment();
@@ -96,6 +101,9 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
     @Override
     protected void initView() {
         mRvRecommend.setLayoutManager(new LinearLayoutManager(getContext()));
+        if (getArguments() != null) {
+            mTypeId = getArguments().getInt(ARouterConfig.Key.TAB_TYPE_ID);
+        }
         initHeadView();
 
     }
@@ -158,7 +166,7 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
 
     private void loadMoreData() {
         mSrlRecommend.finishLoadMore();
-        mPresenter.loadNewsData();
+        mPresenter.loadData(mTypeId);
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -267,12 +275,12 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
                 }
             }
         }
-        mPresenter.loadNewsData();
+        mPresenter.loadData(mTypeId);
         mRecommendAdapter.notifyData(NetWorkUtils.isNetCanUse());
     }
 
     @Override
-    public void resultNewsData(@NonNull BaseBean<List<ResultNewsBean>> bean) {
+    public void resultData(@NonNull BaseBean<List<ResultNewsBean>> bean) {
         if (bean.result != null) {
             if (mPresenter.isRefresh) {
                 mRecommendData.clear();

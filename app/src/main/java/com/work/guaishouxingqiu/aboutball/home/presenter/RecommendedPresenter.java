@@ -21,7 +21,7 @@ import java.util.List;
  * 更新时间: 2019/3/12 17:35
  * 描述:推荐P
  */
-public class RecommendedPresenter extends BasePresenter<RecommendedContract.View, RecommendedModel>
+public class RecommendedPresenter extends HomeBasePresenter<RecommendedContract.View, RecommendedModel>
         implements RecommendedContract.Presenter {
     public RecommendedPresenter(@NonNull RecommendedContract.View view) {
         super(view);
@@ -52,27 +52,5 @@ public class RecommendedPresenter extends BasePresenter<RecommendedContract.View
         }));
     }
 
-    @Override
-    public void loadNewsData() {
-        if (isRefresh) {
-            pageNum = Contast.DEFAULT_PAGE_NUM;
-        }
-        mModel.loadData(pageNum, pageSize, new BaseObserver<>(this, new BaseObserver.Observer<List<ResultNewsBean>>() {
-            @Override
-            public void onNext(BaseBean<List<ResultNewsBean>> bean) {
-                if (bean.code == IApi.Code.SUCCEED) {
-                    pageNum++;
-                    if (mView != null) {
-                        mView.resultNewsData(bean);
-                    }
 
-                }
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-        }));
-    }
 }

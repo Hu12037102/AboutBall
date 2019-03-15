@@ -24,6 +24,7 @@ import com.work.guaishouxingqiu.aboutball.my.fragment.MyFragment;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
 import com.work.guaishouxingqiu.aboutball.permission.imp.OnPermissionsResult;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.venue.fragment.VenueFragment;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
@@ -102,11 +103,15 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
         if (mManger != null) {
             FragmentTransaction transaction = mManger.beginTransaction();
             if (mHomeFragment == null) {
-                mHomeFragment = HomeFragment.newInstance();
-                mGameFragment = GameFragment.newInstance();
+                mHomeFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_HOME);
+                mGameFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME);
+                mVenueFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_VENUE);
+                mCommunityFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_COMMUNITY);
+                mMyFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_MY);
+               /* mGameFragment = GameFragment.newInstance();
                 mVenueFragment = VenueFragment.newInstance();
                 mCommunityFragment = CommunityFragment.newInstance();
-                mMyFragment = MyFragment.newInstance();
+                mMyFragment = MyFragment.newInstance();*/
                 transaction.add(R.id.fl_main_data, mHomeFragment);
                 transaction.add(R.id.fl_main_data, mGameFragment);
                 transaction.hide(mGameFragment);

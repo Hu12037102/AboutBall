@@ -14,4 +14,9 @@
         <item>专栏</item>
         <item>视频</item>
     </string-array>
+    <string-array name="game_tab_array">
+        <item>官方</item>
+        <item>民间</item>
+        <item>教学</item>
+    </string-array>
 </resources>

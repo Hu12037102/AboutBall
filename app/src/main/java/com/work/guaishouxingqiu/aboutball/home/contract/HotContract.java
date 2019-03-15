@@ -14,8 +14,9 @@ import java.util.List;
  * 描述:热点契约
  */
 public interface HotContract {
-    interface View extends IBaseView{
-        void resultNewsData(BaseBean<List<ResultNewsBean>> bean);
+    interface View extends HomeBaseContract.View {
     }
-    interface  Presenter extends IBasePresenter{}
+
+    interface Presenter extends HomeBaseContract.Presenter {
+    }
 }

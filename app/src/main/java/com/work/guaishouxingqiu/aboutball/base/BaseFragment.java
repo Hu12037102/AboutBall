@@ -3,18 +3,15 @@ package com.work.guaishouxingqiu.aboutball.base;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
-import com.work.guaishouxingqiu.aboutball.http.IApi;
+import com.work.guaishouxingqiu.aboutball.permission.PermissionFragment;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
-import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.LoadingView;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
@@ -29,7 +26,7 @@ import butterknife.Unbinder;
  * 更新时间: 2019/3/5 14:07
  * 描述:基类Fragment
  */
-public abstract class BaseFragment<P extends BasePresenter> extends Fragment implements IBaseView {
+public abstract class BaseFragment<P extends BasePresenter> extends PermissionFragment implements IBaseView {
     protected P mPresenter;
     protected View mRootView;
     private Unbinder mBinder;
@@ -67,10 +64,13 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mPresenter = createPresenter();
+        initPermission();
+    }
+
+    protected  void initPermission(){
         initView();
         initData();
         initEvent();
-
     }
 
     @Override

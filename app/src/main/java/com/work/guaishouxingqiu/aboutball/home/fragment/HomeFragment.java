@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
@@ -29,6 +30,8 @@ import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultHomeTabBean;
 import com.work.guaishouxingqiu.aboutball.home.contract.HomeContract;
 import com.work.guaishouxingqiu.aboutball.home.presenter.HomePresenter;
+import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.PhoneUtils;
@@ -51,6 +54,7 @@ import static android.app.Activity.RESULT_OK;
  * 更新时间: 2019/3/6 13:04
  * 描述: 首页Fragment
  */
+@Route(path = ARouterConfig.Path.FRAGMENT_HOME)
 public class HomeFragment extends BaseFragment<HomePresenter> implements HomeContract.View {
     @BindView(R.id.tab_title)
     TabLayout mTabTitle;
@@ -68,11 +72,21 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     protected void initView() {
-        RecommendedFragment mRecommendedFragment = RecommendedFragment.newInstance();
-        HotFragment mHotFragment = HotFragment.newInstance();
-        HighlightsFragment mHighlightsFragment = HighlightsFragment.newInstance();
-        SpecialFragment mSpecialFragment = SpecialFragment.newInstance();
-        VideoFragment mVideoFragment = VideoFragment.newInstance();
+
+
+    }
+
+    private void initPager(List<ResultHomeTabBean> tabData) {
+        RecommendedFragment mRecommendedFragment = ARouterIntent
+                .getFragment(ARouterConfig.Path.FRAGMENT_RECOMMENDED, ARouterConfig.Key.TAB_TYPE_ID, 0);
+        HotFragment mHotFragment = ARouterIntent
+                .getFragment(ARouterConfig.Path.FRAGMENT_HOT, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(0).labelId);
+        HighlightsFragment mHighlightsFragment = ARouterIntent
+                .getFragment(ARouterConfig.Path.FRAGMENT_HIGHLIGHTS, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(1).labelId);
+        SpecialFragment mSpecialFragment = ARouterIntent
+                .getFragment(ARouterConfig.Path.FRAGMENT_SPECIAL, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(2).labelId);
+        VideoFragment mVideoFragment = ARouterIntent
+                .getFragment(ARouterConfig.Path.FRAGMENT_VIDEO, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(3).labelId);
 
         Fragment[] fragments = new Fragment[]{mRecommendedFragment, mHotFragment,
                 mHighlightsFragment, mSpecialFragment, mVideoFragment};
@@ -90,16 +104,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         };
         mBvpContent.setOffscreenPageLimit(fragments.length);
         mBvpContent.setAdapter(fragmentPagerAdapter);
-    }
 
-    @Override
-    protected void initData() {
-        mPresenter.start();
-    }
-
-
-    @Override
-    protected void initEvent() {
         mBvpContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -117,10 +122,23 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
             }
         });
+    }
+
+    @Override
+    protected void initData() {
+        mPresenter.start();
+    }
+
+
+    @Override
+    protected void initEvent() {
+
         mTabTitle.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                mBvpContent.setCurrentItem(DataUtils.checkData(tab.getPosition()), true);
+                if (mBvpContent.getChildCount() > DataUtils.checkData(tab.getPosition())) {
+                    mBvpContent.setCurrentItem(DataUtils.checkData(tab.getPosition()), true);
+                }
             }
 
             @Override
@@ -147,13 +165,14 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     public void resultTabData(@NonNull BaseBean<List<ResultHomeTabBean>> data) {
-        if (DataUtils.isResultSure(data)){
+        if (DataUtils.isResultSure(data) && data.result.size() > 0) {
             for (int i = 0; i < data.result.size(); i++) {
                 mTabTitle.addTab(mTabTitle.newTab().setText(data.result.get(i).labelName));
                 if (i == 0) {
                     DataUtils.checkData(mTabTitle.getTabAt(0)).select();
                 }
             }
+            initPager(data.result);
         }
     }
 }
