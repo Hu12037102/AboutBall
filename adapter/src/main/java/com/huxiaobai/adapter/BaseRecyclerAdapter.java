@@ -214,7 +214,7 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
         if (mFootView != null) {
             i++;
         }
-        return mData == null || mData.size() == 0 ? (i == 0 ? 1 : i) : mData.size() + i;
+        return mData == null || mData.size() == 0 ? /*(i == 0 ? 1 : i) */i + 1 : mData.size() + i;
     }
 
     static class NotDataViewHolder extends RecyclerView.ViewHolder {
