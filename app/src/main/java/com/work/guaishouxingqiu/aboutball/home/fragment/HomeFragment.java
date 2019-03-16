@@ -78,15 +78,15 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     private void initPager(List<ResultHomeTabBean> tabData) {
         RecommendedFragment mRecommendedFragment = ARouterIntent
-                .getFragment(ARouterConfig.Path.FRAGMENT_RECOMMENDED, ARouterConfig.Key.TAB_TYPE_ID, 0);
+                .getFragment(ARouterConfig.Path.FRAGMENT_RECOMMENDED, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(0).labelId);
         HotFragment mHotFragment = ARouterIntent
-                .getFragment(ARouterConfig.Path.FRAGMENT_HOT, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(0).labelId);
+                .getFragment(ARouterConfig.Path.FRAGMENT_HOT, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(1).labelId);
         HighlightsFragment mHighlightsFragment = ARouterIntent
-                .getFragment(ARouterConfig.Path.FRAGMENT_HIGHLIGHTS, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(1).labelId);
+                .getFragment(ARouterConfig.Path.FRAGMENT_HIGHLIGHTS, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(2).labelId);
         SpecialFragment mSpecialFragment = ARouterIntent
-                .getFragment(ARouterConfig.Path.FRAGMENT_SPECIAL, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(2).labelId);
+                .getFragment(ARouterConfig.Path.FRAGMENT_SPECIAL, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(3).labelId);
         VideoFragment mVideoFragment = ARouterIntent
-                .getFragment(ARouterConfig.Path.FRAGMENT_VIDEO, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(3).labelId);
+                .getFragment(ARouterConfig.Path.FRAGMENT_VIDEO, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(4).labelId);
 
         Fragment[] fragments = new Fragment[]{mRecommendedFragment, mHotFragment,
                 mHighlightsFragment, mSpecialFragment, mVideoFragment};
@@ -166,6 +166,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     @Override
     public void resultTabData(@NonNull BaseBean<List<ResultHomeTabBean>> data) {
         if (DataUtils.isResultSure(data) && data.result.size() > 0) {
+            data.result.add(0,new ResultHomeTabBean(getString(R.string.recommend)));
             for (int i = 0; i < data.result.size(); i++) {
                 mTabTitle.addTab(mTabTitle.newTab().setText(data.result.get(i).labelName));
                 if (i == 0) {

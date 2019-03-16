@@ -1,6 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.weight;
 
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.widget.Toast;
 
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
@@ -41,6 +42,7 @@ public class Toasts {
             mToast.setText(text);
         }
         mToast.show();
+      //  Toast.makeText(UIUtils.getContext(),text,Toast.LENGTH_SHORT).show();
     }
     public void showToast(int textRes) {
         if (mToast == null) {

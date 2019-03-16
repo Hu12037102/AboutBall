@@ -66,7 +66,7 @@ public class GameFolkFragment extends BaseFragment<GameFolkPresenter> implements
             if (mPresenter.isRefresh) {
                 mPresenter.loadGameRefreshOrMoreData(Contast.TYPE_GAME_FOLK, mGameData.get(0).endTime);
             } else {
-                mPresenter.loadGameRefreshOrMoreData(Contast.TYPE_GAME_FOLK, mGameData.get(mData.size() - 1).endTime);
+                mPresenter.loadGameRefreshOrMoreData(Contast.TYPE_GAME_FOLK, mGameData.get(mGameData.size() - 1).endTime);
             }
         } else {
             Toasts.with().showToast(R.string.there_are_no_related_events);

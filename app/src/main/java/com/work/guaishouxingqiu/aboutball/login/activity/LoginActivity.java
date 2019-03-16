@@ -27,6 +27,7 @@ import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
@@ -115,6 +116,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 boolean isCanLogin;
+
+
                 if (isMessageCodeLogin) {
                     isCanLogin = DataUtils.isPhoneNumber(mTietPhone.getText().toString())
                             && DataUtils.isMessageCode(mTietCode.getText().toString());

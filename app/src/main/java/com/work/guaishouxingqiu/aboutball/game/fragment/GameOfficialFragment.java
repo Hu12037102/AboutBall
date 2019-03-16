@@ -54,6 +54,7 @@ public class GameOfficialFragment extends BaseFragment<GameOfficialPresenter> im
     @Override
     protected void initData() {
         mData = new ArrayList<>();
+        mGameData = new ArrayList<>();
         mAdapter = new GameListAdapter(mData);
         mRvData.setAdapter(mAdapter);
         mPresenter.loadGameData(Contast.TYPE_GAME_OFFICIAL);
@@ -65,7 +66,7 @@ public class GameOfficialFragment extends BaseFragment<GameOfficialPresenter> im
             if (mPresenter.isRefresh){
                 mPresenter.loadGameRefreshOrMoreData(Contast.TYPE_GAME_OFFICIAL, mGameData.get(0).endTime);
             }else {
-                mPresenter.loadGameRefreshOrMoreData(Contast.TYPE_GAME_OFFICIAL, mGameData.get(mData.size() - 1).endTime);
+                mPresenter.loadGameRefreshOrMoreData(Contast.TYPE_GAME_OFFICIAL, mGameData.get(mGameData.size() - 1).endTime);
             }
         } else {
             Toasts.with().showToast(R.string.there_are_no_related_events);
@@ -98,9 +99,7 @@ public class GameOfficialFragment extends BaseFragment<GameOfficialPresenter> im
     @Override
     public void resultGameData(@NonNull BaseBean<List<ResultGameBean>> bean) {
         if (DataUtils.isResultSure(bean) && bean.result.size() > 0) {
-            if (mGameData == null) {
-                mGameData = new ArrayList<>();
-            }
+
             mGameData.addAll(bean.result);
             mData.addAll(bean.result);
             mAdapter.notifyDataSetChanged();

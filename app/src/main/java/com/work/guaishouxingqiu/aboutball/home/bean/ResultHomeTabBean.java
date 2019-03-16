@@ -7,6 +7,10 @@ package com.work.guaishouxingqiu.aboutball.home.bean;
  * 描述: 首页tab
  */
 public class ResultHomeTabBean {
+    public ResultHomeTabBean(String labelName) {
+        this.labelName = labelName;
+    }
+
     public int labelId;
     public String labelName;
 }

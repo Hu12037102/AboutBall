@@ -48,8 +48,8 @@ public class LoginPresenter extends MessagePresenter<LoginContract.View, LoginMo
                 if (mView == null)
                     return;
                 mView.loginSucceedResult(resultBeanBaseBean);
-                mView.dismissLoadingView();
-                mView.showToast(resultBeanBaseBean.message);
+              /*  mView.dismissLoadingView();
+                mView.showToast(resultBeanBaseBean.message);*/
             }
             @Override
             public void onError(Throwable e) {

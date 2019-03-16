@@ -30,6 +30,7 @@ import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
+import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
 import com.work.guaishouxingqiu.aboutball.home.adapter.CarousePagerAdapter;
 import com.work.guaishouxingqiu.aboutball.home.adapter.RecommendHeadGameAdapter;
 import com.work.guaishouxingqiu.aboutball.home.adapter.RecommendedAdapter;
@@ -302,6 +303,8 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
         super.setUserVisibleHint(isVisibleToUser);
 
     }
+
+
 
     @Override
     public void onStart() {

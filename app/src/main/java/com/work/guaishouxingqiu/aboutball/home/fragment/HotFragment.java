@@ -13,6 +13,7 @@ import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
+import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
 import com.work.guaishouxingqiu.aboutball.home.adapter.RecommendedAdapter;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsBean;
 import com.work.guaishouxingqiu.aboutball.home.contract.HotContract;
@@ -32,7 +33,7 @@ import butterknife.BindView;
  * 描述: 热点Fragment
  */
 @Route(path = ARouterConfig.Path.FRAGMENT_HOT)
-public class HotFragment extends BaseFragment<HotPresenter> implements HotContract.View {
+public class HotFragment extends DelayedFragment<HotPresenter> implements HotContract.View {
 
     @BindView(R.id.rv_list)
     RecyclerView mRvList;
@@ -62,12 +63,12 @@ public class HotFragment extends BaseFragment<HotPresenter> implements HotContra
     }
 
     @Override
-    protected void initView() {
+    protected void initDelayedView() {
         mRvList.setLayoutManager(new LinearLayoutManager(DataUtils.checkData(getContext())));
     }
 
     @Override
-    protected void initData() {
+    protected void initDelayedData() {
         mData = new ArrayList<>();
         mAdapter = new RecommendedAdapter(mData);
         mRvList.setAdapter(mAdapter);
@@ -75,7 +76,7 @@ public class HotFragment extends BaseFragment<HotPresenter> implements HotContra
     }
 
     @Override
-    protected void initEvent() {
+    protected void initDelayedEvent() {
         mSrLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(RefreshLayout refreshLayout) {
@@ -94,6 +95,38 @@ public class HotFragment extends BaseFragment<HotPresenter> implements HotContra
     }
 
     @Override
+    protected void initView() {
+      //  mRvList.setLayoutManager(new LinearLayoutManager(DataUtils.checkData(getContext())));
+    }
+
+    @Override
+    protected void initData() {
+     /*   mData = new ArrayList<>();
+        mAdapter = new RecommendedAdapter(mData);
+        mRvList.setAdapter(mAdapter);
+        mSrLayout.autoRefresh();*/
+    }
+
+    @Override
+    protected void initEvent() {
+       /* mSrLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshLayout) {
+                mPresenter.isRefresh = false;
+                mPresenter.loadData(mTypId);
+                refreshLayout.finishLoadMore();
+            }
+
+            @Override
+            public void onRefresh(RefreshLayout refreshLayout) {
+                mPresenter.isRefresh = true;
+                mPresenter.loadData(mTypId);
+                refreshLayout.finishRefresh();
+            }
+        });*/
+    }
+
+    @Override
     protected HotPresenter createPresenter() {
         return new HotPresenter(this);
     }
@@ -109,4 +142,5 @@ public class HotFragment extends BaseFragment<HotPresenter> implements HotContra
             mAdapter.notifyDataSetChanged();
         }
     }
+
 }
