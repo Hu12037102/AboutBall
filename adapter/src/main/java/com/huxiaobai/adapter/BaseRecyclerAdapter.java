@@ -71,6 +71,20 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
         isHaveFootView = true;
     }
 
+    public void removeHeadView() {
+        if (isHaveHeadView) {
+            mHeadView = null;
+            isHaveHeadView = false;
+        }
+    }
+
+    public void removeFootView() {
+        if (isHaveHeadView) {
+            mFootView = null;
+            isHaveFootView = false;
+        }
+    }
+
     public BaseRecyclerAdapter(@NonNull D data) {
         this.mData = data;
     }
@@ -111,32 +125,6 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
             }
         }
         return super.getItemViewType(position);
-
-
-      /*  if (mData == null || mData.size() == 0) {
-            if (mIsHasNet) {
-                return TYPE_NOT_DATA;
-            } else {
-                return TYPE_NOT_NET;
-            }
-        } else {
-            if (mHeadView != null && position == 0) {
-                return TYPE_HEAD_VIEW;
-            }
-            if (mFootView != null) {
-                if (mHeadView != null) {
-                    if (position == mData.size() + 1) {
-                        return TYPE_FOOT_VIEW;
-                    }
-                } else {
-                    if (position == mData.size()) {
-                        return TYPE_FOOT_VIEW;
-                    }
-                }
-            }
-            return super.getItemViewType(position);
-        }*/
-
     }
 
 
@@ -194,7 +182,7 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
                 }
             });
         }/* else if (getItemViewType(i) == 0) {*/ else {
-            if (mHeadView != null) {
+            if (isHaveHeadView) {
                 i--;
             }
             onBindViewDataHolder(viewHolder, i);
@@ -208,10 +196,10 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
     @Override
     public int getItemCount() {
         int i = 0;
-        if (mHeadView != null) {
+        if (isHaveHeadView) {
             i++;
         }
-        if (mFootView != null) {
+        if (isHaveFootView) {
             i++;
         }
         return mData == null || mData.size() == 0 ? /*(i == 0 ? 1 : i) */i + 1 : mData.size() + i;
