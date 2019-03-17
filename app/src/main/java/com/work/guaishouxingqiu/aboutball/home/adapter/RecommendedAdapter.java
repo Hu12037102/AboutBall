@@ -40,6 +40,11 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
     }
 
     @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
     public int getItemViewType(int position) {
         this.mPosition = position;
         return super.getItemViewType(position);
@@ -87,9 +92,15 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             SingViewHolder singViewHolder = (SingViewHolder) viewHolder;
             singViewHolder.mTvData.setText(mData.get(i).title);
             singViewHolder.mTvFrom.setText(mData.get(i).releaseTime);
-            if (DataUtils.splitImagePathCount(mData.get(i).coverUrl) > 0) {
-                String[] imagePathArray = mData.get(i).coverUrl.split(",");
-                GlideManger.get().loadImage(viewHolder.itemView.getContext(), imagePathArray[0],
+            if (!DataUtils.isEmpty(mData.get(i).coverUrl)) {
+                String imagePath;
+                if (DataUtils.splitImagePathCount(mData.get(i).coverUrl) > 0) {
+                    String[] imagePathArray = mData.get(i).coverUrl.split(",");
+                    imagePath = imagePathArray[0];
+                } else {
+                    imagePath = mData.get(i).coverUrl;
+                }
+                GlideManger.get().loadImage(viewHolder.itemView.getContext(), imagePath,
                         R.drawable.shape_item_recommend_preview_item, R.drawable.shape_item_recommend_preview_item, singViewHolder.mIvData);
             }
             if (i == mData.size() - 1) {

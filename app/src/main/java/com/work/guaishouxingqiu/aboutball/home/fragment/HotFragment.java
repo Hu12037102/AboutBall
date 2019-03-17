@@ -93,39 +93,6 @@ public class HotFragment extends DelayedFragment<HotPresenter> implements HotCon
             }
         });
     }
-
-    @Override
-    protected void initView() {
-      //  mRvList.setLayoutManager(new LinearLayoutManager(DataUtils.checkData(getContext())));
-    }
-
-    @Override
-    protected void initData() {
-     /*   mData = new ArrayList<>();
-        mAdapter = new RecommendedAdapter(mData);
-        mRvList.setAdapter(mAdapter);
-        mSrLayout.autoRefresh();*/
-    }
-
-    @Override
-    protected void initEvent() {
-       /* mSrLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
-            @Override
-            public void onLoadMore(RefreshLayout refreshLayout) {
-                mPresenter.isRefresh = false;
-                mPresenter.loadData(mTypId);
-                refreshLayout.finishLoadMore();
-            }
-
-            @Override
-            public void onRefresh(RefreshLayout refreshLayout) {
-                mPresenter.isRefresh = true;
-                mPresenter.loadData(mTypId);
-                refreshLayout.finishRefresh();
-            }
-        });*/
-    }
-
     @Override
     protected HotPresenter createPresenter() {
         return new HotPresenter(this);

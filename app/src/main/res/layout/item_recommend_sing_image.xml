@@ -7,7 +7,9 @@
     android:orientation="vertical"
     android:paddingLeft="@dimen/default_margin"
     android:paddingRight="@dimen/default_margin"
-    android:paddingTop="@dimen/default_margin">
+    android:paddingTop="@dimen/default_margin"
+    android:background="@drawable/selector_item"
+    android:clickable="true">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

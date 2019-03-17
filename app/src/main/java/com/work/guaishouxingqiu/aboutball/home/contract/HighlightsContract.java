@@ -10,9 +10,9 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
  * 描述:集锦契约
  */
 public interface HighlightsContract {
-    interface View extends IBaseView {
+    interface View extends HomeBaseContract.View  {
     }
 
-    interface Presenter extends IBasePresenter {
+    interface Presenter extends HomeBaseContract.Presenter {
     }
 }

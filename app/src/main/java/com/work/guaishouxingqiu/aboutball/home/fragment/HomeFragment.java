@@ -77,6 +77,9 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     }
 
     private void initPager(List<ResultHomeTabBean> tabData) {
+        if (tabData == null || tabData.size() == 0) {
+            return;
+        }
         RecommendedFragment mRecommendedFragment = ARouterIntent
                 .getFragment(ARouterConfig.Path.FRAGMENT_RECOMMENDED, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(0).labelId);
         HotFragment mHotFragment = ARouterIntent
@@ -166,7 +169,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     @Override
     public void resultTabData(@NonNull BaseBean<List<ResultHomeTabBean>> data) {
         if (DataUtils.isResultSure(data) && data.result.size() > 0) {
-            data.result.add(0,new ResultHomeTabBean(getString(R.string.recommend)));
+            data.result.add(0, new ResultHomeTabBean(getString(R.string.recommend)));
             for (int i = 0; i < data.result.size(); i++) {
                 mTabTitle.addTab(mTabTitle.newTab().setText(data.result.get(i).labelName));
                 if (i == 0) {

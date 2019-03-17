@@ -12,7 +12,7 @@ import com.work.guaishouxingqiu.aboutball.home.model.HighlightsModel;
  * 更新时间: 2019/3/12 17:55
  * 描述:集锦P
  */
-public class HighlightsPresenter extends BasePresenter<HighlightsContract.View,HighlightsModel>
+public class HighlightsPresenter extends HomeBasePresenter<HighlightsContract.View,HighlightsModel>
 implements HighlightsContract.Presenter{
     public HighlightsPresenter(@NonNull HighlightsContract.View view) {
         super(view);
