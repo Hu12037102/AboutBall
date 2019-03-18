@@ -33,6 +33,8 @@ public class AboutBallAdapter extends BaseRecyclerAdapter<AboutBallAdapter.ViewH
 
     @Override
     protected void onBindViewDataHolder(@NonNull ViewHolder viewHolder, int i) {
+        ResultAboutBallBean bean =  mData.get(i);
+        GlideManger.get().loadImage(viewHolder.itemView.getContext(),bean.teamLogo,viewHolder.mIvData);
     }
 
 
