@@ -17,7 +17,7 @@
     <TextView
         android:id="@+id/tv_focus_fans"
         style="@style/SingLineTextView"
-        android:layout_marginTop="@dimen/size_25dp"
+        android:layout_marginTop="@dimen/size_15dp"
         android:textColor="@color/color_3"
         android:textSize="12sp"
         tools:text="关注：0   |   粉丝：0" />

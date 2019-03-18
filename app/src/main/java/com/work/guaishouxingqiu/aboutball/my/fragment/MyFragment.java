@@ -5,14 +5,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.util.ScreenUtils;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
+import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
 import com.work.guaishouxingqiu.aboutball.my.contract.MyContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.MyPresenter;
+import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import butterknife.BindView;
@@ -45,11 +50,25 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
     @Override
     protected void initView() {
+
     }
 
     @Override
     protected void initData() {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.item_no_login_my_head_view, null);
+        View view;
+        if (UserManger.get().isLogin()) {
+            view = LayoutInflater.from(getContext()).inflate(R.layout.item_login_my_head_view, null);
+            TextView mTvName = view.findViewById(R.id.tv_name);
+            TextView mTvFocusFans = view.findViewById(R.id.tv_focus_fans);
+            LogUtils.w("initData--",UserManger.get().getUserName());
+            if (DataUtils.isEmpty(UserManger.get().getUserName())) {
+                mTvName.setText(UserManger.get().getPhone());
+                mTvFocusFans.setText(getString(R.string.focus_and_fans, "0", "0"));
+            }
+        } else {
+            view = LayoutInflater.from(getContext()).inflate(R.layout.item_no_login_my_head_view, null);
+
+        }
         mLlHeadGroup.addView(view);
     }
 
@@ -83,10 +102,16 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             case R.id.item_setting:
                 break;
             case R.id.rl_my_head:
-                $startActivity(ARouterConfig.Path.ACTIVITY_LOGIN);
+                clickHead();
                 break;
             default:
                 break;
+        }
+    }
+
+    private void clickHead() {
+        if (!UserManger.get().isLogin()) {
+            $startActivity(ARouterConfig.Path.ACTIVITY_LOGIN);
         }
     }
 }

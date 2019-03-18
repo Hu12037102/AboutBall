@@ -12,7 +12,7 @@ import com.work.guaishouxingqiu.aboutball.venue.model.VenueModel;
  * 更新时间: 2019/3/6 15:22
  * 描述: 场馆P
  */
-public class VenuePresenter extends BasePresenter<VenueContract.View,VenueModel>{
+public class VenuePresenter extends BasePresenter<VenueContract.View,VenueModel> implements VenueContract.Presenter{
 
 
     public VenuePresenter(@NonNull VenueContract.View view) {

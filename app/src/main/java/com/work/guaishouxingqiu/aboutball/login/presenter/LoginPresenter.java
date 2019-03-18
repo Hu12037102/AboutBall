@@ -63,24 +63,20 @@ public class LoginPresenter extends MessagePresenter<LoginContract.View, LoginMo
 
     @Override
     public void loadUserAccount() {
-        if (mView != null) {
-            mView.showLoadingView();
-        }
-        mModel.loadUserAccount(new BaseObserver<>(this, new BaseObserver.Observer<UserBean>() {
+        mModel.loadUserAccount(new BaseObserver<>(true,this, new BaseObserver.Observer<UserBean>() {
 
             @Override
-            public void onNext(BaseBean<UserBean> t) {
+            public void onNext(BaseBean<UserBean> bean) {
                 if (mView == null){
                     return;
                 }
+                mView.resultUserAccount(bean);
                 mView.dismissLoadingView();
             }
 
             @Override
             public void onError(Throwable e) {
-                if (mView != null){
-                    mView.dismissLoadingView();
-                }
+
             }
 
 

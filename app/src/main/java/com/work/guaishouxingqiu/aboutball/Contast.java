@@ -24,11 +24,12 @@ public interface Contast {
     int REQUEST_CODE = 0;
     String LONGITUDE = "longitude";
     String LATITUDE = "latitude";
-    String PAGE_NUM = "pageNum";
-    String PAGE_SIZE = "pageSize";
+    String PAGE_NUM = "mPageNum";
+    String PAGE_SIZE = "mPageSize";
     String OFFICIAL = "official";
     String DATE = "date";
     String TYPE_ID = "typeId";
+    String TOKEN = "Authorization";
     //比赛未开始
     int GAME_STATUS_NO_START = 1;
     //比赛进行中

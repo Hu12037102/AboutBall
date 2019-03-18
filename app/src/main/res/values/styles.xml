@@ -112,6 +112,12 @@
         <item name="android:singleLine">true</item>
         <item name="android:maxLines">1</item>
     </style>
+    <style name="DefaultRatingBar" parent="Widget.AppCompat.RatingBar">
+        <item name="android:maxHeight">@dimen/size_12dp</item>
+        <item name="android:minHeight">@dimen/size_12dp</item>
+        <item name="android:progressDrawable">@drawable/layer_list_rating</item>
+        <item name="android:max">5</item>
+    </style>
     
 
 

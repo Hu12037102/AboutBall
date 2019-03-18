@@ -21,6 +21,7 @@ import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.RequestLoginBean;
+import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
 import com.work.guaishouxingqiu.aboutball.login.contract.LoginContract;
 import com.work.guaishouxingqiu.aboutball.login.presenter.LoginPresenter;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
@@ -216,6 +217,16 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
         }
 
+    }
+
+    @Override
+    public void resultUserAccount(BaseBean<UserBean> bean) {
+        if (bean.code == IApi.Code.SUCCEED) {
+            if (bean.result == null) {
+                UserManger.get().putPhone(DataUtils.checkData(mTietPhone.getText()).toString());
+            }
+            finish();
+        }
     }
 
     @Override

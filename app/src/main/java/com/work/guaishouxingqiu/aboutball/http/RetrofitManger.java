@@ -34,6 +34,7 @@ public class RetrofitManger {
     private static final int MAX_CACHE_SIZE = 20 * 1024 * 1024;
     private static final int READ_TIME_OUT = 15 * 1000;
     private static final int CONNECT_TIME_OUT = 10 * 1000;
+    private static final String TOKEN_HOST = "Bearer ";
     private Retrofit mRetrofit;
 
     private RetrofitManger() {
@@ -92,10 +93,10 @@ public class RetrofitManger {
         @Override
         public Response intercept(@NonNull Chain chain) throws IOException {
             Request request = chain.request();
-           request = request.newBuilder().header("Authorization", UserManger.get().getToken())
-                   .header("Version", "1.0.0")//版本号
-                   .header("Accept-Language", PhoneUtils.getPhoneLoca(UIUtils.getContext()).getCountry())
-                   .build();
+            request = request.newBuilder().header("Authorization", TOKEN_HOST.concat(UserManger.get().getToken()))
+                    .header("Version", "1.0.0")//版本号
+                    .header("Accept-Language", PhoneUtils.getPhoneLoca(UIUtils.getContext()).getCountry())
+                    .build();
 
 
            /* Headers newBuilder = builder.add("Authorization", UserManger.get().getToken())

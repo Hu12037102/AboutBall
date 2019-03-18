@@ -9,12 +9,18 @@
         android:layout_height="@dimen/main_tab_height"
         android:layout_alignParentBottom="true"
         android:background="@color/colorTheme" />
+    <View
+        android:id="@+id/line"
+        style="@style/HorizontalLine"
+        android:layout_above="@id/rv_main_tab"
+       />
 
     <FrameLayout
         android:id="@+id/fl_main_data"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/rv_main_tab" />
+        android:layout_above="@id/line"
+       />
 
 
 </RelativeLayout>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/size_20dp">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/riv_data"
+            android:layout_width="@dimen/size_120dp"
+            android:layout_height="@dimen/size_90dp"
+            android:background="@drawable/shape_item_recommend_preview_item"
+            app:riv_corner_radius="@dimen/size_6dp"
+            app:riv_oval="false" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_toEndOf="@id/riv_data"
+            android:layout_toRightOf="@id/riv_data"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@color/color_4"
+                android:textSize="@dimen/size_17sp"
+                tools:text="五华县任命体育" />
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_10dp">
+
+
+                <RatingBar
+                    android:id="@+id/rb_grade"
+                    style="@style/DefaultRatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:isIndicator="true"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_grade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorFF261C1B"
+                    android:textSize="@dimen/size_12sp"
+                    app:layout_constraintLeft_toRightOf="@id/rb_grade"
+                    android:paddingLeft="@dimen/size_5dp"
+                    android:paddingRight="@dimen/size_5dp"
+                    app:layout_constraintTop_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="parent"
+                    tools:text="5.0" />
+            </android.support.constraint.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_distance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@color/color_3"
+                android:textSize="@dimen/size_12sp"
+                tools:text="五华县城" />
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@color/color_3"
+                android:textSize="@dimen/size_12sp"
+                tools:text="五华县城" />
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <View
+        style="@style/HorizontalLine"
+        android:layout_marginLeft="@dimen/size_20dp"
+        android:layout_marginRight="@dimen/size_20dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

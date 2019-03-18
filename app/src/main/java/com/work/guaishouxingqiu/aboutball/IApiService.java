@@ -29,4 +29,11 @@ public interface IApiService {
     String GAME_REFRESH_LIST ="/api/match/pullRefresh";
     String GAME_MORE_LIST = "/api/match/upRefresh";
 
+    //场馆球类类别
+    String VENUE_TYPE_LIST = "/api/stadium/getType";
+    //分页获取场馆列表
+    String VENUE_LIST_DATA = "/api/stadium/getStadiumList";
+    //分页获取约球列表
+    String ABOUT_BALL_LIST_DATA = "/api/agreeBall/getAgreeBallList";
+
 }

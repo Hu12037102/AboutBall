@@ -24,6 +24,8 @@ public interface ARouterConfig {
         String FRAGMENT_VENUE ="/fragment/venue";
         String FRAGMENT_COMMUNITY ="/fragment/community";
         String FRAGMENT_MY ="/fragment/my";
+        String FRAGMENT_VENUE_LIST = "/fragment/venue/list";
+        String FRAGMENT_ABOUT_BALL= "/fragment/about/ball";
     }
 
     interface Key {

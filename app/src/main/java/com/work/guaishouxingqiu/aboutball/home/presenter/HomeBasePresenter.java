@@ -28,13 +28,13 @@ public abstract class HomeBasePresenter<V extends HomeBaseContract.View, M exten
     @Override
     public void loadData(int typeId) {
         if (isRefresh) {
-            pageNum = Contast.DEFAULT_PAGE_NUM;
+            mPageNum = Contast.DEFAULT_PAGE_NUM;
         }
-        mModel.loadData(pageNum, pageSize,typeId, new BaseObserver<>(this, new BaseObserver.Observer<List<ResultNewsBean>>() {
+        mModel.loadData(mPageNum, mPageSize,typeId, new BaseObserver<>(this, new BaseObserver.Observer<List<ResultNewsBean>>() {
             @Override
             public void onNext(BaseBean<List<ResultNewsBean>> bean) {
                 if (bean.code == IApi.Code.SUCCEED) {
-                    pageNum++;
+                    mPageNum++;
                     if (mView != null) {
                         mView.resultData(bean);
                     }

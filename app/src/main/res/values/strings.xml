@@ -30,7 +30,9 @@
     <string name="setting_password">设置密码</string>
     <string name="not_under_six_length_password">不少于6位</string>
     <string name="phone_digits">0123456789</string>
+
     <style name="service_error">服务器异常</style>
+
     <string name="hint">提示</string>
     <string name="this_phone_is_register">该手机号已经注册</string>
     <string name="this_phone_not_register">该手机号没有注册</string>
@@ -45,5 +47,8 @@
     <string name="all_game">全部赛事</string>
     <string name="there_are_no_related_events">没有相关的赛事！</string>
     <string name="recommend">推荐</string>
+    <string name="focus_and_fans">关注 %s | 粉丝 %s</string>
+    <string name="address_to_where">地址： %s</string>
+    <string name="about_rule">约球规则说明，点我查看规则</string>
 
 </resources>

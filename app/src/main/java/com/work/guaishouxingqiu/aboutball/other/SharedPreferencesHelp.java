@@ -14,7 +14,7 @@ import com.work.guaishouxingqiu.aboutball.util.UIUtils;
  */
 public class SharedPreferencesHelp {
     private static final String DEFAULT_SP_NAME = "About_Ball_SP";
-    private static final String DEFAULT_STRING_VALUES = "Null";
+    private static final String DEFAULT_STRING_VALUES = "";
     private SharedPreferences mSharedPreferences;
 
     public SharedPreferencesHelp() {
