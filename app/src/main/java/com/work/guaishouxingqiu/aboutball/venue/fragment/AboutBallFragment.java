@@ -60,9 +60,15 @@ public class AboutBallFragment extends DelayedFragment<AboutBallPresenter> imple
         mSrlData.autoRefresh();
     }
 
-    private void loadData(boolean isRefresh) {
+    private void loadData(boolean isRefresh, RefreshLayout refreshLayout) {
         mPresenter.isRefresh = isRefresh;
         mPresenter.start();
+        if (isRefresh) {
+            refreshLayout.finishRefresh();
+        } else {
+            refreshLayout.finishLoadMore();
+        }
+
     }
 
     @Override
@@ -70,12 +76,12 @@ public class AboutBallFragment extends DelayedFragment<AboutBallPresenter> imple
         mSrlData.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(RefreshLayout refreshLayout) {
-                loadData(false);
+                loadData(false, refreshLayout);
             }
 
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
-                loadData(true);
+                loadData(true, refreshLayout);
             }
         });
     }

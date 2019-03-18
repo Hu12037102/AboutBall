@@ -110,6 +110,18 @@ public class UIUtils {
                     activity.finish();
                     loginDialog.dismiss();
                 });
+            case IApi.Code.USER_NOT_LOGIN:
+                final HintDialog notLoginDialog = new HintDialog.Builder(activity)
+                        .setTitle(R.string.hint)
+                        .setBody(R.string.is_go_to_login)
+                        .setSure(R.string.login_immediately)
+                        .builder();
+                notLoginDialog.show();
+                notLoginDialog.setOnItemClickListener(view -> {
+                    ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_LOGIN);
+                    notLoginDialog.dismiss();
+                });
+                break;
             default:
                 break;
         }
@@ -123,8 +135,8 @@ public class UIUtils {
             case Contast.GAME_STATUS_FINISH:
                 textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.icon_recommend_no_start, 0);
                 break;
-                default:
-                    break;
+            default:
+                break;
         }
     }
 

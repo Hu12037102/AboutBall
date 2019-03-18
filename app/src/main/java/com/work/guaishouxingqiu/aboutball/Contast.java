@@ -47,4 +47,6 @@ public interface Contast {
     int TYPE_GAME_OFFICIAL = 1;
     int TYPE_GAME_FOLK = 2;
 
+    String HAS_REFEREE = "1";
+    String HAS_RIVAL = "2";
 }

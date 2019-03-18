@@ -50,5 +50,7 @@
     <string name="focus_and_fans">关注 %s | 粉丝 %s</string>
     <string name="address_to_where">地址： %s</string>
     <string name="about_rule">约球规则说明，点我查看规则</string>
-
+    <string name="lack_of_the_referee">缺裁判</string>
+    <string name="lack_of_competitors">缺对手</string>
+    <string name="is_go_to_login">您还没有登陆，是否前去登陆？</string>
 </resources>
