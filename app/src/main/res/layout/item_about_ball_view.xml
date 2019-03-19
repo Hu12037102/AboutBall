@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/size_150dp"
-    android:padding="@dimen/size_20dp">
+    android:layout_height="wrap_content">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/size_20dp">
 
     <ImageView
         android:id="@+id/iv_data"
@@ -15,9 +20,9 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="@dimen/size_150dp"
-        android:layout_marginStart="@dimen/size_20dp"
+        android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/size_20dp"
+        android:layout_marginStart="@dimen/size_20dp"
         android:orientation="vertical"
         app:layout_constraintLeft_toRightOf="@id/iv_data"
         app:layout_constraintRight_toRightOf="parent">
@@ -33,9 +38,9 @@
             android:id="@+id/tv_time"
             style="@style/SingLineTextView"
             android:layout_marginTop="@dimen/size_10dp"
-            android:drawableStart="@mipmap/icon_about_ball_time"
             android:drawableLeft="@mipmap/icon_about_ball_time"
             android:drawablePadding="@dimen/size_5dp"
+            android:drawableStart="@mipmap/icon_about_ball_time"
             android:textColor="@color/color_3"
             android:textSize="@dimen/size_12sp"
             tools:text="1982-09-20" />
@@ -44,9 +49,9 @@
             android:id="@+id/tv_address"
             style="@style/SingLineTextView"
             android:layout_marginTop="@dimen/size_10dp"
-            android:drawableStart="@mipmap/icon_about_ball_people"
             android:drawableLeft="@mipmap/icon_about_ball_people"
             android:drawablePadding="@dimen/size_5dp"
+            android:drawableStart="@mipmap/icon_about_ball_people"
             android:textColor="@color/color_3"
             android:textSize="@dimen/size_12sp"
             tools:text="1982-09-20" />
@@ -64,10 +69,10 @@
                 android:layout_marginEnd="@dimen/size_10dp"
                 android:layout_marginRight="@dimen/size_10dp"
                 android:background="@drawable/shape_about_status_view"
-                android:paddingLeft="@dimen/size_15dp"
-                android:paddingTop="@dimen/size_5dp"
-                android:paddingRight="@dimen/size_15dp"
                 android:paddingBottom="@dimen/size_5dp"
+                android:paddingLeft="@dimen/size_15dp"
+                android:paddingRight="@dimen/size_15dp"
+                android:paddingTop="@dimen/size_5dp"
                 android:text="@string/lack_of_the_referee"
                 android:textColor="@color/color_4"
                 tools:text="缺裁判" />
@@ -77,19 +82,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_about_status_view"
-                android:paddingLeft="@dimen/size_15dp"
-                android:paddingTop="@dimen/size_5dp"
-                android:paddingRight="@dimen/size_15dp"
                 android:paddingBottom="@dimen/size_5dp"
+                android:paddingLeft="@dimen/size_15dp"
+                android:paddingRight="@dimen/size_15dp"
+                android:paddingTop="@dimen/size_5dp"
                 android:text="@string/lack_of_competitors"
                 android:textColor="@color/color_4"
                 tools:text="缺裁判" />
 
         </LinearLayout>
 
-        <View
-            style="@style/HorizontalLine"
-            android:layout_marginTop="@dimen/size_20dp" />
+
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+
+    </android.support.constraint.ConstraintLayout>
+    <View
+        style="@style/HorizontalLine"
+        android:layout_below="@id/cl_body"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
+        />
+</RelativeLayout>

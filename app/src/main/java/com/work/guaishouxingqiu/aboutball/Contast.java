@@ -24,8 +24,8 @@ public interface Contast {
     int REQUEST_CODE = 0;
     String LONGITUDE = "longitude";
     String LATITUDE = "latitude";
-    String PAGE_NUM = "mPageNum";
-    String PAGE_SIZE = "mPageSize";
+    String PAGE_NUM = "pageNum";
+    String PAGE_SIZE = "pageSize";
     String OFFICIAL = "official";
     String DATE = "date";
     String TYPE_ID = "typeId";

@@ -1,6 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.my.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     CircleImageView mCivMyHead;
     @BindView(R.id.ll_head_group)
     LinearLayout mLlHeadGroup;
+    private View view;
 
     public static MyFragment newInstance() {
         return new MyFragment();
@@ -55,12 +57,20 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
     @Override
     protected void initData() {
+        initLoginView();
+
+    }
+
+    private void initLoginView() {
+        if (mLlHeadGroup.getChildCount() > 0) {
+            mLlHeadGroup.removeAllViews();
+        }
         View view;
         if (UserManger.get().isLogin()) {
             view = LayoutInflater.from(getContext()).inflate(R.layout.item_login_my_head_view, null);
             TextView mTvName = view.findViewById(R.id.tv_name);
             TextView mTvFocusFans = view.findViewById(R.id.tv_focus_fans);
-            LogUtils.w("initData--",UserManger.get().getUserName());
+            LogUtils.w("initData--", UserManger.get().getUserName());
             if (DataUtils.isEmpty(UserManger.get().getUserName())) {
                 mTvName.setText(UserManger.get().getPhone());
                 mTvFocusFans.setText(getString(R.string.focus_and_fans, "0", "0"));
@@ -70,6 +80,23 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
         }
         mLlHeadGroup.addView(view);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && getContext() != null) {
+
+        }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            initLoginView();
+        }
+        LogUtils.w("onHiddenChanged----", hidden + "--");
     }
 
     @Override

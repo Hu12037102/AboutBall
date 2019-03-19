@@ -14,6 +14,7 @@ import com.bumptech.glide.load.engine.cache.DiskLruCacheFactory;
 import com.bumptech.glide.load.engine.cache.MemorySizeCalculator;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
+import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
@@ -31,9 +32,10 @@ public class GlideManger {
         initGlide(UIUtils.getContext());
     }
 
-    public static synchronized GlideManger get(){
+    public static synchronized GlideManger get() {
         return mGlideManger;
     }
+
     @SuppressLint("VisibleForTests")
     private void initGlide(Context context) {
         RequestOptions options = new RequestOptions()
@@ -46,13 +48,15 @@ public class GlideManger {
         GlideBuilder mGlideBuilder = new GlideBuilder()
                 .setDefaultRequestOptions(options)
                 .setDiskCache(factory);
-        Glide.init(context,mGlideBuilder);
+        Glide.init(context, mGlideBuilder);
     }
+
     public void loadImage(@NonNull Context context, @DrawableRes int resId, @DrawableRes int resPlaceholderId,
-                                 @DrawableRes int resErrorId, @NonNull ImageView imageView) {
+                          @DrawableRes int resErrorId, @NonNull ImageView imageView) {
         RequestOptions requestOptions = new RequestOptions().centerCrop().placeholder(resPlaceholderId).error(resErrorId);
         Glide.with(context).asDrawable().apply(requestOptions).load(resId).into(imageView);
     }
+
     public void loadImage(@NonNull Context context, @DrawableRes int resId, @NonNull ImageView imageView) {
         RequestOptions requestOptions = new RequestOptions().centerCrop();
 
@@ -65,8 +69,12 @@ public class GlideManger {
     }
 
     public void loadImage(@NonNull Context context, @NonNull String imagePath, @DrawableRes int resPlaceholderId,
-                                 @DrawableRes int resErrorId, @NonNull ImageView imageView) {
+                          @DrawableRes int resErrorId, @NonNull ImageView imageView) {
         RequestOptions requestOptions = new RequestOptions().centerCrop().placeholder(resPlaceholderId).error(resErrorId);
         Glide.with(context).asDrawable().apply(requestOptions).load(imagePath).into(imageView);
+    }
+
+    public void loadDefaultImage(@NonNull Context context, @NonNull String imagePath, @NonNull ImageView imageView) {
+        loadImage(context, imagePath, R.drawable.shape_item_recommend_preview_item, R.drawable.shape_item_recommend_banner_view, imageView);
     }
 }

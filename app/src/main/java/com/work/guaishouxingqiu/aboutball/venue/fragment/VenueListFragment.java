@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
@@ -99,7 +100,15 @@ public class VenueListFragment extends BaseFragment<VenueListPresenter> implemen
             }
         });
         mBallTypeAdapter.setOnItemClickListener((view, position) -> {
+            RecyclerView.ViewHolder viewHolder = mRvBallType.getChildViewHolder(view);
+            //移动到对应的position
             mRvBallType.smoothScrollToPosition(position);
+            if (position >= mRvBallType.getChildCount() - 2) {
+                mRvBallType.smoothScrollBy(viewHolder.itemView.getMeasuredWidth(), 0, new LinearInterpolator());
+            } else if (position <= 1) {
+                mRvBallType.smoothScrollBy(-viewHolder.itemView.getMeasuredWidth(), 0, new LinearInterpolator());
+            }
+
             if (mRequestBean != null) {
                 mRequestBean.typeId = mBallTypeData.get(position).typeId;
                 if (mSrlRefresh.isRefreshing()) {

@@ -1,11 +1,10 @@
 package com.work.guaishouxingqiu.aboutball.venue.fragment;
 
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.ViewStub;
+import android.widget.ImageView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -13,6 +12,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
+import com.work.guaishouxingqiu.aboutball.other.SharedPreferencesHelp;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.venue.adapter.AboutBallAdapter;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultAboutBallBean;
@@ -23,9 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * 作者: 胡庆岭
@@ -35,12 +32,16 @@ import butterknife.Unbinder;
  */
 @Route(path = ARouterConfig.Path.FRAGMENT_ABOUT_BALL)
 public class AboutBallFragment extends DelayedFragment<AboutBallPresenter> implements AboutBallContract.View {
+    public static final String KEY_RULE_STATUS = "key_rule_status";
     @BindView(R.id.rv_data)
     RecyclerView mRvData;
     @BindView(R.id.srl_data)
     SmartRefreshLayout mSrlData;
+    @BindView(R.id.vs_rule)
+    ViewStub mVsRule;
     private AboutBallAdapter mAdapter;
     private List<ResultAboutBallBean> mData;
+    private View mInflateRuleView;
 
     @Override
     protected int getLayoutId() {
@@ -50,6 +51,28 @@ public class AboutBallFragment extends DelayedFragment<AboutBallPresenter> imple
     @Override
     protected void initDelayedView() {
         mRvData.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        initRuleView();
+    }
+
+    private void initRuleView() {
+        SharedPreferencesHelp sph = new SharedPreferencesHelp();
+        boolean ruleStatus = sph.getBoolean(KEY_RULE_STATUS, true);
+        if (mInflateRuleView == null) {
+            mInflateRuleView = mVsRule.inflate();
+           ImageView mIvClose = mInflateRuleView.findViewById(R.id.iv_close);
+            mIvClose.setOnClickListener(v -> {
+                sph.putObject(KEY_RULE_STATUS, false);
+                mInflateRuleView.setVisibility(View.GONE); 
+            });
+        }
+        if (ruleStatus) {
+            mInflateRuleView.setVisibility(View.VISIBLE);
+        } else {
+            mInflateRuleView.setVisibility(View.GONE);
+        }
+
+
     }
 
     @Override
@@ -92,9 +115,7 @@ public class AboutBallFragment extends DelayedFragment<AboutBallPresenter> imple
     }
 
 
-    @OnClick(R.id.iv_close)
-    public void onViewClicked() {
-    }
+  
 
     @Override
     public void resultAboutBallData(List<ResultAboutBallBean> data) {
@@ -104,4 +125,5 @@ public class AboutBallFragment extends DelayedFragment<AboutBallPresenter> imple
         mData.addAll(data);
         mAdapter.notifyDataSetChanged();
     }
+
 }

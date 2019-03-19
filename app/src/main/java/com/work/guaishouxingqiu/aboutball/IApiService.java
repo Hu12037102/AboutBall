@@ -35,5 +35,7 @@ public interface IApiService {
     String VENUE_LIST_DATA = "/api/stadium/getStadiumList";
     //分页获取约球列表
     String ABOUT_BALL_LIST_DATA = "/api/agreeBall/getAgreeBallList";
+    //获取社区我关注的动态
+    String COMMUNITY_ATTENTION_DATA = "/api/tweet/getLastestTweet";
 
 }

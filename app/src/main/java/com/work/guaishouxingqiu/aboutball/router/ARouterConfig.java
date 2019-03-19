@@ -21,11 +21,15 @@ public interface ARouterConfig {
         String FRAGMENT_RECOMMENDED = "/fragment/recommended ";
         String FRAGMENT_SPECIAL = "/fragment/special";
         String FRAGMENT_VIDEO = "/fragment/video";
-        String FRAGMENT_VENUE ="/fragment/venue";
-        String FRAGMENT_COMMUNITY ="/fragment/community";
-        String FRAGMENT_MY ="/fragment/my";
+        String FRAGMENT_VENUE = "/fragment/venue";
+        String FRAGMENT_COMMUNITY = "/fragment/community";
+        String FRAGMENT_MY = "/fragment/my";
         String FRAGMENT_VENUE_LIST = "/fragment/venue/list";
-        String FRAGMENT_ABOUT_BALL= "/fragment/about/ball";
+        String FRAGMENT_ABOUT_BALL = "/fragment/about/ball";
+        String FRAGMENT_COMMUNITY_ATTENTION = "/fragment/community/attention";
+        String FRAGMENT_COMMUNITY_RECOMMEND = "/fragment/community/recommend";
+        String FRAGMENT_COMMUNITY_NEWS = "/fragment/community/news";
+
     }
 
     interface Key {

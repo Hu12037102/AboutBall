@@ -5,33 +5,12 @@
     android:background="@color/colorTheme"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <ViewStub
+        android:id="@+id/vs_rule"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_35dp"
-        android:background="@color/colorFFFBFAFA">
+        android:layout="@layout/layout_about_ball_rule_view" />
 
-        <ImageView
-            android:id="@+id/iv_close"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:contentDescription="@null"
-            android:paddingLeft="@dimen/size_10dp"
-            android:paddingRight="@dimen/size_10dp"
-            android:src="@mipmap/icon_close" />
-
-        <TextView
-            android:id="@+id/tv_rule"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/size_20dp"
-            android:layout_marginRight="@dimen/size_20dp"
-            android:layout_toStartOf="@id/iv_close"
-            android:layout_toLeftOf="@id/iv_close"
-            android:gravity="center_vertical"
-            android:text="@string/about_rule" />
-    </RelativeLayout>
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/srl_data"
