@@ -6,10 +6,12 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.ItemView;
 import com.example.media.MediaSelector;
+import com.example.media.bean.MediaSelectorFile;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
+import com.work.guaishouxingqiu.aboutball.base.CameraActivity;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.MyDetailsContract;
@@ -20,6 +22,9 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.weight.SexDialog;
+
+import java.io.File;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -32,7 +37,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * 描述:
  */
 @Route(path = ARouterConfig.Path.ACTIVITY_MY_DETAILS)
-public class MyDetailsActivity extends BaseActivity<MyDetailsPresenter> implements MyDetailsContract.View {
+public class MyDetailsActivity extends CameraActivity<MyDetailsPresenter> implements MyDetailsContract.View {
     @BindView(R.id.civ_head)
     CircleImageView mCivHead;
     @BindView(R.id.item_name)
@@ -144,7 +149,13 @@ public class MyDetailsActivity extends BaseActivity<MyDetailsPresenter> implemen
     }
 
     private void clickUpdateHeadPhoto() {
-
+        MediaSelector.MediaOptions options = new MediaSelector.MediaOptions();
+        options.isShowVideo = false;
+        options.maxChooseMedia = 1;
+        options.isCompress = false;
+        options.isCrop = true;
+        options.isShowCamera = true;
+        openPhoto(options);
     }
 
     private void clickUpdateSex() {
@@ -168,4 +179,13 @@ public class MyDetailsActivity extends BaseActivity<MyDetailsPresenter> implemen
     }
 
 
+    @Override
+    protected void onAlbumResult(List<MediaSelectorFile> files) {
+
+    }
+
+    @Override
+    protected void onCameraResult(File cameraFile) {
+
+    }
 }
