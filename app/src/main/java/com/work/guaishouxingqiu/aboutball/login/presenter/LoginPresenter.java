@@ -1,20 +1,16 @@
 package com.work.guaishouxingqiu.aboutball.login.presenter;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
-import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.RequestLoginBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
 import com.work.guaishouxingqiu.aboutball.login.contract.LoginContract;
 import com.work.guaishouxingqiu.aboutball.login.model.LoginModel;
-
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
+import com.work.guaishouxingqiu.aboutball.other.UserManger;
 
 /**
  * 作者: 胡庆岭
@@ -51,9 +47,10 @@ public class LoginPresenter extends MessagePresenter<LoginContract.View, LoginMo
               /*  mView.dismissLoadingView();
                 mView.showToast(resultBeanBaseBean.message);*/
             }
+
             @Override
             public void onError(Throwable e) {
-                if (mView != null){
+                if (mView != null) {
                     mView.dismissLoadingView();
                 }
             }
@@ -63,15 +60,14 @@ public class LoginPresenter extends MessagePresenter<LoginContract.View, LoginMo
 
     @Override
     public void loadUserAccount() {
-        mModel.loadUserAccount(new BaseObserver<>(true,this, new BaseObserver.Observer<UserBean>() {
+        mModel.loadUserAccount(new BaseObserver<>(true, this, new BaseObserver.Observer<UserBean>() {
 
             @Override
             public void onNext(BaseBean<UserBean> bean) {
-                if (mView == null){
-                    return;
+                if (bean.code == IApi.Code.SUCCEED && bean.result != null) {
+                    UserManger.get().putUser(bean.result);
+                    loadUserAccountInfo();
                 }
-                mView.resultUserAccount(bean);
-                mView.dismissLoadingView();
             }
 
             @Override
@@ -82,6 +78,30 @@ public class LoginPresenter extends MessagePresenter<LoginContract.View, LoginMo
 
         }));
 
+    }
+
+    public void loadUserAccountInfo() {
+        mModel.loadUserAccountInfo(new BaseObserver<>(true, this, new BaseObserver.Observer<UserBean>() {
+            @Override
+            public void onNext(BaseBean<UserBean> bean) {
+
+                if (bean.code == IApi.Code.SUCCEED && bean.result != null) {
+                    UserManger.get().putUser(bean.result);
+                    mView.resultUserDataSucceed();
+                }
+
+
+
+
+
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
     }
 
 

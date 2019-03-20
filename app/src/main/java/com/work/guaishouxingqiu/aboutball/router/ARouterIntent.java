@@ -1,9 +1,13 @@
 package com.work.guaishouxingqiu.aboutball.router;
 
+import android.app.Activity;
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+
+import retrofit2.http.PUT;
 
 /**
  * 作者: 胡庆岭
@@ -12,6 +16,8 @@ import com.alibaba.android.arouter.launcher.ARouter;
  * 描述: 路由页面跳转
  */
 public class ARouterIntent {
+    public static final int REQUEST_CODE = 110;
+
     public static void startActivity(@NonNull String path) {
         ARouter.getInstance().build(path).navigation();
     }
@@ -22,5 +28,13 @@ public class ARouterIntent {
 
     public static <T extends Fragment> T getFragment(@NonNull String path, @NonNull String key, int values) {
         return (T) ARouter.getInstance().build(path).withInt(key, values).navigation();
+    }
+
+    public static void startActivityForResult(@NonNull String path, @NonNull Activity activity, int requestCode) {
+        ARouter.getInstance().build(path).navigation(activity, requestCode);
+    }
+
+    public static void startActivityForResult(@NonNull String path, @NonNull Activity activity) {
+        ARouter.getInstance().build(path).navigation(activity, REQUEST_CODE);
     }
 }

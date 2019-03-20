@@ -173,10 +173,6 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     public void registerResult(@NonNull BaseBean<RegisterResultBean> bean) {
         switch (bean.code) {
             case IApi.Code.SUCCEED:
-                if (bean.result != null) {
-                    UserManger.get().putToken(bean.result.id_token);
-                }
-                ActivityManger.get().removeActivity(LoginActivity.class);
                 finish();
                 break;
             default:

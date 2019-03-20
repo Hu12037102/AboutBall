@@ -18,12 +18,13 @@ import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
 public interface LoginContract {
     interface View extends MessageContract.View {
         void loginSucceedResult(BaseBean<LoginResultBean> bean);
-        void resultUserAccount(BaseBean<UserBean> bean);
+        void resultUserDataSucceed();
     }
 
     interface Presenter extends MessageContract.Presenter {
         void login(@NonNull RequestLoginBean loginBean);
 
         void loadUserAccount();
+
     }
 }

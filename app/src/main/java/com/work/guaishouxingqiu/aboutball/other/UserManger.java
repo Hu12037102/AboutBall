@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.other;
 
 import android.support.annotation.NonNull;
 
+import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 
 /**
@@ -12,9 +13,20 @@ import com.work.guaishouxingqiu.aboutball.util.DataUtils;
  */
 public class UserManger {
     private static final String USER_MESSAGE_SP_NAME = "user_message_sp";
-    private static final String KEY_AUTHORIZATION = "authorization";
+    private static final String KEY_TOKEN = "token";
     private static final String KEY_PHONE = "phone";
-    private static final String KEY_USER_NAME = "userName";
+    private static final String KEY_NICK_NAME = "nickName";
+    private static final String KEY_USER_INFO_ID = "userInfoId";
+    private static final String KEY_USER_ID = "userId";
+    private static final String KEY_GENDER = "gender";
+    private static final String KEY_BIRTHDAY = "birthday";
+    private static final String KEY_HEIGHT = "height";
+    private static final String KEY_WEIGHT = "weight";
+    private static final String KEY_HAS_TEAM = "hasTeam";
+    private static final String KEY_USER_HEAD_IMAGE = "headerImg";
+    private static final String KEY_PASSWORD_STATUS = "passwordStatus";
+    private static final String KEY_WECHAT_USER_NAME = "wechatUserName";
+    private static final String KEY_WECHAT_OPEN_ID = "weChatOpenId";
     private static SharedPreferencesHelp mSP;
 
     private UserManger() {
@@ -35,11 +47,11 @@ public class UserManger {
     }
 
     public void putToken(@NonNull String values) {
-        mSP.putObject(UserManger.KEY_AUTHORIZATION, values);
+        mSP.putObject(UserManger.KEY_TOKEN, values);
     }
 
     public String getToken() {
-        return mSP.getString(UserManger.KEY_AUTHORIZATION);
+        return mSP.getString(UserManger.KEY_TOKEN);
     }
 
     public void putPhone(@NonNull String phoneNumber) {
@@ -50,15 +62,80 @@ public class UserManger {
         return mSP.getString(UserManger.KEY_PHONE);
     }
 
-    public void putUserName(@NonNull String userName) {
-        mSP.putObject(UserManger.KEY_USER_NAME, userName);
+    public void putNickName(@NonNull String userName) {
+        mSP.putObject(UserManger.KEY_NICK_NAME, userName);
     }
 
-    public String getUserName() {
-        return mSP.getString(UserManger.KEY_USER_NAME);
+    public String getNickName() {
+        return mSP.getString(UserManger.KEY_NICK_NAME);
     }
 
     public boolean isLogin() {
-        return !DataUtils.isEmpty(mSP.getString(KEY_AUTHORIZATION));
+        return !DataUtils.isEmpty(mSP.getString(KEY_TOKEN));
+    }
+
+    public void putUser(@NonNull UserBean userBean) {
+        if (userBean.phone != null) {
+            mSP.putObject(UserManger.KEY_PHONE, userBean.phone);
+        }
+        if (userBean.token != null) {
+            mSP.putObject(UserManger.KEY_TOKEN, userBean.token);
+        }
+        if (userBean.headerImg != null) {
+            mSP.putObject(UserManger.KEY_USER_HEAD_IMAGE, userBean.headerImg);
+        }
+        if (userBean.userInfoId != null) {
+            mSP.putObject(UserManger.KEY_USER_INFO_ID, userBean.userInfoId);
+        }
+        if (userBean.nickName != null) {
+            mSP.putObject(UserManger.KEY_NICK_NAME, userBean.nickName);
+        }
+        if (userBean.userId != null) {
+            mSP.putObject(UserManger.KEY_USER_ID, userBean.userId);
+        }
+        if (userBean.gender != null) {
+            mSP.putObject(UserManger.KEY_GENDER, userBean.gender);
+        }
+        if (userBean.birthday != null) {
+            mSP.putObject(UserManger.KEY_BIRTHDAY, userBean.birthday);
+        }
+        if (userBean.height != null) {
+            mSP.putObject(UserManger.KEY_HEIGHT, userBean.height);
+        }
+        if (userBean.weight != null) {
+            mSP.putObject(UserManger.KEY_WEIGHT, userBean.weight);
+        }
+        if (userBean.hasTeam != null) {
+            mSP.putObject(UserManger.KEY_HAS_TEAM, userBean.hasTeam);
+        }
+        if (userBean.passwordStatus != null) {
+            mSP.putObject(UserManger.KEY_PASSWORD_STATUS, userBean.passwordStatus);
+        }
+        if (userBean.wechatUserName != null) {
+            mSP.putObject(UserManger.KEY_WECHAT_USER_NAME, userBean.wechatUserName);
+        }
+        if (userBean.weChatOpenId != null) {
+            mSP.putObject(UserManger.KEY_WECHAT_OPEN_ID, userBean.weChatOpenId);
+        }
+
+    }
+
+    public UserBean getUser() {
+        UserBean userBean = new UserBean();
+        userBean.phone = mSP.getString(UserManger.KEY_PHONE);
+        userBean.token = mSP.getString(UserManger.KEY_TOKEN);
+        userBean.userInfoId = mSP.getLong(UserManger.KEY_USER_INFO_ID);
+        userBean.headerImg = mSP.getString(UserManger.KEY_USER_HEAD_IMAGE);
+        userBean.nickName = mSP.getString(UserManger.KEY_NICK_NAME);
+        userBean.userId = mSP.getLong(UserManger.KEY_USER_ID);
+        userBean.gender = mSP.getInt(UserManger.KEY_GENDER);
+        userBean.birthday = mSP.getString(UserManger.KEY_BIRTHDAY);
+        userBean.height = mSP.getInt(UserManger.KEY_HEIGHT);
+        userBean.weight = mSP.getInt(UserManger.KEY_WEIGHT);
+        userBean.hasTeam = mSP.getInt(UserManger.KEY_HAS_TEAM);
+        userBean.passwordStatus = mSP.getString(UserManger.KEY_PASSWORD_STATUS);
+        userBean.wechatUserName = mSP.getString(UserManger.KEY_WECHAT_USER_NAME);
+        userBean.weChatOpenId = mSP.getString(UserManger.KEY_WECHAT_OPEN_ID);
+        return userBean;
     }
 }

@@ -118,7 +118,15 @@
         <item name="android:progressDrawable">@drawable/layer_list_rating</item>
         <item name="android:max">5</item>
     </style>
-    
+
+    <style name="PhotoDialogItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:background">@drawable/selector_item</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/colorFF333333</item>
+    </style>
 
 
 

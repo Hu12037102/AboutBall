@@ -102,27 +102,25 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
         mManger = getSupportFragmentManager();
         if (mManger != null) {
             FragmentTransaction transaction = mManger.beginTransaction();
-            if (mHomeFragment == null) {
-                mHomeFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_HOME);
-                mGameFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME);
-                mVenueFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_VENUE);
-                mCommunityFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_COMMUNITY);
-                mMyFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_MY);
+            mHomeFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_HOME);
+            mGameFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME);
+            mVenueFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_VENUE);
+            mCommunityFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_COMMUNITY);
+            mMyFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_MY);
                /* mGameFragment = GameFragment.newInstance();
                 mVenueFragment = VenueFragment.newInstance();
                 mCommunityFragment = CommunityFragment.newInstance();
                 mMyFragment = MyFragment.newInstance();*/
-                transaction.add(R.id.fl_main_data, mHomeFragment);
-                transaction.add(R.id.fl_main_data, mGameFragment);
-                transaction.hide(mGameFragment);
-                transaction.add(R.id.fl_main_data, mVenueFragment);
-                transaction.hide(mVenueFragment);
-                transaction.add(R.id.fl_main_data, mCommunityFragment);
-                transaction.hide(mCommunityFragment);
-                transaction.add(R.id.fl_main_data, mMyFragment);
-                transaction.hide(mMyFragment);
-                transaction.show(mHomeFragment);
-            }
+            transaction.add(R.id.fl_main_data, mHomeFragment);
+            transaction.add(R.id.fl_main_data, mGameFragment);
+            transaction.hide(mGameFragment);
+            transaction.add(R.id.fl_main_data, mVenueFragment);
+            transaction.hide(mVenueFragment);
+            transaction.add(R.id.fl_main_data, mCommunityFragment);
+            transaction.hide(mCommunityFragment);
+            transaction.add(R.id.fl_main_data, mMyFragment);
+            transaction.hide(mMyFragment);
+            transaction.show(mHomeFragment);
             transaction.commitNow();
         }
 

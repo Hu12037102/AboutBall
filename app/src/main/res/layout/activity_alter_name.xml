@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorTheme"
+    android:orientation="vertical">
+
+    <com.example.item.weight.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        app:back_left_drawable="@mipmap/icon_back"
+        app:back_text_padding_left="@dimen/default_margin"
+        app:center_data="@string/name"
+        app:center_text_color="@color/color_4"
+        app:center_text_size="@dimen/size_19sp"
+        app:sure_data="@string/save"
+        app:sure_text_color="@color/color_2"
+        app:sure_text_size="@dimen/size_14sp"
+        app:sure_text_padding_left="@dimen/default_margin"
+        app:sure_text_padding_right="@dimen/default_margin"/>
+
+    <android.support.design.widget.TextInputEditText
+        android:id="@+id/tiet_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
+        android:background="@drawable/shape_input_name_view"
+        android:gravity="center_vertical"
+        android:hint="@string/input_name"
+        android:paddingLeft="@dimen/default_margin" />
+
+</LinearLayout>

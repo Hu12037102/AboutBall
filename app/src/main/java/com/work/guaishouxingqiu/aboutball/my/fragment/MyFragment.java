@@ -1,30 +1,23 @@
 package com.work.guaishouxingqiu.aboutball.my.fragment;
 
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.example.item.util.ScreenUtils;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
-import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
+import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.MyContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.MyPresenter;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
-import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import io.bugtags.ui.view.rounded.CircleImageView;
 
 /**
@@ -57,8 +50,13 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
     @Override
     protected void initData() {
-        initLoginView();
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        initLoginView();
     }
 
     private void initLoginView() {
@@ -70,11 +68,9 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             view = LayoutInflater.from(getContext()).inflate(R.layout.item_login_my_head_view, null);
             TextView mTvName = view.findViewById(R.id.tv_name);
             TextView mTvFocusFans = view.findViewById(R.id.tv_focus_fans);
-            LogUtils.w("initData--", UserManger.get().getUserName());
-            if (DataUtils.isEmpty(UserManger.get().getUserName())) {
-                mTvName.setText(UserManger.get().getPhone());
-                mTvFocusFans.setText(getString(R.string.focus_and_fans, "0", "0"));
-            }
+           UserBean userBean =  UserManger.get().getUser();
+            mTvName.setText(DataUtils.isEmpty(userBean.nickName) ? userBean.phone : userBean.nickName);
+            mTvFocusFans.setText(getString(R.string.focus_and_fans, "0", "0"));
         } else {
             view = LayoutInflater.from(getContext()).inflate(R.layout.item_no_login_my_head_view, null);
 
@@ -82,13 +78,6 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
         mLlHeadGroup.addView(view);
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && getContext() != null) {
-
-        }
-    }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
@@ -96,7 +85,6 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
         if (!hidden) {
             initLoginView();
         }
-        LogUtils.w("onHiddenChanged----", hidden + "--");
     }
 
     @Override
@@ -139,6 +127,8 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     private void clickHead() {
         if (!UserManger.get().isLogin()) {
             $startActivity(ARouterConfig.Path.ACTIVITY_LOGIN);
+        } else {
+            $startActivity(ARouterConfig.Path.ACTIVITY_MY_DETAILS);
         }
     }
 }

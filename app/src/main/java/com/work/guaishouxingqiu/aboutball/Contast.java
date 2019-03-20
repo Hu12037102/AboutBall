@@ -30,6 +30,7 @@ public interface Contast {
     String DATE = "date";
     String TYPE_ID = "typeId";
     String TOKEN = "Authorization";
+    String SEX = "gender";
     //比赛未开始
     int GAME_STATUS_NO_START = 1;
     //比赛进行中
@@ -46,6 +47,10 @@ public interface Contast {
     //1：官方赛事； 2: 民间赛事；
     int TYPE_GAME_OFFICIAL = 1;
     int TYPE_GAME_FOLK = 2;
+    //性别类型0：其他1：男；2：女
+    int SEX_TYPE_MAN = 1;
+    int SEX_TYPE_WOMAN = 2;
+    int SEX_OTHER = 0;
 
     String HAS_REFEREE = "1";
     String HAS_RIVAL = "2";

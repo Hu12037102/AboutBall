@@ -28,4 +28,8 @@
         <item>推荐</item>
         <item>最新</item>
     </string-array>
+    <string-array name="sex_array">
+        <item>男</item>
+        <item>女</item>
+    </string-array>
 </resources>

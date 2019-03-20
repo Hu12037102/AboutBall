@@ -13,6 +13,9 @@ public interface IApiService {
     String VERIFICATION_CODE = "/api/commons/sms/verificationCode";
     //获取用户信息
     String USER_ACCOUNT = "/api/account";
+
+    //获取账户用户信息
+    String USER_ACCOUNT_INFO = "/api/accountManagement/getAccountInfo";
     //用户注册
     String REGISTER = "/api/account/register";
     //首页-推荐头部信息列表
@@ -37,5 +40,6 @@ public interface IApiService {
     String ABOUT_BALL_LIST_DATA = "/api/agreeBall/getAgreeBallList";
     //获取社区我关注的动态
     String COMMUNITY_ATTENTION_DATA = "/api/tweet/getLastestTweet";
+
 
 }

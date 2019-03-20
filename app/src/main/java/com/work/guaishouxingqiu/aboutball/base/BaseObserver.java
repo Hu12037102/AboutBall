@@ -61,11 +61,12 @@ public class BaseObserver<T> implements Observer<BaseBean<T>> {
     }
 
     private void defaultPresenter(BaseBean baseBean) {
-        if (mPresenter != null && mPresenter.mView != null) {
-            mPresenter.mView.resultBaseData(baseBean);
-            mPresenter.mView.showToast(baseBean.message);
-            mPresenter.mView.dismissLoadingView();
+        if (mPresenter == null || mPresenter.mView == null) {
+            return;
         }
+        mPresenter.mView.resultBaseData(baseBean);
+        mPresenter.mView.showToast(baseBean.message);
+        mPresenter.mView.dismissLoadingView();
     }
 
 

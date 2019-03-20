@@ -25,6 +25,7 @@
     <color name="colorFFFBFAFA">#FFFBFAFA</color>
     <color name="colorFFDB2F23">#FFDB2F23</color>
     <color name="colorFF261C1B">#FF261C1B</color>
+    <color name="colorFFE3E3E3">#FFE3E3E3</color>
 
     <color name="color_1">@color/colorWhite</color>
     <color name="color_2">@color/colorFF3586FF</color>

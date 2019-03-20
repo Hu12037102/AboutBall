@@ -27,6 +27,12 @@ public class ItemView extends RelativeLayout {
     public View mTopLine;
     public View mBottomLine;
 
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    private OnItemClickListener onItemClickListener;
+
     public ItemView(Context context) {
         super(context);
     }
@@ -35,6 +41,18 @@ public class ItemView extends RelativeLayout {
         super(context, attrs);
         initView();
         initAttrs(attrs);
+        initEvent();
+    }
+
+    private void initEvent() {
+        mRootView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemClickListener != null) {
+                    onItemClickListener.onClickItem(v);
+                }
+            }
+        });
     }
 
 
@@ -58,10 +76,10 @@ public class ItemView extends RelativeLayout {
             mTvLeft.setTextColor(typedArray.getColor(R.styleable.ItemView_title_text_color, mTvLeft.getPaint().getColor()));
             mTvLeft.setCompoundDrawablePadding(typedArray.getDimensionPixelSize(R.styleable.ItemView_title_drawable_padding, 0));
             mTopLine.setVisibility(typedArray.getBoolean(R.styleable.ItemView_show_top_line, false) ? VISIBLE : GONE);
-            mTopLine.setBackgroundColor(typedArray.getColor(R.styleable.ItemView_top_line_color,ContextCompat.getColor(getContext(),R.color.colorFFEFEFEF)));
+            mTopLine.setBackgroundColor(typedArray.getColor(R.styleable.ItemView_top_line_color, ContextCompat.getColor(getContext(), R.color.colorFFEFEFEF)));
             setLineHeight(mTopLine, typedArray.getDimensionPixelSize(R.styleable.ItemView_top_line_height, ScreenUtils.dp2px(getContext(), 0.5f)));
-            setMargin(mTopLine,typedArray.getDimensionPixelSize(R.styleable.ItemView_top_line_margin_left,0),typedArray.getDimensionPixelSize(R.styleable.ItemView_top_line_margin_top,0),
-                    typedArray.getDimensionPixelSize(R.styleable.ItemView_top_line_margin_right,0),typedArray.getDimensionPixelSize(R.styleable.ItemView_top_line_margin_bottom,0));
+            setMargin(mTopLine, typedArray.getDimensionPixelSize(R.styleable.ItemView_top_line_margin_left, 0), typedArray.getDimensionPixelSize(R.styleable.ItemView_top_line_margin_top, 0),
+                    typedArray.getDimensionPixelSize(R.styleable.ItemView_top_line_margin_right, 0), typedArray.getDimensionPixelSize(R.styleable.ItemView_top_line_margin_bottom, 0));
             mTvRight.setCompoundDrawablesWithIntrinsicBounds(typedArray.getDrawable(R.styleable.ItemView_content_left_icon),
                     typedArray.getDrawable(R.styleable.ItemView_content_top_icon), typedArray.getDrawable(R.styleable.ItemView_content_right_icon),
                     typedArray.getDrawable(R.styleable.ItemView_content_bottom_icon));
@@ -72,11 +90,11 @@ public class ItemView extends RelativeLayout {
             if (typedArray.getDrawable(R.styleable.ItemView_selector_drawable) != null) {
                 mRootView.setBackgroundDrawable(typedArray.getDrawable(R.styleable.ItemView_selector_drawable));
             }
-            setMargin(mBottomLine,typedArray.getDimensionPixelSize(R.styleable.ItemView_bottom_line_margin_left,0),typedArray.getDimensionPixelSize(R.styleable.ItemView_bottom_line_margin_top,0),
-                    typedArray.getDimensionPixelSize(R.styleable.ItemView_bottom_line_margin_right,0),typedArray.getDimensionPixelSize(R.styleable.ItemView_bottom_line_margin_bottom,0));
+            setMargin(mBottomLine, typedArray.getDimensionPixelSize(R.styleable.ItemView_bottom_line_margin_left, 0), typedArray.getDimensionPixelSize(R.styleable.ItemView_bottom_line_margin_top, 0),
+                    typedArray.getDimensionPixelSize(R.styleable.ItemView_bottom_line_margin_right, 0), typedArray.getDimensionPixelSize(R.styleable.ItemView_bottom_line_margin_bottom, 0));
             mBottomLine.setVisibility(typedArray.getBoolean(R.styleable.ItemView_show_bottom_line, false) ? VISIBLE : GONE);
             setLineHeight(mBottomLine, typedArray.getDimensionPixelSize(R.styleable.ItemView_bottom_line_height, ScreenUtils.dp2px(getContext(), 0.5f)));
-            mBottomLine.setBackgroundColor(typedArray.getColor(R.styleable.ItemView_bottom_line_color,ContextCompat.getColor(getContext(),R.color.colorFFEFEFEF)));
+            mBottomLine.setBackgroundColor(typedArray.getColor(R.styleable.ItemView_bottom_line_color, ContextCompat.getColor(getContext(), R.color.colorFFEFEFEF)));
             typedArray.recycle();
 
         }
@@ -157,4 +175,7 @@ public class ItemView extends RelativeLayout {
         setMeasuredDimension(ScreenUtils.screenWidth(getContext()), resultHeight);
     }
 
+    public interface OnItemClickListener {
+        void onClickItem(View view);
+    }
 }

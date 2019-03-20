@@ -3,11 +3,11 @@ package com.work.guaishouxingqiu.aboutball.login;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
-import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.RegisterResultBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.RequestLoginBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.RequestRegisterBean;
+import com.work.guaishouxingqiu.aboutball.login.bean.RequestUpdateSexBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
 
 import io.reactivex.Observable;
@@ -31,7 +31,12 @@ public interface LoginService {
 
     @GET(IApiService.USER_ACCOUNT)
     Observable<BaseBean<UserBean>> userAccount();
+    @GET(IApiService.USER_ACCOUNT_INFO)
+    Observable<BaseBean<UserBean>> userAccountInfo();
 
     @POST(IApiService.REGISTER)
     Observable<BaseBean<RegisterResultBean>> register(@Body RequestRegisterBean bean);
+
+    @POST(IApiService.USER_ACCOUNT)
+    Observable<BaseBean> updateAccountSex(@Body RequestUpdateSexBean bean);
 }

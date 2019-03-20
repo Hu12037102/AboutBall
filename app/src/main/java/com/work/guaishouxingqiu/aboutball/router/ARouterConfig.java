@@ -11,6 +11,10 @@ public interface ARouterConfig {
         String ACTIVITY_MAIN = "/activity/main";
         String ACTIVITY_LOGIN = "/activity/login";
         String ACTIVITY_REGISTER = "/activity/register";
+        String ACTIVITY_MY_DETAILS = "/activity/my/details";
+        String ACTIVITY_ALTER_NAME = "/activity/alter/name";
+
+
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";
         String FRAGMENT_GAME_FOLK = "/fragment/game/folk";
@@ -29,6 +33,7 @@ public interface ARouterConfig {
         String FRAGMENT_COMMUNITY_ATTENTION = "/fragment/community/attention";
         String FRAGMENT_COMMUNITY_RECOMMEND = "/fragment/community/recommend";
         String FRAGMENT_COMMUNITY_NEWS = "/fragment/community/news";
+
 
     }
 

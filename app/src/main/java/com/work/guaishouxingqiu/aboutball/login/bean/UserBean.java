@@ -8,6 +8,17 @@ package com.work.guaishouxingqiu.aboutball.login.bean;
  */
 public class UserBean {
     public String token;
-    public String phoneNumber;
-
+    public String headerImg;
+    public String nickName;
+    public String phone;
+    public Long userInfoId;
+    public Long userId;
+    public Integer gender;//1:男,2:女
+    public String birthday;
+    public Integer height;
+    public Integer weight;
+    public Integer hasTeam;
+    public String passwordStatus;
+    public String wechatUserName;
+    public String weChatOpenId;
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AboutBall</string>
+    <string name="app_name">踢球么</string>
     <string name="me">我</string>
     <string name="my_about_ball">我的约球</string>
     <string name="my_order">我的订单</string>
@@ -53,4 +53,24 @@
     <string name="lack_of_the_referee">缺裁判</string>
     <string name="lack_of_competitors">缺对手</string>
     <string name="is_go_to_login">您还没有登陆，是否前去登陆？</string>
+    <string name="edit_my_details">编辑个人资料</string>
+    <string name="alter_head_photo">修改头像</string>
+    <string name="name">姓名</string>
+    <string name="sex">性别</string>
+    <string name="birthday">生日</string>
+    <string name="stature">身高</string>
+    <string name="weight">体重</string>
+    <string name="update_password">修改密码</string>
+    <string name="bind_wechat">绑定微信</string>
+    <string name="bind_wechat_hint">绑定微信号并关注踢球么-五华公众号，\n可以在微信端获得消息推送</string>
+    <string name="unbind">未绑定</string>
+    <string name="save">保存</string>
+    <string name="input_name">输入姓名</string>
+    <string name="cancel">取消</string>
+    <string name="sure">确定</string>
+    <string name="choose_weight">选择体重</string>
+    <string name="man">男</string>
+    <string name="women">女</string>
+    <string name="not_setting">未设置</string>
+    <string name="album">相册</string>
 </resources>

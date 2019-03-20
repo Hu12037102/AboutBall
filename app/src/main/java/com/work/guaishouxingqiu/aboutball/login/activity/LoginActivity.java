@@ -28,9 +28,7 @@ import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
-import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
-import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import butterknife.BindView;
@@ -212,6 +210,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             if (bean.result != null) {
                 UserManger.get().putToken(bean.result.id_token);
                 mPresenter.loadUserAccount();
+                mPresenter.loadUserAccountInfo();
             }
         } else if (bean.code == IApi.Code.USER_NO_EXIST) {
 
@@ -220,13 +219,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
     @Override
-    public void resultUserAccount(BaseBean<UserBean> bean) {
-        if (bean.code == IApi.Code.SUCCEED) {
-            if (bean.result == null) {
-                UserManger.get().putPhone(DataUtils.checkData(mTietPhone.getText()).toString());
-            }
-            finish();
-        }
+    public void resultUserDataSucceed() {
+        finish();
     }
 
     @Override
