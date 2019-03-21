@@ -11,9 +11,11 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.bugtags.library.Bugtags;
 import com.example.item.util.ScreenUtils;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
+import com.work.guaishouxingqiu.aboutball.media.bean.MediaSelectorFile;
 import com.work.guaishouxingqiu.aboutball.other.ActivityManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
@@ -26,8 +28,13 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import utils.bean.ImageConfig;
+import utils.task.CompressImageTask;
 
 /**
  * 作者: 胡庆岭
@@ -35,7 +42,7 @@ import butterknife.Unbinder;
  * 更新时间: 2019/3/4 13:08
  * 描述: Activity基类
  */
-public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements IBaseView {
+public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatActivity implements IBaseView {
     protected P mPresenter;
     protected SystemBarTintManager mStatusBarManger;
     private Unbinder mBinder;
@@ -74,7 +81,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     /**
      * 设置状态栏颜色
      */
-    private void initStatusColor() {
+    protected void initStatusColor() {
         ScreenUtils.setStatusTextColor(getWindow().getDecorView(), true);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mStatusBarManger = new SystemBarTintManager(this);
@@ -153,5 +160,15 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     @Override
     public void resultBaseData(@NonNull BaseBean baseBean) {
         UIUtils.resultBaseData(baseBean, DataUtils.checkData(this));
+    }
+
+    protected void compressImage(List<MediaSelectorFile> mMediaFileData, CompressImageTask.OnImagesResult onImagesResult) {
+        final List<ImageConfig> configData = new ArrayList<>();
+        for (int i = 0; i < mMediaFileData.size(); i++) {
+            configData.add(MediaSelectorFile.thisToDefaultImageConfig(mMediaFileData.get(i)));
+        }
+
+        CompressImageTask.get().compressImages(this, configData, onImagesResult);
+
     }
 }

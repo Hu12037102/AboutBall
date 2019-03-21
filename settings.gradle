@@ -1,1 +1,1 @@
-include ':app','adapter','view','media'
+include ':app','adapter','view'

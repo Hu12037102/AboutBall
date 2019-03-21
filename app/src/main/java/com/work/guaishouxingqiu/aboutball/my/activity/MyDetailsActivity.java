@@ -5,8 +5,6 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.ItemView;
-import com.example.media.MediaSelector;
-import com.example.media.bean.MediaSelectorFile;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
@@ -14,6 +12,8 @@ import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.CameraActivity;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
+import com.work.guaishouxingqiu.aboutball.media.MediaSelector;
+import com.work.guaishouxingqiu.aboutball.media.bean.MediaSelectorFile;
 import com.work.guaishouxingqiu.aboutball.my.contract.MyDetailsContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.MyDetailsPresenter;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
@@ -21,6 +21,7 @@ import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.weight.SexDialog;
 
 import java.io.File;
@@ -149,13 +150,12 @@ public class MyDetailsActivity extends CameraActivity<MyDetailsPresenter> implem
     }
 
     private void clickUpdateHeadPhoto() {
-        MediaSelector.MediaOptions options = new MediaSelector.MediaOptions();
-        options.isShowVideo = false;
-        options.maxChooseMedia = 1;
-        options.isCompress = false;
-        options.isCrop = true;
-        options.isShowCamera = true;
-        openPhoto(options);
+        MediaSelector.MediaOptions mediaOptions = new MediaSelector.MediaOptions();
+        mediaOptions.maxChooseMedia = 1;
+        mediaOptions.isCrop = true;
+        mediaOptions.isShowCamera = true;
+        super.openPhotoDialog(mediaOptions);
+
     }
 
     private void clickUpdateSex() {
@@ -180,12 +180,12 @@ public class MyDetailsActivity extends CameraActivity<MyDetailsPresenter> implem
 
 
     @Override
-    protected void onAlbumResult(List<MediaSelectorFile> files) {
-
+    protected void resultAlbumResult(List<MediaSelectorFile> data) {
+        LogUtils.w("resultAlbumResult--", data.size() + "--");
     }
 
     @Override
-    protected void onCameraResult(File cameraFile) {
-
+    protected void resultCameraResult(File cameraFile) {
+        LogUtils.w("resultAlbumResult---", cameraFile.getAbsolutePath() + "--");
     }
 }

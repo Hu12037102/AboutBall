@@ -33,4 +33,11 @@
     <color name="color_4">@color/colorFF1D1D1D</color>
     <color name="color_5">@color/colorFF777777</color>
 
+
+    <color name="colorText">#FFEEEEEE</color>
+    <color name="colorTextUnSelector">@color/color_3</color>
+    <color name="colorTextSelector">@color/color_4</color>
+    <color name="colorFF191814">#FF191814</color>
+    <color name="colorA0000000">#A0000000</color>
+
 </resources>

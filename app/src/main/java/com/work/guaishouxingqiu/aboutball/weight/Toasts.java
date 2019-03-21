@@ -1,7 +1,10 @@
 package com.work.guaishouxingqiu.aboutball.weight;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
@@ -50,6 +53,18 @@ public class Toasts {
         }else {
             mToast.setText(textRes);
         }
+        mToast.show();
+    }
+
+    public synchronized void showToast( @StringRes int text, Object... object) {
+
+        if (mToast == null) {
+            mToast = Toast.makeText(UIUtils.getContext(), UIUtils.getContext().getString(text, object), Toast.LENGTH_SHORT);
+        } else {
+            mToast.setText(UIUtils.getContext().getString(text, object));
+            mToast.setDuration(Toast.LENGTH_SHORT);
+        }
+        Log.w("showToast--", "showToast");
         mToast.show();
     }
 }

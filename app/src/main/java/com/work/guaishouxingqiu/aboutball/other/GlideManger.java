@@ -57,6 +57,16 @@ public class GlideManger {
         Glide.with(context).asDrawable().apply(requestOptions).load(resId).into(imageView);
     }
 
+    public void loadMediaImage(@NonNull Context context, @NonNull String path, @NonNull ImageView imageView, boolean isCrop) {
+        RequestOptions requestOptions = new RequestOptions().placeholder(R.mipmap.icon_image_background).error(R.mipmap.icon_image_background);
+        if (isCrop) {
+            requestOptions = requestOptions.centerCrop();
+        } else {
+            requestOptions = requestOptions.centerInside();
+        }
+        Glide.with(context).asDrawable().apply(requestOptions).load(path).into(imageView);
+    }
+
     public void loadImage(@NonNull Context context, @DrawableRes int resId, @NonNull ImageView imageView) {
         RequestOptions requestOptions = new RequestOptions().centerCrop();
 

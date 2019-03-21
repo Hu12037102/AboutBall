@@ -48,6 +48,24 @@
         <activity android:name=".login.activity.RegisterActivity" />
         <activity android:name=".my.activity.MyDetailsActivity" />
         <activity android:name=".my.activity.AlterNameActivity" />
+
+
+        <activity android:name=".media.activity.MediaActivity"/>
+
+        <activity android:name=".media.activity.PreviewActivity"/>
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <provider
+            android:name=".media.provider.MediaProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_path" />
+        </provider>
     </application>
 
 </manifest>

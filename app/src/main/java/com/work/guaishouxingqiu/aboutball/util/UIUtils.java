@@ -4,7 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -21,6 +23,9 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
+import com.yalantis.ucrop.UCrop;
+
+import java.io.File;
 
 /**
  * 作者: 胡庆岭
@@ -110,6 +115,7 @@ public class UIUtils {
                     activity.finish();
                     loginDialog.dismiss();
                 });
+                break;
             case IApi.Code.USER_NOT_LOGIN:
                 final HintDialog notLoginDialog = new HintDialog.Builder(activity)
                         .setTitle(R.string.hint)
@@ -140,5 +146,20 @@ public class UIUtils {
         }
     }
 
+    public static void uCropImage(Activity activity, File firstFile, File lastFile, int scaleX, int scaleY,
+                                  int cropWidth, int cropHeight) {
+        UCrop.Options options = new UCrop.Options();
+        options.setCompressionQuality(100);
+        options.setToolbarColor(ContextCompat.getColor(activity, R.color.color_4));
+        options.setStatusBarColor(ContextCompat.getColor(activity, R.color.color_4));
+        options.setLogoColor(ContextCompat.getColor(activity, R.color.color_4));
+        options.setActiveWidgetColor(ContextCompat.getColor(activity, R.color.color_2));
+        UCrop.of(Uri.fromFile(firstFile), Uri.fromFile(lastFile))
+                .withAspectRatio(scaleX, scaleY)
+                .withMaxResultSize(cropWidth, cropHeight)
+                .withOptions(options)
+                .start(activity);
+
+    }
 
 }
