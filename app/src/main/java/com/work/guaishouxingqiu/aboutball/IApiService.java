@@ -24,6 +24,7 @@ public interface IApiService {
     String NEWS_LIST = "/api/news/getNewsList";
     //首页信息相关接口
     String GET_HOME_TAB ="/api/home/getHomeLabel";
+    String GET_NEWS_CONTENT="/api/news/getNewsDetail";
 
 
     //赛事-列表

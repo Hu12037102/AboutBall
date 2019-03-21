@@ -4,6 +4,7 @@ package com.work.guaishouxingqiu.aboutball.home;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
+import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultHomeTabBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultRecommendDataBean;
@@ -32,6 +33,9 @@ public interface HomeService {
 
     @GET(IApiService.GET_HOME_TAB)
     Observable<BaseBean<List<ResultHomeTabBean>>> getHomeTab();
+
+    @GET(IApiService.GET_NEWS_CONTENT)
+    Observable<BaseBean<BaseDataBean<String>>> getNewsDetails(@Query(Contast.NEW_ID) long newsId);
 
 
 }

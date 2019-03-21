@@ -107,19 +107,7 @@ public  class MediaActivity extends PermissionActivity {
         }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Glide.with(this).onStart();
-    }
 
-    @Override
-    protected void onStop() {
-
-        super.onStop();
-
-        Glide.with(this).onStop();
-    }
 
     @Override
     protected void onDestroy() {

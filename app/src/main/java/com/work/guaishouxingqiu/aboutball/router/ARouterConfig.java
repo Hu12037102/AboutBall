@@ -13,6 +13,7 @@ public interface ARouterConfig {
         String ACTIVITY_REGISTER = "/activity/register";
         String ACTIVITY_MY_DETAILS = "/activity/my/details";
         String ACTIVITY_ALTER_NAME = "/activity/alter/name";
+        String ACTIVITY_NEW_DETAILS="/activity/new/details";
 
 
         String FRAGMENT_GAME = "/fragment/game";
@@ -39,6 +40,7 @@ public interface ARouterConfig {
 
     interface Key {
         String TAB_TYPE_ID = "tabTypeId";
+        String NEW_DETAILS_ID = "newDetailsId";
     }
 
 }

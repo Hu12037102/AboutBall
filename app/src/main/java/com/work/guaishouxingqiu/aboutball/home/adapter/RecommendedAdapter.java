@@ -87,6 +87,11 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             } else {
                 textViewHolder.mLine.setVisibility(View.VISIBLE);
             }
+            textViewHolder.itemView.setOnClickListener(v -> {
+                if (onItemClickListener != null){
+                    onItemClickListener.onItemClick(v,i);
+                }
+            });
 
         } else if (viewHolder instanceof SingViewHolder) {
             SingViewHolder singViewHolder = (SingViewHolder) viewHolder;
@@ -108,6 +113,12 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             } else {
                 singViewHolder.mLine.setVisibility(View.VISIBLE);
             }
+
+            singViewHolder.itemView.setOnClickListener(v -> {
+                if (onItemClickListener != null){
+                    onItemClickListener.onItemClick(v,i);
+                }
+            });
         } else if (viewHolder instanceof ThreeViewHolder) {
             ThreeViewHolder threeViewHolder = (ThreeViewHolder) viewHolder;
             threeViewHolder.mFtvData.setText(mData.get(i).title);
@@ -126,6 +137,12 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             } else {
                 threeViewHolder.mLine.setVisibility(View.VISIBLE);
             }
+
+            threeViewHolder.itemView.setOnClickListener(v -> {
+                if (onItemClickListener != null){
+                    onItemClickListener.onItemClick(v,i);
+                }
+            });
         }
 
         //  viewHolder.getAdapterPosition();

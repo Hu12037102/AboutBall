@@ -48,7 +48,7 @@
         <activity android:name=".login.activity.RegisterActivity" />
         <activity android:name=".my.activity.MyDetailsActivity" />
         <activity android:name=".my.activity.AlterNameActivity" />
-
+        <activity android:name=".home.activity.NewsDetailsActivity"/>
 
         <activity android:name=".media.activity.MediaActivity"/>
 

@@ -29,6 +29,8 @@ public interface Contast {
     String OFFICIAL = "official";
     String DATE = "date";
     String TYPE_ID = "typeId";
+    String NEW_ID = "newsId";
+
     String TOKEN = "Authorization";
     String SEX = "gender";
     //比赛未开始

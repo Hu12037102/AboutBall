@@ -21,6 +21,11 @@ public class ARouterIntent {
     public static void startActivity(@NonNull String path) {
         ARouter.getInstance().build(path).navigation();
     }
+    public static void startActivity(@NonNull String path,@NonNull String key,int values){
+        ARouter.getInstance().build(path).withInt(key,values).navigation();
+    }   public static void startActivity(@NonNull String path,@NonNull String key,long values){
+        ARouter.getInstance().build(path).withLong(key,values).navigation();
+    }
 
     public static <T extends Fragment> T getFragment(@NonNull String path) {
         return (T) ARouter.getInstance().build(path).navigation();

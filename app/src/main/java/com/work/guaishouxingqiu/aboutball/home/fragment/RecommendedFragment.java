@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.item.util.ScreenUtils;
+import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
@@ -40,6 +41,7 @@ import com.work.guaishouxingqiu.aboutball.home.bean.ResultRecommendDataBean;
 import com.work.guaishouxingqiu.aboutball.home.contract.RecommendedContract;
 import com.work.guaishouxingqiu.aboutball.home.presenter.RecommendedPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.NetWorkUtils;
@@ -186,6 +188,23 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
                 loadRefreshData();
             }
         });
+        mRecommendAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onNotNetClick(View view) {
+
+            }
+
+            @Override
+            public void onNotDataClick(View view) {
+
+            }
+
+            @Override
+            public void onItemClick(View view, int position) {
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_NEW_DETAILS,
+                        ARouterConfig.Key.NEW_DETAILS_ID, mRecommendData.get(position).newsId);
+            }
+        });
 
     }
 
@@ -303,7 +322,6 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
         super.setUserVisibleHint(isVisibleToUser);
 
     }
-
 
 
     @Override

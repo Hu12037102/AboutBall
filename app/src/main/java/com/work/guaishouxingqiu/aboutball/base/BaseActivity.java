@@ -1,5 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.base;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -47,6 +48,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
     protected SystemBarTintManager mStatusBarManger;
     private Unbinder mBinder;
     private LoadingView mLoadingView;
+    protected Intent mIntent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,7 +79,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
     }
 
 
-
     /**
      * 设置状态栏颜色
      */
@@ -92,6 +93,11 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
     }
 
     public void initPermission() {
+        mIntent = getIntent();
+        if (mIntent == null) {
+            finish();
+            return;
+        }
         mPresenter = createPresenter();
         initView();
         initData();
@@ -138,7 +144,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
         ActivityManger.get().removeActivity(this.getClass());
 
     }
-
 
 
     protected void registerEventBus() {

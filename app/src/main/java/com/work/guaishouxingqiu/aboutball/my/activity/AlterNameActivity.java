@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.my.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.support.v7.widget.AppCompatEditText;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.work.guaishouxingqiu.aboutball.R;
@@ -24,7 +25,7 @@ import butterknife.ButterKnife;
 @Route(path = ARouterConfig.Path.ACTIVITY_ALTER_NAME)
 public class AlterNameActivity extends BaseActivity<AlterNamePresenter> implements AlterNameContract.View {
     @BindView(R.id.tiet_name)
-    TextInputEditText mTietName;
+    AppCompatEditText mTietName;
 
     @Override
     protected int getLayoutId() {
