@@ -10,5 +10,5 @@ public class BaseDataBean<T> {
     public String title;
     public String source;
     public String releaseTime;
-    public T t;
+    public T content;
 }

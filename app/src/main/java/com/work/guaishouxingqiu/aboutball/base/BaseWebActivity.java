@@ -22,6 +22,11 @@ public abstract class BaseWebActivity<P extends BasePresenter> extends Permissio
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initWebView();
+
+    }
+
+    protected void initWebView() {
         mWebView = DataUtils.checkData(getWebView());
         WebHelp.initSetting(mWebView);
     }
