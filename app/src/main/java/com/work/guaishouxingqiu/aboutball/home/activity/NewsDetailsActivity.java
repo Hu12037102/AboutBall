@@ -9,6 +9,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
+import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseWebActivity;
 import com.work.guaishouxingqiu.aboutball.home.contract.NewsDetailsContract;
 import com.work.guaishouxingqiu.aboutball.home.presenter.NewDetailsPresenter;
@@ -61,7 +62,6 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
     }
 
 
-
     @OnClick({R.id.iv_send_message, R.id.tv_input_message})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -73,8 +73,9 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
     }
 
     @Override
-    public void resultNewsContent(String newsContent) {
-        loadEditData(newsContent);
+    public void resultNewsContent(BaseDataBean<String> dataBean) {
+        loadEditData(dataBean.content);
+        mTitleView.mTvCenter.setText(dataBean.title);
     }
 
     @Override

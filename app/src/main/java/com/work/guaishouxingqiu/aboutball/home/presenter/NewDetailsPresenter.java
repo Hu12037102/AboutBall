@@ -40,7 +40,7 @@ public class NewDetailsPresenter extends BasePresenter<NewsDetailsContract.View,
             @Override
             public void onNext(BaseBean<BaseDataBean<String>> baseBean) {
                 if (baseBean.code == IApi.Code.SUCCEED && baseBean.result != null) {
-                    mView.resultNewsContent(baseBean.result.content);
+                    mView.resultNewsContent(baseBean.result);
                 }
             }
 

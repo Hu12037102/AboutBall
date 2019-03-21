@@ -15,7 +15,11 @@
         app:back_text_padding_left="@dimen/default_margin"
         app:back_text_padding_right="@dimen/default_margin"
         app:layout_constraintBaseline_toBaselineOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:center_text_color="@color/color_4"
+        app:center_text_size="@dimen/size_18sp"
+        app:sure_text_padding_left="@dimen/default_margin"
+        app:sure_text_padding_right="@dimen/default_margin"/>
 
     <View
         android:id="@+id/line"

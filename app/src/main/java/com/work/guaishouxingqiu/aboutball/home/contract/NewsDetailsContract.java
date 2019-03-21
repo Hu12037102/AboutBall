@@ -1,5 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.home.contract;
 
+import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 
@@ -11,7 +12,7 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
  */
 public interface NewsDetailsContract {
     interface View extends IBaseView {
-        void resultNewsContent(String newsContent);
+        void resultNewsContent(BaseDataBean<String> dataBean);
     }
 
     interface Presenter extends IBasePresenter {
