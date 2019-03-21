@@ -40,7 +40,7 @@
             android:textColorHint="@color/color_4"
             app:hintTextAppearance="@style/DefaultTextInputLayout">
 
-            <android.support.design.widget.TextInputEditText
+            <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/tet_phone"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_50dp"
@@ -86,7 +86,7 @@
             android:textColorHint="@color/color_4"
             app:hintTextAppearance="@style/DefaultTextInputLayout">
 
-            <android.support.design.widget.TextInputEditText
+            <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/tit_code"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_50dp"
@@ -152,7 +152,7 @@
             android:textColorHint="@color/color_4"
             app:hintTextAppearance="@style/DefaultTextInputLayout">
 
-            <android.support.design.widget.TextInputEditText
+            <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_50dp"

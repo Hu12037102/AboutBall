@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.login.fragment;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -28,7 +29,7 @@ public class RegisterPasswordFragment extends BaseFragment<RegisterPasswordPrese
         implements RegisterPasswordContract.View {
 
     @BindView(R.id.tiet_password)
-    TextInputEditText mTietPassword;
+    AppCompatEditText mTietPassword;
     @BindView(R.id.iv_clear_password)
     ImageView mIvClearPassword;
     @BindView(R.id.tv_register)

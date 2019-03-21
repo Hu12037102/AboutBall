@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -47,17 +48,17 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @BindView(R.id.iv_clear_phone)
     ImageView mIvClearPhone;
     @BindView(R.id.tet_phone)
-    TextInputEditText mTietPhone;
+    AppCompatEditText mTietPhone;
     @BindView(R.id.tv_gain_message_code)
     TextView mTvGainMessageCode;
     @BindView(R.id.iv_clear_message_code)
     ImageView mIvClearMessageCode;
     @BindView(R.id.tit_code)
-    TextInputEditText mTietCode;
+    AppCompatEditText mTietCode;
     @BindView(R.id.iv_clear_password)
     ImageView mIvClearPassword;
     @BindView(R.id.et_password)
-    TextInputEditText mTIetPassword;
+    AppCompatEditText mTIetPassword;
     @BindView(R.id.rl_message_code)
     ConstraintLayout mRlMessageCode;
     @BindView(R.id.rl_password)

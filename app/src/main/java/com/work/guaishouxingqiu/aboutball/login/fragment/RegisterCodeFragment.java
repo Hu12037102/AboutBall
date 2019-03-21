@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -50,13 +51,13 @@ public class RegisterCodeFragment extends BaseFragment<RegisterCodePresenter> im
     @BindView(R.id.tv_gain_message_code)
     TextView mTvGainMessageCode;
     @BindView(R.id.tiet_input_1)
-    TextInputEditText mTietInput1;
+    AppCompatEditText mTietInput1;
     @BindView(R.id.tiet_input_2)
-    TextInputEditText mTietInput2;
+    AppCompatEditText mTietInput2;
     @BindView(R.id.tiet_input_3)
-    TextInputEditText mTietInput3;
+    AppCompatEditText mTietInput3;
     @BindView(R.id.tiet_input_4)
-    TextInputEditText mTietInput4;
+    AppCompatEditText mTietInput4;
     private String mPhooneNumber;
     private RegisterInputAdapter mInputAdapter;
     private boolean isFirst = true;

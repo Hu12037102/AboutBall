@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.login.fragment;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -31,7 +32,7 @@ import butterknife.OnClick;
 public class RegisterPhoneFragment extends BaseFragment<RegisterPhonePresenter> implements
         RegisterPhoneContract.View {
     @BindView(R.id.tiet_phone)
-    TextInputEditText mTietPhone;
+    AppCompatEditText mTietPhone;
     @BindView(R.id.iv_clear_register_phone)
     ImageView mIvClearPhone;
     @BindView(R.id.tv_next)
