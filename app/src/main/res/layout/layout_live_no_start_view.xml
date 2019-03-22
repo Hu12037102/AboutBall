@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/SingLineTextView"
+        android:gravity="center"
+        android:textColor="@color/colorTheme"
+        android:textSize="@dimen/size_12sp"
+        tools:text="直播尚未开始" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_10dp"
+        android:text="@string/vs"
+        android:gravity="center_horizontal"
+        android:textColor="@color/colorTheme"
+        android:textSize="22sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_10dp"
+        android:textColor="@color/colorTheme"
+        android:textSize="@dimen/size_12sp"
+        tools:text="天青色等烟雨"
+        android:gravity="center_horizontal"/>
+</LinearLayout>

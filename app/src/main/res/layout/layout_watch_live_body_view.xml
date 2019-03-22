@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+
+        <TextView
+            style="@style/SingLineTextView"
+            android:gravity="center_horizontal"
+            android:textColor="@color/colorTheme"
+            tools:text="第十八届球王杯" />
+
+        <TextView
+            style="@style/SingLineTextView"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:gravity="center_horizontal"
+            android:textColor="@color/colorTheme"
+            android:textSize="22sp"
+            tools:text="0 - 1" />
+
+        <TextView
+            android:layout_width="@dimen/size_105dp"
+            android:layout_height="@dimen/size_30dp"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:background="@drawable/shape_watch_live_tv"
+            android:gravity="center"
+            android:text="@string/watch_live"
+            android:textColor="@color/colorTheme" />
+
+</LinearLayout>

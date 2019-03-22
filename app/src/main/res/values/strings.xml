@@ -77,6 +77,8 @@
     <string name="hot_message">热门评论</string>
     <string name="commit">提交</string>
     <string name="please_input_message">请输入评论！</string>
+    <string name="watch_live">观看直播</string>
+    <string name="vs">VS</string>
 
 
     <!--相册选择器-->

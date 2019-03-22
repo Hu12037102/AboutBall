@@ -46,6 +46,11 @@ public class GameListAdapter extends BaseRecyclerAdapter<GameListAdapter.ViewHol
             UIUtils.setGameIconStatus(0, viewHolder.mTvStatus);
             e.printStackTrace();
         }
+        viewHolder.itemView.setOnClickListener(v -> {
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(v, i);
+            }
+        });
 
     }
 

@@ -3,8 +3,10 @@ package com.work.guaishouxingqiu.aboutball.game.fragment;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
@@ -17,6 +19,7 @@ import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameBean;
 import com.work.guaishouxingqiu.aboutball.game.contract.GameOfficialContract;
 import com.work.guaishouxingqiu.aboutball.game.presenter.GameOfficialPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
@@ -57,15 +60,31 @@ public class GameOfficialFragment extends BaseFragment<GameOfficialPresenter> im
         mGameData = new ArrayList<>();
         mAdapter = new GameListAdapter(mData);
         mRvData.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onNotNetClick(View view) {
+
+            }
+
+            @Override
+            public void onNotDataClick(View view) {
+
+            }
+
+            @Override
+            public void onItemClick(View view, int position) {
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_GAME_DETAILS);
+            }
+        });
         mPresenter.loadGameData(Contast.TYPE_GAME_OFFICIAL);
     }
 
     private void loadGameList(boolean isRefresh) {
         mPresenter.isRefresh = isRefresh;
         if (mGameData != null && mGameData.size() > 0) {
-            if (mPresenter.isRefresh){
+            if (mPresenter.isRefresh) {
                 mPresenter.loadGameRefreshOrMoreData(Contast.TYPE_GAME_OFFICIAL, mGameData.get(0).endTime);
-            }else {
+            } else {
                 mPresenter.loadGameRefreshOrMoreData(Contast.TYPE_GAME_OFFICIAL, mGameData.get(mGameData.size() - 1).endTime);
             }
         } else {
