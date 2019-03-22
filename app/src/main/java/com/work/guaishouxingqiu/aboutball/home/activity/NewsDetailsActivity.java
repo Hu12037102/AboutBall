@@ -1,20 +1,39 @@
 package com.work.guaishouxingqiu.aboutball.home.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.widget.ProgressBar;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.example.item.util.ScreenUtils;
 import com.example.item.weight.TitleView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseWebActivity;
+import com.work.guaishouxingqiu.aboutball.home.adapter.NewsMessageAdapter;
+import com.work.guaishouxingqiu.aboutball.home.bean.RequestSendMessageBean;
+import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsMessageBean;
 import com.work.guaishouxingqiu.aboutball.home.contract.NewsDetailsContract;
 import com.work.guaishouxingqiu.aboutball.home.presenter.NewDetailsPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseWebView;
+import com.work.guaishouxingqiu.aboutball.weight.InputMessageDialog;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,6 +53,15 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
     BaseWebView mWebView;
     @BindView(R.id.rv_message_data)
     RecyclerView mRvMessage;
+    @BindView(R.id.pb_loading)
+    ProgressBar mPbLoading;
+    @BindView(R.id.srl_layout)
+    SmartRefreshLayout mSrlLayout;
+    private long mNewsId;
+    private NewsMessageAdapter mAdapter;
+    private List<ResultNewsMessageBean> mData;
+    private InputMessageDialog mSendMessageDialog;
+
 
     @Override
     protected int getLayoutId() {
@@ -42,19 +70,33 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
 
     @Override
     protected void initView() {
-        long newsId = mIntent.getLongExtra(ARouterConfig.Key.NEW_DETAILS_ID, 0);
-        mPresenter.loadNewsContent(newsId);
+        super.initView();
+        mNewsId = mIntent.getLongExtra(ARouterConfig.Key.NEW_DETAILS_ID, 0);
+        mRvMessage.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
     protected void initData() {
-
+        mData = new ArrayList<>();
+        mAdapter = new NewsMessageAdapter(mData);
+        mRvMessage.setAdapter(mAdapter);
+        mPresenter.loadNewsContent(mNewsId);
+        mPresenter.loadMessage(mNewsId);
     }
 
     @Override
     protected void initEvent() {
+        super.initEvent();
+        mSrlLayout.setOnLoadMoreListener(refreshLayout -> {
+
+            mPresenter.isRefresh = false;
+            mPresenter.loadMessage(mNewsId);
+            refreshLayout.finishLoadMore();
+
+        });
 
     }
+
 
     @Override
     protected NewDetailsPresenter createPresenter() {
@@ -68,6 +110,18 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
             case R.id.iv_send_message:
                 break;
             case R.id.tv_input_message:
+                if (mSendMessageDialog == null) {
+                    mSendMessageDialog = new InputMessageDialog(this);
+                    mSendMessageDialog.setOnInputMessageListener(text -> {
+                        RequestSendMessageBean bean = new RequestSendMessageBean();
+                        bean.newsId = mNewsId;
+                        bean.commentContent = text;
+                        mPresenter.sendNewsMessage(bean);
+                    });
+                }
+                if (!mSendMessageDialog.isShowing()) {
+                    mSendMessageDialog.show();
+                }
                 break;
         }
     }
@@ -79,7 +133,32 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
     }
 
     @Override
+    public void resultMessageData(List<ResultNewsMessageBean> data) {
+        if (mPresenter.isRefresh) {
+            mData.clear();
+        }
+        mData.addAll(data);
+        mSrlLayout.setNoMoreData(data.size() < mPresenter.mPageSize);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void resultSendNewsMessage() {
+        mPresenter.isRefresh = true;
+        if (mSendMessageDialog != null) {
+            mSendMessageDialog.clearEditData();
+        }
+        mPresenter.loadMessage(mNewsId);
+
+    }
+
+    @Override
     protected WebView getWebView() {
         return mWebView;
+    }
+
+    @Override
+    protected ProgressBar getProgressBar() {
+        return mPbLoading;
     }
 }

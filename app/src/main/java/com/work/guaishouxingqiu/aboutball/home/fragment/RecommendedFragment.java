@@ -201,8 +201,7 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
 
             @Override
             public void onItemClick(View view, int position) {
-                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_NEW_DETAILS,
-                        ARouterConfig.Key.NEW_DETAILS_ID, mRecommendData.get(position).newsId);
+
             }
         });
 

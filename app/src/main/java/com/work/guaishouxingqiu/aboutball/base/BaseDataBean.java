@@ -7,8 +7,10 @@ package com.work.guaishouxingqiu.aboutball.base;
  * 描述:
  */
 public class BaseDataBean<T> {
+    public int code;
     public String title;
     public String source;
     public String releaseTime;
+    public String message;
     public T content;
 }

@@ -2,10 +2,15 @@ package com.work.guaishouxingqiu.aboutball.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.ProgressBar;
 
+import com.example.item.util.ScreenUtils;
+import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.other.WebHelp;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
@@ -18,17 +23,36 @@ import com.work.guaishouxingqiu.aboutball.util.DataUtils;
  */
 public abstract class BaseWebActivity<P extends BasePresenter> extends PermissionActivity<P> {
     private WebView mWebView;
+    private ProgressBar mPbLoading;
+
+
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initView() {
         initWebView();
-
+        mPbLoading = getProgressBar();
     }
 
     protected void initWebView() {
         mWebView = DataUtils.checkData(getWebView());
+
         WebHelp.initSetting(mWebView);
+    }
+
+    @Override
+    protected void initEvent() {
+        mWebView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+                if (mPbLoading != null) {
+                    mPbLoading.setProgress(newProgress);
+                    if (newProgress == 100) {
+                        mPbLoading.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
     }
 
     /**
@@ -84,4 +108,6 @@ public abstract class BaseWebActivity<P extends BasePresenter> extends Permissio
     }
 
     protected abstract WebView getWebView();
+
+    protected abstract ProgressBar getProgressBar();
 }

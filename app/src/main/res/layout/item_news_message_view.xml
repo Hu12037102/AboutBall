@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/default_margin"
+    android:paddingRight="@dimen/default_margin"
+    android:paddingTop="@dimen/default_margin">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civ_head"
+        android:layout_width="@dimen/size_40dp"
+        android:layout_height="@dimen/size_40dp"
+        android:src="@mipmap/icon_my_default_head"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/size_15dp"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toRightOf="@id/civ_head"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/SingLineTextView"
+            android:textColor="@color/colorFF777777"
+            android:textSize="14sp"
+            tools:text="天青色等烟雨" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            style="@style/SingLineTextView"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/colorFFA6A6A6"
+            android:textSize="@dimen/size_12sp"
+            tools:text="天青色等烟雨" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:lineSpacingExtra="@dimen/size_5dp"
+            android:textColor="@color/color_4"
+            tools:text="天青色等烟雨" />
+
+        <View
+            style="@style/HorizontalLine"
+            android:layout_marginTop="@dimen/default_margin" />
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

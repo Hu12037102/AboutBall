@@ -5,14 +5,19 @@ import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
+import com.work.guaishouxingqiu.aboutball.home.bean.RequestSendMessageBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultHomeTabBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsBean;
+import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsMessageBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultRecommendDataBean;
+import com.work.guaishouxingqiu.aboutball.http.IApi;
 
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -37,5 +42,11 @@ public interface HomeService {
     @GET(IApiService.GET_NEWS_CONTENT)
     Observable<BaseBean<BaseDataBean<String>>> getNewsDetails(@Query(Contast.NEW_ID) long newsId);
 
+    @GET(IApiService.GET_NEWS_MESSAGE_CONTENT_LIST)
+    Observable<BaseBean<List<ResultNewsMessageBean>>> getNewsMessageData(@Query(Contast.PAGE_NUM) int pageNum,
+                                                                         @Query(Contast.PAGE_SIZE) int pageSize,
+                                                                         @Query(Contast.NEW_ID) long newsId);
 
+    @POST(IApiService.POST_SEND_NEWS_MESSAGE_CONTENT)
+    Observable<BaseBean<BaseDataBean<String>>> postSendMessageContent(@Body RequestSendMessageBean bean);
 }

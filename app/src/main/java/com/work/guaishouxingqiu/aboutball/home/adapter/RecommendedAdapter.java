@@ -14,6 +14,8 @@ import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
+import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 
 import java.util.List;
@@ -88,6 +90,8 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
                 textViewHolder.mLine.setVisibility(View.VISIBLE);
             }
             textViewHolder.itemView.setOnClickListener(v -> {
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_NEW_DETAILS,
+                        ARouterConfig.Key.NEW_DETAILS_ID, mData.get(i).newsId);
                 if (onItemClickListener != null){
                     onItemClickListener.onItemClick(v,i);
                 }
@@ -115,6 +119,8 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             }
 
             singViewHolder.itemView.setOnClickListener(v -> {
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_NEW_DETAILS,
+                        ARouterConfig.Key.NEW_DETAILS_ID, mData.get(i).newsId);
                 if (onItemClickListener != null){
                     onItemClickListener.onItemClick(v,i);
                 }
@@ -139,6 +145,8 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             }
 
             threeViewHolder.itemView.setOnClickListener(v -> {
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_NEW_DETAILS,
+                        ARouterConfig.Key.NEW_DETAILS_ID, mData.get(i).newsId);
                 if (onItemClickListener != null){
                     onItemClickListener.onItemClick(v,i);
                 }

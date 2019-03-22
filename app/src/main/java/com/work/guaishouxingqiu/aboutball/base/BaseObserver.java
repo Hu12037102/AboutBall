@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -65,7 +66,17 @@ public class BaseObserver<T> implements Observer<BaseBean<T>> {
             return;
         }
         mPresenter.mView.resultBaseData(baseBean);
-        mPresenter.mView.showToast(baseBean.message);
+        if (!DataUtils.isEmpty(baseBean.message)) {
+            mPresenter.mView.showToast(baseBean.message);
+        } else {
+            Object object = baseBean.result;
+            if (object instanceof BaseDataBean) {
+                BaseDataBean baseDataBean = (BaseDataBean) object;
+                if (!DataUtils.isEmpty(baseDataBean.message)) {
+                    mPresenter.mView.showToast(baseDataBean.message);
+                }
+            }
+        }
         mPresenter.mView.dismissLoadingView();
     }
 
