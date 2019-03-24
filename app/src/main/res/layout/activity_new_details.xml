@@ -42,54 +42,53 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent" />
 
-    <android.support.v4.widget.NestedScrollView
+    <!-- <android.support.v4.widget.NestedScrollView
+     android:layout_width="match_parent"
+     android:layout_height="0dp"
+     android:scrollbars="vertical">
+
+<LinearLayout
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:background="@color/colorTheme"
+     android:orientation="vertical">
+
+
+     <com.work.guaishouxingqiu.aboutball.weight.BaseWebView
+         android:id="@+id/bw_web"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:background="@drawable/shape_input_name_view"
+         android:focusable="false"/>
+
+     <TextView
+         android:layout_width="match_parent"
+         android:layout_height="@dimen/size_45dp"
+         android:gravity="center_vertical"
+         android:paddingLeft="@dimen/default_margin"
+         android:text="@string/hot_message"
+         android:textColor="@color/color_4"
+         android:textSize="@dimen/size_17sp" />
+
+     <View style="@style/HorizontalLine" />-->
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/srl_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@id/include_send_view"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pb_loading">
+        app:layout_constraintTop_toBottomOf="@id/pb_loading"
+        app:srlEnableRefresh="false">
 
-        <LinearLayout
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_message_data"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorTheme"
-            android:orientation="vertical">
-
-
-            <com.work.guaishouxingqiu.aboutball.weight.BaseWebView
-                android:id="@+id/bw_web"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_input_name_view"
-                android:focusable="false"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/size_45dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/default_margin"
-                android:text="@string/hot_message"
-                android:textColor="@color/color_4"
-                android:textSize="@dimen/size_17sp" />
-
-            <View style="@style/HorizontalLine" />
-
-            <com.scwang.smartrefresh.layout.SmartRefreshLayout
-                android:id="@+id/srl_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                app:srlEnableRefresh="false">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_message_data"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"/>
-            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+            android:focusable="true"
+            android:focusableInTouchMode="true" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    <!--</LinearLayout>
+</android.support.v4.widget.NestedScrollView>-->
 </android.support.constraint.ConstraintLayout>

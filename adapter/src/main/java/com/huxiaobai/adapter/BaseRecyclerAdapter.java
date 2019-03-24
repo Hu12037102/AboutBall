@@ -181,7 +181,9 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
                     }
                 }
             });
-        }/* else if (getItemViewType(i) == 0) {*/ else {
+        } else if (getItemViewType(i) == 0) {
+
+
             if (isHaveHeadView) {
                 i--;
             }
@@ -237,6 +239,8 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
             mTvNotNet = itemView.findViewById(R.id.tv_not_net);
         }
     }
+
+
 
     public interface OnItemClickListener {
         void onNotNetClick(View view);

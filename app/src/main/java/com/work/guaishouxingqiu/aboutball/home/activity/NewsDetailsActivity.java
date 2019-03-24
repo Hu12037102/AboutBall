@@ -49,8 +49,6 @@ import butterknife.OnClick;
 public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> implements NewsDetailsContract.View {
     @BindView(R.id.title_view)
     TitleView mTitleView;
-    @BindView(R.id.bw_web)
-    BaseWebView mWebView;
     @BindView(R.id.rv_message_data)
     RecyclerView mRvMessage;
     @BindView(R.id.pb_loading)
@@ -61,6 +59,8 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
     private NewsMessageAdapter mAdapter;
     private List<ResultNewsMessageBean> mData;
     private InputMessageDialog mSendMessageDialog;
+    private BaseWebView mWebView;
+    private View mHeadView;
 
 
     @Override
@@ -70,15 +70,22 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
 
     @Override
     protected void initView() {
+        initHeadView();
         super.initView();
         mNewsId = mIntent.getLongExtra(ARouterConfig.Key.NEW_DETAILS_ID, 0);
         mRvMessage.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    private void initHeadView() {
+        mHeadView = getLayoutInflater().inflate(R.layout.item_head_news_details_view, null);
+        mWebView = mHeadView.findViewById(R.id.bw_web);
     }
 
     @Override
     protected void initData() {
         mData = new ArrayList<>();
         mAdapter = new NewsMessageAdapter(mData);
+        mAdapter.addHeadView(mHeadView);
         mRvMessage.setAdapter(mAdapter);
         mPresenter.loadNewsContent(mNewsId);
         mPresenter.loadMessage(mNewsId);
@@ -140,6 +147,7 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
         mData.addAll(data);
         mSrlLayout.setNoMoreData(data.size() < mPresenter.mPageSize);
         mAdapter.notifyDataSetChanged();
+        mRvMessage.scrollToPosition(1);
     }
 
     @Override

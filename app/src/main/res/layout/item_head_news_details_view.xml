@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <com.work.guaishouxingqiu.aboutball.weight.BaseWebView
+        android:id="@+id/bw_web"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_input_name_view"
+        android:focusable="false"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_45dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/default_margin"
+        android:text="@string/hot_message"
+        android:textColor="@color/color_4"
+        android:textSize="@dimen/size_17sp" />
+
+    <View style="@style/HorizontalLine" />
+
+</LinearLayout>
