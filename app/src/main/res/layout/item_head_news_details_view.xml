@@ -6,7 +6,7 @@
     <com.work.guaishouxingqiu.aboutball.weight.BaseWebView
         android:id="@+id/bw_web"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@drawable/shape_input_name_view"
         android:focusable="false"/>
 

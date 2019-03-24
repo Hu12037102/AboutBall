@@ -55,6 +55,7 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
     ProgressBar mPbLoading;
     @BindView(R.id.srl_layout)
     SmartRefreshLayout mSrlLayout;
+
     private long mNewsId;
     private NewsMessageAdapter mAdapter;
     private List<ResultNewsMessageBean> mData;
@@ -70,7 +71,7 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
 
     @Override
     protected void initView() {
-        initHeadView();
+          initHeadView();
         super.initView();
         mNewsId = mIntent.getLongExtra(ARouterConfig.Key.NEW_DETAILS_ID, 0);
         mRvMessage.setLayoutManager(new LinearLayoutManager(this));
@@ -88,7 +89,6 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
         mAdapter.addHeadView(mHeadView);
         mRvMessage.setAdapter(mAdapter);
         mPresenter.loadNewsContent(mNewsId);
-        mPresenter.loadMessage(mNewsId);
     }
 
     @Override
@@ -137,6 +137,7 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
     public void resultNewsContent(BaseDataBean<String> dataBean) {
         loadEditData(dataBean.content);
         mTitleView.mTvCenter.setText(dataBean.title);
+        mPresenter.loadMessage(mNewsId);
     }
 
     @Override
@@ -144,10 +145,11 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
         if (mPresenter.isRefresh) {
             mData.clear();
         }
+
         mData.addAll(data);
         mSrlLayout.setNoMoreData(data.size() < mPresenter.mPageSize);
         mAdapter.notifyDataSetChanged();
-        mRvMessage.scrollToPosition(1);
+
     }
 
     @Override
