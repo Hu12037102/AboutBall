@@ -42,7 +42,7 @@ public class GameListAdapter extends BaseRecyclerAdapter<GameListAdapter.ViewHol
         viewHolder.mTvStatus.setText(bean.matchState);
         try {
             UIUtils.setGameIconStatus(Integer.valueOf(bean.stateId), viewHolder.mTvStatus);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             UIUtils.setGameIconStatus(0, viewHolder.mTvStatus);
             e.printStackTrace();
         }

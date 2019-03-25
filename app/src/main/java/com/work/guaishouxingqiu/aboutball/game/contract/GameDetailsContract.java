@@ -1,7 +1,10 @@
 package com.work.guaishouxingqiu.aboutball.game.contract;
 
+import android.support.annotation.NonNull;
+
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameSimpleBean;
 
 /**
  * 作者: 胡庆岭
@@ -11,8 +14,10 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
  */
 public interface GameDetailsContract {
     interface View extends IBaseView {
+        void resultGameSimple(@NonNull ResultGameSimpleBean bean);
     }
 
     interface Presenter extends IBasePresenter {
+        void loadGameSimple(int matchId);
     }
 }

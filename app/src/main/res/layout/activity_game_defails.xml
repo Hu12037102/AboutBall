@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:fitsSystemWindows="false">
+    android:fitsSystemWindows="false"
+    android:orientation="vertical">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/cl_head"
@@ -14,8 +14,10 @@
         android:background="@mipmap/icon_game_details_background">
 
         <ImageView
+            android:id="@+id/iv_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@null"
             android:padding="@dimen/default_margin"
             android:src="@mipmap/icon_back_white" />
 
@@ -89,14 +91,15 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <!--<include layout="@layout/layout_live_no_start_view" />-->
-            <!--<include layout="@layout/layout_watch_live_body_view" />-->
+           <!-- <include layout="@layout/layout_watch_live_body_view" />-->
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tb_data"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/size_45dp"
+        android:layout_gravity="center_horizontal"
         android:background="@drawable/shape_watch_live_tab_view" />
 
     <com.work.guaishouxingqiu.aboutball.weight.BaseViewPager

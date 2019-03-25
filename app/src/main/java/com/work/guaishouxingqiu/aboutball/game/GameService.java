@@ -4,6 +4,7 @@ import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameBean;
+import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameSimpleBean;
 
 import java.util.List;
 
@@ -24,7 +25,11 @@ public interface GameService {
     @GET(IApiService.GAME_REFRESH_LIST)
     Observable<BaseBean<List<ResultGameBean>>> loadGameRefreshData(@Query(Contast.OFFICIAL) int gameType,
                                                                    @Query(Contast.DATE) String date);
+
     @GET(IApiService.GAME_MORE_LIST)
     Observable<BaseBean<List<ResultGameBean>>> loadGameMoreData(@Query(Contast.OFFICIAL) int gameType,
-                                                                   @Query(Contast.DATE) String date);
+                                                                @Query(Contast.DATE) String date);
+
+    @GET(IApiService.GET_MATCH_SIMPLE)
+    Observable<BaseBean<ResultGameSimpleBean>> loadGameSimple(@Query(Contast.MATCH_ID) int gameId);
 }

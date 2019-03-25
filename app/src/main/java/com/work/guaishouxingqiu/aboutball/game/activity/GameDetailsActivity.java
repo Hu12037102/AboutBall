@@ -3,8 +3,13 @@ package com.work.guaishouxingqiu.aboutball.game.activity;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -12,16 +17,27 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.util.ScreenUtils;
+import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameSimpleBean;
 import com.work.guaishouxingqiu.aboutball.game.contract.GameDetailsContract;
+import com.work.guaishouxingqiu.aboutball.game.fragment.GameCollectionFragment;
+import com.work.guaishouxingqiu.aboutball.game.fragment.GameCommentFragment;
+import com.work.guaishouxingqiu.aboutball.game.fragment.GameDataFragment;
+import com.work.guaishouxingqiu.aboutball.game.fragment.GameResultFragment;
 import com.work.guaishouxingqiu.aboutball.game.presenter.GameDetailsPresenter;
+import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
+import com.work.guaishouxingqiu.aboutball.weight.FocusableTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -72,18 +88,82 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
     protected void initView() {
         ViewGroup.LayoutParams layoutParams = mClHead.getLayoutParams();
         layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        layoutParams.height = ScreenUtils.dp2px(this, 220)+ ScreenUtils.getStatuWindowsHeight(this);
+        layoutParams.height = ScreenUtils.dp2px(this, 220) + ScreenUtils.getStatuWindowsHeight(this);
 
     }
 
     @Override
     protected void initData() {
+        int mMatchId = mIntent.getIntExtra(ARouterConfig.Key.MATCH_ID, -1);
+        mPresenter.loadGameSimple(mMatchId);
+        initTabData();
+        initPagerData();
 
+    }
+
+
+    private void initTabData() {
+        String[] tabArray = getResources().getStringArray(R.array.game_details_tab_array);
+        for (int i = 0; i < tabArray.length; i++) {
+            mTbData.addTab(mTbData.newTab().setText(tabArray[i]), i == 0);
+        }
+    }
+
+    private void initPagerData() {
+
+        GameResultFragment resultFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_RESULT);
+        GameDataFragment dataFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_DATA);
+        GameCommentFragment commentFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_COMMENT);
+        GameCollectionFragment collectionFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_COLLECTION);
+        Fragment[] fragments = {resultFragment, dataFragment, commentFragment, collectionFragment};
+        FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int i) {
+                return fragments[i];
+            }
+
+            @Override
+            public int getCount() {
+                return fragments.length;
+            }
+        };
+        mBvData.setAdapter(pagerAdapter);
     }
 
     @Override
     protected void initEvent() {
+        mTbData.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mBvData.setCurrentItem(tab.getPosition(), true);
+            }
 
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+        mBvData.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                DataUtils.checkData(mTbData.getTabAt(i)).select();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
     }
 
     @Override
@@ -92,4 +172,49 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
     }
 
 
+    @Override
+    public void resultGameSimple(@NonNull ResultGameSimpleBean bean) {
+        GlideManger.get().loadImage(this, bean.hostLogoUrl, R.mipmap.icon_image_background,
+                R.mipmap.icon_image_background, mCivLeft);
+        GlideManger.get().loadImage(this, bean.guestLogoUrl, R.mipmap.icon_image_background,
+                R.mipmap.icon_image_background, mCivRight);
+        mTvLeft.setText(bean.hostName);
+        mTvRight.setText(bean.guestName);
+        if (mLlLiveDetails.getChildCount() > 0) {
+            mLlLiveDetails.removeAllViews();
+        }
+        switch (bean.stateId) {
+            //比赛未开始
+            case Contast.GAME_STATUS_NO_START:
+                View noStartView = getLayoutInflater().inflate(R.layout.layout_live_no_start_view, mLlLiveDetails, false);
+                mLlLiveDetails.addView(noStartView);
+                TextView tvTime = noStartView.findViewById(R.id.tv_time);
+                tvTime.setText(bean.startTime);
+                break;
+            //比赛进行中
+            case Contast.GAME_STATUS_STARTING:
+                //比赛结束
+            case Contast.GAME_STATUS_FINISH:
+                View startView = getLayoutInflater().inflate(R.layout.layout_watch_live_body_view, mLlLiveDetails, false);
+                mLlLiveDetails.addView(startView);
+                FocusableTextView tVTitle = startView.findViewById(R.id.tv_title);
+                tVTitle.setText(bean.gameName);
+                TextView tVGrade = startView.findViewById(R.id.tv_grade);
+                tVGrade.setText(bean.hostScore.concat(" - ").concat(bean.guestScore));
+                break;
+
+
+        }
+    }
+
+
+    @OnClick(R.id.iv_back)
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_back:
+                finish();
+                break;
+        }
+
+    }
 }

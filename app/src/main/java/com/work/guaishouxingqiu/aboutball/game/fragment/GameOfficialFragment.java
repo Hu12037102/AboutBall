@@ -73,7 +73,7 @@ public class GameOfficialFragment extends BaseFragment<GameOfficialPresenter> im
 
             @Override
             public void onItemClick(View view, int position) {
-                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_GAME_DETAILS);
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_GAME_DETAILS, ARouterConfig.Key.MATCH_ID, mData.get(position).matchId);
             }
         });
         mPresenter.loadGameData(Contast.TYPE_GAME_OFFICIAL);

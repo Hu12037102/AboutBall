@@ -79,6 +79,8 @@
     <string name="please_input_message">请输入评论！</string>
     <string name="watch_live">观看直播</string>
     <string name="vs">VS</string>
+    <string name="net_error">网络异常！</string>
+    <string name="live_no_start">直播尚未开始</string>
 
 
     <!--相册选择器-->

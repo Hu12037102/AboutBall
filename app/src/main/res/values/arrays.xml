@@ -32,4 +32,10 @@
         <item>男</item>
         <item>女</item>
     </string-array>
+    <string-array name="game_details_tab_array">
+        <item>赛况</item>
+        <item>数据</item>
+        <item>评论</item>
+        <item>集锦</item>
+    </string-array>
 </resources>

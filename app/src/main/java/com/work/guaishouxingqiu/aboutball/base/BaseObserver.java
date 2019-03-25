@@ -3,6 +3,7 @@ package com.work.guaishouxingqiu.aboutball.base;
 import android.support.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.Contast;
+import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
@@ -12,6 +13,7 @@ import org.greenrobot.eventbus.EventBus;
 import io.reactivex.Observer;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import retrofit2.HttpException;
 
 /**
  * 作者: 胡庆岭
@@ -86,10 +88,14 @@ public class BaseObserver<T> implements Observer<BaseBean<T>> {
         if (mObserver != null) {
             mObserver.onError(e);
         }
-        BaseBean baseBean = new BaseBean();
-        baseBean.code = IApi.Code.SERVICE_ERROR;
-        baseBean.message = "请求超时";
-        defaultPresenter(baseBean);
+        if (e instanceof HttpException) {
+            mPresenter.mView.showToast("网络异常！");
+        } else {
+            BaseBean baseBean = new BaseBean();
+            baseBean.code = IApi.Code.SERVICE_ERROR;
+            baseBean.message = "请求超时";
+            defaultPresenter(baseBean);
+        }
     }
 
     @Override

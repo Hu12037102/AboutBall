@@ -23,16 +23,17 @@ public interface IApiService {
     //资讯列表
     String NEWS_LIST = "/api/news/getNewsList";
     //首页信息相关接口
-    String GET_HOME_TAB ="/api/home/getHomeLabel";
-    String GET_NEWS_CONTENT="/api/news/getNewsDetail";
+    String GET_HOME_TAB = "/api/home/getHomeLabel";
+    String GET_NEWS_CONTENT = "/api/news/getNewsDetail";
     String GET_NEWS_MESSAGE_CONTENT_LIST = "/api/news/getNewsComment";
     String POST_SEND_NEWS_MESSAGE_CONTENT = "/api/news/newsCommented";
 
     //赛事-列表
     String GAME_LIST = "/api/match/getMatchList";
 
-    String GAME_REFRESH_LIST ="/api/match/pullRefresh";
+    String GAME_REFRESH_LIST = "/api/match/pullRefresh";
     String GAME_MORE_LIST = "/api/match/upRefresh";
+    String GET_MATCH_SIMPLE = "/api/match/getMatchSimple";
 
     //场馆球类类别
     String VENUE_TYPE_LIST = "/api/stadium/getType";

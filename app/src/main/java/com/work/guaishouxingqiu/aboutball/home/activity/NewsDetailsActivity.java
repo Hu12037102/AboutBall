@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -78,7 +79,7 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
     }
 
     private void initHeadView() {
-        mHeadView = getLayoutInflater().inflate(R.layout.item_head_news_details_view, null);
+        mHeadView = getLayoutInflater().inflate(R.layout.item_head_news_details_view, (ViewGroup) getWindow().getDecorView(),false);
         mWebView = mHeadView.findViewById(R.id.bw_web);
     }
 

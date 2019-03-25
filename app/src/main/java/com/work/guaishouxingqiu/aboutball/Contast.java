@@ -30,6 +30,7 @@ public interface Contast {
     String DATE = "date";
     String TYPE_ID = "typeId";
     String NEW_ID = "newsId";
+    String MATCH_ID = "matchId";
 
     String TOKEN = "Authorization";
     String SEX = "gender";

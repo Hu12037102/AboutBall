@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/size_45dp"
+    android:background="@color/colorWhite">
+
+    <View
+        style="@style/VerticalLine"
+        android:layout_marginLeft="@dimen/size_20dp"
+        android:background="@color/colorFFF0F0F0" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/shape_game_result_grade_view"
+        android:paddingBottom="@dimen/size_7dp"
+        android:paddingLeft="@dimen/default_margin"
+        android:paddingRight="@dimen/default_margin"
+        android:paddingTop="@dimen/size_7dp"
+        tools:text="下半场 0-1"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/size_14sp"
+        />
+
+</RelativeLayout>

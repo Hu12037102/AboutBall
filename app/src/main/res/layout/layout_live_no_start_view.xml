@@ -10,6 +10,7 @@
         android:gravity="center"
         android:textColor="@color/colorTheme"
         android:textSize="@dimen/size_12sp"
+        android:text="@string/live_no_start"
         tools:text="直播尚未开始" />
 
     <TextView
@@ -22,6 +23,7 @@
         android:textSize="22sp" />
 
     <TextView
+        android:id="@+id/tv_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/size_10dp"

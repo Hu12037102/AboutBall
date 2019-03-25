@@ -3,4 +3,10 @@
     <declare-styleable name="BaseViewPager">
         <attr name="is_scroll" format="boolean" />
     </declare-styleable>
+
+    <declare-styleable name="GameDataBar">
+        <attr name="gdb_draw_left" format="boolean" />
+        <attr name="gab_draw_proportion" format="float" />
+        <attr name="gab_color" format="reference|color" />
+    </declare-styleable>
 </resources>

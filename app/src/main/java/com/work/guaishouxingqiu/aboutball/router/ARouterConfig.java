@@ -35,13 +35,16 @@ public interface ARouterConfig {
         String FRAGMENT_COMMUNITY_ATTENTION = "/fragment/community/attention";
         String FRAGMENT_COMMUNITY_RECOMMEND = "/fragment/community/recommend";
         String FRAGMENT_COMMUNITY_NEWS = "/fragment/community/news";
-
-
+        String FRAGMENT_GAME_RESULT ="/fragment/game/result";
+        String FRAGMENT_GAME_DATA="/fragment/game/data";
+        String FRAGMENT_GAME_COMMENT="/fragment/game/comment";
+        String FRAGMENT_GAME_COLLECTION="/fragment/game/collection";
     }
 
     interface Key {
         String TAB_TYPE_ID = "tabTypeId";
         String NEW_DETAILS_ID = "newDetailsId";
+        String MATCH_ID = "matchId";
     }
 
 }
