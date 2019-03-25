@@ -79,8 +79,12 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
     }
 
     private void initHeadView() {
-        mHeadView = getLayoutInflater().inflate(R.layout.item_head_news_details_view, (ViewGroup) getWindow().getDecorView(),false);
+        mHeadView = getLayoutInflater().inflate(R.layout.item_head_news_details_view, (ViewGroup) getWindow().getDecorView().getRootView(),false);
         mWebView = mHeadView.findViewById(R.id.bw_web);
+       ViewGroup.LayoutParams layoutParams =  mWebView.getLayoutParams();
+       layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+       layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+       mWebView.setLayoutParams(layoutParams);
     }
 
     @Override
