@@ -6,6 +6,7 @@ import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.RequestGameCommentBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameBean;
+import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameCollectionBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameCommentBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDetailsBean;
@@ -50,9 +51,13 @@ public interface GameService {
     Observable<BaseBean<List<ResultGameCommentBean>>> loadCommentList(@Query(Contast.MATCH_ID) int gameId,
                                                                       @Query(Contast.PAGE_NUM) int pageNum,
                                                                       @Query(Contast.PAGE_SIZE) int pageSize);
+
     @POST(IApiService.POST_SEND_COMMENT_CONTENT)
     Observable<BaseBean<BaseDataBean>> sendCommentMessage(@Body RequestGameCommentBean bean);
 
     @GET(IApiService.GET_MATCH_DETAILS)
     Observable<BaseBean<ResultGameDetailsBean>> loadGameDetails(@Query(Contast.MATCH_ID) int gameId);
+
+    @GET(IApiService.GET_COLLECTION_LIST)
+    Observable<BaseBean<List<ResultGameCollectionBean>>> loadCollectionList(@Query(Contast.MATCH_ID) int gameId);
 }

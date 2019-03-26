@@ -36,8 +36,9 @@ public interface IApiService {
     String GET_MATCH_SIMPLE = "/api/match/getMatchSimple";
     String GET_MATCH_RESULT_DATA = "/api/match/getMatchOuts";
     String GET_MATCH_COMMENT_LIST = "/api/match/getMatchCommentList";
-    String POST_SEND_COMMENT_CONTENT ="/api/match/commented";
-    String GET_MATCH_DETAILS ="/api/match/getMatchDetail";
+    String POST_SEND_COMMENT_CONTENT = "/api/match/commented";
+    String GET_MATCH_DETAILS = "/api/match/getMatchDetail";
+    String GET_COLLECTION_LIST = "/api/match/getMatchPhoto";
 
     //场馆球类类别
     String VENUE_TYPE_LIST = "/api/stadium/getType";
