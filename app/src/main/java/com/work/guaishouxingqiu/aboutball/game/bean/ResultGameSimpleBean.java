@@ -21,12 +21,13 @@ public class ResultGameSimpleBean  implements Parcelable{
     public String liveAddress;
     public String livePhoto;
     public String liveType;
-    public String matchId;
+    public int matchId;
     public String matchName;
     public String matchState;
     public String startTime;
     public int  stateId;
     public String typeId;
+
 
     protected ResultGameSimpleBean(Parcel in) {
         endTime = in.readString();
@@ -40,7 +41,7 @@ public class ResultGameSimpleBean  implements Parcelable{
         liveAddress = in.readString();
         livePhoto = in.readString();
         liveType = in.readString();
-        matchId = in.readString();
+        matchId = in.readInt();
         matchName = in.readString();
         matchState = in.readString();
         startTime = in.readString();
@@ -78,7 +79,7 @@ public class ResultGameSimpleBean  implements Parcelable{
         dest.writeString(liveAddress);
         dest.writeString(livePhoto);
         dest.writeString(liveType);
-        dest.writeString(matchId);
+        dest.writeInt(matchId);
         dest.writeString(matchName);
         dest.writeString(matchState);
         dest.writeString(startTime);

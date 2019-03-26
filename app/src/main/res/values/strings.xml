@@ -82,7 +82,12 @@
     <string name="vs">VS</string>
     <string name="net_error">网络异常！</string>
     <string name="live_no_start">直播尚未开始</string>
-
+    <string name="team_stats">球队统计</string>
+    <string name="game_send_comment_hint">踢球吧对直播内容进行24小时巡查，禁止传播违法
+违规、封建迷信、暴力血腥、低俗色情、招嫖诈骗、违禁品
+等不良信息，坚决维护青少年精神文明健康。</string>
+    <!--&#160;  空格-->
+    <string name="notice">系统通知&#160;&#160;</string>
 
     <!--相册选择器-->
     <string name="back">返回</string>

@@ -1,5 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.weight;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -28,8 +29,15 @@ public class GameDataBar extends View {
     private boolean isDrawLeftToRight = true;//默认是从左边开始画的
     private float mDrawProportion = 1.0f;//画的默认比例
 
-    private void setBarClolr(@ColorRes int barColorRes) {
+    public void setBarColor(@ColorInt int barColorRes) {
         mBarColors = barColorRes;
+        invalidate();
+    }
+
+
+    public void setProportion(float proportion) {
+        mDrawProportion = proportion;
+        invalidate();
     }
 
     public GameDataBar(Context context) {
@@ -49,12 +57,12 @@ public class GameDataBar extends View {
         initPaint();
     }
 
+
     private void initPaint() {
         mBarPaint = new Paint();
-        mBarPaint.setColor(mBarColors);
         mBarPaint.setDither(true);
         mBarPaint.setAntiAlias(true);
-        mBarPaint.setStyle(Paint.Style.FILL);
+        mBarPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
     }
 
@@ -68,6 +76,7 @@ public class GameDataBar extends View {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         mBarPaint.setStrokeWidth(getHeight());
+        mBarPaint.setColor(mBarColors);
         if (isDrawLeftToRight) {
             mBarRectF = new RectF(0, 0, getWidth() * mDrawProportion, getHeight());
         } else {
@@ -80,6 +89,7 @@ public class GameDataBar extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
         canvas.drawRect(mBarRectF, mBarPaint);
     }
 }

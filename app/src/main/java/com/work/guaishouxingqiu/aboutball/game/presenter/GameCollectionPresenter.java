@@ -16,7 +16,7 @@ import com.work.guaishouxingqiu.aboutball.game.model.GameCommentModel;
  * 描述:比赛-集锦P
  */
 public class GameCollectionPresenter extends BasePresenter<GameCollectionContract.View,
-        GameCollectionModel>implements GameCommentContract.Presenter {
+        GameCollectionModel>implements GameCollectionContract.Presenter {
     public GameCollectionPresenter(@NonNull GameCollectionContract.View view) {
         super(view);
     }

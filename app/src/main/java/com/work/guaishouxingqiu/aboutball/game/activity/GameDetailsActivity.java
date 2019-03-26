@@ -92,7 +92,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
 
     @Override
     protected void initData() {
-       int  gameId = mIntent.getIntExtra(ARouterConfig.Key.GAME_ID, -1);
+        int gameId = mIntent.getIntExtra(ARouterConfig.Key.GAME_ID, -1);
         mPresenter.loadGameSimple(gameId);
 
 
@@ -127,9 +127,9 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
 
     private void initPagerData(ResultGameSimpleBean bean) {
         if (mPagerAdapter == null) {
-            GameResultFragment resultFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_RESULT, ARouterConfig.Key.GAME_DETAILS_BEAN,  bean);
-            GameDataFragment dataFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_DATA);
-            GameCommentFragment commentFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_COMMENT);
+            GameResultFragment resultFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_RESULT, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
+            GameDataFragment dataFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_DATA, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
+            GameCommentFragment commentFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_COMMENT, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
             GameCollectionFragment collectionFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_COLLECTION);
             Fragment[] fragments = {resultFragment, dataFragment, commentFragment, collectionFragment};
             mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -143,6 +143,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
                     return fragments.length;
                 }
             };
+            mBvData.setOffscreenPageLimit(fragments.length);
             mBvData.setAdapter(mPagerAdapter);
 
             mBvData.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

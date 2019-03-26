@@ -1,5 +1,6 @@
 package com.huxiaobai.adapter;
 
+import android.content.Context;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
@@ -37,6 +38,7 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
     private View mFootView;
     protected boolean isHaveHeadView;
     protected boolean isHaveFootView;
+    protected Context mContext;
 
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -135,6 +137,7 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
     @NonNull
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        mContext = viewGroup.getContext();
         RecyclerView.ViewHolder viewHolder;
         switch (i) {
             case TYPE_NOT_NET:

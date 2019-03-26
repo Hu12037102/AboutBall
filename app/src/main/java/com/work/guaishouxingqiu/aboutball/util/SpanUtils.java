@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.SpannableString;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
+import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
@@ -27,17 +28,32 @@ public class SpanUtils {
      * @param colorRes
      * @param start
      * @param end
-     * @param textView
+     * @param data
      */
-    public static void setTextColor(@ColorRes int colorRes, int start, int end, @NonNull TextView textView) {
-        SpannableString ss = new SpannableString(textView.getText());
-        ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(ContextCompat.getColor(textView.getContext(), colorRes));
+    public static SpannableString getTextColor(@ColorRes int colorRes, int start, int end, @NonNull String data) {
+        SpannableString ss = new SpannableString(data);
+        ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(ContextCompat.getColor(UIUtils.getContext(), colorRes));
         ss.setSpan(foregroundColorSpan, start, end, SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
-        textView.setText(ss);
+        return ss;
+    }
+
+    public static SpannableString getTextSize(int textSize, int start, int end, @NonNull String data) {
+        SpannableString ss = new SpannableString(data);
+        ss.setSpan(new AbsoluteSizeSpan(textSize, true), start, end, SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
+        return ss;
+    }
+
+    public static SpannableString getTextSizeAndColor(int textSize, @ColorRes int textColor, int start, int end, @NonNull String data) {
+        SpannableString ss = new SpannableString(data);
+        ss.setSpan(new AbsoluteSizeSpan(textSize, true), start, end, SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
+        ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(ContextCompat.getColor(UIUtils.getContext(), textColor));
+        ss.setSpan(foregroundColorSpan, start, end, SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
+        return ss;
     }
 
     /**
      * 设置话题部分TextView可以点击
+     *
      * @param textView
      * @param clickTextColor
      * @param start
@@ -47,7 +63,7 @@ public class SpanUtils {
     public static void setClickText(@NonNull TextView textView, @ColorRes int clickTextColor, int start, int end, @NonNull OnClickTextListener onClickTextListener) {
         SpannableString ss = new SpannableString(textView.getText());
         ss.setSpan(new ClickText(onClickTextListener), start, end, SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
-        ss.setSpan(new ForegroundColorSpan(ContextCompat.getColor(textView.getContext(), clickTextColor)),start,end,SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new ForegroundColorSpan(ContextCompat.getColor(textView.getContext(), clickTextColor)), start, end, SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
         //不设置 没有点击事件
         textView.setMovementMethod(LinkMovementMethod.getInstance());
         //设置点击背景是透明色
