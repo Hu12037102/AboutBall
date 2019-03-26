@@ -8,6 +8,7 @@
     android:paddingBottom="@dimen/size_30dp">
 
     <View
+        android:id="@+id/line"
         style="@style/VerticalLine"
         android:layout_width="0.5dp"
         android:layout_height="wrap_content"
@@ -18,7 +19,7 @@
     <TextView
         android:id="@+id/tv_name"
         style="@style/SingLineTextView"
-        android:layout_marginLeft="17.5dp"
+        android:layout_marginLeft="17dp"
         android:layout_marginRight="@dimen/default_margin"
         android:drawableLeft="@drawable/shape_game_result_check_view"
         android:drawablePadding="@dimen/size_20dp"
@@ -31,6 +32,7 @@
         tools:text="天青色等烟雨，而我在等你" />
 
     <TextView
+        android:id="@+id/tv_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/size_42dp"

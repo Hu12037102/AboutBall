@@ -11,6 +11,7 @@
         android:background="@color/colorFFF0F0F0" />
 
     <TextView
+        android:id="@+id/tv_grade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

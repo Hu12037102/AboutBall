@@ -34,6 +34,7 @@ public interface IApiService {
     String GAME_REFRESH_LIST = "/api/match/pullRefresh";
     String GAME_MORE_LIST = "/api/match/upRefresh";
     String GET_MATCH_SIMPLE = "/api/match/getMatchSimple";
+    String GET_MATCH_RESULT_DATA="/api/match/getMatchOuts";
 
     //场馆球类类别
     String VENUE_TYPE_LIST = "/api/stadium/getType";

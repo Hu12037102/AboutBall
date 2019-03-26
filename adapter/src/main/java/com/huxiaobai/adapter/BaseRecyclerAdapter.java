@@ -73,6 +73,8 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
 
     public void removeHeadView() {
         if (isHaveHeadView) {
+
+            mData.remove(0);
             mHeadView = null;
             isHaveHeadView = false;
         }
@@ -80,6 +82,8 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
 
     public void removeFootView() {
         if (isHaveHeadView) {
+
+            mData.remove(getItemCount() - 1);
             mFootView = null;
             isHaveFootView = false;
         }
@@ -239,7 +243,6 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
             mTvNotNet = itemView.findViewById(R.id.tv_not_net);
         }
     }
-
 
 
     public interface OnItemClickListener {

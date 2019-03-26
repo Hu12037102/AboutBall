@@ -44,7 +44,8 @@ public interface ARouterConfig {
     interface Key {
         String TAB_TYPE_ID = "tabTypeId";
         String NEW_DETAILS_ID = "newDetailsId";
-        String MATCH_ID = "matchId";
+        String GAME_ID = "gameId";
+        String GAME_DETAILS_BEAN = "gameDetailsBean";
     }
 
 }

@@ -31,6 +31,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
     protected View mRootView;
     private Unbinder mBinder;
     private LoadingView mLoadingView;
+    protected Bundle mBundle;
 
     protected abstract int getLayoutId();
 
@@ -67,7 +68,12 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
         initPermission();
     }
 
-    protected  void initPermission(){
+    protected void initPermission() {
+        mBundle = getArguments();
+        if (mBundle == null) {
+            DataUtils.checkData(getActivity()).finish();
+            return;
+        }
         initView();
         initData();
         initEvent();
@@ -106,6 +112,6 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
 
     @Override
     public void resultBaseData(@NonNull BaseBean baseBean) {
-        UIUtils.resultBaseData(baseBean,DataUtils.checkData(getActivity()));
+        UIUtils.resultBaseData(baseBean, DataUtils.checkData(getActivity()));
     }
 }

@@ -73,7 +73,7 @@ public class GameOfficialFragment extends BaseFragment<GameOfficialPresenter> im
 
             @Override
             public void onItemClick(View view, int position) {
-                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_GAME_DETAILS, ARouterConfig.Key.MATCH_ID, mData.get(position).matchId);
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_GAME_DETAILS, ARouterConfig.Key.GAME_ID, mData.get(position).matchId);
             }
         });
         mPresenter.loadGameData(Contast.TYPE_GAME_OFFICIAL);
@@ -83,7 +83,7 @@ public class GameOfficialFragment extends BaseFragment<GameOfficialPresenter> im
         mPresenter.isRefresh = isRefresh;
         if (mGameData != null && mGameData.size() > 0) {
             if (mPresenter.isRefresh) {
-                mPresenter.loadGameRefreshOrMoreData(Contast.TYPE_GAME_OFFICIAL, mGameData.get(0).endTime);
+                mPresenter.loadGameRefreshOrMoreData(Contast.TYPE_GAME_OFFICIAL, mData.get(0).endTime);
             } else {
                 mPresenter.loadGameRefreshOrMoreData(Contast.TYPE_GAME_OFFICIAL, mGameData.get(mGameData.size() - 1).endTime);
             }

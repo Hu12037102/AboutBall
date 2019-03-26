@@ -12,6 +12,8 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultRecommendDataBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
+import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 
 import java.util.List;
 
@@ -65,6 +67,10 @@ public class CarousePagerAdapter extends PagerAdapter {
         TextView mTvTitle = inflate.findViewById(R.id.tv_title);
         mTvTitle.setText(mData.get(position % mData.size()).title);
         container.addView(inflate);
+        inflate.setOnClickListener(v -> {
+            ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_NEW_DETAILS,
+                    ARouterConfig.Key.NEW_DETAILS_ID, mData.get(position % mData.size()).newsId);
+        });
         return inflate;
     }
 
