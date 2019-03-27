@@ -1,14 +1,17 @@
 package com.huxiaobai.adapter;
 
 import android.content.Context;
+import android.hardware.display.DisplayManager;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -227,6 +230,9 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
         private void initView(View itemView) {
             mIvNotData = itemView.findViewById(R.id.iv_not_data);
             mTvNotData = itemView.findViewById(R.id.tv_not_data);
+            DisplayMetrics displayMetrics =itemView.getContext().getResources().getDisplayMetrics();
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(displayMetrics.widthPixels, LinearLayout.LayoutParams.MATCH_PARENT);
+            itemView.setLayoutParams(layoutParams);
 
         }
     }
@@ -244,6 +250,9 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
         private void initView(View itemView) {
             mIvNotNet = itemView.findViewById(R.id.iv_not_net);
             mTvNotNet = itemView.findViewById(R.id.tv_not_net);
+            DisplayMetrics displayMetrics =itemView.getContext().getResources().getDisplayMetrics();
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(displayMetrics.widthPixels, LinearLayout.LayoutParams.MATCH_PARENT);
+            itemView.setLayoutParams(layoutParams);
         }
     }
 
