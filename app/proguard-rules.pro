@@ -126,11 +126,19 @@ static final long serialVersionUID;
 -keep class com.google.gson.** { *; }
 
 -keep class com.tencent.** { *; }
--keep class com.work.guaishouxingqiu.aboutball.other.ActivityManger{*;}
+-keep class com.work.guaishouxingqiu.aboutball.other.**{*;}
 -keep class com.work.guaishouxingqiu.aboutball.home.activity.MainActivity{*;}
 -keep public class * extends android.support.v4.**
 -keep public class * extends android.app.Fragment
-
+#保留所有的bean
+-keep public class com.work.guaishouxingqiu.aboutball.base.**{*;}
+-keep public class com.work.guaishouxingqiu.aboutball.community.bean.**{*;}
+-keep public class com.work.guaishouxingqiu.aboutball.game.bean.**{*;}
+-keep public class com.work.guaishouxingqiu.aboutball.home.bean.**{*;}
+-keep public class com.work.guaishouxingqiu.aboutball.login.bean.**{*;}
+-keep public class com.work.guaishouxingqiu.aboutball.media.bean.**{*;}
+-keep public class com.work.guaishouxingqiu.aboutball.my.bean.**{*;}
+-keep public class com.work.guaishouxingqiu.aboutball.venue.bean.**{*;}
 #路由器混淆规则
 -keep public class com.alibaba.android.arouter.routes.**{*;}
 -keep public class com.alibaba.android.arouter.facade.**{*;}
@@ -141,3 +149,30 @@ static final long serialVersionUID;
 # -keep class * implements com.alibaba.android.arouter.facade.template.IProvider
 
 
+-dontwarn javax.annotation.**
+-dontwarn javax.inject.**
+#OkHttp3
+-dontwarn okhttp3.logging.**
+-keep class okhttp3.internal.**{*;}
+-dontwarn okhttp3.**
+-dontwarn javax.annotation.**
+-dontwarn okio.**
+-dontwarn javax.annotation.**
+-dontwarn sun.misc.**
+-dontwarn sorg.codehaus.mojo.animal_sniffer.**
+-dontwarn org.codehaus.**
+-dontwarn java.nio.**
+-dontwarn java.lang.invoke.**
+-dontwarn sun.misc.**
+-keepclassmembers class rx.internal.util.unsafe.ArrayQueueField* {
+long producerIndex;
+long consumerIndex;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+rx.internal.util.atomic.LinkedQueueNode producerNode;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+rx.internal.util.atomic.LinkedQueueNode consumerNode;
+}
+-keep class com.google.gson.stream.** { *; }
+-keepattributes EnclosingMethod
