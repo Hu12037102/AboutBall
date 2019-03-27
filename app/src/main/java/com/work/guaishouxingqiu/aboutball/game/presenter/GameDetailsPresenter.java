@@ -41,7 +41,7 @@ public class GameDetailsPresenter extends BasePresenter<GameDetailsContract.View
         mModel.loadMatchSimple(matchId, new BaseObserver<>(true, this, new BaseObserver.Observer<ResultGameSimpleBean>() {
             @Override
             public void onNext(BaseBean<ResultGameSimpleBean> t) {
-                if (t.code == IApi.Code.SUCCEED) {
+                if (t.code == IApi.Code.SUCCEED && t.result != null) {
                     mView.resultGameSimple(t.result);
                 }
             }

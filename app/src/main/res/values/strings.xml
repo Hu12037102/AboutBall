@@ -30,7 +30,8 @@
     <string name="setting_password">设置密码</string>
     <string name="not_under_six_length_password">不少于6位</string>
     <string name="phone_digits">0123456789</string>
-
+    <string name="go_selector_session">去选择场次</string>
+    <string name="image_text_details">图文详情</string>
     <style name="service_error">服务器异常</style>
 
     <string name="hint">提示</string>
@@ -88,6 +89,7 @@
 等不良信息，坚决维护青少年精神文明健康。</string>
     <!--&#160;  空格-->
     <string name="notice">系统通知&#160;&#160;</string>
+    <string name="game_id_error">比赛房间未找到！</string>
 
     <!--相册选择器-->
     <string name="back">返回</string>

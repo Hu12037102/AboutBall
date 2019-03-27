@@ -17,6 +17,7 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.venue.adapter.BallTypeAdapter;
 import com.work.guaishouxingqiu.aboutball.venue.adapter.VenueListAdapter;
@@ -138,7 +139,22 @@ public class VenueListFragment extends BaseFragment<VenueListPresenter> implemen
             mListData = new ArrayList<>();
             mListAdapter = new VenueListAdapter(mListData);
             mRvData.setAdapter(mListAdapter);
+            mListAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+                @Override
+                public void onNotNetClick(View view) {
 
+                }
+
+                @Override
+                public void onNotDataClick(View view) {
+
+                }
+
+                @Override
+                public void onItemClick(View view, int position) {
+                    ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_DETAILS);
+                }
+            });
             mRequestBean = new RequestVenueListBean();
             mRequestBean.typeId = data.get(0).typeId;
             mSrlRefresh.autoRefresh();

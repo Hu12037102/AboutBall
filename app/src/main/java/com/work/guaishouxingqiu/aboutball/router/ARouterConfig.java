@@ -13,9 +13,10 @@ public interface ARouterConfig {
         String ACTIVITY_REGISTER = "/activity/register";
         String ACTIVITY_MY_DETAILS = "/activity/my/details";
         String ACTIVITY_ALTER_NAME = "/activity/alter/name";
-        String ACTIVITY_NEW_DETAILS="/activity/new/details";
-        String ACTIVITY_GAME_DETAILS="/activity/game/details";
-
+        String ACTIVITY_NEW_DETAILS = "/activity/new/details";
+        String ACTIVITY_GAME_DETAILS = "/activity/game/details";
+        String ACTIVITY_VENUE_DETAILS = "/activity/venue/details";
+        String ACTIVITY_GAME_VIDEO = "/activity/game/video";
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";
@@ -35,10 +36,11 @@ public interface ARouterConfig {
         String FRAGMENT_COMMUNITY_ATTENTION = "/fragment/community/attention";
         String FRAGMENT_COMMUNITY_RECOMMEND = "/fragment/community/recommend";
         String FRAGMENT_COMMUNITY_NEWS = "/fragment/community/news";
-        String FRAGMENT_GAME_RESULT ="/fragment/game/result";
-        String FRAGMENT_GAME_DATA="/fragment/game/data";
-        String FRAGMENT_GAME_COMMENT="/fragment/game/comment";
-        String FRAGMENT_GAME_COLLECTION="/fragment/game/collection";
+        String FRAGMENT_GAME_RESULT = "/fragment/game/result";
+        String FRAGMENT_GAME_DATA = "/fragment/game/data";
+        String FRAGMENT_GAME_COMMENT = "/fragment/game/comment";
+        String FRAGMENT_GAME_COLLECTION = "/fragment/game/collection";
+
     }
 
     interface Key {

@@ -12,12 +12,14 @@ import android.widget.TextView;
 
 import com.example.item.util.ScreenUtils;
 import com.work.guaishouxingqiu.aboutball.Contast;
+import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultRecommendDataBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
+import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
 /**
@@ -29,6 +31,11 @@ import java.util.List;
 public class RecommendHeadGameAdapter extends RecyclerView.Adapter<RecommendHeadGameAdapter.ViewHolder> {
     private List<ResultRecommendDataBean.Match> mData;
 
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    private OnItemClickListener onItemClickListener;
     public RecommendHeadGameAdapter(List<ResultRecommendDataBean.Match> data) {
         this.mData = data;
     }
@@ -67,6 +74,11 @@ public class RecommendHeadGameAdapter extends RecyclerView.Adapter<RecommendHead
         GlideManger.get().loadImage(viewHolder.itemView.getContext(), match.guestLogoUrl, viewHolder.mIvBottomIcon);
         viewHolder.mTvBottomName.setText(match.gameName);
         viewHolder.mTvBottomScore.setText(String.valueOf(match.guestScore));
+        viewHolder.itemView.setOnClickListener(v -> {
+            if (onItemClickListener != null){
+                onItemClickListener.onClickItem(v,i);
+            }
+        });
     }
 
     @Override

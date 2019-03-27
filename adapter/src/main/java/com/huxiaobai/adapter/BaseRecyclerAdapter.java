@@ -165,7 +165,7 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull VH viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final VH viewHolder, int i) {
         if (viewHolder instanceof NotNetViewHolder) {
             NotNetViewHolder notNetHolder = (NotNetViewHolder) viewHolder;
             notNetHolder.mIvNotNet.setImageResource(mNotNetViewRes);
@@ -198,6 +198,15 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
                 i--;
             }
             onBindViewDataHolder(viewHolder, i);
+            final int finalI = i;
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onItemClickListener != null){
+                        onItemClickListener.onItemClick(viewHolder.itemView, finalI);
+                    }
+                }
+            });
         }
     }
 

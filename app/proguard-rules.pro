@@ -112,3 +112,5 @@ static final long serialVersionUID;
 -dontwarn org.apache.http.**
 -dontwarn android.net.http.AndroidHttpClient
 
+-keep class com.tencent.** { *; }
+

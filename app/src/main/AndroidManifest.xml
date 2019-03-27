@@ -14,6 +14,13 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <uses-feature android:name="android.hardware.Camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
         android:name=".base.BaseApplication"
@@ -48,16 +55,21 @@
         <activity android:name=".login.activity.RegisterActivity" />
         <activity android:name=".my.activity.MyDetailsActivity" />
         <activity android:name=".my.activity.AlterNameActivity" />
-        <activity android:name=".home.activity.NewsDetailsActivity"/>
-        <activity android:name=".game.activity.GameDetailsActivity"/>
+        <activity android:name=".home.activity.NewsDetailsActivity" />
+        <activity android:name=".game.activity.GameDetailsActivity" />
 
-        <activity android:name=".media.activity.MediaActivity"/>
+        <activity android:name=".media.activity.MediaActivity" />
+        <activity
+            android:name=".game.activity.GamePlayActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
 
-        <activity android:name=".media.activity.PreviewActivity"/>
+        <activity android:name=".media.activity.PreviewActivity" />
+        <activity android:name=".venue.activity.VenueDetailsActivity" />
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
         <provider
             android:name=".media.provider.MediaProvider"
             android:authorities="${applicationId}.provider"

@@ -70,7 +70,6 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
         mPresenter.loadMainTab();
         initFragment();
 
-
     }
 
     @Override

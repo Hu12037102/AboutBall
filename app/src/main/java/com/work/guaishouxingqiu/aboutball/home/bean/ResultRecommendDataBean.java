@@ -25,16 +25,16 @@ public class ResultRecommendDataBean {
     public static class Match{
         public String matchName;
         public String gameName;
-        public long matchId;
-        public  long typeId;
+        public int matchId;
+        public  int  typeId;
         public String hostName;
         public String hostLogoUrl;
-        public long hostScore;
+        public int hostScore;
         public String guestName;
         public String guestLogoUrl;
-        public long guestScore;
+        public int guestScore;
         public String matchState;
-        public long stateId;
+        public int stateId;
         public String startTime;
         public String endTime;
         public String liveAddress;

@@ -28,6 +28,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.work.guaishouxingqiu.aboutball.Contast;
+import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
@@ -289,6 +290,10 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
                 if (mHeadGameAdapter == null) {
                     mHeadGameAdapter = new RecommendHeadGameAdapter(bean.result.match);
                     mRvGameLive.setAdapter(mHeadGameAdapter);
+                    mHeadGameAdapter.setOnItemClickListener((view, position) -> {
+                        LogUtils.w("mHeadGameAdapter--", bean.result.match.get(position).matchId + "---");
+                        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_GAME_DETAILS,ARouterConfig.Key.GAME_ID, (int)bean.result.match.get(position).matchId);
+                    });
                 } else {
                     mHeadGameAdapter.notifyDataSetChanged();
                 }

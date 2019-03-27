@@ -30,6 +30,7 @@
     <color name="colorFFCCCCCC">#FFCCCCCC</color>
     <color name="colorFFF5F5F5">#FFF5F5F5</color>
     <color name="colorFFC0C0C0">#FFC0C0C0</color>
+    <color name="colorFF0A0A0A">#FF0A0A0A</color>
 
     <color name="color_1">@color/colorWhite</color>
     <color name="color_2">@color/colorFF3586FF</color>

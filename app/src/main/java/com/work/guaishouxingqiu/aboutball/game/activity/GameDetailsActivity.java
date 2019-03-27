@@ -32,6 +32,7 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
 import com.work.guaishouxingqiu.aboutball.weight.FocusableTextView;
+import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -93,6 +94,11 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
     @Override
     protected void initData() {
         int gameId = mIntent.getIntExtra(ARouterConfig.Key.GAME_ID, -1);
+        if (gameId == -1){
+            Toasts.with().showToast(R.string.game_id_error);
+            finish();
+            return;
+        }
         mPresenter.loadGameSimple(gameId);
 
 
@@ -215,6 +221,9 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
                 tVTitle.setText(bean.gameName);
                 TextView tVGrade = startView.findViewById(R.id.tv_grade);
                 tVGrade.setText(bean.hostScore.concat(" - ").concat(bean.guestScore));
+                mTvStatus.setOnClickListener(v -> {
+                    ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_GAME_VIDEO);
+                });
                 break;
 
 
