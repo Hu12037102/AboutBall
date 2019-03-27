@@ -6,6 +6,8 @@
 -dontskipnonpubliclibraryclasses
 # 这句话能够使我们的项目混淆后产生映射文件
 # 包含有类名->混淆后类名的映射关系
+
+-dontoptimize
 -verbose
 # 指定不去忽略非公共库的类成员
 -dontskipnonpubliclibraryclassmembers
@@ -32,7 +34,15 @@
  -keep public class * extends android.app.backup.BackupAgentHelper
  -keep public class * extends android.preference.Preference
  -keep public class * extends android.view.View
+ -keep class android.support.v4.app.** { *; }
+ -keep interface android.support.v4.app.** { *; }
  -keep public class com.android.vending.licensing.ILicensingService
+
+#保留在Activity中的方法参数是view的方法，
+-keepclassmembers class * extends android.app.Activity{
+    public void *(android.view.View);
+}
+
 
  # 保留support下的所有类及其内部类
  -keep class android.support.** {*;}
@@ -111,6 +121,23 @@ static final long serialVersionUID;
 -dontwarn io.bugtags.**
 -dontwarn org.apache.http.**
 -dontwarn android.net.http.AndroidHttpClient
+-keep class sun.misc.Unsafe { *; }
+-keep class com.idea.fifaalarmclock.entity.***
+-keep class com.google.gson.** { *; }
 
 -keep class com.tencent.** { *; }
+-keep class com.work.guaishouxingqiu.aboutball.other.ActivityManger{*;}
+-keep class com.work.guaishouxingqiu.aboutball.home.activity.MainActivity{*;}
+-keep public class * extends android.support.v4.**
+-keep public class * extends android.app.Fragment
+
+#路由器混淆规则
+-keep public class com.alibaba.android.arouter.routes.**{*;}
+-keep public class com.alibaba.android.arouter.facade.**{*;}
+-keep class * implements com.alibaba.android.arouter.facade.template.ISyringe{*;}
+# 如果使用了 byType 的方式获取 Service，需添加下面规则，保护接口
+-keep interface * implements com.alibaba.android.arouter.facade.template.IProvider
+# 如果使用了 单类注入，即不定义接口实现 IProvider，需添加下面规则，保护实现
+# -keep class * implements com.alibaba.android.arouter.facade.template.IProvider
+
 

@@ -61,19 +61,21 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField("boolean", "IS_DEBUG", "false")
-            buildConfigField("String", "HOST_URL", '"www.google.com"')
+            buildConfigField("String", "HOST_URL", '"https://iti.bmece.com"')
             shrinkResources true
             zipAlignEnabled true
             pseudoLocalesEnabled true
         }
         debug {
             signingConfig signingConfigs.debug
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField("boolean", "IS_DEBUG", "true")
            // buildConfigField("String", "HOST_URL", '"https://ifi.bmece.com"')
             buildConfigField("String", "HOST_URL", '"https://iti.bmece.com"')
-            shrinkResources false
+            shrinkResources true
+            zipAlignEnabled true
+            pseudoLocalesEnabled true
         }
     }
 
