@@ -90,6 +90,7 @@
     <!--&#160;  空格-->
     <string name="notice">系统通知&#160;&#160;</string>
     <string name="game_id_error">比赛房间未找到！</string>
+    <string name="please_open_location">请打开定位权限！</string>
 
     <!--相册选择器-->
     <string name="back">返回</string>

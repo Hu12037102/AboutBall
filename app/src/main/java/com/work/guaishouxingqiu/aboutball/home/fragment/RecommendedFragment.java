@@ -92,6 +92,7 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
     private RecommendHeadGameAdapter mHeadGameAdapter;
     private CarousePagerAdapter mCarouseAdapter;
     private int mTypeId;
+    private RequestRecommendDataBean mHeadBean;
 
     public static RecommendedFragment newInstance() {
         return new RecommendedFragment();
@@ -159,12 +160,13 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
         mRecommendAdapter = new RecommendedAdapter(mRecommendData);
         mRecommendAdapter.addHeadView(mInflateHead);
         mRvRecommend.setAdapter(mRecommendAdapter);
+        mHeadBean = new RequestRecommendDataBean();
         initLocation();
-        mSrlRecommend.autoRefresh();
+
     }
 
     private void loadRefreshData() {
-        mPresenter.loadHead(new RequestRecommendDataBean());
+        mPresenter.loadHead(mHeadBean);
         mSrlRecommend.finishRefresh();
     }
 
@@ -209,52 +211,13 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
     }
 
     private void initLocation() {
-        PhoneUtils.checkoutGPS(this);
-        LocationManager locationManager = (LocationManager) DataUtils.checkData(getContext()).getSystemService(Context.LOCATION_SERVICE);
-        if (locationManager == null) {
-            return;
+        Location location = PhoneUtils.getGPSLocation(this);
+        if (location != null) {
+            mHeadBean.latitude = String.valueOf(location.getLatitude());
+            mHeadBean.longitude = String.valueOf(location.getLongitude());
         }
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-
-        List<String> providers = locationManager.getProviders(true);
-        String provider = null;
-        if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
-            provider = LocationManager.NETWORK_PROVIDER;
-        } else if (providers.contains(LocationManager.GPS_PROVIDER)) {
-            provider = LocationManager.GPS_PROVIDER;
-        }
-        if (provider == null) {
-            return;
-        }
-        locationManager.requestLocationUpdates(provider, 3000, 2, new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-
-                LogUtils.w("requestLocation", "onLocationChanged--" + location.getLongitude() + "--" +
-                        location.getLatitude());
-
-            }
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-                LogUtils.w("requestLocation", "onStatusChanged");
-            }
-
-            @Override
-            public void onProviderEnabled(String provider) {
-                LogUtils.w("requestLocation", "onProviderEnabled");
-            }
-
-            @Override
-            public void onProviderDisabled(String provider) {
-                LogUtils.w("requestLocation", "onProviderDisabled");
-            }
-        });
-
-
+        LogUtils.w("initLocation--", mHeadBean.latitude + "--" + mHeadBean.longitude);
+        mSrlRecommend.autoRefresh();
     }
 
 
@@ -267,7 +230,8 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Contast.REQUEST_CODE && resultCode == Contast.REQUEST_CODE) {
-            PhoneUtils.checkoutGPS(this);
+          //  PhoneUtils.checkoutGPS(this);
+            initLocation();
         }
     }
 
@@ -292,7 +256,7 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
                     mRvGameLive.setAdapter(mHeadGameAdapter);
                     mHeadGameAdapter.setOnItemClickListener((view, position) -> {
                         LogUtils.w("mHeadGameAdapter--", bean.result.match.get(position).matchId + "---");
-                        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_GAME_DETAILS,ARouterConfig.Key.GAME_ID, (int)bean.result.match.get(position).matchId);
+                        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_GAME_DETAILS, ARouterConfig.Key.GAME_ID, (int) bean.result.match.get(position).matchId);
                     });
                 } else {
                     mHeadGameAdapter.notifyDataSetChanged();

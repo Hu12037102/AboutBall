@@ -1,17 +1,23 @@
 package com.work.guaishouxingqiu.aboutball.util;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
+import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -62,5 +68,31 @@ public class PhoneUtils {
         if (!isOpenGPS(DataUtils.checkData(fragment.getContext()))) {
             openGPSDialog(fragment);
         }
+    }
+
+    public static Location getGPSLocation(@NonNull Fragment fragment) {
+        PhoneUtils.checkoutGPS(fragment);
+        Context context = fragment.getContext();
+        LocationManager locationManager = (LocationManager) DataUtils.checkData(context).getSystemService(Context.LOCATION_SERVICE);
+        if (locationManager == null) {
+            return null;
+        }
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Toasts.with().showToast(R.string.please_open_location);
+            return null;
+        }
+
+        List<String> providers = locationManager.getProviders(true);
+        String provider = null;
+        if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
+            provider = LocationManager.NETWORK_PROVIDER;
+        } else if (providers.contains(LocationManager.GPS_PROVIDER)) {
+            provider = LocationManager.GPS_PROVIDER;
+        }
+        if (provider == null) {
+            return null;
+        }
+        return locationManager.getLastKnownLocation(provider);
     }
 }
