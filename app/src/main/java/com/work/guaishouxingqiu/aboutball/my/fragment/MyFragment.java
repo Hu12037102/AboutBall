@@ -127,8 +127,10 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     private void clickHead() {
         if (!UserManger.get().isLogin()) {
             $startActivity(ARouterConfig.Path.ACTIVITY_LOGIN);
+
         } else {
             $startActivity(ARouterConfig.Path.ACTIVITY_MY_DETAILS);
+          //  $startActivity(ARouterConfig.Path.ACTIVITY_GAME_VIDEO);
         }
     }
 }

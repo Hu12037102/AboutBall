@@ -82,7 +82,8 @@
     <dimen name="size_150dp">150dp</dimen>
     <dimen name="size_188dp">188dp</dimen>
     <dimen name="size_210dp">210dp</dimen>
-    <dimen name="size_200dp">220dp</dimen>
+    <dimen name="size_200dp">200dp</dimen>
+    <dimen name="size_220dp">220dp</dimen>
     <dimen name="size_270dp">270dp</dimen>
     <dimen name="size_280dp">280dp</dimen>
     <dimen name="size_335dp">335dp</dimen>

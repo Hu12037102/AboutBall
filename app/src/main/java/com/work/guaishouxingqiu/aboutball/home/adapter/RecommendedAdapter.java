@@ -89,13 +89,13 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             } else {
                 textViewHolder.mLine.setVisibility(View.VISIBLE);
             }
-            textViewHolder.itemView.setOnClickListener(v -> {
+            /*textViewHolder.itemView.setOnClickListener(v -> {
                 ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_NEW_DETAILS,
                         ARouterConfig.Key.NEW_DETAILS_ID, mData.get(i).newsId);
                 if (onItemClickListener != null){
                     onItemClickListener.onItemClick(v,i);
                 }
-            });
+            });*/
 
         } else if (viewHolder instanceof SingViewHolder) {
             SingViewHolder singViewHolder = (SingViewHolder) viewHolder;
@@ -118,13 +118,13 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
                 singViewHolder.mLine.setVisibility(View.VISIBLE);
             }
 
-            singViewHolder.itemView.setOnClickListener(v -> {
+            /*singViewHolder.itemView.setOnClickListener(v -> {
                 ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_NEW_DETAILS,
                         ARouterConfig.Key.NEW_DETAILS_ID, mData.get(i).newsId);
                 if (onItemClickListener != null){
                     onItemClickListener.onItemClick(v,i);
                 }
-            });
+            });*/
         } else if (viewHolder instanceof ThreeViewHolder) {
             ThreeViewHolder threeViewHolder = (ThreeViewHolder) viewHolder;
             threeViewHolder.mFtvData.setText(mData.get(i).title);
@@ -144,13 +144,13 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
                 threeViewHolder.mLine.setVisibility(View.VISIBLE);
             }
 
-            threeViewHolder.itemView.setOnClickListener(v -> {
+            /*threeViewHolder.itemView.setOnClickListener(v -> {
                 ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_NEW_DETAILS,
                         ARouterConfig.Key.NEW_DETAILS_ID, mData.get(i).newsId);
                 if (onItemClickListener != null){
                     onItemClickListener.onItemClick(v,i);
                 }
-            });
+            });*/
         }
 
         //  viewHolder.getAdapterPosition();

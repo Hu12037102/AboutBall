@@ -86,9 +86,9 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     implementation project(':adapter')
-    implementation 'com.android.support:appcompat-v7:28.0.0'
+   // implementation 'com.android.support:appcompat-v7:28.0.0'
     def dependencies = rootProject.ext.dependencies
-    /*  implementation dependencies.appcompatV7*/
+      implementation dependencies.appcompatV7
     implementation dependencies.constraintLayout
     testImplementation dependencies.junit
     androidTestImplementation dependencies.testRunner

@@ -1,8 +1,9 @@
 package com.work.guaishouxingqiu.aboutball.game.activity;
 
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
@@ -11,11 +12,17 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
+import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.util.ScreenUtils;
+import com.tencent.rtmp.TXLiveConstants;
+import com.tencent.rtmp.TXLivePlayer;
+import com.tencent.rtmp.ui.TXCloudVideoView;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameSimpleBean;
@@ -30,6 +37,7 @@ import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
 import com.work.guaishouxingqiu.aboutball.weight.FocusableTextView;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
@@ -57,13 +65,25 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
     TextView mTvRight;
     @BindView(R.id.ll_live_details)
     LinearLayout mLlLiveDetails;
-    @BindView(R.id.cl_head)
-    ConstraintLayout mClHead;
+    @BindView(R.id.cl_head_details)
+    ConstraintLayout mClHeadDetails;
     @BindView(R.id.tb_data)
     TabLayout mTbData;
     @BindView(R.id.bv_data)
     BaseViewPager mBvData;
+    @BindView(R.id.vs_live)
+    ViewStub mVsLive;
+    @BindView(R.id.cl_head_parent)
+    ConstraintLayout mClHeadParent;
+    @BindView(R.id.iv_back)
+    ImageView mIvBack;
+    @BindView(R.id.ll_body)
+    ViewGroup mLlBody;
     private FragmentPagerAdapter mPagerAdapter;
+    private View mHeadLiveParent;
+    private TXCloudVideoView mTxLiveVideo;
+    private TXLivePlayer mLivePlay;
+    String mLivePath = "http://5815.liveplay.myqcloud.com/live/5815_89aad37e06ff11e892905cb9018cf0d4_900.flv";
 
     @Override
     protected int getLayoutId() {
@@ -85,16 +105,24 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
 
     @Override
     protected void initView() {
-        ViewGroup.LayoutParams layoutParams = mClHead.getLayoutParams();
-        layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        layoutParams.height = ScreenUtils.dp2px(this, 220) + ScreenUtils.getStatuWindowsHeight(this);
+        setHeadParentParamsScreen(false);
 
+        mIvBack.setPadding(ScreenUtils.dp2px(this, 20), ScreenUtils.dp2px(this, 20) + ScreenUtils.getStatuWindowsHeight(this),
+                ScreenUtils.dp2px(this, 20), ScreenUtils.dp2px(this, 20));
+
+    }
+
+    private void setHeadParentParamsScreen(boolean isScreen) {
+        ViewGroup.LayoutParams layoutParams = mClHeadParent.getLayoutParams();
+        layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        layoutParams.height = isScreen ? ViewGroup.LayoutParams.MATCH_PARENT : ScreenUtils.dp2px(this, 220) + ScreenUtils.getStatuWindowsHeight(this);
+        mClHeadParent.setLayoutParams(layoutParams);
     }
 
     @Override
     protected void initData() {
         int gameId = mIntent.getIntExtra(ARouterConfig.Key.GAME_ID, -1);
-        if (gameId == -1){
+        if (gameId == -1) {
             Toasts.with().showToast(R.string.game_id_error);
             finish();
             return;
@@ -130,6 +158,59 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
             });
         }
     }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        //竖屏
+        if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            setHeadParentParamsScreen(false);
+            mLlBody.setVisibility(View.VISIBLE);
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            //横屏
+        } else if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            setHeadParentParamsScreen(true);
+            mLlBody.setVisibility(View.GONE);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mLivePlay != null) {
+            mLivePlay.pause();
+        }
+        if (mTxLiveVideo != null) {
+            mTxLiveVideo.onPause();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mLivePlay != null) {
+            mLivePlay.resume();
+        }
+        if (mTxLiveVideo != null) {
+            mTxLiveVideo.onResume();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mTxLiveVideo != null) {
+            mTxLiveVideo.onDestroy();
+        }
+        if (mLivePlay != null) {
+            mLivePlay.stopPlay(true);
+        }
+        super.onDestroy();
+
+    }
+
 
     private void initPagerData(ResultGameSimpleBean bean) {
         if (mPagerAdapter == null) {
@@ -222,7 +303,8 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
                 TextView tVGrade = startView.findViewById(R.id.tv_grade);
                 tVGrade.setText(bean.hostScore.concat(" - ").concat(bean.guestScore));
                 mTvStatus.setOnClickListener(v -> {
-                    ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_GAME_VIDEO);
+                    // ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_GAME_VIDEO);
+                    initLiveVideoView();
                 });
                 break;
 
@@ -231,13 +313,56 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
     }
 
 
+    private void initLiveVideoView() {
+        mClHeadDetails.setVisibility(View.GONE);
+        if (mHeadLiveParent == null) {
+            mHeadLiveParent = mVsLive.inflate();
+            mTxLiveVideo = mHeadLiveParent.findViewById(R.id.tx_live_video);
+            ImageView mIvShare = mHeadLiveParent.findViewById(R.id.iv_share_video);
+            ImageView ivScreen = mHeadLiveParent.findViewById(R.id.iv_screen);
+            ImageView ivLock = mHeadLiveParent.findViewById(R.id.iv_lock);
+            ivScreen.setOnClickListener(v -> {
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            });
+            mIvShare.setPadding(ScreenUtils.dp2px(this, 20), ScreenUtils.dp2px(this, 20) + ScreenUtils.getStatuWindowsHeight(this),
+                    ScreenUtils.dp2px(this, 20), ScreenUtils.dp2px(this, 20));
+            mLivePlay = new TXLivePlayer(this);
+            mTxLiveVideo.setRenderMode(TXLiveConstants.RENDER_MODE_ADJUST_RESOLUTION);
+            //mTxLiveVideo.setRenderMode(TXLiveConstants.RENDER_MODE_FULL_FILL_SCREEN);
+            mTxLiveVideo.setRenderRotation(TXLiveConstants.RENDER_ROTATION_0);
+            mLivePlay.setPlayerView(mTxLiveVideo);
+            mLivePlay.setAutoPlay(true);
+            mLivePlay.startPlay(mLivePath, TXLivePlayer.PLAY_TYPE_LIVE_FLV);
+            mTxLiveVideo.setOnClickListener(v -> {
+
+            });
+        } else {
+            mHeadLiveParent.setVisibility(View.VISIBLE);
+        }
+    }
+
+
     @OnClick(R.id.iv_back)
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
-                finish();
+                clickBack();
                 break;
         }
+    }
 
+    @Override
+    public void onBackPressed() {
+        clickBack();
+    }
+
+    private void clickBack() {
+        if (getResources().getConfiguration().orientation != Configuration.ORIENTATION_PORTRAIT) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            mClHeadDetails.setVisibility(View.VISIBLE);
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        } else {
+            super.onBackPressed();
+        }
     }
 }

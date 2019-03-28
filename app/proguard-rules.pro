@@ -96,13 +96,13 @@ static final long serialVersionUID;
     void *(**On*Listener);
 }
 # webView处理，项目中没有使用到webView忽略即可
- #-keepclassmembers class fqcn.of.javascript.interface.for.webview { public *; }
-# -keepclassmembers class * extends android.webkit.webViewClient {
- # public void *(android.webkit.WebView, java.lang.String, android.graphics.Bitmap);
- # public boolean *(android.webkit.WebView, java.lang.String); }
- # -keepclassmembers class * extends android.webkit.webViewClient {
-  #public void *(android.webkit.webView, jav.lang.String); }
-#
+ -keepclassmembers class fqcn.of.javascript.interface.for.webview { public *; }
+ -keepclassmembers class * extends android.webkit.webViewClient {
+ public void *(android.webkit.WebView, java.lang.String, android.graphics.Bitmap);
+  public boolean *(android.webkit.WebView, java.lang.String); }
+  -keepclassmembers class * extends android.webkit.webViewClient {
+  public void *(android.webkit.webView, jav.lang.String); }
+
 #====================第三方代码混淆，有就添加==============
 -dontwarn com.squareup.okhttp3.**
 -keep class com.squareup.okhttp3.** { *;}
@@ -139,6 +139,9 @@ static final long serialVersionUID;
 -keep public class com.work.guaishouxingqiu.aboutball.media.bean.**{*;}
 -keep public class com.work.guaishouxingqiu.aboutball.my.bean.**{*;}
 -keep public class com.work.guaishouxingqiu.aboutball.venue.bean.**{*;}
+-keep public class com.work.guaishouxingqiu.aboutball.OnItemClickListener.{*;}
+
+
 #路由器混淆规则
 -keep public class com.alibaba.android.arouter.routes.**{*;}
 -keep public class com.alibaba.android.arouter.facade.**{*;}
@@ -176,3 +179,27 @@ rx.internal.util.atomic.LinkedQueueNode consumerNode;
 }
 -keep class com.google.gson.stream.** { *; }
 -keepattributes EnclosingMethod
+
+#EventBus
+-keepattributes *Annotation*
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+
+# Only required if you use AsyncExecutor
+-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+    <init>(java.lang.Throwable);
+}
+# 保持测试相关的代码
+-dontnote junit.framework.**
+-dontnote junit.runner.**
+-dontwarn android.test.**
+-dontwarn android.support.test.**
+-dontwarn org.junit.**
+#AutoSize
+-keep class me.jessyan.autosize.** { *; }
+-keep interface me.jessyan.autosize.** { *; }
+
+
+

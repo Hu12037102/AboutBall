@@ -41,7 +41,9 @@
             android:name="design_height_in_dp"
             android:value="667" />
 
-        <activity android:name=".home.activity.MainActivity">
+        <activity
+            android:name=".home.activity.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -56,12 +58,17 @@
         <activity android:name=".my.activity.MyDetailsActivity" />
         <activity android:name=".my.activity.AlterNameActivity" />
         <activity android:name=".home.activity.NewsDetailsActivity" />
-        <activity android:name=".game.activity.GameDetailsActivity" />
+        <activity
+            android:name=".game.activity.GameDetailsActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <!--android:screenOrientation="unspecified"-->
 
         <activity android:name=".media.activity.MediaActivity" />
         <activity
             android:name=".game.activity.GamePlayActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="unspecified" />
 
         <activity android:name=".media.activity.PreviewActivity" />
         <activity android:name=".venue.activity.VenueDetailsActivity" />
