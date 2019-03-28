@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.my.contract;
 
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateNameBean;
 
 /**
  * 作者: 胡庆岭
@@ -11,8 +12,10 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
  */
 public interface AlterNameContract {
     interface View extends IBaseView {
+        void resultAlterName();
     }
 
     interface Presenter extends IBasePresenter {
+        void alterName(RequestUpdateNameBean bean);
     }
 }

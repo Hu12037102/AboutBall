@@ -5,11 +5,9 @@ import android.support.annotation.NonNull;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
-import com.work.guaishouxingqiu.aboutball.login.bean.RequestUpdateSexBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateSexBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.MyDetailsContract;
 import com.work.guaishouxingqiu.aboutball.my.model.MyDetailsModel;
-
-import okhttp3.RequestBody;
 
 /**
  * 作者: 胡庆岭

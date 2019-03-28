@@ -3,7 +3,7 @@ package com.work.guaishouxingqiu.aboutball.my.model;
 import com.work.guaishouxingqiu.aboutball.base.BaseModel;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.login.LoginService;
-import com.work.guaishouxingqiu.aboutball.login.bean.RequestUpdateSexBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateSexBean;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;

@@ -1,4 +1,4 @@
-package com.work.guaishouxingqiu.aboutball.login.bean;
+package com.work.guaishouxingqiu.aboutball.my.bean;
 
 import com.work.guaishouxingqiu.aboutball.Contast;
 

@@ -32,7 +32,8 @@
     <string name="phone_digits">0123456789</string>
     <string name="go_selector_session">去选择场次</string>
     <string name="image_text_details">图文详情</string>
-    <style name="service_error">服务器异常</style>
+    <string name="service_error">服务器异常</string>
+    <string name="user_name_not_null">用户昵称不能为空！</string>
 
     <string name="hint">提示</string>
     <string name="this_phone_is_register">该手机号已经注册</string>

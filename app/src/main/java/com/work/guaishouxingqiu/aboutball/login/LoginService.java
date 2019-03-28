@@ -7,7 +7,7 @@ import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.RegisterResultBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.RequestLoginBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.RequestRegisterBean;
-import com.work.guaishouxingqiu.aboutball.login.bean.RequestUpdateSexBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateSexBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
 
 import io.reactivex.Observable;
