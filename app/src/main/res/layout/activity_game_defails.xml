@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
     android:fitsSystemWindows="false"
     android:orientation="vertical">
 
@@ -12,9 +11,9 @@
         android:id="@+id/cl_head_parent"
         android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:background="@color/color_4"
         android:fitsSystemWindows="false"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@android:color/transparent">
 
 
         <android.support.constraint.ConstraintLayout

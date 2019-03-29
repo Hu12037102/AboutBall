@@ -3,6 +3,7 @@ package com.work.guaishouxingqiu.aboutball.game.activity;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.PixelFormat;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -10,6 +11,9 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
+import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
@@ -19,10 +23,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alivc.player.AliVcMediaPlayer;
+import com.alivc.player.MediaPlayer;
+import com.aliyun.vodplayer.media.AliyunLocalSource;
+import com.aliyun.vodplayer.media.AliyunVodPlayer;
 import com.example.item.util.ScreenUtils;
-import com.tencent.rtmp.TXLiveConstants;
-import com.tencent.rtmp.TXLivePlayer;
-import com.tencent.rtmp.ui.TXCloudVideoView;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameSimpleBean;
@@ -81,9 +86,11 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
     ViewGroup mLlBody;
     private FragmentPagerAdapter mPagerAdapter;
     private View mHeadLiveParent;
-    private TXCloudVideoView mTxLiveVideo;
-    private TXLivePlayer mLivePlay;
-    String mLivePath = "http://5815.liveplay.myqcloud.com/live/5815_89aad37e06ff11e892905cb9018cf0d4_900.flv";
+
+    // String mLivePath = "http://5815.liveplay.myqcloud.com/live/5815_89aad37e06ff11e892905cb9018cf0d4_900.flv";
+    String mLivePath = "http://li.ifeell.com.cn/ipk/live.flv?auth_key=1555645522-0-0-87c9e12dfd362e4b3dd3698c826553f9";
+    private AliyunVodPlayer mVideoPlay;
+    // String mLivePath = "http://player.alicdn.com/video/aliyunmedia.mp4";
 
     @Override
     protected int getLayoutId() {
@@ -180,36 +187,29 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
     @Override
     protected void onPause() {
         super.onPause();
-        if (mLivePlay != null) {
-            mLivePlay.pause();
-        }
-        if (mTxLiveVideo != null) {
-            mTxLiveVideo.onPause();
+        if (mVideoPlay != null) {
+            mVideoPlay.pause();
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (mLivePlay != null) {
-            mLivePlay.resume();
-        }
-        if (mTxLiveVideo != null) {
-            mTxLiveVideo.onResume();
+        if (mVideoPlay != null) {
+            mVideoPlay.resume();
         }
     }
 
     @Override
-    protected void onDestroy() {
-        if (mTxLiveVideo != null) {
-            mTxLiveVideo.onDestroy();
-        }
-        if (mLivePlay != null) {
-            mLivePlay.stopPlay(true);
-        }
-        super.onDestroy();
+    protected void onStop() {
+        super.onStop();
+        if (mVideoPlay != null) {
+            mVideoPlay.stop();
 
+        }
     }
+
+
 
 
     private void initPagerData(ResultGameSimpleBean bean) {
@@ -317,25 +317,46 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
         mClHeadDetails.setVisibility(View.GONE);
         if (mHeadLiveParent == null) {
             mHeadLiveParent = mVsLive.inflate();
-            mTxLiveVideo = mHeadLiveParent.findViewById(R.id.tx_live_video);
             ImageView mIvShare = mHeadLiveParent.findViewById(R.id.iv_share_video);
             ImageView ivScreen = mHeadLiveParent.findViewById(R.id.iv_screen);
             ImageView ivLock = mHeadLiveParent.findViewById(R.id.iv_lock);
+            SurfaceView svVideo = mHeadLiveParent.findViewById(R.id.sv_video);
+            ViewGroup.LayoutParams layoutParams = svVideo.getLayoutParams();
+            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
+            svVideo.setLayoutParams(layoutParams);
             ivScreen.setOnClickListener(v -> {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
             });
             mIvShare.setPadding(ScreenUtils.dp2px(this, 20), ScreenUtils.dp2px(this, 20) + ScreenUtils.getStatuWindowsHeight(this),
                     ScreenUtils.dp2px(this, 20), ScreenUtils.dp2px(this, 20));
-            mLivePlay = new TXLivePlayer(this);
-            mTxLiveVideo.setRenderMode(TXLiveConstants.RENDER_MODE_ADJUST_RESOLUTION);
-            //mTxLiveVideo.setRenderMode(TXLiveConstants.RENDER_MODE_FULL_FILL_SCREEN);
-            mTxLiveVideo.setRenderRotation(TXLiveConstants.RENDER_ROTATION_0);
-            mLivePlay.setPlayerView(mTxLiveVideo);
-            mLivePlay.setAutoPlay(true);
-            mLivePlay.startPlay(mLivePath, TXLivePlayer.PLAY_TYPE_LIVE_FLV);
-            mTxLiveVideo.setOnClickListener(v -> {
 
+            mVideoPlay = new AliyunVodPlayer(this);
+
+            svVideo.getHolder().addCallback(new SurfaceHolder.Callback() {
+                @Override
+                public void surfaceCreated(SurfaceHolder holder) {
+                    mVideoPlay.setDisplay(holder);
+                }
+
+                @Override
+                public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+                    mVideoPlay.surfaceChanged();
+                }
+
+                @Override
+                public void surfaceDestroyed(SurfaceHolder holder) {
+
+                }
             });
+            AliyunLocalSource.AliyunLocalSourceBuilder builder = new AliyunLocalSource.AliyunLocalSourceBuilder();
+            builder.setSource(mLivePath);
+            builder.setCoverPath(mLivePath);
+            builder.setTitle(mLivePath);
+            mVideoPlay.setAutoPlay(true);
+            mVideoPlay.prepareAsync(builder.build());
+
+
         } else {
             mHeadLiveParent.setVisibility(View.VISIBLE);
         }
@@ -365,4 +386,6 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
             super.onBackPressed();
         }
     }
+
+
 }

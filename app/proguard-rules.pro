@@ -201,5 +201,26 @@ rx.internal.util.atomic.LinkedQueueNode consumerNode;
 -keep class me.jessyan.autosize.** { *; }
 -keep interface me.jessyan.autosize.** { *; }
 
+#Ali直播的代码混淆
+-keep class com.alivc.player.**{*;}
+-keep class com.aliyun.clientinforeport.**{*;}
+-dontwarn com.alivc.player.**
+#OSS代码混淆
+-keep class com.alibaba.sdk.android.oss.** { *; }
+-dontwarn okio.**
+-dontwarn org.apache.commons.codec.binary.**
+
+#butterknife
+-keep class butterknife.** { *; }
+-dontwarn butterknife.internal.**
+-keep class **$$ViewBinder { *; }
+-keepclasseswithmembernames class * {
+    @butterknife.* <fields>;
+}
+-keepclasseswithmembernames class * {
+    @butterknife.* <methods>;
+}
+
+
 
 

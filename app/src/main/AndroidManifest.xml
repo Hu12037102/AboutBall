@@ -62,14 +62,9 @@
             android:name=".game.activity.GameDetailsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
-        <!--android:screenOrientation="unspecified"-->
+        <!-- android:screenOrientation="unspecified" -->
 
         <activity android:name=".media.activity.MediaActivity" />
-        <activity
-            android:name=".game.activity.GamePlayActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="unspecified" />
-
         <activity android:name=".media.activity.PreviewActivity" />
         <activity android:name=".venue.activity.VenueDetailsActivity" />
         <activity
@@ -86,6 +81,8 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_path" />
         </provider>
+
+        <activity android:name=".game.activity.GamePlayActivity"></activity>
     </application>
 
 </manifest>

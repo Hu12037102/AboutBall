@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.alivc.player.AliVcMediaPlayer;
 import com.bugtags.library.Bugtags;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -42,6 +43,14 @@ public class BaseApplication extends Application {
         //初始化Bugtags采集
         Bugtags.start("96481d2c6099fa3e827b8c04d036d566", this, Bugtags.BTGInvocationEventBubble);
         initARouter();
+        initALi();
+    }
+
+    /**
+     * 初始化Ali视频
+     */
+    private void initALi() {
+        AliVcMediaPlayer.init(this);
     }
 
     /**

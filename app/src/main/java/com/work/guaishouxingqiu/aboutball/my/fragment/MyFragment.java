@@ -1,5 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.my.fragment;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
+import com.work.guaishouxingqiu.aboutball.game.activity.GamePlayActivity;
 import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.MyContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.MyPresenter;
@@ -130,7 +132,6 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
         } else {
             $startActivity(ARouterConfig.Path.ACTIVITY_MY_DETAILS);
-          //  $startActivity(ARouterConfig.Path.ACTIVITY_GAME_VIDEO);
         }
     }
 }

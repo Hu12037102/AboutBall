@@ -46,8 +46,6 @@ public class RegisterCodeFragment extends BaseFragment<RegisterCodePresenter> im
 
     @BindView(R.id.tv_title)
     TextView mTvTitle;
-    @BindView(R.id.rv_input)
-    RecyclerView mRvInput;
     @BindView(R.id.tv_gain_message_code)
     TextView mTvGainMessageCode;
     @BindView(R.id.tiet_input_1)
@@ -59,7 +57,6 @@ public class RegisterCodeFragment extends BaseFragment<RegisterCodePresenter> im
     @BindView(R.id.tiet_input_4)
     AppCompatEditText mTietInput4;
     private String mPhooneNumber;
-    private RegisterInputAdapter mInputAdapter;
     private boolean isFirst = true;
 
     public void setOnMessageCodeInputResult(OnMessageCodeInputResult mOnMessageCodeInputResult) {
@@ -83,7 +80,6 @@ public class RegisterCodeFragment extends BaseFragment<RegisterCodePresenter> im
 
     @Override
     protected void initView() {
-        mRvInput.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
     }
 
     @Override
@@ -219,10 +215,7 @@ public class RegisterCodeFragment extends BaseFragment<RegisterCodePresenter> im
 
     @Override
     public void resultEditData(List<RegisterInputEditBean> data) {
-        if (mInputAdapter == null) {
-            mInputAdapter = new RegisterInputAdapter(data);
-            mRvInput.setAdapter(mInputAdapter);
-        }
+
     }
 
     @Override

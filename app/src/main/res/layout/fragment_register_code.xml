@@ -50,13 +50,7 @@
             tools:text="5" />
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/default_margin"
-        android:layout_marginRight="@dimen/default_margin"
-        android:visibility="gone" />
+
 
     <TextView
         android:id="@+id/tv_gain_message_code"
