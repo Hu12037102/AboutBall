@@ -209,16 +209,16 @@ public class MyDetailsActivity extends CameraActivity<MyDetailsPresenter> implem
 
     @Override
     public void resultUpdateWeight() {
-        UserBean userBean = UserManger.get().getUser();
-        userBean.weight = Integer.valueOf(mUpdateWeightBean.weight);
-        UserManger.get().putUser(userBean);
+        mUserBean.weight = Integer.valueOf(mUpdateWeightBean.weight);
+        UserManger.get().putUser(mUserBean);
+        mItemWeight.mTvRight.setText(mUserBean.weight == 0 ? NO_SETTING : String.valueOf(mUserBean.weight).concat(" ").concat("kg"));
     }
 
     @Override
     public void resultUpdateHeight() {
-        UserBean userBean = UserManger.get().getUser();
-        userBean.height = Integer.valueOf(mUpdateHeightBean.height);
-        UserManger.get().putUser(userBean);
+        mUserBean.height = Integer.valueOf(mUpdateHeightBean.height);
+        UserManger.get().putUser(mUserBean);
+        mItemStature.mTvRight.setText(mUserBean.height == 0 ? NO_SETTING : String.valueOf(mUserBean.height).concat(" ").concat("cm"));
     }
 
 
