@@ -7,13 +7,15 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.ItemView;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
+import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.CameraActivity;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
 import com.work.guaishouxingqiu.aboutball.media.MediaSelector;
 import com.work.guaishouxingqiu.aboutball.media.bean.MediaSelectorFile;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateHeightBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateWeightBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.MyDetailsContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.MyDetailsPresenter;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
@@ -22,7 +24,9 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
+import com.work.guaishouxingqiu.aboutball.weight.HeightDialog;
 import com.work.guaishouxingqiu.aboutball.weight.SexDialog;
+import com.work.guaishouxingqiu.aboutball.weight.WeightDialog;
 
 import java.io.File;
 import java.util.List;
@@ -60,6 +64,8 @@ public class MyDetailsActivity extends CameraActivity<MyDetailsPresenter> implem
     private UserBean mUserBean;
     public static final String NO_SETTING = "未设置";
     private int mSexType;
+    private RequestUpdateWeightBean mUpdateWeightBean;
+    private RequestUpdateHeightBean mUpdateHeightBean;
 
     @Override
     protected int getLayoutId() {
@@ -89,8 +95,8 @@ public class MyDetailsActivity extends CameraActivity<MyDetailsPresenter> implem
         mItemName.mTvRight.setText(DataUtils.isEmpty(mUserBean.nickName) ? NO_SETTING : mUserBean.nickName);
         setGender(mUserBean.gender);
         mItemBirthday.mTvRight.setText(DataUtils.isEmpty(mUserBean.birthday) ? NO_SETTING : mUserBean.birthday);
-        mItemStature.mTvRight.setText(mUserBean.height == 0 ? NO_SETTING : String.valueOf(mUserBean.height));
-        mItemWeight.mTvRight.setText(mUserBean.weight == 0 ? NO_SETTING : String.valueOf(mUserBean.weight));
+        mItemStature.mTvRight.setText(mUserBean.height == 0 ? NO_SETTING : String.valueOf(mUserBean.height).concat(" ").concat("cm"));
+        mItemWeight.mTvRight.setText(mUserBean.weight == 0 ? NO_SETTING : String.valueOf(mUserBean.weight).concat(" ").concat("kg"));
         mItemPhone.mTvRight.setText(DataUtils.isEmpty(mUserBean.phone) ? NO_SETTING : mUserBean.phone);
 
     }
@@ -113,6 +119,31 @@ public class MyDetailsActivity extends CameraActivity<MyDetailsPresenter> implem
     protected void initEvent() {
         mItemSex.setOnItemClickListener(view -> clickUpdateSex());
         mItemName.setOnItemClickListener(view -> clickUpdateName());
+        mItemWeight.setOnItemClickListener(view -> clickUpdateWeight());
+        mItemStature.setOnItemClickListener(view->clickUpdateHeight());
+    }
+
+    private void clickUpdateHeight() {
+        HeightDialog heightDialog = new HeightDialog(this);
+        heightDialog.setHeight(UserManger.get().getUser().height);
+        heightDialog.show();
+        heightDialog.setOnHeightResultListener(height -> {
+            mUpdateHeightBean = new RequestUpdateHeightBean();
+            mUpdateHeightBean.height = height;
+            mPresenter.updateHeight(mUpdateHeightBean);
+        });
+    }
+
+    private void clickUpdateWeight() {
+        UserBean userBean = UserManger.get().getUser();
+        WeightDialog weightDialog = new WeightDialog(this);
+        weightDialog.setWeight(userBean.weight);
+        weightDialog.show();
+        weightDialog.setOnWeightResultListener(weight -> {
+            mUpdateWeightBean = new RequestUpdateWeightBean();
+            mUpdateWeightBean.weight = weight;
+            mPresenter.updateWeight(mUpdateWeightBean);
+        });
     }
 
     private void clickUpdateName() {
@@ -170,12 +201,24 @@ public class MyDetailsActivity extends CameraActivity<MyDetailsPresenter> implem
 
 
     @Override
-    public void resultUpdateSex(BaseBean baseBean) {
-        if (baseBean.code == IApi.Code.SUCCEED) {
-            mUserBean.gender = mSexType;
-            UserManger.get().putUser(mUserBean);
-            setGender(mUserBean.gender);
-        }
+    public void resultUpdateSex() {
+        mUserBean.gender = mSexType;
+        UserManger.get().putUser(mUserBean);
+        setGender(mUserBean.gender);
+    }
+
+    @Override
+    public void resultUpdateWeight() {
+        UserBean userBean = UserManger.get().getUser();
+        userBean.weight = Integer.valueOf(mUpdateWeightBean.weight);
+        UserManger.get().putUser(userBean);
+    }
+
+    @Override
+    public void resultUpdateHeight() {
+        UserBean userBean = UserManger.get().getUser();
+        userBean.height = Integer.valueOf(mUpdateHeightBean.height);
+        UserManger.get().putUser(userBean);
     }
 
 

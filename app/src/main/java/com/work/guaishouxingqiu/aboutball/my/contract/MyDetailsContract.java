@@ -1,8 +1,11 @@
 package com.work.guaishouxingqiu.aboutball.my.contract;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
+import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateHeightBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateWeightBean;
 
 /**
  * 作者: 胡庆岭
@@ -12,10 +15,17 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
  */
 public interface MyDetailsContract {
     interface View extends IBaseView {
-        void resultUpdateSex(BaseBean baseBean);
+        void resultUpdateSex();
+
+        void resultUpdateWeight();
+        void resultUpdateHeight();
     }
 
     interface Presenter extends IBasePresenter {
         void updateSex(int sexType);
+
+        void updateWeight(RequestUpdateWeightBean bean);
+
+        void updateHeight(RequestUpdateHeightBean mUpdateHeightBean);
     }
 }

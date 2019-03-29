@@ -32,7 +32,6 @@ public class SexDialog extends AppCompatDialog {
 
     private TitleView mTitleView;
     private WheelView mWheelView;
-    private int mSexIndex;//1代表男，2代表女
 
     public void setOnSelectorSexResult(OnSelectorSexResult onSelectorSexResult) {
         this.onSelectorSexResult = onSelectorSexResult;
@@ -52,7 +51,9 @@ public class SexDialog extends AppCompatDialog {
     }
 
     public void setSexIndex(int sexType) {
-        mWheelView.setCurrentItem(sexType == 0 ? 0 : sexType - 1);
+        if (mWheelView != null) {
+            mWheelView.setCurrentItem(sexType == 0 ? 0 : sexType - 1);
+        }
     }
 
     private void initView() {

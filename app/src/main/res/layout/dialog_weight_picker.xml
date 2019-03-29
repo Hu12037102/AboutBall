@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.example.item.weight.TitleView
+        android:background="@color/colorWhite"
+        android:id="@+id/title_view"
+        app:back_click_is_finish="false"
+        app:back_data="@string/cancel"
+        app:back_text_color="@color/color_3"
+        app:back_text_padding_left="@dimen/default_margin"
+        app:back_text_padding_right="@dimen/default_margin"
+        app:back_text_size="@dimen/size_14sp"
+        app:center_data="@string/choose_weight"
+        app:center_text_color="@color/color_4"
+        app:center_text_size="@dimen/size_17sp"
+        app:sure_data="@string/sure"
+        app:sure_text_color="@color/color_2"
+        app:sure_text_padding_left="@dimen/default_margin"
+        app:sure_text_padding_right="@dimen/default_margin"
+        app:sure_text_size="@dimen/size_14sp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_45dp" />
+
+    <View style="@style/HorizontalLine" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+    <com.contrarywind.view.WheelView
+        android:id="@+id/wv_left"
+        android:layout_width="@dimen/size_0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:background="@color/colorFFE3E3E3" />
+        <com.contrarywind.view.WheelView
+            android:id="@+id/wv_right"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="@color/colorFFE3E3E3" />
+    </LinearLayout>
+</LinearLayout>

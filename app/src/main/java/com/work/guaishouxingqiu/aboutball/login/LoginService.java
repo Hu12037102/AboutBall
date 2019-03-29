@@ -37,6 +37,5 @@ public interface LoginService {
     @POST(IApiService.REGISTER)
     Observable<BaseBean<RegisterResultBean>> register(@Body RequestRegisterBean bean);
 
-    @POST(IApiService.USER_ACCOUNT)
-    Observable<BaseBean> updateAccountSex(@Body RequestUpdateSexBean bean);
+
 }

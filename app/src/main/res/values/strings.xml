@@ -71,6 +71,8 @@
     <string name="cancel">取消</string>
     <string name="sure">确定</string>
     <string name="choose_weight">选择体重</string>
+    <string name="choose_sex">选择性别</string>
+    <string name="choose_height">选择身高</string>
     <string name="man">男</string>
     <string name="women">女</string>
     <string name="not_setting">未设置</string>
@@ -92,6 +94,7 @@
     <string name="notice">系统通知&#160;&#160;</string>
     <string name="game_id_error">比赛房间未找到！</string>
     <string name="please_open_location">请打开定位权限！</string>
+    <string name="weight_not_zero">体重不能为0</string>
 
     <!--相册选择器-->
     <string name="back">返回</string>
