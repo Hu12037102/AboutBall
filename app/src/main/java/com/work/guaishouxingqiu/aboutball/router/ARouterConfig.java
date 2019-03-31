@@ -40,6 +40,9 @@ public interface ARouterConfig {
         String FRAGMENT_GAME_DATA = "/fragment/game/data";
         String FRAGMENT_GAME_COMMENT = "/fragment/game/comment";
         String FRAGMENT_GAME_COLLECTION = "/fragment/game/collection";
+        String FRAGMENT_REGISTER_PHONE="/fragment/register/phone";
+        String FRAGMENT_REGISTER_CODE ="/fragment/register/code";
+        String FRAGMENT_REGISTER_PASSWORD="/fragment/register/password";
 
     }
 

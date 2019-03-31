@@ -9,10 +9,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
 import com.work.guaishouxingqiu.aboutball.login.contract.RegisterPasswordContract;
 import com.work.guaishouxingqiu.aboutball.login.presenter.RegisterPasswordPresenter;
+import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
@@ -25,6 +27,7 @@ import butterknife.OnClick;
  * 更新时间: 2019/3/11 14:21
  * 描述: 注册输入密码Fragment
  */
+@Route(path = ARouterConfig.Path.FRAGMENT_REGISTER_PASSWORD)
 public class RegisterPasswordFragment extends BaseFragment<RegisterPasswordPresenter>
         implements RegisterPasswordContract.View {
 

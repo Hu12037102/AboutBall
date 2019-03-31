@@ -9,12 +9,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
 import com.work.guaishouxingqiu.aboutball.login.bean.EventMessagePhone;
 import com.work.guaishouxingqiu.aboutball.login.contract.RegisterPhoneContract;
 import com.work.guaishouxingqiu.aboutball.login.presenter.RegisterPhonePresenter;
+import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
@@ -29,6 +32,7 @@ import butterknife.OnClick;
  * 更新时间: 2019/3/11 13:33
  * 描述: 注册Fragment
  */
+@Route(path = ARouterConfig.Path.FRAGMENT_REGISTER_PHONE)
 public class RegisterPhoneFragment extends BaseFragment<RegisterPhonePresenter> implements
         RegisterPhoneContract.View {
     @BindView(R.id.tiet_phone)

@@ -5,8 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -15,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
@@ -23,6 +22,7 @@ import com.work.guaishouxingqiu.aboutball.login.bean.EventMessagePhone;
 import com.work.guaishouxingqiu.aboutball.login.bean.RegisterInputEditBean;
 import com.work.guaishouxingqiu.aboutball.login.contract.RegisterCodeContract;
 import com.work.guaishouxingqiu.aboutball.login.presenter.RegisterCodePresenter;
+import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 
@@ -42,6 +42,7 @@ import butterknife.Unbinder;
  * 更新时间: 2019/3/11 13:57
  * 描述: 注册输入验证码Fragment
  */
+@Route(path = ARouterConfig.Path.FRAGMENT_REGISTER_CODE)
 public class RegisterCodeFragment extends BaseFragment<RegisterCodePresenter> implements RegisterCodeContract.View {
 
     @BindView(R.id.tv_title)

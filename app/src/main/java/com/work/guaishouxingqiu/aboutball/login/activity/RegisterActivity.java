@@ -24,6 +24,7 @@ import com.work.guaishouxingqiu.aboutball.login.presenter.RegisterPresenter;
 import com.work.guaishouxingqiu.aboutball.other.ActivityManger;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 
@@ -59,9 +60,9 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
 
     @Override
     protected void initView() {
-        mPhoneFragment = RegisterPhoneFragment.newInstance();
-        mCodeFragment = RegisterCodeFragment.newInstance();
-        mPasswordFragment = RegisterPasswordFragment.newInstance();
+        mPhoneFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_REGISTER_PHONE);
+        mCodeFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_REGISTER_CODE);
+        mPasswordFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_REGISTER_PASSWORD);
         mFragmentData = new ArrayList<>();
         mFragmentData.add(mPhoneFragment);
         mFragmentData.add(mCodeFragment);
