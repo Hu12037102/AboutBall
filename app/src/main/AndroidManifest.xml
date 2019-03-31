@@ -50,27 +50,31 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".home.activity.WelcomeActivity" />
+        <activity android:name=".home.activity.WelcomeActivity" android:screenOrientation="portrait"/>
         <activity
             android:name=".login.activity.LoginActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".login.activity.RegisterActivity" />
-        <activity android:name=".my.activity.MyDetailsActivity" />
-        <activity android:name=".my.activity.AlterNameActivity" />
-        <activity android:name=".home.activity.NewsDetailsActivity" />
+        <activity android:name=".login.activity.RegisterActivity" android:screenOrientation="portrait" />
+        <activity android:name=".my.activity.MyDetailsActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".my.activity.AlterNameActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".home.activity.NewsDetailsActivity" android:screenOrientation="portrait"/>
         <activity
             android:name=".game.activity.GameDetailsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <!-- android:screenOrientation="unspecified" -->
 
-        <activity android:name=".media.activity.MediaActivity" />
-        <activity android:name=".media.activity.PreviewActivity" />
-        <activity android:name=".venue.activity.VenueDetailsActivity" />
+        <activity android:name=".media.activity.MediaActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".media.activity.PreviewActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".venue.activity.VenueDetailsActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            />
 
         <provider
             android:name=".media.provider.MediaProvider"
@@ -82,7 +86,8 @@
                 android:resource="@xml/provider_path" />
         </provider>
 
-        <activity android:name=".game.activity.GamePlayActivity"></activity>
+        <activity android:name=".game.activity.GamePlayActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
