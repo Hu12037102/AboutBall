@@ -47,6 +47,8 @@
         android:layout_height="@dimen/item_height"
         android:background="@color/colorWhite"
         app:content_right_icon="@mipmap/icon_item_right"
+        app:content_text_color="@color/color_3"
+        app:content_text_size="@dimen/size_12sp"
         app:show_top_line="true"
         app:title_data="@string/clear_cache"
         app:title_text_color="@color/color_4"

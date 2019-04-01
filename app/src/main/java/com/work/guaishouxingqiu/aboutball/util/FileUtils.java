@@ -196,6 +196,11 @@ public class FileUtils {
             }
         }
     }
+    public static void removeFileCache(){
+        removeFile(FileUtils.getCacheFile());
+        removeFile(FileUtils.getImageCacheFile());
+        removeFile(UIUtils.getContext().getCacheDir());
+    }
 
     /**
      * 获取单个文件夹里面文件大小

@@ -50,12 +50,12 @@ public class SettingActivity extends BaseActivity<SettingPresenter>
 
     @Override
     protected void initView() {
-
+        mItemLoginOut.setVisibility(UserManger.get().isLogin()?View.VISIBLE:View.GONE);
     }
 
     @Override
     protected void initData() {
-        mPresenter.getFileSize(FileUtils.getImageCacheFile());
+        mPresenter.getFileSize();
     }
 
     @Override
@@ -72,8 +72,8 @@ public class SettingActivity extends BaseActivity<SettingPresenter>
     }
 
     private void clickClearCache() {
-        FileUtils.removeFile(this.getCacheDir());
-
+        FileUtils.removeFileCache();
+        mPresenter.getFileSize();
     }
 
     private void clickLoginOut() {

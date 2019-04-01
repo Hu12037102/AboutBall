@@ -36,7 +36,7 @@ public class SettingPresenter extends BasePresenter<SettingContract.View, Settin
     }
 
     @Override
-    public void getFileSize(File file) {
+    public void getFileSize() {
         mModel.getFileSize(new Observer<Long>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -45,10 +45,13 @@ public class SettingPresenter extends BasePresenter<SettingContract.View, Settin
 
             @Override
             public void onNext(Long fileSize) {
+                LogUtils.w("getFileSize--", fileSize + "--");
                 NumberFormat numberFormat = NumberFormat.getNumberInstance();
                 numberFormat.setMinimumFractionDigits(2);
-                String size = numberFormat.format((double)fileSize / 1024d/ 1024d);
-                mView.resultFileSize(size+"M");
+                numberFormat.setMaximumFractionDigits(2);
+
+                String size = numberFormat.format((double) fileSize / 1024d / 1024d);
+                mView.resultFileSize(Double.valueOf(size) == 0 ? "" : size + "M");
             }
 
             @Override

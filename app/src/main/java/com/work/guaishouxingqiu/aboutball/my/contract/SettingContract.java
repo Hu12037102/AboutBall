@@ -17,6 +17,6 @@ public interface SettingContract {
     }
 
     interface Presenter extends IBasePresenter {
-        void getFileSize(File file);
+        void getFileSize();
     }
 }
