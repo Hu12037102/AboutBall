@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.FileUtils;
 
 /**
  * 作者: 胡庆岭
@@ -137,5 +138,10 @@ public class UserManger {
         userBean.wechatUserName = mSP.getString(UserManger.KEY_WECHAT_USER_NAME);
         userBean.weChatOpenId = mSP.getString(UserManger.KEY_WECHAT_OPEN_ID);
         return userBean;
+    }
+
+    public void loginOut() {
+        mSP.clearData();
+       // FileUtils.removeFile(FileUtils.getCacheFile());
     }
 }

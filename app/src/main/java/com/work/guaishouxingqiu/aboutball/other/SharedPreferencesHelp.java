@@ -3,6 +3,7 @@ package com.work.guaishouxingqiu.aboutball.other;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
+
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 
@@ -28,6 +29,13 @@ public class SharedPreferencesHelp {
     private void initSharedPreferences(String spName) {
         mSharedPreferences = UIUtils.getContext().getSharedPreferences(spName, Context.MODE_PRIVATE);
 
+    }
+
+    public void clearData() {
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+        editor.commit();
     }
 
 

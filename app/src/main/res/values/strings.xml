@@ -96,6 +96,12 @@
     <string name="game_id_error">比赛房间未找到！</string>
     <string name="please_open_location">请打开定位权限！</string>
     <string name="weight_not_zero">体重不能为0</string>
+    <string name="feedback">意见反馈</string>
+    <string name="about_we">关于我们</string>
+    <string name="clear_cache">清理缓存</string>
+    <string name="user_agreement">用户协议</string>
+    <string name="login_out">退出登录</string>
+    <string name="m">%s&#160;M</string>
 
     <!--相册选择器-->
     <string name="back">返回</string>

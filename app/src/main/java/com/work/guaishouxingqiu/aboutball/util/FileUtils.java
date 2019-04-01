@@ -17,6 +17,8 @@ import com.work.guaishouxingqiu.aboutball.media.weight.MediaScanner;
 import java.io.File;
 import java.util.List;
 
+import io.reactivex.internal.operators.flowable.FlowableOnErrorNext;
+
 /**
  * 作者: 胡庆岭
  * 创建时间: 2019/3/4 15:13
@@ -55,9 +57,10 @@ public class FileUtils {
 
     /**
      * 返回图片缓存目录
+     *
      * @return
      */
-    public static File getImageCacheFile(){
+    public static File getImageCacheFile() {
         File imageCacheFile = new File(getRootFolder().getAbsolutePath(), FileUtils.IMAGE_CACHE_NAME);
         createFolder(imageCacheFile);
         return imageCacheFile;
@@ -68,7 +71,8 @@ public class FileUtils {
         createFolder(imageCameraFile);
         return new File(imageCameraFile.getAbsolutePath(), "zhty_" + System.currentTimeMillis() + ".jpg");
     }
-    public static File resultImageCacheFile(){
+
+    public static File resultImageCacheFile() {
         File imageCameraFile = new File(getRootFolder().getAbsolutePath(), FileUtils.IMAGE_CACHE_NAME);
         createFolder(imageCameraFile);
         return new File(imageCameraFile.getAbsolutePath(), "crop" + System.currentTimeMillis() + ".jpg");
@@ -126,6 +130,7 @@ public class FileUtils {
             return true;
         return false;
     }
+
     /**
      * 获取父文件夹名字
      *
@@ -136,6 +141,7 @@ public class FileUtils {
     public static String getParentFileName(@NonNull String filePath) {
         return getParentFile(filePath).getName();
     }
+
     private static File getParentFile(@NonNull String filePath) {
         File file = new File(filePath);
         if (file.exists() && file.isFile()) {
@@ -154,12 +160,15 @@ public class FileUtils {
     public static String getParentFilePath(@NonNull String filePath) {
         return getParentFile(filePath).getAbsolutePath();
     }
+
     public static int getFileWidth(@NonNull String path) {
         return getBitmapOptions(path).outWidth;
     }
+
     public static int getFileHeight(@NonNull String path) {
         return getBitmapOptions(path).outHeight;
     }
+
     private static BitmapFactory.Options getBitmapOptions(@NonNull String path) {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
@@ -170,6 +179,43 @@ public class FileUtils {
             bitmap.recycle();
         }
         return options;
+    }
+
+    public static void removeFile(File file) {
+        if (file == null) {
+            return;
+        }
+        if (file.isFile()) {
+            file.delete();
+        } else if (file.isDirectory()) {
+            File[] listFile = file.listFiles();
+            if (listFile != null && listFile.length > 0) {
+                for (int i = 0; i < listFile.length; i++) {
+                    removeFile(listFile[i]);
+                }
+            }
+        }
+    }
+
+    /**
+     * 获取单个文件夹里面文件大小
+     *
+     * @param file
+     * @return
+     */
+    public static long getFileSize(File file) {
+        long fileSize = 0;
+        if (file.isDirectory()) {
+            File[] files = file.listFiles();
+            for (File childFile : files) {
+                if (childFile.isFile()) {
+                    fileSize += childFile.length();
+                }
+            }
+        } else if (file.isFile()) {
+            fileSize += file.length();
+        }
+        return fileSize;
     }
 
 }

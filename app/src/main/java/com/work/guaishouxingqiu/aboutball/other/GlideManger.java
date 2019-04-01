@@ -45,10 +45,10 @@ public class GlideManger {
 
         DiskCache.Factory factory = new DiskLruCacheFactory(FileUtils.getImageCacheFile().getAbsolutePath(),
                 200 * 1024 * 1024);
-        GlideBuilder mGlideBuilder = new GlideBuilder()
+        GlideBuilder glideBuilder = new GlideBuilder()
                 .setDefaultRequestOptions(options)
                 .setDiskCache(factory);
-        Glide.init(context, mGlideBuilder);
+        Glide.init(context, glideBuilder);
     }
 
     public void loadImage(@NonNull Context context, @DrawableRes int resId, @DrawableRes int resPlaceholderId,

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.example.item.weight.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        android:background="@color/colorWhite"
+        app:back_left_drawable="@mipmap/icon_back"
+        app:back_text_padding_left="@dimen/default_margin"
+        app:back_text_padding_right="@dimen/default_margin"
+        app:center_data="@string/setting"
+        app:center_text_color="@color/color_4"
+        app:center_text_size="@dimen/size_19sp" />
+
+    <com.example.item.weight.ItemView
+        android:id="@+id/item_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/colorWhite"
+        app:content_right_icon="@mipmap/icon_item_right"
+        app:show_top_line="true"
+        app:title_data="@string/feedback"
+        app:title_text_color="@color/color_4"
+        app:title_text_size="@dimen/size_14sp" />
+
+    <com.example.item.weight.ItemView
+        android:id="@+id/item_about"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/colorWhite"
+        app:content_right_icon="@mipmap/icon_item_right"
+        app:show_top_line="true"
+        app:title_data="@string/about_we"
+        app:title_text_color="@color/color_4"
+        app:title_text_size="@dimen/size_14sp"
+        app:top_line_margin_left="@dimen/default_margin"
+        app:top_line_margin_right="@dimen/default_margin" />
+
+    <com.example.item.weight.ItemView
+        android:id="@+id/item_cache"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/colorWhite"
+        app:content_right_icon="@mipmap/icon_item_right"
+        app:show_top_line="true"
+        app:title_data="@string/clear_cache"
+        app:title_text_color="@color/color_4"
+        app:title_text_size="@dimen/size_14sp"
+        app:top_line_margin_left="@dimen/default_margin"
+        app:top_line_margin_right="@dimen/default_margin" />
+
+    <com.example.item.weight.ItemView
+        android:id="@+id/item_agreement"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/colorWhite"
+        app:content_right_icon="@mipmap/icon_item_right"
+        app:show_top_line="true"
+        app:title_data="@string/user_agreement"
+        app:title_text_color="@color/color_4"
+        app:title_text_size="@dimen/size_14sp"
+        app:top_line_margin_left="@dimen/default_margin"
+        app:top_line_margin_right="@dimen/default_margin" />
+
+    <TextView
+        android:id="@+id/item_login_out"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        android:layout_marginTop="@dimen/size_5dp"
+        android:background="@drawable/selector_item"
+        android:gravity="center"
+        android:text="@string/login_out"
+        android:textColor="@color/color_4"
+        android:textSize="@dimen/size_14sp" />
+
+</LinearLayout>

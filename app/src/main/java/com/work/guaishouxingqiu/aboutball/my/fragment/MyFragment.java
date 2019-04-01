@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.example.item.weight.ItemView;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
 import com.work.guaishouxingqiu.aboutball.game.activity.GamePlayActivity;
@@ -15,6 +16,7 @@ import com.work.guaishouxingqiu.aboutball.my.contract.MyContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.MyPresenter;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 
@@ -34,6 +36,8 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     CircleImageView mCivMyHead;
     @BindView(R.id.ll_head_group)
     LinearLayout mLlHeadGroup;
+    @BindView(R.id.item_setting)
+    ItemView mItemSetting;
     private View view;
 
     public static MyFragment newInstance() {
@@ -70,7 +74,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             view = LayoutInflater.from(getContext()).inflate(R.layout.item_login_my_head_view, null);
             TextView mTvName = view.findViewById(R.id.tv_name);
             TextView mTvFocusFans = view.findViewById(R.id.tv_focus_fans);
-           UserBean userBean =  UserManger.get().getUser();
+            UserBean userBean = UserManger.get().getUser();
             mTvName.setText(DataUtils.isEmpty(userBean.nickName) ? userBean.phone : userBean.nickName);
             mTvFocusFans.setText(getString(R.string.focus_and_fans, "0", "0"));
         } else {
@@ -91,7 +95,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
     @Override
     protected void initEvent() {
-
+        mItemSetting.setOnItemClickListener(view -> clickSetting());
     }
 
     @Override
@@ -101,7 +105,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
 
     @OnClick({R.id.item_about_ball, R.id.item_order, R.id.item_team, R.id.item_message,
-            R.id.item_dynamic, R.id.item_as_referee, R.id.item_setting, R.id.rl_my_head})
+            R.id.item_dynamic, R.id.item_as_referee,  R.id.rl_my_head})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.item_about_ball:
@@ -116,14 +120,17 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
                 break;
             case R.id.item_as_referee:
                 break;
-            case R.id.item_setting:
-                break;
+
             case R.id.rl_my_head:
                 clickHead();
                 break;
             default:
                 break;
         }
+    }
+
+    private void clickSetting() {
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_SETTING);
     }
 
     private void clickHead() {
