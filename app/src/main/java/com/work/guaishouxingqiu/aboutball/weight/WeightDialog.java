@@ -63,11 +63,11 @@ public class WeightDialog extends BaseDialog {
         window.setWindowAnimations(R.style.DefaultDialogAnimation);
     }
 
-    private void initWheelView(WheelView mLeftWheelView) {
-        mLeftWheelView.setCyclic(false);
-        mLeftWheelView.setLineSpacingMultiplier(2.0f);
-        mLeftWheelView.setTextColorCenter(ContextCompat.getColor(getContext(), R.color.colorFF333333));
-        mLeftWheelView.setGravity(Gravity.CENTER);
+    private void initWheelView(WheelView wheelView) {
+        wheelView.setCyclic(false);
+        wheelView.setLineSpacingMultiplier(2.0f);
+        wheelView.setTextColorCenter(ContextCompat.getColor(getContext(), R.color.colorFF333333));
+        wheelView.setGravity(Gravity.CENTER);
     }
 
     @Override

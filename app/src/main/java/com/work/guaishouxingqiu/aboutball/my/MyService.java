@@ -3,6 +3,8 @@ package com.work.guaishouxingqiu.aboutball.my;
 import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
+import com.work.guaishouxingqiu.aboutball.http.IApi;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateBirthdayBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateHeightBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateNameBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateSexBean;
@@ -28,8 +30,13 @@ public interface MyService {
 
     @POST(IApiService.USER_ACCOUNT)
     Observable<BaseBean<BaseDataBean>> updateAccountWeight(@Body RequestUpdateWeightBean bean);
+
     @POST(IApiService.USER_ACCOUNT)
     Observable<BaseBean<BaseDataBean>> updateAccountSex(@Body RequestUpdateSexBean bean);
+
     @POST(IApiService.USER_ACCOUNT)
     Observable<BaseBean<BaseDataBean>> updateAccountHeight(@Body RequestUpdateHeightBean bean);
+
+    @POST(IApiService.USER_ACCOUNT)
+    Observable<BaseBean<BaseDataBean>> updateAccountBirthday(@Body RequestUpdateBirthdayBean bean);
 }

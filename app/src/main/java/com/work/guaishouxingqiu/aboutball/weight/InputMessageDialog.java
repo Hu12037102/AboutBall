@@ -101,7 +101,7 @@ public class InputMessageDialog extends BaseDialog {
     protected void initEvent() {
         mTvCommit.setOnClickListener(v -> {
             if (DataUtils.isEmpty(DataUtils.checkData(mAcetMessage.getText()))) {
-                Toasts.with().showToast(R.string.input_message_code);
+                Toasts.with().showToast(R.string.please_input_message);
             } else if (onInputMessageListener != null) {
                 onInputMessageListener.onResultMessage(DataUtils.checkData(mAcetMessage.getText()).toString());
                 dismiss();

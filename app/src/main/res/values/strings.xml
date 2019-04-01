@@ -73,6 +73,7 @@
     <string name="choose_weight">选择体重</string>
     <string name="choose_sex">选择性别</string>
     <string name="choose_height">选择身高</string>
+    <string name="choose_birthday">选择生日</string>
     <string name="man">男</string>
     <string name="women">女</string>
     <string name="not_setting">未设置</string>

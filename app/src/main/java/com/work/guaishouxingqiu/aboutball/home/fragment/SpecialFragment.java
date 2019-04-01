@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
@@ -20,6 +22,7 @@ import com.work.guaishouxingqiu.aboutball.home.contract.SpecialContract;
 import com.work.guaishouxingqiu.aboutball.home.presenter.HomeBasePresenter;
 import com.work.guaishouxingqiu.aboutball.home.presenter.SpecialPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 
 import java.util.ArrayList;
@@ -107,6 +110,23 @@ implements SpecialContract.View{
                 mPresenter.isRefresh = true;
                 mPresenter.loadData(mTypId);
                 refreshLayout.finishRefresh();
+            }
+        });
+        mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onNotNetClick(View view) {
+
+            }
+
+            @Override
+            public void onNotDataClick(View view) {
+
+            }
+
+            @Override
+            public void onItemClick(View view, int position) {
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_NEW_DETAILS,
+                        ARouterConfig.Key.NEW_DETAILS_ID, mData.get(position).newsId);
             }
         });
     }

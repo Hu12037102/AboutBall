@@ -8,6 +8,7 @@ import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateBirthdayBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateHeightBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateSexBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateWeightBean;
@@ -79,6 +80,23 @@ public class MyDetailsPresenter extends BasePresenter<MyDetailsContract.View, My
             public void onNext(BaseBean<BaseDataBean> t) {
                 if (t.code == IApi.Code.SUCCEED) {
                     mView.resultUpdateHeight();
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+
+    @Override
+    public void updateBirthday(RequestUpdateBirthdayBean bean) {
+        mModel.updateBirthday(bean,new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean>() {
+            @Override
+            public void onNext(BaseBean<BaseDataBean> t) {
+                if (t.code == IApi.Code.SUCCEED){
+                    mView.resultUpdateBirthday();
                 }
             }
 

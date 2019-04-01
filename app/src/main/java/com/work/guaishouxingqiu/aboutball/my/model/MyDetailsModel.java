@@ -1,11 +1,10 @@
 package com.work.guaishouxingqiu.aboutball.my.model;
 
-import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseModel;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
-import com.work.guaishouxingqiu.aboutball.login.LoginService;
 import com.work.guaishouxingqiu.aboutball.my.MyService;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateBirthdayBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateHeightBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateSexBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateWeightBean;
@@ -37,6 +36,14 @@ public class MyDetailsModel extends BaseModel {
     public void updateHeight(RequestUpdateHeightBean bean,BaseObserver<BaseDataBean> observer){
         mRetrofitManger.create(MyService.class)
                 .updateAccountHeight(bean)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    public void updateBirthday(RequestUpdateBirthdayBean bean,BaseObserver<BaseDataBean> observer){
+        mRetrofitManger.create(MyService.class)
+                .updateAccountBirthday(bean)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

@@ -1,5 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.my.activity;
 
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
@@ -7,13 +8,11 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.ItemView;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.base.BaseBean;
-import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.CameraActivity;
-import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
 import com.work.guaishouxingqiu.aboutball.media.MediaSelector;
 import com.work.guaishouxingqiu.aboutball.media.bean.MediaSelectorFile;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateBirthdayBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateHeightBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateWeightBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.MyDetailsContract;
@@ -24,6 +23,7 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
+import com.work.guaishouxingqiu.aboutball.weight.BirthdayDialog;
 import com.work.guaishouxingqiu.aboutball.weight.HeightDialog;
 import com.work.guaishouxingqiu.aboutball.weight.SexDialog;
 import com.work.guaishouxingqiu.aboutball.weight.WeightDialog;
@@ -66,6 +66,7 @@ public class MyDetailsActivity extends CameraActivity<MyDetailsPresenter> implem
     private int mSexType;
     private RequestUpdateWeightBean mUpdateWeightBean;
     private RequestUpdateHeightBean mUpdateHeightBean;
+    private RequestUpdateBirthdayBean mBirthdayBean;
 
     @Override
     protected int getLayoutId() {
@@ -120,7 +121,22 @@ public class MyDetailsActivity extends CameraActivity<MyDetailsPresenter> implem
         mItemSex.setOnItemClickListener(view -> clickUpdateSex());
         mItemName.setOnItemClickListener(view -> clickUpdateName());
         mItemWeight.setOnItemClickListener(view -> clickUpdateWeight());
-        mItemStature.setOnItemClickListener(view->clickUpdateHeight());
+        mItemStature.setOnItemClickListener(view -> clickUpdateHeight());
+        mItemBirthday.setOnItemClickListener(view -> clickUpdateBirthday());
+    }
+
+    private void clickUpdateBirthday() {
+        BirthdayDialog birthdayDialog = new BirthdayDialog(this);
+        birthdayDialog.setBirthdayDate(mUserBean.birthday);
+        birthdayDialog.show();
+        birthdayDialog.setOnBirthdayResultListener(date -> {
+                    mBirthdayBean = new RequestUpdateBirthdayBean();
+                    mBirthdayBean.birthday = date;
+                    mPresenter.updateBirthday(mBirthdayBean);
+                }
+
+        );
+
     }
 
     private void clickUpdateHeight() {
@@ -219,6 +235,13 @@ public class MyDetailsActivity extends CameraActivity<MyDetailsPresenter> implem
         mUserBean.height = Integer.valueOf(mUpdateHeightBean.height);
         UserManger.get().putUser(mUserBean);
         mItemStature.mTvRight.setText(mUserBean.height == 0 ? NO_SETTING : String.valueOf(mUserBean.height).concat(" ").concat("cm"));
+    }
+
+    @Override
+    public void resultUpdateBirthday() {
+        mUserBean.birthday = mBirthdayBean.birthday;
+        UserManger.get().putUser(mUserBean);
+        mItemBirthday.mTvRight.setText(mUserBean.birthday);
     }
 
 

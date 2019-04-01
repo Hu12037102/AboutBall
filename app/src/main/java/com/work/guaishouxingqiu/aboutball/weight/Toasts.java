@@ -39,32 +39,34 @@ public class Toasts {
         if (DataUtils.isEmpty(text)){
             return;
         }
-        if (mToast == null) {
+       /* if (mToast == null) {
             mToast = Toast.makeText(UIUtils.getContext(), text, Toast.LENGTH_SHORT);
         }else {
             mToast.setText(text);
         }
-        mToast.show();
-      //  Toast.makeText(UIUtils.getContext(),text,Toast.LENGTH_SHORT).show();
+        mToast.show();*/
+        Toast.makeText(UIUtils.getContext(),text,Toast.LENGTH_SHORT).show();
     }
     public void showToast(int textRes) {
-        if (mToast == null) {
+       /* if (mToast == null) {
             mToast = Toast.makeText(UIUtils.getContext(), textRes, Toast.LENGTH_SHORT);
         }else {
             mToast.setText(textRes);
         }
-        mToast.show();
+        mToast.show();*/
+        Toast.makeText(UIUtils.getContext(),textRes,Toast.LENGTH_SHORT).show();
     }
 
     public synchronized void showToast( @StringRes int text, Object... object) {
 
-        if (mToast == null) {
+       /* if (mToast == null) {
             mToast = Toast.makeText(UIUtils.getContext(), UIUtils.getContext().getString(text, object), Toast.LENGTH_SHORT);
         } else {
             mToast.setText(UIUtils.getContext().getString(text, object));
             mToast.setDuration(Toast.LENGTH_SHORT);
         }
         Log.w("showToast--", "showToast");
-        mToast.show();
+        mToast.show();*/
+        Toast.makeText(UIUtils.getContext(),UIUtils.getContext().getString(text, object),Toast.LENGTH_SHORT).show();
     }
 }

@@ -26,10 +26,13 @@ import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
 import com.work.guaishouxingqiu.aboutball.permission.imp.OnPermissionsResult;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.venue.fragment.VenueFragment;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -68,9 +71,20 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
 
     @Override
     protected void initData() {
+        initTime();
         mPresenter.loadMainTab();
         initFragment();
 
+    }
+
+    private void initTime() {
+        Calendar calendar = Calendar.getInstance();
+       // calendar.set(Calendar.YEAR,2008);
+        calendar.set(2008,2,0);
+        Date date = new Date();
+
+
+        LogUtils.w("initView--",calendar.get(Calendar.DAY_OF_MONTH)+"--");
     }
 
     @Override
