@@ -43,7 +43,7 @@ public class Toasts {
         return mToasts;
     }
 
-    private void initToast(Object o, @Nullable Object... obj) {
+    private void initToast(Object o, @NonNull Object... obj) {
         // if (mToastView == null) {
         View toastView = LayoutInflater.from(UIUtils.getContext()).inflate(R.layout.item_toast_view, null);
         TextView tvToast = toastView.findViewById(R.id.tv_toast);
@@ -85,7 +85,7 @@ public class Toasts {
             return;
         }
 
-        initToast(text, null);
+        initToast(text);
 
        /* if (mToast == null) {
             mToast = Toast.makeText(UIUtils.getContext(), text, Toast.LENGTH_SHORT);
@@ -97,7 +97,7 @@ public class Toasts {
     }
 
     public void showToast(int textRes) {
-            initToast(textRes,null);
+            initToast(textRes);
 
        /* if (mToast == null) {
             mToast = Toast.makeText(UIUtils.getContext(), textRes, Toast.LENGTH_SHORT);

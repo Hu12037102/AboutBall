@@ -232,6 +232,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
     @Override
+    public void resultMessageCode() {
+
+    }
+
+    @Override
     public void countDownTimeUpdate(long time) {
         mTvGainMessageCode.setClickable(false);
         mTvGainMessageCode.setText(getString(R.string.regain_load_time, String.valueOf(time)));

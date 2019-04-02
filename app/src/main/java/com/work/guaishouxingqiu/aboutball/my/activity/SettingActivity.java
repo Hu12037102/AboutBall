@@ -16,6 +16,7 @@ import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
+import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import java.io.File;
 
@@ -50,7 +51,7 @@ public class SettingActivity extends BaseActivity<SettingPresenter>
 
     @Override
     protected void initView() {
-        mItemLoginOut.setVisibility(UserManger.get().isLogin()?View.VISIBLE:View.GONE);
+        mItemLoginOut.setVisibility(UserManger.get().isLogin() ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -74,6 +75,7 @@ public class SettingActivity extends BaseActivity<SettingPresenter>
     private void clickClearCache() {
         FileUtils.removeFileCache();
         mPresenter.getFileSize();
+        Toasts.with().showToast(R.string.clear_cache_complete);
     }
 
     private void clickLoginOut() {

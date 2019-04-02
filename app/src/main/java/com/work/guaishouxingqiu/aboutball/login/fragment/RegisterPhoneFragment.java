@@ -59,7 +59,7 @@ public class RegisterPhoneFragment extends BaseFragment<RegisterPhonePresenter> 
 
     @Override
     protected void initView() {
-
+        mTvNext.setClickable(false);
     }
 
     @Override
@@ -116,6 +116,11 @@ public class RegisterPhoneFragment extends BaseFragment<RegisterPhonePresenter> 
 
     @Override
     public void countDownTimeComplete() {
+
+    }
+
+    @Override
+    public void resultMessageCode() {
 
     }
 

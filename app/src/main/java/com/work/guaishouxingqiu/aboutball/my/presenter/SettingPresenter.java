@@ -45,7 +45,6 @@ public class SettingPresenter extends BasePresenter<SettingContract.View, Settin
 
             @Override
             public void onNext(Long fileSize) {
-                LogUtils.w("getFileSize--", fileSize + "--");
                 NumberFormat numberFormat = NumberFormat.getNumberInstance();
                 numberFormat.setMinimumFractionDigits(2);
                 numberFormat.setMaximumFractionDigits(2);

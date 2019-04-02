@@ -157,7 +157,8 @@ public class RegisterCodeFragment extends BaseFragment<RegisterCodePresenter> im
                             DataUtils.checkData(mTietInput2.getText()).toString() +
                             DataUtils.checkData(mTietInput3.getText()).toString() +
                             DataUtils.checkData(mTietInput4.getText()).toString();
-                    mOnMessageCodeInputResult.onInputComplete(messageCode);
+                    mPresenter.judgeMessageCode(mPhooneNumber,messageCode);
+
                 }
             }
 
@@ -206,6 +207,15 @@ public class RegisterCodeFragment extends BaseFragment<RegisterCodePresenter> im
         mTvGainMessageCode.setText(R.string.gain_message_code);
         mTvGainMessageCode.setClickable(true);
         mTvGainMessageCode.setTextColor(ContextCompat.getColor(getContext(), R.color.color_4));
+    }
+
+    @Override
+    public void resultMessageCode() {
+        String messageCode = DataUtils.checkData(mTietInput1.getText()).toString() +
+                DataUtils.checkData(mTietInput2.getText()).toString() +
+                DataUtils.checkData(mTietInput3.getText()).toString() +
+                DataUtils.checkData(mTietInput4.getText()).toString();
+        mOnMessageCodeInputResult.onInputComplete(messageCode);
     }
 
 

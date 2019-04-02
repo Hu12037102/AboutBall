@@ -18,6 +18,7 @@ public interface IApiService {
     String USER_ACCOUNT_INFO = "/api/accountManagement/getAccountInfo";
     //用户注册
     String REGISTER = "/api/account/register";
+    String JUDGE_MESSAGE_CODE ="/api/account/verificationCodeIsPass";
     //首页-推荐头部信息列表
     String RECOMMEND_HEAD = "/api/home/getHomePage";
     //资讯列表

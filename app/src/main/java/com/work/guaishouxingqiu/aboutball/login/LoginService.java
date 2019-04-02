@@ -31,11 +31,14 @@ public interface LoginService {
 
     @GET(IApiService.USER_ACCOUNT)
     Observable<BaseBean<UserBean>> userAccount();
+
     @GET(IApiService.USER_ACCOUNT_INFO)
     Observable<BaseBean<UserBean>> userAccountInfo();
 
     @POST(IApiService.REGISTER)
     Observable<BaseBean<RegisterResultBean>> register(@Body RequestRegisterBean bean);
 
-
+    @GET(IApiService.JUDGE_MESSAGE_CODE)
+    Observable<BaseBean> judgeMessageCode(@Query(Contast.PHONE) String phone,
+                                          @Query(Contast.CODE) String code);
 }

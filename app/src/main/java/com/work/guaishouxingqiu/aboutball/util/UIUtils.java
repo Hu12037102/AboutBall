@@ -85,9 +85,6 @@ public class UIUtils {
 
     public static void resultBaseData(@NonNull BaseBean baseBean, @NonNull Activity activity) {
         switch (baseBean.code) {
-            case IApi.Code.MESSAGES_CODE_ERROR:
-                Toasts.with().showToast(baseBean.title);
-                break;
             case IApi.Code.USER_NO_EXIST:
                 HintDialog hintDialog = new HintDialog.Builder(activity)
                         .setTitle(R.string.hint)

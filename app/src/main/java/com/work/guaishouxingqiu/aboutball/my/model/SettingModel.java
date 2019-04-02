@@ -21,13 +21,13 @@ import io.reactivex.schedulers.Schedulers;
 public class SettingModel extends BaseModel {
     public void getFileSize(Observer<Long> observable) {
        /* Observable.create((ObservableOnSubscribe<Long>) emitter -> {
-            Long fileSize = FileUtils.getFileSize(FileUtils.getCacheFile()) +
+            Long fileSize = FileUtils.getFileSize(FileUtils.getNetCacheFile()) +
                     FileUtils.getFileSize(FileUtils.getImageCacheFile());
             emitter.onNext(fileSize);
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observable);*/
-Observable.just( FileUtils.getFileSize(FileUtils.getCacheFile()) +
+Observable.just( FileUtils.getFileSize(FileUtils.getNetCacheFile()) +
         FileUtils.getFileSize(FileUtils.getImageCacheFile()) )
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())

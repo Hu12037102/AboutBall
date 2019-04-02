@@ -17,10 +17,12 @@ public interface MessageContract {
 
         void countDownTimeUpdate(long time);
         void countDownTimeComplete();
+        void resultMessageCode();
     }
 
     interface Presenter extends IBasePresenter {
         void sendMessageCode(@NonNull String phoneNumber, int type);
         void countDownTime(int timeLength);
+        void judgeMessageCode(String phone,String messageCode);
     }
 }

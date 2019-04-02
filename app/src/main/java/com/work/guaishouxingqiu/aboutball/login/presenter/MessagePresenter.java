@@ -6,6 +6,7 @@ import android.util.Log;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.login.contract.MessageContract;
 import com.work.guaishouxingqiu.aboutball.login.model.MessageModel;
 
@@ -45,7 +46,6 @@ public abstract class MessagePresenter<V extends MessageContract.View, M extends
                     mView.sendMessageCodeSucceedResult();
                 }
                 mView.dismissLoadingView();
-                mView.showToast(bean.message);
             }
 
             @Override
@@ -84,6 +84,23 @@ public abstract class MessagePresenter<V extends MessageContract.View, M extends
                 mView.countDownTimeComplete();
             }
         });
+    }
+
+    @Override
+    public void judgeMessageCode(String phone, String messageCode) {
+        mModel.judgeMessageCode(phone, messageCode, new BaseObserver(true, this, new BaseObserver.Observer() {
+            @Override
+            public void onNext(BaseBean t) {
+                if (t.code == IApi.Code.SUCCEED) {
+                    mView.resultMessageCode();
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
     }
 
 }
