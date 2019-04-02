@@ -158,6 +158,7 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
     protected void initData() {
         mRecommendData = new ArrayList<>();
         mRecommendAdapter = new RecommendedAdapter(mRecommendData);
+        mRecommendAdapter.setHasStableIds(true);
         mRecommendAdapter.addHeadView(mInflateHead);
         mRvRecommend.setAdapter(mRecommendAdapter);
         mHeadBean = new RequestRecommendDataBean();
@@ -211,6 +212,7 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
 
     }
 
+
     private void initLocation() {
         Location location = PhoneUtils.getGPSLocation(this);
         if (location != null) {
@@ -220,6 +222,13 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
         LogUtils.w("initLocation--", mHeadBean.latitude + "--" + mHeadBean.longitude);
         mSrlRecommend.autoRefresh();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mRecommendAdapter.onResume();
+    }
+
 
 
     @Override
@@ -231,7 +240,7 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Contast.REQUEST_CODE && resultCode == Contast.REQUEST_CODE) {
-          //  PhoneUtils.checkoutGPS(this);
+            //  PhoneUtils.checkoutGPS(this);
             initLocation();
         }
     }
@@ -284,14 +293,31 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
     public void onPause() {
         super.onPause();
         removeTimeMessage();
+        mRecommendAdapter.onPause();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mRecommendAdapter.onDestroy();
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-
+        LogUtils.w("onStart---",isVisibleToUser+"--");
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden && mRecommendAdapter != null){
+            LogUtils.w("onStart--",hidden+"--");
+            mRecommendAdapter.onPause();
+
+        }
+
+    }
 
     @Override
     public void onStart() {

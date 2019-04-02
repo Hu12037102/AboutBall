@@ -103,6 +103,7 @@
     <string name="login_out">退出登录</string>
     <string name="m">%s&#160;M</string>
     <string name="clear_cache_complete">清理缓存完成</string>
+    <string name="from_data">来源：%s&#160;&#160;%s</string>
 
     <!--相册选择器-->
     <string name="back">返回</string>

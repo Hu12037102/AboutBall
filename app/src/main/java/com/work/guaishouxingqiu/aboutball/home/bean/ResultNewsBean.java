@@ -16,4 +16,8 @@ public class ResultNewsBean {
     public String releaseTime;
     public long onTop;
     public String commentCount;
+    public String source;
+    public String typeId;
+    public String coverImgType;
+    public  boolean isPlayVideo;
 }

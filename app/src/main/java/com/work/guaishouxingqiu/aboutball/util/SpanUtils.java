@@ -10,10 +10,13 @@ import android.text.SpannableString;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.AbsoluteSizeSpan;
+import android.text.style.BackgroundColorSpan;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.TextView;
+
+import com.work.guaishouxingqiu.aboutball.R;
 
 /**
  * 作者: 胡庆岭
@@ -48,6 +51,14 @@ public class SpanUtils {
         ss.setSpan(new AbsoluteSizeSpan(textSize, true), start, end, SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
         ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(ContextCompat.getColor(UIUtils.getContext(), textColor));
         ss.setSpan(foregroundColorSpan, start, end, SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
+        return ss;
+    }
+    public static SpannableString getTopText(@ColorRes int textColor,int start,int end,@NonNull String data){
+        SpannableString ss = new SpannableString(data);
+        ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(ContextCompat.getColor(UIUtils.getContext(), textColor));
+        ss.setSpan(foregroundColorSpan, start, end, SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
+        BackgroundColorSpan backgroundColorSpan = new BackgroundColorSpan(R.drawable.shape_stick_view);
+        ss.setSpan(backgroundColorSpan,start, end,SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
         return ss;
     }
 

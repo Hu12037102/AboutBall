@@ -6,6 +6,7 @@ import android.app.Application;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -159,4 +160,7 @@ public class UIUtils {
 
     }
 
+    public static String getString(@StringRes int res, Object... obj) {
+        return UIUtils.getContext().getString(res, obj);
+    }
 }

@@ -2,8 +2,10 @@ package com.work.guaishouxingqiu.aboutball.other;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -13,7 +15,15 @@ import com.bumptech.glide.load.engine.cache.DiskCache;
 import com.bumptech.glide.load.engine.cache.DiskLruCacheFactory;
 import com.bumptech.glide.load.engine.cache.MemorySizeCalculator;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.BaseTarget;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.target.DrawableImageViewTarget;
+import com.bumptech.glide.request.target.ImageViewTarget;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
@@ -86,5 +96,9 @@ public class GlideManger {
 
     public void loadDefaultImage(@NonNull Context context, @NonNull String imagePath, @NonNull ImageView imageView) {
         loadImage(context, imagePath, R.drawable.shape_item_recommend_preview_item, R.drawable.shape_item_recommend_banner_view, imageView);
+    }
+    public void loadImageDrawable(@NonNull String imagePath,@NonNull CustomTarget<Drawable> target){
+        Glide.with(UIUtils.getContext()).asDrawable().load(imagePath).into(target);
+
     }
 }

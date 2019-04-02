@@ -1,12 +1,16 @@
 package com.work.guaishouxingqiu.aboutball.base;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.example.item.util.ScreenUtils;
@@ -14,6 +18,11 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.other.WebHelp;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 /**
  * 作者: 胡庆岭
@@ -53,6 +62,13 @@ public abstract class BaseWebActivity<P extends BasePresenter> extends Permissio
                 }
             }
         });
+        mWebView.setWebViewClient(new WebViewClient(){
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+
+            }
+        });
     }
 
     /**
@@ -61,7 +77,16 @@ public abstract class BaseWebActivity<P extends BasePresenter> extends Permissio
      * @param content
      */
     protected void loadEditData(String content) {
-        mWebView.loadDataWithBaseURL(null, content, "text/html", "utf-8", null);
+        //mWebView.loadDataWithBaseURL(null, content, "text/html", "utf-8", null);
+      /*  Document doc = Jsoup.parse(content);
+        Elements elements = doc.getElementsByTag("img");
+        for (Element element : elements) {
+            if (element.className() != null && element.className().length() > 0)
+                element.attr("width", "100%").attr("height", "auto");
+        }*/
+       mWebView.loadData(content,"text/html","utf-8");
+
+      //  mWebView.loadUrl(content);
     }
 
     @Override

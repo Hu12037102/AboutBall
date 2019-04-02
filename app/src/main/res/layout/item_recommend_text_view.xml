@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lineSpacingExtra="@dimen/size_5dp"
-            android:textColor="@color/color_5"
+            android:textColor="@color/color_4"
             android:textSize="@dimen/size_17sp"
             tools:text="五华续半天也啥会计返回键爱上是否half哈喽沙龙会书法家拉胡椒粉撒胡椒粉卡胡椒粉撒合法" />
 

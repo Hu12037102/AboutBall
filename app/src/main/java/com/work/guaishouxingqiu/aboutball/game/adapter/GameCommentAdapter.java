@@ -30,8 +30,11 @@ public class GameCommentAdapter extends BaseRecyclerAdapter<GameCommentAdapter.V
     @Override
     protected void onBindViewDataHolder(@NonNull ViewHolder viewHolder, int i) {
         ResultGameCommentBean bean = mData.get(i);
-        String data = bean.nickName.concat(": ").concat(bean.commentContent);
+        if (bean.nickName != null) {
+            String data = bean.nickName.concat(": ").concat(bean.commentContent);
+
         viewHolder.mTvContent.setText(SpanUtils.getTextColor(R.color.colorFFA6A6A6, 0, bean.nickName.length() + 1, data));
+        }
     }
 
     @Override
