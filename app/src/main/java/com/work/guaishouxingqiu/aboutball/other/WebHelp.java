@@ -20,12 +20,13 @@ public class WebHelp {
     @SuppressLint("SetJavaScriptEnabled")
     public static void initSetting(@NonNull WebView webView) {
         WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
+        webSettings.setJavaScriptEnabled(false);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setSupportZoom(true);
         webSettings.setBuiltInZoomControls(true);
-        webSettings.setDisplayZoomControls(false);
+        webSettings.setDisplayZoomControls(true);
+        webSettings.setAppCacheEnabled(true);//开启 Application Caches 功能
         webSettings.setAppCachePath(FileUtils.getNetCacheFile().getAbsolutePath());
         if (NetWorkUtils.isNetCanUse()) {
             webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
@@ -35,9 +36,15 @@ public class WebHelp {
         webSettings.setAllowFileAccess(true);
         webSettings.setLoadsImagesAutomatically(true);
         webSettings.setDefaultTextEncodingName("utf-8");
-        webSettings.setDomStorageEnabled(true); // 开启 DOM storage API 功能
+       // webSettings.setDomStorageEnabled(true); // 开启 DOM storage API 功能
         webSettings.setDatabaseEnabled(true);   //开启 database storage API 功能
-        webSettings.setAppCacheEnabled(true);//开启 Application Caches 功能
+
+
+        webSettings.setPluginState(WebSettings.PluginState.ON);
+        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+       // webSettings.setUseWideViewPort(true); // 关键点
+
+
 
 
     }

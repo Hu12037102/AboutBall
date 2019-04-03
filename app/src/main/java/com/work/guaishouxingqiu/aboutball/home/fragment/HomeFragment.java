@@ -94,7 +94,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         Fragment[] fragments = new Fragment[]{mRecommendedFragment, mHotFragment,
                 mHighlightsFragment, mSpecialFragment, mVideoFragment};
 
-        FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdapter(getFragmentManager()) {
+        FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int i) {
                 return fragments[i];

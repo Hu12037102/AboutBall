@@ -40,6 +40,9 @@ public class BirthdayDialog extends BaseDialog {
     private List<String> mMonthData;
     private List<String> mDayData;
     private ArrayWheelAdapter<String> mRightAdapter;
+    private ArrayWheelAdapter<String> mCenterAdapter;
+    private int mNesYear;
+    private int mNesMonth;
 
     public void setOnBirthdayResultListener(OnBirthdayResultListener onBirthdayResultListener) {
         this.onBirthdayResultListener = onBirthdayResultListener;
@@ -119,12 +122,14 @@ public class BirthdayDialog extends BaseDialog {
 
     private void initCenterData() {
         mMonthData = new ArrayList<>();
-        for (int i = 0; i < 12; i++) {
+        int month = mCalendar.get(Calendar.MONTH);
+        mNesMonth = month;
+        for (int i = 0; i < month; i++) {
             mMonthData.add(String.valueOf(i + 1));
         }
-        ArrayWheelAdapter<String> centerAdapter = new ArrayWheelAdapter<>(mMonthData);
+        mCenterAdapter = new ArrayWheelAdapter<>(mMonthData);
         mCenterWheelView.setCurrentItem(mCalendar.get(Calendar.MONTH));
-        mCenterWheelView.setAdapter(centerAdapter);
+        mCenterWheelView.setAdapter(mCenterAdapter);
         mCenterWheelView.setOnItemSelectedListener(index -> {
             mCalendar.set(Integer.valueOf(mYearData.get(mLeftWheelView.getCurrentItem())),
                     Integer.valueOf(mMonthData.get(index)), 0);
@@ -137,6 +142,7 @@ public class BirthdayDialog extends BaseDialog {
         Date date = new Date(System.currentTimeMillis());
         mCalendar.setTime(date);
         int year = mCalendar.get(Calendar.YEAR);
+        mNesYear = year;
         for (int i = MIN_YEAR; i <= year; i++) {
             mYearData.add(String.valueOf(i));
         }
@@ -148,10 +154,29 @@ public class BirthdayDialog extends BaseDialog {
                 mCalendar.set(Integer.valueOf(mYearData.get(index)),
                         Integer.valueOf(mMonthData.get(mCenterWheelView.getCurrentItem())), 0);
             }
+            notifyCenterData();
             notifyRightData();
         });
     }
 
+
+    private void notifyCenterData() {
+        if (mCenterAdapter != null && mMonthData != null) {
+            mMonthData.clear();
+            int year = mCalendar.get(Calendar.YEAR);
+            int monthLength;
+            if (year == mNesYear) {
+                monthLength = mNesMonth;
+            } else {
+                monthLength = 12;
+            }
+            for (int i = 0; i < monthLength; i++) {
+                mMonthData.add(String.valueOf(i + 1));
+            }
+            mCenterWheelView.setCurrentItem(0);
+            mCenterWheelView.setAdapter(mCenterAdapter);
+        }
+    }
 
     private void notifyRightData() {
         if (mRightAdapter != null && mDayData != null) {

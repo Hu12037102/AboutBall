@@ -6,6 +6,7 @@ import android.content.Context;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.alivc.player.AliVcMediaPlayer;
 import com.bugtags.library.Bugtags;
+import com.bugtags.library.BugtagsOptions;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
@@ -40,8 +41,15 @@ public class BaseApplication extends Application {
      */
     private void init() {
         UIUtils.init(this);
+        BugtagsOptions options = new BugtagsOptions.Builder().
+                trackingLocation(true).//是否获取位置，默认 true
+                trackingCrashLog(false).//是否收集crash，默认 true
+                trackingConsoleLog(false).//是否收集console log，默认 true
+                trackingUserSteps(false).//是否收集用户操作步骤，默认 true
+                trackingNetworkURLFilter("(.*)").//自定义网络请求跟踪的 url 规则，默认 null
+                build();
         //初始化Bugtags采集
-        Bugtags.start("96481d2c6099fa3e827b8c04d036d566", this, Bugtags.BTGInvocationEventBubble);
+        Bugtags.start("96481d2c6099fa3e827b8c04d036d566", this, Bugtags.BTGInvocationEventBubble,options);
         initARouter();
         initALi();
     }

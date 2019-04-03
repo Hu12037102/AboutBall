@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -156,6 +157,9 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
             case TYPE_FOOT_VIEW:
                 viewHolder = new RecyclerView.ViewHolder(mFootView) {
                 };
+                break;
+            case 0:
+                viewHolder = onCreateDataViewHolder(viewGroup, i);
                 break;
             default:
                 viewHolder = onCreateDataViewHolder(viewGroup, i);

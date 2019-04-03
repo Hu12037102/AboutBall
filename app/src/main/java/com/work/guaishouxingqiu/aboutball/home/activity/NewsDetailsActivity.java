@@ -91,6 +91,8 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
     protected void initData() {
         mData = new ArrayList<>();
         mAdapter = new NewsMessageAdapter(mData);
+        mAdapter.setNotDataView(R.mipmap.icon_not_data_message);
+        mAdapter.setNotDataContentRes(R.string.not_message);
         mAdapter.addHeadView(mHeadView);
         mRvMessage.setAdapter(mAdapter);
         mPresenter.loadNewsContent(mNewsId);

@@ -77,16 +77,29 @@ public abstract class BaseWebActivity<P extends BasePresenter> extends Permissio
      * @param content
      */
     protected void loadEditData(String content) {
-        mWebView.loadDataWithBaseURL(null, content, "text/html", "utf-8", null);
-      /*  Document doc = Jsoup.parse(content);
-        Elements elements = doc.getElementsByTag("img");
-        for (Element element : elements) {
-            if (element.className() != null && element.className().length() > 0)
-                element.attr("width", "100%").attr("height", "auto");
-        }*/
-      // mWebView.loadData(content,"text/html","utf-8");
+     //   content = content.replace("<img", "<img style=max-width:100%;height:auto");
+        //视频宽度自适应
+        content = content.replace("<video", "<video style=max-width:100%;height:auto");
+        mWebView.loadDataWithBaseURL(null, getNewData(content), "text/html", "utf-8", null);
+    }
 
-      //  mWebView.loadUrl(content);
+    private String getNewData(String data) {
+        //图片高度自适应
+        Document document = Jsoup.parse(data);
+        Elements pElements = document.select("p:has(img)");
+        for (Element pElement : pElements) {
+            pElement.attr("style", "text-align:center");
+            pElement.attr("max-width", String.valueOf(ScreenUtils.getScreenWidth(this) + "px"))
+                    .attr("height", "auto");
+        }
+        Elements imgElements = document.select("img");
+        for (Element imgElement : imgElements) {
+            //重新设置宽高
+            imgElement.attr("max-width", "100%")
+                    .attr("height", "auto");
+            imgElement.attr("style", "max-width:100%;height:auto");
+        }
+        return document.toString();
     }
 
     @Override

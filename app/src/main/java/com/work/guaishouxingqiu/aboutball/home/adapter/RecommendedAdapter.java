@@ -38,7 +38,7 @@ import uk.co.deanwild.flowtextview.FlowTextView;
  * 更新时间: 2019/3/13 14:32
  * 描述: 首页推荐数据
  */
-public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder, List<ResultNewsBean>> {
+public  class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder, List<ResultNewsBean>> {
     //纯文本内容
     public static final int TYPE_TEXT = 1000;
     //单图+文本
@@ -73,17 +73,18 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
         return super.getItemViewType(position);
     }
 
-    @Override
+   @Override
     protected RecyclerView.ViewHolder onCreateDataViewHolder(@NonNull ViewGroup viewGroup, int i) {
+
         RecyclerView.ViewHolder viewHolder = null;
         if (isHaveHeadView) {
             mPosition--;
         }
+        LogUtils.w("onCreateViewHolder---",mPosition+"--"+mData.get(mPosition).coverImgType+"--"+mData.get(mPosition).typeId);
         if (mData.get(mPosition).typeId.equals(Contast.VIDEO_RECOMMENDED_TYPE)) {
             viewHolder = new VideoHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_recommend_video_view, viewGroup, false));
 
         } else {
-            // int imagePathSize = DataUtils.splitImagePathCount(mData.get(mPosition).coverUrl);
             String imageType = mData.get(mPosition).coverImgType;
             switch (imageType) {
                 case "0":
@@ -102,6 +103,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
 
         return viewHolder;
     }
+
 
 
     @Override
@@ -271,7 +273,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
     @Override
     public void onViewAttachedToWindow(@NonNull RecyclerView.ViewHolder holder) {
         super.onViewAttachedToWindow(holder);
-        holder.setIsRecyclable(true);
+       holder.setIsRecyclable(true);
 
     }
 

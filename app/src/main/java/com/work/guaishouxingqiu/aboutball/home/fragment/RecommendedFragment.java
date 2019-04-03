@@ -33,6 +33,7 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
+import com.work.guaishouxingqiu.aboutball.home.activity.MainActivity;
 import com.work.guaishouxingqiu.aboutball.home.adapter.CarousePagerAdapter;
 import com.work.guaishouxingqiu.aboutball.home.adapter.RecommendHeadGameAdapter;
 import com.work.guaishouxingqiu.aboutball.home.adapter.RecommendedAdapter;
@@ -48,6 +49,8 @@ import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.NetWorkUtils;
 import com.work.guaishouxingqiu.aboutball.util.PhoneUtils;
 import com.work.guaishouxingqiu.aboutball.weight.CarouselViewPager;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +71,7 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
     RecyclerView mRvRecommend;
     @BindView(R.id.srl_recommend)
     SmartRefreshLayout mSrlRecommend;
-    private RecommendedAdapter mRecommendAdapter;
+    public RecommendedAdapter mRecommendAdapter;
     private List<ResultNewsBean> mRecommendData;
     private View mInflateHead;
     private CarouselViewPager mCvpBanner;
@@ -110,7 +113,7 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
             mTypeId = getArguments().getInt(ARouterConfig.Key.TAB_TYPE_ID);
         }
         initHeadView();
-
+        registerEventBus();
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -223,12 +226,6 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
         mSrlRecommend.autoRefresh();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        mRecommendAdapter.onResume();
-    }
-
 
     @Override
     protected RecommendedPresenter createPresenter() {
@@ -247,7 +244,7 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        LogUtils.w("onHiddenChanged--",hidden+"--");
+        LogUtils.w("onHiddenChanged--", hidden + "--");
     }
 
     @Override
@@ -279,7 +276,7 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
             }
         }
         mPresenter.loadData(mTypeId);
-        mRecommendAdapter.notifyData(NetWorkUtils.isNetCanUse());
+        //  mRecommendAdapter.notifyData(NetWorkUtils.isNetCanUse());
     }
 
     @Override
@@ -295,28 +292,49 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (mRecommendAdapter != null && getUserVisibleHint()) {
+            mRecommendAdapter.onResume();
+        }
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
         removeTimeMessage();
-        mRecommendAdapter.onPause();
+        if (mRecommendAdapter != null) {
+            mRecommendAdapter.onPause();
+        }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         mRecommendAdapter.onDestroy();
+        unRegisterEventBus();
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        LogUtils.w("onStart---", isVisibleToUser + "--");
         if (mRecommendAdapter != null) {
             if (isVisibleToUser) {
 
                 mRecommendAdapter.onResume();
             } else {
                 mRecommendAdapter.onPause();
+            }
+        }
+    }
+
+    @Subscribe
+    public void messageToTab(RecommendedFragment.MessageTabBean bean) {
+        if (mRecommendAdapter != null) {
+            if (bean.selectorTab != 0) {
+                mRecommendAdapter.onPause();
+            } else {
+                mRecommendAdapter.onResume();
             }
         }
     }
@@ -335,5 +353,17 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
     public void onDestroy() {
         super.onDestroy();
         this.removeTimeMessage();
+    }
+
+
+    /**
+     * home页面选择tab消息给首页控制视频
+     */
+    public static class MessageTabBean {
+        public int selectorTab;
+
+        public MessageTabBean(int selectorTab) {
+            this.selectorTab = selectorTab;
+        }
     }
 }

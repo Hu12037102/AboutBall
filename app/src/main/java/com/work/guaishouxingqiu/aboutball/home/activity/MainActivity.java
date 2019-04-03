@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +21,8 @@ import com.work.guaishouxingqiu.aboutball.home.adapter.MainTabAdapter;
 import com.work.guaishouxingqiu.aboutball.home.bean.MainTabBean;
 import com.work.guaishouxingqiu.aboutball.home.contract.MainContract;
 import com.work.guaishouxingqiu.aboutball.home.fragment.HomeFragment;
+import com.work.guaishouxingqiu.aboutball.home.fragment.RecommendedFragment;
+import com.work.guaishouxingqiu.aboutball.home.fragment.VideoFragment;
 import com.work.guaishouxingqiu.aboutball.home.presenter.MainPresenter;
 import com.work.guaishouxingqiu.aboutball.my.fragment.MyFragment;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
@@ -28,8 +31,11 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.venue.fragment.VenueFragment;
+import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -49,15 +55,10 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
 
     @BindView(R.id.rv_main_tab)
     RecyclerView mRvMainTab;
-    @BindView(R.id.fl_main_data)
-    FrameLayout mFlMainData;
+    @BindView(R.id.bvp_content)
+    BaseViewPager mBvpContent;
     private MainTabAdapter mTabAdapter;
-    private HomeFragment mHomeFragment;
-    private FragmentManager mManger;
-    private GameFragment mGameFragment;
-    private VenueFragment mVenueFragment;
-    private CommunityFragment mCommunityFragment;
-    private MyFragment mMyFragment;
+
 
     @Override
     protected int getLayoutId() {
@@ -71,21 +72,11 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
 
     @Override
     protected void initData() {
-        initTime();
         mPresenter.loadMainTab();
-        initFragment();
+
 
     }
 
-    private void initTime() {
-        Calendar calendar = Calendar.getInstance();
-       // calendar.set(Calendar.YEAR,2008);
-        calendar.set(2008,2,0);
-        Date date = new Date();
-
-
-        LogUtils.w("initView--",calendar.get(Calendar.DAY_OF_MONTH)+"--");
-    }
 
     @Override
     public void initPermission() {
@@ -113,30 +104,26 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
 
     private void initFragment() {
 
-        mManger = getSupportFragmentManager();
-        if (mManger != null) {
-            FragmentTransaction transaction = mManger.beginTransaction();
-            mHomeFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_HOME);
-            mGameFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME);
-            mVenueFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_VENUE);
-            mCommunityFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_COMMUNITY);
-            mMyFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_MY);
-               /* mGameFragment = GameFragment.newInstance();
-                mVenueFragment = VenueFragment.newInstance();
-                mCommunityFragment = CommunityFragment.newInstance();
-                mMyFragment = MyFragment.newInstance();*/
-            transaction.add(R.id.fl_main_data, mHomeFragment);
-            transaction.add(R.id.fl_main_data, mGameFragment);
-            transaction.hide(mGameFragment);
-            transaction.add(R.id.fl_main_data, mVenueFragment);
-            transaction.hide(mVenueFragment);
-            transaction.add(R.id.fl_main_data, mCommunityFragment);
-            transaction.hide(mCommunityFragment);
-            transaction.add(R.id.fl_main_data, mMyFragment);
-            transaction.hide(mMyFragment);
-            transaction.show(mHomeFragment);
-            transaction.commitNow();
-        }
+        HomeFragment homeFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_HOME);
+        GameFragment gameFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME);
+        VenueFragment venueFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_VENUE);
+        CommunityFragment communityFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_COMMUNITY);
+        MyFragment myFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_MY);
+        Fragment[] fragments = {homeFragment, gameFragment, venueFragment, communityFragment, myFragment};
+        FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int i) {
+                return fragments[i];
+            }
+
+            @Override
+            public int getCount() {
+                return fragments.length;
+            }
+        };
+        mBvpContent.setOffscreenPageLimit(fragments.length);
+        mBvpContent.setAdapter(pagerAdapter);
+
 
     }
 
@@ -158,51 +145,11 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
                 mTabAdapter = new MainTabAdapter(data);
                 mRvMainTab.setAdapter(mTabAdapter);
                 mTabAdapter.setOnCheckTabListener((view, position) -> {
-                    FragmentTransaction transaction = mManger.beginTransaction();
-                    switch (position) {
-                        //首页
-                        case 0:
-                            transaction.show(mHomeFragment);
-                            transaction.hide(mGameFragment);
-                            transaction.hide(mVenueFragment);
-                            transaction.hide(mCommunityFragment);
-                            transaction.hide(mMyFragment);
-                            break;
-                        //比赛
-                        case 1:
-                            transaction.hide(mHomeFragment);
-                            transaction.show(mGameFragment);
-                            transaction.hide(mVenueFragment);
-                            transaction.hide(mCommunityFragment);
-                            transaction.hide(mMyFragment);
-                            break;
-                        case 2:
-                            transaction.hide(mHomeFragment);
-                            transaction.hide(mGameFragment);
-                            transaction.show(mVenueFragment);
-                            transaction.hide(mCommunityFragment);
-                            transaction.hide(mMyFragment);
-                            break;
-
-                        case 3:
-                            transaction.hide(mHomeFragment);
-                            transaction.hide(mGameFragment);
-                            transaction.hide(mVenueFragment);
-                            transaction.show(mCommunityFragment);
-                            transaction.hide(mMyFragment);
-                            break;
-                        case 4:
-                            transaction.hide(mHomeFragment);
-                            transaction.hide(mGameFragment);
-                            transaction.hide(mVenueFragment);
-                            transaction.hide(mCommunityFragment);
-                            transaction.show(mMyFragment);
-                            break;
-                        default:
-                            break;
-                    }
-                    transaction.commitNow();
+                    mBvpContent.setCurrentItem(position, true);
+                    EventBus.getDefault().post(new RecommendedFragment.MessageTabBean(position));
+                    EventBus.getDefault().post(new VideoFragment.MessageTabBean(position));
                 });
+                initFragment();
             } else {
                 mTabAdapter.notifyDataSetChanged();
             }
