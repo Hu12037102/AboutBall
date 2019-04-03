@@ -88,7 +88,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
     private View mHeadLiveParent;
 
     // String mLivePath = "http://5815.liveplay.myqcloud.com/live/5815_89aad37e06ff11e892905cb9018cf0d4_900.flv";
-    String mLivePath = "http://li.ifeell.com.cn/ipk/live.flv?auth_key=1555645522-0-0-87c9e12dfd362e4b3dd3698c826553f9";
+    //String mLivePath = "http://li.ifeell.com.cn/ipk/live.flv?auth_key=1555645522-0-0-87c9e12dfd362e4b3dd3698c826553f9";
     private AliyunVodPlayer mVideoPlay;
     // String mLivePath = "http://player.alicdn.com/video/aliyunmedia.mp4";
 
@@ -304,7 +304,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
                 tVGrade.setText(bean.hostScore.concat(" - ").concat(bean.guestScore));
                 mTvStatus.setOnClickListener(v -> {
                     // ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_GAME_VIDEO);
-                    initLiveVideoView();
+                    initLiveVideoView(bean);
                 });
                 break;
 
@@ -313,7 +313,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
     }
 
 
-    private void initLiveVideoView() {
+    private void initLiveVideoView(ResultGameSimpleBean bean) {
         mClHeadDetails.setVisibility(View.GONE);
         if (mHeadLiveParent == null) {
             mHeadLiveParent = mVsLive.inflate();
@@ -350,9 +350,9 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
                 }
             });
             AliyunLocalSource.AliyunLocalSourceBuilder builder = new AliyunLocalSource.AliyunLocalSourceBuilder();
-            builder.setSource(mLivePath);
-            builder.setCoverPath(mLivePath);
-            builder.setTitle(mLivePath);
+            builder.setSource(bean.liveAddress);
+            builder.setCoverPath(bean.liveAddress);
+            builder.setTitle(bean.liveAddress);
             mVideoPlay.setAutoPlay(true);
             mVideoPlay.prepareAsync(builder.build());
 

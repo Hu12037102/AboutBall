@@ -72,7 +72,8 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/rl_message_code"
-        style="@style/InputRelativeLayout">
+        style="@style/InputRelativeLayout"
+        android:visibility="visible">
 
 
 
@@ -165,13 +166,27 @@
                 android:textSize="18sp" />
         </android.support.design.widget.TextInputLayout>
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tv_forget_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/size_10dp"
+            android:paddingRight="@dimen/size_20dp"
+            android:paddingTop="@dimen/size_10dp"
+            android:text="@string/forget_the_password"
+            android:textColor="@color/color_3"
+            tools:ignore="RelativeOverlap"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/tv_forget_password">
 
 
             <ImageView
@@ -186,16 +201,6 @@
                 android:src="@mipmap/icon_clear"
                 android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/tv_forget_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/size_10dp"
-                android:paddingRight="@dimen/size_20dp"
-                android:paddingTop="@dimen/size_10dp"
-                android:text="@string/forget_the_password"
-                android:textColor="@color/color_3"
-                tools:ignore="RelativeOverlap" />
         </LinearLayout>
 
     </android.support.constraint.ConstraintLayout>

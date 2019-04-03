@@ -1,6 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.my.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
+import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import java.io.File;
@@ -79,8 +81,17 @@ public class SettingActivity extends BaseActivity<SettingPresenter>
     }
 
     private void clickLoginOut() {
-        UserManger.get().loginOut();
-        finish();
+        HintDialog hintDialog = new HintDialog.Builder(this)
+                .setTitle(R.string.hint)
+                .setBody(R.string.your_sure_login_out)
+                .setSure(R.string.sure).builder();
+        hintDialog.show();
+        hintDialog.setOnItemClickListener(view -> {
+            hintDialog.dismiss();
+            UserManger.get().loginOut();
+            finish();
+        });
+
     }
 
     @Override
