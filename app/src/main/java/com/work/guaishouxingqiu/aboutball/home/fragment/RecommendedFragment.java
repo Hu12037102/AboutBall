@@ -230,7 +230,6 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
     }
 
 
-
     @Override
     protected RecommendedPresenter createPresenter() {
         return new RecommendedPresenter(this);
@@ -243,6 +242,12 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
             //  PhoneUtils.checkoutGPS(this);
             initLocation();
         }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        LogUtils.w("onHiddenChanged--",hidden+"--");
     }
 
     @Override
@@ -305,19 +310,17 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        LogUtils.w("onStart---",isVisibleToUser+"--");
-    }
+        LogUtils.w("onStart---", isVisibleToUser + "--");
+        if (mRecommendAdapter != null) {
+            if (isVisibleToUser) {
 
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if (hidden && mRecommendAdapter != null){
-            LogUtils.w("onStart--",hidden+"--");
-            mRecommendAdapter.onPause();
-
+                mRecommendAdapter.onResume();
+            } else {
+                mRecommendAdapter.onPause();
+            }
         }
-
     }
+
 
     @Override
     public void onStart() {

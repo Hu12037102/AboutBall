@@ -29,6 +29,7 @@ import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import java.util.List;
 
+import io.reactivex.internal.operators.flowable.FlowableOnErrorReturn;
 import uk.co.deanwild.flowtextview.FlowTextView;
 
 /**
@@ -47,7 +48,8 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
 
     private int mPosition;
     private TXVodPlayer mVodPlayer;
-    private boolean isFirstplay = true;
+    private boolean isFirstPlay = true;
+    private VideoHolder mVideoHolder;
 
     public RecommendedAdapter(@NonNull List<ResultNewsBean> data) {
         super(data);
@@ -183,15 +185,15 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
 
 
         } else if (viewHolder instanceof VideoHolder) {
-            isFirstplay = true;
-            VideoHolder videoHolder = (VideoHolder) viewHolder;
-            videoHolder.mTvContent.setText(mData.get(i).title);
-            videoHolder.mTvFrom.setText(UIUtils.getString(R.string.from_data, mData.get(i).source, mData.get(i).releaseTime));
+            isFirstPlay = true;
+            mVideoHolder = (VideoHolder) viewHolder;
+            mVideoHolder.mTvContent.setText(mData.get(i).title);
+            mVideoHolder.mTvFrom.setText(UIUtils.getString(R.string.from_data, mData.get(i).source, mData.get(i).releaseTime));
             GlideManger.get().loadImageDrawable(mData.get(i).coverUrl, new CustomTarget<Drawable>() {
                 @Override
                 public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
                     LogUtils.w("loadImageDrawable--", resource + "--");
-                    videoHolder.mTvVideo.setBackground(resource);
+                    mVideoHolder.mTvVideo.setBackground(resource);
                 }
 
                 @Override
@@ -211,13 +213,13 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
 
                 }
             });
-            mVodPlayer.setPlayerView(videoHolder.mTvVideo);
-            videoHolder.mIvPlay.setOnClickListener(v -> {
+            mVodPlayer.setPlayerView(mVideoHolder.mTvVideo);
+            mVideoHolder.mIvPlay.setOnClickListener(v -> {
                 bean.isPlayVideo = !bean.isPlayVideo;
-                videoHolder.mIvPlay.setAlpha(bean.isPlayVideo ? 0f : 1f);
+                mVideoHolder.mIvPlay.setAlpha(bean.isPlayVideo ? 0f : 1f);
                 if (bean.isPlayVideo) {
-                    if (isFirstplay) {
-                        isFirstplay = false;
+                    if (isFirstPlay) {
+                        isFirstPlay = false;
                         mVodPlayer.startPlay(mData.get(i).coverUrl);
                     } else {
                         mVodPlayer.resume();
@@ -236,17 +238,33 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
     }
 
     public void onResume() {
+        for ( int i = 0;i <mData.size();i++){
+            if (mData.get(i).isPlayVideo){
+                if (mVideoHolder != null) {
+                    mVideoHolder.mTvVideo.onResume();
+                }
+                mVodPlayer.resume();
+            }
+        }
 
-        mVodPlayer.resume();
     }
 
     public void onPause() {
-        mVodPlayer.pause();
+        for ( int i = 0;i <mData.size();i++){
+            if (mData.get(i).isPlayVideo){
+                if (mVideoHolder != null) {
+                    mVideoHolder.mTvVideo.onPause();
+                }
+                mVodPlayer.pause();
+            }
+        }
     }
 
     public void onDestroy() {
         mVodPlayer.stopPlay(true); // true代表清除最后一帧画面
-
+        if (mVideoHolder != null) {
+            mVideoHolder.mTvVideo.onDestroy();
+        }
     }
 
 
@@ -264,6 +282,11 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
         if (holder instanceof VideoHolder) {
             onDestroy();
             ((VideoHolder) holder).mTvVideo.onDestroy();
+            int position = holder.getLayoutPosition();
+            if (isHaveHeadView) {
+                position -= 1;
+            }
+            mData.get(position).isPlayVideo = false;
         }
 
     }

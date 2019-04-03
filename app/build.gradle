@@ -42,20 +42,20 @@ android {
 
     signingConfigs {
         release {
-            lintOptions{
+           /* lintOptions{
                 checkReleaseBuilds false
                 abortOnError false
-            }
+            }*/
             keyAlias 'AboutBall'
             keyPassword 'guaishouxingqiu888'
             storeFile file('E:/AndroidWork/AboutBall/app_key_store.jks')
             storePassword 'guaishouxingqiu888'
         }
         debug {
-            lintOptions{
+          /*  lintOptions{
                 checkReleaseBuilds false
                 abortOnError false
-            }
+            }*/
             release {
                 keyAlias 'AboutBall'
                 keyPassword 'guaishouxingqiu888'

@@ -77,14 +77,14 @@ public abstract class BaseWebActivity<P extends BasePresenter> extends Permissio
      * @param content
      */
     protected void loadEditData(String content) {
-        //mWebView.loadDataWithBaseURL(null, content, "text/html", "utf-8", null);
+        mWebView.loadDataWithBaseURL(null, content, "text/html", "utf-8", null);
       /*  Document doc = Jsoup.parse(content);
         Elements elements = doc.getElementsByTag("img");
         for (Element element : elements) {
             if (element.className() != null && element.className().length() > 0)
                 element.attr("width", "100%").attr("height", "auto");
         }*/
-       mWebView.loadData(content,"text/html","utf-8");
+      // mWebView.loadData(content,"text/html","utf-8");
 
       //  mWebView.loadUrl(content);
     }

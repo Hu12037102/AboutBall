@@ -41,7 +41,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:padding="@dimen/size_10dp"/>
+                android:padding="@dimen/default_margin"/>
 
         </android.support.constraint.ConstraintLayout>
 
