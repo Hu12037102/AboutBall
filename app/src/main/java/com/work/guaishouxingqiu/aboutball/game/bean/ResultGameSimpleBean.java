@@ -9,7 +9,7 @@ import android.os.Parcelable;
  * 更新时间: 2019/3/25 13:21
  * 描述:
  */
-public class ResultGameSimpleBean  implements Parcelable{
+public class ResultGameSimpleBean implements Parcelable {
     public String endTime;
     public String gameName;
     public String guestLogoUrl;
@@ -25,7 +25,7 @@ public class ResultGameSimpleBean  implements Parcelable{
     public String matchName;
     public String matchState;
     public String startTime;
-    public int  stateId;
+    public int stateId;
     public String typeId;
 
 
@@ -49,23 +49,6 @@ public class ResultGameSimpleBean  implements Parcelable{
         typeId = in.readString();
     }
 
-    public static final Creator<ResultGameSimpleBean> CREATOR = new Creator<ResultGameSimpleBean>() {
-        @Override
-        public ResultGameSimpleBean createFromParcel(Parcel in) {
-            return new ResultGameSimpleBean(in);
-        }
-
-        @Override
-        public ResultGameSimpleBean[] newArray(int size) {
-            return new ResultGameSimpleBean[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(endTime);
@@ -86,4 +69,21 @@ public class ResultGameSimpleBean  implements Parcelable{
         dest.writeInt(stateId);
         dest.writeString(typeId);
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<ResultGameSimpleBean> CREATOR = new Creator<ResultGameSimpleBean>() {
+        @Override
+        public ResultGameSimpleBean createFromParcel(Parcel in) {
+            return new ResultGameSimpleBean(in);
+        }
+
+        @Override
+        public ResultGameSimpleBean[] newArray(int size) {
+            return new ResultGameSimpleBean[size];
+        }
+    };
 }

@@ -1,19 +1,21 @@
 package com.work.guaishouxingqiu.aboutball.game.activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
-import android.graphics.PixelFormat;
 import android.os.Build;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.OrientationEventListener;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
@@ -23,10 +25,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alivc.player.AliVcMediaPlayer;
-import com.alivc.player.MediaPlayer;
 import com.aliyun.vodplayer.media.AliyunLocalSource;
 import com.aliyun.vodplayer.media.AliyunVodPlayer;
+import com.aliyun.vodplayer.media.IAliyunVodPlayer;
 import com.example.item.util.ScreenUtils;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
@@ -86,10 +87,18 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
     ViewGroup mLlBody;
     private FragmentPagerAdapter mPagerAdapter;
     private View mHeadLiveParent;
+    private boolean mIconShowWindows = true;
 
     // String mLivePath = "http://5815.liveplay.myqcloud.com/live/5815_89aad37e06ff11e892905cb9018cf0d4_900.flv";
     //String mLivePath = "http://li.ifeell.com.cn/ipk/live.flv?auth_key=1555645522-0-0-87c9e12dfd362e4b3dd3698c826553f9";
     private AliyunVodPlayer mVideoPlay;
+    private ImageView mIvLockVideo;
+    private ImageView mIvVideoStatus;
+    private Handler mVideoHandler;
+    private Runnable mVideoRunnable;
+    private ImageView mIvShare;
+    private ImageView mIvScreen;
+    private boolean mIsCanRotate = false;//默认可以旋转
     // String mLivePath = "http://player.alicdn.com/video/aliyunmedia.mp4";
 
     @Override
@@ -170,14 +179,24 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         //竖屏
+        LogUtils.w("onConfigurationChanged--", newConfig.orientation + "--");
         if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             setHeadParentParamsScreen(false);
             mLlBody.setVisibility(View.VISIBLE);
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            if (mIvLockVideo != null) {
+                mIvLockVideo.setVisibility(View.GONE);
+            }
+
             //横屏
         } else if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             setHeadParentParamsScreen(true);
             mLlBody.setVisibility(View.GONE);
+            if (mIvLockVideo != null) {
+                mIvLockVideo.setVisibility(View.VISIBLE);
+
+            }
+
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
 
@@ -208,8 +227,6 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
 
         }
     }
-
-
 
 
     private void initPagerData(ResultGameSimpleBean bean) {
@@ -313,25 +330,55 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
     }
 
 
+    private void setVideoIconStatus(boolean iconShowVideo) {
+        if (iconShowVideo) {
+            mIvBack.setVisibility(View.VISIBLE);
+            mIvShare.setVisibility(View.VISIBLE);
+            mIvScreen.setVisibility(View.VISIBLE);
+            mIvVideoStatus.setVisibility(View.VISIBLE);
+        } else {
+            mIvBack.setVisibility(View.GONE);
+            mIvShare.setVisibility(View.GONE);
+            mIvScreen.setVisibility(View.GONE);
+            mIvVideoStatus.setVisibility(View.GONE);
+        }
+    }
+
     private void initLiveVideoView(ResultGameSimpleBean bean) {
+
         mClHeadDetails.setVisibility(View.GONE);
         if (mHeadLiveParent == null) {
             mHeadLiveParent = mVsLive.inflate();
-            ImageView mIvShare = mHeadLiveParent.findViewById(R.id.iv_share_video);
-            ImageView ivScreen = mHeadLiveParent.findViewById(R.id.iv_screen);
-            ImageView ivLock = mHeadLiveParent.findViewById(R.id.iv_lock);
+            mIvShare = mHeadLiveParent.findViewById(R.id.iv_share_video);
+            mIvScreen = mHeadLiveParent.findViewById(R.id.iv_screen);
+            mIvLockVideo = mHeadLiveParent.findViewById(R.id.iv_lock);
+            mIvVideoStatus = mHeadLiveParent.findViewById(R.id.iv_video_status);
+            mIvVideoStatus.setVisibility(View.GONE);
+            mIvLockVideo.setVisibility(View.GONE);
             SurfaceView svVideo = mHeadLiveParent.findViewById(R.id.sv_video);
+            svVideo.setClickable(false);
             ViewGroup.LayoutParams layoutParams = svVideo.getLayoutParams();
             layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
             layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
             svVideo.setLayoutParams(layoutParams);
-            ivScreen.setOnClickListener(v -> {
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            mIvScreen.setOnClickListener(v -> {
+                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                }
+
             });
             mIvShare.setPadding(ScreenUtils.dp2px(this, 20), ScreenUtils.dp2px(this, 20) + ScreenUtils.getStatuWindowsHeight(this),
                     ScreenUtils.dp2px(this, 20), ScreenUtils.dp2px(this, 20));
 
             mVideoPlay = new AliyunVodPlayer(this);
+            mVideoRunnable = () -> {
+                mIconShowWindows = !mIconShowWindows;
+                setVideoIconStatus(mIconShowWindows);
+                svVideo.setClickable(true);
+            };
+            mVideoHandler = new Handler();
 
             svVideo.getHolder().addCallback(new SurfaceHolder.Callback() {
                 @Override
@@ -349,13 +396,51 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
 
                 }
             });
+            svVideo.setOnClickListener(v -> {
+                mIconShowWindows = !mIconShowWindows;
+                setVideoIconStatus(mIconShowWindows);
+
+            });
             AliyunLocalSource.AliyunLocalSourceBuilder builder = new AliyunLocalSource.AliyunLocalSourceBuilder();
             builder.setSource(bean.liveAddress);
             builder.setCoverPath(bean.liveAddress);
             builder.setTitle(bean.liveAddress);
-            mVideoPlay.setAutoPlay(true);
+            // mVideoPlay.setAutoPlay(true);
             mVideoPlay.prepareAsync(builder.build());
+            mVideoPlay.setOnPreparedListener(() -> {
 
+                mVideoPlay.start();
+            });
+            /**
+             * 首帧显示
+             */
+            mVideoPlay.setOnFirstFrameStartListener(() -> {
+                // mIvVideoStatus.setVisibility();
+                mVideoHandler.postDelayed(mVideoRunnable, 5000);
+            });
+
+            mVideoPlay.setOnErrorListener((i, i1, s) -> {
+                Toasts.with().showToast(R.string.line_video_error);
+            });
+            mIvVideoStatus.setOnClickListener(v -> {
+                if (mVideoPlay.getPlayerState() == IAliyunVodPlayer.PlayerState.Started) {
+                    mVideoPlay.pause();
+                    mIvVideoStatus.setImageResource(R.mipmap.icon_video_play);
+                } else {
+                    mIvVideoStatus.setImageResource(R.mipmap.icon_video_pause);
+                    mVideoPlay.start();
+                }
+            });
+            mIvLockVideo.setOnClickListener(v -> {
+                mIsCanRotate = !mIsCanRotate;
+
+                if (mIsCanRotate) {
+                    mIvLockVideo.setImageResource(R.mipmap.icon_video_unlock);
+                } else {
+                    mIvLockVideo.setImageResource(R.mipmap.icon_video_lock);
+                }
+
+            });
 
         } else {
             mHeadLiveParent.setVisibility(View.VISIBLE);
@@ -378,6 +463,12 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
     }
 
     private void clickBack() {
+     /*   if (mRotateListener != null) {
+            mRotateListener.disable();
+        }
+        if (mIvLockVideo != null) {
+            mIvLockVideo.setImageResource(R.mipmap.icon_video_lock);
+        }*/
         if (getResources().getConfiguration().orientation != Configuration.ORIENTATION_PORTRAIT) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             mClHeadDetails.setVisibility(View.VISIBLE);
@@ -387,5 +478,44 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mVideoHandler != null && mVideoRunnable != null) {
+            mVideoHandler.removeCallbacks(mVideoRunnable);
+        }
+    }
+
+    /*public static class WindowsRotateListener extends OrientationEventListener {
+        private Context mContext;
+
+        public WindowsRotateListener(Context context) {
+            super(context);
+            this.mContext = context;
+        }
+
+        @Override
+        public void onOrientationChanged(int orientation) {
+            LogUtils.w("onOrientationChanged--", orientation + "--");
+            int screenOrientation = mContext.getResources().getConfiguration().orientation;
+            if (((orientation >= 0) && (orientation < 45)) || (orientation > 315)) {//设置竖屏
+                if (screenOrientation != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT && orientation != ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT) {
+                    ((Activity) mContext).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                }
+            } else if (orientation > 225 && orientation < 315) { //设置横屏
+                if (screenOrientation != ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
+                    ((Activity) mContext).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                }
+            } else if (orientation > 45 && orientation < 135) {// 设置反向横屏
+                if (screenOrientation != ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE) {
+                    ((Activity) mContext).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);
+                }
+            } else if (orientation > 135 && orientation < 225) {
+                if (screenOrientation != ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT) {
+                    ((Activity) mContext).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT);
+                }
+            }
+        }
+    }*/
 
 }

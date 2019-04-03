@@ -106,6 +106,7 @@
     <string name="from_data">来源：%s&#160;&#160;%s</string>
     <string name="not_message">暂无评论</string>
     <string name="your_sure_login_out">您确定退出登录？</string>
+    <string name="line_video_error">直播获取异常！</string>
 
 
     <!--相册选择器-->
