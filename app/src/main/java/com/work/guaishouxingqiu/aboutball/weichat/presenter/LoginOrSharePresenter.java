@@ -82,7 +82,7 @@ public abstract class LoginOrSharePresenter<V extends LoginOrShareContract.View,
                     bean.imageUrl = resultWeiChatInfo.headimgurl;
                     bean.nickName = resultWeiChatInfo.nickname;
                     bean.signCode = resultWeiChatInfo.unionid;
-                   // bean.type = resultWeiChatInfo.sex.equals("男") ? 1 : 2;
+                    bean.type = 1;
                     mModel.loginOtherWeiChat(bean, new BaseObserver<>(true, LoginOrSharePresenter.this, new BaseObserver.Observer<LoginResultBean>() {
                         @Override
                         public void onNext(BaseBean<LoginResultBean> t) {

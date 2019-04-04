@@ -13,8 +13,8 @@ android {
         applicationId android.applicationId
         minSdkVersion android.minSdkVersion
         targetSdkVersion android.targetSdkVersion
-        versionCode android.versionCode
-        versionName android.versionName
+        versionCode 1
+        versionName 'v1.0.0'
         testInstrumentationRunner android.testInstrumentationRunner
 
         ndk {
@@ -32,30 +32,28 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
     bugtags {
         //自动上传符号表功能配置，如果需要根据 build varint 配置，请参考帮助中心->符号表->Android 符号表->配置自动上传符号表
         appKey "96481d2c6099fa3e827b8c04d036d566"  //这里是你的 appKey
         appSecret "a35655c0209e2445f42c32be4bbc358a"    //这里是你的 appSecret，管理员在设置页可以查看
         mappingUploadEnabled true
     }
-
     signingConfigs {
         release {
-           /* lintOptions{
-                checkReleaseBuilds false
-                abortOnError false
-            }*/
+            /* lintOptions{
+                 checkReleaseBuilds false
+                 abortOnError false
+             }*/
             keyAlias 'AboutBall'
             keyPassword 'guaishouxingqiu888'
             storeFile file('E:/AndroidWork/AboutBall/app_key_store.jks')
             storePassword 'guaishouxingqiu888'
         }
         debug {
-          /*  lintOptions{
-                checkReleaseBuilds false
-                abortOnError false
-            }*/
+            /*  lintOptions{
+                  checkReleaseBuilds false
+                  abortOnError false
+              }*/
             release {
                 keyAlias 'AboutBall'
                 keyPassword 'guaishouxingqiu888'
@@ -64,7 +62,6 @@ android {
             }
         }
     }
-
     buildTypes {
         release {
             signingConfig signingConfigs.release
@@ -72,7 +69,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField("boolean", "IS_DEBUG", "false")
             buildConfigField("String", "HOST_URL", '"https://ifi.bmece.com"')
-            buildConfigField("String","APP_ID",'"wx41e9ee2ffa7b327e"')
+            buildConfigField("String", "APP_ID", '"wx41e9ee2ffa7b327e"')
             shrinkResources true
             zipAlignEnabled true
             pseudoLocalesEnabled true
@@ -84,14 +81,14 @@ android {
             buildConfigField("boolean", "IS_DEBUG", "true")
             // buildConfigField("String", "HOST_URL", '"https://ifi.bmece.com"')
             buildConfigField("String", "HOST_URL", '"https://iti.bmece.com"')
-            buildConfigField("String","APP_ID",'"wx41e9ee2ffa7b327e"')
+            buildConfigField("String", "APP_ID", '"wx41e9ee2ffa7b327e"')
             shrinkResources false
             zipAlignEnabled false
             pseudoLocalesEnabled false
         }
     }
-
-
+    productFlavors {
+    }
 }
 
 dependencies {

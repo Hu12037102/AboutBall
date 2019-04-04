@@ -55,7 +55,7 @@ public class BaseApplication extends Application {
     }
 
     protected void initWeiChat() {
-        mWeiChatApi = WXAPIFactory.createWXAPI(this, "wx41e9ee2ffa7b327e", false);
+        mWeiChatApi = WXAPIFactory.createWXAPI(this, "wx41e9ee2ffa7b327e", true);
         mWeiChatApi.registerApp(BuildConfig.APP_ID);
     }
 

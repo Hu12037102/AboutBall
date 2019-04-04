@@ -58,8 +58,6 @@ public class BaseObserver<T> implements Observer<BaseBean<T>> {
             mObserver.onNext(baseBean);
         }
         defaultPresenter(baseBean);
-
-        // EventBus.getDefault().post(baseBean);
         LogUtils.w("BaseObserver---", "onNext--");
     }
 
@@ -89,13 +87,14 @@ public class BaseObserver<T> implements Observer<BaseBean<T>> {
             mObserver.onError(e);
         }
         if (e instanceof HttpException) {
-            mPresenter.mView.showToast("网络异常！");
+            mPresenter.mView.showToast("网络异常！"+((HttpException) e).code());
         } else {
             BaseBean baseBean = new BaseBean();
             baseBean.code = IApi.Code.SERVICE_ERROR;
             baseBean.message = "请求超时";
             defaultPresenter(baseBean);
         }
+        mPresenter.mView.dismissLoadingView();
     }
 
     @Override
