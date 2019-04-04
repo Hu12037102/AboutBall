@@ -1,7 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.base;
 
 import android.app.Application;
-import android.content.Context;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.alivc.player.AliVcMediaPlayer;
@@ -9,19 +8,12 @@ import com.bugtags.library.Bugtags;
 import com.bugtags.library.BugtagsOptions;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
-import com.scwang.smartrefresh.layout.api.RefreshFooter;
-import com.scwang.smartrefresh.layout.api.RefreshHeader;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.work.guaishouxingqiu.aboutball.BuildConfig;
-import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
-
-import me.jessyan.autosize.AutoSize;
-import me.jessyan.autosize.AutoSizeConfig;
 
 /**
  * 作者: 胡庆岭
@@ -34,6 +26,12 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         init();
+    }
+
+    private IWXAPI mWeiChatApi;
+
+    public IWXAPI getWeiChatApi() {
+        return DataUtils.checkData(mWeiChatApi);
     }
 
     /**
@@ -49,10 +47,18 @@ public class BaseApplication extends Application {
                 trackingNetworkURLFilter("(.*)").//自定义网络请求跟踪的 url 规则，默认 null
                 build();
         //初始化Bugtags采集
-        Bugtags.start("96481d2c6099fa3e827b8c04d036d566", this, Bugtags.BTGInvocationEventBubble,options);
+        Bugtags.start("96481d2c6099fa3e827b8c04d036d566", this, Bugtags.BTGInvocationEventBubble, options);
         initARouter();
         initALi();
+        initWeiChat();
+
     }
+
+    protected void initWeiChat() {
+        mWeiChatApi = WXAPIFactory.createWXAPI(this, "wx41e9ee2ffa7b327e", false);
+        mWeiChatApi.registerApp(BuildConfig.APP_ID);
+    }
+
 
     /**
      * 初始化Ali视频
@@ -84,5 +90,6 @@ public class BaseApplication extends Application {
             return new ClassicsFooter(context).setDrawableSize(20);
         });
     }
+
 
 }

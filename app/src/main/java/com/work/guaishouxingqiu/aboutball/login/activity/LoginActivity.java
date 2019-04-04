@@ -3,7 +3,6 @@ package com.work.guaishouxingqiu.aboutball.login.activity;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.TextInputEditText;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
@@ -19,10 +18,11 @@ import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
+import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.weichat.activity.LoginOrShareActivity;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.RequestLoginBean;
-import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
 import com.work.guaishouxingqiu.aboutball.login.contract.LoginContract;
 import com.work.guaishouxingqiu.aboutball.login.presenter.LoginPresenter;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
@@ -42,7 +42,7 @@ import butterknife.OnClick;
  * 描述: 密码登录Activity
  */
 @Route(path = ARouterConfig.Path.ACTIVITY_LOGIN)
-public class LoginActivity extends BaseActivity<LoginPresenter> implements LoginContract.View {
+public class LoginActivity extends LoginOrShareActivity<LoginPresenter> implements LoginContract.View {
     @BindView(R.id.title_view)
     TitleView mTitleView;
     @BindView(R.id.iv_clear_phone)
@@ -147,7 +147,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
 
     @OnClick({R.id.tv_gain_message_code,
-            R.id.tv_forget_password, R.id.tv_login, R.id.tv_register})
+            R.id.tv_forget_password, R.id.tv_login, R.id.tv_register,R.id.tv_weichat})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -163,6 +163,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 break;
             case R.id.tv_register:
                 clickRegister();
+                break;
+            case R.id.tv_weichat:
+                loginWeiChat();
                 break;
         }
     }
@@ -211,7 +214,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             if (bean.result != null) {
                 UserManger.get().putToken(bean.result.id_token);
                 mPresenter.loadUserAccount();
-                mPresenter.loadUserAccountInfo();
+              //  mPresenter.loadUserAccountInfo();
             }
         } else if (bean.code == IApi.Code.USER_NO_EXIST) {
 
@@ -241,5 +244,12 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         mTvGainMessageCode.setClickable(false);
         mTvGainMessageCode.setText(getString(R.string.regain_load_time, String.valueOf(time)));
         mTvGainMessageCode.setTextColor(ContextCompat.getColor(this, R.color.color_3));
+    }
+
+    @Override
+    public void resultOtherLogin(LoginResultBean bean) {
+        UserManger.get().putToken(bean.id_token);
+        mPresenter.loadUserAccount();
+     //   mPresenter.loadUserAccountInfo();
     }
 }

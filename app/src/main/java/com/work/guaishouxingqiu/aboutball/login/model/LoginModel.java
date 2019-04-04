@@ -7,6 +7,7 @@ import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.login.LoginService;
 import com.work.guaishouxingqiu.aboutball.login.bean.RequestLoginBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
+import com.work.guaishouxingqiu.aboutball.weichat.model.LoginOrShareModel;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -18,7 +19,7 @@ import retrofit2.http.PUT;
  * 更新时间: 2019/3/7 11:22
  * 描述: 登录Model
  */
-public class LoginModel extends MessageModel {
+public class LoginModel extends LoginOrShareModel {
 
     public void login(@NonNull RequestLoginBean requestLoginBean, BaseObserver baseObserver) {
         mRetrofitManger.create(LoginService.class)

@@ -11,6 +11,7 @@ import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
 import com.work.guaishouxingqiu.aboutball.login.contract.LoginContract;
 import com.work.guaishouxingqiu.aboutball.login.model.LoginModel;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
+import com.work.guaishouxingqiu.aboutball.weichat.presenter.LoginOrSharePresenter;
 
 /**
  * 作者: 胡庆岭
@@ -18,7 +19,7 @@ import com.work.guaishouxingqiu.aboutball.other.UserManger;
  * 更新时间: 2019/3/7 11:37
  * 描述:登录P
  */
-public class LoginPresenter extends MessagePresenter<LoginContract.View, LoginModel> implements LoginContract.Presenter {
+public class LoginPresenter extends LoginOrSharePresenter<LoginContract.View, LoginModel> implements LoginContract.Presenter {
     public LoginPresenter(@NonNull LoginContract.View view) {
         super(view);
     }
@@ -64,7 +65,7 @@ public class LoginPresenter extends MessagePresenter<LoginContract.View, LoginMo
 
             @Override
             public void onNext(BaseBean<UserBean> bean) {
-                if (bean.code == IApi.Code.SUCCEED && bean.result != null) {
+                if (bean.code == IApi.Code.SUCCEED) {
                     UserManger.get().putUser(bean.result);
                     loadUserAccountInfo();
                 }
@@ -85,7 +86,7 @@ public class LoginPresenter extends MessagePresenter<LoginContract.View, LoginMo
             @Override
             public void onNext(BaseBean<UserBean> bean) {
 
-                if (bean.code == IApi.Code.SUCCEED && bean.result != null) {
+                if (bean.code == IApi.Code.SUCCEED) {
                     UserManger.get().putUser(bean.result);
                     mView.resultUserDataSucceed();
                 }

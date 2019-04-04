@@ -1,5 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -32,6 +33,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
     private Unbinder mBinder;
     private LoadingView mLoadingView;
     protected Bundle mBundle;
+    protected Context mContext;
 
     protected abstract int getLayoutId();
 
@@ -74,6 +76,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
             DataUtils.checkData(getActivity()).finish();
             return;
         }
+        mContext = getContext();
         initView();
         initData();
         initEvent();

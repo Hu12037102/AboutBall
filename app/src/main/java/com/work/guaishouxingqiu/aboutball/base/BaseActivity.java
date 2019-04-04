@@ -78,6 +78,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
         return super.dispatchTouchEvent(ev);
     }
 
+    public BaseApplication getBaseApplication() {
+        return (BaseApplication) getApplication();
+    }
 
     /**
      * 设置状态栏颜色

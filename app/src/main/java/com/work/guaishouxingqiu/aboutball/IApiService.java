@@ -18,7 +18,7 @@ public interface IApiService {
     String USER_ACCOUNT_INFO = "/api/accountManagement/getAccountInfo";
     //用户注册
     String REGISTER = "/api/account/register";
-    String JUDGE_MESSAGE_CODE ="/api/account/verificationCodeIsPass";
+    String JUDGE_MESSAGE_CODE = "/api/account/verificationCodeIsPass";
     //首页-推荐头部信息列表
     String RECOMMEND_HEAD = "/api/home/getHomePage";
     //资讯列表
@@ -50,5 +50,10 @@ public interface IApiService {
     //获取社区我关注的动态
     String COMMUNITY_ATTENTION_DATA = "/api/tweet/getLastestTweet";
 
-
+    //获取微信登录token
+    String GET_WEICHAT_TOKEN = "/sns/oauth2/access_token";
+    //获取登录成功微信用户信息
+    String GET_WEICHAT_USET_INFO = "/sns/userinfo";
+    //传第三方数据给后台
+    String OTHER_WEICHAT_LOGIN = "/api/account/threeLogin";
 }

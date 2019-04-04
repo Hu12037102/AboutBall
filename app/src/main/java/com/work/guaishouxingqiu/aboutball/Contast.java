@@ -32,6 +32,12 @@ public interface Contast {
     String NEW_ID = "newsId";
     String MATCH_ID = "matchId";
     String CODE = "code";
+    String APPID = "appid";
+    String SECRET = "secret";
+    String GRANT_TYPE = "grant_type";
+    String ACCESS_TOKEN="access_token";
+    String OPENID="openid";
+    String LANG = "lang";
 
     String TOKEN = "Authorization";
     String SEX = "gender";

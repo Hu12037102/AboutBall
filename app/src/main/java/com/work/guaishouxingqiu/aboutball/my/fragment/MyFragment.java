@@ -14,6 +14,7 @@ import com.work.guaishouxingqiu.aboutball.game.activity.GamePlayActivity;
 import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.MyContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.MyPresenter;
+import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
@@ -70,17 +71,18 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             mLlHeadGroup.removeAllViews();
         }
         View view;
+        UserBean userBean = UserManger.get().getUser();
         if (UserManger.get().isLogin()) {
             view = LayoutInflater.from(getContext()).inflate(R.layout.item_login_my_head_view, null);
             TextView mTvName = view.findViewById(R.id.tv_name);
             TextView mTvFocusFans = view.findViewById(R.id.tv_focus_fans);
-            UserBean userBean = UserManger.get().getUser();
             mTvName.setText(DataUtils.isEmpty(userBean.nickName) ? userBean.phone : userBean.nickName);
             mTvFocusFans.setText(getString(R.string.focus_and_fans, "0", "0"));
         } else {
             view = LayoutInflater.from(getContext()).inflate(R.layout.item_no_login_my_head_view, null);
 
         }
+        GlideManger.get().loadHeadImag(mContext, userBean.headerImg, mCivMyHead);
         mLlHeadGroup.addView(view);
     }
 
@@ -105,7 +107,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
 
     @OnClick({R.id.item_about_ball, R.id.item_order, R.id.item_team, R.id.item_message,
-            R.id.item_dynamic, R.id.item_as_referee,  R.id.rl_my_head})
+            R.id.item_dynamic, R.id.item_as_referee, R.id.rl_my_head})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.item_about_ball:

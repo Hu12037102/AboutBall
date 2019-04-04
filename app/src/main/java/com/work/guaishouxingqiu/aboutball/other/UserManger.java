@@ -75,7 +75,10 @@ public class UserManger {
         return !DataUtils.isEmpty(mSP.getString(KEY_TOKEN));
     }
 
-    public void putUser(@NonNull UserBean userBean) {
+    public void putUser(UserBean userBean) {
+        if (userBean == null) {
+            return;
+        }
         if (userBean.phone != null) {
             mSP.putObject(UserManger.KEY_PHONE, userBean.phone);
         }
@@ -142,6 +145,6 @@ public class UserManger {
 
     public void loginOut() {
         mSP.clearData();
-       // FileUtils.removeFile(FileUtils.getCacheFile());
+        // FileUtils.removeFile(FileUtils.getCacheFile());
     }
 }

@@ -221,6 +221,19 @@ rx.internal.util.atomic.LinkedQueueNode consumerNode;
     @butterknife.* <methods>;
 }
 
+#微信登录分享混淆
+-keep class com.tencent.mm.opensdk.** {
+    *;
+}
+
+-keep class com.tencent.wxop.** {
+    *;
+}
+
+-keep class com.tencent.mm.sdk.** {
+    *;
+}
+
 
 
 

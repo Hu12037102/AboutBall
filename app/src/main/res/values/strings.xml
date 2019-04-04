@@ -107,6 +107,8 @@
     <string name="not_message">暂无评论</string>
     <string name="your_sure_login_out">您确定退出登录？</string>
     <string name="line_video_error">直播获取异常！</string>
+    <string name="cancel_weichat_login">取消微信登录！</string>
+    <string name="weichat_login_failed">微信登录失败！</string>
 
 
     <!--相册选择器-->

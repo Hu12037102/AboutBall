@@ -8,6 +8,7 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.RequestLoginBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
+import com.work.guaishouxingqiu.aboutball.weichat.contract.LoginOrShareContract;
 
 /**
  * 作者: 胡庆岭
@@ -16,12 +17,12 @@ import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
  * 描述: 手机号码登录契约
  */
 public interface LoginContract {
-    interface View extends MessageContract.View {
+    interface View extends LoginOrShareContract.View {
         void loginSucceedResult(BaseBean<LoginResultBean> bean);
         void resultUserDataSucceed();
     }
 
-    interface Presenter extends MessageContract.Presenter {
+    interface Presenter extends LoginOrShareContract.Presenter {
         void login(@NonNull RequestLoginBean loginBean);
 
         void loadUserAccount();

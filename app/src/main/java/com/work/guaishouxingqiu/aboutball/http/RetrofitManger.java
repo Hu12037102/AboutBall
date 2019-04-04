@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.http;
 
 import android.support.annotation.NonNull;
 
+import com.work.guaishouxingqiu.aboutball.BuildConfig;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
@@ -39,6 +40,15 @@ public class RetrofitManger {
 
     private RetrofitManger() {
         initRetrofit();
+    }
+
+    public RetrofitManger setBaseUrl(String url) {
+        mRetrofit = mRetrofit.newBuilder().baseUrl(url).build();
+        return this;
+    }
+    public RetrofitManger resetBaseUrl(){
+        mRetrofit = mRetrofit.newBuilder().baseUrl(BuildConfig.HOST_URL).build();
+        return this;
     }
 
     public <T> T create(Class<T> clazz) {
