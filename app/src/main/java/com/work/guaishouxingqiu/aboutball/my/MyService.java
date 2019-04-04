@@ -1,5 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.my;
 
+import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
@@ -9,10 +10,12 @@ import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateHeightBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateNameBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateSexBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateWeightBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * 项  目 :  AboutBall
@@ -39,4 +42,8 @@ public interface MyService {
 
     @POST(IApiService.USER_ACCOUNT)
     Observable<BaseBean<BaseDataBean>> updateAccountBirthday(@Body RequestUpdateBirthdayBean bean);
+
+    @POST(IApiService.UPDATE_APK_INFO)
+    Observable<BaseBean<ResultUpdateApkBean>> updateApkInfo(@Query(Contast.PHONE_MODEL) String phoneModel,
+                                                            @Query(Contast.VERSION) String version);
 }

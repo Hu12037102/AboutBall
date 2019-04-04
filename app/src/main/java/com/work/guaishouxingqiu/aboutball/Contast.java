@@ -38,6 +38,9 @@ public interface Contast {
     String ACCESS_TOKEN="access_token";
     String OPENID="openid";
     String LANG = "lang";
+    String PHONE_MODEL="phoneModel";
+    String VERSION="version";
+    String ANDROID="android";
 
     String TOKEN = "Authorization";
     String SEX = "gender";

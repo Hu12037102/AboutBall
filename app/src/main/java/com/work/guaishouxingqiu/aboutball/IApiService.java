@@ -56,4 +56,6 @@ public interface IApiService {
     String GET_WEICHAT_USET_INFO = "/sns/userinfo";
     //传第三方数据给后台
     String OTHER_WEICHAT_LOGIN = "/api/account/threeLogin";
+
+    String UPDATE_APK_INFO="/api/commons/isLastestVersion";
 }

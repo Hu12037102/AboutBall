@@ -1,6 +1,12 @@
 package com.work.guaishouxingqiu.aboutball.my.model;
 
+import android.os.Build;
+
+import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.base.BaseModel;
+import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
+import com.work.guaishouxingqiu.aboutball.my.MyService;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
 
 import java.io.File;
@@ -27,11 +33,19 @@ public class SettingModel extends BaseModel {
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observable);*/
-Observable.just( FileUtils.getFileSize(FileUtils.getNetCacheFile()) +
-        FileUtils.getFileSize(FileUtils.getImageCacheFile()) )
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(observable);
+        Observable.just(FileUtils.getFileSize(FileUtils.getNetCacheFile()) +
+                FileUtils.getFileSize(FileUtils.getImageCacheFile()))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observable);
+    }
+
+    public void updateApkInfo(String version, BaseObserver<ResultUpdateApkBean> observer) {
+        mRetrofitManger.create(MyService.class)
+                .updateApkInfo(Contast.ANDROID, version)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
     }
 
 

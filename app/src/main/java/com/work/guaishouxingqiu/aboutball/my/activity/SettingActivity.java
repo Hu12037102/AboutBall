@@ -1,5 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.my.activity;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -72,6 +74,21 @@ public class SettingActivity extends BaseActivity<SettingPresenter>
         mItemCache.setOnItemClickListener(view -> {
             clickClearCache();
         });
+        mItemAbout.setOnItemClickListener(view -> {
+            clickAboutWe();
+        });
+    }
+
+    private void clickAboutWe() {
+        try {
+            PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            String versionName = packageInfo.versionName;
+            int versionCode = packageInfo.versionCode;
+            mPresenter.updateApkInfo( "v-1.0");
+            LogUtils.w("clickAboutWe--",versionName+"--"+versionCode);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private void clickClearCache() {
