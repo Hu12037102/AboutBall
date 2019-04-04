@@ -7,4 +7,11 @@ package com.work.guaishouxingqiu.aboutball.my.bean;
  * 描述:
  */
 public class ResultUpdateApkBean {
+    public int versionId;
+    public String phoneModel;
+    public String content;
+    public String updateUrl;
+    public String version;
+    public String isForce;
+
 }

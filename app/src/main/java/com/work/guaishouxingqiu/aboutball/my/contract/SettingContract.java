@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.my.contract;
 
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 
 import java.io.File;
 
@@ -14,6 +15,8 @@ import java.io.File;
 public interface SettingContract {
     interface View extends IBaseView {
         void resultFileSize(String fileSize);
+
+        void resultApkInfo(ResultUpdateApkBean bean);
     }
 
     interface Presenter extends IBasePresenter {

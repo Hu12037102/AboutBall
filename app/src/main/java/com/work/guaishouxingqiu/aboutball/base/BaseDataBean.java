@@ -12,5 +12,6 @@ public class BaseDataBean<T> {
     public String source;
     public String releaseTime;
     public String message;
-    public T content;
+   // public T content;
+    public T result;
 }

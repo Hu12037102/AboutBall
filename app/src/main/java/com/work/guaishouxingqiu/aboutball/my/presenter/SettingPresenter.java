@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
+import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
@@ -69,21 +70,22 @@ public class SettingPresenter extends BasePresenter<SettingContract.View, Settin
             }
         });
     }
-    public void  updateApkInfo(String version ){
 
-    mModel.updateApkInfo(version,new BaseObserver<>(true, this, new BaseObserver.Observer<ResultUpdateApkBean>() {
-        @Override
-        public void onNext(BaseBean<ResultUpdateApkBean> t) {
-            if (t.code == IApi.Code.SUCCEED){
+    public void updateApkInfo(String version) {
+
+        mModel.updateApkInfo(version, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<ResultUpdateApkBean>>() {
+            @Override
+            public void onNext(BaseBean<BaseDataBean<ResultUpdateApkBean>> t) {
+                if (t.code == IApi.Code.SUCCEED && t.result.code == IApi.Code.SUCCEED) {
+                    mView.resultApkInfo(t.result.result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
 
             }
-        }
-
-        @Override
-        public void onError(Throwable e) {
-
-        }
-    }));
+        }));
 
 
     }

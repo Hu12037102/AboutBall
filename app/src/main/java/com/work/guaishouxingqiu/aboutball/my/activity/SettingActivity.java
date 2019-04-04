@@ -13,6 +13,7 @@ import com.bumptech.glide.GlideBuilder;
 import com.example.item.weight.ItemView;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.SettingContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.SettingPresenter;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
@@ -120,5 +121,10 @@ public class SettingActivity extends BaseActivity<SettingPresenter>
     @Override
     public void resultFileSize(String fileSize) {
         mItemCache.mTvRight.setText(fileSize);
+    }
+
+    @Override
+    public void resultApkInfo(ResultUpdateApkBean bean) {
+        //版本信息回调
     }
 }

@@ -3,6 +3,7 @@ package com.work.guaishouxingqiu.aboutball.my.model;
 import android.os.Build;
 
 import com.work.guaishouxingqiu.aboutball.Contast;
+import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseModel;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.my.MyService;
@@ -40,7 +41,7 @@ public class SettingModel extends BaseModel {
                 .subscribe(observable);
     }
 
-    public void updateApkInfo(String version, BaseObserver<ResultUpdateApkBean> observer) {
+    public void updateApkInfo(String version, BaseObserver<BaseDataBean<ResultUpdateApkBean>> observer) {
         mRetrofitManger.create(MyService.class)
                 .updateApkInfo(Contast.ANDROID, version)
                 .subscribeOn(Schedulers.io())

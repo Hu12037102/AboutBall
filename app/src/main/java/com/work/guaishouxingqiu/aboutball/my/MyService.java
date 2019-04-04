@@ -14,6 +14,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -43,7 +44,7 @@ public interface MyService {
     @POST(IApiService.USER_ACCOUNT)
     Observable<BaseBean<BaseDataBean>> updateAccountBirthday(@Body RequestUpdateBirthdayBean bean);
 
-    @POST(IApiService.UPDATE_APK_INFO)
-    Observable<BaseBean<ResultUpdateApkBean>> updateApkInfo(@Query(Contast.PHONE_MODEL) String phoneModel,
+    @GET(IApiService.UPDATE_APK_INFO)
+    Observable<BaseBean<BaseDataBean<ResultUpdateApkBean>>> updateApkInfo(@Query(Contast.PHONE_MODEL) String phoneModel,
                                                             @Query(Contast.VERSION) String version);
 }
