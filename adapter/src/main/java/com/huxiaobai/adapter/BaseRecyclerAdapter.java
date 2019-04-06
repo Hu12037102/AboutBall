@@ -40,8 +40,8 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
     private int mNotDataContentRes = R.string.not_data;
     private View mHeadView;
     private View mFootView;
-    protected boolean isHaveHeadView;
-    protected boolean isHaveFootView;
+    public boolean isHaveHeadView;
+    public boolean isHaveFootView;
     protected Context mContext;
 
 
@@ -80,16 +80,13 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
     public void removeHeadView() {
         if (isHaveHeadView) {
 
-            mData.remove(0);
             mHeadView = null;
             isHaveHeadView = false;
         }
     }
 
     public void removeFootView() {
-        if (isHaveHeadView) {
-
-            mData.remove(getItemCount() - 1);
+        if (isHaveFootView) {
             mFootView = null;
             isHaveFootView = false;
         }

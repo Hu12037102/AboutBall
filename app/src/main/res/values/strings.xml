@@ -109,6 +109,8 @@
     <string name="line_video_error">直播获取异常！</string>
     <string name="cancel_weichat_login">取消微信登录！</string>
     <string name="weichat_login_failed">微信登录失败！</string>
+    <string name="update_apk">版本更新</string>
+    <string name="not_more_data">没有更多数据哦</string>
 
 
     <!--相册选择器-->

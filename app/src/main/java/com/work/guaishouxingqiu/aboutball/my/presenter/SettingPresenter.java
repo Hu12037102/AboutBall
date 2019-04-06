@@ -76,7 +76,7 @@ public class SettingPresenter extends BasePresenter<SettingContract.View, Settin
         mModel.updateApkInfo(version, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<ResultUpdateApkBean>>() {
             @Override
             public void onNext(BaseBean<BaseDataBean<ResultUpdateApkBean>> t) {
-                if (t.code == IApi.Code.SUCCEED && t.result.code == IApi.Code.SUCCEED) {
+                if (t.code == IApi.Code.SUCCEED && t.result.code == IApi.Code.SUCCEED && t.result.result != null) {
                     mView.resultApkInfo(t.result.result);
                 }
             }

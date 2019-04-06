@@ -1,5 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.my.activity;
 
+import android.app.DownloadManager;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.SettingContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.SettingPresenter;
+import com.work.guaishouxingqiu.aboutball.other.DownloadApkHelp;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
@@ -85,8 +87,8 @@ public class SettingActivity extends BaseActivity<SettingPresenter>
             PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             String versionName = packageInfo.versionName;
             int versionCode = packageInfo.versionCode;
-            mPresenter.updateApkInfo( "v-1.0");
-            LogUtils.w("clickAboutWe--",versionName+"--"+versionCode);
+            mPresenter.updateApkInfo("v-1.0");
+            LogUtils.w("clickAboutWe--", versionName + "--" + versionCode);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -126,5 +128,17 @@ public class SettingActivity extends BaseActivity<SettingPresenter>
     @Override
     public void resultApkInfo(ResultUpdateApkBean bean) {
         //版本信息回调
+        if (bean.version.equals(DownloadApkHelp.getVersionName(this))) {
+            HintDialog hintDialog = new HintDialog.Builder(this)
+                    .setTitle(R.string.update_apk)
+                    .setBody(bean.content)
+                    .setSure(R.string.sure).builder();
+            hintDialog.show();
+            hintDialog.setOnItemClickListener(view ->{ DownloadApkHelp.loadApk(SettingActivity.this, bean.updateUrl);
+            hintDialog.dismiss();
+
+            });
+
+        }
     }
 }

@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
@@ -23,8 +24,10 @@ import com.work.guaishouxingqiu.aboutball.home.presenter.HotPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import java.util.ArrayList;
+import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
 import butterknife.BindView;
@@ -126,6 +129,11 @@ public class HotFragment extends DelayedFragment<HotPresenter> implements HotCon
             }
             mSrLayout.setNoMoreData(bean.result.size() < Contast.DEFAULT_PAGE_SIZE);
             mData.addAll(bean.result);
+            if (mAdapter.isHaveFootView){
+                mAdapter.removeFootView();
+            }else if (bean.result.size()<mPresenter.mPageSize){
+                mAdapter.addFootView(UIUtils.loadNotMoreView((ViewGroup) mRootView));
+            }
             mAdapter.notifyDataSetChanged();
         }
     }

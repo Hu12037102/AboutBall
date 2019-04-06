@@ -93,7 +93,7 @@ public class GameResultFragment extends BaseFragment<MatchResultPresenter> imple
         } else {
             refreshLayout.finishLoadMore();
         }
-        mPresenter.loadData(Integer.valueOf(mBean.matchId));
+        mPresenter.loadData(mBean.matchId);
     }
 
     @Override

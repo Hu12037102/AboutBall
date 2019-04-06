@@ -33,7 +33,7 @@ public class FileUtils {
     private static final String CAMERA = "Camera";
 
 
-    private static File getRootFolder() {
+    public static File getRootFolder() {
         File rootFile;
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             rootFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath().concat("/AboutBall"));

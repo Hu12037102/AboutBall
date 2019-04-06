@@ -10,7 +10,9 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -162,5 +164,8 @@ public class UIUtils {
 
     public static String getString(@StringRes int res, Object... obj) {
         return UIUtils.getContext().getString(res, obj);
+    }
+    public static View loadNotMoreView( ViewGroup viewGroup){
+       return LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_not_more,viewGroup,false);
     }
 }
