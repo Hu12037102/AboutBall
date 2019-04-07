@@ -35,12 +35,12 @@ public interface Contast {
     String APPID = "appid";
     String SECRET = "secret";
     String GRANT_TYPE = "grant_type";
-    String ACCESS_TOKEN="access_token";
-    String OPENID="openid";
+    String ACCESS_TOKEN = "access_token";
+    String OPENID = "openid";
     String LANG = "lang";
-    String PHONE_MODEL="phoneModel";
-    String VERSION="version";
-    String ANDROID="android";
+    String PHONE_MODEL = "phoneModel";
+    String VERSION = "version";
+    String ANDROID = "android";
 
     String TOKEN = "Authorization";
     String SEX = "gender";
@@ -86,4 +86,10 @@ public interface Contast {
     String ALL_FILE = "全部文件";
     String ALL_VIDEO = "全部视频";
     int REQUEST_CAMERA_CODE = 2000;
+
+    interface SECRET_KEY {
+        String WEICHAT_APP_ID = "wx41e9ee2ffa7b327e";
+        String WEICHAT_APP_SECRET = "40a967eb50ce478246b63d8d78525893";
+        String Bugtag_ID = "96481d2c6099fa3e827b8c04d036d566";
+    }
 }

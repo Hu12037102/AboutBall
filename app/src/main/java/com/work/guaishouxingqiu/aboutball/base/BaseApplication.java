@@ -12,7 +12,9 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.work.guaishouxingqiu.aboutball.BuildConfig;
+import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 /**
@@ -47,7 +49,7 @@ public class BaseApplication extends Application {
                 trackingNetworkURLFilter("(.*)").//自定义网络请求跟踪的 url 规则，默认 null
                 build();
         //初始化Bugtags采集
-        Bugtags.start("96481d2c6099fa3e827b8c04d036d566", this, Bugtags.BTGInvocationEventBubble, options);
+        Bugtags.start(Contast.SECRET_KEY.Bugtag_ID, this, Bugtags.BTGInvocationEventBubble, options);
         initARouter();
         initALi();
         initWeiChat();
@@ -55,8 +57,9 @@ public class BaseApplication extends Application {
     }
 
     protected void initWeiChat() {
-        mWeiChatApi = WXAPIFactory.createWXAPI(this, "wx41e9ee2ffa7b327e", true);
-        mWeiChatApi.registerApp(BuildConfig.APP_ID);
+        mWeiChatApi = WXAPIFactory.createWXAPI(this, Contast.SECRET_KEY.WEICHAT_APP_ID,false);
+        mWeiChatApi.registerApp(Contast.SECRET_KEY.WEICHAT_APP_ID);
+        LogUtils.w("initWeiChat--",Contast.SECRET_KEY.WEICHAT_APP_ID);
     }
 
 

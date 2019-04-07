@@ -1,6 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.weichat.bean;
 
 import com.work.guaishouxingqiu.aboutball.BuildConfig;
+import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.weichat.activity.LoginOrShareActivity;
 
 /**
@@ -10,8 +11,8 @@ import com.work.guaishouxingqiu.aboutball.weichat.activity.LoginOrShareActivity;
  * 描述:
  */
 public class RequestWeiChatTokenBean {
-    public String appid = BuildConfig.APP_ID;
-    public String secret = LoginOrShareActivity.WEICHAT_SECRET;
+    public String appid = Contast.SECRET_KEY.WEICHAT_APP_ID;
+    public String secret = Contast.SECRET_KEY.WEICHAT_APP_SECRET;
     public String code;
     public String grant_type = "authorization_code";
 }

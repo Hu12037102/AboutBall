@@ -34,7 +34,6 @@ public abstract class LoginOrShareActivity<P extends LoginOrSharePresenter> exte
     public static final int WEICHAT_LOGIN_TYPE = 1;
     //微信分享
     public static final int WEICHAT_SHARE_TYPE = 2;
-    public static final String WEICHAT_SECRET = "40a967eb50ce478246b63d8d78525893";
 
 
     @Override
@@ -53,12 +52,14 @@ public abstract class LoginOrShareActivity<P extends LoginOrSharePresenter> exte
     public void loginWeiChat() {
         SendAuth.Req req = new SendAuth.Req();
         req.scope = "snsapi_userinfo";
-        req.state = "aboutball_wx_login";
+       // req.state = "aboutball_wx_login";
+        req.state = "wechat_sdk_demo_test";
         this.getBaseApplication().getWeiChatApi().sendReq(req);
     }
 
     @Subscribe
     public void resultWeiChatData(BaseResp baseResp) {
+        LogUtils.w("resultWeiChatData--",baseResp.errCode+"--");
         if (baseResp.getType() == WEICHAT_LOGIN_TYPE) {
             switch (baseResp.errCode) {
                 case BaseResp.ErrCode.ERR_OK:

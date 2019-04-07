@@ -1,15 +1,12 @@
 package com.work.guaishouxingqiu.aboutball.login.fragment;
 
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputEditText;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
+import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -17,7 +14,6 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
-import com.work.guaishouxingqiu.aboutball.login.adapter.RegisterInputAdapter;
 import com.work.guaishouxingqiu.aboutball.login.bean.EventMessagePhone;
 import com.work.guaishouxingqiu.aboutball.login.bean.RegisterInputEditBean;
 import com.work.guaishouxingqiu.aboutball.login.contract.RegisterCodeContract;
@@ -28,13 +24,10 @@ import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * 作者: 胡庆岭
@@ -90,9 +83,90 @@ public class RegisterCodeFragment extends BaseFragment<RegisterCodePresenter> im
 
     }
 
+    private void requestEditText1() {
+        mTietInput1.setFocusable(true);
+        mTietInput1.setFocusableInTouchMode(true);
+        mTietInput1.requestFocus();
+        mTietInput2.setFocusable(false);
+        mTietInput2.setFocusableInTouchMode(false);
+        mTietInput3.setFocusable(false);
+        mTietInput3.setFocusableInTouchMode(false);
+        mTietInput4.setFocusable(false);
+        mTietInput4.setFocusableInTouchMode(false);
+    }
+
+    private void requestEditText2() {
+        mTietInput1.setFocusable(false);
+        mTietInput1.setFocusableInTouchMode(false);
+        mTietInput2.setFocusable(true);
+        mTietInput2.setFocusableInTouchMode(true);
+        mTietInput2.requestFocus();
+        mTietInput3.setFocusable(false);
+        mTietInput3.setFocusableInTouchMode(false);
+        mTietInput4.setFocusable(false);
+        mTietInput4.setFocusableInTouchMode(false);
+    }
+
+    private void requestEditText3() {
+        mTietInput1.setFocusable(false);
+        mTietInput1.setFocusableInTouchMode(false);
+        mTietInput2.setFocusable(false);
+        mTietInput2.setFocusableInTouchMode(false);
+        mTietInput3.setFocusable(true);
+        mTietInput3.setFocusableInTouchMode(true);
+        mTietInput3.requestFocus();
+        mTietInput4.setFocusable(false);
+        mTietInput4.setFocusableInTouchMode(false);
+    }
+
+    private void requestEditText4() {
+        mTietInput1.setFocusable(false);
+        mTietInput1.setFocusableInTouchMode(false);
+        mTietInput2.setFocusable(false);
+        mTietInput2.setFocusableInTouchMode(false);
+        mTietInput3.setFocusable(false);
+        mTietInput3.setFocusableInTouchMode(false);
+        mTietInput4.setFocusable(true);
+        mTietInput4.setFocusableInTouchMode(true);
+        mTietInput4.requestFocus();
+    }
+
     @Override
     protected void initEvent() {
 
+
+        mTietInput2.setOnKeyListener((view, i, keyEvent) -> {
+            if (keyEvent.getAction() == KeyEvent.ACTION_DOWN && i == KeyEvent.KEYCODE_DEL) {
+                if (DataUtils.isEmpty(mTietInput2.getText())) {
+                 requestEditText1();
+                }
+            }
+            return false;
+        });
+
+        mTietInput3.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if (keyEvent.getAction() == KeyEvent.ACTION_DOWN && i == KeyEvent.KEYCODE_DEL) {
+                    if (DataUtils.isEmpty(mTietInput3.getText())) {
+                       requestEditText2();
+                    }
+                }
+                return false;
+            }
+        });
+        mTietInput4.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if (keyEvent.getAction() == KeyEvent.ACTION_DOWN && i == KeyEvent.KEYCODE_DEL) {
+                    if (DataUtils.isEmpty(mTietInput4.getText())) {
+                        requestEditText3();
+
+                    }
+                }
+                return false;
+            }
+        });
         mTietInput1.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
                 mTietInput1.setBackgroundResource(R.drawable.shape_register_input_check_edit);
@@ -152,14 +226,45 @@ public class RegisterCodeFragment extends BaseFragment<RegisterCodePresenter> im
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                switch (editText.getId()) {
+                    case R.id.tiet_input_1:
+                        if (DataUtils.isEmpty(mTietInput1.getText())) {
+                            requestEditText1();
+                        } else {
+                            requestEditText2();
+                        }
+                        break;
+                    case R.id.tiet_input_2:
+                        if (DataUtils.isEmpty(mTietInput2.getText())) {
+                            requestEditText2();
+                        } else {
+                            requestEditText3();
+                        }
+
+                        break;
+                    case R.id.tiet_input_3:
+                        if (DataUtils.isEmpty(mTietInput3.getText())) {
+                            requestEditText3();
+                        } else {
+                            requestEditText4();
+                        }
+                        break;
+                    case R.id.tiet_input_4:
+                        requestEditText4();
+                        break;
+                }
+
                 if (isAllInputMessageCode() && mOnMessageCodeInputResult != null) {
                     String messageCode = DataUtils.checkData(mTietInput1.getText()).toString() +
                             DataUtils.checkData(mTietInput2.getText()).toString() +
                             DataUtils.checkData(mTietInput3.getText()).toString() +
                             DataUtils.checkData(mTietInput4.getText()).toString();
-                    mPresenter.judgeMessageCode(mPhooneNumber,messageCode);
+                    mPresenter.judgeMessageCode(mPhooneNumber, messageCode);
 
                 }
+
+
+                LogUtils.w("editText", (editText.getId() == mTietInput1.getId()) + "--");
             }
 
             @Override
@@ -177,7 +282,7 @@ public class RegisterCodeFragment extends BaseFragment<RegisterCodePresenter> im
             mPresenter.countDownTime(Contast.MESSAGE_COUNT_DOWN_LENGTH);
             isFirst = false;
         }
-        LogUtils.w("setUserVisibleHint--",isVisibleToUser+"--");
+        LogUtils.w("setUserVisibleHint--", isVisibleToUser + "--");
     }
 
     @Subscribe
@@ -240,5 +345,6 @@ public class RegisterCodeFragment extends BaseFragment<RegisterCodePresenter> im
         mTietInput2.setText(null);
         mTietInput3.setText(null);
         mTietInput4.setText(null);
+        requestEditText1();
     }
 }
