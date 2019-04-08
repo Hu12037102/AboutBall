@@ -28,7 +28,7 @@ public class LoginOrShareModel extends MessageModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
-        this.resetBaseUrl();
+       // this.resetBaseUrl();
 
     }
 

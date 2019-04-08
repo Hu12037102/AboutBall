@@ -8,11 +8,13 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Trace;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import java.io.File;
@@ -40,27 +42,44 @@ public class DownloadApkHelp {
         if (!file.exists() || !file.isDirectory()) {
             file.mkdirs();
         }
-        request.setDestinationInExternalPublicDir(FileUtils.getRootFolder().getAbsolutePath(), "APK");
-        File apkFile = new File(file.getAbsolutePath(), "AboutBall_" + System.currentTimeMillis() + ".apk");
-        request.setDestinationUri(Uri.fromFile(apkFile));
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        request.setTitle(UIUtils.getString(R.string.update_apk));
+        request = request.setDestinationInExternalPublicDir(FileUtils.getRootFolder().getAbsolutePath(), "APK");
+        File apkFile = new File(FileUtils.getRootFolder().getAbsolutePath(), "AboutBall_" + System.currentTimeMillis() + ".apk");
+        request = request.setDestinationUri(Uri.fromFile(apkFile));
+        request = request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
+        request = request.setTitle(UIUtils.getString(R.string.update_apk));
+        request = request.setVisibleInDownloadsUi(true);
+        request = request.setMimeType("application/vnd.android.package-archive");
         long id = loadManager.enqueue(request);
         DownloadManager.Query query = new DownloadManager.Query().setFilterById(id);
-        for (; ; ) {
-            Cursor cursor = loadManager.query(query);
-            if (cursor == null || cursor.getCount() == 0) {
-                return;
-            }
-            if (cursor.moveToNext()) {
-                int status = cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
-                if (status == DownloadManager.STATUS_SUCCESSFUL) {
-                    installApk(apkFile, context);
-                    cursor.close();
-                    return;
-                }
-            }
+        Cursor cursor = loadManager.query(query);
+        if (cursor == null || cursor.getCount() == 0) {
+            return;
         }
+        while (cursor.moveToNext()) {
+            int status = cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
+            LogUtils.w("status--", status + "--" + DownloadManager.STATUS_SUCCESSFUL + "--" + DownloadManager.STATUS_PENDING
+                    + "--" + DownloadManager.STATUS_RUNNING + "--" + DownloadManager.STATUS_PAUSED + "--" + DownloadManager.STATUS_FAILED);
+            if (status == DownloadManager.STATUS_SUCCESSFUL) {
+                installApk(apkFile, context);
+                cursor.close();
+                break;
+            } else if (status == DownloadManager.STATUS_FAILED) {
+                openWebViewLoadApk(context, apkUrl);
+                cursor.close();
+                break;
+            } else if (status == DownloadManager.STATUS_PENDING) {
+                cursor.close();
+                loadManager.remove(id);
+                openWebViewLoadApk(context, apkUrl);
+                break;
+            }
+
+        }
+
+    }
+
+    private static void openWebViewLoadApk(Context context, String apkUrl) {
+        context.startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse(apkUrl)));
     }
 
     public static void installApk(@NonNull File apkFile, @NonNull Context context) {
@@ -84,7 +103,7 @@ public class DownloadApkHelp {
 
     public static String getVersionName(Context context) {
         try {
-            return getPackInfo(context).versionName;
+            return getPackInfo(context).versionName + "--2";
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }

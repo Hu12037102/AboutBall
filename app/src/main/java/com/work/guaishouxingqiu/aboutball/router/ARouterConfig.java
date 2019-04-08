@@ -18,6 +18,8 @@ public interface ARouterConfig {
         String ACTIVITY_VENUE_DETAILS = "/activity/venue/details";
         String ACTIVITY_GAME_VIDEO = "/activity/game/video";
         String ACTIVITY_SETTING = "/activity/setting";
+        String ACTIVITY_EDIT_MY_ADDRESS = "/activity/edit/my/address";
+        String ACTIVITY_MY_PRIZE="/activity/my/prize";
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";

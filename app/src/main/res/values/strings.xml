@@ -34,7 +34,7 @@
     <string name="image_text_details">图文详情</string>
     <string name="service_error">服务器异常</string>
     <string name="user_name_not_null">用户昵称不能为空！</string>
-
+    <string name="region">所在地区</string>
     <string name="hint">提示</string>
     <string name="this_phone_is_register">该手机号已经注册</string>
     <string name="this_phone_not_register">该手机号没有注册</string>
@@ -74,6 +74,7 @@
     <string name="choose_sex">选择性别</string>
     <string name="choose_height">选择身高</string>
     <string name="choose_birthday">选择生日</string>
+    <string name="choose_address">选择地址</string>
     <string name="man">男</string>
     <string name="women">女</string>
     <string name="not_setting">未设置</string>
@@ -111,6 +112,15 @@
     <string name="weichat_login_failed">微信登录失败！</string>
     <string name="update_apk">版本更新</string>
     <string name="not_more_data">没有更多数据哦</string>
+    <string name="edit_address_info">编辑收货信息</string>
+    <string name="consignee">收货人</string>
+    <string name="please_consignee_name">请输入收货人姓名</string>
+    <string name="please_input_phone_number">请输入手机号码</string>
+    <string name="address_data">详细地址</string>
+    <string name="please_input_address_data">请填写详细地址</string>
+    <string name="message_my_address">管理我的收获地址</string>
+    <string name="please_selector_address">请选择省/市/区</string>
+    <string name="my_prize">我的奖品</string>
 
 
     <!--相册选择器-->

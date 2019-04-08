@@ -190,9 +190,8 @@
 
         </android.support.constraint.ConstraintLayout>
 
-
         <com.example.item.weight.ItemView
-            android:id="@+id/item_alter_password"
+            android:id="@+id/item_address"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginTop="@dimen/size_5dp"
@@ -201,6 +200,19 @@
             app:content_right_icon="@mipmap/icon_item_right"
             app:content_text_color="@color/color_3"
             app:show_top_line="false"
+            app:title_data="@string/message_my_address"
+            app:title_text_color="@color/color_4"
+            app:top_line_margin_left="@dimen/default_margin"
+            app:top_line_margin_right="@dimen/default_margin" />
+        <com.example.item.weight.ItemView
+            android:id="@+id/item_alter_password"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/colorTheme"
+            app:content_drawable_padding="@dimen/size_10dp"
+            app:content_right_icon="@mipmap/icon_item_right"
+            app:content_text_color="@color/color_3"
+            app:show_top_line="true"
             app:title_data="@string/update_password"
             app:title_text_color="@color/color_4"
             app:top_line_margin_left="@dimen/default_margin"

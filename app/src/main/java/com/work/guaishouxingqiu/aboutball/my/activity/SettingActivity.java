@@ -128,14 +128,16 @@ public class SettingActivity extends BaseActivity<SettingPresenter>
     @Override
     public void resultApkInfo(ResultUpdateApkBean bean) {
         //版本信息回调
-        if (bean.version.equals(DownloadApkHelp.getVersionName(this))) {
+        if (!bean.version.equals(DownloadApkHelp.getVersionName(this))) {
             HintDialog hintDialog = new HintDialog.Builder(this)
                     .setTitle(R.string.update_apk)
                     .setBody(bean.content)
                     .setSure(R.string.sure).builder();
             hintDialog.show();
-            hintDialog.setOnItemClickListener(view ->{ DownloadApkHelp.loadApk(SettingActivity.this, bean.updateUrl);
-            hintDialog.dismiss();
+            hintDialog.setOnItemClickListener(view -> {
+                hintDialog.dismiss();
+                DownloadApkHelp.loadApk(SettingActivity.this, bean.updateUrl);
+
 
             });
 

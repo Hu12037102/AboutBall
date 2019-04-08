@@ -1,5 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.util;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
@@ -7,15 +8,22 @@ import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -137,7 +145,7 @@ public class DataUtils {
     }
 
     public static boolean isResultSure(@NonNull BaseBean baseBean) {
-        return IApi.Code.SUCCEED == baseBean.code && baseBean.result != null ;
+        return IApi.Code.SUCCEED == baseBean.code && baseBean.result != null;
     }
 
     public static String videoDuration(long videoDuration) {
@@ -162,4 +170,52 @@ public class DataUtils {
         return sb.toString();
 
     }
+
+    public static String getAssetsData(Context context, String name) {
+        BufferedReader bis = null;
+        StringBuilder sb;
+        InputStreamReader isr = null;
+        InputStream is= null;
+        try {
+            is =context.getAssets().open(name);
+            isr = new InputStreamReader(is);
+            bis = new BufferedReader(isr);
+
+            sb = new StringBuilder();
+            String line;
+            while ((line = bis.readLine()) != null) {
+                sb.append(line);
+            }
+            return sb.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (is != null){
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (isr != null){
+                try {
+                    isr.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (bis != null) {
+                try {
+                    bis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
+        return null;
+    }
+
 }

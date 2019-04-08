@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <com.example.item.weight.TitleView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        app:back_left_drawable="@mipmap/icon_back"
+        app:back_text_padding_left="@dimen/default_margin"
+        app:back_text_padding_right="@dimen/default_margin"
+        app:center_data="@string/edit_address_info"
+        app:center_text_color="@color/color_4"
+        app:center_text_size="@dimen/size_19sp" />
+
+    <View style="@style/HorizontalLine" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:paddingLeft="@dimen/default_margin"
+        android:paddingRight="@dimen/default_margin">
+
+        <TextView
+            android:id="@+id/tv_consignee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/consignee"
+            android:textColor="@color/colorFF261C1B"
+            android:textSize="@dimen/size_14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/acet_consignee"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:background="@null"
+            android:gravity="right|center_vertical"
+            android:hint="@string/please_consignee_name"
+            android:inputType="text"
+            android:maxLength="8"
+            android:singleLine="true"
+            android:textSize="@dimen/size_14sp"
+            app:layout_constraintLeft_toRightOf="@id/tv_consignee"
+            app:layout_constraintRight_toRightOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+    <View
+        style="@style/HorizontalLine"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:paddingLeft="@dimen/default_margin"
+        android:paddingRight="@dimen/default_margin">
+
+        <TextView
+            android:id="@+id/tv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/phone_number"
+            android:textColor="@color/colorFF261C1B"
+            android:textSize="@dimen/size_14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/acet_phone"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:background="@null"
+            android:gravity="right|center_vertical"
+            android:hint="@string/please_input_phone_number"
+            android:inputType="phone"
+            android:digits="@string/phone_digits"
+            android:maxLength="8"
+            android:singleLine="true"
+            android:textSize="@dimen/size_14sp"
+            app:layout_constraintLeft_toRightOf="@id/tv_phone"
+            app:layout_constraintRight_toRightOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+    <View
+        style="@style/HorizontalLine"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin" />
+    <com.example.item.weight.ItemView
+        android:id="@+id/item_address"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        app:title_text_color="@color/colorFF261C1B"
+        app:title_data="@string/region"
+        app:show_bottom_line="true"
+        app:bottom_line_margin_left="@dimen/default_margin"
+        app:bottom_line_margin_right="@dimen/default_margin"
+        app:content_right_icon="@mipmap/icon_item_right"
+        app:content_drawable_padding="@dimen/size_10dp"
+        app:content_text_size="@dimen/size_14sp"
+        app:content_text_color="@color/color_4"
+        />
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:paddingLeft="@dimen/default_margin"
+        android:paddingRight="@dimen/default_margin">
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/address_data"
+            android:textColor="@color/colorFF261C1B"
+            android:textSize="@dimen/size_14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/acet_address"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:background="@null"
+            android:gravity="right|center_vertical"
+            android:hint="@string/please_input_address_data"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textSize="@dimen/size_14sp"
+            app:layout_constraintLeft_toRightOf="@id/tv_address"
+            app:layout_constraintRight_toRightOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+    <View
+        style="@style/HorizontalLine"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin" />
+
+    <TextView
+        android:id="@+id/tv_save"
+       style="@style/ButtonCenterText"
+        android:text="@string/save"
+        android:layout_marginTop="@dimen/size_40dp"
+        />
+</LinearLayout>

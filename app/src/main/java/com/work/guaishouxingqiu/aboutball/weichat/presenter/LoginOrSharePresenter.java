@@ -55,7 +55,7 @@ public abstract class LoginOrSharePresenter<V extends LoginOrShareContract.View,
                 } else {
                     mView.showToast(UIUtils.getString(R.string.weichat_login_failed));
                 }
-                LogUtils.w("onNext--", resultWeiChatTokenBean + "--");
+                LogUtils.w("getWeiChatToken--", resultWeiChatTokenBean + "--");
             }
 
             @Override

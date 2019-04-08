@@ -10,8 +10,8 @@ android {
     defaultConfig {
 
         multiDexEnabled true
-         applicationId android.applicationId
-       // applicationId "com.work.guaishouxingqiu.aboutball"
+        //applicationId android.applicationId
+        applicationId "com.work.guaishouxingqiu.aboutball"
         minSdkVersion android.minSdkVersion
         targetSdkVersion android.targetSdkVersion
         versionCode 1
@@ -55,12 +55,10 @@ android {
                 checkReleaseBuilds false
                 abortOnError false
             }
-            release {
-                keyAlias 'AboutBall'
-                keyPassword 'guaishouxingqiu888'
-                storeFile file('E:/AndroidWork/AboutBall/app_key_store.jks')
-                storePassword 'guaishouxingqiu888'
-            }
+            keyAlias 'AboutBall'
+            keyPassword 'guaishouxingqiu888'
+            storeFile file('E:/AndroidWork/AboutBall/app_key_store.jks')
+            storePassword 'guaishouxingqiu888'
         }
     }
 
@@ -69,35 +67,40 @@ android {
             variant.outputs.all {
                 outputFileName = "Apk_Android_debug_v1.0.0_1.apk"
             }
+    }
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            variant.getPackageApplication().outputDirectory = new File("D:/AndroidStudioProjects/Learning/EasyTest/app/src/main/assets/plugins")
+            outputFileName = "test.jar"
+
+        }
     }*/
+
 
     buildTypes {
         release {
             signingConfig signingConfigs.release
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField("boolean", "IS_DEBUG", "false")
-            buildConfigField("String", "HOST_URL", '"https://ifi.bmece.com"')
-            // buildConfigField("String", "APP_ID", '"wx41e9ee2ffa7b327e"')
-            shrinkResources true
-            zipAlignEnabled true
-            pseudoLocalesEnabled true
+            // buildConfigField("String", "HOST_URL", '"https://ifi.bmece.com"')
+            buildConfigField("String", "HOST_URL", '"https://iti.bmece.com"')
+            shrinkResources false
+            zipAlignEnabled false
+            pseudoLocalesEnabled false
         }
         debug {
             signingConfig signingConfigs.debug
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField("boolean", "IS_DEBUG", "true")
-            // buildConfigField("String", "HOST_URL", '"https://ifi.bmece.com"')
             buildConfigField("String", "HOST_URL", '"https://iti.bmece.com"')
-            //  buildConfigField("String", "APP_ID", '"wx41e9ee2ffa7b327e"')
             shrinkResources false
             zipAlignEnabled false
             pseudoLocalesEnabled false
         }
     }
-    productFlavors {
-    }
+
 }
 
 dependencies {

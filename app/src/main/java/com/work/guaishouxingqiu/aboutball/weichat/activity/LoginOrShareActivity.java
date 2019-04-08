@@ -52,8 +52,9 @@ public abstract class LoginOrShareActivity<P extends LoginOrSharePresenter> exte
     public void loginWeiChat() {
         SendAuth.Req req = new SendAuth.Req();
         req.scope = "snsapi_userinfo";
-       // req.state = "aboutball_wx_login";
-        req.state = "wechat_sdk_demo_test";
+        req.state = "aboutball_wx_login";
+      //  req.state = "wechat_sdk_demo_test";
+      //  req.state = getPackageName() + (Math.random() * 100);
         this.getBaseApplication().getWeiChatApi().sendReq(req);
     }
 

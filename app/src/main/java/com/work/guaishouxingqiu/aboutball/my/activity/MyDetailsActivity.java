@@ -61,6 +61,8 @@ public class MyDetailsActivity extends CameraActivity<MyDetailsPresenter> implem
     TextView mTvWechatRight;
     @BindView(R.id.item_alter_password)
     ItemView mItemAlterPassword;
+    @BindView(R.id.item_address)
+    ItemView mItemAddress;
     private UserBean mUserBean;
     public static final String NO_SETTING = "未设置";
     private int mSexType;
@@ -123,6 +125,11 @@ public class MyDetailsActivity extends CameraActivity<MyDetailsPresenter> implem
         mItemWeight.setOnItemClickListener(view -> clickUpdateWeight());
         mItemStature.setOnItemClickListener(view -> clickUpdateHeight());
         mItemBirthday.setOnItemClickListener(view -> clickUpdateBirthday());
+        mItemAddress.setOnItemClickListener(view->clickMyAddress());
+    }
+
+    private void clickMyAddress() {
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_EDIT_MY_ADDRESS);
     }
 
     private void clickUpdateBirthday() {
