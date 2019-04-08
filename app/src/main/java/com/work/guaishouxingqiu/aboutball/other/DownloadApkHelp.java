@@ -45,7 +45,7 @@ public class DownloadApkHelp {
         request = request.setDestinationInExternalPublicDir(FileUtils.getRootFolder().getAbsolutePath(), "APK");
         File apkFile = new File(FileUtils.getRootFolder().getAbsolutePath(), "AboutBall_" + System.currentTimeMillis() + ".apk");
         request = request.setDestinationUri(Uri.fromFile(apkFile));
-        request = request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
+        request = request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         request = request.setTitle(UIUtils.getString(R.string.update_apk));
         request = request.setVisibleInDownloadsUi(true);
         request = request.setMimeType("application/vnd.android.package-archive");
@@ -103,7 +103,7 @@ public class DownloadApkHelp {
 
     public static String getVersionName(Context context) {
         try {
-            return getPackInfo(context).versionName + "--2";
+            return getPackInfo(context).versionName;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }

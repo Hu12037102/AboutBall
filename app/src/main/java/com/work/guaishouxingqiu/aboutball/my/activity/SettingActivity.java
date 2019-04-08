@@ -87,7 +87,7 @@ public class SettingActivity extends BaseActivity<SettingPresenter>
             PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             String versionName = packageInfo.versionName;
             int versionCode = packageInfo.versionCode;
-            mPresenter.updateApkInfo("v-1.0");
+            mPresenter.updateApkInfo(versionName);
             LogUtils.w("clickAboutWe--", versionName + "--" + versionCode);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
