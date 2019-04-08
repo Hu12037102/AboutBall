@@ -221,7 +221,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/default_margin"
+
             tools:ignore="UselessParent">
 
             <View
@@ -237,8 +237,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@id/line"
                 android:layout_toStartOf="@id/line"
-                android:paddingLeft="@dimen/default_margin"
-                android:paddingRight="@dimen/default_margin"
+                android:padding="@dimen/default_margin"
                 android:text="@string/wechat_login"
                 android:textColor="@color/color_4"
                 android:textSize="@dimen/size_14sp" />
@@ -250,8 +249,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@id/line"
                 android:layout_toRightOf="@id/line"
-                android:paddingLeft="@dimen/default_margin"
-                android:paddingRight="@dimen/default_margin"
+               android:padding="@dimen/default_margin"
                 android:text="@string/register_account"
                 android:textColor="@color/color_4"
                 android:textSize="@dimen/size_14sp" />

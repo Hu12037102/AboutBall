@@ -67,12 +67,12 @@ public class DownloadApkHelp {
                 openWebViewLoadApk(context, apkUrl);
                 cursor.close();
                 break;
-            } else if (status == DownloadManager.STATUS_PENDING) {
+            } /*else if (status == DownloadManager.STATUS_PENDING) {
                 cursor.close();
                 loadManager.remove(id);
                 openWebViewLoadApk(context, apkUrl);
                 break;
-            }
+            }*/
 
         }
 

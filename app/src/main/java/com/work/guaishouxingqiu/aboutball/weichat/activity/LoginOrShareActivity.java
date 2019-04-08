@@ -1,7 +1,11 @@
 package com.work.guaishouxingqiu.aboutball.weichat.activity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
@@ -18,6 +22,7 @@ import com.work.guaishouxingqiu.aboutball.weichat.bean.RequestWeiChatTokenBean;
 import com.work.guaishouxingqiu.aboutball.weichat.bean.ResultWeiChatInfo;
 import com.work.guaishouxingqiu.aboutball.weichat.contract.LoginOrShareContract;
 import com.work.guaishouxingqiu.aboutball.weichat.presenter.LoginOrSharePresenter;
+import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -50,17 +55,33 @@ public abstract class LoginOrShareActivity<P extends LoginOrSharePresenter> exte
     }
 
     public void loginWeiChat() {
-        SendAuth.Req req = new SendAuth.Req();
-        req.scope = "snsapi_userinfo";
-        req.state = "aboutball_wx_login";
-      //  req.state = "wechat_sdk_demo_test";
-      //  req.state = getPackageName() + (Math.random() * 100);
-        this.getBaseApplication().getWeiChatApi().sendReq(req);
+        if (this.getBaseApplication().getWeiChatApi().isWXAppInstalled()) {
+            SendAuth.Req req = new SendAuth.Req();
+            req.scope = "snsapi_userinfo";
+            req.state = "aboutball_wx_login";
+            //  req.state = "wechat_sdk_demo_test";
+            //  req.state = getPackageName() + (Math.random() * 100);
+            this.getBaseApplication().getWeiChatApi().sendReq(req);
+
+        } else {
+            HintDialog hintDialog = new HintDialog.Builder(this)
+                    .setTitle(R.string.hint)
+                    .setBody(R.string.you_not_installed_weichat)
+                    .setSure(R.string.sure)
+                    .builder();
+            hintDialog.show();
+            hintDialog.setOnItemClickListener(view -> {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.tencent.mm"));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                hintDialog.dismiss();
+            });
+        }
     }
 
     @Subscribe
     public void resultWeiChatData(BaseResp baseResp) {
-        LogUtils.w("resultWeiChatData--",baseResp.errCode+"--");
+        LogUtils.w("resultWeiChatData--", baseResp.errCode + "--");
         if (baseResp.getType() == WEICHAT_LOGIN_TYPE) {
             switch (baseResp.errCode) {
                 case BaseResp.ErrCode.ERR_OK:
@@ -71,6 +92,8 @@ public abstract class LoginOrShareActivity<P extends LoginOrSharePresenter> exte
                     break;
                 case BaseResp.ErrCode.ERR_USER_CANCEL:
                     Toasts.with().showToast(R.string.cancel_weichat_login);
+                    break;
+                case BaseResp.ErrCode.ERR_UNSUPPORT:
                     break;
                 default:
                     break;
