@@ -27,6 +27,9 @@
         app:tabIndicatorHeight="@dimen/size_2dp"
         app:tabSelectedTextColor="@color/color_4"
         app:tabTextColor="@color/colorFF777777" />
+    <View
+        style="@style/HorizontalLine"
+      />
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/srl_refresh"

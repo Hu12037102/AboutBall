@@ -1,6 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.my.fragment;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.ItemView;
+import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
 import com.work.guaishouxingqiu.aboutball.game.activity.GamePlayActivity;
@@ -37,8 +39,12 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     CircleImageView mCivMyHead;
     @BindView(R.id.ll_head_group)
     LinearLayout mLlHeadGroup;
-    @BindView(R.id.item_setting)
-    ItemView mItemSetting;
+    @BindView(R.id.item_share_friend)
+    ItemView mItemFriend;
+    @BindView(R.id.title_view)
+    TitleView mTitleView;
+    @BindView(R.id.item_my_prize)
+    ItemView mItemPrize;
     private View view;
 
     public static MyFragment newInstance() {
@@ -97,7 +103,21 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
     @Override
     protected void initEvent() {
-        mItemSetting.setOnItemClickListener(view -> clickSetting());
+        mItemFriend.setOnItemClickListener(view -> {
+        });
+        mTitleView.setOnTitleViewClickListener(new TitleView.OnTitleViewClickListener() {
+            @Override
+            public void onBackClick(@NonNull View view) {
+            }
+
+            @Override
+            public void onSureClick(@NonNull View view) {
+                clickSetting();
+            }
+        });
+        mItemPrize.setOnItemClickListener(view -> {
+            ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_PRIZE);
+        });
     }
 
     @Override

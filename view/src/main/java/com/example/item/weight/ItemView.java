@@ -63,7 +63,16 @@ public class ItemView extends RelativeLayout {
         mTvRight = viewInflate.findViewById(R.id.tv_right);
         mTopLine = viewInflate.findViewById(R.id.top_line);
         mBottomLine = viewInflate.findViewById(R.id.bottom_line);
+        mTvLeft.post(new Runnable() {
+            @Override
+            public void run() {
+                RelativeLayout.LayoutParams layoutParams = (LayoutParams) mTvLeft.getLayoutParams();
+                mTvRight.setMaxWidth(ScreenUtils.getScreenWidth(getContext()) - (mTvLeft.getMeasuredWidth() + mTvLeft.getPaddingLeft() + mTvLeft.getPaddingRight() + layoutParams.leftMargin
+                        + layoutParams.rightMargin + ScreenUtils.dp2px(getContext(), 20)));
+            }
+        });
     }
+
 
     private void initAttrs(AttributeSet attrs) {
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.ItemView);

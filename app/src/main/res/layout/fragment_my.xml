@@ -8,12 +8,16 @@
     <LinearLayout style="@style/DefaultParentVerticalLinearLayout">
 
         <com.example.item.weight.TitleView
+            android:id="@+id/title_view"
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_50dp"
             app:center_text_size="@dimen/size_19sp"
             app:center_data="@string/me"
             app:center_text_color="@color/color_4"
-            app:group_color="@color/colorTheme" />
+            app:group_color="@color/colorTheme"
+            app:sure_right_drawable="@mipmap/icon_item_my_setting"
+            app:sure_text_padding_right="@dimen/default_margin"
+            app:back_text_padding_left="@dimen/default_margin"/>
 
         <RelativeLayout
             android:id="@+id/rl_my_head"
@@ -133,16 +137,29 @@
             app:top_line_margin_left="@dimen/default_margin" />
 
         <com.example.item.weight.ItemView
-            android:id="@+id/item_setting"
+            android:id="@+id/item_my_prize"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/colorTheme"
+            app:content_right_icon="@mipmap/ic_item_right"
+            app:show_top_line="true"
+            app:title_data="@string/my_prize"
+            app:title_drawable_padding="@dimen/item_drawable_padding"
+            app:title_left_icon="@mipmap/icon_item_my_prize"
+            app:top_line_margin_left="@dimen/default_margin" />
+
+        <com.example.item.weight.ItemView
+            android:id="@+id/item_share_friend"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginTop="@dimen/size_5dp"
             android:background="@color/colorTheme"
             app:content_right_icon="@mipmap/ic_item_right"
             app:show_top_line="false"
-            app:title_data="@string/setting"
+            app:title_data="@string/invite_friend"
             app:title_drawable_padding="@dimen/item_drawable_padding"
-            app:title_left_icon="@mipmap/icon_item_my_setting" />
+            app:title_left_icon="@mipmap/icon_item_my_invite_friend"
+           />
 
     </LinearLayout>
 

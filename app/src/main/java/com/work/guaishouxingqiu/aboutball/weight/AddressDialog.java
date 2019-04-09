@@ -81,10 +81,9 @@ public class AddressDialog extends BaseDialog {
             public void onSureClick(@NonNull View view) {
                 dismiss();
                 if (onResultAddressListener != null) {
-                    onResultAddressListener.onResultAddress(mAddressData.get(mLeftWheelView.getCurrentItem())
-                            .equals(mCityData.get(mCenterWheelView.getCurrentItem())) ? "" : mAddressData.get(mLeftWheelView.getCurrentItem())
-                            .concat(mCityData.get(mCenterWheelView.getCurrentItem()))
-                            .equals(mAreaData.get(mRightWheelView.getCurrentItem())) ? "" : mCityData.get(mCenterWheelView.getCurrentItem())
+                    onResultAddressListener.onResultAddress(
+                            (mAddressData.get(mLeftWheelView.getCurrentItem()).equals(mCityData.get(mCenterWheelView.getCurrentItem())) ? "" : mAddressData.get(mLeftWheelView.getCurrentItem()))
+                            .concat((mCityData.get(mCenterWheelView.getCurrentItem()).equals(mAreaData.get(mRightWheelView.getCurrentItem())))? "" : mCityData.get(mCenterWheelView.getCurrentItem()))
                             .concat(mAreaData.get(mRightWheelView.getCurrentItem())));
                 }
             }

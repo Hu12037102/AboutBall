@@ -27,11 +27,13 @@
         android:id="@+id/tv_right"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="20dp"
-        android:gravity="center"
-        tools:text="左标题" />
+        android:layout_alignParentRight="true"
+        android:gravity="right|center_vertical"
+        tools:text="左标题"
+        android:layout_marginLeft="20dp"
+        />
 
     <View
         android:id="@+id/bottom_line"

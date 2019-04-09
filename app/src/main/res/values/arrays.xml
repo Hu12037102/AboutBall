@@ -38,4 +38,9 @@
         <item>评论</item>
         <item>集锦</item>
     </string-array>
+    <string-array name="award_status_array">
+        <item>带兑换</item>
+        <item>已兑换</item>
+        <item>已过期</item>
+    </string-array>
 </resources>
