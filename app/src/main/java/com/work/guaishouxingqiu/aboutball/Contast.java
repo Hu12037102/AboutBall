@@ -41,6 +41,7 @@ public interface Contast {
     String PHONE_MODEL = "phoneModel";
     String VERSION = "version";
     String ANDROID = "android";
+    String KEYWORD="keyword";
 
     String TOKEN = "Authorization";
     String SEX = "gender";

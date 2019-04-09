@@ -7,7 +7,7 @@
         android:id="@+id/bw_web"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_input_name_view"
+        android:background="@drawable/shape_input_name_edit"
         android:focusable="false"
         android:focusableInTouchMode="false"/>
 

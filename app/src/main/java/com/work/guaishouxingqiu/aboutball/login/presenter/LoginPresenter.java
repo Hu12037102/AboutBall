@@ -11,7 +11,7 @@ import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
 import com.work.guaishouxingqiu.aboutball.login.contract.LoginContract;
 import com.work.guaishouxingqiu.aboutball.login.model.LoginModel;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
-import com.work.guaishouxingqiu.aboutball.weichat.presenter.LoginOrSharePresenter;
+import com.work.guaishouxingqiu.aboutball.commonality.presenter.LoginOrSharePresenter;
 
 /**
  * 作者: 胡庆岭

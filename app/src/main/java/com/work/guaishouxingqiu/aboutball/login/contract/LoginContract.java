@@ -3,12 +3,9 @@ package com.work.guaishouxingqiu.aboutball.login.contract;
 import android.support.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
-import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
-import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.RequestLoginBean;
-import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
-import com.work.guaishouxingqiu.aboutball.weichat.contract.LoginOrShareContract;
+import com.work.guaishouxingqiu.aboutball.commonality.contract.LoginOrShareContract;
 
 /**
  * 作者: 胡庆岭

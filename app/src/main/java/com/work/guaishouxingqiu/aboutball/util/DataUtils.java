@@ -47,8 +47,8 @@ public class DataUtils {
      * @param data
      * @return
      */
-    public static boolean isEmpty(@NonNull String data) {
-        if (TextUtils.isEmpty(data) || TextUtils.getTrimmedLength(data) == 0) {
+    public static boolean isEmpty(String data) {
+        if (data == null || TextUtils.isEmpty(data) || TextUtils.getTrimmedLength(data) == 0) {
             return true;
         }
         return false;
@@ -175,9 +175,9 @@ public class DataUtils {
         BufferedReader bis = null;
         StringBuilder sb;
         InputStreamReader isr = null;
-        InputStream is= null;
+        InputStream is = null;
         try {
-            is =context.getAssets().open(name);
+            is = context.getAssets().open(name);
             isr = new InputStreamReader(is);
             bis = new BufferedReader(isr);
 
@@ -190,7 +190,7 @@ public class DataUtils {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if (is != null){
+            if (is != null) {
                 try {
                     is.close();
                 } catch (IOException e) {
@@ -198,7 +198,7 @@ public class DataUtils {
                 }
             }
 
-            if (isr != null){
+            if (isr != null) {
                 try {
                     isr.close();
                 } catch (IOException e) {

@@ -2,16 +2,14 @@ package com.work.guaishouxingqiu.aboutball.login.model;
 
 import android.support.annotation.NonNull;
 
-import com.work.guaishouxingqiu.aboutball.base.BaseModel;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.login.LoginService;
 import com.work.guaishouxingqiu.aboutball.login.bean.RequestLoginBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
-import com.work.guaishouxingqiu.aboutball.weichat.model.LoginOrShareModel;
+import com.work.guaishouxingqiu.aboutball.commonality.model.LoginOrShareModel;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.http.PUT;
 
 /**
  * 作者: 胡庆岭

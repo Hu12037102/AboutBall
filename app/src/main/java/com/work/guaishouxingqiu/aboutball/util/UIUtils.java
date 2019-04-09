@@ -166,6 +166,6 @@ public class UIUtils {
         return UIUtils.getContext().getString(res, obj);
     }
     public static View loadNotMoreView( ViewGroup viewGroup){
-       return LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_not_more,viewGroup,false);
+       return LayoutInflater.from(UIUtils.getContext()).inflate(R.layout.item_not_more,viewGroup,false);
     }
 }

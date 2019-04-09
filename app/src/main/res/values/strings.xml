@@ -123,7 +123,10 @@
     <string name="please_selector_address">请选择省/市/区</string>
     <string name="my_prize">我的奖品</string>
     <string name="you_not_installed_weichat">您还没有安装微信，是否前去下载</string>
-
+    <string name="camera_is_must_permission">相机为必要权限，请允许！</string>
+    <string name="search">搜索</string>
+    <string name="search_you_want_news">搜索您想了解的资讯</string>
+    <string name="please_input_search_content">请输入搜索内容</string>
 
     <!--相册选择器-->
     <string name="back">返回</string>

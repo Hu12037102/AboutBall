@@ -28,6 +28,7 @@ public interface IApiService {
     String GET_NEWS_CONTENT = "/api/news/getNewsDetail";
     String GET_NEWS_MESSAGE_CONTENT_LIST = "/api/news/getNewsComment";
     String POST_SEND_NEWS_MESSAGE_CONTENT = "/api/news/newsCommented";
+    String GET_SEARCH_NEWS_DATA="/api/news/searchNews";
 
     //赛事-列表
     String GAME_LIST = "/api/match/getMatchList";

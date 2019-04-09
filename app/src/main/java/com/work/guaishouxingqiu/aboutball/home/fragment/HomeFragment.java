@@ -1,43 +1,28 @@
 package com.work.guaishouxingqiu.aboutball.home.fragment;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Looper;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
-import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
+import com.work.guaishouxingqiu.aboutball.base.CameraFragment;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultHomeTabBean;
 import com.work.guaishouxingqiu.aboutball.home.contract.HomeContract;
 import com.work.guaishouxingqiu.aboutball.home.presenter.HomePresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
-import com.work.guaishouxingqiu.aboutball.util.LogUtils;
-import com.work.guaishouxingqiu.aboutball.util.PhoneUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
-import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
-import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import java.util.List;
 
@@ -46,8 +31,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-import static android.app.Activity.RESULT_OK;
-
 /**
  * 作者: 胡庆岭
  * 创建时间: 2019/3/6 13:04
@@ -55,11 +38,12 @@ import static android.app.Activity.RESULT_OK;
  * 描述: 首页Fragment
  */
 @Route(path = ARouterConfig.Path.FRAGMENT_HOME)
-public class HomeFragment extends BaseFragment<HomePresenter> implements HomeContract.View {
+public class HomeFragment extends CameraFragment<HomePresenter> implements HomeContract.View {
     @BindView(R.id.tab_title)
     TabLayout mTabTitle;
     @BindView(R.id.bvp_content)
     BaseViewPager mBvpContent;
+
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -162,10 +146,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     }
 
 
-    @OnClick(R.id.iv_search)
-    public void onViewClicked() {
-    }
-
     @Override
     public void resultTabData(@NonNull BaseBean<List<ResultHomeTabBean>> data) {
         if (DataUtils.isResultSure(data) && data.result.size() > 0) {
@@ -177,6 +157,19 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                 }
             }
             initPager(data.result);
+        }
+    }
+
+
+    @OnClick({R.id.iv_search, R.id.iv_scan_code})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_search:
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_NEWS_SEARCH);
+                break;
+            case R.id.iv_scan_code:
+                openScanCode();
+                break;
         }
     }
 }

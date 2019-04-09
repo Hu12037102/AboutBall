@@ -8,28 +8,36 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/size_40dp">
 
         <ImageView
             android:id="@+id/iv_search"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:contentDescription="@null"
-            android:paddingBottom="@dimen/size_10dp"
-            android:paddingLeft="@dimen/default_margin"
+            android:paddingLeft="@dimen/size_10dp"
             android:paddingRight="@dimen/default_margin"
-            android:paddingTop="@dimen/size_10dp"
             android:src="@mipmap/icon_search"
             app:layout_constraintRight_toRightOf="parent" />
+        <ImageView
+            android:id="@+id/iv_scan_code"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/icon_scan_code"
+            app:layout_constraintRight_toLeftOf="@id/iv_search"
+            android:paddingLeft="@dimen/default_margin"
+            android:paddingRight="@dimen/size_10dp"
+            />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_title"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/size_40dp"
+            android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/size_20dp"
             android:layout_marginStart="@dimen/size_20dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:tabGravity="center"
+            app:layout_constraintRight_toLeftOf="@id/iv_scan_code"
+            app:tabIndicatorGravity="bottom"
             app:tabIndicatorColor="@color/color_2"
             app:tabIndicatorHeight="@dimen/size_2dp"
             app:tabSelectedTextColor="@color/color_4"

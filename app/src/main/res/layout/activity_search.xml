@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorWhite">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/size_7dp"
+        android:paddingTop="@dimen/size_7dp">
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/size_30dp"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:paddingLeft="@dimen/default_margin"
+            android:paddingRight="@dimen/default_margin"
+            android:text="@string/cancel"
+            android:textColor="@color/colorFFA6A6A6" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/acet_content"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_30dp"
+            android:layout_marginLeft="@dimen/size_20dp"
+            android:layout_toLeftOf="@id/tv_cancel"
+            android:background="@drawable/shape_input_name_edit"
+            android:drawableLeft="@mipmap/icon_search_data"
+            android:drawablePadding="@dimen/size_5dp"
+            android:hint="@string/search_you_want_news"
+            android:paddingLeft="@dimen/size_15dp"
+            android:paddingRight="@dimen/size_15dp"
+            android:singleLine="true"
+            android:textColorHint="@color/colorFFA6A6A6"
+            android:textSize="@dimen/size_14sp"
+            android:imeOptions="actionSearch"/>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/line"
+        style="@style/HorizontalLine" />
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/srl_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srlEnableLoadMore="false"
+       >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+
+</LinearLayout>

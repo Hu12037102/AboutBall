@@ -49,4 +49,10 @@ public interface HomeService {
 
     @POST(IApiService.POST_SEND_NEWS_MESSAGE_CONTENT)
     Observable<BaseBean<BaseDataBean<String>>> postSendMessageContent(@Body RequestSendMessageBean bean);
+
+    @GET(IApiService.GET_SEARCH_NEWS_DATA)
+    Observable<BaseBean<List<ResultNewsBean>>> getSearchNewsData(@Query(Contast.KEYWORD) String content,
+                                                                 @Query(Contast.PAGE_NUM) int pageNum,
+                                                                 @Query(Contast.PAGE_SIZE) int pageSize);
+
 }
