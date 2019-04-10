@@ -2,10 +2,17 @@ package com.uuzuche.lib_zxing.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
+import com.example.item.util.ScreenUtils;
+import com.example.item.weight.TitleView;
 import com.uuzuche.lib_zxing.R;
 
 /**
@@ -19,6 +26,7 @@ public class CaptureActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.camera);
+        initView();
         CaptureFragment captureFragment = new CaptureFragment();
         captureFragment.setAnalyzeCallback(analyzeCallback);
         getSupportFragmentManager().beginTransaction().replace(R.id.fl_zxing_container, captureFragment).commit();
@@ -33,6 +41,20 @@ public class CaptureActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void initView() {
+        if (Build.VERSION.SDK_INT >= 21) {
+            View decorView = getWindow().getDecorView();
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            decorView.setSystemUiVisibility(option);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
+       TitleView titleView = findViewById(R.id.title_view);
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) titleView.getLayoutParams();
+        layoutParams.topMargin= ScreenUtils.getStatuWindowsHeight(this);
+        titleView.setLayoutParams(layoutParams);
     }
 
     /**

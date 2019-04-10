@@ -76,27 +76,9 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
     @Override
     protected void initData() {
         mPresenter.loadMainTab();
-
-      //  initTest();
     }
 
-    private void initTest() {
-        String data = "cdefababde";
-        String searchData = "ab";
-        String[] splits = data.split("ab");
-        SparseIntArray indexMap = new SparseIntArray();
-        StringBuffer sb = new StringBuffer();
-        LogUtils.w("initTest--",data.indexOf("ab")+"--");
-       /* for (int i = 0; i < splits.length; i++) {
-            sb = sb.append(splits[i]);
-            indexMap.put(sb.length() > 0 ? sb.length() - 1 : 0, sb.length() > 0 ? searchData.length() - 1 + sb.length() : searchData.length());
-            sb = sb.append(searchData);
-        }
-        for (int i = 0; i < indexMap.size(); i++) {
-            LogUtils.w("indexMap--", indexMap.keyAt(i) + "---" + indexMap.get(indexMap.keyAt(i)));
-        }*/
 
-    }
 
 
     @Override
@@ -167,8 +149,6 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
                 mRvMainTab.setAdapter(mTabAdapter);
                 mTabAdapter.setOnCheckTabListener((view, position) -> {
                     mBvpContent.setCurrentItem(position, true);
-                    EventBus.getDefault().post(new RecommendedFragment.MessageTabBean(position));
-                    EventBus.getDefault().post(new VideoFragment.MessageTabBean(position));
                 });
                 initFragment();
             } else {

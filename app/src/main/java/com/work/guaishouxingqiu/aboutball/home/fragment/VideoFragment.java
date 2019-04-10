@@ -65,7 +65,6 @@ public class VideoFragment extends DelayedFragment<VideoPresenter>
 
     @Override
     protected void initDelayedView() {
-        registerEventBus();
         mRvData.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
@@ -142,54 +141,6 @@ public class VideoFragment extends DelayedFragment<VideoPresenter>
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (mAdapter != null && getUserVisibleHint()) {
-            mAdapter.onResume();
-        }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (mAdapter != null) {
-            mAdapter.onPause();
-        }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (mAdapter != null) {
-            mAdapter.onDestroy();
-        }
-        unRegisterEventBus();
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (mAdapter != null) {
-            if (isVisibleToUser) {
-
-                mAdapter.onResume();
-            } else {
-                mAdapter.onPause();
-            }
-        }
-    }
-
-    @Subscribe
-    public void messageToTabVideo(VideoFragment.MessageTabBean bean) {
-        if (mAdapter != null) {
-            if (bean.selectorTab != 0) {
-                mAdapter.onPause();
-            } else {
-                mAdapter.onResume();
-            }
-        }
-    }
     /**
      * home页面选择tab消息给首页控制视频
      */

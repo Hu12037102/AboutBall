@@ -7,15 +7,20 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.aliyun.vodplayer.media.AliyunLocalSource;
+import com.aliyun.vodplayer.media.AliyunVodPlayer;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.item.util.ScreenUtils;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.tencent.rtmp.ITXVodPlayListener;
 import com.tencent.rtmp.TXVodPlayer;
 import com.tencent.rtmp.ui.TXCloudVideoView;
@@ -38,7 +43,7 @@ import uk.co.deanwild.flowtextview.FlowTextView;
  * 更新时间: 2019/3/13 14:32
  * 描述: 首页推荐数据
  */
-public  class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder, List<ResultNewsBean>> {
+public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder, List<ResultNewsBean>> {
     //纯文本内容
     public static final int TYPE_TEXT = 1000;
     //单图+文本
@@ -47,9 +52,6 @@ public  class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHo
     public static final int TYPE_THREE_IMAGE = 1003;
 
     private int mPosition;
-    private TXVodPlayer mVodPlayer;
-    private boolean isFirstPlay = true;
-    private VideoHolder mVideoHolder;
 
     public RecommendedAdapter(@NonNull List<ResultNewsBean> data) {
         super(data);
@@ -57,7 +59,6 @@ public  class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHo
     }
 
     private void init() {
-        mVodPlayer = new TXVodPlayer(UIUtils.getContext());
 
     }
 
@@ -73,14 +74,14 @@ public  class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHo
         return super.getItemViewType(position);
     }
 
-   @Override
+    @Override
     protected RecyclerView.ViewHolder onCreateDataViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         RecyclerView.ViewHolder viewHolder = null;
         if (isHaveHeadView) {
             mPosition--;
         }
-        LogUtils.w("onCreateViewHolder---",mPosition+"--"+mData.get(mPosition).coverImgType+"--"+mData.get(mPosition).typeId);
+        LogUtils.w("onCreateViewHolder---", mPosition + "--" + mData.get(mPosition).coverImgType + "--" + mData.get(mPosition).typeId);
         if (mData.get(mPosition).typeId.equals(Contast.VIDEO_RECOMMENDED_TYPE)) {
             viewHolder = new VideoHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_recommend_video_view, viewGroup, false));
 
@@ -105,11 +106,10 @@ public  class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHo
     }
 
 
-
     @Override
     protected void onBindViewDataHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         ResultNewsBean bean = mData.get(i);
-        //  viewHolder.setIsRecyclable(false);
+        viewHolder.setIsRecyclable(false);
         if (viewHolder instanceof TextViewHolder) {
             TextViewHolder textViewHolder = (TextViewHolder) viewHolder;
             textViewHolder.mTvData.setText(mData.get(i).title);
@@ -187,11 +187,10 @@ public  class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHo
 
 
         } else if (viewHolder instanceof VideoHolder) {
-            isFirstPlay = true;
-            mVideoHolder = (VideoHolder) viewHolder;
-            mVideoHolder.mTvContent.setText(mData.get(i).title);
-            mVideoHolder.mTvFrom.setText(UIUtils.getString(R.string.from_data, mData.get(i).source, mData.get(i).releaseTime));
-            GlideManger.get().loadImageDrawable(mData.get(i).coverUrl, new CustomTarget<Drawable>() {
+            VideoHolder videoHolder = (VideoHolder) viewHolder;
+            videoHolder.mTvContent.setText(mData.get(i).title);
+            videoHolder.mTvFrom.setText(UIUtils.getString(R.string.from_data, mData.get(i).source, mData.get(i).releaseTime));
+           /* GlideManger.get().loadImageDrawable(mData.get(i).coverUrl, new CustomTarget<Drawable>() {
                 @Override
                 public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
                     LogUtils.w("loadImageDrawable--", resource + "--");
@@ -202,96 +201,15 @@ public  class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHo
                 public void onLoadCleared(@Nullable Drawable placeholder) {
                     mVideoHolder.mTvVideo.setBackground(placeholder);
                 }
-            });
-            mVodPlayer.setVodListener(new ITXVodPlayListener() {
-                @Override
-                public void onPlayEvent(TXVodPlayer txVodPlayer, int i, Bundle bundle) {
+            });*/
+            GlideManger.get().loadImage(mContext, mData.get(i).coverUrl, R.mipmap.icon_default_banner,
+                    R.mipmap.icon_default_banner, videoHolder.mTvVideo);
 
 
-                }
-
-                @Override
-                public void onNetStatus(TXVodPlayer txVodPlayer, Bundle bundle) {
-
-                }
-            });
-            mVodPlayer.setPlayerView(mVideoHolder.mTvVideo);
-            mVideoHolder.mIvPlay.setOnClickListener(v -> {
-                bean.isPlayVideo = !bean.isPlayVideo;
-                mVideoHolder.mIvPlay.setAlpha(bean.isPlayVideo ? 0f : 1f);
-                if (bean.isPlayVideo) {
-                    if (isFirstPlay) {
-                        isFirstPlay = false;
-                        mVodPlayer.startPlay(mData.get(i).coverUrl);
-                    } else {
-                        mVodPlayer.resume();
-                    }
-                } else {
-                    if (mVodPlayer.isPlaying()) {
-                        mVodPlayer.pause();
-                    }
-                }
-
-            });
-
-        }
-
-        //  viewHolder.getAdapterPosition();
-    }
-
-    public void onResume() {
-        for ( int i = 0;i <mData.size();i++){
-            if (mData.get(i).isPlayVideo){
-                if (mVideoHolder != null) {
-                    mVideoHolder.mTvVideo.onResume();
-                }
-                mVodPlayer.resume();
-            }
         }
 
     }
 
-    public void onPause() {
-        for ( int i = 0;i <mData.size();i++){
-            if (mData.get(i).isPlayVideo){
-                if (mVideoHolder != null) {
-                    mVideoHolder.mTvVideo.onPause();
-                }
-                mVodPlayer.pause();
-            }
-        }
-    }
-
-    public void onDestroy() {
-        mVodPlayer.stopPlay(true); // true代表清除最后一帧画面
-        if (mVideoHolder != null) {
-            mVideoHolder.mTvVideo.onDestroy();
-        }
-    }
-
-
-    @Override
-    public void onViewAttachedToWindow(@NonNull RecyclerView.ViewHolder holder) {
-        super.onViewAttachedToWindow(holder);
-       holder.setIsRecyclable(true);
-
-    }
-
-    @Override
-    public void onViewDetachedFromWindow(@NonNull RecyclerView.ViewHolder holder) {
-        super.onViewDetachedFromWindow(holder);
-        holder.setIsRecyclable(false);
-        if (holder instanceof VideoHolder) {
-            onDestroy();
-            ((VideoHolder) holder).mTvVideo.onDestroy();
-            int position = holder.getLayoutPosition();
-            if (isHaveHeadView) {
-                position -= 1;
-            }
-            mData.get(position).isPlayVideo = false;
-        }
-
-    }
 
     static class TextViewHolder extends RecyclerView.ViewHolder {
 
@@ -359,7 +277,7 @@ public  class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHo
     static class VideoHolder extends RecyclerView.ViewHolder {
 
         private TextView mTvContent;
-        private TXCloudVideoView mTvVideo;
+        private RoundedImageView mTvVideo;
         private ImageView mIvPlay;
         private TextView mTvFrom;
 

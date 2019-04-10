@@ -113,7 +113,6 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
             mTypeId = getArguments().getInt(ARouterConfig.Key.TAB_TYPE_ID);
         }
         initHeadView();
-        registerEventBus();
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -276,7 +275,6 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
             }
         }
         mPresenter.loadData(mTypeId);
-        //  mRecommendAdapter.notifyData(NetWorkUtils.isNetCanUse());
     }
 
     @Override
@@ -288,54 +286,6 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
             mSrlRecommend.setNoMoreData(bean.result.size() < Contast.DEFAULT_PAGE_SIZE);
             mRecommendData.addAll(bean.result);
             mRecommendAdapter.notifyDataSetChanged();
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (mRecommendAdapter != null && getUserVisibleHint()) {
-            mRecommendAdapter.onResume();
-        }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        removeTimeMessage();
-        if (mRecommendAdapter != null) {
-            mRecommendAdapter.onPause();
-        }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        mRecommendAdapter.onDestroy();
-        unRegisterEventBus();
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (mRecommendAdapter != null) {
-            if (isVisibleToUser) {
-
-                mRecommendAdapter.onResume();
-            } else {
-                mRecommendAdapter.onPause();
-            }
-        }
-    }
-
-    @Subscribe
-    public void messageToTab(RecommendedFragment.MessageTabBean bean) {
-        if (mRecommendAdapter != null) {
-            if (bean.selectorTab != 0) {
-                mRecommendAdapter.onPause();
-            } else {
-                mRecommendAdapter.onResume();
-            }
         }
     }
 

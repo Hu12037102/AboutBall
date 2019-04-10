@@ -85,7 +85,7 @@ public class Toasts {
             return;
         }
 
-        initToast(text);
+       // initToast(text);
 
        /* if (mToast == null) {
             mToast = Toast.makeText(UIUtils.getContext(), text, Toast.LENGTH_SHORT);
@@ -93,11 +93,11 @@ public class Toasts {
             mToast.setText(text);
         }
         mToast.show();*/
-        //   Toast.makeText(UIUtils.getContext(), text, Toast.LENGTH_SHORT).show();
+           Toast.makeText(UIUtils.getContext(), text, Toast.LENGTH_SHORT).show();
     }
 
     public void showToast(int textRes) {
-            initToast(textRes);
+          //  initToast(textRes);
 
        /* if (mToast == null) {
             mToast = Toast.makeText(UIUtils.getContext(), textRes, Toast.LENGTH_SHORT);
@@ -105,11 +105,11 @@ public class Toasts {
             mToast.setText(textRes);
         }
         mToast.show();*/
-       // Toast.makeText(UIUtils.getContext(), textRes, Toast.LENGTH_SHORT).show();
+        Toast.makeText(UIUtils.getContext(), textRes, Toast.LENGTH_SHORT).show();
     }
 
     public void showToast(@StringRes int textRes, Object... object) {
-        initToast(textRes, object);
+       // initToast(textRes, object);
 
        /* if (mToast == null) {
             mToast = Toast.makeText(UIUtils.getContext(), UIUtils.getContext().getString(text, object), Toast.LENGTH_SHORT);
@@ -119,6 +119,6 @@ public class Toasts {
         }
         Log.w("showToast--", "showToast");
         mToast.show();*/
-        // Toast.makeText(UIUtils.getContext(), UIUtils.getContext().getString(textRes, object), Toast.LENGTH_SHORT).show();
+         Toast.makeText(UIUtils.getContext(), UIUtils.getContext().getString(textRes, object), Toast.LENGTH_SHORT).show();
     }
 }

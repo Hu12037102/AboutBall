@@ -153,12 +153,12 @@ public class NewsSearchActivity extends BaseActivity<NewsSearchPresenter> implem
         }
         mData.addAll(data);
         mSrlRefresh.setEnableLoadMore(data.size() >= mPresenter.mPageSize);
-        if (mSearchAdapter.isHaveFootView) {
+     /*   if (mSearchAdapter.isHaveFootView) {
             mSearchAdapter.removeFootView();
         }
         if (data.size() < mPresenter.mPageSize) {
-            mSearchAdapter.addFootView(LayoutInflater.from(this).inflate(R.layout.item_not_more, mRvData, false));
-        }
+            mSearchAdapter.addFootView(UIUtils.loadNotMoreView(mRvData));
+        }*/
         mSearchAdapter.notifyData(mSearchContent);
     }
 }

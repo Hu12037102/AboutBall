@@ -26,11 +26,14 @@
             android:layout_height="@dimen/size_188dp"
             android:layout_marginTop="@dimen/size_15dp">
 
-            <com.tencent.rtmp.ui.TXCloudVideoView
+            <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/tx_video"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/shape_recommend_video_view" />
+                android:background="@mipmap/icon_default_banner"
+                app:riv_corner_radius="@dimen/size_6dp"
+                app:riv_oval="false"
+                />
 
             <ImageView
                 android:id="@+id/iv_play"

@@ -1,11 +1,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false">
+
+
 
     <FrameLayout
         android:id="@+id/fl_zxing_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
+    <com.example.item.weight.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@android:color/transparent"
+        app:back_left_drawable="@mipmap/icon_back_white"
+        app:back_text_padding_left="20dp"
+        app:back_text_padding_right="20dp"
+        app:center_text_color="@android:color/white"
+        app:center_text_size="19sp"
+        app:group_color="@android:color/transparent"
+        app:center_data="@string/scan_one_scan"/>
 
 </RelativeLayout>

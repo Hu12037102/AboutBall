@@ -26,9 +26,11 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.example.item.util.ScreenUtils;
 import com.google.zxing.ResultPoint;
 import com.uuzuche.lib_zxing.DisplayUtil;
 import com.uuzuche.lib_zxing.R;
@@ -52,6 +54,7 @@ public final class ViewfinderView extends View {
     private final int resultPointColor;
     private Collection<ResultPoint> possibleResultPoints;
     private Collection<ResultPoint> lastPossibleResultPoints;
+    private Paint mTextPaint;
 
     public ViewfinderView(Context context) {
         this(context, null);
@@ -75,6 +78,16 @@ public final class ViewfinderView extends View {
                 R.drawable.scan_light);
 
         initInnerRect(context, attrs);
+        initTextPaint();
+    }
+
+    private void initTextPaint() {
+        mTextPaint = new Paint();
+        mTextPaint.setTextSize(ScreenUtils.dp2px(getContext(), 19));
+        mTextPaint.setColor(ContextCompat.getColor(getContext(), R.color.colorFFFFFFFF));
+        mTextPaint.setAntiAlias(true);
+        mTextPaint.setDither(true);
+        mTextPaint.setStyle(Paint.Style.FILL_AND_STROKE);
     }
 
     /**
@@ -99,7 +112,7 @@ public final class ViewfinderView extends View {
         CameraManager.FRAME_HEIGHT = (int) ta.getDimension(R.styleable.ViewfinderView_inner_height, DisplayUtil.screenWidthPx / 2);
 
         // 扫描框边角颜色
-        innercornercolor = ta.getColor(R.styleable.ViewfinderView_inner_corner_color, Color.parseColor("#45DDDD"));
+        innercornercolor = ta.getColor(R.styleable.ViewfinderView_inner_corner_color, Color.parseColor("#FF3586FF"));
         // 扫描框边角长度
         innercornerlength = (int) ta.getDimension(R.styleable.ViewfinderView_inner_corner_length, 65);
         // 扫描框边角宽度
@@ -111,7 +124,7 @@ public final class ViewfinderView extends View {
         }
 
         // 扫描控件
-        scanLight = BitmapFactory.decodeResource(getResources(), ta.getResourceId(R.styleable.ViewfinderView_inner_scan_bitmap, R.drawable.scan_light));
+        scanLight = BitmapFactory.decodeResource(getResources(), ta.getResourceId(R.styleable.ViewfinderView_inner_scan_bitmap, R.mipmap.icon_scan_line));
         // 扫描速度
         SCAN_VELOCITY = ta.getInt(R.styleable.ViewfinderView_inner_scan_speed, 5);
 
@@ -141,7 +154,7 @@ public final class ViewfinderView extends View {
             paint.setAlpha(OPAQUE);
             canvas.drawBitmap(resultBitmap, frame.left, frame.top, paint);
         } else {
-
+            canvas.drawText("将二维码放到框内即可自动扫描", frame.left, frame.top - dip2px(getContext(), 20), mTextPaint);
             drawFrameBounds(canvas, frame);
 
             drawScanLight(canvas, frame);
@@ -204,7 +217,7 @@ public final class ViewfinderView extends View {
             scanLineTop += SCAN_VELOCITY;
         }
         Rect scanRect = new Rect(frame.left, scanLineTop, frame.right,
-                scanLineTop + 30);
+                scanLineTop + ScreenUtils.dp2px(getContext(), 1));
         canvas.drawBitmap(scanLight, null, scanRect, paint);
     }
 

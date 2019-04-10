@@ -36,6 +36,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     def dependencies = rootProject.ext.dependencies
     implementation dependencies.multidex
+    implementation project(':view')
 }
 
 ext {
