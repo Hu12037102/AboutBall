@@ -17,7 +17,7 @@ import io.reactivex.disposables.CompositeDisposable;
  * 描述:
  */
 public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> implements IBasePresenter, IBaseModelCallback {
-    protected int mPageNum = Contast.DEFAULT_PAGE_NUM;
+    public int mPageNum = Contast.DEFAULT_PAGE_NUM;
     public int mPageSize = Contast.DEFAULT_PAGE_SIZE;
     public  boolean isRefresh = true;
     protected CompositeDisposable mCompositeDisposable;

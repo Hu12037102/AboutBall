@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
@@ -12,6 +13,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aliyun.vodplayer.media.AliyunLocalSource;
@@ -32,16 +34,18 @@ import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.internal.operators.flowable.FlowableOnErrorReturn;
+import retrofit2.http.PUT;
 import uk.co.deanwild.flowtextview.FlowTextView;
 
 /**
  * 作者: 胡庆岭
  * 创建时间: 2019/3/13 14:32
  * 更新时间: 2019/3/13 14:32
- * 描述: 首页推荐数据
+ * 描述: 首页推荐数据,当集合下标为4和9的时候，分别添加场馆和约球item
  */
 public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder, List<ResultNewsBean>> {
     //纯文本内容
@@ -50,7 +54,8 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
     public static final int TYPE_SING_IMAGE = 1001;
     //三图
     public static final int TYPE_THREE_IMAGE = 1003;
-
+    public static final int POSITION_VENUE_ITEM = 4;
+    public static final int POSITION_BALL_ITEM = 9;
     private int mPosition;
 
     public RecommendedAdapter(@NonNull List<ResultNewsBean> data) {
@@ -62,9 +67,10 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
 
     }
 
+
     @Override
     public long getItemId(int position) {
-        LogUtils.w("getItemId--", position + "'--");
+
         return position;
     }
 
@@ -74,6 +80,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
         return super.getItemViewType(position);
     }
 
+
     @Override
     protected RecyclerView.ViewHolder onCreateDataViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
@@ -81,24 +88,33 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
         if (isHaveHeadView) {
             mPosition--;
         }
-        LogUtils.w("onCreateViewHolder---", mPosition + "--" + mData.get(mPosition).coverImgType + "--" + mData.get(mPosition).typeId);
-        if (mData.get(mPosition).typeId.equals(Contast.VIDEO_RECOMMENDED_TYPE)) {
-            viewHolder = new VideoHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_recommend_video_view, viewGroup, false));
-
+        LogUtils.w("onCreateDataViewHolder--", mPosition + "--");
+        // LogUtils.w("onCreateViewHolder---", mPosition + "--" + mData.get(mPosition).coverImgType + "--" + mData.get(mPosition).typeId);
+        if (mPosition == RecommendedAdapter.POSITION_VENUE_ITEM) {
+            //场馆ViewHolder
+            viewHolder = new OtherHolder(LayoutInflater.from(mContext).inflate(R.layout.item_test_view, viewGroup, false));
+        } else if (mPosition == RecommendedAdapter.POSITION_BALL_ITEM) {
+            //约球ViewHolder 记得删除item_test_view
+            viewHolder = new OtherHolder(LayoutInflater.from(mContext).inflate(R.layout.item_test_view, viewGroup, false));
         } else {
-            String imageType = mData.get(mPosition).coverImgType;
-            switch (imageType) {
-                case "0":
-                    viewHolder = new TextViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_recommend_text_view, viewGroup, false));
-                    break;
-                case "1":
-                    viewHolder = new SingViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_recommend_sing_image, viewGroup, false));
-                    break;
-                case "3":
-                    viewHolder = new ThreeViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_recommend_three_image, viewGroup, false));
-                    break;
-                default:
-                    break;
+            if (mData.get(mPosition).typeId.equals(Contast.VIDEO_RECOMMENDED_TYPE)) {
+                viewHolder = new VideoHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_recommend_video_view, viewGroup, false));
+
+            } else {
+                String imageType = mData.get(mPosition).coverImgType;
+                switch (imageType) {
+                    case "0":
+                        viewHolder = new TextViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_recommend_text_view, viewGroup, false));
+                        break;
+                    case "1":
+                        viewHolder = new SingViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_recommend_sing_image, viewGroup, false));
+                        break;
+                    case "3":
+                        viewHolder = new ThreeViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_recommend_three_image, viewGroup, false));
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 
@@ -291,6 +307,49 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             mTvVideo = itemView.findViewById(R.id.tx_video);
             mIvPlay = itemView.findViewById(R.id.iv_play);
             mTvFrom = itemView.findViewById(R.id.tv_from);
+        }
+    }
+
+    static class OtherHolder extends RecyclerView.ViewHolder {
+
+        public OtherHolder(@NonNull View itemView) {
+            super(itemView);
+            RecyclerView recyclerView = itemView.findViewById(R.id.rv_data);
+            recyclerView.setLayoutManager(new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.HORIZONTAL,false));
+            recyclerView.setAdapter(new TestAdapter());
+        }
+    }
+
+    static class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
+        private List<String> mData;
+
+        public TestAdapter() {
+            mData = new ArrayList<>();
+            for (int i = 0; i < 20; i++) {
+                mData.add(i + "");
+            }
+        }
+
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_not_more, viewGroup, false));
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return mData.size();
+        }
+
+        static class ViewHolder extends RecyclerView.ViewHolder {
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
+            }
         }
     }
 }

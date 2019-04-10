@@ -207,8 +207,11 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
 
             @Override
             public void onItemClick(View view, int position) {
-                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_NEW_DETAILS,
-                        ARouterConfig.Key.NEW_DETAILS_ID, mRecommendData.get(position).newsId);
+                if (position != RecommendedAdapter.POSITION_VENUE_ITEM
+                        && position != RecommendedAdapter.POSITION_BALL_ITEM) {
+                    ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_NEW_DETAILS,
+                            ARouterConfig.Key.NEW_DETAILS_ID, mRecommendData.get(position).newsId);
+                }
             }
         });
 
@@ -285,6 +288,11 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
             }
             mSrlRecommend.setNoMoreData(bean.result.size() < Contast.DEFAULT_PAGE_SIZE);
             mRecommendData.addAll(bean.result);
+            if (mRecommendData.size() >= RecommendedAdapter.POSITION_VENUE_ITEM && mPresenter.mPageNum == 2) {
+                mRecommendData.add(RecommendedAdapter.POSITION_VENUE_ITEM, null);
+            } else if (mRecommendData.size() >= RecommendedAdapter.POSITION_BALL_ITEM && mPresenter.mPageNum == 3) {
+                mRecommendData.add(RecommendedAdapter.POSITION_BALL_ITEM, null);
+            }
             mRecommendAdapter.notifyDataSetChanged();
         }
     }
