@@ -37,13 +37,13 @@ public class WebHelp {
         webSettings.setAllowFileAccess(true);
         webSettings.setLoadsImagesAutomatically(true);
         webSettings.setDefaultTextEncodingName("utf-8");
-       // webSettings.setDomStorageEnabled(true); // 开启 DOM storage API 功能
+        webSettings.setDomStorageEnabled(true); // 开启 DOM storage API 功能
         webSettings.setDatabaseEnabled(true);   //开启 database storage API 功能
 
         //硬件加速
-        webSettings.setPluginState(WebSettings.PluginState.ON);
+        webSettings.setPluginState(WebSettings.PluginState.OFF);
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-       // webSettings.setUseWideViewPort(true); // 关键点
+        webSettings.setUseWideViewPort(false); // 关键点
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             webSettings.setMediaPlaybackRequiresUserGesture(false);
         }

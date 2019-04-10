@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -38,11 +39,13 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
     private int mNotDataViewRes = R.mipmap.ic_not_data;
     private int mNotNetContentRes = R.string.not_net_error;
     private int mNotDataContentRes = R.string.not_data;
-    private View mHeadView;
-    private View mFootView;
+    // private View mHeadView;
+    //  private View mFootView;
     public boolean isHaveHeadView;
     public boolean isHaveFootView;
     protected Context mContext;
+    private LinearLayout mHeadLinearLayout;
+    private LinearLayout mFootLinearLayout;
 
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -68,26 +71,46 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
     }
 
     public void addHeadView(@NonNull View headView) {
-        this.mHeadView = headView;
+        // this.mHeadView = headView;
+        if (mHeadLinearLayout == null) {
+            mHeadLinearLayout = new LinearLayout(headView.getContext());
+            mHeadLinearLayout.setOrientation(LinearLayout.VERTICAL);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+            mHeadLinearLayout.setLayoutParams(layoutParams);
+        }
+        mHeadLinearLayout.addView(headView);
         isHaveHeadView = true;
     }
 
     public void addFootView(@NonNull View footView) {
-        this.mFootView = footView;
+        if (mFootLinearLayout == null) {
+            mFootLinearLayout = new LinearLayout(footView.getContext());
+            mFootLinearLayout.setOrientation(LinearLayout.VERTICAL);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+            mFootLinearLayout.setLayoutParams(layoutParams);
+        }
+        mFootLinearLayout.addView(footView);
+        //  this.mFootView = footView;
         isHaveFootView = true;
     }
 
     public void removeHeadView() {
         if (isHaveHeadView) {
-
-            mHeadView = null;
+            if (mHeadLinearLayout != null) {
+                mHeadLinearLayout.removeAllViews();
+            }
+            // mHeadView = null;
             isHaveHeadView = false;
         }
     }
 
     public void removeFootView() {
         if (isHaveFootView) {
-            mFootView = null;
+            if (mFootLinearLayout != null) {
+                mFootLinearLayout.removeAllViews();
+            }
+           /* mFootView = null;
+            viewGroup = null;*/
             isHaveFootView = false;
         }
     }
@@ -148,11 +171,11 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
                 viewHolder = new NotDataViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_not_data_view, viewGroup, false));
                 break;
             case TYPE_HEAD_VIEW:
-                viewHolder = new RecyclerView.ViewHolder(mHeadView) {
+                viewHolder = new RecyclerView.ViewHolder(mHeadLinearLayout) {
                 };
                 break;
             case TYPE_FOOT_VIEW:
-                viewHolder = new RecyclerView.ViewHolder(mFootView) {
+                viewHolder = new RecyclerView.ViewHolder(mFootLinearLayout) {
                 };
                 break;
             case 0:
@@ -203,7 +226,7 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (onItemClickListener != null){
+                    if (onItemClickListener != null) {
                         onItemClickListener.onItemClick(viewHolder.itemView, finalI);
                     }
                 }
@@ -240,7 +263,7 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
         private void initView(View itemView) {
             mIvNotData = itemView.findViewById(R.id.iv_not_data);
             mTvNotData = itemView.findViewById(R.id.tv_not_data);
-            DisplayMetrics displayMetrics =itemView.getContext().getResources().getDisplayMetrics();
+            DisplayMetrics displayMetrics = itemView.getContext().getResources().getDisplayMetrics();
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(displayMetrics.widthPixels, LinearLayout.LayoutParams.MATCH_PARENT);
             itemView.setLayoutParams(layoutParams);
 
@@ -260,7 +283,7 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
         private void initView(View itemView) {
             mIvNotNet = itemView.findViewById(R.id.iv_not_net);
             mTvNotNet = itemView.findViewById(R.id.tv_not_net);
-            DisplayMetrics displayMetrics =itemView.getContext().getResources().getDisplayMetrics();
+            DisplayMetrics displayMetrics = itemView.getContext().getResources().getDisplayMetrics();
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(displayMetrics.widthPixels, LinearLayout.LayoutParams.MATCH_PARENT);
             itemView.setLayoutParams(layoutParams);
         }

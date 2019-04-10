@@ -67,7 +67,11 @@ public class NewsSearchActivity extends BaseActivity<NewsSearchPresenter> implem
     @Override
     protected void initData() {
         mData = new ArrayList<>();
-       // mInflateView = LayoutInflater.from(this).inflate(R.layout.item_not_more, mRvData, false);
+        mSearchAdapter = new NewsSearchAdapter(mData, mSearchContent);
+        mSearchAdapter.setHasStableIds(true);
+        mRvData.setAdapter(mSearchAdapter);
+
+        // mInflateView = LayoutInflater.from(this).inflate(R.layout.item_not_more, mRvData, false);
     }
 
     @Override
@@ -95,6 +99,23 @@ public class NewsSearchActivity extends BaseActivity<NewsSearchPresenter> implem
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
                 loadData(refreshLayout, true);
+            }
+        });
+        mSearchAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onNotNetClick(View view) {
+
+            }
+
+            @Override
+            public void onNotDataClick(View view) {
+
+            }
+
+            @Override
+            public void onItemClick(View view, int position) {
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_NEW_DETAILS,
+                        ARouterConfig.Key.NEW_DETAILS_ID, mData.get(position).newsId);
             }
         });
     }
@@ -132,36 +153,12 @@ public class NewsSearchActivity extends BaseActivity<NewsSearchPresenter> implem
         }
         mData.addAll(data);
         mSrlRefresh.setEnableLoadMore(data.size() >= mPresenter.mPageSize);
-        /*if (mSearchAdapter != null) {
-            if (data.size() >= mPresenter.mPageSize) {
-                mSearchAdapter.removeFootView();
-            } else {
-                mSearchAdapter.addFootView(LayoutInflater.from(this).inflate(R.layout.item_not_more, mRvData, false));
-            }
-        }*/
-        if (mSearchAdapter == null) {
-            mSearchAdapter = new NewsSearchAdapter(mData, mSearchContent);
-            mSearchAdapter.setHasStableIds(true);
-            mRvData.setAdapter(mSearchAdapter);
-            mSearchAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
-                @Override
-                public void onNotNetClick(View view) {
-
-                }
-
-                @Override
-                public void onNotDataClick(View view) {
-
-                }
-
-                @Override
-                public void onItemClick(View view, int position) {
-                    ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_NEW_DETAILS,
-                            ARouterConfig.Key.NEW_DETAILS_ID, mData.get(position).newsId);
-                }
-            });
-        } else {
-            mSearchAdapter.notifyData(mSearchContent);
+        if (mSearchAdapter.isHaveFootView) {
+            mSearchAdapter.removeFootView();
         }
+        if (data.size() < mPresenter.mPageSize) {
+            mSearchAdapter.addFootView(LayoutInflater.from(this).inflate(R.layout.item_not_more, mRvData, false));
+        }
+        mSearchAdapter.notifyData(mSearchContent);
     }
 }

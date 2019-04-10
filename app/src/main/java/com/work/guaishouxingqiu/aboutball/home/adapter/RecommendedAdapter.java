@@ -200,7 +200,7 @@ public  class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHo
 
                 @Override
                 public void onLoadCleared(@Nullable Drawable placeholder) {
-
+                    mVideoHolder.mTvVideo.setBackground(placeholder);
                 }
             });
             mVodPlayer.setVodListener(new ITXVodPlayListener() {

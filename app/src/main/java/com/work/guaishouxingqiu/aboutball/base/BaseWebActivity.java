@@ -35,7 +35,6 @@ public abstract class BaseWebActivity<P extends BasePresenter> extends Permissio
     private ProgressBar mPbLoading;
 
 
-
     @Override
     protected void initView() {
         initWebView();
@@ -45,7 +44,7 @@ public abstract class BaseWebActivity<P extends BasePresenter> extends Permissio
     protected void initWebView() {
         mWebView = DataUtils.checkData(getWebView());
 
-        WebHelp.initSetting(mWebView);
+         WebHelp.initSetting(mWebView);
     }
 
     @Override
@@ -62,7 +61,7 @@ public abstract class BaseWebActivity<P extends BasePresenter> extends Permissio
                 }
             }
         });
-        mWebView.setWebViewClient(new WebViewClient(){
+        mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
@@ -77,7 +76,7 @@ public abstract class BaseWebActivity<P extends BasePresenter> extends Permissio
      * @param content
      */
     protected void loadEditData(String content) {
-     //   content = content.replace("<img", "<img style=max-width:100%;height:auto");
+        //   content = content.replace("<img", "<img style=max-width:100%;height:auto");
         //视频宽度自适应
         content = content.replace("<video", "<video style=max-width:100%;height:auto");
         mWebView.loadDataWithBaseURL(null, getNewData(content), "text/html", "utf-8", null);

@@ -34,7 +34,9 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/default_margin"
                 android:layout_marginStart="@dimen/default_margin"
-                android:src="@mipmap/icon_my_default_head" />
+                android:src="@mipmap/icon_my_default_head"
+                app:civ_circle_background_color="@color/colorWhite"
+                />
 
             <TextView
                 android:id="@+id/tv_my_head_right"

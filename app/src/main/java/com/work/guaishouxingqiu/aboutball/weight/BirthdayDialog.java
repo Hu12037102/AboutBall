@@ -43,6 +43,7 @@ public class BirthdayDialog extends BaseDialog {
     private ArrayWheelAdapter<String> mCenterAdapter;
     private int mNesYear;
     private int mNesMonth;
+    private int mNewDay;
 
     public void setOnBirthdayResultListener(OnBirthdayResultListener onBirthdayResultListener) {
         this.onBirthdayResultListener = onBirthdayResultListener;
@@ -61,11 +62,40 @@ public class BirthdayDialog extends BaseDialog {
             mCalendar.clear();
             mCalendar.setTime(time);
             int year = mCalendar.get(Calendar.YEAR);
-            int month = mCalendar.get(Calendar.MONTH) + 1;
+            int month = mCalendar.get(Calendar.MONTH);
             int day = mCalendar.get(Calendar.DAY_OF_MONTH);
+            LogUtils.w("setBirthdayDate--", year + "--" + month + "--" + day);
             mLeftWheelView.setCurrentItem(mYearData.indexOf(String.valueOf(year)));
-            mCenterWheelView.setCurrentItem(mMonthData.indexOf(String.valueOf(month)));
+            mMonthData.clear();
+            int monthLength;
+            if (year == mNesYear) {
+                monthLength = mNesMonth + 1;
+            } else {
+                monthLength = 12;
+            }
+            for (int i = 0; i < monthLength; i++) {
+                mMonthData.add(String.valueOf(i + 1));
+            }
+
+            mCenterWheelView.setCurrentItem(mMonthData.indexOf(String.valueOf(month + 1)));
+            mCenterWheelView.setAdapter(mCenterAdapter);
+
+            mDayData.clear();
+            int dayLength;
+            if (mNesYear == mCalendar.get(Calendar.YEAR) && mNesMonth == mCalendar.get(Calendar.MONTH)) {
+                dayLength = mNewDay;
+            } else {
+                //获取月份的日期长度，月份要+1
+                mCalendar.set(year, month+1, 0);
+                dayLength = mCalendar.get(Calendar.DAY_OF_MONTH);
+            }
+            // dayLength = mCalendar.get(Calendar.DAY_OF_MONTH);
+            LogUtils.w("notifyRightData--", dayLength + "--" + year + "--" + month);
+            for (int i = 1; i <= dayLength; i++) {
+                mDayData.add(String.valueOf(i));
+            }
             mRightWheelView.setCurrentItem(mDayData.indexOf(String.valueOf(day)));
+            mRightWheelView.setAdapter(mRightAdapter);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -109,13 +139,14 @@ public class BirthdayDialog extends BaseDialog {
 
     private void initRightData() {
         mDayData = new ArrayList<>();
-        int year = mCalendar.get(Calendar.YEAR);
-        int month = mCalendar.get(Calendar.MONTH) + 1;
-        mCalendar.set(year, month, 0);
-        for (int i = 1; i <= mCalendar.get(Calendar.DAY_OF_MONTH); i++) {
+        int day = mCalendar.get(Calendar.DAY_OF_MONTH);
+        mNewDay = day;
+        //   mCalendar.set(year, month, 0);
+        for (int i = 1; i <= day; i++) {
             mDayData.add(String.valueOf(i));
         }
         mRightAdapter = new ArrayWheelAdapter<>(mDayData);
+        mRightWheelView.setCurrentItem(day - 1);
         mRightWheelView.setAdapter(mRightAdapter);
 
     }
@@ -124,7 +155,7 @@ public class BirthdayDialog extends BaseDialog {
         mMonthData = new ArrayList<>();
         int month = mCalendar.get(Calendar.MONTH);
         mNesMonth = month;
-        for (int i = 0; i < month; i++) {
+        for (int i = 0; i <= month; i++) {
             mMonthData.add(String.valueOf(i + 1));
         }
         mCenterAdapter = new ArrayWheelAdapter<>(mMonthData);
@@ -166,7 +197,7 @@ public class BirthdayDialog extends BaseDialog {
             int year = mCalendar.get(Calendar.YEAR);
             int monthLength;
             if (year == mNesYear) {
-                monthLength = mNesMonth;
+                monthLength = mNesMonth + 1;
             } else {
                 monthLength = 12;
             }
@@ -183,8 +214,15 @@ public class BirthdayDialog extends BaseDialog {
             mDayData.clear();
             int year = mCalendar.get(Calendar.YEAR);
             int month = mCalendar.get(Calendar.MONTH) + 1;
-            mCalendar.set(year, month, 0);
-            int dayLength = mCalendar.get(Calendar.DAY_OF_MONTH);
+
+            int dayLength;
+            if (mNesYear == mCalendar.get(Calendar.YEAR) && mNesMonth == mCalendar.get(Calendar.MONTH)) {
+                dayLength = mNewDay;
+            } else {
+                mCalendar.set(year, month, 0);
+                dayLength = mCalendar.get(Calendar.DAY_OF_MONTH);
+            }
+            // dayLength = mCalendar.get(Calendar.DAY_OF_MONTH);
             LogUtils.w("notifyRightData--", dayLength + "--" + year + "--" + month);
             for (int i = 1; i <= dayLength; i++) {
                 mDayData.add(String.valueOf(i));
