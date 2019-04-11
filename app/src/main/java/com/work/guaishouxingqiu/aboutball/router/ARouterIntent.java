@@ -25,13 +25,21 @@ public class ARouterIntent {
     public static void startActivity(@NonNull String path) {
         ARouter.getInstance().build(path).navigation();
     }
-    public static void startActivity(@NonNull String path,@NonNull String key,int values){
-        ARouter.getInstance().build(path).withInt(key,values).navigation();
-    }   public static void startActivity(@NonNull String path,@NonNull String key,long values){
-        ARouter.getInstance().build(path).withLong(key,values).navigation();
+
+    public static void startActivity(@NonNull String path, @NonNull String key, int values) {
+        ARouter.getInstance().build(path).withInt(key, values).navigation();
     }
-    public static void startActivity(@NonNull String path,@NonNull String key,@NonNull Object obj){
-        ARouter.getInstance().build(path).withObject(key,obj).navigation();
+
+    public static void startActivity(@NonNull String path, @NonNull String key, long values) {
+        ARouter.getInstance().build(path).withLong(key, values).navigation();
+    }
+
+    public static void startActivity(@NonNull String path, @NonNull String key, @NonNull Object obj) {
+        ARouter.getInstance().build(path).withObject(key, obj).navigation();
+    }
+
+    public static void startActivity(@NonNull String path, @NonNull Bundle bundle) {
+        ARouter.getInstance().build(path).with(bundle).navigation();
     }
 
     public static <T extends Fragment> T getFragment(@NonNull String path) {
@@ -41,8 +49,9 @@ public class ARouterIntent {
     public static <T extends Fragment> T getFragment(@NonNull String path, @NonNull String key, int values) {
         return (T) ARouter.getInstance().build(path).withInt(key, values).navigation();
     }
-    public static <T extends Fragment> T getFragment(@NonNull String path, @NonNull String key,@NonNull Parcelable parcelable) {
-        return (T) ARouter.getInstance().build(path).withParcelable(key,parcelable).navigation();
+
+    public static <T extends Fragment> T getFragment(@NonNull String path, @NonNull String key, @NonNull Parcelable parcelable) {
+        return (T) ARouter.getInstance().build(path).withParcelable(key, parcelable).navigation();
     }
 
     public static void startActivityForResult(@NonNull String path, @NonNull Activity activity, int requestCode) {

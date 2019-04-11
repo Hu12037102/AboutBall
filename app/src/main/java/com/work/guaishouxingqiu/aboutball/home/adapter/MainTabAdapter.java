@@ -29,6 +29,15 @@ public class MainTabAdapter extends RecyclerView.Adapter<MainTabAdapter.ViewHold
         this.onCheckTabListener = onCheckTabListener;
     }
 
+    public void setSelectorTab(int position) {
+        if (mData != null && mData.size() > position) {
+            for (int i = 0; i < mData.size(); i++) {
+                mData.get(i).isChecked = i == position;
+            }
+        }
+        notifyDataSetChanged();
+    }
+
     private OnCheckTabListener onCheckTabListener;
 
 

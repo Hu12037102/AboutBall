@@ -12,11 +12,14 @@ import android.view.ViewGroup;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
+import com.work.guaishouxingqiu.aboutball.home.adapter.RecommendedAdapter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.venue.contract.VenueContract;
 import com.work.guaishouxingqiu.aboutball.venue.presenter.VenuePresenter;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,7 +50,25 @@ public class VenueFragment extends BaseFragment<VenuePresenter> implements Venue
 
     @Override
     protected void initView() {
+        registerEventBus();
+    }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unRegisterEventBus();
+    }
+
+    @Subscribe
+    public void selectorVenuePager(RecommendedAdapter.VenueMessage message){
+        if (mBvpContent == null){
+            return;
+        }
+        if (message.mType == RecommendedAdapter.TYPE_VENUE){
+            mBvpContent.setCurrentItem(RecommendedAdapter.TYPE_VENUE);
+        }else if (message.mType == RecommendedAdapter.TYPE_BALL){
+            mBvpContent.setCurrentItem(RecommendedAdapter.TYPE_BALL);
+        }
     }
 
     @Override

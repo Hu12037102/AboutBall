@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
@@ -165,7 +166,20 @@ public class UIUtils {
     public static String getString(@StringRes int res, Object... obj) {
         return UIUtils.getContext().getString(res, obj);
     }
-    public static View loadNotMoreView( ViewGroup viewGroup){
-       return LayoutInflater.from(UIUtils.getContext()).inflate(R.layout.item_not_more,viewGroup,false);
+
+    public static View loadNotMoreView(ViewGroup viewGroup) {
+        return LayoutInflater.from(UIUtils.getContext()).inflate(R.layout.item_not_more, viewGroup, false);
+    }
+
+    public static void parseScanCode(String result) {
+        if (result.contains("https://") || result.contains("http://")) {
+            String[] splits = result.split(",");
+            if (splits.length >= 2) {
+                Bundle bundle = new Bundle();
+                bundle.putString(ARouterConfig.Key.ACTION_ID, splits[0]);
+                bundle.putString(ARouterConfig.Key.URL, splits[1]);
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_WEB_DATA, bundle);
+            }
+        }
     }
 }

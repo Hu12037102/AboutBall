@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/item_ball_root">
+
+    <RelativeLayout
+        android:id="@+id/rl_ball_more"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        android:paddingLeft="@dimen/default_margin"
+        android:paddingRight="@dimen/default_margin"
+        android:background="@color/colorWhite">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@mipmap/icon_home_ball"
+            android:drawablePadding="@dimen/size_10dp"
+            android:text="@string/friend_ball"
+            android:textColor="@color/colorFF1D1D1D"
+            android:textSize="@dimen/size_17sp"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:drawablePadding="@dimen/size_10dp"
+            android:drawableRight="@mipmap/icon_item_right"
+            android:text="@string/read_more" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_ball_data"
+        android:layout_width="match_parent"
+        android:layout_height="165dp" />
+</LinearLayout>

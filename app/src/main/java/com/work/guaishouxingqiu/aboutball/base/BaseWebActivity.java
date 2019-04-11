@@ -14,10 +14,12 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.example.item.util.ScreenUtils;
+import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.other.WebHelp;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -33,18 +35,24 @@ import org.jsoup.select.Elements;
 public abstract class BaseWebActivity<P extends BasePresenter> extends PermissionActivity<P> {
     private WebView mWebView;
     private ProgressBar mPbLoading;
+    private TitleView mTitleView;
+    private boolean mLoadJs;
+
+    public void setSetLoadJs(boolean loadJs) {
+        this.mLoadJs = loadJs;
+    }
 
 
     @Override
     protected void initView() {
         initWebView();
         mPbLoading = getProgressBar();
+        mTitleView = getTitleView();
     }
 
     protected void initWebView() {
         mWebView = DataUtils.checkData(getWebView());
-
-         WebHelp.initSetting(mWebView);
+        WebHelp.initSetting(mWebView, mLoadJs);
     }
 
     @Override
@@ -60,6 +68,15 @@ public abstract class BaseWebActivity<P extends BasePresenter> extends Permissio
                     }
                 }
             }
+
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+                super.onReceivedTitle(view, title);
+                if (mTitleView != null) {
+                    mTitleView.mTvCenter.setText(title);
+                }
+                LogUtils.w("onReceivedTitle--", title);
+            }
         });
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
@@ -69,6 +86,7 @@ public abstract class BaseWebActivity<P extends BasePresenter> extends Permissio
             }
         });
     }
+
 
     /**
      * 加载富文本
@@ -81,6 +99,7 @@ public abstract class BaseWebActivity<P extends BasePresenter> extends Permissio
         content = content.replace("<video", "<video style=max-width:100%;height:auto");
         mWebView.loadDataWithBaseURL(null, getNewData(content), "text/html", "utf-8", null);
     }
+
 
     private String getNewData(String data) {
         //图片高度自适应
@@ -147,4 +166,9 @@ public abstract class BaseWebActivity<P extends BasePresenter> extends Permissio
     protected abstract WebView getWebView();
 
     protected abstract ProgressBar getProgressBar();
+
+    protected TitleView getTitleView() {
+        return mTitleView;
+    }
+
 }

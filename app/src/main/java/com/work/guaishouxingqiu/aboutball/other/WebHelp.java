@@ -20,8 +20,12 @@ import java.io.File;
 public class WebHelp {
     @SuppressLint("SetJavaScriptEnabled")
     public static void initSetting(@NonNull WebView webView) {
+        initSetting(webView, false);
+    }
+
+    public static void initSetting(@NonNull WebView webView, boolean javaScriptEnabled) {
         WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(false);
+        webSettings.setJavaScriptEnabled(javaScriptEnabled);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setSupportZoom(true);
@@ -50,7 +54,5 @@ public class WebHelp {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         }
-
-
     }
 }

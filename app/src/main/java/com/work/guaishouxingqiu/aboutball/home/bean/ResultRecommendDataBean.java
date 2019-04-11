@@ -45,11 +45,15 @@ public class ResultRecommendDataBean {
         public long stadiumId;
         public String stadiumName;
         public String distance;
+        public String photoUrl;
     }
     public static class AgreeBallMatch{
         public String offerId;
         public String stadiumName;
         public String startTime;
         public String endTime;
+        public String areaName;
+        public String teamLogo;
+        public String teamName;
     }
 }

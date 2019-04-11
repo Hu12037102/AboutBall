@@ -19,8 +19,9 @@ public interface ARouterConfig {
         String ACTIVITY_GAME_VIDEO = "/activity/game/video";
         String ACTIVITY_SETTING = "/activity/setting";
         String ACTIVITY_EDIT_MY_ADDRESS = "/activity/edit/my/address";
-        String ACTIVITY_MY_PRIZE="/activity/my/prize";
-        String ACTIVITY_NEWS_SEARCH="/activity/news/search";
+        String ACTIVITY_MY_PRIZE = "/activity/my/prize";
+        String ACTIVITY_NEWS_SEARCH = "/activity/news/search";
+        String ACTIVITY_WEB_DATA = "/activity/web/data";
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";
@@ -55,6 +56,10 @@ public interface ARouterConfig {
         String NEW_DETAILS_ID = "newDetailsId";
         String GAME_ID = "gameId";
         String GAME_DETAILS_BEAN = "gameDetailsBean";
+        String ACTION_ID = "actionId";
+        String URL = "url";
+        //场馆Id
+        String STADIUM_ID = "stadiumId";
     }
 
 }

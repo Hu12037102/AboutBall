@@ -96,6 +96,7 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
     private CarousePagerAdapter mCarouseAdapter;
     private int mTypeId;
     private RequestRecommendDataBean mHeadBean;
+    private ResultRecommendDataBean mResultHeadBean;
 
     public static RecommendedFragment newInstance() {
         return new RecommendedFragment();
@@ -251,7 +252,9 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
 
     @Override
     public void resultBannerData(BaseBean<ResultRecommendDataBean> bean) {
+
         if (bean.code == Contast.REQUEST_CODE && bean.result != null) {
+            this.mResultHeadBean = bean.result;
             if (bean.result.banner != null) {
                 if (mCarouseAdapter == null) {
                     mCarouseAdapter = new CarousePagerAdapter(bean.result.banner);
@@ -273,6 +276,7 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
                         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_GAME_DETAILS, ARouterConfig.Key.GAME_ID, (int) bean.result.match.get(position).matchId);
                     });
                 } else {
+
                     mHeadGameAdapter.notifyDataSetChanged();
                 }
             }
@@ -288,12 +292,20 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
             }
             mSrlRecommend.setNoMoreData(bean.result.size() < Contast.DEFAULT_PAGE_SIZE);
             mRecommendData.addAll(bean.result);
-            if (mRecommendData.size() >= RecommendedAdapter.POSITION_VENUE_ITEM && mPresenter.mPageNum == 2) {
-                mRecommendData.add(RecommendedAdapter.POSITION_VENUE_ITEM, null);
-            } else if (mRecommendData.size() >= RecommendedAdapter.POSITION_BALL_ITEM && mPresenter.mPageNum == 3) {
-                mRecommendData.add(RecommendedAdapter.POSITION_BALL_ITEM, null);
+            if (mPresenter.mPageNum == 2 && mResultHeadBean != null) {
+                if (mRecommendData.size() >= RecommendedAdapter.POSITION_VENUE_ITEM && mResultHeadBean.stadium != null && mResultHeadBean.stadium.size() > 0) {
+                    mRecommendData.add(RecommendedAdapter.POSITION_VENUE_ITEM, null);
+                }
+                if (mRecommendData.size() >= RecommendedAdapter.POSITION_BALL_ITEM && mResultHeadBean.agreeBallMatch != null && mResultHeadBean.agreeBallMatch.size() > 0) {
+                    mRecommendData.add(RecommendedAdapter.POSITION_BALL_ITEM, null);
+                }
             }
-            mRecommendAdapter.notifyDataSetChanged();
+            if (mResultHeadBean != null && mResultHeadBean.stadium != null && mResultHeadBean.stadium.size() > 0 &&
+                    mResultHeadBean.agreeBallMatch != null && mResultHeadBean.agreeBallMatch.size() > 0) {
+                mRecommendAdapter.notifyData(mResultHeadBean.stadium, mResultHeadBean.agreeBallMatch);
+            } else {
+                mRecommendAdapter.notifyDataSetChanged();
+            }
         }
     }
 

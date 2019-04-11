@@ -19,6 +19,7 @@ import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.community.fragment.CommunityFragment;
 import com.work.guaishouxingqiu.aboutball.game.fragment.GameFragment;
 import com.work.guaishouxingqiu.aboutball.home.adapter.MainTabAdapter;
+import com.work.guaishouxingqiu.aboutball.home.adapter.RecommendedAdapter;
 import com.work.guaishouxingqiu.aboutball.home.bean.MainTabBean;
 import com.work.guaishouxingqiu.aboutball.home.contract.MainContract;
 import com.work.guaishouxingqiu.aboutball.home.fragment.HomeFragment;
@@ -37,6 +38,7 @@ import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -70,6 +72,7 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
 
     @Override
     protected void initView() {
+        registerEventBus();
         mRvMainTab.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
     }
 
@@ -78,8 +81,11 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
         mPresenter.loadMainTab();
     }
 
-
-
+    @Override
+    protected void onDestroy() {
+        unRegisterEventBus();
+        super.onDestroy();
+    }
 
     @Override
     public void initPermission() {
@@ -157,5 +163,13 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
         }
     }
 
+    @Subscribe
+    public void selectorVenuePager(RecommendedAdapter.VenueMessage message){
+        if (mBvpContent == null||message == null){
+            return;
+        }
+        mTabAdapter.setSelectorTab(2);
+        mBvpContent.setCurrentItem(2, true);
+    }
 
 }

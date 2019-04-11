@@ -127,7 +127,10 @@
     <string name="search">搜索</string>
     <string name="search_you_want_news">搜索您想了解的资讯</string>
     <string name="please_input_search_content">请输入搜索内容</string>
-
+    <string name="recently_the_venue">最近场馆</string>
+    <string name="read_more">查看更多</string>
+    <string name="friend_ball">球友约球</string>
+    <string name="title">标题</string>
     <!--相册选择器-->
     <string name="back">返回</string>
     <string name="all_image">全部图片</string>
