@@ -48,7 +48,7 @@ public class MainTabAdapter extends RecyclerView.Adapter<MainTabAdapter.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_main_tab_view, viewGroup, false));
+        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_main_tab_view, viewGroup, false), mData.size());
     }
 
     @Override
@@ -81,17 +81,17 @@ public class MainTabAdapter extends RecyclerView.Adapter<MainTabAdapter.ViewHold
         private ImageView mIvTab;
         private TextView mTvName;
 
-        ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView, int tabSize) {
             super(itemView);
-            initView(itemView);
+            initView(itemView,tabSize);
         }
 
-        private void initView(View itemView) {
+        private void initView(View itemView,int tabSize) {
             mIvTab = itemView.findViewById(R.id.iv_tab);
             mTvName = itemView.findViewById(R.id.tv_name);
             ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
             layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
-            layoutParams.width = ScreenUtils.getScreenWidth(itemView.getContext()) / 5;
+            layoutParams.width = ScreenUtils.getScreenWidth(itemView.getContext()) /tabSize;
             itemView.setLayoutParams(layoutParams);
         }
     }

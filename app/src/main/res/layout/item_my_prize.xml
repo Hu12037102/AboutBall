@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/default_margin"
+    android:paddingRight="@dimen/default_margin"
+    android:paddingTop="@dimen/default_margin">
+
+    <TextView
+        android:id="@+id/tv_status"
+        android:layout_width="@dimen/size_0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:text="@string/have_change"
+
+        />
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/SingLineTextView"
+        android:layout_width="@dimen/size_0dp"
+        android:layout_marginRight="@dimen/default_margin"
+        android:textColor="@color/colorFF1D1D1D"
+        android:textSize="@dimen/size_17sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/tv_status"
+        tools:text="三等奖 足球一个" />
+
+
+    <TextView
+        android:id="@+id/tv_validity_left"
+        style="@style/SingLineTextView"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/size_15dp"
+        android:text="@string/period_of_validity"
+        android:textColor="@color/colorFFA6A6A6"
+        android:textSize="@dimen/size_12sp"
+        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+    <TextView
+        android:id="@+id/tv_validity_right"
+        android:layout_width="@dimen/size_0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/size_10dp"
+        android:layout_marginTop="@dimen/size_15dp"
+        android:lineSpacingExtra="@dimen/size_5dp"
+        android:textColor="@color/colorFFA6A6A6"
+        android:textSize="@dimen/size_12sp"
+        app:layout_constraintLeft_toRightOf="@id/tv_validity_left"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        tools:text="2018-12-14加快了飞洒了房间辣快就发了卡激发家乐福建安路附近阿里附近阿拉斯加" />
+
+    <TextView
+        android:id="@+id/tv_remark_left"
+        style="@style/SingLineTextView"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/size_15dp"
+        android:text="@string/remark"
+        android:textColor="@color/colorFFA6A6A6"
+        android:textSize="@dimen/size_12sp"
+        app:layout_constraintTop_toBottomOf="@id/tv_validity_right" />
+
+    <TextView
+        android:id="@+id/tv_remark_right"
+        android:layout_width="@dimen/size_0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/size_10dp"
+        android:layout_marginTop="@dimen/size_15dp"
+        android:lineSpacingExtra="@dimen/size_5dp"
+        android:textColor="@color/colorFFA6A6A6"
+        android:textSize="@dimen/size_12sp"
+        app:layout_constraintLeft_toRightOf="@id/tv_validity_left"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_validity_right"
+        tools:text="2018-12-14加快了飞洒了房间辣快就发了卡激发家乐福建安路附近阿里附近阿拉斯加" />
+
+    <TextView
+        android:id="@+id/tv_way_left"
+        style="@style/SingLineTextView"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/size_15dp"
+        android:text="@string/way"
+        android:textColor="@color/colorFFA6A6A6"
+        android:textSize="@dimen/size_12sp"
+        app:layout_constraintTop_toBottomOf="@id/tv_remark_right" />
+
+    <TextView
+        android:id="@+id/tv_way_right"
+        android:layout_width="@dimen/size_0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/size_10dp"
+        android:layout_marginTop="@dimen/size_15dp"
+        android:lineSpacingExtra="@dimen/size_5dp"
+        android:textColor="@color/colorFFA6A6A6"
+        android:textSize="@dimen/size_12sp"
+        app:layout_constraintLeft_toRightOf="@id/tv_validity_left"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_remark_right"
+        tools:text="2018-12-14加快了飞洒了房间辣快就发了卡激发家乐福建安路附近阿里附近阿拉斯加" />
+
+    <View
+        style="@style/HorizontalLine"
+        android:layout_marginTop="@dimen/default_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_way_right" />
+
+
+</android.support.constraint.ConstraintLayout>

@@ -41,7 +41,9 @@ public interface Contast {
     String PHONE_MODEL = "phoneModel";
     String VERSION = "version";
     String ANDROID = "android";
-    String KEYWORD="keyword";
+    String KEYWORD = "keyword";
+    String ACTION_ID = "actionId";
+    String STATS = "state";
 
     String TOKEN = "Authorization";
     String SEX = "gender";
@@ -66,6 +68,12 @@ public interface Contast {
     int SEX_TYPE_WOMAN = 2;
     int SEX_OTHER = 0;
 
+    //奖品带兑换
+    int PRIZE_WAIT = 0;
+    //奖品已兑换
+    int PRIZE_HAS_CHANGE = 1;
+    //奖品已过期
+    int PRIZE_TIME_OUT = 2;
     String HAS_REFEREE = "1";
     String HAS_RIVAL = "2";
 

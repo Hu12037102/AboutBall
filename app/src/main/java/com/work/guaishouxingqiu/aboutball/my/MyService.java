@@ -10,7 +10,10 @@ import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateHeightBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateNameBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateSexBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateWeightBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultPrizeBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -46,5 +49,8 @@ public interface MyService {
 
     @GET(IApiService.UPDATE_APK_INFO)
     Observable<BaseBean<BaseDataBean<ResultUpdateApkBean>>> updateApkInfo(@Query(Contast.PHONE_MODEL) String phoneModel,
-                                                            @Query(Contast.VERSION) String version);
+                                                                          @Query(Contast.VERSION) String version);
+
+    @GET(IApiService.GET_MY_PRIZE)
+    Observable<BaseBean<ResultPrizeBean>> getMyPrize(@Query(Contast.STATS) int state);
 }

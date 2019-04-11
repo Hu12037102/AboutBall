@@ -131,6 +131,13 @@
     <string name="read_more">查看更多</string>
     <string name="friend_ball">球友约球</string>
     <string name="title">标题</string>
+    <string name="period_of_validity">有&#160;&#160;效&#160;&#160;期:</string>
+    <string name="remark">备&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;注:</string>
+    <string name="way">兑奖方式:</string>
+    <string name="have_change">已兑换</string>
+    <string name="out_off_date">已过期</string>
+    <string name="prize_data">%s&#160;%s</string>
+    <string name="line_prize_input_address">线上邮寄奖品，请先完善收货信息，才能发货</string>
     <!--相册选择器-->
     <string name="back">返回</string>
     <string name="all_image">全部图片</string>

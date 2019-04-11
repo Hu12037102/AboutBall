@@ -1,20 +1,24 @@
 package com.work.guaishouxingqiu.aboutball.my.activity;
 
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.TitleView;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.my.contract.MyPrizeContract;
+import com.work.guaishouxingqiu.aboutball.my.fragment.BasePrizeFragment;
 import com.work.guaishouxingqiu.aboutball.my.presenter.MyPrizePresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 作者: 胡庆岭
@@ -28,10 +32,9 @@ public class MyPrizeActivity extends BaseActivity<MyPrizePresenter> implements M
     TitleView mTitleView;
     @BindView(R.id.tab_title)
     TabLayout mTabTitle;
-    @BindView(R.id.rv_data)
-    RecyclerView mRvData;
-    @BindView(R.id.srl_refresh)
-    SmartRefreshLayout mSrlRefresh;
+    @BindView(R.id.bvp_content)
+    BaseViewPager mBvpContent;
+
 
     @Override
     protected int getLayoutId() {
@@ -49,10 +52,61 @@ public class MyPrizeActivity extends BaseActivity<MyPrizePresenter> implements M
         for (int i = 0; i < awardArray.length; i++) {
             mTabTitle.addTab(mTabTitle.newTab().setText(awardArray[i]), i == 0);
         }
+        BasePrizeFragment waitPrizeFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_BASE_PRIZE, ARouterConfig.Key.KEY_STATUS, Contast.PRIZE_WAIT);
+        BasePrizeFragment hasChangePrizeFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_BASE_PRIZE, ARouterConfig.Key.KEY_STATUS, Contast.PRIZE_HAS_CHANGE);
+        BasePrizeFragment timeOutPrizeFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_BASE_PRIZE, ARouterConfig.Key.KEY_STATUS, Contast.PRIZE_TIME_OUT);
+        Fragment[] fragments = {waitPrizeFragment, hasChangePrizeFragment, timeOutPrizeFragment};
+        FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int i) {
+                return fragments[i];
+            }
+
+            @Override
+            public int getCount() {
+                return fragments.length;
+            }
+        };
+        mBvpContent.setOffscreenPageLimit(fragments.length);
+        mBvpContent.setAdapter(pagerAdapter);
+
     }
 
     @Override
     protected void initEvent() {
+        mBvpContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                DataUtils.checkData(mTabTitle.getTabAt(i)).select();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
+
+        mTabTitle.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mBvpContent.setCurrentItem(tab.getPosition(), true);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
     }
 

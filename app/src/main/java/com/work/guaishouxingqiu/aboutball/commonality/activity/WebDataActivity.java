@@ -10,7 +10,10 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseWebActivity;
 import com.work.guaishouxingqiu.aboutball.commonality.contract.WebDataContract;
 import com.work.guaishouxingqiu.aboutball.commonality.presenter.WebDataPresenter;
+import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
+import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +32,8 @@ public class WebDataActivity extends BaseWebActivity<WebDataPresenter> implement
     ProgressBar mPbLoading;
     @BindView(R.id.wv_data)
     WebView mWebView;
+    private String mWebUrl;
+    private String mActionId;
 
     @Override
     protected int getLayoutId() {
@@ -47,9 +52,27 @@ public class WebDataActivity extends BaseWebActivity<WebDataPresenter> implement
         if (bundle == null) {
             return;
         }
-        String webUrl = bundle.getString(ARouterConfig.Key.URL);
-        String actionId = bundle.getString(ARouterConfig.Key.ACTION_ID);
-        mWebView.loadUrl(webUrl);
+        mWebUrl = bundle.getString(ARouterConfig.Key.URL);
+        mActionId = bundle.getString(ARouterConfig.Key.ACTION_ID);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (UserManger.get().isLogin()) {
+            String sb = mWebUrl +
+                    "?token=" +
+                    /*" Bearer " +*/
+                    UserManger.get().getToken() +
+                    "&" + "id=1";
+            /*mActionId;*/
+            LogUtils.w("WebDataActivity--", sb);
+            mWebView.loadUrl(sb);
+        } else {
+            UIUtils.showLoginDialog(this);
+        }
+
     }
 
     @Override

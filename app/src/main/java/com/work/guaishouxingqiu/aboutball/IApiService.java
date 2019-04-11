@@ -28,7 +28,7 @@ public interface IApiService {
     String GET_NEWS_CONTENT = "/api/news/getNewsDetail";
     String GET_NEWS_MESSAGE_CONTENT_LIST = "/api/news/getNewsComment";
     String POST_SEND_NEWS_MESSAGE_CONTENT = "/api/news/newsCommented";
-    String GET_SEARCH_NEWS_DATA="/api/news/searchNews";
+    String GET_SEARCH_NEWS_DATA = "/api/news/searchNews";
 
     //赛事-列表
     String GAME_LIST = "/api/match/getMatchList";
@@ -58,5 +58,7 @@ public interface IApiService {
     //传第三方数据给后台
     String OTHER_WEICHAT_LOGIN = "/api/account/threeLogin";
 
-    String UPDATE_APK_INFO="/api/commons/isLastestVersion";
+    String UPDATE_APK_INFO = "/api/commons/isLastestVersion";
+    //获取我的奖品
+    String GET_MY_PRIZE = "/api/prize/getMyPrize";
 }

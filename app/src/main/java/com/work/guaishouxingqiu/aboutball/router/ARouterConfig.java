@@ -48,6 +48,7 @@ public interface ARouterConfig {
         String FRAGMENT_REGISTER_PHONE = "/fragment/register/phone";
         String FRAGMENT_REGISTER_CODE = "/fragment/register/code";
         String FRAGMENT_REGISTER_PASSWORD = "/fragment/register/password";
+        String FRAGMENT_BASE_PRIZE ="/fragment/base/prize";
 
     }
 
@@ -60,6 +61,7 @@ public interface ARouterConfig {
         String URL = "url";
         //场馆Id
         String STADIUM_ID = "stadiumId";
+        String KEY_STATUS="status";
     }
 
 }

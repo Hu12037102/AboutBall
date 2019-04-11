@@ -182,4 +182,16 @@ public class UIUtils {
             }
         }
     }
+    public static void showLoginDialog(Context context){
+        HintDialog notLoginDialog = new HintDialog.Builder(context)
+                .setTitle(R.string.hint)
+                .setBody(R.string.is_go_to_login)
+                .setSure(R.string.login_immediately)
+                .builder();
+        notLoginDialog.show();
+        notLoginDialog.setOnItemClickListener(view -> {
+            ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_LOGIN);
+            notLoginDialog.dismiss();
+        });
+    }
 }
