@@ -32,6 +32,10 @@ public class BasePrizeAdapter extends BaseRecyclerAdapter<BasePrizeAdapter.ViewH
         this.mStatus = status;
     }
 
+    private void notifyData(int status){
+        this.mStatus = status;
+        notifyDataSetChanged();
+    }
     @Override
     protected void onBindViewDataHolder(@NonNull ViewHolder viewHolder, int i) {
         ResultPrizeBean.DataBean bean = mData.get(i);
@@ -39,6 +43,7 @@ public class BasePrizeAdapter extends BaseRecyclerAdapter<BasePrizeAdapter.ViewH
         viewHolder.mTvValidityRight.setText(bean.prizeTime);
         viewHolder.mTvRemarkRight.setText(bean.source);
         viewHolder.mTvWayRight.setText(bean.getWay);
+        viewHolder.mTvPrizeCodeRight.setText(bean.prizeCode);
         switch (mStatus){
             case Contast.PRIZE_WAIT:
                 viewHolder.mTvStatus.setVisibility(View.GONE);
@@ -49,7 +54,6 @@ public class BasePrizeAdapter extends BaseRecyclerAdapter<BasePrizeAdapter.ViewH
                 viewHolder.mTvStatus.setTextColor(R.string.have_change);
                 break;
             case Contast.PRIZE_TIME_OUT:
-                viewHolder.mTvStatus.setVisibility(View.VISIBLE);
                 viewHolder.mTvStatus.setVisibility(View.VISIBLE);
                 viewHolder.mTvStatus.setTextColor(ContextCompat.getColor(mContext,R.color.colorFFA6A6A6));
                 viewHolder.mTvStatus.setTextColor(R.string.out_off_date);
@@ -68,7 +72,7 @@ public class BasePrizeAdapter extends BaseRecyclerAdapter<BasePrizeAdapter.ViewH
         private TextView mTvTitle;
         private TextView mTvValidityRight;
         private TextView mTvRemarkRight;
-        private TextView mTvWayRight;
+        private TextView mTvWayRight,mTvPrizeCodeRight;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -81,6 +85,7 @@ public class BasePrizeAdapter extends BaseRecyclerAdapter<BasePrizeAdapter.ViewH
             mTvValidityRight = itemView.findViewById(R.id.tv_validity_right);
             mTvRemarkRight = itemView.findViewById(R.id.tv_remark_right);
             mTvWayRight = itemView.findViewById(R.id.tv_way_right);
+            mTvPrizeCodeRight = itemView.findViewById(R.id.tv_prize_code_right);
         }
     }
 }

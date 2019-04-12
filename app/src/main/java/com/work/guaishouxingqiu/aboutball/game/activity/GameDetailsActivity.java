@@ -46,6 +46,7 @@ import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
 import com.work.guaishouxingqiu.aboutball.weight.FocusableTextView;
+import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import butterknife.BindView;
@@ -420,7 +421,18 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
             });
 
             mVideoPlay.setOnErrorListener((i, i1, s) -> {
-                Toasts.with().showToast(R.string.line_video_error);
+                HintDialog hintDialog = new HintDialog.Builder(GameDetailsActivity.this)
+                        .setTitle(R.string.hint)
+                        .setBody(R.string.not_find_live)
+                        .setSure(R.string.sure)
+                        .builder();
+                hintDialog.show();
+                hintDialog.setOnItemClickListener(view -> {
+                    hintDialog.dismiss();
+                    finish();
+                });
+
+                //Toasts.with().showToast(R.string.line_video_error);
             });
             mIvVideoStatus.setOnClickListener(v -> {
                 if (mVideoPlay.getPlayerState() == IAliyunVodPlayer.PlayerState.Started) {

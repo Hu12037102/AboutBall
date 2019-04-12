@@ -31,6 +31,7 @@ import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.activity.VenueDetailsActivity;
+import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -340,7 +341,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             } else {
                 mAdapter.notifyDataSetChanged();
             }
-            mRlMore.setOnClickListener(v -> EventBus.getDefault().post(new HomeFragment.Message(TYPE_VENUE,2)));
+            mRlMore.setOnClickListener(v -> EventBus.getDefault().post(new HomeFragment.Message(TYPE_VENUE, 2)));
         }
     }
 
@@ -381,8 +382,11 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
                 layoutParams.rightMargin = ScreenUtils.dp2px(viewHolder.itemView.getContext(), 20);
             }
             viewHolder.mCardItem.setLayoutParams(layoutParams);
-            viewHolder.itemView.setOnClickListener(v ->
-                    ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_DETAILS, ARouterConfig.Key.STADIUM_ID, bean.stadiumId));
+            viewHolder.itemView.setOnClickListener(v -> {
+                        Toasts.with().showToast(R.string.pleases_next_open);
+                        // ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_DETAILS, ARouterConfig.Key.STADIUM_ID, bean.stadiumId);
+                    }
+            );
         }
 
         @Override
@@ -428,7 +432,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
                 mAdapter.notifyDataSetChanged();
             }
 
-            mRlMore.setOnClickListener(v -> EventBus.getDefault().post(new HomeFragment.Message(TYPE_BALL,2)));
+            mRlMore.setOnClickListener(v -> EventBus.getDefault().post(new HomeFragment.Message(TYPE_BALL, 2)));
         }
 
         private void initChildView(View itemView) {
@@ -469,6 +473,12 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
                 layoutParams.rightMargin = ScreenUtils.dp2px(viewHolder.itemView.getContext(), 20);
             }
             viewHolder.itemView.setLayoutParams(layoutParams);
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toasts.with().showToast(R.string.pleases_next_open);
+                }
+            });
         }
 
 

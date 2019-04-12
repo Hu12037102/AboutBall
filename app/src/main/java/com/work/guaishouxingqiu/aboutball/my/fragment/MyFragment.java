@@ -117,6 +117,8 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     @Override
     protected void initEvent() {
         mItemFriend.setOnItemClickListener(view -> {
+            Toasts.with().showToast(R.string.pleases_next_open);
+            //ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_SHARE_FRIEND);
         });
         mTitleView.setOnTitleViewClickListener(new TitleView.OnTitleViewClickListener() {
             @Override

@@ -135,7 +135,8 @@
         <activity
             android:name=".commonality.activity.WebDataActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".my.activity.UserAgreementActivity"/>
+        <activity android:name=".my.activity.UserAgreementActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".my.activity.ShareFriendActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

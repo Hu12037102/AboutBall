@@ -26,6 +26,7 @@ import com.work.guaishouxingqiu.aboutball.venue.bean.ResultTypeBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueData;
 import com.work.guaishouxingqiu.aboutball.venue.contract.VenueListContract;
 import com.work.guaishouxingqiu.aboutball.venue.presenter.VenueListPresenter;
+import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -152,7 +153,8 @@ public class VenueListFragment extends BaseFragment<VenueListPresenter> implemen
 
                 @Override
                 public void onItemClick(View view, int position) {
-                    ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_DETAILS);
+                 //   ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_DETAILS);
+                    Toasts.with().showToast(R.string.pleases_next_open);
                 }
             });
             mRequestBean = new RequestVenueListBean();

@@ -25,6 +25,7 @@ import com.work.guaishouxingqiu.aboutball.my.contract.BasePrizeContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.BasePrizePresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;

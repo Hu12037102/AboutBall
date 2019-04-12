@@ -72,7 +72,7 @@ public class RecommendHeadGameAdapter extends RecyclerView.Adapter<RecommendHead
         viewHolder.mTvTopName.setText(match.hostName);
         viewHolder.mTvTopScore.setText(String.valueOf(match.hostScore));
         GlideManger.get().loadImage(viewHolder.itemView.getContext(), match.guestLogoUrl, viewHolder.mIvBottomIcon);
-        viewHolder.mTvBottomName.setText(match.gameName);
+        viewHolder.mTvBottomName.setText(match.guestName);
         viewHolder.mTvBottomScore.setText(String.valueOf(match.guestScore));
         viewHolder.itemView.setOnClickListener(v -> {
             if (onItemClickListener != null){

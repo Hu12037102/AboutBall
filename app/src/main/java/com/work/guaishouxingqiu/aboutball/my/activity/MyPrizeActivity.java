@@ -75,12 +75,7 @@ public class MyPrizeActivity extends BaseActivity<MyPrizePresenter> implements M
             mTabTitle.addTab(mTabTitle.newTab().setText(awardArray[i]), i == 0);
         }
         BasePrizeFragment waitPrizeFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_BASE_PRIZE, ARouterConfig.Key.KEY_STATUS, Contast.PRIZE_WAIT);
-        waitPrizeFragment.setOnHasAddressResult(new BasePrizeFragment.OnHasAddressResult() {
-            @Override
-            public void onResult(int type) {
-                initHeadView(type);
-            }
-        });
+        waitPrizeFragment.setOnHasAddressResult(this::initHeadView);
         BasePrizeFragment hasChangePrizeFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_BASE_PRIZE, ARouterConfig.Key.KEY_STATUS, Contast.PRIZE_HAS_CHANGE);
         BasePrizeFragment timeOutPrizeFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_BASE_PRIZE, ARouterConfig.Key.KEY_STATUS, Contast.PRIZE_TIME_OUT);
         Fragment[] fragments = {waitPrizeFragment, hasChangePrizeFragment, timeOutPrizeFragment};

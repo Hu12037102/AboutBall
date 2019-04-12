@@ -20,5 +20,6 @@ public class ResultPrizeBean {
         public String expirationTime;
         public String source;
         public String getWay;
+        public String prizeCode;
     }
 }
