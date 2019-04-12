@@ -24,4 +24,12 @@ public class BasePrizeModel extends BaseModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
+
+    public void hasAddress(BaseObserver<String> observer) {
+        mRetrofitManger.create(MyService.class)
+                .hasAddress()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
 }

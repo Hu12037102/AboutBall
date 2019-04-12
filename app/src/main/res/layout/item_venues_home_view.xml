@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@color/colorWhite"
     >
 
     <RelativeLayout
@@ -38,5 +39,6 @@
         android:id="@+id/rv_home_venue"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_200dp"
+        android:background="@color/colorWhite"
       />
 </LinearLayout>

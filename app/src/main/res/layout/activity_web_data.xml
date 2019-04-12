@@ -12,7 +12,6 @@
         app:back_left_drawable="@mipmap/icon_back"
         app:back_text_padding_left="@dimen/default_margin"
         app:back_text_padding_right="@dimen/default_margin"
-        app:center_data="@string/title"
         app:center_text_color="@color/color_4"
         app:center_text_size="@dimen/size_19sp" />
 

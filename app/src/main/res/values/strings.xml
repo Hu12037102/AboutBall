@@ -23,7 +23,7 @@
     <string name="phone_shortcut_login">手机快捷登录</string>
     <string name="must_permission_please_allow">读取内存卡为必要权限，请允许！</string>
     <string name="must_permission">请同意读取内存卡和定位权限，否则无法使用！</string>
-    <string name="please_sure_phone_number">请输入正确手机号！</string>
+    <string name="please_sure_phone_number">请输入正确手机号</string>
     <string name="regain_load_time">重新获取（%s）S</string>
     <string name="register">注册</string>
     <string name="next">下一步</string>
@@ -119,6 +119,8 @@
     <string name="please_input_phone_number">请输入手机号码</string>
     <string name="address_data">详细地址</string>
     <string name="please_input_address_data">请填写详细地址</string>
+    <string name="modify_shipping_address">修改收货地址</string>
+    <string name="add_shipping_address">新增收货地址</string>
     <string name="message_my_address">管理我的收获地址</string>
     <string name="please_selector_address">请选择省/市/区</string>
     <string name="my_prize">我的奖品</string>

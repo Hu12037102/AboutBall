@@ -27,6 +27,11 @@
         app:tabIndicatorHeight="@dimen/size_2dp"
         app:tabSelectedTextColor="@color/color_4"
         app:tabTextColor="@color/colorFF777777" />
+    <ViewStub
+        android:id="@+id/vs_rule"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_35dp"
+        android:layout="@layout/layout_hint_rule_view" />
     <View
         style="@style/HorizontalLine"
       />

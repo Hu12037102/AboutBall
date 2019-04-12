@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ViewStub
-        android:id="@+id/vs_rule"
+
+
+    <RelativeLayout
+        android:id="@+id/rl_bottom"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/size_35dp"
-        android:layout="@layout/layout_hint_rule_view" />
+        android:layout_height="@dimen/size_50dp"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone">
+
+        <View style="@style/HorizontalLine" />
+
+        <TextView
+            android:id="@+id/tv_address"
+            style="@style/ButtonCenterText"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:text="@string/modify_shipping_address"
+            />
+    </RelativeLayout>
 
     <include
         layout="@layout/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-      />
-</LinearLayout>
+        android:layout_above="@id/ll_bottom"
+  />
+</RelativeLayout>
 

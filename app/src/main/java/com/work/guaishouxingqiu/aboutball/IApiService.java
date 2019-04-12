@@ -61,4 +61,14 @@ public interface IApiService {
     String UPDATE_APK_INFO = "/api/commons/isLastestVersion";
     //获取我的奖品
     String GET_MY_PRIZE = "/api/prize/getMyPrize";
+
+    //添加新地址
+    String POST_EDIT_ADDRESS = "/api/prize/editAddressForPrize";
+    //获取我的地址
+    String GET_MY_ADDRESS = "/api/prize/getMyPrizeAddress";
+    String GET_HAS_ADDRESS = "/api/prize/hasAddress";
+
+    interface H5 {
+        String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";
+    }
 }

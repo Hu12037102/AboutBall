@@ -57,6 +57,7 @@ public class TitleView extends RelativeLayout {
 
     private void initView() {
         View inflate = View.inflate(getContext(), R.layout.view_title, this);
+        inflate.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.colorFFFFFFFF));
         mViewRoot = inflate.findViewById(R.id.root_view);
         mTvBack = inflate.findViewById(R.id.tv_back);
         mTvCenter = inflate.findViewById(R.id.tv_center);

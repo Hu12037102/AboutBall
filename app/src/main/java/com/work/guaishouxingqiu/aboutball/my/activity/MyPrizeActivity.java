@@ -4,6 +4,10 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.view.ViewStub;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.TitleView;
@@ -34,7 +38,9 @@ public class MyPrizeActivity extends BaseActivity<MyPrizePresenter> implements M
     TabLayout mTabTitle;
     @BindView(R.id.bvp_content)
     BaseViewPager mBvpContent;
-
+    @BindView(R.id.vs_rule)
+    ViewStub mVsHint;
+    private View inflateView;
 
     @Override
     protected int getLayoutId() {
@@ -46,6 +52,22 @@ public class MyPrizeActivity extends BaseActivity<MyPrizePresenter> implements M
 
     }
 
+    private void initHeadView(int type) {
+        if (inflateView == null) {
+            inflateView = mVsHint.inflate();
+            TextView tvRule = inflateView.findViewById(R.id.tv_rule);
+            ImageView ivClose = inflateView.findViewById(R.id.iv_close);
+            tvRule.setText(R.string.line_prize_input_address);
+            inflateView.setOnClickListener(v -> ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_EDIT_MY_ADDRESS));
+            ivClose.setOnClickListener(v -> inflateView.setVisibility(View.GONE));
+        }
+        if (type == 0) {
+            inflateView.setVisibility(View.GONE);
+        } else {
+            inflateView.setVisibility(View.VISIBLE);
+        }
+    }
+
     @Override
     protected void initData() {
         String[] awardArray = getResources().getStringArray(R.array.award_status_array);
@@ -53,6 +75,12 @@ public class MyPrizeActivity extends BaseActivity<MyPrizePresenter> implements M
             mTabTitle.addTab(mTabTitle.newTab().setText(awardArray[i]), i == 0);
         }
         BasePrizeFragment waitPrizeFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_BASE_PRIZE, ARouterConfig.Key.KEY_STATUS, Contast.PRIZE_WAIT);
+        waitPrizeFragment.setOnHasAddressResult(new BasePrizeFragment.OnHasAddressResult() {
+            @Override
+            public void onResult(int type) {
+                initHeadView(type);
+            }
+        });
         BasePrizeFragment hasChangePrizeFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_BASE_PRIZE, ARouterConfig.Key.KEY_STATUS, Contast.PRIZE_HAS_CHANGE);
         BasePrizeFragment timeOutPrizeFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_BASE_PRIZE, ARouterConfig.Key.KEY_STATUS, Contast.PRIZE_TIME_OUT);
         Fragment[] fragments = {waitPrizeFragment, hasChangePrizeFragment, timeOutPrizeFragment};

@@ -20,6 +20,7 @@ import com.work.guaishouxingqiu.aboutball.my.presenter.SettingPresenter;
 import com.work.guaishouxingqiu.aboutball.other.DownloadApkHelp;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
@@ -80,6 +81,11 @@ public class SettingActivity extends BaseActivity<SettingPresenter>
         mItemAbout.setOnItemClickListener(view -> {
             clickAboutWe();
         });
+        mItemAgreement.setOnItemClickListener(view -> clickAgreement());
+    }
+
+    private void clickAgreement() {
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_USER_AGREEMENT);
     }
 
     private void clickAboutWe() {

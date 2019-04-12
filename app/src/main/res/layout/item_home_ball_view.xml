@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:id="@+id/item_ball_root">
+    android:id="@+id/item_ball_root"
+    android:background="@color/colorWhite">
 
     <RelativeLayout
         android:id="@+id/rl_ball_more"
@@ -11,7 +12,7 @@
         android:layout_height="@dimen/size_50dp"
         android:paddingLeft="@dimen/default_margin"
         android:paddingRight="@dimen/default_margin"
-        android:background="@color/colorWhite">
+        >
 
         <TextView
             android:layout_width="wrap_content"

@@ -83,10 +83,7 @@ public abstract class BaseWebActivity<P extends BasePresenter> extends Permissio
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-                layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-                layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
-                view.setLayoutParams(layoutParams);
+
                 LogUtils.w("WebViewClient--",url);
             }
 

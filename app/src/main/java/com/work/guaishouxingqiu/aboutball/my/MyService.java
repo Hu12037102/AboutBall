@@ -5,11 +5,14 @@ import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestEditAddressBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestNewAddressBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateBirthdayBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateHeightBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateNameBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateSexBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateWeightBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyAddress;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultPrizeBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 
@@ -53,4 +56,16 @@ public interface MyService {
 
     @GET(IApiService.GET_MY_PRIZE)
     Observable<BaseBean<ResultPrizeBean>> getMyPrize(@Query(Contast.STATS) int state);
+
+    @POST(IApiService.POST_EDIT_ADDRESS)
+    Observable<BaseBean<BaseDataBean>> postNewAddress(@Body RequestNewAddressBean bean);
+
+    @POST(IApiService.POST_EDIT_ADDRESS)
+    Observable<BaseBean<BaseDataBean>> postEditAddress(@Body RequestEditAddressBean bean);
+
+    @GET(IApiService.GET_MY_ADDRESS)
+    Observable<BaseBean<ResultMyAddress>> getMyAddress();
+
+    @GET(IApiService.GET_HAS_ADDRESS)
+    Observable<BaseBean<String>> hasAddress();
 }

@@ -3,6 +3,7 @@ package com.work.guaishouxingqiu.aboutball.util;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.widget.EditText;
 
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
@@ -218,4 +219,7 @@ public class DataUtils {
         return null;
     }
 
+    public static String getEditDetails(EditText editText){
+        return DataUtils.checkData(editText.getText()).toString().trim();
+    }
 }

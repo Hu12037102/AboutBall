@@ -380,10 +380,6 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
                 layoutParams.rightMargin = ScreenUtils.dp2px(viewHolder.itemView.getContext(), 20);
             }
             viewHolder.mCardItem.setLayoutParams(layoutParams);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                viewHolder.mCardItem.setElevation(ScreenUtils.dp2px(viewHolder.itemView.getContext(), 20));
-            }
-            viewHolder.mCardItem.setCardElevation(ScreenUtils.dp2px(viewHolder.itemView.getContext(), 20));
             viewHolder.itemView.setOnClickListener(v ->
                     ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_DETAILS, ARouterConfig.Key.STADIUM_ID, bean.stadiumId));
         }

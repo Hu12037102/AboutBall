@@ -48,14 +48,14 @@ public class MainModel extends BaseModel {
                     venueTabBean.mDefaultResIcon = R.mipmap.icon_main_tab_venues_default;
                     data.add(venueTabBean);
                     break;
-                case 3:
+               /* case 3:
                     MainTabBean communityTabBean = new MainTabBean(tabNameArray[3]);
                     communityTabBean.mCheckResIcon = R.mipmap.icon_main_tab_community_check;
                     communityTabBean.mDefaultResIcon = R.mipmap.icon_main_tab_community_default;
                     data.add(communityTabBean);
-                    break;
-                case 4:
-                    MainTabBean myTabBean = new MainTabBean(tabNameArray[4]);
+                    break;*/
+                case 3:
+                    MainTabBean myTabBean = new MainTabBean(tabNameArray[3]);
                     myTabBean.mCheckResIcon = R.mipmap.iocn_main_tab_my_check;
                     myTabBean.mDefaultResIcon = R.mipmap.iocn_main_tab_my_default;
                     data.add(myTabBean);

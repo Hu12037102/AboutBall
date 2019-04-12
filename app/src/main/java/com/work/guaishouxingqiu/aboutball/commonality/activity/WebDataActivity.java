@@ -1,6 +1,8 @@
 package com.work.guaishouxingqiu.aboutball.commonality.activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 
@@ -12,6 +14,7 @@ import com.work.guaishouxingqiu.aboutball.commonality.contract.WebDataContract;
 import com.work.guaishouxingqiu.aboutball.commonality.presenter.WebDataPresenter;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
@@ -57,6 +60,7 @@ public class WebDataActivity extends BaseWebActivity<WebDataPresenter> implement
 
     }
 
+    @SuppressLint("AddJavascriptInterface")
     @Override
     protected void onStart() {
         super.onStart();
@@ -65,10 +69,13 @@ public class WebDataActivity extends BaseWebActivity<WebDataPresenter> implement
                     "?token=" +
                     /*" Bearer " +*/
                     UserManger.get().getToken() +
-                    "&" + "id=1";
-            /*mActionId;*/
+                    "&" + /*"id=1";*/
+            mActionId;
             LogUtils.w("WebDataActivity--", sb);
+
             mWebView.loadUrl(sb);
+            mWebView.addJavascriptInterface(new YunYou(),"YunYou");
+
         } else {
             UIUtils.showLoginDialog(this);
         }
@@ -99,5 +106,11 @@ public class WebDataActivity extends BaseWebActivity<WebDataPresenter> implement
     @Override
     protected TitleView getTitleView() {
         return mTitleView;
+    }
+    public static class YunYou {
+        @JavascriptInterface
+        public  void comment(String commentid){
+            ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_EDIT_MY_ADDRESS);
+        }
     }
 }

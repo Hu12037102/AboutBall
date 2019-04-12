@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultPrizeBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.BasePrizeContract;
 import com.work.guaishouxingqiu.aboutball.my.model.BasePrizeModel;
@@ -49,6 +50,18 @@ public class BasePrizePresenter extends BasePresenter<BasePrizeContract.View, Ba
 
     @Override
     public void start() {
+        mModel.hasAddress(new BaseObserver<>(this, new BaseObserver.Observer<String>() {
+            @Override
+            public void onNext(BaseBean<String> t) {
+                if (t.code == IApi.Code.SUCCEED) {
+                    mView.resultHasAddress(Integer.valueOf(t.result));
+                }
+            }
 
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
     }
 }

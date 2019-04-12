@@ -147,7 +147,6 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
 
         });
     }
-
     private void postTimeMessage() {
         mTimeHandler.sendEmptyMessageDelayed(RecommendedFragment.WHAT, RecommendedFragment.POST_TIME);
     }
@@ -335,5 +334,8 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
         public MessageTabBean(int selectorTab) {
             this.selectorTab = selectorTab;
         }
+
     }
+
+
 }

@@ -15,6 +15,7 @@ import java.util.List;
 public interface BasePrizeContract {
     interface View extends IBaseView {
         void resultMyPrize(ResultPrizeBean bean);
+        void resultHasAddress(int type);
     }
 
     interface Presenter extends IBasePresenter {
