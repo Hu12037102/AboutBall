@@ -35,8 +35,9 @@ public class WebDataActivity extends BaseWebActivity<WebDataPresenter> implement
     ProgressBar mPbLoading;
     @BindView(R.id.wv_data)
     WebView mWebView;
-    private String mWebUrl;
+   // private String mWebUrl;
     private String mActionId;
+    private static final String H5_HOST = "https://ifi.bmece.com/prizeAction";
 
     @Override
     protected int getLayoutId() {
@@ -55,8 +56,22 @@ public class WebDataActivity extends BaseWebActivity<WebDataPresenter> implement
         if (bundle == null) {
             return;
         }
-        mWebUrl = bundle.getString(ARouterConfig.Key.URL);
+       // mWebUrl = bundle.getString(ARouterConfig.Key.URL);
         mActionId = bundle.getString(ARouterConfig.Key.ACTION_ID);
+        if (UserManger.get().isLogin()) {
+            String sb = H5_HOST +
+                    "?token=" +
+                    UserManger.get().getToken() +
+                    "&" +
+                    mActionId;
+            LogUtils.w("WebDataActivity--", sb);
+
+            mWebView.loadUrl(sb);
+            mWebView.addJavascriptInterface(new YunYou(), "YunYou");
+
+        } else {
+            UIUtils.showLoginDialog(this);
+        }
 
     }
 
@@ -64,21 +79,7 @@ public class WebDataActivity extends BaseWebActivity<WebDataPresenter> implement
     @Override
     protected void onStart() {
         super.onStart();
-        if (UserManger.get().isLogin()) {
-            String sb = mWebUrl +
-                    "?token=" +
-                    /*" Bearer " +*/
-                    UserManger.get().getToken() +
-                    "&" + /*"id=1";*/
-            mActionId;
-            LogUtils.w("WebDataActivity--", sb);
 
-            mWebView.loadUrl(sb);
-            mWebView.addJavascriptInterface(new YunYou(),"YunYou");
-
-        } else {
-            UIUtils.showLoginDialog(this);
-        }
 
     }
 
@@ -107,9 +108,10 @@ public class WebDataActivity extends BaseWebActivity<WebDataPresenter> implement
     protected TitleView getTitleView() {
         return mTitleView;
     }
+
     public static class YunYou {
         @JavascriptInterface
-        public  void comment(String commentid){
+        public void comment(String commentid) {
             ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_EDIT_MY_ADDRESS);
         }
     }

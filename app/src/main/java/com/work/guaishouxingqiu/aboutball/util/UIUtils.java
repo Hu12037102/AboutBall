@@ -172,14 +172,12 @@ public class UIUtils {
     }
 
     public static void parseScanCode(String result) {
-        if (result.contains("https://") || result.contains("http://")) {
-            String[] splits = result.split(",");
-            if (splits.length >= 2) {
-                Bundle bundle = new Bundle();
-                bundle.putString(ARouterConfig.Key.ACTION_ID, splits[0]);
-                bundle.putString(ARouterConfig.Key.URL, splits[1]);
-                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_WEB_DATA, bundle);
-            }
+        String[] splits = result.split(",");
+        if (splits.length >= 2) {
+            Bundle bundle = new Bundle();
+            bundle.putString(ARouterConfig.Key.ACTION_ID, splits[0]);
+            bundle.putString(ARouterConfig.Key.URL, splits[1]);
+            ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_WEB_DATA, bundle);
         }
     }
     public static void showLoginDialog(Context context){

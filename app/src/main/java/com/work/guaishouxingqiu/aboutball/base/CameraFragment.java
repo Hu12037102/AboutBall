@@ -13,6 +13,7 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.permission.imp.OnPermissionsResult;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
@@ -30,7 +31,7 @@ public abstract class CameraFragment<P extends BasePresenter> extends BaseFragme
         requestPermission(new OnPermissionsResult() {
             @Override
             public void onAllow(List<String> allowPermissions) {
-                startActivityForResult(new Intent(mContext,CaptureActivity.class),ARouterIntent.REQUEST_CODE);
+                startActivityForResult(new Intent(mContext, CaptureActivity.class), ARouterIntent.REQUEST_CODE);
             }
 
             @Override
@@ -68,7 +69,10 @@ public abstract class CameraFragment<P extends BasePresenter> extends BaseFragme
                 }
                 if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
                     String result = bundle.getString(CodeUtils.RESULT_STRING);
-                    UIUtils.parseScanCode(result);
+                    if (result != null) {
+                        UIUtils.parseScanCode(result);
+                    }
+                    LogUtils.w("onActivityResult--", result);
                     //Toasts.with().showToast(result);
                 } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
                     Toasts.with().showToast("解析失败！");

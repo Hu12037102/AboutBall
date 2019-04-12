@@ -57,7 +57,6 @@ public class TitleView extends RelativeLayout {
 
     private void initView() {
         View inflate = View.inflate(getContext(), R.layout.view_title, this);
-        inflate.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.colorFFFFFFFF));
         mViewRoot = inflate.findViewById(R.id.root_view);
         mTvBack = inflate.findViewById(R.id.tv_back);
         mTvCenter = inflate.findViewById(R.id.tv_center);
@@ -67,7 +66,7 @@ public class TitleView extends RelativeLayout {
     private void initAttrs(AttributeSet attrs) {
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.TitleView);
         if (typedArray != null && typedArray.getIndexCount() > 0) {
-            mViewRoot.setBackgroundColor(typedArray.getColor(R.styleable.TitleView_group_color, ContextCompat.getColor(getContext(), R.color.color00000000)));
+            mViewRoot.setBackgroundColor(typedArray.getColor(R.styleable.TitleView_group_color, ContextCompat.getColor(getContext(), R.color.colorFFFFFFFF)));
             mTvBack.setText(typedArray.getString(R.styleable.TitleView_back_data));
             mBackIsFinish = typedArray.getBoolean(R.styleable.TitleView_back_click_is_finish, true);
             mTvBack.setCompoundDrawablesWithIntrinsicBounds(typedArray.getDrawable(R.styleable.TitleView_back_left_drawable), typedArray.getDrawable(R.styleable.TitleView_back_top_drawable),
