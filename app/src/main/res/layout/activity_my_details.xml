@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,217 +7,222 @@
     android:background="@color/colorFFFAF9F9"
     android:orientation="vertical">
 
-    <LinearLayout
+
+    <com.example.item.weight.TitleView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="@dimen/size_50dp"
+        app:back_left_drawable="@mipmap/icon_back"
+        app:back_text_padding_left="@dimen/default_margin"
+        app:back_text_padding_right="@dimen/default_margin"
+        app:center_data="@string/edit_my_details"
+        app:center_text_color="@color/color_4"
+        app:center_text_size="@dimen/size_19sp"
+        app:group_color="@color/colorTheme" />
 
-        <com.example.item.weight.TitleView
+    <View style="@style/HorizontalLine" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/size_50dp"
-            app:back_left_drawable="@mipmap/icon_back"
-            app:back_text_padding_left="@dimen/default_margin"
-            app:back_text_padding_right="@dimen/default_margin"
-            app:center_data="@string/edit_my_details"
-            app:center_text_color="@color/color_4"
-            app:center_text_size="@dimen/size_19sp"
-            app:group_color="@color/colorTheme" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <View style="@style/HorizontalLine" />
+            <RelativeLayout
+                android:id="@+id/rl_head_photo"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_100dp"
+                android:background="@drawable/selector_item"
+                android:paddingLeft="@dimen/default_margin"
+                android:paddingRight="@dimen/default_margin">
 
-        <RelativeLayout
-            android:id="@+id/rl_head_photo"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/size_100dp"
-            android:background="@drawable/selector_item"
-            android:paddingLeft="@dimen/default_margin"
-            android:paddingRight="@dimen/default_margin">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/civ_head"
+                    android:layout_width="@dimen/size_60dp"
+                    android:layout_height="@dimen/size_60dp"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_my_default_head" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/civ_head"
-                android:layout_width="@dimen/size_60dp"
-                android:layout_height="@dimen/size_60dp"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/icon_my_default_head" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/icon_item_right" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/size_15dp"
-                android:layout_toRightOf="@id/civ_head"
-                android:text="@string/alter_head_photo" />
-        </RelativeLayout>
-
-        <com.example.item.weight.ItemView
-            android:id="@+id/item_name"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/item_height"
-            android:layout_marginTop="@dimen/size_5dp"
-            android:background="@color/colorTheme"
-            app:content_drawable_padding="@dimen/size_10dp"
-            app:content_right_icon="@mipmap/icon_item_right"
-            app:content_text_color="@color/color_3"
-            app:show_top_line="false"
-            app:title_data="@string/name"
-            app:title_text_color="@color/color_4"
-            app:top_line_margin_left="@dimen/default_margin"
-            app:top_line_margin_right="@dimen/default_margin" />
-
-        <com.example.item.weight.ItemView
-            android:id="@+id/item_sex"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/item_height"
-            android:background="@color/colorTheme"
-            app:content_drawable_padding="@dimen/size_10dp"
-            app:content_right_icon="@mipmap/icon_item_right"
-            app:content_text_color="@color/color_3"
-            app:show_top_line="true"
-            app:title_data="@string/sex"
-            app:title_text_color="@color/color_4"
-            app:top_line_margin_left="@dimen/default_margin"
-            app:top_line_margin_right="@dimen/default_margin" />
-
-        <com.example.item.weight.ItemView
-            android:id="@+id/item_birthday"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/item_height"
-            android:background="@color/colorTheme"
-            app:content_drawable_padding="@dimen/size_10dp"
-            app:content_right_icon="@mipmap/icon_item_right"
-            app:content_text_color="@color/color_3"
-            app:show_top_line="true"
-            app:title_data="@string/birthday"
-            app:title_text_color="@color/color_4"
-            app:top_line_margin_left="@dimen/default_margin"
-            app:top_line_margin_right="@dimen/default_margin" />
-
-        <com.example.item.weight.ItemView
-            android:id="@+id/item_stature"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/item_height"
-            android:background="@color/colorTheme"
-            app:content_drawable_padding="@dimen/size_10dp"
-            app:content_right_icon="@mipmap/icon_item_right"
-            app:content_text_color="@color/color_3"
-            app:show_top_line="true"
-            app:title_data="@string/stature"
-            app:title_text_color="@color/color_4"
-            app:top_line_margin_left="@dimen/default_margin"
-            app:top_line_margin_right="@dimen/default_margin" />
-
-        <com.example.item.weight.ItemView
-            android:id="@+id/item_weight"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/item_height"
-            android:background="@color/colorTheme"
-            app:content_drawable_padding="@dimen/size_10dp"
-            app:content_right_icon="@mipmap/icon_item_right"
-            app:content_text_color="@color/color_3"
-            app:show_top_line="true"
-            app:title_data="@string/weight"
-            app:title_text_color="@color/color_4"
-            app:top_line_margin_left="@dimen/default_margin"
-            app:top_line_margin_right="@dimen/default_margin" />
-
-        <com.example.item.weight.ItemView
-            android:id="@+id/item_phone"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/item_height"
-            android:layout_marginTop="@dimen/size_5dp"
-            android:background="@color/colorTheme"
-            app:content_drawable_padding="@dimen/size_10dp"
-            app:content_right_icon="@mipmap/icon_item_right"
-            app:content_text_color="@color/color_3"
-            app:show_bottom_line="true"
-            app:show_top_line="false"
-            app:title_data="@string/phone_number"
-            app:title_text_color="@color/color_4"
-            app:top_line_margin_left="@dimen/default_margin"
-            app:top_line_margin_right="@dimen/default_margin" />
-
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/cl_wechat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/selector_item"
-            android:paddingBottom="@dimen/size_15dp"
-            android:paddingLeft="@dimen/default_margin"
-            android:paddingRight="@dimen/default_margin"
-            android:paddingTop="@dimen/size_15dp">
-
-            <TextView
-                android:id="@+id/tv_wechat_right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="@dimen/size_10dp"
-                android:drawableRight="@mipmap/icon_item_right"
-                android:text="@string/unbind"
-                android:textColor="@color/color_3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <LinearLayout
-                android:layout_width="@dimen/size_0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/tv_wechat_right"
-                app:layout_constraintTop_toTopOf="parent">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_item_right" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/bind_wechat"
-                    android:textColor="@color/color_4" />
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/size_15dp"
+                    android:layout_toRightOf="@id/civ_head"
+                    android:text="@string/alter_head_photo" />
+            </RelativeLayout>
+
+            <com.example.item.weight.ItemView
+                android:id="@+id/item_name"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:layout_marginTop="@dimen/size_5dp"
+                android:background="@color/colorTheme"
+                app:content_drawable_padding="@dimen/size_10dp"
+                app:content_right_icon="@mipmap/icon_item_right"
+                app:content_text_color="@color/color_3"
+                app:show_top_line="false"
+                app:title_data="@string/name"
+                app:title_text_color="@color/color_4"
+                app:top_line_margin_left="@dimen/default_margin"
+                app:top_line_margin_right="@dimen/default_margin" />
+
+            <com.example.item.weight.ItemView
+                android:id="@+id/item_sex"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:background="@color/colorTheme"
+                app:content_drawable_padding="@dimen/size_10dp"
+                app:content_right_icon="@mipmap/icon_item_right"
+                app:content_text_color="@color/color_3"
+                app:show_top_line="true"
+                app:title_data="@string/sex"
+                app:title_text_color="@color/color_4"
+                app:top_line_margin_left="@dimen/default_margin"
+                app:top_line_margin_right="@dimen/default_margin" />
+
+            <com.example.item.weight.ItemView
+                android:id="@+id/item_birthday"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:background="@color/colorTheme"
+                app:content_drawable_padding="@dimen/size_10dp"
+                app:content_right_icon="@mipmap/icon_item_right"
+                app:content_text_color="@color/color_3"
+                app:show_top_line="true"
+                app:title_data="@string/birthday"
+                app:title_text_color="@color/color_4"
+                app:top_line_margin_left="@dimen/default_margin"
+                app:top_line_margin_right="@dimen/default_margin" />
+
+            <com.example.item.weight.ItemView
+                android:id="@+id/item_stature"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:background="@color/colorTheme"
+                app:content_drawable_padding="@dimen/size_10dp"
+                app:content_right_icon="@mipmap/icon_item_right"
+                app:content_text_color="@color/color_3"
+                app:show_top_line="true"
+                app:title_data="@string/stature"
+                app:title_text_color="@color/color_4"
+                app:top_line_margin_left="@dimen/default_margin"
+                app:top_line_margin_right="@dimen/default_margin" />
+
+            <com.example.item.weight.ItemView
+                android:id="@+id/item_weight"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:background="@color/colorTheme"
+                app:content_drawable_padding="@dimen/size_10dp"
+                app:content_right_icon="@mipmap/icon_item_right"
+                app:content_text_color="@color/color_3"
+                app:show_top_line="true"
+                app:title_data="@string/weight"
+                app:title_text_color="@color/color_4"
+                app:top_line_margin_left="@dimen/default_margin"
+                app:top_line_margin_right="@dimen/default_margin" />
+
+            <com.example.item.weight.ItemView
+                android:id="@+id/item_phone"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:layout_marginTop="@dimen/size_5dp"
+                android:background="@color/colorTheme"
+                app:content_drawable_padding="@dimen/size_10dp"
+                app:content_right_icon="@mipmap/icon_item_right"
+                app:content_text_color="@color/color_3"
+                app:show_bottom_line="true"
+                app:show_top_line="false"
+                app:title_data="@string/phone_number"
+                app:title_text_color="@color/color_4"
+                app:top_line_margin_left="@dimen/default_margin"
+                app:top_line_margin_right="@dimen/default_margin" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cl_wechat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_item"
+                android:paddingBottom="@dimen/size_15dp"
+                android:paddingLeft="@dimen/default_margin"
+                android:paddingRight="@dimen/default_margin"
+                android:paddingTop="@dimen/size_15dp">
 
                 <TextView
+                    android:id="@+id/tv_wechat_right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/size_10dp"
-                    android:text="@string/bind_wechat_hint"
+                    android:drawablePadding="@dimen/size_10dp"
+                    android:drawableRight="@mipmap/icon_item_right"
+                    android:text="@string/unbind"
                     android:textColor="@color/color_3"
-                    android:textSize="@dimen/size_12sp" />
-            </LinearLayout>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        </android.support.constraint.ConstraintLayout>
+                <LinearLayout
+                    android:layout_width="@dimen/size_0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/tv_wechat_right"
+                    app:layout_constraintTop_toTopOf="parent">
 
-        <com.example.item.weight.ItemView
-            android:id="@+id/item_address"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/item_height"
-            android:layout_marginTop="@dimen/size_5dp"
-            android:background="@color/colorTheme"
-            app:content_drawable_padding="@dimen/size_10dp"
-            app:content_right_icon="@mipmap/icon_item_right"
-            app:content_text_color="@color/color_3"
-            app:show_top_line="false"
-            app:title_data="@string/message_my_address"
-            app:title_text_color="@color/color_4"
-            app:top_line_margin_left="@dimen/default_margin"
-            app:top_line_margin_right="@dimen/default_margin" />
-        <com.example.item.weight.ItemView
-            android:id="@+id/item_alter_password"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/item_height"
-            android:background="@color/colorTheme"
-            app:content_drawable_padding="@dimen/size_10dp"
-            app:content_right_icon="@mipmap/icon_item_right"
-            app:content_text_color="@color/color_3"
-            app:show_top_line="true"
-            app:title_data="@string/update_password"
-            app:title_text_color="@color/color_4"
-            app:top_line_margin_left="@dimen/default_margin"
-            app:top_line_margin_right="@dimen/default_margin" />
-    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/bind_wechat"
+                        android:textColor="@color/color_4" />
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/size_10dp"
+                        android:text="@string/bind_wechat_hint"
+                        android:textColor="@color/color_3"
+                        android:textSize="@dimen/size_12sp" />
+                </LinearLayout>
 
-</android.support.v4.widget.NestedScrollView>
+            </android.support.constraint.ConstraintLayout>
+
+            <com.example.item.weight.ItemView
+                android:id="@+id/item_address"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:layout_marginTop="@dimen/size_5dp"
+                android:background="@color/colorTheme"
+                app:content_drawable_padding="@dimen/size_10dp"
+                app:content_right_icon="@mipmap/icon_item_right"
+                app:content_text_color="@color/color_3"
+                app:show_top_line="false"
+                app:title_data="@string/message_my_address"
+                app:title_text_color="@color/color_4"
+                app:top_line_margin_left="@dimen/default_margin"
+                app:top_line_margin_right="@dimen/default_margin" />
+
+            <com.example.item.weight.ItemView
+                android:id="@+id/item_alter_password"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:background="@color/colorTheme"
+                app:content_drawable_padding="@dimen/size_10dp"
+                app:content_right_icon="@mipmap/icon_item_right"
+                app:content_text_color="@color/color_3"
+                app:show_top_line="true"
+                app:title_data="@string/update_password"
+                app:title_text_color="@color/color_4"
+                app:top_line_margin_left="@dimen/default_margin"
+                app:top_line_margin_right="@dimen/default_margin" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>
