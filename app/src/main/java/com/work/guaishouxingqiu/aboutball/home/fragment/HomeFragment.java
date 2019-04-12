@@ -1,20 +1,15 @@
 package com.work.guaishouxingqiu.aboutball.home.fragment;
 
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
-import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
 import com.work.guaishouxingqiu.aboutball.base.CameraFragment;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultHomeTabBean;
 import com.work.guaishouxingqiu.aboutball.home.contract.HomeContract;
@@ -27,9 +22,7 @@ import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * 作者: 胡庆岭
@@ -170,6 +163,17 @@ public class HomeFragment extends CameraFragment<HomePresenter> implements HomeC
             case R.id.iv_scan_code:
                 openScanCode();
                 break;
+        }
+    }
+
+    public static class Message {
+        public int mTabIndex;
+        //0代表场馆、1代表约球
+        public int mChildTabIndex;
+
+        public Message(int childTabIndex, int tabIndex) {
+            this.mChildTabIndex = childTabIndex;
+            this.mTabIndex = tabIndex;
         }
     }
 }

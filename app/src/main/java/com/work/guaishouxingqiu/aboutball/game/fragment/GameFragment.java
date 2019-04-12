@@ -16,10 +16,14 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
 import com.work.guaishouxingqiu.aboutball.game.contract.GameContract;
 import com.work.guaishouxingqiu.aboutball.game.presenter.GamePresenter;
+import com.work.guaishouxingqiu.aboutball.home.adapter.RecommendedAdapter;
+import com.work.guaishouxingqiu.aboutball.home.fragment.HomeFragment;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,7 +54,13 @@ public class GameFragment extends BaseFragment<GamePresenter> implements GameCon
 
     @Override
     protected void initView() {
+        registerEventBus();
+    }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unRegisterEventBus();
     }
 
     @Override
@@ -136,5 +146,13 @@ public class GameFragment extends BaseFragment<GamePresenter> implements GameCon
 
     @OnClick(R.id.iv_search)
     public void onViewClicked() {
+    }
+
+    @Subscribe
+    public void selectorGamePager(HomeFragment.Message message) {
+        if (mBvpContent == null) {
+            return;
+        }
+        mBvpContent.setCurrentItem(message.mChildTabIndex);
     }
 }

@@ -50,12 +50,16 @@ import com.work.guaishouxingqiu.aboutball.util.NetWorkUtils;
 import com.work.guaishouxingqiu.aboutball.util.PhoneUtils;
 import com.work.guaishouxingqiu.aboutball.weight.CarouselViewPager;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+
+import static com.work.guaishouxingqiu.aboutball.home.adapter.RecommendedAdapter.TYPE_BALL;
+import static com.work.guaishouxingqiu.aboutball.home.adapter.RecommendedAdapter.TYPE_VENUE;
 
 /**
  * 作者: 胡庆岭
@@ -138,13 +142,13 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
             return false;
         });
         mTvVenue.setOnClickListener(v -> {
-
+            EventBus.getDefault().post(new HomeFragment.Message(TYPE_VENUE,2));
         });
         mTvBall.setOnClickListener(v -> {
-
+            EventBus.getDefault().post(new HomeFragment.Message(TYPE_BALL,2));
         });
         mTvGame.setOnClickListener(v -> {
-
+            EventBus.getDefault().post(new HomeFragment.Message(0,1));
         });
     }
     private void postTimeMessage() {

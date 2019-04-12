@@ -13,6 +13,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
 import com.work.guaishouxingqiu.aboutball.home.adapter.RecommendedAdapter;
+import com.work.guaishouxingqiu.aboutball.home.fragment.HomeFragment;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.venue.contract.VenueContract;
@@ -60,13 +61,13 @@ public class VenueFragment extends BaseFragment<VenuePresenter> implements Venue
     }
 
     @Subscribe
-    public void selectorVenuePager(RecommendedAdapter.VenueMessage message){
+    public void selectorVenuePager(HomeFragment.Message message){
         if (mBvpContent == null){
             return;
         }
-        if (message.mType == RecommendedAdapter.TYPE_VENUE){
+        if (message.mChildTabIndex == RecommendedAdapter.TYPE_VENUE){
             mBvpContent.setCurrentItem(RecommendedAdapter.TYPE_VENUE);
-        }else if (message.mType == RecommendedAdapter.TYPE_BALL){
+        }else if (message.mChildTabIndex == RecommendedAdapter.TYPE_BALL){
             mBvpContent.setCurrentItem(RecommendedAdapter.TYPE_BALL);
         }
     }

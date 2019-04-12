@@ -119,6 +119,7 @@ public class BasePrizeFragment extends BaseFragment<BasePrizePresenter> implemen
 
     @Override
     public void resultMyPrize(ResultPrizeBean data) {
+        mData.clear();
         mData.addAll(data.prizeForSimples);
         mAdapter.notifyDataSetChanged();
         if (isFirstLoad) {

@@ -2,52 +2,34 @@ package com.work.guaishouxingqiu.aboutball.home.activity;
 
 
 import android.Manifest;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.SparseIntArray;
-import android.view.View;
-import android.widget.FrameLayout;
 
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
-import com.work.guaishouxingqiu.aboutball.community.fragment.CommunityFragment;
 import com.work.guaishouxingqiu.aboutball.game.fragment.GameFragment;
 import com.work.guaishouxingqiu.aboutball.home.adapter.MainTabAdapter;
-import com.work.guaishouxingqiu.aboutball.home.adapter.RecommendedAdapter;
 import com.work.guaishouxingqiu.aboutball.home.bean.MainTabBean;
 import com.work.guaishouxingqiu.aboutball.home.contract.MainContract;
 import com.work.guaishouxingqiu.aboutball.home.fragment.HomeFragment;
-import com.work.guaishouxingqiu.aboutball.home.fragment.RecommendedFragment;
-import com.work.guaishouxingqiu.aboutball.home.fragment.VideoFragment;
 import com.work.guaishouxingqiu.aboutball.home.presenter.MainPresenter;
 import com.work.guaishouxingqiu.aboutball.my.fragment.MyFragment;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
 import com.work.guaishouxingqiu.aboutball.permission.imp.OnPermissionsResult;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
-import com.work.guaishouxingqiu.aboutball.util.LogUtils;
+import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.fragment.VenueFragment;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
-import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 作者: 胡庆岭
@@ -63,6 +45,7 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
     @BindView(R.id.bvp_content)
     BaseViewPager mBvpContent;
     private MainTabAdapter mTabAdapter;
+    private long mFinishTime;
 
 
     @Override
@@ -164,12 +147,23 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
     }
 
     @Subscribe
-    public void selectorVenuePager(RecommendedAdapter.VenueMessage message){
-        if (mBvpContent == null||message == null){
+    public void selectorVenuePager(HomeFragment.Message message) {
+        if (mBvpContent == null || message == null) {
             return;
         }
-        mTabAdapter.setSelectorTab(2);
-        mBvpContent.setCurrentItem(2, true);
+        mTabAdapter.setSelectorTab(message.mTabIndex);
+        mBvpContent.setCurrentItem(message.mTabIndex, true);
     }
 
+    @Override
+    public void onBackPressed() {
+        long clickBack = System.currentTimeMillis();
+        if (clickBack - mFinishTime > 2000) {
+            mFinishTime = clickBack;
+            Toasts.with().showToast(R.string.resume_click_exit_app);
+        } else {
+            super.onBackPressed();
+        }
+
+    }
 }

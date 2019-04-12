@@ -22,6 +22,7 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
+import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -45,6 +46,18 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     TitleView mTitleView;
     @BindView(R.id.item_my_prize)
     ItemView mItemPrize;
+    @BindView(R.id.item_about_ball)
+    ItemView mItemBall;
+    @BindView(R.id.item_order)
+    ItemView mItemOrder;
+    @BindView(R.id.item_team)
+    ItemView mItemTeam;
+    @BindView(R.id.item_message)
+    ItemView mItemMessage;
+    @BindView(R.id.item_dynamic)
+    ItemView mItemDynamic;
+    @BindView(R.id.item_as_referee)
+    ItemView mItemAsReferee;
     private View view;
 
     public static MyFragment newInstance() {
@@ -117,6 +130,42 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
         });
         mItemPrize.setOnItemClickListener(view -> {
             ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_PRIZE);
+        });
+        mItemBall.setOnItemClickListener(new ItemView.OnItemClickListener() {
+            @Override
+            public void onClickItem(View view) {
+                Toasts.with().showToast(R.string.pleases_next_open);
+            }
+        });
+        mItemOrder.setOnItemClickListener(new ItemView.OnItemClickListener() {
+            @Override
+            public void onClickItem(View view) {
+                Toasts.with().showToast(R.string.pleases_next_open);
+            }
+        });
+        mItemTeam.setOnItemClickListener(new ItemView.OnItemClickListener() {
+            @Override
+            public void onClickItem(View view) {
+                Toasts.with().showToast(R.string.pleases_next_open);
+            }
+        });
+        mItemMessage.setOnItemClickListener(new ItemView.OnItemClickListener() {
+            @Override
+            public void onClickItem(View view) {
+                Toasts.with().showToast(R.string.pleases_next_open);
+            }
+        });
+        mItemDynamic.setOnItemClickListener(new ItemView.OnItemClickListener() {
+            @Override
+            public void onClickItem(View view) {
+                Toasts.with().showToast(R.string.pleases_next_open);
+            }
+        });
+        mItemAsReferee.setOnItemClickListener(new ItemView.OnItemClickListener() {
+            @Override
+            public void onClickItem(View view) {
+                Toasts.with().showToast(R.string.pleases_next_open);
+            }
         });
     }
 

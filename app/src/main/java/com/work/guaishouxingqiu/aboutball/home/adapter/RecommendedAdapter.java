@@ -23,6 +23,7 @@ import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultRecommendDataBean;
+import com.work.guaishouxingqiu.aboutball.home.fragment.HomeFragment;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
@@ -339,7 +340,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             } else {
                 mAdapter.notifyDataSetChanged();
             }
-            mRlMore.setOnClickListener(v -> EventBus.getDefault().post(new VenueMessage(TYPE_VENUE)));
+            mRlMore.setOnClickListener(v -> EventBus.getDefault().post(new HomeFragment.Message(TYPE_VENUE,2)));
         }
     }
 
@@ -427,7 +428,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
                 mAdapter.notifyDataSetChanged();
             }
 
-            mRlMore.setOnClickListener(v -> EventBus.getDefault().post(new VenueMessage(TYPE_BALL)));
+            mRlMore.setOnClickListener(v -> EventBus.getDefault().post(new HomeFragment.Message(TYPE_BALL,2)));
         }
 
         private void initChildView(View itemView) {
@@ -500,12 +501,4 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
     }
 
 
-    public static class VenueMessage {
-        //0代表场馆、1代表约球
-        public int mType;
-
-        public VenueMessage(int type) {
-            this.mType = type;
-        }
-    }
 }

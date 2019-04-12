@@ -109,7 +109,7 @@ public class EditMyAddressActivity extends BaseActivity<EditMyAddressPresenter> 
         if (isInputAddressPeople() && isInputPhoneNumber()
                 && isInputAddress() && isInputAddressDetails()) {
 
-            if (mAddressId != -1){
+            if (mAddressId != -1) {
                 RequestEditAddressBean bean = new RequestEditAddressBean();
                 bean.userName = DataUtils.getEditDetails(mAcetConsignee);
                 bean.telephone = DataUtils.getEditDetails(mAcetPhone);
@@ -117,7 +117,7 @@ public class EditMyAddressActivity extends BaseActivity<EditMyAddressPresenter> 
                 bean.detailAddress = DataUtils.getEditDetails(mAcetAddress);
                 bean.addressId = mAddressId;
                 mPresenter.saveEditAddress(bean);
-            }else {
+            } else {
                 RequestNewAddressBean bean = new RequestNewAddressBean();
                 bean.userName = DataUtils.getEditDetails(mAcetConsignee);
                 bean.telephone = DataUtils.getEditDetails(mAcetPhone);
@@ -138,6 +138,7 @@ public class EditMyAddressActivity extends BaseActivity<EditMyAddressPresenter> 
     @Override
     public void resultMyAddress(ResultMyAddress address) {
         mAcetConsignee.setText(address.userName);
+        mAcetConsignee.setSelection(address.userName == null ? 0 : address.userName.length());
         mAcetPhone.setText(address.telephone);
         mItemAddress.mTvRight.setText(address.address);
         mAcetAddress.setText(address.detailAddress);

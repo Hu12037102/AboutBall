@@ -140,6 +140,8 @@
     <string name="out_off_date">已过期</string>
     <string name="prize_data">%s&#160;%s</string>
     <string name="line_prize_input_address">线上邮寄奖品，请先完善收货信息，才能发货</string>
+    <string name="resume_click_exit_app">再点击一次退出APP</string>
+    <string name="pleases_next_open">功能正在开发中...</string>
     <!--相册选择器-->
     <string name="back">返回</string>
     <string name="all_image">全部图片</string>
