@@ -100,5 +100,11 @@ public class BaseApplication extends ZApplication {
         });
     }
 
+    public void closeWeiChat(){
+        if (mWeiChatApi != null){
+            mWeiChatApi.unregisterApp();
+            mWeiChatApi.detach();
+        }
+    }
 
 }

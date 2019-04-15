@@ -23,6 +23,7 @@ import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.media.IntentData;
 import com.work.guaishouxingqiu.aboutball.media.MediaSelector;
 import com.work.guaishouxingqiu.aboutball.media.OnRecyclerItemClickListener;
 import com.work.guaishouxingqiu.aboutball.media.adapter.MediaFileAdapter;
@@ -324,7 +325,8 @@ public  class MediaActivity extends PermissionActivity {
 
     private void toPreviewActivity(int position, @NonNull List<MediaSelectorFile> data, @NonNull List<MediaSelectorFile> checkData) {
         Intent intent = new Intent(MediaActivity.this, PreviewActivity.class);
-        intent.putParcelableArrayListExtra(Contast.KEY_PREVIEW_DATA_MEDIA, (ArrayList<? extends Parcelable>) data);
+       // intent.putParcelableArrayListExtra(Contast.KEY_PREVIEW_DATA_MEDIA, (ArrayList<? extends Parcelable>) data);
+        IntentData.get().putData(data);
         intent.putParcelableArrayListExtra(Contast.KEY_PREVIEW_CHECK_MEDIA, (ArrayList<? extends Parcelable>) checkData);
         intent.putExtra(Contast.KEY_OPEN_MEDIA, mOptions);
         intent.putExtra(Contast.KEY_PREVIEW_POSITION, position);

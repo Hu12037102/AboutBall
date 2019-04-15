@@ -70,5 +70,7 @@ public interface IApiService {
 
     interface H5 {
         String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";
+        //资讯详情分享，后缀加上id;
+        String SHARE_NEWS_DETAILS = "http://ifeell.com.cn/share/index.html?id=";
     }
 }

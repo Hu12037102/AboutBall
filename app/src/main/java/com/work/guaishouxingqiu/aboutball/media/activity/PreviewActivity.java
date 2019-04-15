@@ -25,6 +25,7 @@ import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.media.IntentData;
 import com.work.guaishouxingqiu.aboutball.media.MediaSelector;
 import com.work.guaishouxingqiu.aboutball.media.OnRecyclerItemClickListener;
 import com.work.guaishouxingqiu.aboutball.media.adapter.MediaCheckAdapter;
@@ -89,7 +90,8 @@ public class PreviewActivity extends BaseActivity {
         if (mCheckMediaData == null) {
             mCheckMediaData = new ArrayList<>();
         }
-        mMediaFileData = intent.getParcelableArrayListExtra(Contast.KEY_PREVIEW_DATA_MEDIA);
+        // mMediaFileData = intent.getParcelableArrayListExtra(Contast.KEY_PREVIEW_DATA_MEDIA);
+        mMediaFileData = IntentData.get().getData();
         mPreviewPosition = intent.getIntExtra(Contast.KEY_PREVIEW_POSITION, 0);
         mOptions = intent.getParcelableExtra(Contast.KEY_OPEN_MEDIA);
         mTvTop.mViewRoot.setBackgroundColor(ContextCompat.getColor(this, mOptions.themeColor));

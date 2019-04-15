@@ -114,7 +114,11 @@ public class SettingActivity extends BaseActivity<SettingPresenter>
         hintDialog.show();
         hintDialog.setOnItemClickListener(view -> {
             hintDialog.dismiss();
+            if (UserManger.get().isWeiChatId()) {
+                getBaseApplication().closeWeiChat();
+            }
             UserManger.get().loginOut();
+
             finish();
         });
 

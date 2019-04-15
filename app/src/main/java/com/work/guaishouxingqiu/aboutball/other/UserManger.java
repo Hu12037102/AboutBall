@@ -147,4 +147,8 @@ public class UserManger {
         mSP.clearData();
         // FileUtils.removeFile(FileUtils.getCacheFile());
     }
+
+    public boolean isWeiChatId() {
+        return !DataUtils.isEmpty(mSP.getString(UserManger.KEY_WECHAT_OPEN_ID));
+    }
 }

@@ -4,7 +4,9 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:id="@+id/item_ball_root"
-    android:background="@color/colorWhite">
+    android:background="@color/colorWhite"
+    android:layout_marginTop="@dimen/size_5dp"
+    android:layout_marginBottom="@dimen/size_5dp">
 
     <RelativeLayout
         android:id="@+id/rl_ball_more"

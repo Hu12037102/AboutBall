@@ -10,7 +10,11 @@
         android:background="@drawable/shape_input_name_edit"
         android:focusable="false"
         android:focusableInTouchMode="false"/>
-
+<View
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/size_5dp"
+    android:background="@color/colorFFFBFAFB"
+    />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_45dp"

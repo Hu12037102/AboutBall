@@ -42,14 +42,17 @@ public abstract class LoginOrSharePresenter<V extends LoginOrShareContract.View,
 
     @Override
     public void getWeiChatToken(RequestWeiChatTokenBean bean) {
+       mView.showLoadingView();
         mModel.getWeiChatToken(bean, new Observer<ResultWeiChatTokenBean>() {
             @Override
             public void onSubscribe(Disposable d) {
                 mCompositeDisposable.add(d);
+
             }
 
             @Override
             public void onNext(ResultWeiChatTokenBean resultWeiChatTokenBean) {
+                mView.dismissLoadingView();
                 if (resultWeiChatTokenBean.errcode == IApi.Code.SUCCEED) {
                     getWeiChatInfo(resultWeiChatTokenBean.access_token, resultWeiChatTokenBean.openid);
                 } else {
@@ -60,6 +63,7 @@ public abstract class LoginOrSharePresenter<V extends LoginOrShareContract.View,
 
             @Override
             public void onError(Throwable e) {
+                mView.dismissLoadingView();
             }
 
             @Override
@@ -69,6 +73,7 @@ public abstract class LoginOrSharePresenter<V extends LoginOrShareContract.View,
     }
 
     private void getWeiChatInfo(String accessToken, String openid) {
+        mView.showLoadingView();
         mModel.getWeiChatInfo(accessToken, openid, new Observer<ResultWeiChatInfo>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -77,6 +82,7 @@ public abstract class LoginOrSharePresenter<V extends LoginOrShareContract.View,
 
             @Override
             public void onNext(ResultWeiChatInfo resultWeiChatInfo) {
+                mView.dismissLoadingView();
                 if (resultWeiChatInfo != null && resultWeiChatInfo.errcode == IApi.Code.SUCCEED) {
                     RequestOtherLoginBean bean = new RequestOtherLoginBean();
                     bean.imageUrl = resultWeiChatInfo.headimgurl;
@@ -93,7 +99,7 @@ public abstract class LoginOrSharePresenter<V extends LoginOrShareContract.View,
 
                         @Override
                         public void onError(Throwable e) {
-
+                            mView.dismissLoadingView();
                         }
                     }));
                     //   mView.resultWeiChatInfo(resultWeiChatInfo);

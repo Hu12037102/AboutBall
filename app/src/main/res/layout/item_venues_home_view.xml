@@ -5,6 +5,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@color/colorWhite"
+    android:layout_marginTop="@dimen/size_5dp"
+    android:layout_marginBottom="@dimen/size_5dp"
     >
 
     <RelativeLayout

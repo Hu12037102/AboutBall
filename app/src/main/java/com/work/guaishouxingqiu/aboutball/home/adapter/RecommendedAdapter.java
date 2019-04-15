@@ -139,7 +139,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             TextViewHolder textViewHolder = (TextViewHolder) viewHolder;
             textViewHolder.mTvData.setText(mData.get(i).title);
             textViewHolder.mTvFrom.setText(UIUtils.getString(R.string.from_data, mData.get(i).source, mData.get(i).releaseTime));
-            if (i == mData.size() - 1) {
+            if (i == POSITION_VENUE_ITEM - 1 || i == POSITION_BALL_ITEM - 1) {
                 textViewHolder.mLine.setVisibility(View.INVISIBLE);
             } else {
                 textViewHolder.mLine.setVisibility(View.VISIBLE);
@@ -167,7 +167,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
                 GlideManger.get().loadImage(viewHolder.itemView.getContext(), imagePath,
                         R.drawable.shape_item_recommend_preview_item, R.drawable.shape_item_recommend_preview_item, singViewHolder.mIvData);
             }
-            if (i == mData.size() - 1) {
+            if (i == POSITION_VENUE_ITEM - 1 || i == POSITION_BALL_ITEM - 1) {
                 singViewHolder.mLine.setVisibility(View.INVISIBLE);
             } else {
                 singViewHolder.mLine.setVisibility(View.VISIBLE);
@@ -204,7 +204,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
                 }
             }
 
-            if (i == mData.size() - 1) {
+            if (i == POSITION_VENUE_ITEM - 1 || i == POSITION_BALL_ITEM - 1) {
                 threeViewHolder.mLine.setVisibility(View.INVISIBLE);
             } else {
                 threeViewHolder.mLine.setVisibility(View.VISIBLE);
