@@ -139,6 +139,13 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             textView.setText(bean.title);
         }
     }
+    private void showHotView(ResultNewsBean bean, TextView view){
+        if (Integer.valueOf(bean.commentCount) >= 10){
+            view.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_hot,0,0,0);
+        }else {
+            view.setCompoundDrawablesWithIntrinsicBounds(0,0,0,0);
+        }
+    }
 
     @Override
     protected void onBindViewDataHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
@@ -154,13 +161,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             } else {
                 textViewHolder.mLine.setVisibility(View.VISIBLE);
             }
-            /*textViewHolder.itemView.setOnClickListener(v -> {
-                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_NEW_DETAILS,
-                        ARouterConfig.Key.NEW_DETAILS_ID, mData.get(i).newsId);
-                if (onItemClickListener != null){
-                    onItemClickListener.onItemClick(v,i);
-                }
-            });*/
+            this.showHotView(bean,textViewHolder.mTvFrom);
 
         } else if (viewHolder instanceof SingViewHolder) {
             SingViewHolder singViewHolder = (SingViewHolder) viewHolder;
@@ -183,14 +184,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             } else {
                 singViewHolder.mLine.setVisibility(View.VISIBLE);
             }
-
-            /*singViewHolder.itemView.setOnClickListener(v -> {
-                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_NEW_DETAILS,
-                        ARouterConfig.Key.NEW_DETAILS_ID, mData.get(i).newsId);
-                if (onItemClickListener != null){
-                    onItemClickListener.onItemClick(v,i);
-                }
-            });*/
+            this.showHotView(bean,singViewHolder.mTvFrom);
         } else if (viewHolder instanceof ThreeViewHolder) {
             ThreeViewHolder threeViewHolder = (ThreeViewHolder) viewHolder;
             //threeViewHolder.mFtvData.setText(mData.get(i).title);
@@ -221,7 +215,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             } else {
                 threeViewHolder.mLine.setVisibility(View.VISIBLE);
             }
-
+            this.showHotView(bean,threeViewHolder.mTvFrom);
 
         } else if (viewHolder instanceof VideoHolder) {
             VideoHolder videoHolder = (VideoHolder) viewHolder;
@@ -242,7 +236,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             });*/
             GlideManger.get().loadImage(mContext, mData.get(i).coverUrl, R.mipmap.icon_default_banner,
                     R.mipmap.icon_default_banner, videoHolder.mTvVideo);
-
+            this.showHotView(bean,videoHolder.mTvFrom);
 
         }
 

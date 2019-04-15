@@ -138,9 +138,11 @@ public class UIUtils {
         switch (stateId) {
             case Contast.GAME_STATUS_STARTING:
                 textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.icon_recommend_live_status, 0);
+                textView.setTextColor(ContextCompat.getColor(textView.getContext(),R.color.colorFFDB2F23));
                 break;
             case Contast.GAME_STATUS_FINISH:
                 textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.icon_recommend_no_start, 0);
+                textView.setTextColor(ContextCompat.getColor(textView.getContext(),R.color.colorFFA6A6A6));
                 break;
             default:
                 break;

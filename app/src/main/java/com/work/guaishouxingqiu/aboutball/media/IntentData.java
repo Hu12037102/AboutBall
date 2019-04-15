@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class IntentData {
 
-    private WeakReference<List<MediaSelectorFile>> mWeakData;
+    private WeakReference mWeakData;
 
     private static IntentData mIntentData;
 
@@ -33,14 +33,14 @@ public class IntentData {
     }
 
 
-    public void putData(List<MediaSelectorFile> data) {
+    public  <T>void putData(T data){
         mWeakData = new WeakReference<>(data);
 
     }
 
-    public List<MediaSelectorFile> getData() {
+    public <T> T getData() {
         if (mWeakData != null && mWeakData.get() != null) {
-            return mWeakData.get();
+            return (T) mWeakData.get();
         }
         return null;
     }

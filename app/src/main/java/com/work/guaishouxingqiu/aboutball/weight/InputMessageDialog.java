@@ -6,6 +6,7 @@ import android.hardware.input.InputManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.ResultReceiver;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatEditText;
 import android.view.LayoutInflater;
@@ -35,9 +36,10 @@ public class InputMessageDialog extends BaseDialog {
                 case WHAT:
                     mAcetMessage.setFocusable(true);
                     mAcetMessage.setFocusableInTouchMode(true);
+                    mAcetMessage.requestFocus();
                     InputMethodManager methodManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     if (methodManager != null && methodManager.isActive()) {
-                        methodManager.showSoftInput(mAcetMessage, InputMethodManager.SHOW_IMPLICIT);
+                        methodManager.showSoftInput(mAcetMessage, 0);
 
                     }
                     break;
@@ -74,8 +76,9 @@ public class InputMessageDialog extends BaseDialog {
 
     @Override
     public void show() {
-        mHandler.sendEmptyMessageDelayed(100, 100);
+
         super.show();
+        mHandler.sendEmptyMessageDelayed(100, 100);
     }
 
     @Override

@@ -9,7 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -72,19 +75,19 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
 
     @Override
     protected void initView() {
-          initHeadView();
+        initHeadView();
         super.initView();
         mNewsId = mIntent.getLongExtra(ARouterConfig.Key.NEW_DETAILS_ID, 0);
         mRvMessage.setLayoutManager(new LinearLayoutManager(this));
     }
 
     private void initHeadView() {
-        mHeadView = getLayoutInflater().inflate(R.layout.item_head_news_details_view, (ViewGroup) getWindow().getDecorView().getRootView(),false);
+        mHeadView = getLayoutInflater().inflate(R.layout.item_head_news_details_view, (ViewGroup) getWindow().getDecorView().getRootView(), false);
         mWebView = mHeadView.findViewById(R.id.bw_web);
-       ViewGroup.LayoutParams layoutParams =  mWebView.getLayoutParams();
-       layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-       layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-       mWebView.setLayoutParams(layoutParams);
+        ViewGroup.LayoutParams layoutParams = mWebView.getLayoutParams();
+        layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        mWebView.setLayoutParams(layoutParams);
     }
 
     @Override
@@ -108,6 +111,26 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
             refreshLayout.finishLoadMore();
 
         });
+        mWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+              //  mPresenter.loadMessage(mNewsId);
+            }
+
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
+              //  mPresenter.loadMessage(mNewsId);
+            }
+
+            @Override
+            public void onPageCommitVisible(WebView view, String url) {
+                super.onPageCommitVisible(view, url);
+                mPresenter.loadMessage(mNewsId);
+            }
+        });
+
 
     }
 
@@ -144,7 +167,7 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
     public void resultNewsContent(BaseDataBean<String> dataBean) {
         loadEditData(dataBean.content);
         mTitleView.mTvCenter.setText(dataBean.title);
-        mPresenter.loadMessage(mNewsId);
+
     }
 
     @Override
