@@ -30,6 +30,8 @@
         android:background="@drawable/shape_input_name_edit"
         android:gravity="center_vertical"
         android:hint="@string/input_name"
-        android:paddingLeft="@dimen/default_margin" />
+        android:paddingLeft="@dimen/default_margin"
+        android:maxLength="8"
+        />
 
 </LinearLayout>

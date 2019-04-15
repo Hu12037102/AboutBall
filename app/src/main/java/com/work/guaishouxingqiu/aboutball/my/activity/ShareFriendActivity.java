@@ -45,7 +45,6 @@ public class ShareFriendActivity extends BaseWebActivity {
 
     @Override
     protected void initView() {
-        setSetLoadJs(true);
         super.initView();
     }
 
@@ -64,4 +63,8 @@ public class ShareFriendActivity extends BaseWebActivity {
         return null;
     }
 
+    @Override
+    protected boolean isLoadJs() {
+        return true;
+    }
 }

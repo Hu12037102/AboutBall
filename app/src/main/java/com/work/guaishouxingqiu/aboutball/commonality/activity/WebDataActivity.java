@@ -35,7 +35,7 @@ public class WebDataActivity extends BaseWebActivity<WebDataPresenter> implement
     ProgressBar mPbLoading;
     @BindView(R.id.wv_data)
     WebView mWebView;
-   // private String mWebUrl;
+    // private String mWebUrl;
     private String mActionId;
     private static final String H5_HOST = "https://ifi.bmece.com/prizeAction";
 
@@ -46,7 +46,6 @@ public class WebDataActivity extends BaseWebActivity<WebDataPresenter> implement
 
     @Override
     protected void initView() {
-        this.setSetLoadJs(true);
         super.initView();
     }
 
@@ -56,7 +55,7 @@ public class WebDataActivity extends BaseWebActivity<WebDataPresenter> implement
         if (bundle == null) {
             return;
         }
-       // mWebUrl = bundle.getString(ARouterConfig.Key.URL);
+        // mWebUrl = bundle.getString(ARouterConfig.Key.URL);
         mActionId = bundle.getString(ARouterConfig.Key.ACTION_ID);
         if (UserManger.get().isLogin()) {
             String sb = H5_HOST +
@@ -114,5 +113,10 @@ public class WebDataActivity extends BaseWebActivity<WebDataPresenter> implement
         public void comment(String commentid) {
             ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_EDIT_MY_ADDRESS);
         }
+    }
+
+    @Override
+    protected boolean isLoadJs() {
+        return true;
     }
 }

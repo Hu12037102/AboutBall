@@ -36,11 +36,6 @@ public abstract class BaseWebActivity<P extends BasePresenter> extends Permissio
     private WebView mWebView;
     private ProgressBar mPbLoading;
     private TitleView mTitleView;
-    private boolean mLoadJs;
-
-    public void setSetLoadJs(boolean loadJs) {
-        this.mLoadJs = loadJs;
-    }
 
 
     @Override
@@ -52,7 +47,7 @@ public abstract class BaseWebActivity<P extends BasePresenter> extends Permissio
 
     protected void initWebView() {
         mWebView = DataUtils.checkData(getWebView());
-        WebHelp.initSetting(mWebView, mLoadJs);
+        WebHelp.initSetting(mWebView, isLoadJs());
     }
 
     @Override
@@ -84,7 +79,7 @@ public abstract class BaseWebActivity<P extends BasePresenter> extends Permissio
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
 
-                LogUtils.w("WebViewClient--",url);
+                LogUtils.w("WebViewClient--", url);
             }
 
         });
@@ -97,10 +92,11 @@ public abstract class BaseWebActivity<P extends BasePresenter> extends Permissio
      * @param content
      */
     protected void loadEditData(String content) {
-        //   content = content.replace("<img", "<img style=max-width:100%;height:auto");
+        content = getNewData(content);
+        content = content.replace("<img", "<img style=max-width:100%;height:auto");
         //视频宽度自适应
         content = content.replace("<video", "<video style=max-width:100%;height:auto");
-        mWebView.loadDataWithBaseURL(null, getNewData(content), "text/html", "utf-8", null);
+        mWebView.loadDataWithBaseURL(null, content, "text/html", "utf-8", null);
     }
 
 
@@ -174,4 +170,7 @@ public abstract class BaseWebActivity<P extends BasePresenter> extends Permissio
         return mTitleView;
     }
 
+    protected boolean isLoadJs() {
+        return false;
+    }
 }
