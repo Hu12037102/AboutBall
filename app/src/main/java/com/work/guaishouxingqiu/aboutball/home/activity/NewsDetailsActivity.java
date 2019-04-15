@@ -79,6 +79,7 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
         super.initView();
         mNewsId = mIntent.getLongExtra(ARouterConfig.Key.NEW_DETAILS_ID, 0);
         mRvMessage.setLayoutManager(new LinearLayoutManager(this));
+        mRvMessage.setVisibility(View.INVISIBLE);
     }
 
     private void initHeadView() {
@@ -115,18 +116,17 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-              //  mPresenter.loadMessage(mNewsId);
             }
 
             @Override
             public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                 super.onReceivedError(view, request, error);
-              //  mPresenter.loadMessage(mNewsId);
             }
 
             @Override
             public void onPageCommitVisible(WebView view, String url) {
                 super.onPageCommitVisible(view, url);
+                mRvMessage.setVisibility(View.VISIBLE);
                 mPresenter.loadMessage(mNewsId);
             }
         });
