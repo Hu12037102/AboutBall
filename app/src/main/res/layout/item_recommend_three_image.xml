@@ -4,34 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/selector_item"
     android:orientation="vertical"
     android:paddingLeft="@dimen/size_20dp"
     android:paddingRight="@dimen/size_20dp"
-    android:paddingTop="@dimen/size_20dp"
-    android:background="@drawable/selector_item">
-
-    <uk.co.deanwild.flowtextview.FlowTextView
-        android:id="@+id/ftv_data"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+    android:paddingTop="@dimen/size_20dp">
         <TextView
+            android:id="@+id/tv_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_stick_view"
-            android:paddingBottom="@dimen/size_2dp"
-            android:paddingLeft="@dimen/size_4dp"
-            android:paddingRight="@dimen/size_4dp"
-            android:paddingTop="@dimen/size_2dp"
-            android:text="@string/stick"
-            android:textColor="@color/colorTheme" />
-    </uk.co.deanwild.flowtextview.FlowTextView>
+            android:textColor="@color/color_4" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="@dimen/size_15dp">
+        android:layout_marginTop="@dimen/size_15dp"
+        android:orientation="horizontal">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/iv_1"
@@ -40,8 +28,8 @@
             android:layout_marginEnd="@dimen/size_7dp"
             android:layout_marginRight="@dimen/size_7dp"
             android:layout_weight="1"
-            app:riv_corner_radius="@dimen/size_6dp"
-            android:background="@drawable/shape_item_recommend_preview_item" />
+            android:background="@drawable/shape_item_recommend_preview_item"
+            app:riv_corner_radius="@dimen/size_6dp" />
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/iv_2"
@@ -50,16 +38,16 @@
             android:layout_marginEnd="@dimen/size_7dp"
             android:layout_marginRight="@dimen/size_7dp"
             android:layout_weight="1"
-            app:riv_corner_radius="@dimen/size_6dp"
-            android:background="@drawable/shape_item_recommend_preview_item" />
+            android:background="@drawable/shape_item_recommend_preview_item"
+            app:riv_corner_radius="@dimen/size_6dp" />
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/iv_3"
             android:layout_width="@dimen/size_0dp"
             android:layout_height="@dimen/size_80dp"
             android:layout_weight="1"
-            app:riv_corner_radius="@dimen/size_6dp"
-            android:background="@drawable/shape_item_recommend_preview_item" />
+            android:background="@drawable/shape_item_recommend_preview_item"
+            app:riv_corner_radius="@dimen/size_6dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -76,21 +64,24 @@
             android:padding="2dp"
             android:text="@string/hot"
             android:textColor="@color/color_2"
-            android:textSize="@dimen/size_10sp" />
+            android:textSize="@dimen/size_10sp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_from"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/size_5dp"
-            android:layout_marginStart="@dimen/size_5dp"
+            android:drawableLeft="@mipmap/icon_hot"
+            android:drawablePadding="@dimen/size_5dp"
+            android:drawableStart="@mipmap/icon_hot"
+            android:gravity="center_vertical"
             android:textSize="12sp"
             tools:text="来源：五华印象" />
     </LinearLayout>
+
     <View
         android:id="@+id/line"
         style="@style/HorizontalLine"
-        android:layout_marginTop="@dimen/size_20dp"
-        />
+        android:layout_marginTop="@dimen/size_20dp" />
 
 </LinearLayout>

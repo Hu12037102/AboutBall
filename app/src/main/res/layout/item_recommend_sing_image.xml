@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/selector_item"
+    android:clickable="true"
     android:orientation="vertical"
     android:paddingLeft="@dimen/default_margin"
     android:paddingRight="@dimen/default_margin"
-    android:paddingTop="@dimen/default_margin"
-    android:background="@drawable/selector_item"
-    android:clickable="true">
+    android:paddingTop="@dimen/default_margin">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             android:contentDescription="@null"
             android:scaleType="centerCrop"
             app:layout_constraintRight_toRightOf="parent"
-            app:riv_corner_radius="@dimen/size_6dp"/>
+            app:riv_corner_radius="@dimen/size_6dp" />
 
         <TextView
             android:id="@+id/tv_data"
@@ -44,6 +44,10 @@
             android:id="@+id/tv_from"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/icon_hot"
+            android:drawableStart="@mipmap/icon_hot"
+            android:drawablePadding="@dimen/size_5dp"
+            android:gravity="center_vertical"
             android:singleLine="true"
             android:textColor="@color/color_5"
             android:textSize="12sp"

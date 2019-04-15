@@ -29,6 +29,7 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
+import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.activity.VenueDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
@@ -40,7 +41,6 @@ import java.util.List;
 import java.util.PropertyResourceBundle;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import uk.co.deanwild.flowtextview.FlowTextView;
 
 /**
  * 作者: 胡庆岭
@@ -131,13 +131,23 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
     }
 
 
+    private void addTop(ResultNewsBean bean, TextView textView) {
+        if (bean.onTop == 1) {
+            String content ="A ".concat(bean.title);
+            textView.setText(SpanUtils.getTextDrawable(R.mipmap.icon_top, 0, 1, content));
+        } else {
+            textView.setText(bean.title);
+        }
+    }
+
     @Override
     protected void onBindViewDataHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         ResultNewsBean bean = mData.get(i);
         viewHolder.setIsRecyclable(false);
         if (viewHolder instanceof TextViewHolder) {
             TextViewHolder textViewHolder = (TextViewHolder) viewHolder;
-            textViewHolder.mTvData.setText(mData.get(i).title);
+           // textViewHolder.mTvData.setText(mData.get(i).title);
+            addTop(bean,textViewHolder.mTvData);
             textViewHolder.mTvFrom.setText(UIUtils.getString(R.string.from_data, mData.get(i).source, mData.get(i).releaseTime));
             if (i == POSITION_VENUE_ITEM - 1 || i == POSITION_BALL_ITEM - 1) {
                 textViewHolder.mLine.setVisibility(View.INVISIBLE);
@@ -154,7 +164,8 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
 
         } else if (viewHolder instanceof SingViewHolder) {
             SingViewHolder singViewHolder = (SingViewHolder) viewHolder;
-            singViewHolder.mTvData.setText(mData.get(i).title);
+            //singViewHolder.mTvData.setText(mData.get(i).title);
+            addTop(bean,singViewHolder.mTvData);
             singViewHolder.mTvFrom.setText(UIUtils.getString(R.string.from_data, mData.get(i).source, mData.get(i).releaseTime));
             if (!DataUtils.isEmpty(mData.get(i).coverUrl)) {
                 String imagePath;
@@ -182,7 +193,8 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             });*/
         } else if (viewHolder instanceof ThreeViewHolder) {
             ThreeViewHolder threeViewHolder = (ThreeViewHolder) viewHolder;
-            threeViewHolder.mFtvData.setText(mData.get(i).title);
+            //threeViewHolder.mFtvData.setText(mData.get(i).title);
+            addTop(bean,threeViewHolder.mTvData);
             threeViewHolder.mTvFrom.setText(UIUtils.getString(R.string.from_data, mData.get(i).source, mData.get(i).releaseTime));
             if (mData.get(i).coverUrl != null) {
                 String[] images = mData.get(i).coverUrl.split(",");
@@ -213,8 +225,9 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
 
         } else if (viewHolder instanceof VideoHolder) {
             VideoHolder videoHolder = (VideoHolder) viewHolder;
-            videoHolder.mTvContent.setText(mData.get(i).title);
+           // videoHolder.mTvContent.setText(mData.get(i).title);
             videoHolder.mTvFrom.setText(UIUtils.getString(R.string.from_data, mData.get(i).source, mData.get(i).releaseTime));
+            addTop(bean,videoHolder.mTvContent);
            /* GlideManger.get().loadImageDrawable(mData.get(i).coverUrl, new CustomTarget<Drawable>() {
                 @Override
                 public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
@@ -275,12 +288,12 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
 
     static class ThreeViewHolder extends RecyclerView.ViewHolder {
 
-        private FlowTextView mFtvData;
         private ImageView mIv1;
         private ImageView mIv2;
         private ImageView mIv3;
         private TextView mTvFrom;
         private View mLine;
+        private TextView mTvData;
 
         public ThreeViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -288,14 +301,12 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
         }
 
         private void initView(View itemView) {
-            mFtvData = itemView.findViewById(R.id.ftv_data);
-            mFtvData.setTextSize(ScreenUtils.dp2px(itemView.getContext(), 17));
-            mFtvData.setColor(ContextCompat.getColor(itemView.getContext(), R.color.color_4));
             mIv1 = itemView.findViewById(R.id.iv_1);
             mIv2 = itemView.findViewById(R.id.iv_2);
             mIv3 = itemView.findViewById(R.id.iv_3);
             mTvFrom = itemView.findViewById(R.id.tv_from);
             mLine = itemView.findViewById(R.id.line);
+            mTvData = itemView.findViewById(R.id.tv_content);
         }
     }
 

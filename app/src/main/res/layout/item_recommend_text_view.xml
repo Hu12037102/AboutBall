@@ -38,7 +38,8 @@
                 android:padding="2dp"
                 android:text="@string/hot"
                 android:textColor="@color/color_2"
-                android:textSize="@dimen/size_10sp" />
+                android:textSize="@dimen/size_10sp"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/tv_from"
@@ -46,7 +47,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/size_5dp"
                 android:layout_marginStart="@dimen/size_5dp"
+                android:gravity="center_vertical"
+                android:drawablePadding="@dimen/size_5dp"
                 android:textSize="12sp"
+                android:drawableLeft="@mipmap/icon_hot"
                 tools:text="来源：五华印象" />
 
         </LinearLayout>

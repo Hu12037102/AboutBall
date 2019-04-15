@@ -126,7 +126,7 @@ public final class ViewfinderView extends View {
         // 扫描控件
         scanLight = BitmapFactory.decodeResource(getResources(), ta.getResourceId(R.styleable.ViewfinderView_inner_scan_bitmap, R.mipmap.icon_scan_line));
         // 扫描速度
-        SCAN_VELOCITY = ta.getInt(R.styleable.ViewfinderView_inner_scan_speed, 5);
+        SCAN_VELOCITY = ta.getInt(R.styleable.ViewfinderView_inner_scan_speed, 5*4);
 
         isCircle = ta.getBoolean(R.styleable.ViewfinderView_inner_scan_iscircle, true);
 
