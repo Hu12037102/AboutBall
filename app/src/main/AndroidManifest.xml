@@ -78,8 +78,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".home.activity.NewsDetailsActivity"
-            android:screenOrientation="portrait"
-            android:hardwareAccelerated="true"/>
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".game.activity.GameDetailsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -135,8 +135,15 @@
         <activity
             android:name=".commonality.activity.WebDataActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".my.activity.UserAgreementActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".my.activity.ShareFriendActivity" android:screenOrientation="portrait"/>
+        <activity
+            android:name=".my.activity.UserAgreementActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.activity.ShareFriendActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.activity.UpdatePhoneActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -93,6 +93,8 @@
     <string name="game_send_comment_hint">踢球吧对直播内容进行24小时巡查，禁止传播违法
 违规、封建迷信、暴力血腥、低俗色情、招嫖诈骗、违禁品
 等不良信息，坚决维护青少年精神文明健康。</string>
+    <string name="update_phone_number_title">更换绑定手机</string>
+    <string name="you_band_this_phone">您已经绑定了该手机</string>
     <!--&#160;  空格-->
     <string name="notice">系统通知&#160;&#160;</string>
     <string name="game_id_error">比赛房间未找到！</string>

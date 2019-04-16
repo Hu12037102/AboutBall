@@ -4,19 +4,17 @@ import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
-import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestEditAddressBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestNewAddressBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateBirthdayBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateHeightBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateNameBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdatePhoneBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateSexBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateWeightBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyAddress;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultPrizeBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
-
-import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -68,4 +66,7 @@ public interface MyService {
 
     @GET(IApiService.GET_HAS_ADDRESS)
     Observable<BaseBean<String>> hasAddress();
+
+    @POST(IApiService.POST_UPDATE_PHONE_NUMBER)
+    Observable<BaseBean<String>> updatePhoneNumber(@Body RequestUpdatePhoneBean bean);
 }

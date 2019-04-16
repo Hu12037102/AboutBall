@@ -23,6 +23,7 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
+import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BirthdayDialog;
 import com.work.guaishouxingqiu.aboutball.weight.HeightDialog;
 import com.work.guaishouxingqiu.aboutball.weight.SexDialog;
@@ -125,7 +126,16 @@ public class MyDetailsActivity extends CameraActivity<MyDetailsPresenter> implem
         mItemWeight.setOnItemClickListener(view -> clickUpdateWeight());
         mItemStature.setOnItemClickListener(view -> clickUpdateHeight());
         mItemBirthday.setOnItemClickListener(view -> clickUpdateBirthday());
-        mItemAddress.setOnItemClickListener(view->clickMyAddress());
+        mItemAddress.setOnItemClickListener(view -> clickMyAddress());
+        mItemPhone.setOnItemClickListener(view -> clickUpdatePhone());
+    }
+
+    private void clickUpdatePhone() {
+        if (UserManger.get().isLogin()) {
+            ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_UPDATE_PHONE);
+        } else {
+            UIUtils.showLoginDialog(this);
+        }
     }
 
     private void clickMyAddress() {

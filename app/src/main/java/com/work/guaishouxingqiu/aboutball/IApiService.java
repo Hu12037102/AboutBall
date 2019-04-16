@@ -18,6 +18,7 @@ public interface IApiService {
     String USER_ACCOUNT_INFO = "/api/accountManagement/getAccountInfo";
     //用户注册
     String REGISTER = "/api/account/register";
+    //判断验证码是否有效
     String JUDGE_MESSAGE_CODE = "/api/account/verificationCodeIsPass";
     //首页-推荐头部信息列表
     String RECOMMEND_HEAD = "/api/home/getHomePage";
@@ -67,6 +68,8 @@ public interface IApiService {
     //获取我的地址
     String GET_MY_ADDRESS = "/api/prize/getMyPrizeAddress";
     String GET_HAS_ADDRESS = "/api/prize/hasAddress";
+    //更绑定手机号码
+    String POST_UPDATE_PHONE_NUMBER ="/api/accountManagement/bandingPhone";
 
     interface H5 {
         String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";

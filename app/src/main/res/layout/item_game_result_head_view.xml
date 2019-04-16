@@ -8,6 +8,7 @@
     <View
         style="@style/VerticalLine"
         android:layout_marginLeft="@dimen/size_20dp"
+        android:layout_width="0.5dp"
         android:background="@color/colorFFF0F0F0" />
 
     <TextView
