@@ -14,6 +14,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.util.ScreenUtils;
@@ -33,6 +34,7 @@ import com.work.guaishouxingqiu.aboutball.home.presenter.NewDetailsPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
+import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseWebView;
 import com.work.guaishouxingqiu.aboutball.weight.InputMessageDialog;
 
@@ -66,6 +68,8 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
     private InputMessageDialog mSendMessageDialog;
     private BaseWebView mWebView;
     private View mHeadView;
+    private TextView mTvTitle;
+    private TextView mTvFrom;
 
 
     @Override
@@ -85,6 +89,8 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
     private void initHeadView() {
         mHeadView = getLayoutInflater().inflate(R.layout.item_head_news_details_view, (ViewGroup) getWindow().getDecorView().getRootView(), false);
         mWebView = mHeadView.findViewById(R.id.bw_web);
+        mTvTitle = mHeadView.findViewById(R.id.tv_title);
+        mTvFrom = mHeadView.findViewById(R.id.tv_from);
         ViewGroup.LayoutParams layoutParams = mWebView.getLayoutParams();
         layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
         layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -166,7 +172,9 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
     @Override
     public void resultNewsContent(BaseDataBean<String> dataBean) {
         loadEditData(dataBean.content);
-        mTitleView.mTvCenter.setText(dataBean.title);
+        mTvTitle.setText(dataBean.title);
+        mTvFrom.setText(UIUtils.getString(R.string.from_data, dataBean.source, dataBean.releaseTime));
+        // mTitleView.mTvCenter.setText(dataBean.title);
 
     }
 

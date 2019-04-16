@@ -153,8 +153,8 @@ public class VenueListFragment extends BaseFragment<VenueListPresenter> implemen
 
                 @Override
                 public void onItemClick(View view, int position) {
-                 //   ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_DETAILS);
-                    Toasts.with().showToast(R.string.pleases_next_open);
+                 ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_DETAILS);
+                    //Toasts.with().showToast(R.string.pleases_next_open);
                 }
             });
             mRequestBean = new RequestVenueListBean();

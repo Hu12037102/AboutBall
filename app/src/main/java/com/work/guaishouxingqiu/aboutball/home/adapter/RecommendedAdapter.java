@@ -388,8 +388,8 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             }
             viewHolder.mCardItem.setLayoutParams(layoutParams);
             viewHolder.itemView.setOnClickListener(v -> {
-                        Toasts.with().showToast(R.string.pleases_next_open);
-                        // ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_DETAILS, ARouterConfig.Key.STADIUM_ID, bean.stadiumId);
+                        //Toasts.with().showToast(R.string.pleases_next_open);
+                         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_DETAILS, ARouterConfig.Key.STADIUM_ID, bean.stadiumId);
                     }
             );
         }
