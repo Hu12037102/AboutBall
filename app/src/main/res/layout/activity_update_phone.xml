@@ -134,10 +134,9 @@
     </android.support.constraint.ConstraintLayout>
 
     <TextView
-        android:id="@+id/tv_sure"
+        android:id="@+id/tv_sures"
         style="@style/ButtonCenterText"
         android:layout_marginTop="@dimen/size_40dp"
         android:background="@drawable/shape_default_button"
-        android:clickable="false"
         android:text="@string/sure" />
 </LinearLayout>

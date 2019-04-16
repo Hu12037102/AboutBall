@@ -14,7 +14,6 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
-import com.work.guaishouxingqiu.aboutball.commonality.bean.RequestWeiChatTokenBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdatePhoneBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.UpdatePhoneContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.UpdatePhonePresenter;
@@ -47,8 +46,9 @@ public class UpdatePhoneActivity extends BaseActivity<UpdatePhonePresenter> impl
     ImageView mIvClearCode;
     @BindView(R.id.tv_gain_message_code)
     TextView mTvGainMessageCode;
-    @BindView(R.id.tv_sure)
+    @BindView(R.id.tv_sures)
     TextView mTvSure;
+
     private boolean isCanLogin;
 
     @Override
@@ -59,9 +59,12 @@ public class UpdatePhoneActivity extends BaseActivity<UpdatePhonePresenter> impl
     @Override
     protected void initView() {
         if (UserManger.get().isLogin()) {
+
             mAcetPhone.setText(UserManger.get().getPhone());
             mAcetPhone.setSelection(UserManger.get().getPhone().length());
         }
+        mIvClearPhone.setVisibility(DataUtils.isEmpty(DataUtils.getEditDetails(mAcetPhone))?
+                View.GONE:View.VISIBLE);
     }
 
     @Override
@@ -86,7 +89,7 @@ public class UpdatePhoneActivity extends BaseActivity<UpdatePhonePresenter> impl
                 mTvSure.setClickable(isCanLogin);
                 mTvSure.setBackgroundResource(isCanLogin ? R.drawable.shape_click_button :
                         R.drawable.shape_default_button);
-                LogUtils.w("addTextChangedListener--",isCanLogin+"--");
+                LogUtils.w("addTextChangedListener--", isCanLogin + "--");
             }
 
             @Override
@@ -108,7 +111,7 @@ public class UpdatePhoneActivity extends BaseActivity<UpdatePhonePresenter> impl
                 mTvSure.setClickable(isCanLogin);
                 mTvSure.setBackgroundResource(isCanLogin ? R.drawable.shape_click_button :
                         R.drawable.shape_default_button);
-                LogUtils.w("addTextChangedListener---",isCanLogin+"--");
+                LogUtils.w("addTextChangedListener---", isCanLogin + "--");
             }
 
             @Override
@@ -124,7 +127,7 @@ public class UpdatePhoneActivity extends BaseActivity<UpdatePhonePresenter> impl
     }
 
 
-    @OnClick({R.id.iv_clear_phone, R.id.iv_clear_message_code, R.id.tv_gain_message_code, R.id.tv_sure})
+    @OnClick({R.id.iv_clear_phone, R.id.iv_clear_message_code, R.id.tv_gain_message_code, R.id.tv_sures})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_clear_phone:
@@ -136,7 +139,7 @@ public class UpdatePhoneActivity extends BaseActivity<UpdatePhonePresenter> impl
             case R.id.tv_gain_message_code:
                 clickSendMessage();
                 break;
-            case R.id.tv_sure:
+            case R.id.tv_sures:
                 clickSure();
                 break;
         }
@@ -155,9 +158,9 @@ public class UpdatePhoneActivity extends BaseActivity<UpdatePhonePresenter> impl
 
     private void clickSendMessage() {
         if (DataUtils.isPhoneNumber(DataUtils.checkData(mAcetPhone.getText()).toString())) {
-            if (DataUtils.getEditDetails(mAcetPhone) .equals(UserManger.get().getPhone())){
+            if (DataUtils.getEditDetails(mAcetPhone).equals(UserManger.get().getPhone())) {
                 Toasts.with().showToast(R.string.you_band_this_phone);
-            }else {
+            } else {
                 mPresenter.sendMessageCode(mAcetPhone.getText().toString(), Contast.TYPE_MESSAGE_CODE_RESET_PASSWORD);
             }
 
@@ -194,4 +197,8 @@ public class UpdatePhoneActivity extends BaseActivity<UpdatePhonePresenter> impl
     public void updatePhoneSucceed(String phoneNumber) {
         UserManger.get().putPhone(phoneNumber);
     }
+
+
+
+
 }
