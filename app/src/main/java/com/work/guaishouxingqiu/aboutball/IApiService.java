@@ -70,6 +70,7 @@ public interface IApiService {
     String GET_HAS_ADDRESS = "/api/prize/hasAddress";
     //更绑定手机号码
     String POST_UPDATE_PHONE_NUMBER ="/api/accountManagement/bandingPhone";
+    String POST_UPDATE_PASSWORD="/api/account/modifyPassword";
 
     interface H5 {
         String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";

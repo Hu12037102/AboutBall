@@ -98,6 +98,7 @@ public class HintDialog extends Dialog {
         mTvSure.setText(resSure);
     }
 
+
     private void initView(View view) {
         mTvTitle = view.findViewById(R.id.tv_title);
         mTvBody = view.findViewById(R.id.tv_body);
@@ -143,6 +144,11 @@ public class HintDialog extends Dialog {
 
         public Builder setSure(@StringRes int resSure) {
             mHintDialog.setSure(resSure);
+            return this;
+        }
+
+        public Builder setCancelTouchOut(boolean cancelTouchOut) {
+            mHintDialog.setCanceledOnTouchOutside(cancelTouchOut);
             return this;
         }
 

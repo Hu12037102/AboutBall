@@ -58,13 +58,13 @@ public class UpdatePhoneActivity extends BaseActivity<UpdatePhonePresenter> impl
 
     @Override
     protected void initView() {
-        if (UserManger.get().isLogin()) {
+       /* if (UserManger.get().isLogin()) {
 
             mAcetPhone.setText(UserManger.get().getPhone());
             mAcetPhone.setSelection(UserManger.get().getPhone().length());
         }
         mIvClearPhone.setVisibility(DataUtils.isEmpty(DataUtils.getEditDetails(mAcetPhone))?
-                View.GONE:View.VISIBLE);
+                View.GONE:View.VISIBLE);*/
     }
 
     @Override

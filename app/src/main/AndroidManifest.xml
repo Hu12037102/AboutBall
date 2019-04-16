@@ -144,6 +144,9 @@
         <activity
             android:name=".my.activity.UpdatePhoneActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.activity.UpdatePasswordActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

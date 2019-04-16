@@ -25,6 +25,7 @@ public interface ARouterConfig {
         String ACTIVITY_USER_AGREEMENT="/activity/user/agreement";
         String ACTIVITY_SHARE_FRIEND="/activity/share_friend";
         String ACTIVITY_UPDATE_PHONE="/activity/update/phone";
+        String ACTIVITY_UPDATE_PASSWORD="/activity/update/password";
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";

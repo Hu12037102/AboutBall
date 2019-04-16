@@ -128,6 +128,11 @@ public class MyDetailsActivity extends CameraActivity<MyDetailsPresenter> implem
         mItemBirthday.setOnItemClickListener(view -> clickUpdateBirthday());
         mItemAddress.setOnItemClickListener(view -> clickMyAddress());
         mItemPhone.setOnItemClickListener(view -> clickUpdatePhone());
+        mItemAlterPassword.setOnItemClickListener(view -> clickUpdatePassword());
+    }
+
+    private void clickUpdatePassword() {
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_UPDATE_PASSWORD);
     }
 
     private void clickUpdatePhone() {
