@@ -152,6 +152,7 @@
     <string name="new_password_input_not_fit">新密码输入不一致</string>
     <string name="you_update_password_succeed">您已经修改密码成功</string>
     <string name="venue_introduce">场地介绍</string>
+    <string name="venue_details">场地情况</string>
     <!--相册选择器-->
     <string name="back">返回</string>
     <string name="all_image">全部图片</string>
