@@ -225,7 +225,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
         super.onStop();
         if (mVideoPlay != null) {
             mVideoPlay.stop();
-
+            mIvVideoStatus.setImageResource(R.mipmap.icon_video_play);
         }
     }
 
@@ -421,6 +421,8 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
             });
 
             mVideoPlay.setOnErrorListener((i, i1, s) -> {
+                mVideoPlay.stop();
+                mIvVideoStatus.setImageResource(R.mipmap.icon_video_play);
                 HintDialog hintDialog = new HintDialog.Builder(GameDetailsActivity.this)
                         .setTitle(R.string.hint)
                         .setBody(R.string.not_find_live)
@@ -458,6 +460,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
             mHeadLiveParent.setVisibility(View.VISIBLE);
         }
     }
+
 
 
     @OnClick(R.id.iv_back)

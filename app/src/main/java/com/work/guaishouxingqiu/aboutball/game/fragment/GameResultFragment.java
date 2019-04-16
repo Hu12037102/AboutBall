@@ -66,6 +66,7 @@ public class GameResultFragment extends BaseFragment<MatchResultPresenter> imple
         mData = new ArrayList<>();
         mAdapter = new GameResultAdapter(mData);
         mHeadView = LayoutInflater.from(mRvData.getContext()).inflate(R.layout.item_game_result_head_view, mRvData, false);
+        mHeadView.setVisibility(View.GONE);
         TextView mTvGrade =mHeadView.findViewById(R.id.tv_grade);
         mTvGrade.setText(mBean.hostScore.concat(" - ").concat(mBean.guestScore));
         mAdapter.addHeadView(mHeadView);
@@ -108,9 +109,11 @@ public class GameResultFragment extends BaseFragment<MatchResultPresenter> imple
             mData.clear();
         }
         mData.addAll(data);
-        if (mData.size() == 0) {
-            mAdapter.removeHeadView();
-        }
+     if (mData.size()>0){
+         mHeadView.setVisibility(View.VISIBLE);
+     }else {
+         mHeadView.setVisibility(View.GONE);
+     }
         mAdapter.notifyDataSetChanged();
     }
 

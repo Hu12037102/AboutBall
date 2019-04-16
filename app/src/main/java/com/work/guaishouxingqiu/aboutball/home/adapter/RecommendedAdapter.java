@@ -133,17 +133,18 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
 
     private void addTop(ResultNewsBean bean, TextView textView) {
         if (bean.onTop == 1) {
-            String content ="A ".concat(bean.title);
+            String content = "A ".concat(bean.title);
             textView.setText(SpanUtils.getTextDrawable(R.mipmap.icon_top, 0, 1, content));
         } else {
             textView.setText(bean.title);
         }
     }
-    private void showHotView(ResultNewsBean bean, TextView view){
-        if (Integer.valueOf(bean.commentCount) >= 10){
-            view.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_hot,0,0,0);
-        }else {
-            view.setCompoundDrawablesWithIntrinsicBounds(0,0,0,0);
+
+    private void showHotView(ResultNewsBean bean, TextView view) {
+        if (Integer.valueOf(bean.commentCount) >= 10) {
+            view.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_hot, 0, 0, 0);
+        } else {
+            view.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
         }
     }
 
@@ -153,20 +154,16 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
         viewHolder.setIsRecyclable(false);
         if (viewHolder instanceof TextViewHolder) {
             TextViewHolder textViewHolder = (TextViewHolder) viewHolder;
-           // textViewHolder.mTvData.setText(mData.get(i).title);
-            addTop(bean,textViewHolder.mTvData);
+            // textViewHolder.mTvData.setText(mData.get(i).title);
+            addTop(bean, textViewHolder.mTvData);
             textViewHolder.mTvFrom.setText(UIUtils.getString(R.string.from_data, mData.get(i).source, mData.get(i).releaseTime));
-            if (i == POSITION_VENUE_ITEM - 1 || i == POSITION_BALL_ITEM - 1) {
-                textViewHolder.mLine.setVisibility(View.INVISIBLE);
-            } else {
-                textViewHolder.mLine.setVisibility(View.VISIBLE);
-            }
-            this.showHotView(bean,textViewHolder.mTvFrom);
+            setViewLine(textViewHolder.mLine,i);
+            this.showHotView(bean, textViewHolder.mTvFrom);
 
         } else if (viewHolder instanceof SingViewHolder) {
             SingViewHolder singViewHolder = (SingViewHolder) viewHolder;
             //singViewHolder.mTvData.setText(mData.get(i).title);
-            addTop(bean,singViewHolder.mTvData);
+            addTop(bean, singViewHolder.mTvData);
             singViewHolder.mTvFrom.setText(UIUtils.getString(R.string.from_data, mData.get(i).source, mData.get(i).releaseTime));
             if (!DataUtils.isEmpty(mData.get(i).coverUrl)) {
                 String imagePath;
@@ -179,16 +176,12 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
                 GlideManger.get().loadImage(viewHolder.itemView.getContext(), imagePath,
                         R.drawable.shape_item_recommend_preview_item, R.drawable.shape_item_recommend_preview_item, singViewHolder.mIvData);
             }
-            if (i == POSITION_VENUE_ITEM - 1 || i == POSITION_BALL_ITEM - 1) {
-                singViewHolder.mLine.setVisibility(View.INVISIBLE);
-            } else {
-                singViewHolder.mLine.setVisibility(View.VISIBLE);
-            }
-            this.showHotView(bean,singViewHolder.mTvFrom);
+            setViewLine(singViewHolder.mLine,i);
+            this.showHotView(bean, singViewHolder.mTvFrom);
         } else if (viewHolder instanceof ThreeViewHolder) {
             ThreeViewHolder threeViewHolder = (ThreeViewHolder) viewHolder;
             //threeViewHolder.mFtvData.setText(mData.get(i).title);
-            addTop(bean,threeViewHolder.mTvData);
+            addTop(bean, threeViewHolder.mTvData);
             threeViewHolder.mTvFrom.setText(UIUtils.getString(R.string.from_data, mData.get(i).source, mData.get(i).releaseTime));
             if (mData.get(i).coverUrl != null) {
                 String[] images = mData.get(i).coverUrl.split(",");
@@ -210,18 +203,14 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
                 }
             }
 
-            if (i == POSITION_VENUE_ITEM - 1 || i == POSITION_BALL_ITEM - 1) {
-                threeViewHolder.mLine.setVisibility(View.INVISIBLE);
-            } else {
-                threeViewHolder.mLine.setVisibility(View.VISIBLE);
-            }
-            this.showHotView(bean,threeViewHolder.mTvFrom);
+            setViewLine(threeViewHolder.mLine,i);
+            this.showHotView(bean, threeViewHolder.mTvFrom);
 
         } else if (viewHolder instanceof VideoHolder) {
             VideoHolder videoHolder = (VideoHolder) viewHolder;
-           // videoHolder.mTvContent.setText(mData.get(i).title);
+            // videoHolder.mTvContent.setText(mData.get(i).title);
             videoHolder.mTvFrom.setText(UIUtils.getString(R.string.from_data, mData.get(i).source, mData.get(i).releaseTime));
-            addTop(bean,videoHolder.mTvContent);
+            addTop(bean, videoHolder.mTvContent);
            /* GlideManger.get().loadImageDrawable(mData.get(i).coverUrl, new CustomTarget<Drawable>() {
                 @Override
                 public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
@@ -236,10 +225,19 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             });*/
             GlideManger.get().loadImage(mContext, mData.get(i).coverUrl, R.mipmap.icon_default_banner,
                     R.mipmap.icon_default_banner, videoHolder.mTvVideo);
-            this.showHotView(bean,videoHolder.mTvFrom);
-
+            this.showHotView(bean, videoHolder.mTvFrom);
+            setViewLine(videoHolder.mLine,i);
         }
 
+    }
+
+    private void setViewLine(View line, int position) {
+        if ((position == POSITION_VENUE_ITEM - 1 || position == POSITION_BALL_ITEM - 1)
+                && (mData.get(POSITION_VENUE_ITEM ) == null || mData.get(POSITION_BALL_ITEM ) == null)) {
+            line.setVisibility(View.INVISIBLE);
+        } else {
+            line.setVisibility(View.VISIBLE);
+        }
     }
 
 
@@ -310,6 +308,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
         private RoundedImageView mTvVideo;
         private ImageView mIvPlay;
         private TextView mTvFrom;
+        private View mLine;
 
         public VideoHolder(@NonNull View itemView) {
             super(itemView);
@@ -321,6 +320,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             mTvVideo = itemView.findViewById(R.id.tx_video);
             mIvPlay = itemView.findViewById(R.id.iv_play);
             mTvFrom = itemView.findViewById(R.id.tv_from);
+            mLine = itemView.findViewById(R.id.line);
         }
     }
 
