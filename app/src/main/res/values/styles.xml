@@ -85,6 +85,16 @@
         <item name="android:layout_height">5000dp</item>
         <item name="android:background">@color/color_4</item>
     </style>
+    <style name="ItemSingTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/size_50dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/size_17sp</item>
+        <item name="android:textColor">@color/color_4</item>
+        <item name="android:paddingLeft">@dimen/default_margin</item>
+        <item name="android:paddingRight">@dimen/default_margin</item>
+
+    </style>
 
     <style name="DefaultTitleText">
         <item name="android:layout_width">wrap_content</item>

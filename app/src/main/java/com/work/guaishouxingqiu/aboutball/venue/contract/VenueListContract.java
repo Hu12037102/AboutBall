@@ -18,8 +18,8 @@ import java.util.List;
 public interface VenueListContract {
     interface View extends IBaseView {
         void resultBallTypeList(List<ResultTypeBean> data);
-
         void resultVenueList(List<ResultVenueData> data);
+
     }
 
     interface Presenter extends IBasePresenter {

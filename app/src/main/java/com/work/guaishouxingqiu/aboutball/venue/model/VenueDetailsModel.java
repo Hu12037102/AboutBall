@@ -9,4 +9,5 @@ import com.work.guaishouxingqiu.aboutball.base.BaseModel;
  * 描述:场馆详情Model
  */
 public class VenueDetailsModel extends BaseModel{
+
 }

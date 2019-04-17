@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.venue.contract.VenueDetailsContract;
+import com.work.guaishouxingqiu.aboutball.venue.contract.VenueListContract;
 import com.work.guaishouxingqiu.aboutball.venue.model.VenueDetailsModel;
 
 /**
@@ -13,18 +14,20 @@ import com.work.guaishouxingqiu.aboutball.venue.model.VenueDetailsModel;
  * 描述:场馆详情P
  */
 public class VenueDetailsPresenter extends BasePresenter<VenueDetailsContract.View,
-        VenueDetailsModel>implements VenueDetailsContract.Presenter{
+        VenueDetailsModel> implements VenueDetailsContract.Presenter {
+
+
     public VenueDetailsPresenter(@NonNull VenueDetailsContract.View view) {
         super(view);
     }
 
     @Override
-    protected VenueDetailsModel createModel() {
-        return null;
+    public void start() {
+
     }
 
     @Override
-    public void start() {
-
+    protected VenueDetailsModel createModel() {
+        return new VenueDetailsModel();
     }
 }

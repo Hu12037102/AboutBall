@@ -27,7 +27,6 @@ public class VenueListModel extends BaseModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observable);
     }
-
     public void loadVenueList(int pageNum, int pageSize, RequestVenueListBean bean, BaseObserver<List<ResultVenueData>> observer) {
         mRetrofitManger.create(VenueService.class)
                 .getVenueList(pageNum, pageSize, bean.typeId, bean.longitude, bean.latitude)
@@ -35,4 +34,5 @@ public class VenueListModel extends BaseModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
+
 }

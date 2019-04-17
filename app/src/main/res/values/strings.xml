@@ -50,6 +50,7 @@
     <string name="all_game">全部赛事</string>
     <string name="there_are_no_related_events">没有相关的赛事！</string>
     <string name="recommend">推荐</string>
+    <string name="about_recommend">相关推荐</string>
     <string name="focus_and_fans">关注 %s | 粉丝 %s</string>
     <string name="address_to_where">地址： %s</string>
     <string name="about_rule">约球规则说明，点我查看规则</string>
@@ -153,6 +154,7 @@
     <string name="you_update_password_succeed">您已经修改密码成功</string>
     <string name="venue_introduce">场地介绍</string>
     <string name="venue_details">场地情况</string>
+    <string name="user_evaluation">用户评价</string>
     <!--相册选择器-->
     <string name="back">返回</string>
     <string name="all_image">全部图片</string>

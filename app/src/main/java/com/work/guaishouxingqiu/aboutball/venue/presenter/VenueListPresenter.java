@@ -20,15 +20,12 @@ import java.util.List;
  * 更新时间: 2019/3/18 10:41
  * 描述:场馆列表P
  */
-public class VenueListPresenter extends BasePresenter<VenueListContract.View, VenueListModel>
+public class VenueListPresenter extends BasePresenter< VenueListContract.View,VenueListModel>
         implements VenueListContract.Presenter {
+
+
     public VenueListPresenter(@NonNull VenueListContract.View view) {
         super(view);
-    }
-
-    @Override
-    protected VenueListModel createModel() {
-        return new VenueListModel();
     }
 
     @Override
@@ -47,7 +44,6 @@ public class VenueListPresenter extends BasePresenter<VenueListContract.View, Ve
             }
         }));
     }
-
     @Override
     public void loadVenueList(RequestVenueListBean bean) {
         if (isRefresh) {
@@ -70,5 +66,11 @@ public class VenueListPresenter extends BasePresenter<VenueListContract.View, Ve
 
             }
         }));
+    }
+
+
+    @Override
+    protected VenueListModel createModel() {
+        return new VenueListModel();
     }
 }

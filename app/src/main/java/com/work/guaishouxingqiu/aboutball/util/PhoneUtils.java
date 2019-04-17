@@ -1,6 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.util;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -64,6 +65,27 @@ public class PhoneUtils {
         });
     }
 
+    public static void openGPSDialog(@NonNull Activity activity) {
+        HintDialog hintDialog = new HintDialog.Builder(activity)
+                .setTitle(R.string.hint)
+                .setBody(R.string.gprs_not_open)
+                .setSure(R.string.go_open)
+                .builder();
+        hintDialog.show();
+        hintDialog.setOnItemClickListener(view -> {
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            activity.startActivityForResult(intent, Contast.REQUEST_CODE);
+            hintDialog.dismiss();
+        });
+    }
+
+    public static void checkoutGPS(@NonNull Activity activity) {
+        if (!isOpenGPS(DataUtils.checkData(activity))) {
+            openGPSDialog(activity);
+        }
+    }
+
+
     public static void checkoutGPS(@NonNull Fragment fragment) {
         if (!isOpenGPS(DataUtils.checkData(fragment.getContext()))) {
             openGPSDialog(fragment);
@@ -79,6 +101,33 @@ public class PhoneUtils {
         }
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Toasts.with().showToast(R.string.please_open_location);
+            return null;
+        }
+
+        List<String> providers = locationManager.getProviders(true);
+        String provider = null;
+        if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
+            provider = LocationManager.NETWORK_PROVIDER;
+        } else if (providers.contains(LocationManager.GPS_PROVIDER)) {
+            provider = LocationManager.GPS_PROVIDER;
+        }
+        if (provider == null) {
+            return null;
+        }
+        return locationManager.getLastKnownLocation(provider);
+    }
+
+
+
+    public static Location getGPSLocation(@NonNull Activity activity) {
+        PhoneUtils.checkoutGPS(activity);
+        LocationManager locationManager = (LocationManager) DataUtils.checkData(activity).getSystemService(Context.LOCATION_SERVICE);
+        if (locationManager == null) {
+            return null;
+        }
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Toasts.with().showToast(R.string.please_open_location);
             return null;
         }

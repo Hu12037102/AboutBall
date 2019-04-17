@@ -22,10 +22,10 @@ public interface ARouterConfig {
         String ACTIVITY_MY_PRIZE = "/activity/my/prize";
         String ACTIVITY_NEWS_SEARCH = "/activity/news/search";
         String ACTIVITY_WEB_DATA = "/activity/web/data";
-        String ACTIVITY_USER_AGREEMENT="/activity/user/agreement";
-        String ACTIVITY_SHARE_FRIEND="/activity/share_friend";
-        String ACTIVITY_UPDATE_PHONE="/activity/update/phone";
-        String ACTIVITY_UPDATE_PASSWORD="/activity/update/password";
+        String ACTIVITY_USER_AGREEMENT = "/activity/user/agreement";
+        String ACTIVITY_SHARE_FRIEND = "/activity/share_friend";
+        String ACTIVITY_UPDATE_PHONE = "/activity/update/phone";
+        String ACTIVITY_UPDATE_PASSWORD = "/activity/update/password";
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";
@@ -52,7 +52,7 @@ public interface ARouterConfig {
         String FRAGMENT_REGISTER_PHONE = "/fragment/register/phone";
         String FRAGMENT_REGISTER_CODE = "/fragment/register/code";
         String FRAGMENT_REGISTER_PASSWORD = "/fragment/register/password";
-        String FRAGMENT_BASE_PRIZE ="/fragment/base/prize";
+        String FRAGMENT_BASE_PRIZE = "/fragment/base/prize";
 
     }
 
@@ -65,7 +65,8 @@ public interface ARouterConfig {
         String URL = "url";
         //场馆Id
         String STADIUM_ID = "stadiumId";
-        String KEY_STATUS="status";
+        String KEY_STATUS = "status";
+        String TYPE_ID = "typeId";
     }
 
 }

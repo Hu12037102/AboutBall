@@ -10,4 +10,5 @@ public class RequestVenueListBean {
     public int typeId;
     public String longitude = "115.770000";
     public String latitude = "23.912030";
+    public long stadiumId;
 }

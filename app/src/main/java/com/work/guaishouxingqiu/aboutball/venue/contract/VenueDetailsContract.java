@@ -10,7 +10,7 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
  * 描述:场馆详情契约
  */
 public interface VenueDetailsContract {
-    interface View extends IBaseView {
+    interface View extends IBaseView{
     }
 
     interface Presenter extends IBasePresenter {

@@ -35,108 +35,102 @@
             android:textSize="@dimen/size_16sp" />
     </LinearLayout>
 
-    <android.support.v4.widget.NestedScrollView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_session"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/ll_bottom"
+        android:layout_below="@id/title_view" />
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/ll_bottom"
-        android:layout_below="@id/title_view">
+        android:orientation="vertical">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/iv_banner"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="@dimen/size_210dp"
+            android:background="@mipmap/icon_default_banner"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop" />
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/default_margin">
+
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/SingLineTextView"
+                android:textColor="@color/color_4"
+                android:textSize="@dimen/size_17sp"
+                tools:text="五华体育" />
+
+            <RatingBar
+                android:id="@+id/rb_grade"
+                style="@style/DefaultRatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_10dp"
+                android:isIndicator="true"
+                app:layout_constraintTop_toBottomOf="@id/tv_name" />
+
+            <TextView
+                android:id="@+id/tv_grade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/size_10dp"
+                android:textSize="@dimen/size_12sp"
+                app:layout_constraintBottom_toBottomOf="@id/rb_grade"
+                app:layout_constraintLeft_toRightOf="@id/rb_grade"
+                app:layout_constraintTop_toTopOf="@id/rb_grade"
+                tools:text="5.0分" />
 
             <ImageView
-                android:id="@+id/iv_banner"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/size_210dp"
-                android:background="@mipmap/icon_default_banner"
+                android:id="@+id/iv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_15dp"
                 android:contentDescription="@null"
-                android:scaleType="centerCrop" />
+                android:src="@mipmap/icon_call_phone"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_grade" />
 
-            <android.support.constraint.ConstraintLayout
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lineSpacingExtra="@dimen/size_5dp"
+                android:maxLines="2"
+                android:textColor="@color/colorFF1D1D1D"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_phone"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/iv_phone"
+                tools:text="上海市徐家汇" />
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/default_margin">
+                android:layout_marginTop="@dimen/size_15dp"
+                android:textColor="@color/colorFF1D1D1D"
+                android:textSize="@dimen/size_12sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_phone"
+                tools:text="炒粉超凡炒年糕" />
+        </android.support.constraint.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/tv_name"
-                    style="@style/SingLineTextView"
-                    android:textColor="@color/color_4"
-                    android:textSize="@dimen/size_17sp"
-                    tools:text="五华体育" />
-
-                <RatingBar
-                    android:id="@+id/rb_grade"
-                    style="@style/DefaultRatingBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/size_10dp"
-                    android:isIndicator="true"
-                    app:layout_constraintTop_toBottomOf="@id/tv_name" />
-
-                <TextView
-                    android:id="@+id/tv_grade"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/size_10dp"
-                    android:textSize="@dimen/size_12sp"
-                    app:layout_constraintBottom_toBottomOf="@id/rb_grade"
-                    app:layout_constraintLeft_toRightOf="@id/rb_grade"
-                    app:layout_constraintTop_toTopOf="@id/rb_grade"
-                    tools:text="5.0分" />
-
-                <ImageView
-                    android:id="@+id/iv_phone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/size_15dp"
-                    android:contentDescription="@null"
-                    android:src="@mipmap/icon_call_phone"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_grade" />
-
-                <TextView
-                    android:id="@+id/tv_address"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:lineSpacingExtra="@dimen/size_5dp"
-                    android:maxLines="2"
-                    android:textColor="@color/colorFF1D1D1D"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@id/iv_phone"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/iv_phone"
-                    tools:text="上海市徐家汇" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/size_15dp"
-                    android:textColor="@color/colorFF1D1D1D"
-                    android:textSize="@dimen/size_12sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_phone"
-                    tools:text="炒粉超凡炒年糕" />
-            </android.support.constraint.ConstraintLayout>
-
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tab_session"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/size_45dp"
-                app:tabGravity="center"
-                app:tabIndicatorColor="@color/color_2"
-                app:tabIndicatorHeight="@dimen/size_2dp"
-                app:tabSelectedTextColor="@color/color_4"
-                app:tabTextColor="@color/colorFF777777" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_session"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_session"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_45dp"
+            app:tabGravity="center"
+            app:tabIndicatorColor="@color/color_2"
+            app:tabIndicatorHeight="@dimen/size_2dp"
+            app:tabSelectedTextColor="@color/color_4"
+            app:tabTextColor="@color/colorFF777777" />
+    </LinearLayout>
 </RelativeLayout>
