@@ -104,6 +104,9 @@ public class GlideManger {
     }
     public void loadImageDrawable(@NonNull String imagePath,@NonNull CustomTarget<Drawable> target){
         Glide.with(UIUtils.getContext()).asDrawable().load(imagePath).into(target);
+    }
 
+    public void loadBannerImage(@NonNull Context context, @NonNull String imagePath, @NonNull ImageView imageView){
+        loadImage(context, imagePath, R.mipmap.icon_default_banner, R.mipmap.icon_default_banner, imageView);
     }
 }

@@ -3,9 +3,11 @@ package com.work.guaishouxingqiu.aboutball.venue;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
+import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultAboutBallBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultTypeBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueData;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueDetailsBean;
 
 import java.util.List;
 
@@ -33,4 +35,6 @@ public interface VenueService {
     @GET(IApiService.ABOUT_BALL_LIST_DATA)
     Observable<BaseBean<List<ResultAboutBallBean>>> getAboutBallList(@Query(Contast.PAGE_NUM) int pageNum,
                                                                      @Query(Contast.PAGE_SIZE) int pageSize);
+    @GET(IApiService.GET_VENUE_DETAILS)
+    Observable<BaseBean<ResultVenueDetailsBean>> getVenueDetails(@Query(Contast.STADIUM_ID) long stadiumId);
 }

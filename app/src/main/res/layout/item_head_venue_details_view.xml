@@ -11,7 +11,9 @@
         android:id="@+id/rv_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorFFFBFAFA" />
+        android:background="@color/colorFFFBFAFA"
+        android:paddingTop="@dimen/size_8dp"
+        android:paddingBottom="@dimen/size_8dp"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -49,6 +51,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tv_image_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/size_20dp"
@@ -92,13 +95,16 @@
         android:id="@+id/cg_flow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/default_margin"
-        android:paddingRight="@dimen/default_margin" />
+       android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
+        android:layout_marginTop="@dimen/size_20dp"
+        />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:background="@color/colorFFFBFAFA" />
+        android:background="@color/colorFFFBFAFA"
+        android:layout_marginTop="@dimen/default_margin"/>
 
     <TextView
         style="@style/ItemSingTextView"

@@ -2,7 +2,12 @@ package com.work.guaishouxingqiu.aboutball.venue.presenter;
 
 import android.support.annotation.NonNull;
 
+import com.work.guaishouxingqiu.aboutball.base.BaseBean;
+import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.http.IApi;
+import com.work.guaishouxingqiu.aboutball.venue.bean.RequestVenueListBean;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueDetailsBean;
 import com.work.guaishouxingqiu.aboutball.venue.contract.VenueDetailsContract;
 import com.work.guaishouxingqiu.aboutball.venue.contract.VenueListContract;
 import com.work.guaishouxingqiu.aboutball.venue.model.VenueDetailsModel;
@@ -29,5 +34,22 @@ public class VenueDetailsPresenter extends BasePresenter<VenueDetailsContract.Vi
     @Override
     protected VenueDetailsModel createModel() {
         return new VenueDetailsModel();
+    }
+
+    @Override
+    public void loadDetails(long stadiumId) {
+        mModel.loadDetails(stadiumId, new BaseObserver<>(true, this, new BaseObserver.Observer<ResultVenueDetailsBean>() {
+            @Override
+            public void onNext(BaseBean<ResultVenueDetailsBean> baseBean) {
+                if (baseBean.code == IApi.Code.SUCCEED && baseBean.result != null) {
+                    mView.resultDetails(baseBean.result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
     }
 }

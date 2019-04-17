@@ -2,6 +2,8 @@ package com.work.guaishouxingqiu.aboutball.venue.contract;
 
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.venue.bean.RequestVenueListBean;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueDetailsBean;
 
 /**
  * 作者: 胡庆岭
@@ -11,8 +13,10 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
  */
 public interface VenueDetailsContract {
     interface View extends IBaseView{
+        void resultDetails(ResultVenueDetailsBean bean);
     }
 
     interface Presenter extends IBasePresenter {
+        void loadDetails(long stadiumId);
     }
 }

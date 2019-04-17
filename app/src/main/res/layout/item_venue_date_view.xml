@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/size_85dp"
+    android:layout_height="@dimen/size_95dp"
+    android:orientation="vertical"
+    android:background="@color/colorWhite"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingLeft="@dimen/size_10dp"
+    android:paddingRight="@dimen/size_10dp"
+    android:layout_marginTop="@dimen/size_10dp"
+    android:layout_marginBottom="@dimen/size_10dp"
+    >
+    <TextView
+        android:id="@+id/tv_day"
+        style="@style/SingLineTextView"
+        tools:text="今天"
+        android:gravity="center_horizontal"
+        android:textSize="@dimen/size_16sp"
+        android:textColor="@color/colorFF1D1D1D"
+        android:layout_marginTop="@dimen/size_10dp"
+        />
+    <TextView
+        android:id="@+id/tv_date"
+        style="@style/SingLineTextView"
+        android:gravity="center_horizontal"
+        android:textColor="@color/colorFFA6A6A6"
+        android:textSize="@dimen/size_12sp"
+        tools:text="一月16日"
+        android:layout_marginTop="@dimen/size_10dp"
+        />
+    <TextView
+        android:id="@+id/tv_count"
+       style="@style/SingLineTextView"
+        android:gravity="center_horizontal"
+        tools:text="剩余8场"
+        android:layout_marginTop="@dimen/size_10dp"
+        android:textColor="@color/color_2"
+        />
+
+</LinearLayout>

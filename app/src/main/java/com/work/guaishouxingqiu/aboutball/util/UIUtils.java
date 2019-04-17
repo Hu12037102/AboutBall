@@ -138,11 +138,11 @@ public class UIUtils {
         switch (stateId) {
             case Contast.GAME_STATUS_STARTING:
                 textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.icon_recommend_live_status, 0);
-                textView.setTextColor(ContextCompat.getColor(textView.getContext(),R.color.colorFFDB2F23));
+                textView.setTextColor(ContextCompat.getColor(textView.getContext(), R.color.colorFFDB2F23));
                 break;
             case Contast.GAME_STATUS_FINISH:
                 textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.icon_recommend_no_start, 0);
-                textView.setTextColor(ContextCompat.getColor(textView.getContext(),R.color.colorFFA6A6A6));
+                textView.setTextColor(ContextCompat.getColor(textView.getContext(), R.color.colorFFA6A6A6));
                 break;
             default:
                 break;
@@ -182,7 +182,8 @@ public class UIUtils {
             ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_WEB_DATA, bundle);
         }
     }
-    public static void showLoginDialog(Context context){
+
+    public static void showLoginDialog(Context context) {
         HintDialog notLoginDialog = new HintDialog.Builder(context)
                 .setTitle(R.string.hint)
                 .setBody(R.string.is_go_to_login)
@@ -193,5 +194,12 @@ public class UIUtils {
             ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_LOGIN);
             notLoginDialog.dismiss();
         });
+    }
+
+    public static void showToast(String content) {
+        Toasts.with().showToast(content);
+    }
+    public static void showToast(int  resContent) {
+        Toasts.with().showToast(resContent);
     }
 }

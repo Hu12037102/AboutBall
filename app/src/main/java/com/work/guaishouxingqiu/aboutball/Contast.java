@@ -44,6 +44,7 @@ public interface Contast {
     String KEYWORD = "keyword";
     String ACTION_ID = "actionId";
     String STATS = "state";
+    String STADIUM_ID = "stadiumId";
 
     String TOKEN = "Authorization";
     String SEX = "gender";
