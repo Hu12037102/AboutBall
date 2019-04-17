@@ -89,6 +89,7 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
     private VenueDetailsAdapter mVenueDataAdapter;
     private int mStadiumId;
     private RequestVenueListBean mRequestVenueBean;
+    private ResultVenueDetailsBean mDetailsBean;
 
     @Override
     protected int getLayoutId() {
@@ -149,12 +150,29 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
         mVenueDataAdapter.addHeadView(mHeadView);
         mRvSession.setAdapter(mVenueDataAdapter);
         mPresenter.loadDetails(mStadiumId);
-        mPresenter.loadVenueData(mRequestVenueBean);
+
     }
 
     @Override
     protected void initEvent() {
+        mTabSession.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (mDetailsBean!= null && mDetailsBean.areaForDetailList != null &&mDetailsBean.areaForDetailList.size() > tab.getPosition()){
+                    notifyDate(mDetailsBean,tab.getPosition());
+                }
+            }
 
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     @Override
@@ -187,6 +205,7 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
 
     @Override
     public void resultDetails(ResultVenueDetailsBean bean) {
+        this.mDetailsBean = bean;
         GlideManger.get().loadBannerImage(this, bean.photoUrl, mIvBanner);
         mTvName.setText(bean.stadiumName);
         mRbGrade.setRating(Float.valueOf(bean.grade));
@@ -200,8 +219,7 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
             }
             notifyDate(bean, 0);
         }
-
-
+        mPresenter.loadVenueData(mRequestVenueBean);
     }
 
     @Override
