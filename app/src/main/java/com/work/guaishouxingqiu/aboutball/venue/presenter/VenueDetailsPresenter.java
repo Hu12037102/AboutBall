@@ -7,10 +7,13 @@ import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.venue.bean.RequestVenueListBean;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueData;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueDetailsBean;
 import com.work.guaishouxingqiu.aboutball.venue.contract.VenueDetailsContract;
 import com.work.guaishouxingqiu.aboutball.venue.contract.VenueListContract;
 import com.work.guaishouxingqiu.aboutball.venue.model.VenueDetailsModel;
+
+import java.util.List;
 
 /**
  * 作者: 胡庆岭
@@ -43,6 +46,23 @@ public class VenueDetailsPresenter extends BasePresenter<VenueDetailsContract.Vi
             public void onNext(BaseBean<ResultVenueDetailsBean> baseBean) {
                 if (baseBean.code == IApi.Code.SUCCEED && baseBean.result != null) {
                     mView.resultDetails(baseBean.result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+
+    @Override
+    public void loadVenueData(RequestVenueListBean bean) {
+        mModel.loadVenueData(bean, new BaseObserver<>(true, this, new BaseObserver.Observer<List<ResultVenueData>>() {
+            @Override
+            public void onNext(BaseBean<List<ResultVenueData>> t) {
+                if (t.code == IApi.Code.SUCCEED && t.result != null) {
+                    mView.resultVenueData(t.result);
                 }
             }
 

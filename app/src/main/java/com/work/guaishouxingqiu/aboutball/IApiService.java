@@ -51,6 +51,8 @@ public interface IApiService {
     String ABOUT_BALL_LIST_DATA = "/api/agreeBall/getAgreeBallList";
     //获取场馆详情
     String GET_VENUE_DETAILS="/api/stadium/getStadiumDetail";
+    //获取推荐场馆
+    String GET_VENUE_RECOMMEND_DATA="/api/stadium/getRecommendStadium";
     //获取社区我关注的动态
     String COMMUNITY_ATTENTION_DATA = "/api/tweet/getLastestTweet";
 

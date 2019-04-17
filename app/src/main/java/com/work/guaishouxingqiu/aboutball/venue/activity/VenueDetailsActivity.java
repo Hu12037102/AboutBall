@@ -85,17 +85,27 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
     private RecyclerView mRvAboutBall;
     private List<ResultAboutBallBean> mAboutBallData;
     private AboutBallAdapter mAboutBallAdapter;
+    private List<ResultVenueData> mVenueData;
+    private VenueDetailsAdapter mVenueDataAdapter;
+    private int mStadiumId;
+    private RequestVenueListBean mRequestVenueBean;
 
     @Override
     protected int getLayoutId() {
         return R.layout.activity_venue_details;
     }
 
+
     @Override
     protected void initView() {
+        mStadiumId = mIntent.getIntExtra(ARouterConfig.Key.STADIUM_ID, -1);
+        if (mStadiumId == -1) {
+            finish();
+            UIUtils.showToast(R.string.not_this_venue);
+            return;
+        }
         mRvSession.setLayoutManager(new LinearLayoutManager(this));
-        initLocation();
-        initHeadView();
+
     }
 
     private void initHeadView() {
@@ -120,29 +130,26 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
     }
 
     private void initLocation() {
-        RequestVenueListBean requestVenueBean = new RequestVenueListBean();
-        int mStadiumId = mIntent.getIntExtra(ARouterConfig.Key.STADIUM_ID, -1);
-        if (mStadiumId == -1) {
-            finish();
-            UIUtils.showToast(R.string.not_this_venue);
-            return;
-        }
-        requestVenueBean.stadiumId = mStadiumId;
+        mRequestVenueBean = new RequestVenueListBean();
         Location location = PhoneUtils.getGPSLocation(this);
+        mRequestVenueBean.stadiumId = mStadiumId;
         if (location != null) {
-            requestVenueBean.latitude = String.valueOf(location.getLatitude());
-            requestVenueBean.longitude = String.valueOf(location.getLongitude());
+            mRequestVenueBean.latitude = String.valueOf(location.getLatitude());
+            mRequestVenueBean.longitude = String.valueOf(location.getLongitude());
         }
-        mPresenter.loadDetails(requestVenueBean.stadiumId);
+
     }
 
     @Override
     protected void initData() {
-        List<ResultVenueData> mVenueData = new ArrayList<>();
-        VenueDetailsAdapter mVenueDataAdapter = new VenueDetailsAdapter(mVenueData);
+        initLocation();
+        initHeadView();
+        mVenueData = new ArrayList<>();
+        mVenueDataAdapter = new VenueDetailsAdapter(mVenueData);
         mVenueDataAdapter.addHeadView(mHeadView);
         mRvSession.setAdapter(mVenueDataAdapter);
-
+        mPresenter.loadDetails(mStadiumId);
+        mPresenter.loadVenueData(mRequestVenueBean);
     }
 
     @Override
@@ -192,9 +199,16 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
                 mTabSession.addTab(mTabSession.newTab().setText(areaData.get(i).areaName), i == 0);
             }
             notifyDate(bean, 0);
-
         }
 
+
+    }
+
+    @Override
+    public void resultVenueData(List<ResultVenueData> data) {
+        mVenueData.clear();
+        mVenueData.addAll(data);
+        mVenueDataAdapter.notifyDataSetChanged();
     }
 
     private void notifyDate(ResultVenueDetailsBean bean, int position) {

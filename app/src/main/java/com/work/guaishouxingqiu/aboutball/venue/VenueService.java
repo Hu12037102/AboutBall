@@ -35,6 +35,12 @@ public interface VenueService {
     @GET(IApiService.ABOUT_BALL_LIST_DATA)
     Observable<BaseBean<List<ResultAboutBallBean>>> getAboutBallList(@Query(Contast.PAGE_NUM) int pageNum,
                                                                      @Query(Contast.PAGE_SIZE) int pageSize);
+
     @GET(IApiService.GET_VENUE_DETAILS)
     Observable<BaseBean<ResultVenueDetailsBean>> getVenueDetails(@Query(Contast.STADIUM_ID) long stadiumId);
+
+    @GET(IApiService.GET_VENUE_RECOMMEND_DATA)
+    Observable<BaseBean<List<ResultVenueData>>> getVenueRecommendList(@Query(Contast.STADIUM_ID) long stadiumId,
+                                                                      @Query(Contast.LONGITUDE) String longitude,
+                                                                      @Query(Contast.LATITUDE) String latitude);
 }
