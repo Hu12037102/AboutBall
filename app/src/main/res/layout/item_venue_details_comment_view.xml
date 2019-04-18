@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -95,7 +95,9 @@
                     android:padding="16dp" />
             </com.work.guaishouxingqiu.aboutball.weight.ExpandableTextView>
 
-            <View style="@style/HorizontalLine" />
+            <View
+                android:id="@+id/line"
+                style="@style/HorizontalLine" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -107,5 +109,5 @@
         android:textColor="@color/colorFFA6A6A6"
         android:textSize="@dimen/size_14sp"
         android:visibility="gone"
-        tools:text="查看全部评论" />
+        android:text="@string/read_all_comment"/>
 </LinearLayout>

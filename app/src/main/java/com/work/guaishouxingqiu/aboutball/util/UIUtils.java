@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
+import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
+import com.work.guaishouxingqiu.aboutball.venue.activity.VenueDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 import com.yalantis.ucrop.UCrop;
@@ -199,7 +201,41 @@ public class UIUtils {
     public static void showToast(String content) {
         Toasts.with().showToast(content);
     }
-    public static void showToast(int  resContent) {
+
+    public static void showToast(int resContent) {
         Toasts.with().showToast(resContent);
+    }
+
+    public static void showCallPhoneDialog(Context context, String phoneNumber) {
+        if (phoneNumber != null && DataUtils.isPhoneNumber(phoneNumber)) {
+            String phoneContent = UIUtils.getString(R.string.you_sure_call_this_phone, phoneNumber);
+            SpannableString spannableString = null;
+            if (phoneContent.length() >= 11) {
+                spannableString = SpanUtils.getTextColor(R.color.color_2, phoneContent.length() - 11, phoneContent.length(), phoneContent);
+            }
+
+            HintDialog hintDialog = new HintDialog.Builder(context)
+                    .setTitle(R.string.hint)
+                    .setBody(spannableString == null ? phoneContent : spannableString)
+                    .setSures(R.string.sure)
+                    .setCancel(R.string.cancel)
+                    .setShowSingButton(false)
+                    .builder();
+            hintDialog.show();
+            hintDialog.setOnItemClickSureAndCancelListener(new HintDialog.OnItemClickSureAndCancelListener() {
+                @Override
+                public void onClickSure(@NonNull View view) {
+                    PhoneUtils.callPhone(context, phoneNumber);
+                    hintDialog.dismiss();
+                }
+
+                @Override
+                public void onClickCancel(@NonNull View view) {
+                    hintDialog.dismiss();
+                }
+            });
+        } else {
+            UIUtils.showToast(R.string.this_venue_not_phone);
+        }
     }
 }

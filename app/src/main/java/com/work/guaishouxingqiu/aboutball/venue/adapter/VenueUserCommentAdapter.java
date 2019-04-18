@@ -47,10 +47,15 @@ public class VenueUserCommentAdapter extends RecyclerView.Adapter<VenueUserComme
         viewHolder.mTvTime.setText(bean.commentTime);
         viewHolder.mEtvContent.setText(bean.commentContent);
         viewHolder.mRbGradle.setRating(Float.valueOf(bean.grade));
-        if (i >= mData.size() - 1) {
+        if (i == 2) {
             viewHolder.mTvAllComment.setVisibility(View.VISIBLE);
         } else {
             viewHolder.mTvAllComment.setVisibility(View.GONE);
+        }
+        if (i == mData.size() -1){
+            viewHolder.mLine.setVisibility(View.GONE);
+        }else {
+            viewHolder.mLine.setVisibility(View.VISIBLE);
         }
     }
 
@@ -67,6 +72,7 @@ public class VenueUserCommentAdapter extends RecyclerView.Adapter<VenueUserComme
         private RatingBar mRbGradle;
         private ExpandableTextView mEtvContent;
         private TextView mTvAllComment;
+        private View mLine;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -80,6 +86,7 @@ public class VenueUserCommentAdapter extends RecyclerView.Adapter<VenueUserComme
             mRbGradle = itemView.findViewById(R.id.rb_gradle);
             mEtvContent = itemView.findViewById(R.id.etv_content);
             mTvAllComment = itemView.findViewById(R.id.tv_all_comment);
+            mLine = itemView.findViewById(R.id.line);
 
         }
     }

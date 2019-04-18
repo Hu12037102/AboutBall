@@ -37,15 +37,60 @@
 
         <View style="@style/HorizontalLine" />
 
-        <TextView
-            android:id="@+id/tv_sure"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_50dp"
-            android:background="@drawable/selector_sure_item_view"
-            android:gravity="center"
-            android:textColor="@color/color_2"
-            android:clickable="true"
-            android:textSize="@dimen/size_16sp"
-            tools:text="立即登录" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_sure"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/selector_sure_item_view"
+                android:clickable="true"
+                android:gravity="center"
+                android:textColor="@color/color_2"
+                android:textSize="@dimen/size_16sp"
+                android:visibility="visible"
+                tools:text="立即登录" />
+
+            <LinearLayout
+                android:id="@+id/ll_group"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_cancel"
+                    android:layout_width="@dimen/size_0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_hint_dialog_cancel_view"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:textColor="@color/color_3"
+                    android:textSize="@dimen/size_16sp"
+                    tools:text="取消" />
+
+                <View
+                    android:layout_width="0.8dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorFFEFEFEF" />
+
+                <TextView
+                    android:id="@+id/tv_sures"
+                    android:layout_width="@dimen/size_0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_hint_dialog_sure_view"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:textColor="@color/color_2"
+                    android:textSize="@dimen/size_16sp"
+                    tools:text="确定" />
+            </LinearLayout>
+
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

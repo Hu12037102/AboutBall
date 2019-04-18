@@ -1,9 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.venue.activity;
 
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.location.Location;
-import android.os.Bundle;
 import android.support.design.chip.ChipGroup;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
@@ -25,16 +23,16 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.util.PhoneUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.adapter.AboutBallAdapter;
 import com.work.guaishouxingqiu.aboutball.venue.adapter.VenueDateAdapter;
-import com.work.guaishouxingqiu.aboutball.venue.adapter.VenueDetailsAdapter;
+import com.work.guaishouxingqiu.aboutball.venue.adapter.VenueListAdapter;
 import com.work.guaishouxingqiu.aboutball.venue.adapter.VenueUserCommentAdapter;
 import com.work.guaishouxingqiu.aboutball.venue.bean.RequestVenueListBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultAboutBallBean;
-import com.work.guaishouxingqiu.aboutball.venue.bean.ResultTypeBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueData;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueDetailsBean;
 import com.work.guaishouxingqiu.aboutball.venue.contract.VenueDetailsContract;
@@ -44,7 +42,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -86,10 +83,12 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
     private List<ResultAboutBallBean> mAboutBallData;
     private AboutBallAdapter mAboutBallAdapter;
     private List<ResultVenueData> mVenueData;
-    private VenueDetailsAdapter mVenueDataAdapter;
     private int mStadiumId;
     private RequestVenueListBean mRequestVenueBean;
     private ResultVenueDetailsBean mDetailsBean;
+    private VenueListAdapter mVenueListAdapter;
+    private LinearLayout mLlHeadCommentGroup, mLlHeadImageTextGroup, mLlHeadSiteGroup, mLlHeadSiteDetailsGroup,
+            mLlHeadAboutBallGroup,mLlHeadGroup;
 
     @Override
     protected int getLayoutId() {
@@ -110,7 +109,7 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
     }
 
     private void initHeadView() {
-        mHeadView = getLayoutInflater().inflate(R.layout.item_head_venue_details_view, mRvSession, false);
+        mHeadView = getLayoutInflater().inflate(R.layout.item_head_venue_details_view, (ViewGroup) getWindow().getDecorView(), false);
         mRvDate = mHeadView.findViewById(R.id.rv_date);
         mRvDate.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mDateData = new ArrayList<>();
@@ -128,6 +127,17 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
         mRvAboutBall = mHeadView.findViewById(R.id.rv_ball);
         mRvAboutBall.setLayoutManager(new LinearLayoutManager(this));
         mAboutBallData = new ArrayList<>();
+
+        mLlHeadCommentGroup = mHeadView.findViewById(R.id.ll_comment_group);
+        //图文介绍Group =场地介绍group+场地情况group
+        mLlHeadImageTextGroup = mHeadView.findViewById(R.id.ll_image_text_group);
+        //场地介绍group
+        mLlHeadSiteGroup = mHeadView.findViewById(R.id.ll_site_group);
+        //场地情况group
+        mLlHeadSiteDetailsGroup = mHeadView.findViewById(R.id.ll_site_details);
+        //球友约球group
+        mLlHeadAboutBallGroup = mHeadView.findViewById(R.id.ll_about_ball);
+        mLlHeadGroup = mHeadView.findViewById(R.id.ll_head_group);
     }
 
     private void initLocation() {
@@ -146,9 +156,9 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
         initLocation();
         initHeadView();
         mVenueData = new ArrayList<>();
-        mVenueDataAdapter = new VenueDetailsAdapter(mVenueData);
-        mVenueDataAdapter.addHeadView(mHeadView);
-        mRvSession.setAdapter(mVenueDataAdapter);
+        mVenueListAdapter = new VenueListAdapter(mVenueData);
+        mVenueListAdapter.addHeadView(mHeadView);
+        mRvSession.setAdapter(mVenueListAdapter);
         mPresenter.loadDetails(mStadiumId);
 
     }
@@ -158,8 +168,8 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
         mTabSession.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                if (mDetailsBean!= null && mDetailsBean.areaForDetailList != null &&mDetailsBean.areaForDetailList.size() > tab.getPosition()){
-                    notifyDate(mDetailsBean,tab.getPosition());
+                if (mDetailsBean != null && mDetailsBean.areaForDetailList != null && mDetailsBean.areaForDetailList.size() > tab.getPosition()) {
+                    notifyDate(mDetailsBean, tab.getPosition());
                 }
             }
 
@@ -189,8 +199,13 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
             case R.id.iv_banner:
                 break;
             case R.id.iv_phone:
+                clickCallPhone();
                 break;
         }
+    }
+
+    private void clickCallPhone() {
+        UIUtils.showCallPhoneDialog(this, mDetailsBean.telephone);
     }
 
     @Override
@@ -206,6 +221,7 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
     @Override
     public void resultDetails(ResultVenueDetailsBean bean) {
         this.mDetailsBean = bean;
+        mTitleView.mTvCenter.setText(bean.stadiumName);
         GlideManger.get().loadBannerImage(this, bean.photoUrl, mIvBanner);
         mTvName.setText(bean.stadiumName);
         mRbGrade.setRating(Float.valueOf(bean.grade));
@@ -215,7 +231,8 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
         List<ResultVenueDetailsBean.AreaForDetailsList> areaData = bean.areaForDetailList;
         if (areaData != null && areaData.size() > 0) {
             for (int i = 0; i < areaData.size(); i++) {
-                mTabSession.addTab(mTabSession.newTab().setText(areaData.get(i).areaName), i == 0);
+                TabLayout.Tab tab = mTabSession.newTab().setText(areaData.get(i).areaName);
+                mTabSession.addTab(tab, i == 0);
             }
             notifyDate(bean, 0);
         }
@@ -226,7 +243,7 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
     public void resultVenueData(List<ResultVenueData> data) {
         mVenueData.clear();
         mVenueData.addAll(data);
-        mVenueDataAdapter.notifyDataSetChanged();
+        mVenueListAdapter.notifyDataSetChanged();
     }
 
     private void notifyDate(ResultVenueDetailsBean bean, int position) {
@@ -238,8 +255,13 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
             mDateData.clear();
         }
         //場次
-        if (areaBean.calendarListForAreaList != null) {
+        if (areaBean.calendarListForAreaList != null && areaBean.calendarListForAreaList.size() > 0) {
+            mRvDate.setVisibility(View.VISIBLE);
+            mRvDate.setPadding(0, ScreenUtils.dp2px(this, 8), 0, ScreenUtils.dp2px(this, 8));
             mDateData.addAll(areaBean.calendarListForAreaList);
+        } else {
+            mRvDate.setVisibility(View.GONE);
+            mRvDate.setPadding(0, 0, 0, 0);
         }
         if (mDateAdapter == null) {
             mDateAdapter = new VenueDateAdapter(this, mDateData);
@@ -247,12 +269,31 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
         } else {
             mDateAdapter.notifyDataSetChanged();
         }
-        mTvImageText.setText(areaBean.introduce);
+
+
+        if (DataUtils.isEmpty(areaBean.introduce)) {
+            mLlHeadSiteGroup.setVisibility(View.GONE);
+        } else {
+            mLlHeadSiteGroup.setVisibility(View.VISIBLE);
+            mTvImageText.setText(areaBean.introduce);
+        }
+
         if (mCgEvaluate.getChildCount() > 0) {
             mCgEvaluate.removeAllViews();
         }
         //場地情況
         String[] evaluateArray = areaBean.supporting.split(" ");
+        if (evaluateArray.length > 0) {
+            mLlHeadSiteDetailsGroup.setVisibility(View.VISIBLE);
+        } else {
+            mLlHeadSiteDetailsGroup.setVisibility(View.GONE);
+        }
+
+        if (DataUtils.isEmpty(areaBean.introduce) && evaluateArray.length == 0) {
+            mLlHeadImageTextGroup.setVisibility(View.GONE);
+        } else {
+            mLlHeadImageTextGroup.setVisibility(View.VISIBLE);
+        }
         for (int i = 0; i < evaluateArray.length; i++) {
             TextView textView = new TextView(this);
             mCgEvaluate.addView(textView, i);
@@ -270,10 +311,14 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
             mCommentData.clear();
         }
         if (areaBean.orderCommentForAreaList != null && areaBean.orderCommentForAreaList.size() > 0) {
+            mLlHeadCommentGroup.setVisibility(View.VISIBLE);
             mCommentData.addAll(areaBean.orderCommentForAreaList);
+        } else {
+            mLlHeadCommentGroup.setVisibility(View.GONE);
         }
         if (mCommentAdapter == null) {
             mCommentAdapter = new VenueUserCommentAdapter(this, mCommentData);
+            mRvComment.setAdapter(mCommentAdapter);
         } else {
             mCommentAdapter.notifyDataSetChanged();
         }
@@ -283,7 +328,10 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
             mAboutBallData.clear();
         }
         if (bean.offerListForStadium != null && bean.offerListForStadium.size() > 0) {
+            mLlHeadAboutBallGroup.setVisibility(View.VISIBLE);
             mAboutBallData.addAll(bean.offerListForStadium);
+        } else {
+            mLlHeadAboutBallGroup.setVisibility(View.GONE);
         }
         if (mAboutBallAdapter == null) {
             mAboutBallAdapter = new AboutBallAdapter(mAboutBallData);
@@ -291,7 +339,6 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
         } else {
             mAboutBallAdapter.notifyDataSetChanged();
         }
-
 
     }
 }

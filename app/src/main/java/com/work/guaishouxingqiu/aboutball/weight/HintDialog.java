@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatDialog;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -27,12 +28,21 @@ public class HintDialog extends Dialog {
     private TextView mTvTitle;
     private TextView mTvBody;
     private TextView mTvSure;
+    private TextView mTvCancel;
+    private TextView mTvSures;
+    private ViewGroup mLlGroup;
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
     private OnItemClickListener onItemClickListener;
+
+    public void setOnItemClickSureAndCancelListener(OnItemClickSureAndCancelListener onItemClickSureAndCancelListener) {
+        this.onItemClickSureAndCancelListener = onItemClickSureAndCancelListener;
+    }
+
+    private OnItemClickSureAndCancelListener onItemClickSureAndCancelListener;
 
     private HintDialog(Context context) {
         this(context, R.style.DefaultDialogStyle);
@@ -54,6 +64,22 @@ public class HintDialog extends Dialog {
         mTvSure.setOnClickListener(v -> {
             if (onItemClickListener != null) {
                 onItemClickListener.onClickSure(v);
+            }
+        });
+        mTvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemClickSureAndCancelListener != null) {
+                    onItemClickSureAndCancelListener.onClickCancel(v);
+                }
+            }
+        });
+        mTvSures.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemClickSureAndCancelListener != null) {
+                    onItemClickSureAndCancelListener.onClickSure(v);
+                }
             }
         });
     }
@@ -82,7 +108,7 @@ public class HintDialog extends Dialog {
         mTvTitle.setText(resTitle);
     }
 
-    public void setBody(@NonNull String body) {
+    public void setBody(@NonNull CharSequence body) {
         mTvBody.setText(body);
     }
 
@@ -99,14 +125,50 @@ public class HintDialog extends Dialog {
     }
 
 
+    public void setSures(@NonNull String sure) {
+        mTvSures.setText(sure);
+    }
+
+    public void setSures(@StringRes int resSure) {
+        mTvSures.setText(resSure);
+    }
+
+    public void setCancel(@NonNull String cancel) {
+        mTvCancel.setText(cancel);
+    }
+
+    public void setCancel(@StringRes int cancelRes) {
+        mTvCancel.setText(cancelRes);
+    }
+
+
+    public void setSingButton(boolean isShowSing) {
+        if (isShowSing) {
+            mLlGroup.setVisibility(View.GONE);
+            mTvSure.setVisibility(View.VISIBLE);
+        } else {
+            mLlGroup.setVisibility(View.VISIBLE);
+            mTvSure.setVisibility(View.GONE);
+        }
+    }
+
     private void initView(View view) {
         mTvTitle = view.findViewById(R.id.tv_title);
         mTvBody = view.findViewById(R.id.tv_body);
         mTvSure = view.findViewById(R.id.tv_sure);
+        mTvCancel = view.findViewById(R.id.tv_cancel);
+        mTvSures = view.findViewById(R.id.tv_sures);
+        mLlGroup = view.findViewById(R.id.ll_group);
     }
 
     public interface OnItemClickListener {
         void onClickSure(@NonNull View view);
+    }
+
+    public interface OnItemClickSureAndCancelListener {
+        void onClickSure(@NonNull View view);
+
+        void onClickCancel(@NonNull View view);
     }
 
     public static class Builder {
@@ -127,10 +189,11 @@ public class HintDialog extends Dialog {
             return this;
         }
 
-        public Builder setBody(@NonNull String body) {
+        public Builder setBody(@NonNull CharSequence body) {
             mHintDialog.setBody(body);
             return this;
         }
+
 
         public Builder setBody(@StringRes int resBody) {
             mHintDialog.setBody(resBody);
@@ -149,6 +212,32 @@ public class HintDialog extends Dialog {
 
         public Builder setCancelTouchOut(boolean cancelTouchOut) {
             mHintDialog.setCanceledOnTouchOutside(cancelTouchOut);
+            return this;
+        }
+
+        public Builder setSures(@NonNull String sures) {
+            mHintDialog.setSures(sures);
+            return this;
+        }
+
+        public Builder setSures(@StringRes int resSures) {
+            mHintDialog.setSures(resSures);
+            return this;
+        }
+
+        public Builder setCancel(@NonNull String cancel) {
+            mHintDialog.setCancel(cancel);
+            return this;
+        }
+
+        public Builder setCancel(@StringRes int cancelRes) {
+            mHintDialog.setCancel(cancelRes);
+            return this;
+        }
+
+
+        public Builder setShowSingButton(boolean isShowSing) {
+            mHintDialog.setSingButton(isShowSing);
             return this;
         }
 

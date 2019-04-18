@@ -7,138 +7,178 @@
     android:background="@color/colorWhite"
     android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_date"
+    <LinearLayout
+        android:id="@+id/ll_head_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorFFFBFAFA"
-        android:paddingTop="@dimen/size_8dp"
-        android:paddingBottom="@dimen/size_8dp"/>
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorFFFBFAFA" />
+
+        <LinearLayout
+            android:id="@+id/ll_image_text_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_50dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/default_margin"
+                android:paddingRight="@dimen/default_margin"
+                android:text="@string/image_text_details"
+                android:textColor="@color/color_4"
+                android:textSize="@dimen/size_17sp" />
+
+            <View style="@style/HorizontalLine" />
+
+            <LinearLayout
+                android:id="@+id/ll_site_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/default_margin"
+                    android:paddingRight="@dimen/default_margin">
+
+                    <View
+                        android:layout_width="@dimen/size_3dp"
+                        android:layout_height="@dimen/size_15dp"
+                        android:background="@color/color_2" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/size_10dp"
+                        android:text="@string/venue_introduce"
+                        android:textColor="@color/color_4"
+                        android:textSize="@dimen/size_17sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_image_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_20dp"
+                    android:lineSpacingExtra="@dimen/size_5dp"
+                    android:paddingLeft="@dimen/default_margin"
+                    android:paddingRight="@dimen/default_margin"
+                    android:textColor="@color/color_4"
+                    android:textSize="@dimen/size_14sp"
+                    tools:text="五华县人民体育馆" />
+
+                <View
+                    style="@style/HorizontalLine"
+                    android:layout_marginLeft="@dimen/default_margin"
+                    android:layout_marginRight="@dimen/default_margin"
+                    android:layout_marginTop="@dimen/default_margin" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_site_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_20dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/default_margin"
+                    android:paddingRight="@dimen/default_margin">
+
+                    <View
+                        android:layout_width="@dimen/size_3dp"
+                        android:layout_height="@dimen/size_15dp"
+                        android:background="@color/color_2" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/size_10dp"
+                        android:text="@string/venue_details"
+                        android:textColor="@color/color_4"
+                        android:textSize="@dimen/size_17sp" />
+                </LinearLayout>
+
+                <android.support.design.chip.ChipGroup
+                    android:id="@+id/cg_flow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_margin"
+                    android:layout_marginRight="@dimen/default_margin"
+                    android:layout_marginTop="@dimen/size_20dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:background="@color/colorFFFBFAFA" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_comment_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/ItemSingTextView"
+                android:text="@string/user_evaluation" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_evaluation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@color/colorFFFBFAFA" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_about_ball"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/ItemSingTextView"
+                android:text="@string/about_ball_ball_friend" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_ball"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@color/colorFFFBFAFA" />
+        </LinearLayout>
+    </LinearLayout>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/size_50dp"
-        android:gravity="center_vertical"
-        android:paddingLeft="@dimen/default_margin"
-        android:paddingRight="@dimen/default_margin"
-        android:text="@string/image_text_details"
-        android:textColor="@color/color_4"
-        android:textSize="@dimen/size_17sp" />
+        style="@style/ItemSingTextView"
+        android:text="@string/about_recommend" />
 
     <View style="@style/HorizontalLine" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_margin"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/default_margin"
-        android:paddingRight="@dimen/default_margin">
-
-        <View
-            android:layout_width="@dimen/size_3dp"
-            android:layout_height="@dimen/size_15dp"
-            android:background="@color/color_2" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/size_10dp"
-            android:text="@string/venue_introduce"
-            android:textColor="@color/color_4"
-            android:textSize="@dimen/size_17sp" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/tv_image_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/size_20dp"
-        android:lineSpacingExtra="@dimen/size_5dp"
-        android:paddingLeft="@dimen/default_margin"
-        android:paddingRight="@dimen/default_margin"
-        android:textColor="@color/color_4"
-        android:textSize="@dimen/size_14sp"
-        tools:text="五华县人民体育馆" />
-
-    <View
-        style="@style/HorizontalLine"
-        android:layout_marginLeft="@dimen/default_margin"
-        android:layout_marginRight="@dimen/default_margin"
-        android:layout_marginTop="@dimen/default_margin" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/size_20dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/default_margin"
-        android:paddingRight="@dimen/default_margin">
-
-        <View
-            android:layout_width="@dimen/size_3dp"
-            android:layout_height="@dimen/size_15dp"
-            android:background="@color/color_2" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/size_10dp"
-            android:text="@string/venue_details"
-            android:textColor="@color/color_4"
-            android:textSize="@dimen/size_17sp" />
-    </LinearLayout>
-
-    <android.support.design.chip.ChipGroup
-        android:id="@+id/cg_flow"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-       android:layout_marginLeft="@dimen/default_margin"
-        android:layout_marginRight="@dimen/default_margin"
-        android:layout_marginTop="@dimen/size_20dp"
-        />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="@color/colorFFFBFAFA"
-        android:layout_marginTop="@dimen/default_margin"/>
-
-    <TextView
-        style="@style/ItemSingTextView"
-        android:text="@string/user_evaluation"
-        />
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_evaluation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="@color/colorFFFBFAFA" />
-
-    <TextView
-        style="@style/ItemSingTextView"
-        android:text="@string/about_ball_ball_friend"
-        />
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_ball"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="@color/colorFFFBFAFA" />
-
-    <TextView
-        style="@style/ItemSingTextView"
-        android:text="@string/about_recommend"
-        />
-    <View
-      style="@style/HorizontalLine"
-        />
 
 </LinearLayout>

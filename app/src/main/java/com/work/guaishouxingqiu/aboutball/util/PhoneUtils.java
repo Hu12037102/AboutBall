@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -119,7 +120,6 @@ public class PhoneUtils {
     }
 
 
-
     public static Location getGPSLocation(@NonNull Activity activity) {
         PhoneUtils.checkoutGPS(activity);
         LocationManager locationManager = (LocationManager) DataUtils.checkData(activity).getSystemService(Context.LOCATION_SERVICE);
@@ -143,5 +143,11 @@ public class PhoneUtils {
             return null;
         }
         return locationManager.getLastKnownLocation(provider);
+    }
+
+    public static void callPhone(Context context, String phoneNumber) {
+        //跳转到拨号界面，同时传递电话号码
+        Intent phoneIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+        context.startActivity(phoneIntent);
     }
 }

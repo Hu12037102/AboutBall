@@ -163,6 +163,9 @@
     <string name="residue_count_s">剩余%s场</string>
     <string name="not_this_venue">没有该场馆</string>
     <string name="grade">打分</string>
+    <string name="you_sure_call_this_phone">您确定拨打手机号:%s</string>
+    <string name="this_venue_not_phone">该场馆没有预留手机号码</string>
+    <string name="read_all_comment">查看全部评论</string>
     <!--相册选择器-->
     <string name="back">返回</string>
     <string name="all_image">全部图片</string>
