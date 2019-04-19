@@ -41,7 +41,7 @@ public class VenueWaitBookAdapter extends BaseRecyclerAdapter<VenueWaitBookAdapt
                 viewHolder.itemView.setEnabled(true);
                 String content = UIUtils.getString(R.string.yuan_s_cost_money, bean.price);
                 String price = String.valueOf(bean.price);
-                viewHolder.mTvMoney.setText(SpanUtils.getTextColor(R.color.colorFFA6A6A6,content.length() -5,content.length(),SpanUtils.getTextSize(23, 0, price.length(), content)));
+                viewHolder.mTvMoney.setText(SpanUtils.getTextColor(R.color.color_2,0,content.length() -5,SpanUtils.getTextSize(23, 0, price.length(), content)));
                 viewHolder.itemView.setBackgroundResource(R.drawable.selector_item);
                 break;
             case 1:
