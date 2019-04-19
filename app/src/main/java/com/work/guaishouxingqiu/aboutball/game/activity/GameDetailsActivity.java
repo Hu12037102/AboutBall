@@ -427,6 +427,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
                         .setTitle(R.string.hint)
                         .setBody(R.string.not_find_live)
                         .setSure(R.string.sure)
+                        .setCancelTouchOut(false)
                         .builder();
                 hintDialog.show();
                 hintDialog.setOnItemClickListener(view -> {
