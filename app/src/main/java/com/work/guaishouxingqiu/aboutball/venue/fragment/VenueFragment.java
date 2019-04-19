@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
+import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
 import com.work.guaishouxingqiu.aboutball.home.adapter.RecommendedAdapter;
 import com.work.guaishouxingqiu.aboutball.home.fragment.HomeFragment;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
@@ -34,7 +35,7 @@ import butterknife.Unbinder;
  * 描述:场馆Fragment
  */
 @Route(path = ARouterConfig.Path.FRAGMENT_VENUE)
-public class VenueFragment extends BaseFragment<VenuePresenter> implements VenueContract.View {
+public class VenueFragment extends DelayedFragment<VenuePresenter> implements VenueContract.View {
     @BindView(R.id.tab_title)
     TabLayout mTabTitle;
     @BindView(R.id.bvp_content)
@@ -50,8 +51,55 @@ public class VenueFragment extends BaseFragment<VenuePresenter> implements Venue
     }
 
     @Override
-    protected void initView() {
+    protected void initDelayedView() {
         registerEventBus();
+    }
+
+    @Override
+    protected void initDelayedData() {
+        initTabData();
+        initPagerData();
+    }
+
+    @Override
+    protected void initDelayedEvent() {
+        mTabTitle.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mBvpContent.setCurrentItem(tab.getPosition(),true);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+        mBvpContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                mTabTitle.getTabAt(i).select();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
+    }
+
+    @Override
+    protected void initView() {
+
     }
 
     @Override
@@ -74,8 +122,7 @@ public class VenueFragment extends BaseFragment<VenuePresenter> implements Venue
 
     @Override
     protected void initData() {
-        initTabData();
-        initPagerData();
+
     }
 
 
@@ -106,38 +153,7 @@ public class VenueFragment extends BaseFragment<VenuePresenter> implements Venue
 
     @Override
     protected void initEvent() {
-        mTabTitle.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                mBvpContent.setCurrentItem(tab.getPosition(),true);
-            }
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-        mBvpContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
-
-            }
-
-            @Override
-            public void onPageSelected(int i) {
-                    mTabTitle.getTabAt(i).select();
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-
-            }
-        });
     }
 
     @Override

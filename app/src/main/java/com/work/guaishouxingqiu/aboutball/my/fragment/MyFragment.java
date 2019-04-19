@@ -12,6 +12,7 @@ import com.example.item.weight.ItemView;
 import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
+import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
 import com.work.guaishouxingqiu.aboutball.game.activity.GamePlayActivity;
 import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.MyContract;
@@ -35,7 +36,7 @@ import io.bugtags.ui.view.rounded.CircleImageView;
  * 描述:我的Fragment
  */
 @Route(path = ARouterConfig.Path.FRAGMENT_MY)
-public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.View {
+public class MyFragment extends DelayedFragment<MyPresenter> implements MyContract.View {
     @BindView(R.id.civ_my_head)
     CircleImageView mCivMyHead;
     @BindView(R.id.ll_head_group)
@@ -70,52 +71,17 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     }
 
     @Override
-    protected void initView() {
+    protected void initDelayedView() {
 
     }
 
     @Override
-    protected void initData() {
+    protected void initDelayedData() {
 
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        initLoginView();
-    }
-
-    private void initLoginView() {
-        if (mLlHeadGroup.getChildCount() > 0) {
-            mLlHeadGroup.removeAllViews();
-        }
-        View view;
-        UserBean userBean = UserManger.get().getUser();
-        if (UserManger.get().isLogin()) {
-            view = LayoutInflater.from(getContext()).inflate(R.layout.item_login_my_head_view, null);
-            TextView mTvName = view.findViewById(R.id.tv_name);
-            TextView mTvFocusFans = view.findViewById(R.id.tv_focus_fans);
-            mTvName.setText(DataUtils.isEmpty(userBean.nickName) ? userBean.phone : userBean.nickName);
-            mTvFocusFans.setText(getString(R.string.focus_and_fans, "0", "0"));
-        } else {
-            view = LayoutInflater.from(getContext()).inflate(R.layout.item_no_login_my_head_view, null);
-
-        }
-        GlideManger.get().loadHeadImag(mContext, userBean.headerImg, mCivMyHead);
-        mLlHeadGroup.addView(view);
-    }
-
-
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if (!hidden) {
-            initLoginView();
-        }
-    }
-
-    @Override
-    protected void initEvent() {
+    protected void initDelayedEvent() {
         mItemFriend.setOnItemClickListener(view -> {
             Toasts.with().showToast(R.string.pleases_next_open);
             //ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_SHARE_FRIEND);
@@ -169,6 +135,56 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
                 Toasts.with().showToast(R.string.pleases_next_open);
             }
         });
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        initLoginView();
+    }
+
+    private void initLoginView() {
+        if (mLlHeadGroup.getChildCount() > 0) {
+            mLlHeadGroup.removeAllViews();
+        }
+        View view;
+        UserBean userBean = UserManger.get().getUser();
+        if (UserManger.get().isLogin()) {
+            view = LayoutInflater.from(getContext()).inflate(R.layout.item_login_my_head_view, null);
+            TextView mTvName = view.findViewById(R.id.tv_name);
+            TextView mTvFocusFans = view.findViewById(R.id.tv_focus_fans);
+            mTvName.setText(DataUtils.isEmpty(userBean.nickName) ? userBean.phone : userBean.nickName);
+            mTvFocusFans.setText(getString(R.string.focus_and_fans, "0", "0"));
+        } else {
+            view = LayoutInflater.from(getContext()).inflate(R.layout.item_no_login_my_head_view, null);
+
+        }
+        GlideManger.get().loadHeadImag(mContext, userBean.headerImg, mCivMyHead);
+        mLlHeadGroup.addView(view);
+    }
+
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            initLoginView();
+        }
+    }
+
+    @Override
+    protected void initEvent() {
+
     }
 
     @Override

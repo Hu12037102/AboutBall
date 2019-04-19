@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
@@ -15,6 +14,8 @@ import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * 作者: 胡庆岭
@@ -33,10 +34,12 @@ public class GameListAdapter extends BaseRecyclerAdapter<GameListAdapter.ViewHol
     @Override
     protected void onBindViewDataHolder(@NonNull ViewHolder viewHolder, int i) {
         ResultGameBean bean = mData.get(i);
-        viewHolder.mTvName.setText(bean.matchName.concat("  ").concat(bean.gameName));
-        GlideManger.get().loadImage(viewHolder.itemView.getContext(), bean.hostLogoUrl, viewHolder.mIvLeft);
+        if (bean.matchName != null && bean.gameName != null) {
+            viewHolder.mTvName.setText(bean.matchName.concat("  ").concat(bean.gameName));
+        }
+        GlideManger.get().loadImage(viewHolder.itemView.getContext(), bean.hostLogoUrl, viewHolder.mCivLeft);
         viewHolder.mTvLeft.setText(bean.hostName);
-        GlideManger.get().loadImage(viewHolder.itemView.getContext(), bean.guestLogoUrl, viewHolder.mIvRight);
+        GlideManger.get().loadImage(viewHolder.itemView.getContext(), bean.guestLogoUrl, viewHolder.mCivRight);
         viewHolder.mTvRight.setText(bean.guestName);
         viewHolder.mTvScore.setText(String.valueOf(bean.hostScore).concat(" - ").concat(String.valueOf(bean.guestScore)));
         viewHolder.mTvStatus.setText(bean.matchState);
@@ -62,9 +65,9 @@ public class GameListAdapter extends BaseRecyclerAdapter<GameListAdapter.ViewHol
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTvTime;
-        private ImageView mIvLeft;
+        private CircleImageView mCivLeft;
         private TextView mTvLeft;
-        private ImageView mIvRight;
+        private CircleImageView mCivRight;
         private TextView mTvRight;
         private TextView mTvName;
         private TextView mTvScore;
@@ -77,9 +80,9 @@ public class GameListAdapter extends BaseRecyclerAdapter<GameListAdapter.ViewHol
 
         private void initView(View itemView) {
             mTvTime = itemView.findViewById(R.id.tv_time);
-            mIvLeft = itemView.findViewById(R.id.iv_left_name);
+            mCivLeft = itemView.findViewById(R.id.civ_left_name);
             mTvLeft = itemView.findViewById(R.id.tv_left_name);
-            mIvRight = itemView.findViewById(R.id.iv_right_name);
+            mCivRight = itemView.findViewById(R.id.civ_right_name);
             mTvRight = itemView.findViewById(R.id.tv_right_name);
             mTvName = itemView.findViewById(R.id.tv_name);
             mTvScore = itemView.findViewById(R.id.tv_score);
