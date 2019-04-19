@@ -2,6 +2,8 @@ package com.work.guaishouxingqiu.aboutball.venue.activity;
 
 import android.content.Intent;
 import android.location.Location;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.chip.ChipGroup;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
@@ -19,10 +21,13 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.util.ScreenUtils;
 import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.Contast;
+import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
+import com.work.guaishouxingqiu.aboutball.media.IntentData;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.util.PhoneUtils;
@@ -70,6 +75,8 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
     RecyclerView mRvSession;
     @BindView(R.id.tv_service)
     TextView mTvService;
+    @BindView(R.id.ll_bottom)
+    LinearLayout mLlBottom;
     private View mHeadView;
     private VenueDateAdapter mDateAdapter;
     private RecyclerView mRvDate;
@@ -87,8 +94,10 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
     private RequestVenueListBean mRequestVenueBean;
     private ResultVenueDetailsBean mDetailsBean;
     private VenueListAdapter mVenueListAdapter;
+    private int mCalendarPosition;
     private LinearLayout mLlHeadCommentGroup, mLlHeadImageTextGroup, mLlHeadSiteGroup, mLlHeadSiteDetailsGroup,
-            mLlHeadAboutBallGroup,mLlHeadGroup;
+            mLlHeadAboutBallGroup, mLlHeadGroup;
+    private int mSelectorTabPosition;
 
     @Override
     protected int getLayoutId() {
@@ -168,6 +177,7 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
         mTabSession.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                mSelectorTabPosition = tab.getPosition();
                 if (mDetailsBean != null && mDetailsBean.areaForDetailList != null && mDetailsBean.areaForDetailList.size() > tab.getPosition()) {
                     notifyDate(mDetailsBean, tab.getPosition());
                 }
@@ -195,12 +205,24 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_go:
+                clickGo();
                 break;
             case R.id.iv_banner:
                 break;
             case R.id.iv_phone:
                 clickCallPhone();
                 break;
+        }
+    }
+
+    private void clickGo() {
+        if (mDetailsBean.areaForDetailList != null &&
+                mDetailsBean.areaForDetailList.size() > mSelectorTabPosition) {
+            Bundle bundle = new Bundle();
+            bundle.putInt(ARouterConfig.Key.POSITION, mCalendarPosition);
+            bundle.putInt(ARouterConfig.Key.AREA_ID, mDetailsBean.areaForDetailList.get(mSelectorTabPosition).areaId);
+            IntentData.get().putData(mDetailsBean.areaForDetailList.get(mSelectorTabPosition).calendarListForAreaList);
+            ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_BOOKING,bundle);
         }
     }
 
@@ -231,8 +253,9 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
         List<ResultVenueDetailsBean.AreaForDetailsList> areaData = bean.areaForDetailList;
         if (areaData != null && areaData.size() > 0) {
             for (int i = 0; i < areaData.size(); i++) {
-                TabLayout.Tab tab = mTabSession.newTab().setText(areaData.get(i).areaName);
-                mTabSession.addTab(tab, i == 0);
+                /*TabLayout.Tab tab = mTabSession.newTab().setText(areaData.get(i).areaName);
+                mTabSession.addTab(tab, i == 0);*/
+                UIUtils.setBaseCustomTabLayout(mTabSession, areaData.get(i).areaName, i == 0, 45);
             }
             notifyDate(bean, 0);
         }
@@ -257,15 +280,21 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
         //場次
         if (areaBean.calendarListForAreaList != null && areaBean.calendarListForAreaList.size() > 0) {
             mRvDate.setVisibility(View.VISIBLE);
+            mLlBottom.setVisibility(View.VISIBLE);
             mRvDate.setPadding(0, ScreenUtils.dp2px(this, 8), 0, ScreenUtils.dp2px(this, 8));
             mDateData.addAll(areaBean.calendarListForAreaList);
         } else {
+            mLlBottom.setVisibility(View.GONE);
             mRvDate.setVisibility(View.GONE);
             mRvDate.setPadding(0, 0, 0, 0);
         }
         if (mDateAdapter == null) {
             mDateAdapter = new VenueDateAdapter(this, mDateData);
             mRvDate.setAdapter(mDateAdapter);
+            mDateAdapter.setOnItemClickListener((view, position1) -> {
+                VenueDetailsActivity.this.mCalendarPosition = position1;
+                clickGo();
+            });
         } else {
             mDateAdapter.notifyDataSetChanged();
         }
@@ -339,6 +368,5 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
         } else {
             mAboutBallAdapter.notifyDataSetChanged();
         }
-
     }
 }

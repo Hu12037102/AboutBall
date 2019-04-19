@@ -10,6 +10,8 @@ import android.support.v4.app.Fragment;
 import com.alibaba.android.arouter.launcher.ARouter;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.http.PUT;
 
@@ -60,5 +62,12 @@ public class ARouterIntent {
 
     public static void startActivityForResult(@NonNull String path, @NonNull Activity activity) {
         ARouter.getInstance().build(path).navigation(activity, REQUEST_CODE);
+    }
+
+    public static void startActivity(@NonNull String path, @NonNull String key, @NonNull Parcelable parcelable) {
+        ARouter.getInstance().build(path).withParcelable(key, parcelable).navigation();
+    }
+    public static void startActivity(@NonNull String path, @NonNull String key, @NonNull ArrayList<Parcelable> data) {
+        ARouter.getInstance().build(path).withParcelableArrayList(key, data).navigation();
     }
 }

@@ -6,6 +6,7 @@ import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultAboutBallBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultTypeBean;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueBookBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueData;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueDetailsBean;
 
@@ -43,4 +44,7 @@ public interface VenueService {
     Observable<BaseBean<List<ResultVenueData>>> getVenueRecommendList(@Query(Contast.STADIUM_ID) long stadiumId,
                                                                       @Query(Contast.LONGITUDE) String longitude,
                                                                       @Query(Contast.LATITUDE) String latitude);
+    @GET(IApiService.GET_VENUE_BOOK)
+    Observable<BaseBean<List<ResultVenueBookBean>>> getVenueBookList(@Query(Contast.AREA_ID) int areaId,
+                                                                     @Query(Contast.DATE) String date);
 }

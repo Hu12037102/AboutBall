@@ -147,6 +147,9 @@
         <activity
             android:name=".my.activity.UpdatePasswordActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".venue.activity.VenueBookingActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

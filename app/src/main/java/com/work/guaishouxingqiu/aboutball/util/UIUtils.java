@@ -4,10 +4,15 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.SpannableString;
@@ -17,9 +22,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.example.item.util.ScreenUtils;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
@@ -32,6 +39,7 @@ import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * 作者: 胡庆岭
@@ -237,5 +245,86 @@ public class UIUtils {
         } else {
             UIUtils.showToast(R.string.this_venue_not_phone);
         }
+    }
+
+    public static void setBaseCustomTabLayout(TabLayout tabLayout, String content, boolean isSelector, int tabHeight) {
+        View inflateView = LayoutInflater.from(tabLayout.getContext()).inflate(R.layout.item_base_tab_view, tabLayout, false);
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        TextView tvTitle = inflateView.findViewById(R.id.tv_title);
+        tvTitle.setText(content);
+        if (isSelector) {
+            tvTitle.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+        } else {
+            tvTitle.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+        }
+        View viewSelector = inflateView.findViewById(R.id.view_selector);
+        Rect rect = new Rect();
+        tvTitle.getPaint().getTextBounds(content, 0, content.length(), rect);
+        ViewGroup.LayoutParams lineLayoutParams = viewSelector.getLayoutParams();
+        lineLayoutParams.width = rect.width();
+        lineLayoutParams.height = ScreenUtils.dp2px(tabLayout.getContext(), 4);
+        viewSelector.setLayoutParams(lineLayoutParams);
+        if (isSelector) {
+            viewSelector.setVisibility(View.VISIBLE);
+        } else {
+            viewSelector.setVisibility(View.GONE);
+        }
+
+        TabLayout.Tab tab = tabLayout.newTab().setCustomView(inflateView);
+        tabLayout.addTab(tab);
+        if (tab.getCustomView() != null) {
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ScreenUtils.dp2px(mContext, tabHeight));
+
+            tab.getCustomView().setLayoutParams(layoutParams);
+        }
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                notifySelectorBaseTab(tabLayout);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
+
+    private static void notifySelectorBaseTab(TabLayout tabLayout) {
+        int tabCount = tabLayout.getTabCount();
+        for (int i = 0; i < tabCount; i++) {
+            TabLayout.Tab tab = tabLayout.getTabAt(i);
+            if (tab == null) {
+                continue;
+            }
+            View inflateView = tab.getCustomView();
+            if (inflateView == null) {
+                continue;
+            }
+            TextView tvTitle = inflateView.findViewById(R.id.tv_title);
+            View viewSelector = inflateView.findViewById(R.id.view_selector);
+            if (tab.isSelected()) {
+                viewSelector.setVisibility(View.VISIBLE);
+                tvTitle.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                Rect rect = new Rect();
+                tvTitle.getPaint().getTextBounds(tvTitle.getText().toString(), 0,tvTitle.getText().length(), rect);
+                ViewGroup.LayoutParams lineLayoutParams = viewSelector.getLayoutParams();
+                lineLayoutParams.width = rect.width();
+                lineLayoutParams.height = ScreenUtils.dp2px(tabLayout.getContext(), 4);
+                viewSelector.setLayoutParams(lineLayoutParams);
+
+            } else {
+                tvTitle.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                viewSelector.setVisibility(View.GONE);
+            }
+
+        }
+
     }
 }

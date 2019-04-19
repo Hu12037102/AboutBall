@@ -53,6 +53,8 @@ public interface IApiService {
     String GET_VENUE_DETAILS="/api/stadium/getStadiumDetail";
     //获取推荐场馆
     String GET_VENUE_RECOMMEND_DATA="/api/stadium/getRecommendStadium";
+    //获取场馆场次包场
+    String GET_VENUE_BOOK="/api/stadium/getAreaCalendar";
     //获取社区我关注的动态
     String COMMUNITY_ATTENTION_DATA = "/api/tweet/getLastestTweet";
 

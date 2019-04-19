@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.venue.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.item.util.ScreenUtils;
+import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
@@ -27,6 +29,12 @@ public class VenueDateAdapter extends RecyclerView.Adapter<VenueDateAdapter.View
 
     private Context mContext;
     private List<ResultVenueDetailsBean.CalendarListForAreaList> mData;
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    private OnItemClickListener onItemClickListener;
 
     public VenueDateAdapter(@NonNull Context context, List<ResultVenueDetailsBean.CalendarListForAreaList> data) {
         this.mContext = context;
@@ -55,6 +63,14 @@ public class VenueDateAdapter extends RecyclerView.Adapter<VenueDateAdapter.View
             layoutParams.rightMargin = ScreenUtils.dp2px(mContext, 20);
         }
         viewHolder.itemView.setLayoutParams(layoutParams);
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemClickListener != null){
+                    onItemClickListener.onClickItem(v,i );
+                }
+            }
+        });
     }
 
     @Override

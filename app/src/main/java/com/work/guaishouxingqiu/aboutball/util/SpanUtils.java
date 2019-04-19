@@ -42,7 +42,7 @@ public class SpanUtils {
      * @param end
      * @param data
      */
-    public static SpannableString getTextColor(@ColorRes int colorRes, int start, int end, @NonNull String data) {
+    public static SpannableString getTextColor(@ColorRes int colorRes, int start, int end, @NonNull CharSequence data) {
         SpannableString ss = new SpannableString(data);
         ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(ContextCompat.getColor(UIUtils.getContext(), colorRes));
         ss.setSpan(foregroundColorSpan, start, end, SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);

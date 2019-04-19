@@ -20,7 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_50dp"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tv_go"
@@ -150,9 +151,10 @@
                 app:layout_collapseMode="pin"
                 app:layout_scrollFlags="enterAlways"
                 app:tabIndicatorColor="@color/color_2"
-                app:tabIndicatorHeight="@dimen/size_2dp"
+                app:tabIndicatorHeight="@dimen/size_0dp"
                 app:tabSelectedTextColor="@color/color_4"
-                app:tabTextColor="@color/colorFF777777" />
+                app:tabTextColor="@color/colorFF777777"
+                />
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v7.widget.RecyclerView

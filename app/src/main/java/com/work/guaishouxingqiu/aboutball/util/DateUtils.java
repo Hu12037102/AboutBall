@@ -48,7 +48,7 @@ public class DateUtils {
                         resultWeek = "后天";
                         break;
                     default:
-                        switch (week){
+                        switch (week) {
                             case 1:
                                 resultWeek = "星期日";
                                 break;
@@ -80,7 +80,21 @@ public class DateUtils {
             e.printStackTrace();
             return resultWeek;
         }
-        LogUtils.w("getWeek--",resultWeek);
+        LogUtils.w("getWeek--", resultWeek);
         return resultWeek;
+    }
+
+    /**
+     * 将时分秒拆分成时分
+     *
+     * @param time
+     * @return
+     */
+    public static String getHourMinute(String time) {
+        String[] timeArray = time.split(":");
+        if (timeArray.length == 3) {
+            return timeArray[0] + ":" + timeArray[1];
+        }
+        return null;
     }
 }

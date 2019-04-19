@@ -46,6 +46,7 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
     protected Context mContext;
     private LinearLayout mHeadLinearLayout;
     private LinearLayout mFootLinearLayout;
+    private boolean mIsItemClick;
 
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -75,7 +76,7 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
         if (mHeadLinearLayout == null) {
             mHeadLinearLayout = new LinearLayout(headView.getContext());
             mHeadLinearLayout.setOrientation(LinearLayout.VERTICAL);
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             mHeadLinearLayout.setLayoutParams(layoutParams);
         }
         mHeadLinearLayout.addView(headView);
@@ -86,7 +87,7 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
         if (mFootLinearLayout == null) {
             mFootLinearLayout = new LinearLayout(footView.getContext());
             mFootLinearLayout.setOrientation(LinearLayout.VERTICAL);
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             mFootLinearLayout.setLayoutParams(layoutParams);
         }
         mFootLinearLayout.addView(footView);
@@ -116,9 +117,13 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
     }
 
     public BaseRecyclerAdapter(@NonNull D data) {
-        this.mData = data;
+        this(data, true);
     }
 
+    public BaseRecyclerAdapter(@NonNull D data, boolean isItemClick) {
+        this.mData = data;
+        this.mIsItemClick = isItemClick;
+    }
 
     public void notifyData(boolean isHasNet) {
         this.mIsHasNet = isHasNet;
@@ -223,14 +228,16 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
             }
             onBindViewDataHolder(viewHolder, i);
             final int finalI = i;
-            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (onItemClickListener != null) {
-                        onItemClickListener.onItemClick(viewHolder.itemView, finalI);
+            if (mIsItemClick) {
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onItemClickListener != null) {
+                            onItemClickListener.onItemClick(viewHolder.itemView, finalI);
+                        }
                     }
-                }
-            });
+                });
+            }
         }
     }
 
