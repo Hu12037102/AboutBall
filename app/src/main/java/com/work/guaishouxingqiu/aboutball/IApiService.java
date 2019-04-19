@@ -55,6 +55,8 @@ public interface IApiService {
     String GET_VENUE_RECOMMEND_DATA="/api/stadium/getRecommendStadium";
     //获取场馆场次包场
     String GET_VENUE_BOOK="/api/stadium/getAreaCalendar";
+    //获取待约球的场次
+    String GET_VENUE_WAIT_BOOK="/api/stadium/getAgreeCalendar";
     //获取社区我关注的动态
     String COMMUNITY_ATTENTION_DATA = "/api/tweet/getLastestTweet";
 

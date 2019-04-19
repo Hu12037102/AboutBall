@@ -22,6 +22,7 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.adapter.VenueBookAdapter;
+import com.work.guaishouxingqiu.aboutball.venue.adapter.VenueWaitBookAdapter;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueBookBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueDetailsBean;
 import com.work.guaishouxingqiu.aboutball.venue.contract.VenueBookingContract;
@@ -32,7 +33,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -49,12 +49,14 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
     BaseViewPager mBvpContent;
     @BindView(R.id.rg_book)
     RadioGroup mRgBooking;
-    private int mPosition;
+    private int mTabPosition;
     private int mAreaId;
     private String mDate;
     private List<ResultVenueBookBean> mBookData;
     private BookPagerAdapter mPagerAdapter;
     private List<ResultVenueDetailsBean.CalendarListForAreaList> mCalendarData;
+    private boolean mIsSelectorBook = true;
+    private List<ResultVenueBookBean> mWaitBookData;
 
     @Override
     protected int getLayoutId() {
@@ -68,14 +70,14 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
             finish();
             return;
         }
-        mPosition = bundle.getInt(ARouterConfig.Key.POSITION, 0);
+        mTabPosition = bundle.getInt(ARouterConfig.Key.POSITION, 0);
         mAreaId = bundle.getInt(ARouterConfig.Key.AREA_ID, 0);
-        LogUtils.w("initView--", mPosition + "--" + mAreaId);
+        LogUtils.w("initView--", mTabPosition + "--" + mAreaId);
         mCalendarData = IntentData.get().getData();
         for (int i = 0; i < mCalendarData.size(); i++) {
-            UIUtils.setBaseCustomTabLayout(mTbDate, mCalendarData.get(i).date, i == mPosition, 45);
+            UIUtils.setBaseCustomTabLayout(mTbDate, mCalendarData.get(i).date, i == mTabPosition, 45);
         }
-        mDate = mCalendarData.get(mPosition).date;
+        mDate = mCalendarData.get(mTabPosition).date;
 
     }
 
@@ -87,6 +89,8 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
         mBookData = new ArrayList<>();
         mPresenter.loadBookList(mAreaId, mDate);
 
+        mWaitBookData = new ArrayList<>();
+
     }
 
     @Override
@@ -94,7 +98,12 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
         mTbDate.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                mPresenter.loadBookList(mAreaId, mCalendarData.get(tab.getPosition()).date);
+                mTabPosition = tab.getPosition();
+                if (mIsSelectorBook) {
+                    mPresenter.loadBookList(mAreaId, mCalendarData.get(mTabPosition).date);
+                } else {
+                    mPresenter.loadWaitBookList(mAreaId, mCalendarData.get(mTabPosition).date);
+                }
             }
 
             @Override
@@ -117,6 +126,18 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
             public void onPageSelected(int i) {
                 RadioButton radioButton = (RadioButton) mRgBooking.getChildAt(i);
                 radioButton.setChecked(true);
+                switch (i) {
+                    case 0:
+                        mIsSelectorBook = true;
+                        mPresenter.loadBookList(mAreaId, mCalendarData.get(mTabPosition).date);
+                        break;
+                    case 1:
+                        mIsSelectorBook = false;
+                        mPresenter.loadWaitBookList(mAreaId, mCalendarData.get(mTabPosition).date);
+                        break;
+                    default:
+                        break;
+                }
             }
 
             @Override
@@ -125,12 +146,14 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
             }
         });
         mRgBooking.setOnCheckedChangeListener((group, checkedId) -> {
-            switch (checkedId){
+            switch (checkedId) {
                 case R.id.rb_1:
-                    mBvpContent.setCurrentItem(0,true);
+
+                    mBvpContent.setCurrentItem(0, true);
                     break;
                 case R.id.rb_2:
-                    mBvpContent.setCurrentItem(1,true);
+
+                    mBvpContent.setCurrentItem(1, true);
                     break;
             }
         });
@@ -149,6 +172,12 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
         mPagerAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void resultWaitBookList(List<ResultVenueBookBean> data) {
+        mWaitBookData.clear();
+        mWaitBookData.addAll(data);
+        mPagerAdapter.notifyDataSetChanged();
+    }
 
 
     @OnClick({R.id.iv_close, R.id.tv_rule})
@@ -165,24 +194,29 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
 
         private int mChildCount;
         private VenueBookAdapter mBookAdapter;
-        private View inflateView;
-        private RecyclerView mRvData;
+        private View mBookInflateView;
+        private RecyclerView mBookRvData;
+
+        private VenueWaitBookAdapter mWaitBookAdapter;
+        private View mWaitBookInflateView;
+        private RecyclerView mWaitBookRvData;
 
         @NonNull
         @Override
         public View instantiateItem(@NonNull ViewGroup container, int position) {
             switch (position) {
                 case 0:
-                    if (inflateView == null) {
-                        inflateView = LayoutInflater.from(container.getContext()).inflate(R.layout.item_venue_book_pager_view, container, false);
-                        container.addView(inflateView);
-                        mRvData = inflateView.findViewById(R.id.rv_data);
-                        mRvData.setLayoutManager(new LinearLayoutManager(container.getContext()));
+                    if (mBookInflateView == null) {
+                        mBookInflateView = LayoutInflater.from(container.getContext()).inflate(R.layout.item_venue_book_pager_view, container, false);
+                        container.addView(mBookInflateView);
+                        mBookRvData = mBookInflateView.findViewById(R.id.rv_data);
+                        mBookRvData.setLayoutManager(new LinearLayoutManager(container.getContext()));
                     }
-                    LogUtils.w("instantiateItem--", mRvData.hashCode() + "===");
+
                     if (mBookAdapter == null) {
                         mBookAdapter = new VenueBookAdapter(mBookData);
-                        mRvData.setAdapter(mBookAdapter);
+                        mBookAdapter.setHasStableIds(true);
+                        mBookRvData.setAdapter(mBookAdapter);
                         mBookAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
                             @Override
                             public void onNotNetClick(View view) {
@@ -202,16 +236,33 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
                     } else {
                         mBookAdapter.notifyDataSetChanged();
                     }
-
+                    LogUtils.w("instantiateItem--", mBookRvData.hashCode() + "--");
+                    break;
+                case 1:
+                    if (mWaitBookInflateView == null) {
+                        mWaitBookInflateView = LayoutInflater.from(container.getContext()).inflate(R.layout.item_venue_book_pager_view, container, false);
+                        container.addView(mWaitBookInflateView);
+                        mWaitBookRvData = mWaitBookInflateView.findViewById(R.id.rv_data);
+                        mWaitBookRvData.setLayoutManager(new LinearLayoutManager(container.getContext()));
+                    }
+                    if (mWaitBookAdapter == null) {
+                        mWaitBookAdapter = new VenueWaitBookAdapter(mWaitBookData);
+                        mWaitBookRvData.setAdapter(mWaitBookAdapter);
+                    } else {
+                        mWaitBookAdapter.notifyDataSetChanged();
+                    }
+                    LogUtils.w("instantiateItem---", mBookRvData.hashCode() + "===" + mWaitBookRvData.hashCode());
+                    break;
+                default:
                     break;
             }
 
-            return inflateView;
+            return position == 1 ? mWaitBookInflateView : mBookInflateView;
         }
 
         @Override
         public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-            // container.removeView((View) object);
+          //  container.removeView((View) object);
         }
 
         @Override

@@ -1,14 +1,14 @@
 package com.work.guaishouxingqiu.aboutball.venue.model;
 
-import com.work.guaishouxingqiu.aboutball.base.BaseModel;
-import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
-import com.work.guaishouxingqiu.aboutball.venue.VenueService;
-import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueBookBean;
+        import com.work.guaishouxingqiu.aboutball.base.BaseModel;
+        import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
+        import com.work.guaishouxingqiu.aboutball.venue.VenueService;
+        import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueBookBean;
 
-import java.util.List;
+        import java.util.List;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
+        import io.reactivex.android.schedulers.AndroidSchedulers;
+        import io.reactivex.schedulers.Schedulers;
 
 /**
  * 作者: 胡庆岭
@@ -25,4 +25,11 @@ public class VenueBookingModel extends BaseModel {
                 .subscribe(observer);
     }
 
+    public void loadWaitBookList(int areaId, String date, BaseObserver<List<ResultVenueBookBean>> observer) {
+        mRetrofitManger.create(VenueService.class)
+                .getVenueWaitBookList(areaId, date)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
 }

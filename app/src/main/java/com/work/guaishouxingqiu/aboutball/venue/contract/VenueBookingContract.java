@@ -15,9 +15,11 @@ import java.util.List;
 public interface VenueBookingContract {
     interface View extends IBaseView {
         void resultBookList(List<ResultVenueBookBean> data);
+        void resultWaitBookList(List<ResultVenueBookBean> data);
     }
 
     interface Presenter extends IBasePresenter {
         void loadBookList(int areaId, String date);
+        void loadWaitBookList(int areaId, String date);
     }
 }

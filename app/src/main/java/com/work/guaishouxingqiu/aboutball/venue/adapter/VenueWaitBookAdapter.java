@@ -2,7 +2,6 @@ package com.work.guaishouxingqiu.aboutball.venue.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,18 +20,14 @@ import java.util.List;
 
 /**
  * 作者: 胡庆岭
- * 创建时间: 2019/4/18 18:01
- * 更新时间: 2019/4/18 18:01
- * 描述:包场Adapter
+ * 创建时间: 2019/4/19 12:55
+ * 更新时间: 2019/4/19 12:55
+ * 描述:待约球场的Adapter
  */
-public class VenueBookAdapter extends BaseRecyclerAdapter<VenueBookAdapter.ViewHolder, List<ResultVenueBookBean>> {
-    public VenueBookAdapter(@NonNull List<ResultVenueBookBean> data) {
-        super(data, false);
-    }
+public class VenueWaitBookAdapter extends BaseRecyclerAdapter<VenueWaitBookAdapter.ViewHolder, List<ResultVenueBookBean>> {
 
-    @Override
-    public long getItemId(int position) {
-        return position;
+    public VenueWaitBookAdapter(@NonNull List<ResultVenueBookBean> data) {
+        super(data, false);
     }
 
     @Override
@@ -43,9 +38,9 @@ public class VenueBookAdapter extends BaseRecyclerAdapter<VenueBookAdapter.ViewH
             case 0:
                 viewHolder.mCbStatus.setVisibility(View.VISIBLE);
                 viewHolder.itemView.setEnabled(true);
-                String content = UIUtils.getString(R.string.yuan_s, bean.price);
-                viewHolder.mTvMoney.setText(SpanUtils.getTextColor(R.color.color_2, 0, content.length() ,
-                        SpanUtils.getTextSize(23, 0, content.length() - 1, content)));
+                String content = UIUtils.getString(R.string.yuan_s_cost_money, bean.price);
+                String price = String.valueOf(bean.price);
+                viewHolder.mTvMoney.setText(SpanUtils.getTextColor(R.color.colorFFA6A6A6,content.length() -5,content.length(),SpanUtils.getTextSize(23, 0, price.length(), content)));
                 viewHolder.itemView.setBackgroundResource(R.drawable.selector_item);
                 break;
             case 1:
@@ -53,8 +48,8 @@ public class VenueBookAdapter extends BaseRecyclerAdapter<VenueBookAdapter.ViewH
                 viewHolder.mCbStatus.setVisibility(View.INVISIBLE);
                 viewHolder.itemView.setEnabled(false);
                 viewHolder.mTvMoney.setText(R.string.be_occupied);
-                viewHolder.mTvMoney.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorFFFCFCFA));
                 viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorFFFCFCFA));
+                viewHolder.mTvMoney.setTextColor(ContextCompat.getColor(mContext,R.color.colorFFA6A6A6));
                 break;
             default:
                 break;
@@ -82,16 +77,14 @@ public class VenueBookAdapter extends BaseRecyclerAdapter<VenueBookAdapter.ViewH
                 onItemClickListener.onItemClick(v, i);
             }
         });
-
     }
 
     @Override
     protected ViewHolder onCreateDataViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_venue_booking_view_1, viewGroup, false));
+        return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_venue_booking_view_2, viewGroup, false));
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-
         private CheckBox mCbStatus;
         private TextView mTvMoney;
         private TextView mTvStart;

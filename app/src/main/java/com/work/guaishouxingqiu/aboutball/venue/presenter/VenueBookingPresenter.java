@@ -52,4 +52,21 @@ public class VenueBookingPresenter extends BasePresenter<VenueBookingContract.Vi
             }
         }));
     }
+
+    @Override
+    public void loadWaitBookList(int areaId, String date) {
+        mModel.loadWaitBookList(areaId, date, new BaseObserver<>(true, this, new BaseObserver.Observer<List<ResultVenueBookBean>>() {
+            @Override
+            public void onNext(BaseBean<List<ResultVenueBookBean>> t) {
+                if (DataUtils.isResultSure(t)) {
+                    mView.resultWaitBookList(t.result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
 }

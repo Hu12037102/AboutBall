@@ -173,7 +173,9 @@
     <string name="money_make_booking">%s&#160;&#160;包场</string>
     <string name="post_about_ball">发起约球</string>
     <string name="yuan_s">%s元</string>
+    <string name="yuan_s_cost_money">%s元\n费用+押金</string>
     <string name="be_occupied">被占用</string>
+    <string name="time_end">%s结束</string>
     <!--相册选择器-->
     <string name="back">返回</string>
     <string name="all_image">全部图片</string>
