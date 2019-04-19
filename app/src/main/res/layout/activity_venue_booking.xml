@@ -12,17 +12,20 @@
         android:layout_height="@dimen/size_80dp"
         android:layout_alignParentBottom="true"
         android:background="@color/colorWhite"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <View style="@style/HorizontalLine" />
 
         <TextView
+            android:id="@+id/tv_bottom_hit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_5dp"
             android:gravity="center_horizontal"
             android:text="@string/make_a_block_booking_rule"
-            android:textColor="@color/colorFFA6A6A6" />
+            android:textColor="@color/colorFFA6A6A6"
+            android:textSize="@dimen/size_12sp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,6 +34,7 @@
             android:paddingBottom="@dimen/size_5dp">
 
             <TextView
+                android:id="@+id/tv_bottom_left"
                 android:layout_width="@dimen/size_0dp"
                 android:layout_height="@dimen/size_40dp"
                 android:layout_marginLeft="@dimen/size_20dp"
@@ -38,10 +42,11 @@
                 android:layout_weight="1"
                 android:background="@drawable/shape_stroke_blue_view"
                 android:gravity="center"
-                android:text="@string/money_make_booking"
+                android:text="@string/make_a_block_booking"
                 android:textColor="@color/color_2" />
 
             <TextView
+                android:id="@+id/tv_bottom_right"
                 android:layout_width="@dimen/size_0dp"
                 android:layout_height="@dimen/size_40dp"
                 android:layout_marginRight="@dimen/size_20dp"
@@ -118,7 +123,9 @@
                 android:textColor="@color/selector_text_blue_white_color" />
         </RadioGroup>
 
-        <include layout="@layout/layout_hint_rule_view" />
+        <include
+            android:id="@+id/include_rule"
+            layout="@layout/layout_hint_rule_view" />
 
         <com.work.guaishouxingqiu.aboutball.weight.BaseViewPager
             android:id="@+id/bvp_content"

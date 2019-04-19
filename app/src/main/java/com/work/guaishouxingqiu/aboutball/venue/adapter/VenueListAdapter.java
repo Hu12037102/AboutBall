@@ -42,7 +42,9 @@ public class VenueListAdapter extends BaseRecyclerAdapter<VenueListAdapter.ViewH
                 viewHolder.mRivData);
         viewHolder.mTvGrade.setText(String.valueOf(bean.grade).concat("分"));
         viewHolder.mRbGrade.setRating(bean.grade);
-        viewHolder.mTvDistance.setText(bean.location.concat("  ").concat(bean.distance).concat("km"));
+        if (bean.location != null && bean.distance != null) {
+            viewHolder.mTvDistance.setText(bean.location.concat("  ").concat(bean.distance).concat("km"));
+        }
         viewHolder.mTvAddress.setText(viewHolder.itemView.getContext().getString(R.string.address_to_where, bean.address));
 
     }

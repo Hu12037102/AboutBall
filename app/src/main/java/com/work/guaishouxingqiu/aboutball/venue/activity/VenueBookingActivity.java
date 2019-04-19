@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
@@ -33,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -49,6 +51,16 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
     BaseViewPager mBvpContent;
     @BindView(R.id.rg_book)
     RadioGroup mRgBooking;
+    @BindView(R.id.tv_bottom_hit)
+    TextView mTvBottomHit;
+    @BindView(R.id.tv_bottom_left)
+    TextView mTvBottomLeft;
+    @BindView(R.id.tv_bottom_right)
+    TextView mTvBottomRight;
+    @BindView(R.id.include_rule)
+    View mIncludeRuleView;
+    @BindView(R.id.ll_bottom)
+    View mLlBottom;
     private int mTabPosition;
     private int mAreaId;
     private String mDate;
@@ -138,6 +150,7 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
                     default:
                         break;
                 }
+                mLlBottom.setVisibility(View.GONE);
             }
 
             @Override
@@ -180,15 +193,21 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
     }
 
 
-    @OnClick({R.id.iv_close, R.id.tv_rule})
+    @OnClick({R.id.iv_close, R.id.tv_rule, R.id.tv_bottom_left, R.id.tv_bottom_right})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_close:
+                mIncludeRuleView.setVisibility(View.GONE);
                 break;
             case R.id.tv_rule:
                 break;
+            case R.id.tv_bottom_left:
+                break;
+            case R.id.tv_bottom_right:
+                break;
         }
     }
+
 
     class BookPagerAdapter extends PagerAdapter {
 
@@ -230,7 +249,13 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
 
                             @Override
                             public void onItemClick(View view, int position) {
-
+                                if (mBookData.get(position).isCheck) {
+                                    mTvBottomLeft.setText(UIUtils.getString(R.string.money_make_booking, mBookData.get(position).price));
+                                    mLlBottom.setVisibility(View.VISIBLE);
+                                } else {
+                                    mTvBottomLeft.setText(UIUtils.getString(R.string.make_a_block_booking));
+                                    mLlBottom.setVisibility(View.GONE);
+                                }
                             }
                         });
                     } else {
@@ -248,6 +273,26 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
                     if (mWaitBookAdapter == null) {
                         mWaitBookAdapter = new VenueWaitBookAdapter(mWaitBookData);
                         mWaitBookRvData.setAdapter(mWaitBookAdapter);
+                        mWaitBookAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+                            @Override
+                            public void onNotNetClick(View view) {
+
+                            }
+
+                            @Override
+                            public void onNotDataClick(View view) {
+
+                            }
+
+                            @Override
+                            public void onItemClick(View view, int position) {
+                                if (mWaitBookData.get(position).isCheck) {
+                                    mLlBottom.setVisibility(View.VISIBLE);
+                                } else {
+                                    mLlBottom.setVisibility(View.GONE);
+                                }
+                            }
+                        });
                     } else {
                         mWaitBookAdapter.notifyDataSetChanged();
                     }
@@ -262,7 +307,7 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
 
         @Override
         public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-          //  container.removeView((View) object);
+            //  container.removeView((View) object);
         }
 
         @Override

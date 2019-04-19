@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueBookBean;
@@ -62,6 +63,7 @@ public class VenueWaitBookAdapter extends BaseRecyclerAdapter<VenueWaitBookAdapt
             viewHolder.mLine.setVisibility(View.VISIBLE);
         }
         viewHolder.itemView.setOnClickListener(v -> {
+            bean.isCheck = !bean.isCheck;
             for (int j = 0; j < mData.size(); j++) {
                 if (i != j) {
                     if (mData.get(j).isCheck) {
@@ -69,10 +71,10 @@ public class VenueWaitBookAdapter extends BaseRecyclerAdapter<VenueWaitBookAdapt
                         notifyItemChanged(j);
                     }
                 } else {
-                    bean.isCheck = !bean.isCheck;
                     notifyItemChanged(i);
                 }
             }
+            LogUtils.w("setOnClickListener--",bean.isCheck+"--");
             if (onItemClickListener != null) {
                 onItemClickListener.onItemClick(v, i);
             }
