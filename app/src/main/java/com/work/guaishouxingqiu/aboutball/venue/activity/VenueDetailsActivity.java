@@ -30,6 +30,7 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.PhoneUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.adapter.AboutBallAdapter;
@@ -108,6 +109,7 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
     @Override
     protected void initView() {
         mStadiumId = mIntent.getIntExtra(ARouterConfig.Key.STADIUM_ID, -1);
+        LogUtils.w("viewHolder--",mStadiumId+"--");
         if (mStadiumId == -1) {
             finish();
             UIUtils.showToast(R.string.not_this_venue);

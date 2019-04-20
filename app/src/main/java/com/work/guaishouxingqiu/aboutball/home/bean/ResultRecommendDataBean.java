@@ -42,7 +42,7 @@ public class ResultRecommendDataBean {
         public String liveType;
     }
     public static class Stadium{
-        public long stadiumId;
+        public int stadiumId;
         public String stadiumName;
         public String distance;
         public String photoUrl;
