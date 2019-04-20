@@ -113,12 +113,14 @@ public class VenueListFragment extends BaseFragment<VenueListPresenter> implemen
 
             if (mRequestBean != null) {
                 mRequestBean.typeId = mBallTypeData.get(position).typeId;
-                if (mSrlRefresh.isRefreshing()) {
+              /*  if (mSrlRefresh.isRefreshing()) {
                     mPresenter.isRefresh = true;
                     mPresenter.loadVenueList(mRequestBean);
                 } else {
                     mSrlRefresh.autoRefresh();
-                }
+                }*/
+                mPresenter.isRefresh = true;
+                mPresenter.loadVenueList(mRequestBean);
 
             }
         });
@@ -170,7 +172,7 @@ public class VenueListFragment extends BaseFragment<VenueListPresenter> implemen
             mListData.clear();
         }
         mListData.addAll(data);
-        //  mSrlRefresh.setNoMoreData(data.size() < mPresenter.mPageSize);
+        mSrlRefresh.setNoMoreData(data.size() < mPresenter.mPageSize);
         mListAdapter.notifyDataSetChanged();
     }
 }
