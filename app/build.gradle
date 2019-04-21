@@ -14,8 +14,8 @@ android {
         applicationId "com.work.guaishouxingqiu.aboutball"
         minSdkVersion android.minSdkVersion
         targetSdkVersion android.targetSdkVersion
-        versionCode 2
-        versionName 'v1.0.1'
+        versionCode 3
+        versionName 'v1.0.2'
         testInstrumentationRunner android.testInstrumentationRunner
 
         ndk {
@@ -84,10 +84,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField("boolean", "IS_DEBUG", "false")
              buildConfigField("String", "HOST_URL", '"https://ifi.bmece.com"')
-           // buildConfigField("String", "HOST_URL", '"https://iti.bmece.com"')
             shrinkResources false
-            zipAlignEnabled true
-            pseudoLocalesEnabled true
+            zipAlignEnabled false
+            pseudoLocalesEnabled false
         }
         debug {
             signingConfig signingConfigs.debug

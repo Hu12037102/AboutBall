@@ -3,6 +3,7 @@ package com.work.guaishouxingqiu.aboutball.other;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -13,11 +14,14 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 
 import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.receiver.DownloadMangerReceiver;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import java.io.File;
+
+import utils.UiUtils;
 
 /**
  * 项  目 :  AboutBall
@@ -36,7 +40,7 @@ public class DownloadApkHelp {
         if (loadManager == null) {
             return;
         }
-        Uri uri = Uri.parse(apkUrl);
+        Uri uri = Uri.parse("http://ifeell.oss-cn-shenzhen.aliyuncs.com/app/ipk_android_release.apk");
         DownloadManager.Request request = new DownloadManager.Request(uri);
         File file = new File(FileUtils.getRootFolder().getAbsolutePath(), "APK");
         if (!file.exists() || !file.isDirectory()) {
@@ -45,21 +49,30 @@ public class DownloadApkHelp {
         request = request.setDestinationInExternalPublicDir(FileUtils.getRootFolder().getAbsolutePath(), "APK");
         File apkFile = new File(FileUtils.getRootFolder().getAbsolutePath(), "AboutBall_" + System.currentTimeMillis() + ".apk");
         request = request.setDestinationUri(Uri.fromFile(apkFile));
-        request = request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request = request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
         request = request.setTitle(UIUtils.getString(R.string.update_apk));
         request = request.setVisibleInDownloadsUi(true);
         request = request.setMimeType("application/vnd.android.package-archive");
-        long id = loadManager.enqueue(request);
-        DownloadManager.Query query = new DownloadManager.Query().setFilterById(id);
+        loadManager.enqueue(request);
+        /*DownloadMangerReceiver receiver = new DownloadMangerReceiver();
+        IntentFilter intentFilter  = new IntentFilter();
+        intentFilter.addAction("DownloadManager.ACTION_DOWNLOAD_COMPLETE");
+        intentFilter.addAction("android.intent.action.DOWNLOAD_COMPLETE");
+        intentFilter.addAction("android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED");*/
+       // UiUtils.getContext().registerReceiver(receiver,intentFilter);
+
+
+
+       /* DownloadManager.Query query = new DownloadManager.Query().setFilterById(id);
         Cursor cursor = loadManager.query(query);
         if (cursor == null || cursor.getCount() == 0) {
             return;
         }
-        while (cursor.moveToNext()) {
+        while (cursor.moveToLast()) {
             int status = cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
             LogUtils.w("status--", status + "--" + DownloadManager.STATUS_SUCCESSFUL + "--" + DownloadManager.STATUS_PENDING
                     + "--" + DownloadManager.STATUS_RUNNING + "--" + DownloadManager.STATUS_PAUSED + "--" + DownloadManager.STATUS_FAILED);
-            if (status == DownloadManager.STATUS_SUCCESSFUL) {
+            *//*if (status == DownloadManager.STATUS_SUCCESSFUL) {
                 installApk(apkFile, context);
                 cursor.close();
                 break;
@@ -67,14 +80,14 @@ public class DownloadApkHelp {
                 openWebViewLoadApk(context, apkUrl);
                 cursor.close();
                 break;
-            } /*else if (status == DownloadManager.STATUS_PENDING) {
+            }*//* *//*else if (status == DownloadManager.STATUS_PENDING) {
                 cursor.close();
                 loadManager.remove(id);
                 openWebViewLoadApk(context, apkUrl);
                 break;
-            }*/
+            }*//*
 
-        }
+        }*/
 
     }
 
@@ -88,7 +101,6 @@ public class DownloadApkHelp {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             Uri contentUri;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 contentUri = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", apkFile);
             } else {

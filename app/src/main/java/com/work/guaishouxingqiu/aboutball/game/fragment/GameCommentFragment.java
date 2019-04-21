@@ -167,6 +167,8 @@ public class GameCommentFragment extends DelayedFragment<GameCommentPresenter> i
     @Override
     public void resultCommentMessage() {
         mSendMessageDialog.clearEditData();
+        mHandler.removeMessages(WHAT, null);
+        mPresenter.loadCommentData(mBean.matchId);
     }
 
     @Override

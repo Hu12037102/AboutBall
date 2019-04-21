@@ -29,6 +29,7 @@ import com.aliyun.vodplayer.media.AliyunLocalSource;
 import com.aliyun.vodplayer.media.AliyunVodPlayer;
 import com.aliyun.vodplayer.media.IAliyunVodPlayer;
 import com.example.item.util.ScreenUtils;
+import com.github.ybq.android.spinkit.SpinKitView;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameSimpleBean;
@@ -100,6 +101,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
     private ImageView mIvShare;
     private ImageView mIvScreen;
     private boolean mIsCanRotate = false;//默认可以旋转
+    private SpinKitView mSkvLoading;
     // String mLivePath = "http://player.alicdn.com/video/aliyunmedia.mp4";
 
     @Override
@@ -336,7 +338,9 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
             mIvBack.setVisibility(View.VISIBLE);
             mIvShare.setVisibility(View.VISIBLE);
             mIvScreen.setVisibility(View.VISIBLE);
-            mIvVideoStatus.setVisibility(View.VISIBLE);
+            if (mVideoPlay != null && mVideoPlay.isPlaying()) {
+                mIvVideoStatus.setVisibility(View.VISIBLE);
+            }
         } else {
             mIvBack.setVisibility(View.GONE);
             mIvShare.setVisibility(View.GONE);
@@ -354,6 +358,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
             mIvScreen = mHeadLiveParent.findViewById(R.id.iv_screen);
             mIvLockVideo = mHeadLiveParent.findViewById(R.id.iv_lock);
             mIvVideoStatus = mHeadLiveParent.findViewById(R.id.iv_video_status);
+            mSkvLoading = mHeadLiveParent.findViewById(R.id.skv_loading);
             mIvVideoStatus.setVisibility(View.GONE);
             mIvLockVideo.setVisibility(View.GONE);
             SurfaceView svVideo = mHeadLiveParent.findViewById(R.id.sv_video);
@@ -416,7 +421,8 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
              * 首帧显示
              */
             mVideoPlay.setOnFirstFrameStartListener(() -> {
-                // mIvVideoStatus.setVisibility();
+                mSkvLoading.setVisibility(View.GONE);
+                mIvVideoStatus.setVisibility(View.VISIBLE);
                 mVideoHandler.postDelayed(mVideoRunnable, 5000);
             });
 
@@ -429,7 +435,9 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
                         .setSure(R.string.sure)
                         .setCancelTouchOut(false)
                         .builder();
-                hintDialog.show();
+                if (!this.isFinishing()) {
+                    hintDialog.show();
+                }
                 hintDialog.setOnItemClickListener(view -> {
                     hintDialog.dismiss();
                     finish();
@@ -461,7 +469,6 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
             mHeadLiveParent.setVisibility(View.VISIBLE);
         }
     }
-
 
 
     @OnClick(R.id.iv_back)
