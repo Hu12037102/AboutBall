@@ -44,6 +44,13 @@ public class FileUtils {
         return rootFile;
     }
 
+    public static File createFolder(String folderName) {
+        File rootFolder = getRootFolder();
+        File childFolder = new File(rootFolder, folderName);
+        createFolder(childFolder);
+        return childFolder;
+    }
+
     /**
      * 获取缓存目录
      *
@@ -196,7 +203,8 @@ public class FileUtils {
             }
         }
     }
-    public static void removeFileCache(){
+
+    public static void removeFileCache() {
         removeFile(FileUtils.getCacheFile());
         removeFile(FileUtils.getImageCacheFile());
         removeFile(UIUtils.getContext().getCacheDir());

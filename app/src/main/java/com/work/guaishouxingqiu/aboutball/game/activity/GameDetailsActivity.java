@@ -427,7 +427,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
             });
 
             mVideoPlay.setOnErrorListener((i, i1, s) -> {
-                mVideoPlay.stop();
+              //  mVideoPlay.stop();
                 mIvVideoStatus.setImageResource(R.mipmap.icon_video_play);
                 HintDialog hintDialog = new HintDialog.Builder(GameDetailsActivity.this)
                         .setTitle(R.string.hint)

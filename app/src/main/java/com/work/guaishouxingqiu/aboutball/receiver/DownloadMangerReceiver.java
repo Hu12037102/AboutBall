@@ -45,19 +45,23 @@ public class DownloadMangerReceiver extends BroadcastReceiver {
             case DownloadManager.ACTION_DOWNLOAD_COMPLETE:
                 Cursor cursor = manager.query(query);
                 if (cursor != null && cursor.getCount() > 0 && cursor.moveToNext()) {
-                    String filePath;
+                    String filePath = null;
                     //7.0以上
                     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
                         String filePathUri = cursor.getString(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_LOCAL_URI));
-                        filePath = Uri.parse(filePathUri).getPath();
+                        if (filePathUri != null) {
+                            filePath = Uri.parse(filePathUri).getPath();
+                        }
+                        LogUtils.w("DownloadManager--",filePath);
                     } else {
                         //5.0;
                         filePath = cursor.getString(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_LOCAL_FILENAME));
                     }
                     if (filePath != null) {
-                       File apkFile =  new File(filePath);
-                       if (apkFile.exists() && apkFile.isFile()){
-                        DownloadApkHelp.installApk(apkFile, context);}
+                        File apkFile = new File(filePath);
+                        if (apkFile.exists() && apkFile.isFile()) {
+                            DownloadApkHelp.installApk(apkFile, context);
+                        }
                     }
                 }
 

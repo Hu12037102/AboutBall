@@ -15,7 +15,10 @@ public class LogUtils {
 
     public static void w(String tag, String msg) {
         if (BuildConfig.IS_DEBUG) {
-            if (msg.length() > MAX_LOG_LENGTH) {
+            if (msg == null){
+                return;
+            }
+            if ( msg.length() > MAX_LOG_LENGTH) {
                 for (int i = 0; i < msg.length(); i += MAX_LOG_LENGTH) {
                     if (i + MAX_LOG_LENGTH < msg.length())
                         Log.w(tag, msg.substring(i, i + MAX_LOG_LENGTH));
@@ -31,12 +34,18 @@ public class LogUtils {
 
     public static void d(String tag, String msg) {
         if (BuildConfig.IS_DEBUG) {
+            if (msg == null){
+                return;
+            }
             Log.d(tag, msg);
         }
     }
 
     public static void e(String tag, String msg) {
         if (BuildConfig.IS_DEBUG) {
+            if (msg == null){
+                return;
+            }
             Log.e(tag, msg);
         }
     }
