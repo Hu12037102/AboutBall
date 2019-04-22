@@ -22,10 +22,10 @@
         style="@style/SingLineTextView"
         android:layout_below="@id/title_view"
         android:background="@color/colorFFFBFAFA"
-        android:paddingBottom="@dimen/size_10dp"
+        android:layout_marginTop="@dimen/size_10dp"
         android:paddingLeft="@dimen/default_margin"
         android:paddingRight="@dimen/default_margin"
-        android:paddingTop="@dimen/size_10dp"
+        android:layout_marginBottom="@dimen/size_10dp"
         android:text="@string/please_add_up_to_order"
         android:textColor="@color/colorFFA6A6A6"
         android:textSize="@dimen/size_14sp" />
@@ -124,11 +124,12 @@
 
                 <TextView
                     android:id="@+id/tv_address"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginBottom="@dimen/size_15dp"
                     android:layout_toLeftOf="@id/iv_address"
+                    android:gravity="left"
                     android:lineSpacingExtra="@dimen/size_5dp"
                     android:textColor="@color/color_4"
                     android:textSize="@dimen/size_14sp"
@@ -234,12 +235,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <ImageView
+                        android:id="@+id/iv_phone_content"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@mipmap/icon_edit_content"
                         android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
-                        android:paddingTop="@dimen/size_10dp"
                         android:paddingRight="@dimen/size_10dp"
                         android:paddingLeft="@dimen/size_10dp"
                         />

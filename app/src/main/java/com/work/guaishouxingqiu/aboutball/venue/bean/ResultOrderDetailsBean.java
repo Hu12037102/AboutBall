@@ -21,7 +21,7 @@ public class ResultOrderDetailsBean {
     public String payTime;
     public float totalPrice;
     public float realPrice;
-    private List<OrderPeopleCountBean> orderDetailForOrders;
+    public List<OrderPeopleCountBean> orderDetailForOrders;
 
     public static class OrderPeopleCountBean {
         public String areaName;

@@ -122,6 +122,7 @@
     <string name="consignee">收货人</string>
     <string name="please_consignee_name">请输入收货人姓名</string>
     <string name="please_input_phone_number">请输入手机号码</string>
+    <string name="please_input_sure_phone_number">请输入正确的手机号码</string>
     <string name="please_input_you_phone_number">请输入您的手机号码</string>
     <string name="address_data">详细地址</string>
     <string name="please_input_address_data">请填写详细地址</string>
@@ -197,6 +198,7 @@
     <string name="order_status">订单状态：</string>
     <string name="me_agree_to_abide_by_user_agreement">我同意遵守《用户协议》</string>
     <string name="this_order_not_exist">该订单不存在</string>
+    <string name="update_phone_number">修改手机号</string>
     <!--相册选择器-->
     <string name="back">返回</string>
     <string name="all_image">全部图片</string>

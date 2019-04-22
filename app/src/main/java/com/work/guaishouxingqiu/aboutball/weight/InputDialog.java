@@ -3,6 +3,7 @@ package com.work.guaishouxingqiu.aboutball.weight;
 import android.content.Context;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.AppCompatEditText;
+import android.text.InputFilter;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,13 +27,35 @@ public class InputDialog extends BaseDialog {
     private TextView mTvCancel;
     private TextView mTvSure;
 
+    public void setOnItemClickSureAndCancelListener(OnItemClickSureAndCancelListener onItemClickSureAndCancelListener) {
+        this.onItemClickSureAndCancelListener = onItemClickSureAndCancelListener;
+    }
+
+    private OnItemClickSureAndCancelListener onItemClickSureAndCancelListener;
+
+
     private InputDialog(Context context) {
         super(context);
     }
 
     @Override
     protected void initEvent() {
-
+        mTvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onItemClickSureAndCancelListener != null) {
+                    onItemClickSureAndCancelListener.onClickCancel(view);
+                }
+            }
+        });
+        mTvSure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onItemClickSureAndCancelListener != null) {
+                    onItemClickSureAndCancelListener.onClickSure(view);
+                }
+            }
+        });
     }
 
     @Override
@@ -92,18 +115,28 @@ public class InputDialog extends BaseDialog {
         mAcetContent.setHint(hintRes);
     }
 
-    public void setCancel(String content){
+    public void setCancel(String content) {
         mTvCancel.setText(content);
     }
-    public void setCancel(@StringRes  int resContent){
+
+    public void setCancel(@StringRes int resContent) {
         mTvCancel.setText(resContent);
     }
 
-    public void setSure(String content){
+    public void setSure(String content) {
         mTvSure.setText(content);
     }
-    public void setSure(@StringRes  int resContent){
+
+    public void setSure(@StringRes int resContent) {
         mTvSure.setText(resContent);
+    }
+
+    public String getContent() {
+        return mAcetContent.getText() == null ? "" : mAcetContent.getText().toString();
+    }
+
+    private void setContentLength(int length) {
+        mAcetContent.setFilters(new InputFilter.LengthFilter[]{new InputFilter.LengthFilter(length)});
     }
 
     public static class Build {
@@ -139,6 +172,11 @@ public class InputDialog extends BaseDialog {
             return this;
         }
 
+        public Build setContentLength(int length) {
+            mInputDialog.setContentLength(length);
+            return this;
+        }
+
         public Build setContentHint(@StringRes int resHint) {
             mInputDialog.setContentHint(resHint);
             return this;
@@ -148,25 +186,31 @@ public class InputDialog extends BaseDialog {
             mInputDialog.setContentHint(hint);
             return this;
         }
-        public Build setCancal(String content){
+
+        public Build setCancal(String content) {
             mInputDialog.setCancel(content);
             return this;
         }
-        public Build setCancel(@StringRes int resContent){
+
+        public Build setCancel(@StringRes int resContent) {
             mInputDialog.setCancel(resContent);
             return this;
         }
 
-        public Build setSure(String content){
+        public Build setSure(String content) {
             mInputDialog.setSure(content);
             return this;
         }
-        public Build setSure(@StringRes int resContent){
+
+        public Build setSure(@StringRes int resContent) {
             mInputDialog.setSure(resContent);
             return this;
         }
-        public InputDialog build(){
+
+        public InputDialog build() {
             return mInputDialog;
         }
     }
+
+
 }
