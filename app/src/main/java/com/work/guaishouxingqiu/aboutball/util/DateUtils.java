@@ -48,39 +48,47 @@ public class DateUtils {
                         resultWeek = "后天";
                         break;
                     default:
-                        switch (week) {
-                            case 1:
-                                resultWeek = "星期日";
-                                break;
-                            case 2:
-                                resultWeek = "星期一";
-                                break;
-                            case 3:
-                                resultWeek = "星期二";
-                                break;
-                            case 4:
-                                resultWeek = "星期三";
-                                break;
-                            case 5:
-                                resultWeek = "星期四";
-                                break;
-                            case 6:
-                                resultWeek = "星期五";
-                                break;
-                            case 7:
-                                resultWeek = "星期六";
-                                break;
-                            default:
-                                break;
-                        }
+                        resultWeek = getMonthDayToWeek(week);
                         break;
                 }
+            } else {
+                resultWeek = getMonthDayToWeek(week);
             }
         } catch (ParseException e) {
             e.printStackTrace();
             return resultWeek;
         }
         LogUtils.w("getWeek--", resultWeek);
+        return resultWeek;
+    }
+
+    private static String getMonthDayToWeek(int day) {
+        String resultWeek = "";
+        switch (day) {
+            case 1:
+                resultWeek = "星期日";
+                break;
+            case 2:
+                resultWeek = "星期一";
+                break;
+            case 3:
+                resultWeek = "星期二";
+                break;
+            case 4:
+                resultWeek = "星期三";
+                break;
+            case 5:
+                resultWeek = "星期四";
+                break;
+            case 6:
+                resultWeek = "星期五";
+                break;
+            case 7:
+                resultWeek = "星期六";
+                break;
+            default:
+                break;
+        }
         return resultWeek;
     }
 
