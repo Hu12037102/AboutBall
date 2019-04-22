@@ -122,6 +122,7 @@
     <string name="consignee">收货人</string>
     <string name="please_consignee_name">请输入收货人姓名</string>
     <string name="please_input_phone_number">请输入手机号码</string>
+    <string name="please_input_you_phone_number">请输入您的手机号码</string>
     <string name="address_data">详细地址</string>
     <string name="please_input_address_data">请填写详细地址</string>
     <string name="modify_shipping_address">修改收货地址</string>
@@ -180,6 +181,22 @@
     <string name="join_about_ball">参加约球</string>
     <string name="wait_book_hint">约球为支付部分费用+押金,等待球友应邀,完赛后退还押金</string>
     <string name="book_hint">包场为支付全场费用,不支持广场约球</string>
+    <string name="order_details">订单详情</string>
+    <string name="order_in_ten_minute">订单在10分钟内自动取消，请及时支付</string>
+    <string name="add_up_to_money_please_pay">合计:&#160;¥%s&#160;&#160;请支付</string>
+    <string name="please_add_up_to_order">请认真核对信息，包场暂不提供裁判</string>
+    <string name="order_content">订单内容</string>
+    <string name="due_to_project">预定项目：</string>
+    <string name="due_to_date">预定日期：</string>
+    <string name="due_to_address">预定场地：</string>
+    <string name="due_to_phone">预留号码：</string>
+    <string name="more_details">更多信息</string>
+    <string name="pay_way">支付方式：</string>
+    <string name="order_original">订单原价：</string>
+    <string name="order_practical">实际价格：</string>
+    <string name="order_status">订单状态：</string>
+    <string name="me_agree_to_abide_by_user_agreement">我同意遵守《用户协议》</string>
+    <string name="this_order_not_exist">该订单不存在</string>
     <!--相册选择器-->
     <string name="back">返回</string>
     <string name="all_image">全部图片</string>

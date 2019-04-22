@@ -46,6 +46,7 @@ public interface Contast {
     String STATS = "state";
     String STADIUM_ID = "stadiumId";
     String AREA_ID="areaId";
+    String ORDER_ID="orderId";
 
     String TOKEN = "Authorization";
     String SEX = "gender";

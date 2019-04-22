@@ -20,10 +20,12 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.media.IntentData;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.adapter.VenueBookAdapter;
 import com.work.guaishouxingqiu.aboutball.venue.adapter.VenueWaitBookAdapter;
+import com.work.guaishouxingqiu.aboutball.venue.bean.RequestVenueOrderBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueBookBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueDetailsBean;
 import com.work.guaishouxingqiu.aboutball.venue.contract.VenueBookingContract;
@@ -34,7 +36,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -62,13 +63,15 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
     @BindView(R.id.ll_bottom)
     View mLlBottom;
     private int mTabPosition;
-    private int mAreaId;
+    private int mAreaId, mStadiumId;
     private String mDate;
     private List<ResultVenueBookBean> mBookData;
     private BookPagerAdapter mPagerAdapter;
     private List<ResultVenueDetailsBean.CalendarListForAreaList> mCalendarData;
     private boolean mIsSelectorBook = true;
     private List<ResultVenueBookBean> mWaitBookData;
+    private VenueBookAdapter mBookAdapter;
+    private VenueWaitBookAdapter mWaitBookAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -84,6 +87,7 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
         }
         mTabPosition = bundle.getInt(ARouterConfig.Key.POSITION, 0);
         mAreaId = bundle.getInt(ARouterConfig.Key.AREA_ID, 0);
+        mStadiumId = bundle.getInt(ARouterConfig.Key.STADIUM_ID, 0);
         LogUtils.w("initView--", mTabPosition + "--" + mAreaId);
         mCalendarData = IntentData.get().getData();
         for (int i = 0; i < mCalendarData.size(); i++) {
@@ -192,6 +196,31 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
         mPagerAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * 当获取订单成功的时候，该订单应该被占用
+     *
+     * @param orderId        订单Id
+     * @param isSelectorBook 包场or待约球的场次
+     */
+    @Override
+    public void resultOrderId(long orderId, boolean isSelectorBook) {
+        if (isSelectorBook) {
+            if (mBookAdapter != null) {
+                mBookData.get(mBookAdapter.getSelectorPosition()).stateId = 1;
+                mBookAdapter.notifyDataSetChanged();
+            }
+            ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_ORDER_DETAILS,ARouterConfig.Key.ORDER_ID,orderId);
+        } else {
+            if (mWaitBookAdapter != null) {
+                mWaitBookData.get(mWaitBookAdapter.getSelectorPosition()).stateId = 1;
+                mWaitBookAdapter.notifyDataSetChanged();
+            }
+        }
+
+
+        LogUtils.w("resultOrderId--", orderId + "--");
+    }
+
 
     @OnClick({R.id.iv_close, R.id.tv_rule, R.id.tv_bottom_left, R.id.tv_bottom_right})
     public void onViewClicked(View view) {
@@ -202,6 +231,19 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
             case R.id.tv_rule:
                 break;
             case R.id.tv_bottom_left:
+
+                if (mIsSelectorBook) {
+                    if (mBookAdapter != null) {
+                        RequestVenueOrderBean bean = new RequestVenueOrderBean();
+                        bean.areaId = mAreaId;
+                        bean.calendarId = new long[]{mBookData.get(mBookAdapter.getSelectorPosition()).calendarId};
+                        bean.flag = 2;
+                        bean.stadiumId = mStadiumId;
+                        mPresenter.createOrder(bean, mIsSelectorBook);
+                    }
+                } else {
+
+                }
                 break;
             case R.id.tv_bottom_right:
                 break;
@@ -212,11 +254,11 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
     class BookPagerAdapter extends PagerAdapter {
 
         private int mChildCount;
-        private VenueBookAdapter mBookAdapter;
+
         private View mBookInflateView;
         private RecyclerView mBookRvData;
 
-        private VenueWaitBookAdapter mWaitBookAdapter;
+
         private View mWaitBookInflateView;
         private RecyclerView mWaitBookRvData;
 
@@ -249,6 +291,7 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
 
                             @Override
                             public void onItemClick(View view, int position) {
+
                                 if (mBookData.get(position).isCheck) {
                                     mTvBottomLeft.setText(UIUtils.getString(R.string.money_make_booking, mBookData.get(position).price));
                                     mLlBottom.setVisibility(View.VISIBLE);

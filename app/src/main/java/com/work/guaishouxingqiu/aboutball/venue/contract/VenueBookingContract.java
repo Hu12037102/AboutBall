@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.venue.contract;
 
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.venue.bean.RequestVenueOrderBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueBookBean;
 
 import java.util.List;
@@ -16,10 +17,13 @@ public interface VenueBookingContract {
     interface View extends IBaseView {
         void resultBookList(List<ResultVenueBookBean> data);
         void resultWaitBookList(List<ResultVenueBookBean> data);
+        void resultOrderId(long orderId,boolean isSelectorBook);
     }
 
     interface Presenter extends IBasePresenter {
         void loadBookList(int areaId, String date);
         void loadWaitBookList(int areaId, String date);
+
+        void createOrder(RequestVenueOrderBean bean,boolean isSelectorBook);
     }
 }

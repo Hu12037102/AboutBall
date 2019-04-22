@@ -26,8 +26,20 @@ import java.util.List;
  * 描述:包场Adapter
  */
 public class VenueBookAdapter extends BaseRecyclerAdapter<VenueBookAdapter.ViewHolder, List<ResultVenueBookBean>> {
+
     public VenueBookAdapter(@NonNull List<ResultVenueBookBean> data) {
         super(data, false);
+    }
+
+    public int getSelectorPosition() {
+        if (mData != null && mData.size() > 0) {
+            for (ResultVenueBookBean bean : mData) {
+                if (bean.isCheck) {
+                    return mData.indexOf(bean);
+                }
+            }
+        }
+        return -1;
     }
 
     @Override
@@ -44,7 +56,7 @@ public class VenueBookAdapter extends BaseRecyclerAdapter<VenueBookAdapter.ViewH
                 viewHolder.mCbStatus.setVisibility(View.VISIBLE);
                 viewHolder.itemView.setEnabled(true);
                 String content = UIUtils.getString(R.string.yuan_s, bean.price);
-                viewHolder.mTvMoney.setText(SpanUtils.getTextColor(R.color.color_2, 0, content.length() ,
+                viewHolder.mTvMoney.setText(SpanUtils.getTextColor(R.color.color_2, 0, content.length(),
                         SpanUtils.getTextSize(23, 0, content.length() - 1, content)));
                 viewHolder.itemView.setBackgroundResource(R.drawable.selector_item);
                 break;
@@ -60,7 +72,7 @@ public class VenueBookAdapter extends BaseRecyclerAdapter<VenueBookAdapter.ViewH
                 break;
         }
         viewHolder.mTvStart.setText(DateUtils.getHourMinute(bean.startTime));
-        viewHolder.mTvEnd.setText(UIUtils.getString(R.string.time_end,DateUtils.getHourMinute(bean.endTime)));
+        viewHolder.mTvEnd.setText(UIUtils.getString(R.string.time_end, DateUtils.getHourMinute(bean.endTime)));
         if (i == mData.size() - 1) {
             viewHolder.mLine.setVisibility(View.GONE);
         } else {

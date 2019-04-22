@@ -1,9 +1,11 @@
 package com.work.guaishouxingqiu.aboutball.weight;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatDialog;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -22,7 +24,7 @@ public abstract class BaseDialog extends AppCompatDialog {
 
     public BaseDialog(Context context, int theme) {
         super(context, theme);
-
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         initView(context);
         initWindows();
         initData();
@@ -52,4 +54,10 @@ public abstract class BaseDialog extends AppCompatDialog {
     protected abstract void initData();
 
     protected abstract void initView(Context context);
+
+    public interface OnItemClickSureAndCancelListener {
+        void onClickSure(@NonNull View view);
+
+        void onClickCancel(@NonNull View view);
+    }
 }

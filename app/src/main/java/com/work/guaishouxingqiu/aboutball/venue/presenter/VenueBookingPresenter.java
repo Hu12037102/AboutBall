@@ -3,10 +3,13 @@ package com.work.guaishouxingqiu.aboutball.venue.presenter;
 import android.support.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
+import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
+import com.work.guaishouxingqiu.aboutball.venue.bean.RequestVenueOrderBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueBookBean;
 import com.work.guaishouxingqiu.aboutball.venue.contract.VenueBookingContract;
 import com.work.guaishouxingqiu.aboutball.venue.contract.VenueListContract;
@@ -60,6 +63,24 @@ public class VenueBookingPresenter extends BasePresenter<VenueBookingContract.Vi
             public void onNext(BaseBean<List<ResultVenueBookBean>> t) {
                 if (DataUtils.isResultSure(t)) {
                     mView.resultWaitBookList(t.result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+
+    @Override
+    public void createOrder(RequestVenueOrderBean bean,boolean isSelectorBook) {
+        mModel.createOrder(bean, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<Long>>() {
+            @Override
+            public void onNext(BaseBean<BaseDataBean<Long>> t) {
+                if (t.code == IApi.Code.SUCCEED && t.result != null &&
+                        t.result.code == IApi.Code.SUCCEED) {
+                    mView.resultOrderId(t.result.result,isSelectorBook);
                 }
             }
 

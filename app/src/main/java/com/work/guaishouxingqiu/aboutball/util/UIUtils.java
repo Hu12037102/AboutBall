@@ -34,6 +34,7 @@ import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.venue.activity.VenueDetailsActivity;
+import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 import com.yalantis.ucrop.UCrop;
@@ -230,7 +231,7 @@ public class UIUtils {
                     .setShowSingButton(false)
                     .builder();
             hintDialog.show();
-            hintDialog.setOnItemClickSureAndCancelListener(new HintDialog.OnItemClickSureAndCancelListener() {
+            hintDialog.setOnItemClickSureAndCancelListener(new BaseDialog.OnItemClickSureAndCancelListener() {
                 @Override
                 public void onClickSure(@NonNull View view) {
                     PhoneUtils.callPhone(context, phoneNumber);

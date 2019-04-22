@@ -223,6 +223,7 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
             Bundle bundle = new Bundle();
             bundle.putInt(ARouterConfig.Key.POSITION, mCalendarPosition);
             bundle.putInt(ARouterConfig.Key.AREA_ID, mDetailsBean.areaForDetailList.get(mSelectorTabPosition).areaId);
+            bundle.putInt(ARouterConfig.Key.STADIUM_ID, mStadiumId);
             IntentData.get().putData(mDetailsBean.areaForDetailList.get(mSelectorTabPosition).calendarListForAreaList);
             ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_BOOKING,bundle);
         }

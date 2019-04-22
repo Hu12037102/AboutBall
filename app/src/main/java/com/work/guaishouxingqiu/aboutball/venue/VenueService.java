@@ -3,8 +3,11 @@ package com.work.guaishouxingqiu.aboutball.venue;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
+import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
+import com.work.guaishouxingqiu.aboutball.venue.bean.RequestVenueOrderBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultAboutBallBean;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultOrderDetailsBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultTypeBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueBookBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueData;
@@ -13,7 +16,9 @@ import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueDetailsBean;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -52,4 +57,10 @@ public interface VenueService {
     @GET(IApiService.GET_VENUE_WAIT_BOOK)
     Observable<BaseBean<List<ResultVenueBookBean>>> getVenueWaitBookList(@Query(Contast.AREA_ID) int areaId,
                                                                          @Query(Contast.DATE) String date);
+    @POST(IApiService.POST_CREATE_VENUE_ORDER_ID)
+    Observable<BaseBean<BaseDataBean<Long>>> createOrderId(@Body RequestVenueOrderBean bean);
+
+    @GET(IApiService.GET_ORDER_DETAILS)
+    Observable<BaseBean<ResultOrderDetailsBean>> getOrderDetails(@Query(Contast.ORDER_ID)long orderId);
+
 }

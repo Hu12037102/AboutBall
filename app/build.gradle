@@ -15,7 +15,7 @@ android {
         minSdkVersion android.minSdkVersion
         targetSdkVersion android.targetSdkVersion
         versionCode 3
-        versionName 'v1.0.2'
+        versionName 'v1.0.3'
         testInstrumentationRunner android.testInstrumentationRunner
 
         ndk {

@@ -38,11 +38,11 @@ public class HintDialog extends Dialog {
 
     private OnItemClickListener onItemClickListener;
 
-    public void setOnItemClickSureAndCancelListener(OnItemClickSureAndCancelListener onItemClickSureAndCancelListener) {
+    public void setOnItemClickSureAndCancelListener(BaseDialog.OnItemClickSureAndCancelListener onItemClickSureAndCancelListener) {
         this.onItemClickSureAndCancelListener = onItemClickSureAndCancelListener;
     }
 
-    private OnItemClickSureAndCancelListener onItemClickSureAndCancelListener;
+    private BaseDialog.OnItemClickSureAndCancelListener onItemClickSureAndCancelListener;
 
     private HintDialog(Context context) {
         this(context, R.style.DefaultDialogStyle);
@@ -165,11 +165,7 @@ public class HintDialog extends Dialog {
         void onClickSure(@NonNull View view);
     }
 
-    public interface OnItemClickSureAndCancelListener {
-        void onClickSure(@NonNull View view);
 
-        void onClickCancel(@NonNull View view);
-    }
 
     public static class Builder {
         private HintDialog mHintDialog;

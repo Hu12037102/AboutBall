@@ -30,7 +30,16 @@ public class VenueWaitBookAdapter extends BaseRecyclerAdapter<VenueWaitBookAdapt
     public VenueWaitBookAdapter(@NonNull List<ResultVenueBookBean> data) {
         super(data, false);
     }
-
+    public int getSelectorPosition() {
+        if (mData != null && mData.size() > 0) {
+            for (ResultVenueBookBean bean : mData) {
+                if (bean.isCheck) {
+                    return mData.indexOf(bean);
+                }
+            }
+        }
+        return -1;
+    }
     @Override
     protected void onBindViewDataHolder(@NonNull ViewHolder viewHolder, int i) {
         ResultVenueBookBean bean = mData.get(i);

@@ -150,10 +150,11 @@
         <activity
             android:name=".venue.activity.VenueBookingActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".venue.activity.VenueOrderDetailsActivity"
+            android:screenOrientation="portrait" />
 
-        <receiver
-            android:name=".receiver.DownloadMangerReceiver"
-            >
+        <receiver android:name=".receiver.DownloadMangerReceiver">
             <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
                 <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED" />

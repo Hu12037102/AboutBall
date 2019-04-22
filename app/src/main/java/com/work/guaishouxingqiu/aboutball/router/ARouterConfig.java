@@ -27,6 +27,7 @@ public interface ARouterConfig {
         String ACTIVITY_UPDATE_PHONE = "/activity/update/phone";
         String ACTIVITY_UPDATE_PASSWORD = "/activity/update/password";
         String ACTIVITY_VENUE_BOOKING = "/activity/venue/booking";
+        String ACTIVITY_VENUE_ORDER_DETAILS="/activity/venue/order_details";
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";
@@ -72,6 +73,7 @@ public interface ARouterConfig {
         String ARRAY_LIST_PARCELABLE = "array_list_parcelable";
         String POSITION="position";
         String AREA_ID="areaId";
+        String ORDER_ID="orderId";
     }
 
 }

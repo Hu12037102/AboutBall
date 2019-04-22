@@ -57,6 +57,11 @@ public interface IApiService {
     String GET_VENUE_BOOK="/api/stadium/getAreaCalendar";
     //获取待约球的场次
     String GET_VENUE_WAIT_BOOK="/api/stadium/getAgreeCalendar";
+    String POST_CREATE_VENUE_ORDER_ID="/api/order/generateOrder";
+
+    //获取订单详情
+    String GET_ORDER_DETAILS="/api/order/getOrderDetail";
+
     //获取社区我关注的动态
     String COMMUNITY_ATTENTION_DATA = "/api/tweet/getLastestTweet";
 
