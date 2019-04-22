@@ -40,7 +40,7 @@ public class DownloadApkHelp {
         if (loadManager == null) {
             return;
         }
-        Uri uri = Uri.parse("http://ifeell.oss-cn-shenzhen.aliyuncs.com/app/ipk_android_release.apk");
+        Uri uri = Uri.parse(apkUrl);
         DownloadManager.Request request = new DownloadManager.Request(uri);
         File apkFile = new File(FileUtils.createFolder("APK").getAbsolutePath(), "/AboutBall_" + System.currentTimeMillis() + ".apk");
         request = request.setDestinationUri(Uri.fromFile(apkFile));
