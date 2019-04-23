@@ -43,4 +43,17 @@
         <item>已兑换</item>
         <item>已过期</item>
     </string-array>
+    <string-array name="clothing_color_array">
+        <item>白</item>
+        <item>蓝</item>
+        <item>红</item>
+        <item>橙</item>
+        <item>绿</item>
+        <item>紫</item>
+        <item>黑</item>
+        <item>灰</item>
+        <item>粉红</item>
+        <item>黄</item>
+        <item>棕</item>
+    </string-array>
 </resources>

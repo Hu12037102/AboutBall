@@ -93,42 +93,20 @@
             android:focusable="true"
             android:focusableInTouchMode="true"/>
 
-        <android.support.constraint.ConstraintLayout
+        <com.example.item.weight.ItemView
+            android:id="@+id/item_color"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/item_height">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/default_margin"
-                android:paddingRight="@dimen/default_margin"
-                android:text="@string/ball_team_clothing_color"
-                android:textColor="@color/color_4"
-                app:layout_constraintLeft_toLeftOf="parent" />
-
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/acet_clothing_color"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:gravity="right|center_vertical"
-                android:hint="@string/please_input_ball_clothing_color"
-                android:maxLength="8"
-                android:paddingLeft="@dimen/default_margin"
-                android:paddingRight="@dimen/default_margin"
-                android:textSize="@dimen/size_14sp"
-                android:singleLine="true"
-                app:layout_constraintRight_toRightOf="parent"
-                tools:text="天青色等烟雨而我在等你"
-               />
-
-            <View
-                style="@style/HorizontalLine"
-                android:layout_marginLeft="@dimen/default_margin"
-                android:layout_marginRight="@dimen/default_margin"
-                app:layout_constraintBottom_toBottomOf="parent" />
-        </android.support.constraint.ConstraintLayout>
+            android:layout_height="@dimen/size_55dp"
+            app:bottom_line_margin_left="@dimen/default_margin"
+            app:bottom_line_margin_right="@dimen/default_margin"
+            app:content_data="@string/please_selector_ball_clothing_color"
+            app:content_right_icon="@mipmap/icon_item_right"
+            app:content_text_color="@color/colorFFA6A6A6"
+            app:content_text_size="@dimen/size_14sp"
+            app:show_bottom_line="true"
+            app:title_data="@string/ball_team_clothing_color"
+            app:title_text_color="@color/color_4"
+            app:title_text_size="@dimen/size_14sp"/>
 
         <TextView
             android:layout_width="wrap_content"

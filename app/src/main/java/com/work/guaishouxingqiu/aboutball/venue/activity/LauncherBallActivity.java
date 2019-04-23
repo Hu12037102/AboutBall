@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.ItemView;
@@ -15,6 +16,7 @@ import com.work.guaishouxingqiu.aboutball.venue.adapter.RefereeListAdapter;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultRefereeBean;
 import com.work.guaishouxingqiu.aboutball.venue.contract.LauncherBallContract;
 import com.work.guaishouxingqiu.aboutball.venue.presenter.LauncherBallPresenter;
+import com.work.guaishouxingqiu.aboutball.weight.SelectorColorDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +34,8 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
 
     @BindView(R.id.item_team)
     ItemView mItemTeam;
-    @BindView(R.id.acet_clothing_color)
-    AppCompatEditText mAcetColor;
+    @BindView(R.id.item_color)
+    ItemView mItemColor;
     @BindView(R.id.rv_referee)
     RecyclerView mRvReferee;
     private RefereeListAdapter mRefereeAdapter;
@@ -73,7 +75,14 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
 
     @Override
     protected void initEvent() {
+        mItemColor.setOnItemClickListener(new ItemView.OnItemClickListener() {
+            @Override
+            public void onClickItem(View view) {
+                SelectorColorDialog colorDialog = new SelectorColorDialog(LauncherBallActivity.this);
+                colorDialog.show();
 
+            }
+        });
     }
 
     @Override

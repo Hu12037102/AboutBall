@@ -17,7 +17,7 @@
     <string name="invite_referee_hint">最多邀请三个，无人应邀由系统安排，如24小时内无人应邀，则由平台进行安排</string>
     <string name="top_month_amount_of_law_enforcement">上月执法量</string>
     <string name="referee_class">裁判等级</string>
-    <string name="please_input_ball_clothing_color">请输入球衣颜色</string>
+    <string name="please_selector_ball_clothing_color">请选择球衣颜色</string>
     <string name="setting">设置</string>
     <string name="click_login_or_register">点击登录/注册</string>
     <string name="password_login">密码登录</string>
