@@ -209,7 +209,7 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
                 mBookData.get(mBookAdapter.getSelectorPosition()).stateId = 1;
                 mBookAdapter.notifyDataSetChanged();
             }
-            ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_ORDER_DETAILS,ARouterConfig.Key.ORDER_ID,orderId);
+            ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_ORDER_DETAILS, ARouterConfig.Key.ORDER_ID, orderId);
         } else {
             if (mWaitBookAdapter != null) {
                 mWaitBookData.get(mWaitBookAdapter.getSelectorPosition()).stateId = 1;
@@ -246,6 +246,12 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
                 }
                 break;
             case R.id.tv_bottom_right:
+                if (mIsSelectorBook) {
+                    Bundle bundle = new Bundle();
+                    bundle.putLong(ARouterConfig.Key.STADIUM_ID,mStadiumId);
+                    bundle.putLong(ARouterConfig.Key.CALENDAR_ID,mBookData.get(mBookAdapter.getSelectorPosition()).calendarId);
+                    ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_LAUNCHER_BALL, bundle);
+                }
                 break;
         }
     }

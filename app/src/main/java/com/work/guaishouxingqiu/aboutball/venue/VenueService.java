@@ -8,6 +8,7 @@ import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.venue.bean.RequestVenueOrderBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultAboutBallBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultOrderDetailsBean;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultRefereeBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultTypeBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueBookBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueData;
@@ -67,5 +68,6 @@ public interface VenueService {
     @GET(IApiService.GET_BAND_PHONE_PHONE_NUMBER)
     Observable<BaseBean<BaseDataBean<String>>> bandOrderPhoneNumber(@Query(Contast.ORDER_ID) long orderId,
                                                                     @Query(Contast.PHONE) String phoneNumber);
-
+    @GET(IApiService.GET_REFEREE_LIST)
+    Observable<BaseBean<List<ResultRefereeBean>>> loadRefereeList();
 }

@@ -28,6 +28,7 @@ public interface ARouterConfig {
         String ACTIVITY_UPDATE_PASSWORD = "/activity/update/password";
         String ACTIVITY_VENUE_BOOKING = "/activity/venue/booking";
         String ACTIVITY_VENUE_ORDER_DETAILS="/activity/venue/order_details";
+        String ACTIVITY_LAUNCHER_BALL="/activity/launcher/ball";
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";
@@ -74,6 +75,7 @@ public interface ARouterConfig {
         String POSITION="position";
         String AREA_ID="areaId";
         String ORDER_ID="orderId";
+        String CALENDAR_ID="calendarId";
     }
 
 }
