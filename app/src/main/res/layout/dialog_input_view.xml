@@ -29,7 +29,8 @@
         android:hint="@string/please_input_you_phone_number"
         android:minHeight="@dimen/size_30dp"
         android:textColorHint="@color/colorFFA6A6A6"
-        android:textSize="@dimen/size_14sp" />
+        android:textSize="@dimen/size_14sp"
+        />
 
     <View style="@style/HorizontalLine" />
 

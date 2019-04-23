@@ -61,6 +61,8 @@ public interface IApiService {
 
     //获取订单详情
     String GET_ORDER_DETAILS="/api/order/getOrderDetail";
+    //绑定手机订单号
+    String GET_BAND_PHONE_PHONE_NUMBER="/api/order/orderBingPhone";
 
     //获取社区我关注的动态
     String COMMUNITY_ATTENTION_DATA = "/api/tweet/getLastestTweet";

@@ -42,10 +42,10 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
         if (!DataUtils.isEmpty(bean.topicTitle)) {
             String data = bean.topicTitle.concat(bean.tweetContent);
             viewHolder.mTvData.setText(data);
-            SpanUtils.setClickText(viewHolder.mTvData, R.color.color_2, 0, bean.topicTitle.length(),
+           /* SpanUtils.getTextColor(viewHolder.mTvData, R.color.color_2, 0, bean.topicTitle.length(),
                     view -> {
                         //点击话题列表
-                    });
+                    });*/
         } else {
             viewHolder.mTvData.setText(bean.tweetContent);
         }

@@ -1,6 +1,5 @@
 package com.work.guaishouxingqiu.aboutball.venue.activity;
 
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.InputType;
 import android.view.View;
@@ -9,7 +8,9 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
+import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
@@ -22,9 +23,7 @@ import com.work.guaishouxingqiu.aboutball.weight.InputDialog;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import utils.UiUtils;
 
 /**
  * 作者: 胡庆岭
@@ -63,6 +62,7 @@ public class VenueOrderDetailsActivity extends BaseActivity<VenueOrderDetailsPre
     TextView mTvStatusContent;
     private ResultOrderDetailsBean mResultBean;
     private boolean mIsCheckAgreement;
+    private long mOrderId;
 
     @Override
     protected int getLayoutId() {
@@ -71,7 +71,7 @@ public class VenueOrderDetailsActivity extends BaseActivity<VenueOrderDetailsPre
 
     @Override
     protected void initView() {
-        long mOrderId = mIntent.getLongExtra(ARouterConfig.Key.ORDER_ID, -1);
+        mOrderId = mIntent.getLongExtra(ARouterConfig.Key.ORDER_ID, -1);
         if (mOrderId == -1) {
             UIUtils.showToast(R.string.this_order_not_exist);
             finish();
@@ -83,7 +83,11 @@ public class VenueOrderDetailsActivity extends BaseActivity<VenueOrderDetailsPre
     @Override
     protected void initData() {
         String agreement = mTvAgreement.getText().toString();
-        SpanUtils.getTextColor(R.color.color_2, 5, agreement.length(), agreement);
+        mTvAgreement.setText(SpanUtils.getClickText(mTvAgreement, R.color.color_2, 5, agreement.length(), view -> {
+            view.setEnabled(false);
+            ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_USER_AGREEMENT);
+            view.setEnabled(true);
+        }));
     }
 
     @Override
@@ -114,12 +118,19 @@ public class VenueOrderDetailsActivity extends BaseActivity<VenueOrderDetailsPre
             }
             mTvAddressContent.setText(content);
         }
-        mTvPhoneContent.setText(bean.phoneNum);
+        mTvPhoneContent.setText(DataUtils.isEmpty(bean.phoneNum) ? UserManger.get().getPhone() : bean.phoneNum);
         mTvPayContent.setText("微信支付");
         mTvOriginalContent.setText("¥" + bean.totalPrice);
         mTvPracticalContent.setText("¥" + bean.realPrice);
         mTvStatusContent.setText(bean.stateName);
+        mTvDateContent.setText(bean.orderTime);
+        mTvPay.setText(UIUtils.getString(R.string.add_up_to_money_please_pay, bean.totalPrice));
 
+    }
+
+    @Override
+    public void resultBandPhoneNumber() {
+        //吊起微信支付
     }
 
 
@@ -130,6 +141,7 @@ public class VenueOrderDetailsActivity extends BaseActivity<VenueOrderDetailsPre
                 clickAgreement();
                 break;
             case R.id.tv_pay:
+                clickPay();
                 break;
             case R.id.iv_phone_content:
                 clickContentPhone();
@@ -139,6 +151,22 @@ public class VenueOrderDetailsActivity extends BaseActivity<VenueOrderDetailsPre
         }
     }
 
+    /**
+     * 先绑定手机号，再去支付
+     */
+    private void clickPay() {
+        if (mIsCheckAgreement) {
+            if (DataUtils.isEmpty(mTvPhoneContent.getText())) {
+                showBandPhoneNumberDialog();
+            } else {
+                mPresenter.bandOrderPhoneNumber(mOrderId, mTvPhoneContent.getText().toString());
+            }
+        }else {
+            UIUtils.showToast(R.string.please_sure_and_read_agreement);
+        }
+
+    }
+
     private void clickAgreement() {
         mIsCheckAgreement = !mIsCheckAgreement;
         mTvAgreement.setCompoundDrawablesWithIntrinsicBounds(mIsCheckAgreement ? R.mipmap.icon_square_check :
@@ -146,10 +174,14 @@ public class VenueOrderDetailsActivity extends BaseActivity<VenueOrderDetailsPre
     }
 
     private void clickContentPhone() {
+        showBandPhoneNumberDialog();
+    }
+
+    private void showBandPhoneNumberDialog() {
         InputDialog inputDialog = new InputDialog.Build(this)
                 .setTitle(R.string.update_phone_number)
-                .setContentHint(R.string.please_input_you_phone_number)
-                .setContent(mResultBean.phoneNum)
+                .setContentHint(mTvPhoneContent.getText() == null ? R.string.band_phone_number : R.string.please_input_you_phone_number)
+                .setContent(mTvPhoneContent.getText() == null ? null : mTvPhoneContent.getText().toString())
                 .setInputType(InputType.TYPE_CLASS_PHONE)
                 .setContentLength(11)
                 .build();

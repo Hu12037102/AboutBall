@@ -22,10 +22,10 @@
         style="@style/SingLineTextView"
         android:layout_below="@id/title_view"
         android:background="@color/colorFFFBFAFA"
-        android:layout_marginTop="@dimen/size_10dp"
+        android:paddingTop="@dimen/size_10dp"
         android:paddingLeft="@dimen/default_margin"
         android:paddingRight="@dimen/default_margin"
-        android:layout_marginBottom="@dimen/size_10dp"
+        android:paddingBottom="@dimen/size_10dp"
         android:text="@string/please_add_up_to_order"
         android:textColor="@color/colorFFA6A6A6"
         android:textSize="@dimen/size_14sp" />
@@ -48,8 +48,8 @@
             android:drawablePadding="@dimen/size_5dp"
             android:drawableStart="@drawable/selector_square_check_box_view"
             android:paddingBottom="@dimen/size_10dp"
-            android:paddingLeft="@dimen/default_margin"
-            android:paddingRight="@dimen/default_margin"
+            android:layout_marginLeft="@dimen/size_15dp"
+            android:paddingLeft="@dimen/size_5dp"
             android:paddingTop="@dimen/size_10dp"
             android:text="@string/me_agree_to_abide_by_user_agreement" />
 
@@ -77,7 +77,7 @@
                 style="@style/ButtonCenterText"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="@dimen/size_5dp"
-                android:text="@string/add_up_to_money_please_pay" />
+                android:text="@string/sum_add" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -156,7 +156,8 @@
                 android:layout_marginTop="@dimen/size_15dp"
                 android:orientation="horizontal"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_order_content">
+                app:layout_constraintTop_toBottomOf="@id/tv_order_content"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -248,7 +249,8 @@
                     android:id="@+id/tv_phone_content"
                     style="@style/OrderDetailsContentTextView"
                     android:textColor="@color/colorFFDB2F23"
-                    tools:text="天青色等烟雨" />
+                    tools:text="天青色等烟雨"
+                    android:hint="@string/you_not_band_phone_number"/>
 
                 </RelativeLayout>
             </LinearLayout>

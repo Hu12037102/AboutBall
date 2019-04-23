@@ -57,10 +57,15 @@ public interface VenueService {
     @GET(IApiService.GET_VENUE_WAIT_BOOK)
     Observable<BaseBean<List<ResultVenueBookBean>>> getVenueWaitBookList(@Query(Contast.AREA_ID) int areaId,
                                                                          @Query(Contast.DATE) String date);
+
     @POST(IApiService.POST_CREATE_VENUE_ORDER_ID)
     Observable<BaseBean<BaseDataBean<Long>>> createOrderId(@Body RequestVenueOrderBean bean);
 
     @GET(IApiService.GET_ORDER_DETAILS)
-    Observable<BaseBean<ResultOrderDetailsBean>> getOrderDetails(@Query(Contast.ORDER_ID)long orderId);
+    Observable<BaseBean<ResultOrderDetailsBean>> getOrderDetails(@Query(Contast.ORDER_ID) long orderId);
+
+    @GET(IApiService.GET_BAND_PHONE_PHONE_NUMBER)
+    Observable<BaseBean<BaseDataBean<String>>> bandOrderPhoneNumber(@Query(Contast.ORDER_ID) long orderId,
+                                                                    @Query(Contast.PHONE) String phoneNumber);
 
 }

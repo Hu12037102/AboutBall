@@ -97,6 +97,15 @@ public class InputDialog extends BaseDialog {
 
     public void setContent(String content) {
         mAcetContent.setText(content);
+
+    }
+
+    @Override
+    public void show() {
+        super.show();
+        if (mAcetContent.getText() != null) {
+            mAcetContent.setSelection(mAcetContent.getText().length());
+        }
     }
 
     public void setContent(@StringRes int resContent) {

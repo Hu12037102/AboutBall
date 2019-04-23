@@ -89,7 +89,7 @@ public class SpanUtils {
      * @param end
      * @param onClickTextListener
      */
-    public static void setClickText(@NonNull TextView textView, @ColorRes int clickTextColor, int start, int end, @NonNull OnClickTextListener onClickTextListener) {
+    public static SpannableString getClickText(@NonNull TextView textView, @ColorRes int clickTextColor, int start, int end, @NonNull OnClickTextListener onClickTextListener) {
         SpannableString ss = new SpannableString(textView.getText());
         ss.setSpan(new ClickText(onClickTextListener), start, end, SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
         ss.setSpan(new ForegroundColorSpan(ContextCompat.getColor(textView.getContext(), clickTextColor)), start, end, SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
@@ -97,6 +97,7 @@ public class SpanUtils {
         textView.setMovementMethod(LinkMovementMethod.getInstance());
         //设置点击背景是透明色
         textView.setHighlightColor(Color.TRANSPARENT);
+        return ss;
     }
 
     public static class ClickText extends ClickableSpan {

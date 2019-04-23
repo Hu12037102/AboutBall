@@ -98,6 +98,9 @@
 等不良信息，坚决维护青少年精神文明健康。</string>
     <string name="update_phone_number_title">更换绑定手机</string>
     <string name="you_band_this_phone">您已经绑定了该手机</string>
+    <string name="band_phone_number">绑定手机号</string>
+    <string name="you_not_band_phone_number">请绑定手机号</string>
+    <string name="please_sure_and_read_agreement">请勾选并且认真阅读《用户协议》</string>
     <!--&#160;  空格-->
     <string name="notice">系统通知&#160;&#160;</string>
     <string name="game_id_error">比赛房间未找到！</string>
@@ -185,6 +188,7 @@
     <string name="order_details">订单详情</string>
     <string name="order_in_ten_minute">订单在10分钟内自动取消，请及时支付</string>
     <string name="add_up_to_money_please_pay">合计:&#160;¥%s&#160;&#160;请支付</string>
+    <string name="sum_add">合计</string>
     <string name="please_add_up_to_order">请认真核对信息，包场暂不提供裁判</string>
     <string name="order_content">订单内容</string>
     <string name="due_to_project">预定项目：</string>

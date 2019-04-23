@@ -14,9 +14,13 @@ import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueDetailsBean;
 public interface BaseOrderContrast {
     interface View extends IBaseView {
         void resultOrderDetails(ResultOrderDetailsBean bean);
+
+        void resultBandPhoneNumber();
     }
 
     interface Presenter extends IBasePresenter {
         void loadOrderDetails(long orderId);
+
+        void bandOrderPhoneNumber(long orderId, String phoneNumber);
     }
 }

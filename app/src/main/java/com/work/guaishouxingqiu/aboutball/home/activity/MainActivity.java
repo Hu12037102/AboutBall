@@ -58,6 +58,7 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
     protected void initView() {
         registerEventBus();
         mRvMainTab.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_ORDER_DETAILS,ARouterConfig.Key.ORDER_ID,321L);
     }
 
     @Override
