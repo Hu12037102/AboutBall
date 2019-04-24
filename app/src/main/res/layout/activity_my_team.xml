@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+
+    <com.example.item.weight.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        app:back_left_drawable="@mipmap/icon_back"
+        app:back_text_padding_left="@dimen/default_margin"
+        app:center_data="@string/my_team"
+        app:center_text_color="@color/color_4"
+        app:center_text_size="@dimen/size_18sp" />
+
+    <View
+        android:id="@+id/line"
+        style="@style/HorizontalLine"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_view" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_data"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/line" />
+
+    <ImageView
+        android:id="@+id/iv_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/size_40dp"
+        android:layout_marginRight="@dimen/size_15dp"
+        android:contentDescription="@null"
+        android:src="@mipmap/icon_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+</android.support.constraint.ConstraintLayout>

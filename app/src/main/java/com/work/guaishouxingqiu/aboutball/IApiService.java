@@ -50,21 +50,21 @@ public interface IApiService {
     //分页获取约球列表
     String ABOUT_BALL_LIST_DATA = "/api/agreeBall/getAgreeBallList";
     //获取场馆详情
-    String GET_VENUE_DETAILS="/api/stadium/getStadiumDetail";
+    String GET_VENUE_DETAILS = "/api/stadium/getStadiumDetail";
     //获取推荐场馆
-    String GET_VENUE_RECOMMEND_DATA="/api/stadium/getRecommendStadium";
+    String GET_VENUE_RECOMMEND_DATA = "/api/stadium/getRecommendStadium";
     //获取场馆场次包场
-    String GET_VENUE_BOOK="/api/stadium/getAreaCalendar";
+    String GET_VENUE_BOOK = "/api/stadium/getAreaCalendar";
     //获取待约球的场次
-    String GET_VENUE_WAIT_BOOK="/api/stadium/getAgreeCalendar";
-    String POST_CREATE_VENUE_ORDER_ID="/api/order/generateOrder";
+    String GET_VENUE_WAIT_BOOK = "/api/stadium/getAgreeCalendar";
+    String POST_CREATE_VENUE_ORDER_ID = "/api/order/generateOrder";
 
     //获取订单详情
-    String GET_ORDER_DETAILS="/api/order/getOrderDetail";
+    String GET_ORDER_DETAILS = "/api/order/getOrderDetail";
     //绑定手机订单号
-    String GET_BAND_PHONE_PHONE_NUMBER="/api/order/orderBingPhone";
+    String GET_BAND_PHONE_PHONE_NUMBER = "/api/order/orderBingPhone";
     //裁判列表
-    String GET_REFEREE_LIST="/api/referee/getRefereeList";
+    String GET_REFEREE_LIST = "/api/referee/getRefereeList";
 
     //获取社区我关注的动态
     String COMMUNITY_ATTENTION_DATA = "/api/tweet/getLastestTweet";
@@ -86,8 +86,10 @@ public interface IApiService {
     String GET_MY_ADDRESS = "/api/prize/getMyPrizeAddress";
     String GET_HAS_ADDRESS = "/api/prize/hasAddress";
     //更绑定手机号码
-    String POST_UPDATE_PHONE_NUMBER ="/api/accountManagement/bandingPhone";
-    String POST_UPDATE_PASSWORD="/api/account/modifyPassword";
+    String POST_UPDATE_PHONE_NUMBER = "/api/accountManagement/bandingPhone";
+    String POST_UPDATE_PASSWORD = "/api/account/modifyPassword";
+    String GET_MY_BALL_TEAM = "/api/myTeam/getMyTeam";
+    String GET_OSS_TOKEN="/api/commons/static/ossCredentials";
 
     interface H5 {
         String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";

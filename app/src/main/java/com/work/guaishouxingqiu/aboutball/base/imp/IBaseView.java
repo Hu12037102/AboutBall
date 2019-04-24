@@ -3,6 +3,7 @@ package com.work.guaishouxingqiu.aboutball.base.imp;
 import android.support.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
+import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
 
 /**
  * 作者: 胡庆岭
@@ -19,4 +20,5 @@ public interface IBaseView {
 
     void resultBaseData(@NonNull BaseBean baseBean);
 
+    void resultOSSToken(OSSToken ossBean);
 }

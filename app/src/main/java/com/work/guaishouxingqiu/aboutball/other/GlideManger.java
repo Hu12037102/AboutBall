@@ -82,6 +82,11 @@ public class GlideManger {
         Glide.with(context).asDrawable().apply(requestOptions).load(path).into(imageView);
     }
 
+    public void loadLogoImage(Context context,@NonNull String path,@NonNull ImageView imageView){
+        RequestOptions requestOptions = new RequestOptions().placeholder(R.mipmap.icon_default_logo).error(R.mipmap.icon_default_logo)
+                .centerCrop();
+        Glide.with(context).asDrawable().apply(requestOptions).load(path).into(imageView);
+    }
     public void loadImage(@NonNull Context context, @DrawableRes int resId, @NonNull ImageView imageView) {
         RequestOptions requestOptions = new RequestOptions().centerCrop();
 

@@ -161,8 +161,15 @@
                 <action android:name="android.intent.action.VIEW_DOWNLOADS" />
             </intent-filter>
         </receiver>
+
         <activity
             android:name=".venue.activity.LauncherBallActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.activity.MyBallTeamActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.activity.ManageBallTeamActivity"
             android:screenOrientation="portrait" />
     </application>
 

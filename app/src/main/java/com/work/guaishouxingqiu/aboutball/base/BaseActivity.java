@@ -5,32 +5,23 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.bugtags.library.Bugtags;
 import com.example.item.util.ScreenUtils;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
-import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.media.bean.MediaSelectorFile;
 import com.work.guaishouxingqiu.aboutball.other.ActivityManger;
-import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
-import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.LoadingView;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -181,6 +172,11 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
         }
 
         CompressImageTask.get().compressImages(this, configData, onImagesResult);
+
+    }
+
+    @Override
+    public void resultOSSToken(OSSToken ossBean) {
 
     }
 }

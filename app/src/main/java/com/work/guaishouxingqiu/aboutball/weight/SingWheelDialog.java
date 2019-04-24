@@ -12,31 +12,50 @@ import android.view.Window;
 import com.bigkoo.pickerview.adapter.ArrayWheelAdapter;
 import com.contrarywind.view.WheelView;
 import com.example.item.weight.TitleView;
+import com.huxiaobai.adapter.BaseRecyclerAdapter;
+import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
  * 作者: 胡庆岭
- * 创建时间: 2019/4/23 17:57
- * 更新时间: 2019/4/23 17:57
- * 描述:颜色选择dialog
+ * 创建时间: 2019/4/24 13:50
+ * 更新时间: 2019/4/24 13:50
+ * 描述:
  */
-public class SelectorColorDialog extends BaseDialog {
+public class SingWheelDialog extends BaseDialog {
+    private List<String> mData;
     private TitleView mTitleView;
     private WheelView mWheelView;
-    private List<String> mData;
+    private ArrayWheelAdapter<String> mWheelAdapter;
 
-    public void setOnColorSelectorListener(OnColorSelectorListener onColorSelectorListener) {
-        this.onColorSelectorListener = onColorSelectorListener;
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
-    private OnColorSelectorListener onColorSelectorListener;
+    private OnItemClickListener onItemClickListener;
 
-    public SelectorColorDialog(Context context) {
+    public SingWheelDialog(Context context, List<String> data) {
         super(context);
+        this.mData = data;
+
+
     }
+
+    public void notifyData(List<String> data){
+        mData.clear();
+        mData.addAll(data);
+        mWheelView.setAdapter(mWheelAdapter);
+    }
+
+    public void setTitle(@NonNull String title){
+        mTitleView.mTvCenter.setText(title);
+    }
+    public void setTitle(@StringRes int titleRes){
+        mTitleView.mTvCenter.setText(titleRes);
+    }
+
 
     @Override
     protected void initEvent() {
@@ -48,29 +67,18 @@ public class SelectorColorDialog extends BaseDialog {
 
             @Override
             public void onSureClick(@NonNull View view) {
-                if (onColorSelectorListener != null) {
-                    onColorSelectorListener.onResult(view, mData.get(mWheelView.getCurrentItem())+"色");
+                if (onItemClickListener != null) {
+                    onItemClickListener.onClickItem(view, mWheelView.getCurrentItem());
                 }
                 dismiss();
             }
         });
     }
 
-    public void setTitle(@StringRes int titleRes) {
-        mTitleView.mTvCenter.setText(titleRes);
-    }
-
-    public void setTitle(@NonNull String title) {
-        mTitleView.mTvCenter.setText(title);
-    }
-
     @Override
     protected void initData() {
-        mTitleView.mTvCenter.setText(R.string.selector_ball_clothing_color);
-        mData = Arrays.asList(getContext().getResources().getStringArray(R.array.clothing_color_array));
-        ArrayWheelAdapter<String> wheelAdapter = new ArrayWheelAdapter<>(mData);
-        mWheelView.setAdapter(wheelAdapter);
-
+        mWheelAdapter = new ArrayWheelAdapter<>(mData);
+        mWheelView.setAdapter(mWheelAdapter);
     }
 
     @Override
@@ -87,7 +95,4 @@ public class SelectorColorDialog extends BaseDialog {
         mWheelView.setGravity(Gravity.CENTER);
     }
 
-    public interface OnColorSelectorListener {
-        void onResult(@NonNull View view, String color);
-    }
 }

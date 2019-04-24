@@ -1,6 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.weight;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatDialog;
 import android.util.DisplayMetrics;
@@ -25,7 +26,13 @@ public abstract class BaseDialog extends AppCompatDialog {
     public BaseDialog(Context context, int theme) {
         super(context, theme);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        initView(context);
+
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initView(getContext());
         initWindows();
         initData();
         initEvent();

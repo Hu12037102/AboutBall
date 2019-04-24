@@ -4,6 +4,7 @@ import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
+import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
 import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestEditAddressBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestNewAddressBean;
@@ -15,8 +16,11 @@ import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdatePhoneBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateSexBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateWeightBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyAddress;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyBallBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultPrizeBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -73,4 +77,9 @@ public interface MyService {
     Observable<BaseBean<String>> updatePhoneNumber(@Body RequestUpdatePhoneBean bean);
     @POST(IApiService.POST_UPDATE_PASSWORD)
     Observable<BaseBean<BaseDataBean<LoginResultBean>>> updatePassword(@Body RequestUpdatePasswordBean bean);
+
+    @GET(IApiService.GET_MY_BALL_TEAM)
+    Observable<BaseBean<List<ResultMyBallBean>>> loadMyBallTeam();
+    @GET(IApiService.GET_OSS_TOKEN)
+    Observable<BaseBean<OSSToken>> loadOSSToken();
 }

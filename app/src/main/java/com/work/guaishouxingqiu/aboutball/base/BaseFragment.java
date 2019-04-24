@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionFragment;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
@@ -116,5 +117,10 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
     @Override
     public void resultBaseData(@NonNull BaseBean baseBean) {
         UIUtils.resultBaseData(baseBean, DataUtils.checkData(getActivity()));
+    }
+
+    @Override
+    public void resultOSSToken(OSSToken ossBean) {
+
     }
 }

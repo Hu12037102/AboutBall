@@ -1,6 +1,11 @@
 package com.work.guaishouxingqiu.aboutball.base;
 
+import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
 import com.work.guaishouxingqiu.aboutball.http.RetrofitManger;
+import com.work.guaishouxingqiu.aboutball.my.MyService;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 作者: 胡庆岭
@@ -16,9 +21,16 @@ public class BaseModel {
     public BaseModel() {
 
         if (mRetrofitManger == null) {
-              mRetrofitManger = RetrofitManger.getDefault();
+            mRetrofitManger = RetrofitManger.getDefault();
         }
     }
 
+    public void loadOSSToken(BaseObserver<OSSToken> observer) {
+        mRetrofitManger.create(MyService.class)
+                .loadOSSToken()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
 
 }

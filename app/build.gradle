@@ -159,7 +159,7 @@ dependencies {
     implementation(name: 'AlivcPlayer-3.4.9', ext: 'aar')
     implementation(name: 'AlivcReporter-1.2', ext: 'aar')
     implementation(name: 'AliyunVodPlayer-3.4.9', ext: 'aar')
-    implementation 'com.aliyun.dpa:oss-android-sdk:2.9.2'
+    implementation 'com.aliyun.dpa:oss-android-sdk:+'
     implementation files('libs/jsoup-1.11.3.jar')
     implementation(name: 'LiteAVSDK_Smart_5.4.6097', ext: 'aar')
     /*微信第三方平台*/

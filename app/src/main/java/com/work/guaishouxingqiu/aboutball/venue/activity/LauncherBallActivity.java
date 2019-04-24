@@ -1,6 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.venue.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -76,11 +77,20 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
     @Override
     protected void initEvent() {
         mItemColor.setOnItemClickListener(new ItemView.OnItemClickListener() {
+
+            private SelectorColorDialog mColorDialog;
+
             @Override
             public void onClickItem(View view) {
-                SelectorColorDialog colorDialog = new SelectorColorDialog(LauncherBallActivity.this);
-                colorDialog.show();
-
+                if (mColorDialog == null) {
+                    mColorDialog = new SelectorColorDialog(LauncherBallActivity.this);
+                    mColorDialog.setOnColorSelectorListener((view1, color) -> {
+                        mItemColor.mTvRight.setText(color);
+                    });
+                }
+                if (!mColorDialog.isShowing() && !isFinishing()) {
+                    mColorDialog.show();
+                }
             }
         });
     }

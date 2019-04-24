@@ -1,6 +1,5 @@
 package com.work.guaishouxingqiu.aboutball.my.fragment;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +10,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.ItemView;
 import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
-import com.work.guaishouxingqiu.aboutball.game.activity.GamePlayActivity;
 import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.MyContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.MyPresenter;
@@ -22,7 +19,6 @@ import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
-import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import butterknife.BindView;
@@ -102,7 +98,7 @@ public class MyFragment extends DelayedFragment<MyPresenter> implements MyContra
         mItemBall.setOnItemClickListener(new ItemView.OnItemClickListener() {
             @Override
             public void onClickItem(View view) {
-                Toasts.with().showToast(R.string.pleases_next_open);
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_BALL_TEAM);
             }
         });
         mItemOrder.setOnItemClickListener(new ItemView.OnItemClickListener() {
