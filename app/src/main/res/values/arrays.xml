@@ -65,4 +65,8 @@
         <item>棒球</item>
         <item>网球</item>
     </string-array>
+    <string-array name="ball_team_details_tab_array">
+        <item>球队信息</item>
+        <item>球队成员</item>
+    </string-array>
 </resources>

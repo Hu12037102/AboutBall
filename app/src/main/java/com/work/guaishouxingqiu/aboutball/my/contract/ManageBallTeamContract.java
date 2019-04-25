@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.my.contract;
 
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestManageBallTeamBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultTypeBean;
 
 import java.util.List;
@@ -15,8 +16,10 @@ import java.util.List;
 public interface ManageBallTeamContract {
     interface View extends IBaseView {
         void resultBallTypeList(List<ResultTypeBean> data);
+        void resultManageTeam(long id);
     }
 
     interface Presenter extends IBasePresenter {
+        void manageTeam(RequestManageBallTeamBean mRequestBean);
     }
 }

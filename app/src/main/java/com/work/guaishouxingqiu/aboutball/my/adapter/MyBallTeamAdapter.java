@@ -32,7 +32,7 @@ public class MyBallTeamAdapter extends BaseRecyclerAdapter<MyBallTeamAdapter.Vie
     @Override
     protected void onBindViewDataHolder(@NonNull ViewHolder viewHolder, int i) {
         ResultMyBallBean bean = mData.get(i);
-        GlideManger.get().loadHeadImag(mContext, bean.teamLogo, viewHolder.mCivLogo);
+        GlideManger.get().loadLogoImage(mContext, bean.teamLogo, viewHolder.mCivLogo);
         viewHolder.mTvName.setText(bean.teamName);
         viewHolder.mTvManger.setText(UIUtils.getString(R.string.leader_s, bean.leaderName));
         switch (bean.isLeader) {

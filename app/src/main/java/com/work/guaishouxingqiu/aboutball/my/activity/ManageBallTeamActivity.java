@@ -11,13 +11,16 @@ import com.example.item.weight.ItemView;
 import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.CameraActivity;
-import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
 import com.work.guaishouxingqiu.aboutball.media.MediaSelector;
 import com.work.guaishouxingqiu.aboutball.media.bean.MediaSelectorFile;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestManageBallTeamBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.ManageBallTeamContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.ManageBallTeamPresenter;
+import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.other.OSSRequestHelp;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.FileUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultTypeBean;
 import com.work.guaishouxingqiu.aboutball.weight.SelectorColorDialog;
@@ -59,19 +62,51 @@ public class ManageBallTeamActivity extends CameraActivity<ManageBallTeamPresent
     TextView mTvCreate;
     private SingWheelDialog mItemTypeDialog;
     private SelectorColorDialog mItemColorDialog;
-    private OSSToken mOSSToken;
+    private RequestManageBallTeamBean mRequestBean;
+    private String mChooseImagePath;
+    private List<ResultTypeBean> mTypeData;
+    private int mSelectorTypePosition;
 
     @Override
     protected void resultAlbumResult(List<MediaSelectorFile> data) {
-
-        OSSRequestHelp ossHelp = new OSSRequestHelp(this, mOSSToken);
-        ossHelp.uploadingFile(data.get(0).filePath);
+        mChooseImagePath = data.get(0).filePath;
+        GlideManger.get().loadLogoImage(this, mChooseImagePath, mCivLogo);
     }
 
     @Override
     protected void resultCameraResult(File cameraFile) {
-
+        mChooseImagePath = cameraFile.getAbsolutePath();
+        GlideManger.get().loadLogoImage(this, mChooseImagePath, mCivLogo);
     }
+
+    private void uploadingFile(String filePath) {
+        OSSRequestHelp.get().uploadingFile(filePath, new OSSRequestHelp.OnOSSResultListener() {
+            @Override
+            public void onStart() {
+
+            }
+
+            @Override
+            public void onUpdate(long progressSize) {
+
+            }
+
+            @Override
+            public void onSucceed(String path) {
+                mRequestBean.logoUrl = path;
+                mRequestBean.shirtColor = mItemColor.mTvRight.getText().toString();
+                mRequestBean.teamName = DataUtils.getEditDetails(mAcetTeamName);
+                mRequestBean.typeId = mTypeData.get(mSelectorTypePosition).typeId;
+                mPresenter.manageTeam(mRequestBean);
+            }
+
+            @Override
+            public void onFailure(String errorCode) {
+
+            }
+        });
+    }
+
 
     @Override
     protected int getLayoutId() {
@@ -86,7 +121,6 @@ public class ManageBallTeamActivity extends CameraActivity<ManageBallTeamPresent
         } else if (status == EDIT) {
 
         }
-        mPresenter.loadOssToken();
     }
 
     @Override
@@ -95,6 +129,7 @@ public class ManageBallTeamActivity extends CameraActivity<ManageBallTeamPresent
         mItemType.mTvRight.setHintTextColor(ContextCompat.getColor(this, R.color.colorFFA6A6A6));
         mItemColor.mTvRight.setHint(R.string.please_selector_ball_clothing_color);
         mItemColor.mTvRight.setHintTextColor(ContextCompat.getColor(this, R.color.colorFFA6A6A6));
+        mRequestBean = new RequestManageBallTeamBean();
     }
 
     @Override
@@ -141,21 +176,64 @@ public class ManageBallTeamActivity extends CameraActivity<ManageBallTeamPresent
                 openPhotoDialog(options);
                 break;
             case R.id.tv_create:
+                clickCreateTeam();
                 break;
         }
+    }
+
+    private void clickCreateTeam() {
+        if (isHasLogo() && isHasTeamName() && isHasType() && isHasShirtColor()) {
+            uploadingFile(mChooseImagePath);
+        }
+    }
+
+    private boolean isHasLogo() {
+        if (!DataUtils.isEmpty(mChooseImagePath) && FileUtils.existsFile(mChooseImagePath)) {
+            return true;
+        } else {
+            UIUtils.showToast(R.string.please_choose_team_logo);
+            return false;
+        }
+    }
+
+    private boolean isHasTeamName() {
+        if (DataUtils.isEmpty(DataUtils.getEditDetails(mAcetTeamName))) {
+            UIUtils.showToast(R.string.please_inout_team_name);
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isHasType() {
+        if (DataUtils.isEmpty(mItemType.mTvRight.getText())) {
+            UIUtils.showToast(R.string.please_selector_type);
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isHasShirtColor() {
+        if (DataUtils.isEmpty(mItemColor.mTvRight.getText())) {
+            UIUtils.showToast(R.string.please_selector_shirt_color);
+            return false;
+        }
+        return true;
     }
 
     @Override
     public void resultBallTypeList(List<ResultTypeBean> data) {
         if (data != null && data.size() > 0) {
+            mTypeData = data;
             List<String> mBallTypeList = new ArrayList<>();
             for (ResultTypeBean bean : data) {
                 mBallTypeList.add(bean.typeName);
             }
             if (mItemTypeDialog == null) {
                 mItemTypeDialog = new SingWheelDialog(ManageBallTeamActivity.this, mBallTypeList);
-                mItemTypeDialog.setOnItemClickListener((view1, position) ->
-                        mItemType.setContentText(mBallTypeList.get(position)));
+                mItemTypeDialog.setOnItemClickListener((view1, position) -> {
+                    mSelectorTypePosition = position;
+                    mItemType.setContentText(mBallTypeList.get(position));
+                });
             } else {
                 mItemTypeDialog.notifyData(mBallTypeList);
             }
@@ -169,8 +247,10 @@ public class ManageBallTeamActivity extends CameraActivity<ManageBallTeamPresent
     }
 
     @Override
-    public void resultOSSToken(OSSToken ossBean) {
-        super.resultOSSToken(ossBean);
-        mOSSToken = ossBean;
+    public void resultManageTeam(long id) {
+        setResult(RESULT_OK);
+        finish();
     }
+
+
 }

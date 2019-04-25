@@ -1,5 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.my.activity;
 
+import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -7,6 +9,7 @@ import android.widget.ImageView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.TitleView;
+import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.my.adapter.MyBallTeamAdapter;
@@ -17,6 +20,7 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 
 import java.util.ArrayList;
+import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
 import butterknife.BindView;
@@ -38,6 +42,7 @@ public class MyBallTeamActivity extends BaseActivity<MyBallTeamPresenter> implem
     ImageView mIvAdd;
     private MyBallTeamAdapter mAdapter;
     private List<ResultMyBallBean> mData;
+    private static final int REQUEST_CODE = 123;
 
 
     @Override
@@ -60,8 +65,24 @@ public class MyBallTeamActivity extends BaseActivity<MyBallTeamPresenter> implem
 
     @Override
     protected void initEvent() {
+        mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onNotNetClick(View view) {
 
+            }
+
+            @Override
+            public void onNotDataClick(View view) {
+
+            }
+
+            @Override
+            public void onItemClick(View view, int position) {
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_BALL_TEAM_DETAILS);
+            }
+        });
     }
+
 
     @Override
     protected MyBallTeamPresenter createPresenter() {
@@ -79,12 +100,27 @@ public class MyBallTeamActivity extends BaseActivity<MyBallTeamPresenter> implem
     }
 
     private void clickAddBallTeam() {
-        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MANAGE_BALL_TEAM, ARouterConfig.Key.KEY_STATUS, ManageBallTeamActivity.CREATE);
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MANAGE_BALL_TEAM, ARouterConfig.Key.KEY_STATUS, ManageBallTeamActivity.CREATE, this, REQUEST_CODE);
     }
 
     @Override
     public void resultMyBallTeam(List<ResultMyBallBean> data) {
+        mData.clear();
         mData.addAll(data);
         mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode) {
+            case RESULT_OK:
+                if (requestCode == REQUEST_CODE) {
+                    mPresenter.start();
+                }
+                break;
+            default:
+                break;
+        }
     }
 }

@@ -7,6 +7,7 @@ import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
 import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestEditAddressBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestManageBallTeamBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestNewAddressBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateBirthdayBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateHeightBean;
@@ -75,11 +76,16 @@ public interface MyService {
 
     @POST(IApiService.POST_UPDATE_PHONE_NUMBER)
     Observable<BaseBean<String>> updatePhoneNumber(@Body RequestUpdatePhoneBean bean);
+
     @POST(IApiService.POST_UPDATE_PASSWORD)
     Observable<BaseBean<BaseDataBean<LoginResultBean>>> updatePassword(@Body RequestUpdatePasswordBean bean);
 
     @GET(IApiService.GET_MY_BALL_TEAM)
     Observable<BaseBean<List<ResultMyBallBean>>> loadMyBallTeam();
+
     @GET(IApiService.GET_OSS_TOKEN)
     Observable<BaseBean<OSSToken>> loadOSSToken();
+
+    @POST(IApiService.POST_MANAGE_TEAM)
+    Observable<BaseBean<BaseDataBean<Long>>> manageBallTeam(@Body RequestManageBallTeamBean bean);
 }

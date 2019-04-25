@@ -91,6 +91,7 @@ public interface IApiService {
     String GET_MY_BALL_TEAM = "/api/myTeam/getMyTeam";
     String GET_OSS_TOKEN="/api/commons/static/ossCredentials";
 
+    String POST_MANAGE_TEAM="/api/myTeam/createTeam";
     interface H5 {
         String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";
         //资讯详情分享，后缀加上id;

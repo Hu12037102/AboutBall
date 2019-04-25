@@ -39,7 +39,7 @@ public class ActivityManger {
     public void removeActivity(@NonNull Class activityClass) {
         String key = activityClass.getSimpleName();
         if (mWeakMap.containsKey(key)) {
-            if (mWeakMap.get(key) != null && mWeakMap.get(key).get() != null) {
+            if (mWeakMap.get(key) != null && mWeakMap.get(key).get() != null && !mWeakMap.get(key).get().isFinishing()) {
                 mWeakMap.get(key).get().finish();
             }
             mWeakMap.remove(key);

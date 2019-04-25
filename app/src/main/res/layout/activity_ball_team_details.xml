@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+
+    <com.example.item.weight.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        app:back_left_drawable="@mipmap/icon_back"
+        app:back_text_padding_left="@dimen/default_margin"
+        app:back_text_padding_right="@dimen/default_margin"
+        app:center_data="@string/ball_team_details"
+        app:center_text_color="@color/color_4"
+        app:center_text_size="@dimen/size_18sp"
+        app:sure_right_drawable="@mipmap/icon_menu_more"
+        app:sure_text_padding_left="@dimen/default_margin"
+        app:sure_text_padding_right="@dimen/default_margin" />
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/size_45dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/title_view"
+        app:layout_constraintTop_toBottomOf="@id/title_view"
+        app:tabGravity="center"
+        app:tabIndicatorHeight="@dimen/size_0dp" />
+
+    <View
+        android:id="@+id/line_tab"
+        style="@style/HorizontalLine"
+        app:layout_constraintTop_toBottomOf="@id/tab_layout"
+
+        />
+
+    <com.work.guaishouxingqiu.aboutball.weight.BaseViewPager
+        android:id="@+id/bvp_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/line_tab" />
+</android.support.constraint.ConstraintLayout>

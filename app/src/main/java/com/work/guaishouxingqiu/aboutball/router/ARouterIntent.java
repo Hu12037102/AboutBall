@@ -31,6 +31,10 @@ public class ARouterIntent {
     public static void startActivity(@NonNull String path, @NonNull String key, int values) {
         ARouter.getInstance().build(path).withInt(key, values).navigation();
     }
+    public static void startActivity(@NonNull String path, @NonNull String key, int values,Activity activity,int requestCode) {
+        ARouter.getInstance().build(path).withInt(key, values).navigation(activity,requestCode);
+    }
+
 
     public static void startActivity(@NonNull String path, @NonNull String key, long values) {
         ARouter.getInstance().build(path).withLong(key, values).navigation();
