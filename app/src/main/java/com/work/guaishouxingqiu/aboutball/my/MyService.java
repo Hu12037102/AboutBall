@@ -5,6 +5,7 @@ import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
+import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestEditAddressBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestManageBallTeamBean;
@@ -99,4 +100,6 @@ public interface MyService {
 
     @GET(IApiService.GET_BALL_TEAM_MEMBER_DETAILS)
     Observable<BaseBean<List<ResultTeamDetailsMemberBean>>> loadBallTeamMember(@Query(Contast.TEAM_ID) long teamId);
+    @POST(IApiService.POST_EDIT_TEAM_INFO)
+    Observable<BaseBean<BaseDataBean<String>>> editTeamInfo(@Body RequestManageBallTeamBean bean);
 }

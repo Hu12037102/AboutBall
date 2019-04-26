@@ -91,13 +91,14 @@
                 android:layout_alignParentRight="true"
                 android:background="@null"
                 android:hint="@string/please_inout_team_name"
-                android:inputType="text"
+                android:inputType="none"
                 android:maxLength="8"
                 android:paddingLeft="@dimen/default_margin"
                 android:paddingRight="@dimen/default_margin"
                 android:singleLine="true"
                 android:textColorHint="@color/colorFFA6A6A6"
                 android:textSize="@dimen/size_14sp"
+                android:gravity="center_vertical|right"
                 tools:ignore="RelativeOverlap" />
 
             <View

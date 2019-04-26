@@ -28,9 +28,17 @@ public class ManageBallTeamModel extends BaseModel {
                 .subscribe(observable);
     }
 
-    public void manageTeam(RequestManageBallTeamBean requestBean, BaseObserver<BaseDataBean<Long>> observer) {
+    public void createTeam(RequestManageBallTeamBean requestBean, BaseObserver<BaseDataBean<Long>> observer) {
         mRetrofitManger.create(MyService.class)
                 .manageBallTeam(requestBean)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    public void editTeam(RequestManageBallTeamBean requestBean, BaseObserver<BaseDataBean<String>> observer) {
+        mRetrofitManger.create(MyService.class)
+                .editTeamInfo(requestBean)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

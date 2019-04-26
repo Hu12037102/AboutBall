@@ -19,6 +19,7 @@ import com.work.guaishouxingqiu.aboutball.my.contract.BallTeamDetailsChildContra
 import com.work.guaishouxingqiu.aboutball.my.presenter.BallTeamDetailsChildPresenter;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,7 @@ public class BallTeamDetailsFragment extends BaseFragment<BallTeamDetailsChildPr
     private List<ResultBallDetailsBean.MatchBean> mData;
     private BallDetailsChildAdapter mAdapter;
     private ResultMyBallBean mBallBean;
+    private TextView mTvEdit;
 
     @Override
     protected int getLayoutId() {
@@ -68,12 +70,7 @@ public class BallTeamDetailsFragment extends BaseFragment<BallTeamDetailsChildPr
         mTvTeamType.setVisibility(View.GONE);
         mItemMember = mHeadView.findViewById(R.id.item_member);
         mItemColor = mHeadView.findViewById(R.id.item_color);
-        TextView tvEdit = mHeadView.findViewById(R.id.tv_edit);
-        if (mBallBean.isLeader == Contast.LEADER) {
-            tvEdit.setVisibility(View.VISIBLE);
-        } else if (mBallBean.isLeader == Contast.MEMBER) {
-            tvEdit.setVisibility(View.GONE);
-        }
+        mTvEdit = mHeadView.findViewById(R.id.tv_edit);
     }
 
     @Override
@@ -82,6 +79,12 @@ public class BallTeamDetailsFragment extends BaseFragment<BallTeamDetailsChildPr
         mAdapter = new BallDetailsChildAdapter(mData);
         mAdapter.addHeadView(mHeadView);
         mRvData.setAdapter(mAdapter);
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
         mSrlRefresh.autoRefresh();
     }
 
@@ -103,6 +106,12 @@ public class BallTeamDetailsFragment extends BaseFragment<BallTeamDetailsChildPr
 
     @Override
     public void resultDetails(ResultBallDetailsBean bean) {
+        if (mBallBean.isLeader == Contast.LEADER) {
+            mTvEdit.setVisibility(View.VISIBLE);
+            mTvEdit.setOnClickListener(v -> ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MANAGE_BALL_TEAM,ARouterConfig.Key.PARCELABLE,bean));
+        } else if (mBallBean.isLeader == Contast.MEMBER) {
+            mTvEdit.setVisibility(View.GONE);
+        }
         mTvTeamType.setVisibility(View.VISIBLE);
         GlideManger.get().loadLogoImage(mContext, bean.teamLogo, mCivLogo);
         mTvTeamName.setText(bean.teamName);

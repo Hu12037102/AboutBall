@@ -14,6 +14,7 @@ import com.work.guaishouxingqiu.aboutball.base.CameraActivity;
 import com.work.guaishouxingqiu.aboutball.media.MediaSelector;
 import com.work.guaishouxingqiu.aboutball.media.bean.MediaSelectorFile;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestManageBallTeamBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.ManageBallTeamContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.ManageBallTeamPresenter;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
@@ -21,6 +22,7 @@ import com.work.guaishouxingqiu.aboutball.other.OSSRequestHelp;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultTypeBean;
 import com.work.guaishouxingqiu.aboutball.weight.SelectorColorDialog;
@@ -63,48 +65,59 @@ public class ManageBallTeamActivity extends CameraActivity<ManageBallTeamPresent
     private SingWheelDialog mItemTypeDialog;
     private SelectorColorDialog mItemColorDialog;
     private RequestManageBallTeamBean mRequestBean;
-    private String mChooseImagePath;
     private List<ResultTypeBean> mTypeData;
-    private int mSelectorTypePosition;
+    private ResultBallDetailsBean mBallBean;
 
     @Override
     protected void resultAlbumResult(List<MediaSelectorFile> data) {
-        mChooseImagePath = data.get(0).filePath;
-        GlideManger.get().loadLogoImage(this, mChooseImagePath, mCivLogo);
+        mRequestBean.logoUrl = data.get(0).filePath;
+        GlideManger.get().loadLogoImage(this, mRequestBean.logoUrl, mCivLogo);
     }
 
     @Override
     protected void resultCameraResult(File cameraFile) {
-        mChooseImagePath = cameraFile.getAbsolutePath();
-        GlideManger.get().loadLogoImage(this, mChooseImagePath, mCivLogo);
+        mRequestBean.logoUrl = cameraFile.getAbsolutePath();
+        GlideManger.get().loadLogoImage(this, mRequestBean.logoUrl, mCivLogo);
     }
 
     private void uploadingFile(String filePath) {
-        OSSRequestHelp.get().uploadingFile(filePath, new OSSRequestHelp.OnOSSResultListener() {
-            @Override
-            public void onStart() {
+        if (FileUtils.existsFile(filePath)) {
+            OSSRequestHelp.get().uploadingFile(filePath, new OSSRequestHelp.OnOSSResultListener() {
+                @Override
+                public void onStart() {
 
-            }
+                }
 
-            @Override
-            public void onUpdate(long progressSize) {
+                @Override
+                public void onUpdate(long progressSize) {
 
-            }
+                }
 
-            @Override
-            public void onSucceed(String path) {
-                mRequestBean.logoUrl = path;
-                mRequestBean.shirtColor = mItemColor.mTvRight.getText().toString();
+                @Override
+                public void onSucceed(String path) {
+                    mRequestBean.logoUrl = path;
+                    mRequestBean.teamName = DataUtils.getEditDetails(mAcetTeamName);
+                    if (mBallBean != null) {
+                        mPresenter.editTeam(mRequestBean);
+                    } else {
+                        mPresenter.createTeam(mRequestBean);
+                    }
+                }
+
+                @Override
+                public void onFailure(String errorCode) {
+
+                }
+            });
+        } else {
+            if (DataUtils.isEmpty(mRequestBean.logoUrl)) {
+                UIUtils.showToast(R.string.please_choose_team_logo);
+            } else {
                 mRequestBean.teamName = DataUtils.getEditDetails(mAcetTeamName);
-                mRequestBean.typeId = mTypeData.get(mSelectorTypePosition).typeId;
-                mPresenter.manageTeam(mRequestBean);
+                mPresenter.editTeam(mRequestBean);
             }
 
-            @Override
-            public void onFailure(String errorCode) {
-
-            }
-        });
+        }
     }
 
 
@@ -115,10 +128,27 @@ public class ManageBallTeamActivity extends CameraActivity<ManageBallTeamPresent
 
     @Override
     protected void initView() {
-        int status = mIntent.getIntExtra(ARouterConfig.Key.KEY_STATUS, -1);
-        if (status == CREATE) {
-
-        } else if (status == EDIT) {
+        mRequestBean = new RequestManageBallTeamBean();
+        mBallBean = mIntent.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
+        //说明是编辑
+        if (mBallBean != null) {
+            mTitleView.mTvCenter.setText(R.string.edit_ball_team_details);
+            mRequestBean.teamId = mBallBean.teamId;
+            mRequestBean.logoUrl = mBallBean.teamLogo;
+            GlideManger.get().loadLogoImage(this, mRequestBean.logoUrl, mCivLogo);
+            mAcetTeamName.setText(mBallBean.teamName);
+            if (mBallBean.teamName != null) {
+                mAcetTeamName.setSelection(mBallBean.teamName.length());
+            }
+            mItemType.setContentText(mBallBean.teamType);
+            LogUtils.w("initView--", mBallBean.teamTypeId + "---");
+            mRequestBean.typeId = mBallBean.teamTypeId;
+            mRequestBean.shirtColor = mBallBean.shirtColor;
+            mItemColor.setContentText(mBallBean.shirtColor);
+            mTvCreate.setText(R.string.edit_ball_team);
+        } else {
+            mTitleView.mTvCenter.setText(R.string.create_ball_team);
+            mTvCreate.setText(R.string.create_ball_team);
 
         }
     }
@@ -129,7 +159,7 @@ public class ManageBallTeamActivity extends CameraActivity<ManageBallTeamPresent
         mItemType.mTvRight.setHintTextColor(ContextCompat.getColor(this, R.color.colorFFA6A6A6));
         mItemColor.mTvRight.setHint(R.string.please_selector_ball_clothing_color);
         mItemColor.mTvRight.setHintTextColor(ContextCompat.getColor(this, R.color.colorFFA6A6A6));
-        mRequestBean = new RequestManageBallTeamBean();
+
     }
 
     @Override
@@ -145,8 +175,10 @@ public class ManageBallTeamActivity extends CameraActivity<ManageBallTeamPresent
     private void clickItemColor() {
         if (mItemColorDialog == null) {
             mItemColorDialog = new SelectorColorDialog(this);
-            mItemColorDialog.setOnColorSelectorListener((view, color) ->
-                    mItemColor.setContentText(color));
+            mItemColorDialog.setOnColorSelectorListener((view, color) -> {
+                mItemColor.setContentText(color);
+                mRequestBean.shirtColor = mItemColor.mTvRight.getText().toString();
+            });
         }
         if (!mItemColorDialog.isShowing()) {
             mItemColorDialog.show();
@@ -183,12 +215,12 @@ public class ManageBallTeamActivity extends CameraActivity<ManageBallTeamPresent
 
     private void clickCreateTeam() {
         if (isHasLogo() && isHasTeamName() && isHasType() && isHasShirtColor()) {
-            uploadingFile(mChooseImagePath);
+            uploadingFile(mRequestBean.logoUrl);
         }
     }
 
     private boolean isHasLogo() {
-        if (!DataUtils.isEmpty(mChooseImagePath) && FileUtils.existsFile(mChooseImagePath)) {
+        if (!DataUtils.isEmpty(mRequestBean.logoUrl)) {
             return true;
         } else {
             UIUtils.showToast(R.string.please_choose_team_logo);
@@ -231,7 +263,8 @@ public class ManageBallTeamActivity extends CameraActivity<ManageBallTeamPresent
             if (mItemTypeDialog == null) {
                 mItemTypeDialog = new SingWheelDialog(ManageBallTeamActivity.this, mBallTypeList);
                 mItemTypeDialog.setOnItemClickListener((view1, position) -> {
-                    mSelectorTypePosition = position;
+                    mRequestBean.typeId = mTypeData.get(position).typeId;
+
                     mItemType.setContentText(mBallTypeList.get(position));
                 });
             } else {
@@ -249,6 +282,11 @@ public class ManageBallTeamActivity extends CameraActivity<ManageBallTeamPresent
     @Override
     public void resultManageTeam(long id) {
         setResult(RESULT_OK);
+        finish();
+    }
+
+    @Override
+    public void resultEditTeam() {
         finish();
     }
 

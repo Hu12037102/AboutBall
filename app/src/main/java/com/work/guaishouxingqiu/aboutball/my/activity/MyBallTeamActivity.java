@@ -100,7 +100,7 @@ public class MyBallTeamActivity extends BaseActivity<MyBallTeamPresenter> implem
     }
 
     private void clickAddBallTeam() {
-        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MANAGE_BALL_TEAM, ARouterConfig.Key.KEY_STATUS, ManageBallTeamActivity.CREATE, this, REQUEST_CODE);
+        ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_MANAGE_BALL_TEAM, this, REQUEST_CODE);
     }
 
     @Override

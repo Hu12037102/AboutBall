@@ -13,7 +13,6 @@ import com.work.guaishouxingqiu.aboutball.my.model.ManageBallTeamModel;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultTypeBean;
 
 import java.util.List;
-import java.util.Observable;
 
 /**
  * 作者: 胡庆岭
@@ -54,12 +53,29 @@ public class ManageBallTeamPresenter extends BasePresenter<ManageBallTeamContrac
     }
 
     @Override
-    public void manageTeam(RequestManageBallTeamBean requestBean) {
-        mModel.manageTeam(requestBean, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<Long>>() {
+    public void createTeam(RequestManageBallTeamBean requestBean) {
+        mModel.createTeam(requestBean, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<Long>>() {
             @Override
             public void onNext(BaseBean<BaseDataBean<Long>> t) {
-                if (t.code == IApi.Code.SUCCEED) {
+                if (t.code == IApi.Code.SUCCEED && t.result != null) {
                     mView.resultManageTeam(t.result.result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+
+    @Override
+    public void editTeam(RequestManageBallTeamBean requestBean) {
+        mModel.editTeam(requestBean,new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
+            @Override
+            public void onNext(BaseBean<BaseDataBean<String>> t) {
+                if (t.code == IApi.Code.SUCCEED){
+                    mView.resultEditTeam();
                 }
             }
 

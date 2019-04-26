@@ -17,9 +17,13 @@ public interface ManageBallTeamContract {
     interface View extends IBaseView {
         void resultBallTypeList(List<ResultTypeBean> data);
         void resultManageTeam(long id);
+        void resultEditTeam();
+
     }
 
     interface Presenter extends IBasePresenter {
-        void manageTeam(RequestManageBallTeamBean mRequestBean);
+        void createTeam(RequestManageBallTeamBean mRequestBean);
+
+        void editTeam(RequestManageBallTeamBean mRequestBean);
     }
 }

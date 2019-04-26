@@ -199,6 +199,8 @@
     <string name="leader">队长</string>
     <string name="team_member">队员</string>
     <string name="create_ball_team">创建球队</string>
+    <string name="edit_ball_team">编辑球队</string>
+    <string name="edit_ball_team_details">编辑球队信息</string>
     <string name="ball_team_logo">球队logo</string>
     <string name="team_name">队名</string>
     <string name="type">类型</string>
