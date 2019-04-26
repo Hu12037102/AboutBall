@@ -95,6 +95,7 @@ public interface IApiService {
     String GET_BALL_TEAM_DETAILS="/api/myTeam/getTeamInfo";
     String GET_BALL_TEAM_MEMBER_DETAILS="/api/myTeam/getTeamPlayer";
     String POST_EDIT_TEAM_INFO="/api/myTeam/editTeamInfo";
+    String GET_EXIT_TEAM_BALL ="/api/myTeam/leaveTeam";
     interface H5 {
         String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";
         //资讯详情分享，后缀加上id;

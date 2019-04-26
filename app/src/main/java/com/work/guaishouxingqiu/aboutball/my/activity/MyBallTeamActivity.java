@@ -78,7 +78,7 @@ public class MyBallTeamActivity extends BaseActivity<MyBallTeamPresenter> implem
 
             @Override
             public void onItemClick(View view, int position) {
-                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_BALL_TEAM_DETAILS, ARouterConfig.Key.PARCELABLE, mData.get(position));
+                ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_BALL_TEAM_DETAILS, MyBallTeamActivity.this, ARouterConfig.Key.PARCELABLE, mData.get(position));
             }
         });
     }
@@ -100,7 +100,7 @@ public class MyBallTeamActivity extends BaseActivity<MyBallTeamPresenter> implem
     }
 
     private void clickAddBallTeam() {
-        ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_MANAGE_BALL_TEAM, this, REQUEST_CODE);
+        ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_MANAGE_BALL_TEAM, this);
     }
 
     @Override
@@ -115,7 +115,7 @@ public class MyBallTeamActivity extends BaseActivity<MyBallTeamPresenter> implem
         super.onActivityResult(requestCode, resultCode, data);
         switch (resultCode) {
             case RESULT_OK:
-                if (requestCode == REQUEST_CODE) {
+                if (requestCode == ARouterIntent.REQUEST_CODE) {
                     mPresenter.start();
                 }
                 break;

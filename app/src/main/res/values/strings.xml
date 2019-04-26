@@ -272,4 +272,8 @@
     <string name="video_not_crop">视频不支持裁剪</string>
     <string name="file_not_exit">文件不存在</string>
     <string name="crop_image_error">裁剪图片异常</string>
+    <string name="delete">删除</string>
+    <string name="exit_ball_team">退出球队</string>
+    <string name="you_sure_exit_s_team">您确定退出%s球队</string>
+    <string name="you_sure_exit">您确定退出</string>
 </resources>

@@ -58,6 +58,7 @@ public interface MyService {
 
     @POST(IApiService.USER_ACCOUNT)
     Observable<BaseBean<BaseDataBean>> updateAccountBirthday(@Body RequestUpdateBirthdayBean bean);
+
     @POST(IApiService.USER_ACCOUNT)
     Observable<BaseBean<BaseDataBean>> updateAccountHeadPhoto(@Body RequestUpdateHeadPhotoBean bean);
 
@@ -100,6 +101,10 @@ public interface MyService {
 
     @GET(IApiService.GET_BALL_TEAM_MEMBER_DETAILS)
     Observable<BaseBean<List<ResultTeamDetailsMemberBean>>> loadBallTeamMember(@Query(Contast.TEAM_ID) long teamId);
+
     @POST(IApiService.POST_EDIT_TEAM_INFO)
     Observable<BaseBean<BaseDataBean<String>>> editTeamInfo(@Body RequestManageBallTeamBean bean);
+
+    @GET(IApiService.GET_EXIT_TEAM_BALL)
+    Observable<BaseBean<BaseDataBean<String>>> exitBallTeam(@Query(Contast.TEAM_ID) Long teamId, @Query(Contast.PLAYER_ID) Long playerId);
 }

@@ -71,6 +71,7 @@
                     android:gravity="center"
                     android:textColor="@color/color_3"
                     android:textSize="@dimen/size_16sp"
+                    android:text="@string/cancel"
                     tools:text="取消" />
 
                 <View
@@ -88,6 +89,7 @@
                     android:gravity="center"
                     android:textColor="@color/color_2"
                     android:textSize="@dimen/size_16sp"
+                    android:text="@string/sure"
                     tools:text="确定" />
             </LinearLayout>
 

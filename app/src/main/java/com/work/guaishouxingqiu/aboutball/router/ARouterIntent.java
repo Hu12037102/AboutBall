@@ -31,8 +31,9 @@ public class ARouterIntent {
     public static void startActivity(@NonNull String path, @NonNull String key, int values) {
         ARouter.getInstance().build(path).withInt(key, values).navigation();
     }
-    public static void startActivity(@NonNull String path, @NonNull String key, int values,Activity activity,int requestCode) {
-        ARouter.getInstance().build(path).withInt(key, values).navigation(activity,requestCode);
+
+    public static void startActivity(@NonNull String path, @NonNull String key, int values, Activity activity, int requestCode) {
+        ARouter.getInstance().build(path).withInt(key, values).navigation(activity, requestCode);
     }
 
 
@@ -55,6 +56,7 @@ public class ARouterIntent {
     public static <T extends Fragment> T getFragment(@NonNull String path, @NonNull String key, int values) {
         return (T) ARouter.getInstance().build(path).withInt(key, values).navigation();
     }
+
     public static <T extends Fragment> T getFragment(@NonNull String path, @NonNull String key, long values) {
         return (T) ARouter.getInstance().build(path).withLong(key, values).navigation();
     }
@@ -71,9 +73,14 @@ public class ARouterIntent {
         ARouter.getInstance().build(path).navigation(activity, REQUEST_CODE);
     }
 
+    public static void startActivityForResult(@NonNull String path, @NonNull Activity activity, @NonNull String key, @NonNull Parcelable parcelable) {
+        ARouter.getInstance().build(path).withParcelable(key, parcelable).navigation(activity, REQUEST_CODE);
+    }
+
     public static void startActivity(@NonNull String path, @NonNull String key, @NonNull Parcelable parcelable) {
         ARouter.getInstance().build(path).withParcelable(key, parcelable).navigation();
     }
+
     public static void startActivity(@NonNull String path, @NonNull String key, @NonNull ArrayList<Parcelable> data) {
         ARouter.getInstance().build(path).withParcelableArrayList(key, data).navigation();
     }
