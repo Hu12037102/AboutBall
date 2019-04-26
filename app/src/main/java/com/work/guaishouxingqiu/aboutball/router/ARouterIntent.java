@@ -55,6 +55,9 @@ public class ARouterIntent {
     public static <T extends Fragment> T getFragment(@NonNull String path, @NonNull String key, int values) {
         return (T) ARouter.getInstance().build(path).withInt(key, values).navigation();
     }
+    public static <T extends Fragment> T getFragment(@NonNull String path, @NonNull String key, long values) {
+        return (T) ARouter.getInstance().build(path).withLong(key, values).navigation();
+    }
 
     public static <T extends Fragment> T getFragment(@NonNull String path, @NonNull String key, @NonNull Parcelable parcelable) {
         return (T) ARouter.getInstance().build(path).withParcelable(key, parcelable).navigation();

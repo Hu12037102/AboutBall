@@ -1,8 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.home.adapter;
 
-import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +14,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.item.util.ScreenUtils;
-import com.example.item.weight.TitleView;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.work.guaishouxingqiu.aboutball.Contast;
@@ -31,14 +28,12 @@ import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
-import com.work.guaishouxingqiu.aboutball.venue.activity.VenueDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.PropertyResourceBundle;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -466,7 +461,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
         @Override
         public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
             ResultRecommendDataBean.AgreeBallMatch bean = mData.get(i);
-            GlideManger.get().loadHeadImag(viewHolder.itemView.getContext(), bean.teamLogo, viewHolder.mCivHead);
+            GlideManger.get().loadHeadImage(viewHolder.itemView.getContext(), bean.teamLogo, viewHolder.mCivHead);
             viewHolder.mTvContent.setText(bean.stadiumName + "\n" + bean.areaName);
             viewHolder.mTvTime.setText(bean.startTime);
             viewHolder.mTvName.setText(bean.teamName);

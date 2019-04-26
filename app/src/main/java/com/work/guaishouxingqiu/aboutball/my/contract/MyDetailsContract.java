@@ -5,6 +5,7 @@ import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateBirthdayBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateHeadPhotoBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateHeightBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateWeightBean;
 
@@ -19,9 +20,12 @@ public interface MyDetailsContract {
         void resultUpdateSex();
 
         void resultUpdateWeight();
+
         void resultUpdateHeight();
 
         void resultUpdateBirthday();
+
+        void resultUpdateHeadPhoto(String photoUrl);
     }
 
     interface Presenter extends IBasePresenter {
@@ -32,5 +36,7 @@ public interface MyDetailsContract {
         void updateHeight(RequestUpdateHeightBean mUpdateHeightBean);
 
         void updateBirthday(RequestUpdateBirthdayBean bean);
+
+        void updateHeadPhoto(RequestUpdateHeadPhotoBean bean);
     }
 }

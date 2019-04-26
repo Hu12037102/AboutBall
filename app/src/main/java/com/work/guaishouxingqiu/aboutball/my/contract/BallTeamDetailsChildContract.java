@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.my.contract;
 
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
 
 /**
  * 作者: 胡庆岭
@@ -10,6 +11,11 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
  * 描述:
  */
 public interface BallTeamDetailsChildContract {
-    interface View extends IBaseView{}
-    interface Presenter extends IBasePresenter{}
+    interface View extends IBaseView {
+        void resultDetails(ResultBallDetailsBean bean);
+    }
+
+    interface Presenter extends IBasePresenter {
+        void loadDetails(long mTeamId);
+    }
 }

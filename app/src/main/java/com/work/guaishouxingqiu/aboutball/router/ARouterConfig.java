@@ -60,6 +60,7 @@ public interface ARouterConfig {
         String FRAGMENT_REGISTER_PASSWORD = "/fragment/register/password";
         String FRAGMENT_BASE_PRIZE = "/fragment/base/prize";
         String FRAGMENT_BALL_TEAM_DETAILS="/fragment/ball/team/details";
+        String FRAGMENT_BALL_TEAM_MEMBER="/fragment/ball/team/member";
 
     }
 
@@ -80,6 +81,7 @@ public interface ARouterConfig {
         String AREA_ID="areaId";
         String ORDER_ID="orderId";
         String CALENDAR_ID="calendarId";
+        String TEAM_ID="teamId";
     }
 
 }

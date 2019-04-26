@@ -29,7 +29,7 @@ import butterknife.OnClick;
  * 作者: 胡庆岭
  * 创建时间: 2019/4/22 13:08
  * 更新时间: 2019/4/22 13:08
- * 描述:
+ * 描述:订单详情
  */
 @Route(path = ARouterConfig.Path.ACTIVITY_VENUE_ORDER_DETAILS)
 public class VenueOrderDetailsActivity extends BaseActivity<VenueOrderDetailsPresenter>

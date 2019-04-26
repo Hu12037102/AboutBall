@@ -78,7 +78,7 @@ public class MyBallTeamActivity extends BaseActivity<MyBallTeamPresenter> implem
 
             @Override
             public void onItemClick(View view, int position) {
-                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_BALL_TEAM_DETAILS);
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_BALL_TEAM_DETAILS, ARouterConfig.Key.PARCELABLE, mData.get(position));
             }
         });
     }

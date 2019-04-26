@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+
+    <LinearLayout
+        android:id="@+id/ll_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tv_bottom_left"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="@dimen/size_40dp"
+            android:layout_marginLeft="@dimen/size_20dp"
+            android:layout_marginRight="@dimen/size_15dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_stroke_blue_view"
+            android:gravity="center"
+            android:text="@string/edit_my_data"
+            android:textColor="@color/color_2" />
+
+        <TextView
+            android:id="@+id/tv_bottom_right"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="@dimen/size_40dp"
+            android:layout_marginRight="@dimen/size_20dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_click_button"
+            android:gravity="center"
+            android:text="@string/share_invite_friend_join"
+            android:textColor="@color/colorWhite" />
+    </LinearLayout>
+    <View
+        android:id="@+id/line_bottom"
+        style="@style/HorizontalLine"
+        android:layout_above="@id/ll_bottom"
+        />
+<com.scwang.smartrefresh.layout.SmartRefreshLayout
+    android:id="@+id/srl_refresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/line_bottom"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/size_0dp"
+                android:layout_height="@dimen/size_40dp"
+                android:layout_weight="4"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/default_margin"
+                android:text="@string/personnel"
+                android:textColor="@color/colorFFA6A6A6"
+                android:textSize="@dimen/size_14sp" />
+
+            <TextView
+                android:layout_width="@dimen/size_0dp"
+                android:layout_height="@dimen/size_40dp"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:paddingLeft="@dimen/size_20dp"
+                android:text="@string/location"
+                android:textColor="@color/colorFFA6A6A6"
+                android:textSize="@dimen/size_14sp" />
+
+            <TextView
+                android:layout_width="@dimen/size_0dp"
+                android:layout_height="@dimen/size_40dp"
+                android:layout_weight="2"
+                android:gravity="center_vertical|right"
+                android:paddingRight="@dimen/size_20dp"
+                android:text="@string/number"
+                android:textColor="@color/colorFFA6A6A6"
+                android:textSize="@dimen/size_14sp" />
+
+        </LinearLayout>
+
+        <View style="@style/HorizontalLine" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</RelativeLayout>

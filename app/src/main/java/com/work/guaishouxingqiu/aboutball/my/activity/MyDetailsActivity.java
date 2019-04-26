@@ -13,11 +13,13 @@ import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
 import com.work.guaishouxingqiu.aboutball.media.MediaSelector;
 import com.work.guaishouxingqiu.aboutball.media.bean.MediaSelectorFile;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateBirthdayBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateHeadPhotoBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateHeightBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateWeightBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.MyDetailsContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.MyDetailsPresenter;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
+import com.work.guaishouxingqiu.aboutball.other.OSSRequestHelp;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
@@ -266,14 +268,49 @@ public class MyDetailsActivity extends CameraActivity<MyDetailsPresenter> implem
         mItemBirthday.mTvRight.setText(mUserBean.birthday);
     }
 
+    @Override
+    public void resultUpdateHeadPhoto(String headPhotoUrl) {
+        mUserBean.headerImg = headPhotoUrl;
+        UserManger.get().putUser(mUserBean);
+    }
+
 
     @Override
     protected void resultAlbumResult(List<MediaSelectorFile> data) {
+        uploadingImage2OSS(data.get(0).filePath);
         LogUtils.w("resultAlbumResult--", data.size() + "--");
     }
 
     @Override
     protected void resultCameraResult(File cameraFile) {
+        uploadingImage2OSS(cameraFile.getAbsolutePath());
         LogUtils.w("resultAlbumResult---", cameraFile.getAbsolutePath() + "--");
+    }
+
+    private void uploadingImage2OSS(String filePath) {
+        OSSRequestHelp.get().uploadingFile(filePath, new OSSRequestHelp.OnOSSResultListener() {
+            @Override
+            public void onStart() {
+
+            }
+
+            @Override
+            public void onUpdate(long progressSize) {
+
+            }
+
+            @Override
+            public void onSucceed(String path) {
+                RequestUpdateHeadPhotoBean bean = new RequestUpdateHeadPhotoBean();
+                bean.headerImg = path;
+                mPresenter.updateHeadPhoto(bean);
+                GlideManger.get().loadHeadImage(MyDetailsActivity.this, path, mCivHead);
+            }
+
+            @Override
+            public void onFailure(String errorCode) {
+                GlideManger.get().loadHeadImage(MyDetailsActivity.this, mUserBean.headerImg, mCivHead);
+            }
+        });
     }
 }

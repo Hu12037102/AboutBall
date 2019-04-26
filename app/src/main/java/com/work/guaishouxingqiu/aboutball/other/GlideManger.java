@@ -76,7 +76,7 @@ public class GlideManger {
         }
         Glide.with(context).asDrawable().apply(requestOptions).load(path).into(imageView);
     }
-    public void loadHeadImag(Context context,@NonNull String path,@NonNull ImageView imageView){
+    public void loadHeadImage(Context context, @NonNull String path, @NonNull ImageView imageView){
         RequestOptions requestOptions = new RequestOptions().placeholder(R.mipmap.icon_my_default_head).error(R.mipmap.icon_my_default_head)
                 .centerCrop();
         Glide.with(context).asDrawable().apply(requestOptions).load(path).into(imageView);

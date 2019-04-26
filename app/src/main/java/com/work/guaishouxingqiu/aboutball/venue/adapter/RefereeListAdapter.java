@@ -30,7 +30,7 @@ public class RefereeListAdapter extends BaseRecyclerAdapter<RefereeListAdapter.V
     @Override
     protected void onBindViewDataHolder(@NonNull ViewHolder viewHolder, int i) {
         ResultRefereeBean bean = mData.get(i);
-        GlideManger.get().loadHeadImag(mContext,bean.photo,viewHolder.mCivHead);
+        GlideManger.get().loadHeadImage(mContext,bean.photo,viewHolder.mCivHead);
         viewHolder.mTvName.setText(bean.name);
         viewHolder.mTvCount.setText(bean.matchCount+"次");
         viewHolder.mTvLevel.setText(bean.level);

@@ -10,15 +10,18 @@ import com.work.guaishouxingqiu.aboutball.my.bean.RequestEditAddressBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestManageBallTeamBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestNewAddressBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateBirthdayBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateHeadPhotoBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateHeightBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateNameBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdatePasswordBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdatePhoneBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateSexBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateWeightBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyAddress;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyBallBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultPrizeBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultTeamDetailsMemberBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 
 import java.util.List;
@@ -54,6 +57,8 @@ public interface MyService {
 
     @POST(IApiService.USER_ACCOUNT)
     Observable<BaseBean<BaseDataBean>> updateAccountBirthday(@Body RequestUpdateBirthdayBean bean);
+    @POST(IApiService.USER_ACCOUNT)
+    Observable<BaseBean<BaseDataBean>> updateAccountHeadPhoto(@Body RequestUpdateHeadPhotoBean bean);
 
     @GET(IApiService.UPDATE_APK_INFO)
     Observable<BaseBean<BaseDataBean<ResultUpdateApkBean>>> updateApkInfo(@Query(Contast.PHONE_MODEL) String phoneModel,
@@ -88,4 +93,10 @@ public interface MyService {
 
     @POST(IApiService.POST_MANAGE_TEAM)
     Observable<BaseBean<BaseDataBean<Long>>> manageBallTeam(@Body RequestManageBallTeamBean bean);
+
+    @GET(IApiService.GET_BALL_TEAM_DETAILS)
+    Observable<BaseBean<ResultBallDetailsBean>> loadBallTeamDetails(@Query(Contast.TEAM_ID) long teamId);
+
+    @GET(IApiService.GET_BALL_TEAM_MEMBER_DETAILS)
+    Observable<BaseBean<List<ResultTeamDetailsMemberBean>>> loadBallTeamMember(@Query(Contast.TEAM_ID) long teamId);
 }

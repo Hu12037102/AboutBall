@@ -2,13 +2,13 @@ package com.work.guaishouxingqiu.aboutball.my.presenter;
 
 import android.support.annotation.NonNull;
 
-import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateBirthdayBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateHeadPhotoBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateHeightBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateSexBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateWeightBean;
@@ -92,11 +92,28 @@ public class MyDetailsPresenter extends BasePresenter<MyDetailsContract.View, My
 
     @Override
     public void updateBirthday(RequestUpdateBirthdayBean bean) {
-        mModel.updateBirthday(bean,new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean>() {
+        mModel.updateBirthday(bean, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean>() {
             @Override
             public void onNext(BaseBean<BaseDataBean> t) {
-                if (t.code == IApi.Code.SUCCEED){
+                if (t.code == IApi.Code.SUCCEED) {
                     mView.resultUpdateBirthday();
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+
+    @Override
+    public void updateHeadPhoto(RequestUpdateHeadPhotoBean bean) {
+        mModel.updateHeadPhoto(bean, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean>() {
+            @Override
+            public void onNext(BaseBean<BaseDataBean> t) {
+                if (t.code == IApi.Code.SUCCEED) {
+                    mView.resultUpdateHeadPhoto(bean.headerImg);
                 }
             }
 

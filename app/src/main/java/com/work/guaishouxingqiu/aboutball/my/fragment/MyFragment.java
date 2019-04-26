@@ -98,7 +98,7 @@ public class MyFragment extends DelayedFragment<MyPresenter> implements MyContra
         mItemBall.setOnItemClickListener(new ItemView.OnItemClickListener() {
             @Override
             public void onClickItem(View view) {
-                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_BALL_TEAM);
+
             }
         });
         mItemOrder.setOnItemClickListener(new ItemView.OnItemClickListener() {
@@ -110,7 +110,8 @@ public class MyFragment extends DelayedFragment<MyPresenter> implements MyContra
         mItemTeam.setOnItemClickListener(new ItemView.OnItemClickListener() {
             @Override
             public void onClickItem(View view) {
-                Toasts.with().showToast(R.string.pleases_next_open);
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_BALL_TEAM);
+              //  Toasts.with().showToast(R.string.pleases_next_open);
             }
         });
         mItemMessage.setOnItemClickListener(new ItemView.OnItemClickListener() {
@@ -165,7 +166,7 @@ public class MyFragment extends DelayedFragment<MyPresenter> implements MyContra
             view = LayoutInflater.from(getContext()).inflate(R.layout.item_no_login_my_head_view, null);
 
         }
-        GlideManger.get().loadHeadImag(mContext, userBean.headerImg, mCivMyHead);
+        GlideManger.get().loadHeadImage(mContext, userBean.headerImg, mCivMyHead);
         mLlHeadGroup.addView(view);
     }
 

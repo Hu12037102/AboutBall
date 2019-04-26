@@ -42,7 +42,7 @@ public class VenueUserCommentAdapter extends RecyclerView.Adapter<VenueUserComme
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         ResultVenueDetailsBean.OrderCommentForAreaList bean = mData.get(i);
-        GlideManger.get().loadHeadImag(mContext, bean.headerImg, viewHolder.mCivHead);
+        GlideManger.get().loadHeadImage(mContext, bean.headerImg, viewHolder.mCivHead);
         viewHolder.mTvName.setText(bean.nickName);
         viewHolder.mTvTime.setText(bean.commentTime);
         viewHolder.mEtvContent.setText(bean.commentContent);

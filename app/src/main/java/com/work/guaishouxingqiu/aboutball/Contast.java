@@ -47,6 +47,7 @@ public interface Contast {
     String STADIUM_ID = "stadiumId";
     String AREA_ID="areaId";
     String ORDER_ID="orderId";
+    String TEAM_ID="teamId";
 
     String TOKEN = "Authorization";
     String SEX = "gender";
@@ -70,6 +71,10 @@ public interface Contast {
     int SEX_TYPE_MAN = 1;
     int SEX_TYPE_WOMAN = 2;
     int SEX_OTHER = 0;
+    //队长
+    int LEADER = 1;
+    //队员
+    int MEMBER = 0;
 
     //奖品带兑换
     int PRIZE_WAIT = 0;
