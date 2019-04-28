@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.work.guaishouxingqiu.aboutball.Contast;
+import com.work.guaishouxingqiu.aboutball.OnItemLongClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultTeamDetailsMemberBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
@@ -26,6 +27,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * 描述:球队成员adapter
  */
 public class BallTeamMemberAdapter extends BaseRecyclerAdapter<BallTeamMemberAdapter.ViewHolder, List<ResultTeamDetailsMemberBean>> {
+    public void setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener) {
+        this.onItemLongClickListener = onItemLongClickListener;
+    }
+
+    private OnItemLongClickListener onItemLongClickListener;
 
     public BallTeamMemberAdapter(@NonNull List<ResultTeamDetailsMemberBean> data) {
         super(data);
@@ -50,6 +56,12 @@ public class BallTeamMemberAdapter extends BaseRecyclerAdapter<BallTeamMemberAda
         viewHolder.mTvName.setText(bean.nickName);
         viewHolder.mTvPosition.setText(DataUtils.isEmpty(bean.position) ? UIUtils.getString(R.string.not_setting) : bean.position);
         viewHolder.mTvNumber.setText(bean.number == -1 ? UIUtils.getString(R.string.not_setting) : String.valueOf(bean.number));
+        viewHolder.itemView.setOnLongClickListener(v -> {
+            if (onItemLongClickListener != null) {
+                onItemLongClickListener.onLongClick(v, i);
+            }
+            return true;
+        });
     }
 
     @Override
@@ -78,4 +90,5 @@ public class BallTeamMemberAdapter extends BaseRecyclerAdapter<BallTeamMemberAda
             mTvNumber = itemView.findViewById(R.id.tv_number);
         }
     }
+
 }

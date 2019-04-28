@@ -15,6 +15,7 @@ import android.widget.PopupWindow;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.util.ScreenUtils;
 import com.example.item.weight.TitleView;
+import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyBallBean;
@@ -30,6 +31,7 @@ import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
+import com.work.guaishouxingqiu.aboutball.weight.SingPopupWindows;
 
 import butterknife.BindView;
 
@@ -48,7 +50,7 @@ public class BallTeamDetailsActivity extends BaseActivity<BallTeamDetailsPresent
     @BindView(R.id.bvp_content)
     BaseViewPager mBvpContent;
     private ResultMyBallBean mMyBallBean;
-    private PopupWindow mExitPopupWindow;
+    private SingPopupWindows mExitWindows;
 
     @Override
     protected int getLayoutId() {
@@ -144,16 +146,17 @@ public class BallTeamDetailsActivity extends BaseActivity<BallTeamDetailsPresent
     }
 
     private void showExitView(View view) {
-        if (mExitPopupWindow == null) {
-            View contentView = LayoutInflater.from(this).inflate(R.layout.item_popup_windows_exit_team, (ViewGroup) getWindow().getDecorView(), false);
-            View mRootView = contentView.findViewById(R.id.root_view);
-            mExitPopupWindow = new PopupWindow(contentView);
-            mExitPopupWindow.setWidth(ScreenUtils.dp2px(this, 110));
-            mExitPopupWindow.setHeight(ScreenUtils.dp2px(this, 40));
-            mRootView.setOnClickListener(v -> {
-                mExitPopupWindow.dismiss();
+        if (mExitWindows == null) {
+            mExitWindows = new SingPopupWindows(this);
+            mExitWindows.setPopupWindowsItemClickListener(v -> {
+                mExitWindows.dismiss();
                 String host = UIUtils.getString(R.string.you_sure_exit);
-                String body = UIUtils.getString(R.string.you_sure_exit_s_team, mMyBallBean.teamName);
+                String body;
+                if (mMyBallBean.isLeader == Contast.LEADER) {
+                    body = UIUtils.getString(R.string.you_sure_dissolution_of_the_team_s, mMyBallBean.teamName);
+                } else {
+                    body = UIUtils.getString(R.string.you_sure_exit_s_team, mMyBallBean.teamName);
+                }
                 HintDialog hintDialog = new HintDialog.Builder(this)
                         .setTitle(R.string.hint)
                         .setBody(SpanUtils.getTextColor(R.color.color_2, host.length(), host.length() + mMyBallBean.teamName.length(), body))
@@ -172,16 +175,21 @@ public class BallTeamDetailsActivity extends BaseActivity<BallTeamDetailsPresent
                         hintDialog.dismiss();
                     }
                 });
+
             });
-            mExitPopupWindow.setOutsideTouchable(true);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                mExitPopupWindow.setElevation(ScreenUtils.dp2px(this, 5));
-            }
         }
-        if (!mExitPopupWindow.isShowing()) {
-            // mExitPopupWindow.showAsDropDown(view, ScreenUtils.dp2px(this, 20), 0);
-            mExitPopupWindow.showAtLocation(view, Gravity.RIGHT | Gravity.TOP, ScreenUtils.dp2px(this, 20), mTitleView.getMeasuredHeight() + ScreenUtils.getStatuWindowsHeight(this));
+        if (mMyBallBean.isLeader == Contast.LEADER) {
+            mExitWindows.setContent(R.string.dissolution_of_the_team);
+            mExitWindows.setContentDrawableRes(R.mipmap.icon_dissolution_team, 0, 0, 0);
+        } else {
+            mExitWindows.setContent(R.string.exit_ball_team);
+            mExitWindows.setContentDrawableRes(R.mipmap.icon_exit, 0, 0, 0);
         }
+        if (mExitWindows != null && !mExitWindows.isShowing()) {
+            mExitWindows.showAtLocation(view, Gravity.RIGHT | Gravity.TOP, ScreenUtils.dp2px(this, 20),
+                    mTitleView.getMeasuredHeight() + ScreenUtils.getStatuWindowsHeight(this));
+        }
+
     }
 
     @Override

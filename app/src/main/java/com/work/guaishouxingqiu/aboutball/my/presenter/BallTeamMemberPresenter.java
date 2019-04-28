@@ -3,8 +3,10 @@ package com.work.guaishouxingqiu.aboutball.my.presenter;
 import android.support.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
+import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultTeamDetailsMemberBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.BallTeamMemberContract;
 import com.work.guaishouxingqiu.aboutball.my.model.BallTeamMemberModel;
@@ -41,6 +43,24 @@ public class BallTeamMemberPresenter extends BasePresenter<BallTeamMemberContrac
             public void onNext(BaseBean<List<ResultTeamDetailsMemberBean>> t) {
                 if (DataUtils.isResultSure(t)) {
                     mView.resultMemberDetails(t.result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+
+    @Override
+    public void deleteMember(long teamId, long playId,int position) {
+       // mModel.deleteMember(teamId,playId);
+        mModel.deleteMember(teamId, playId, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
+            @Override
+            public void onNext(BaseBean<BaseDataBean<String>> t) {
+                if (t.code == IApi.Code.SUCCEED && t.result != null && t.result.code == IApi.Code.SUCCEED) {
+                    mView.resultDeleteMember(position);
                 }
             }
 

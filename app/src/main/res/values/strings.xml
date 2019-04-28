@@ -273,7 +273,14 @@
     <string name="file_not_exit">文件不存在</string>
     <string name="crop_image_error">裁剪图片异常</string>
     <string name="delete">删除</string>
+    <string name="delete_team_member">删除队员</string>
     <string name="exit_ball_team">退出球队</string>
     <string name="you_sure_exit_s_team">您确定退出%s球队</string>
     <string name="you_sure_exit">您确定退出</string>
+    <string name="you_sure_dissolution_of_the_team_s">您确定解除%s球队</string>
+    <string name="weichat_friend">微信好友</string>
+    <string name="weichat_circle_of_friends">朋友圈</string>
+    <string name="qq_friend">朋友圈</string>
+    <string name="sin_weibo">新浪微博</string>
+    <string name="dissolution_of_the_team">解散球队</string>
 </resources>

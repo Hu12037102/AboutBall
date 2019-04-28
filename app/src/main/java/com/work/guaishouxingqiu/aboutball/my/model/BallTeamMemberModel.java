@@ -1,5 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.my.model;
 
+import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseModel;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.my.MyService;
@@ -20,6 +21,15 @@ public class BallTeamMemberModel extends BaseModel {
     public void loadMemberDetails(long teamId, BaseObserver<List<ResultTeamDetailsMemberBean>> observer) {
         mRetrofitManger.create(MyService.class)
                 .loadBallTeamMember(teamId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+
+    }
+
+    public void deleteMember(long teamId, long playId, BaseObserver<BaseDataBean<String>> observer) {
+        mRetrofitManger.create(MyService.class)
+                .exitBallTeam(teamId,playId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

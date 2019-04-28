@@ -11,6 +11,8 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.work.guaishouxingqiu.aboutball.Contast;
+import com.work.guaishouxingqiu.aboutball.OnItemLongClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
 import com.work.guaishouxingqiu.aboutball.my.adapter.BallTeamMemberAdapter;
@@ -19,6 +21,8 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultTeamDetailsMemberBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.BallTeamMemberContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.BallTeamMemberPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.weight.ShareDialog;
+import com.work.guaishouxingqiu.aboutball.weight.SingPopupWindows;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +47,7 @@ public class BallTeamMemberFragment extends DelayedFragment<BallTeamMemberPresen
     private BallTeamMemberAdapter mAdapter;
     private List<ResultTeamDetailsMemberBean> mData;
     private ResultMyBallBean mBallBean;
+    private SingPopupWindows mDeleteWindows;
 
 
     @Override
@@ -61,8 +66,30 @@ public class BallTeamMemberFragment extends DelayedFragment<BallTeamMemberPresen
     protected void initDelayedData() {
         mData = new ArrayList<>();
         mAdapter = new BallTeamMemberAdapter(mData);
+        mAdapter.setOnItemLongClickListener((view, position) -> {
+            showDeletePhone(view, position);
+        });
         mRvData.setAdapter(mAdapter);
         mSrlRefresh.autoRefresh();
+    }
+
+    private void showDeletePhone(View view, int position) {
+        ResultTeamDetailsMemberBean bean = mData.get(position);
+        if (bean == null || bean.isLeader == Contast.LEADER) {
+            return;
+        }
+        if (mDeleteWindows == null) {
+            mDeleteWindows = new SingPopupWindows(mContext);
+            mDeleteWindows.setContent(R.string.delete_team_member);
+            mDeleteWindows.setContentDrawableRes(R.mipmap.icon_delete, 0, 0, 0);
+            mDeleteWindows.setPopupWindowsItemClickListener(v -> {
+                mPresenter.deleteMember(mBallBean.teamId, bean.playId, position);
+            });
+        }
+        if (mDeleteWindows != null && !mDeleteWindows.isShowing()) {
+            mDeleteWindows.showAsDropDown(view, view.getMeasuredWidth() / 2 - mDeleteWindows.getWindow().getWidth() / 2, -view.getMeasuredHeight() / 2);
+        }
+
     }
 
     @Override
@@ -87,8 +114,16 @@ public class BallTeamMemberFragment extends DelayedFragment<BallTeamMemberPresen
             case R.id.tv_bottom_left:
                 break;
             case R.id.tv_bottom_right:
+                clickShareFriend();
                 break;
         }
+    }
+
+    private void clickShareFriend() {
+        ShareDialog shareDialog = new ShareDialog(mContext);
+        shareDialog.show();
+
+
     }
 
     @Override
@@ -96,5 +131,11 @@ public class BallTeamMemberFragment extends DelayedFragment<BallTeamMemberPresen
         mData.clear();
         mData.addAll(data);
         mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void resultDeleteMember(int position) {
+        mData.remove(position);
+        mAdapter.notifyItemRemoved(position);
     }
 }

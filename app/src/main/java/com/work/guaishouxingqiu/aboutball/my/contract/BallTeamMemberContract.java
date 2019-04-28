@@ -15,8 +15,13 @@ import java.util.List;
 public interface BallTeamMemberContract {
     interface View extends IBaseView{
         void resultMemberDetails(List<ResultTeamDetailsMemberBean> data);
+
+        void resultDeleteMember(int position);
+
     }
     interface Presenter extends IBasePresenter{
         void loadMemberDetails(long teamId);
+
+        void deleteMember(long teamId, long playId,int position);
     }
 }
