@@ -152,7 +152,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             // textViewHolder.mTvData.setText(mData.get(i).title);
             addTop(bean, textViewHolder.mTvData);
             textViewHolder.mTvFrom.setText(UIUtils.getString(R.string.from_data, mData.get(i).source, mData.get(i).releaseTime));
-            setViewLine(textViewHolder.mLine,i);
+            setViewLine(textViewHolder.mLine, i);
             this.showHotView(bean, textViewHolder.mTvFrom);
 
         } else if (viewHolder instanceof SingViewHolder) {
@@ -171,7 +171,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
                 GlideManger.get().loadImage(viewHolder.itemView.getContext(), imagePath,
                         R.drawable.shape_item_recommend_preview_item, R.drawable.shape_item_recommend_preview_item, singViewHolder.mIvData);
             }
-            setViewLine(singViewHolder.mLine,i);
+            setViewLine(singViewHolder.mLine, i);
             this.showHotView(bean, singViewHolder.mTvFrom);
         } else if (viewHolder instanceof ThreeViewHolder) {
             ThreeViewHolder threeViewHolder = (ThreeViewHolder) viewHolder;
@@ -198,7 +198,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
                 }
             }
 
-            setViewLine(threeViewHolder.mLine,i);
+            setViewLine(threeViewHolder.mLine, i);
             this.showHotView(bean, threeViewHolder.mTvFrom);
 
         } else if (viewHolder instanceof VideoHolder) {
@@ -221,14 +221,17 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             GlideManger.get().loadImage(mContext, mData.get(i).coverUrl, R.mipmap.icon_default_banner,
                     R.mipmap.icon_default_banner, videoHolder.mTvVideo);
             this.showHotView(bean, videoHolder.mTvFrom);
-            setViewLine(videoHolder.mLine,i);
+            setViewLine(videoHolder.mLine, i);
         }
 
     }
 
     private void setViewLine(View line, int position) {
+        if (POSITION_VENUE_ITEM >= mData.size() || POSITION_BALL_ITEM >= mData.size()) {
+            return;
+        }
         if ((position == POSITION_VENUE_ITEM - 1 || position == POSITION_BALL_ITEM - 1)
-                && (mData.get(POSITION_VENUE_ITEM ) == null || mData.get(POSITION_BALL_ITEM ) == null)) {
+                && (mData.get(POSITION_VENUE_ITEM) == null || mData.get(POSITION_BALL_ITEM) == null)) {
             line.setVisibility(View.INVISIBLE);
         } else {
             line.setVisibility(View.VISIBLE);
@@ -384,8 +387,8 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             viewHolder.mCardItem.setLayoutParams(layoutParams);
             viewHolder.itemView.setOnClickListener(v -> {
                         //Toasts.with().showToast(R.string.pleases_next_open);
-                LogUtils.w("viewHolder--",bean.stadiumId+"--");
-                         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_DETAILS, ARouterConfig.Key.STADIUM_ID, bean.stadiumId);
+                        LogUtils.w("viewHolder--", bean.stadiumId + "--");
+                        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_DETAILS, ARouterConfig.Key.STADIUM_ID, bean.stadiumId);
 
                     }
             );
