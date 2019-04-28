@@ -31,6 +31,7 @@
     <string name="please_choose_team_logo">请选择球队logo</string>
     <string name="please_input_team_name">请输入球队队名</string>
     <string name="please_selector_type">请选择球类类型</string>
+    <string name="please_input_number">请输入号码</string>
     <string name="please_selector_shirt_color">请选择球衣颜色</string>
     <string name="ball_team_details">球队信息</string>
     <string name="ball_team_member">球队成员</string>
@@ -283,4 +284,18 @@
     <string name="qq_friend">朋友圈</string>
     <string name="sin_weibo">新浪微博</string>
     <string name="dissolution_of_the_team">解散球队</string>
+    <string name="team_in_my_details">队内个人信息</string>
+    <string name="uniform_number">球衣号码</string>
+    <string name="main_location">主位置（最多选1个）</string>
+    <string name="please_selector_location">请选择位置</string>
+
+    <string name="the_goalkeeper">门将</string>
+    <string name="defender">后卫</string>
+    <string name="left_defender">左后卫</string>
+    <string name="center_defender">中后卫</string>
+    <string name="right_defender">右后卫</string>
+    <string name="left_wing">左翼位</string>
+    <string name="right_wing">右翼位</string>
+
+
 </resources>

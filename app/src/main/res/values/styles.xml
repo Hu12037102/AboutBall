@@ -85,6 +85,7 @@
         <item name="android:layout_height">5000dp</item>
         <item name="android:background">@color/color_4</item>
     </style>
+
     <style name="ItemSingTextView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/size_50dp</item>
@@ -143,7 +144,8 @@
         <item name="android:textColor">@color/colorFF333333</item>
     </style>
 
-    <style name="HorizontalProgressBar" parent="Widget.AppCompat.ProgressBar.Horizontal"/>
+    <style name="HorizontalProgressBar" parent="Widget.AppCompat.ProgressBar.Horizontal" />
+
     <style name="OrderDetailsContentTextView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -152,4 +154,15 @@
         <item name="android:lineSpacingExtra">5dp</item>
     </style>
 
+    <style name="CheckBoxPosition">
+        <item name="android:layout_width">@dimen/size_65dp</item>
+        <item name="android:layout_height">@dimen/size_25dp</item>
+        <item name="android:background">@drawable/selector_venue_count_view</item>
+        <item name="android:button">@null</item>
+        <item name="android:textSize">@dimen/size_14sp</item>
+        <item name="android:textColor">@color/selector_text_blue_white_color</item>
+        <item name="android:layout_marginRight">@dimen/default_margin</item>
+        <item name="android:layout_marginTop">@dimen/size_100dp</item>
+        <item name="android:gravity">center</item>
+    </style>
 </resources>

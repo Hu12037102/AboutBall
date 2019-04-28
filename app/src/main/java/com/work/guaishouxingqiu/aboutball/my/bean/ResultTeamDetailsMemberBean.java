@@ -7,7 +7,7 @@ package com.work.guaishouxingqiu.aboutball.my.bean;
  * 描述:球队成员信息
  */
 public class ResultTeamDetailsMemberBean {
-    public long playId;
+    public long playerId;
     public String nickName;
     public String imageUrl="";
     public int isLeader;

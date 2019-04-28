@@ -37,6 +37,8 @@ public class BallTeamMemberAdapter extends BaseRecyclerAdapter<BallTeamMemberAda
         super(data);
     }
 
+
+
     @Override
     protected void onBindViewDataHolder(@NonNull ViewHolder viewHolder, int i) {
         ResultTeamDetailsMemberBean bean = mData.get(i);

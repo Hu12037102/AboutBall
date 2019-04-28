@@ -175,6 +175,9 @@
         <activity
             android:name=".my.activity.BallTeamDetailsActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.activity.BallTeamMyDetailsActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
