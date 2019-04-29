@@ -288,6 +288,8 @@
     <string name="uniform_number">球衣号码</string>
     <string name="main_location">主位置（最多选1个）</string>
     <string name="please_selector_location">请选择位置</string>
+    <string name="the_backup">替补位置（最多选3个）</string>
+    <string name="please_selector_the_backup">请选择替补位置</string>
 
     <string name="the_goalkeeper">门将</string>
     <string name="defender">后卫</string>
@@ -296,6 +298,19 @@
     <string name="right_defender">右后卫</string>
     <string name="left_wing">左翼位</string>
     <string name="right_wing">右翼位</string>
+    <string name="center_midfield">中场</string>
+    <string name="short_loin">前腰</string>
+    <string name="later_loin">后腰</string>
+    <string name="left_center_midfield">左中场</string>
+    <string name="right_center_midfield">右中场</string>
+    <string name="left_wing_back">左边卫</string>
+    <string name="right_wing_back">右边卫</string>
+    <string name="forward">前锋</string>
+    <string name="left_forward">左前锋</string>
+    <string name="right_forward">右前锋</string>
+    <string name="center_forward">中锋</string>
+    <string name="left_wings">左边锋</string>
+    <string name="right_wings">右边锋</string>
 
 
 </resources>

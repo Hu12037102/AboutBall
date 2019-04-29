@@ -18,12 +18,10 @@
 
     <android.support.design.chip.ChipGroup
         android:id="@+id/cg_goalkeeper"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/default_margin"
-        android:paddingRight="@dimen/default_margin">
+        style="@style/CheckBoxChipGroup">
 
         <CheckBox
+            android:id="@+id/cb_goalkeeper"
             style="@style/CheckBoxPosition"
             android:text="@string/the_goalkeeper" />
 
@@ -41,29 +39,118 @@
         android:textSize="@dimen/size_12sp" />
 
     <android.support.design.chip.ChipGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/default_margin"
-        android:paddingRight="@dimen/default_margin">
+        android:id="@+id/cg_defender"
+        style="@style/CheckBoxChipGroup">
 
         <CheckBox
+            android:id="@+id/cb_left_defender"
             style="@style/CheckBoxPosition"
             android:text="@string/left_defender" />
 
         <CheckBox
+            android:id="@+id/cb_center_defender"
             style="@style/CheckBoxPosition"
             android:text="@string/center_defender" />
 
         <CheckBox
+            android:id="@+id/cb_right_defender"
             style="@style/CheckBoxPosition"
             android:text="@string/right_defender" />
 
         <CheckBox
+            android:id="@+id/cb_left_wing"
             style="@style/CheckBoxPosition"
             android:text="@string/left_wing" />
 
         <CheckBox
+            android:id="@+id/db_right_wing"
             style="@style/CheckBoxPosition"
             android:text="@string/right_wing" />
+    </android.support.design.chip.ChipGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/size_15dp"
+        android:layout_marginLeft="@dimen/size_20dp"
+        android:layout_marginTop="@dimen/size_15dp"
+        android:text="@string/center_midfield"
+        android:textColor="@color/color_4"
+        android:textSize="@dimen/size_12sp" />
+
+    <android.support.design.chip.ChipGroup
+        android:id="@+id/cg_short_loin"
+        style="@style/CheckBoxChipGroup">
+
+        <CheckBox
+            android:id="@+id/cb_short_loin"
+            style="@style/CheckBoxPosition"
+            android:text="@string/short_loin" />
+
+        <CheckBox
+            android:id="@+id/cb_later_loin"
+            style="@style/CheckBoxPosition"
+            android:text="@string/later_loin" />
+
+        <CheckBox
+            android:id="@+id/cb_left_center_midfield"
+            style="@style/CheckBoxPosition"
+            android:text="@string/left_center_midfield" />
+
+        <CheckBox
+            android:id="@+id/cb_right_center_midfield"
+            style="@style/CheckBoxPosition"
+            android:text="@string/right_center_midfield" />
+
+        <CheckBox
+            android:id="@+id/cb_left_wing_back"
+            style="@style/CheckBoxPosition"
+            android:text="@string/left_wing_back" />
+
+        <CheckBox
+            android:id="@+id/cb_right_wing_back"
+            style="@style/CheckBoxPosition"
+            android:text="@string/right_wing_back" />
+    </android.support.design.chip.ChipGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/size_15dp"
+        android:layout_marginLeft="@dimen/size_20dp"
+        android:layout_marginTop="@dimen/size_15dp"
+        android:text="@string/forward"
+        android:textColor="@color/color_4"
+        android:textSize="@dimen/size_12sp" />
+
+    <android.support.design.chip.ChipGroup
+        android:id="@+id/cg_center_forward"
+        style="@style/CheckBoxChipGroup"
+        android:layout_marginBottom="@dimen/default_margin">
+
+        <CheckBox
+            android:id="@+id/cb_center_forward"
+            style="@style/CheckBoxPosition"
+            android:text="@string/center_forward" />
+
+        <CheckBox
+            android:id="@+id/cb_left_forward"
+            style="@style/CheckBoxPosition"
+            android:text="@string/left_forward" />
+
+        <CheckBox
+            android:id="@+id/cb_right_forward"
+            style="@style/CheckBoxPosition"
+            android:text="@string/right_forward" />
+
+        <CheckBox
+            android:id="@+id/cb_left_wings"
+            style="@style/CheckBoxPosition"
+            android:text="@string/left_wings" />
+
+        <CheckBox
+            android:id="@+id/cb_right_wings"
+            style="@style/CheckBoxPosition"
+            android:text="@string/right_wings" />
     </android.support.design.chip.ChipGroup>
 </LinearLayout>

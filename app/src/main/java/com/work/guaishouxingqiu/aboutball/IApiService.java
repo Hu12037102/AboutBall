@@ -89,16 +89,19 @@ public interface IApiService {
     String POST_UPDATE_PHONE_NUMBER = "/api/accountManagement/bandingPhone";
     String POST_UPDATE_PASSWORD = "/api/account/modifyPassword";
     String GET_MY_BALL_TEAM = "/api/myTeam/getMyTeam";
-    String GET_OSS_TOKEN="/api/commons/static/ossCredentials";
+    String GET_OSS_TOKEN = "/api/commons/static/ossCredentials";
 
-    String POST_MANAGE_TEAM="/api/myTeam/createTeam";
-    String GET_BALL_TEAM_DETAILS="/api/myTeam/getTeamInfo";
-    String GET_BALL_TEAM_MEMBER_DETAILS="/api/myTeam/getTeamPlayer";
-    String POST_EDIT_TEAM_INFO="/api/myTeam/editTeamInfo";
-    String GET_EXIT_TEAM_BALL ="/api/myTeam/leaveTeam";
+    String POST_MANAGE_TEAM = "/api/myTeam/createTeam";
+    String GET_BALL_TEAM_DETAILS = "/api/myTeam/getTeamInfo";
+    String GET_BALL_TEAM_MEMBER_DETAILS = "/api/myTeam/getTeamPlayer";
+    String POST_EDIT_TEAM_INFO = "/api/myTeam/editTeamInfo";
+    String GET_EXIT_TEAM_BALL = "/api/myTeam/leaveTeam";
+
     interface H5 {
         String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";
         //资讯详情分享，后缀加上id;
         String SHARE_NEWS_DETAILS = "http://ifeell.com.cn/share/index.html?id=";
+        //分享球队链接，后面跟上teamId
+        String SHARE_BALL_TEAM = "http://ifeell.oss-cn-shenzhen.aliyuncs.com/app/ipk_android_release.apk?teamId=";
     }
 }

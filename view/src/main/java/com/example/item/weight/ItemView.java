@@ -126,7 +126,7 @@ public class ItemView extends RelativeLayout {
         view.setLayoutParams(layoutParams);
     }
 
-    public void setTitleText(@NonNull String text) {
+    public void setTitleText(@NonNull CharSequence text) {
         mTvLeft.setText(text);
     }
 

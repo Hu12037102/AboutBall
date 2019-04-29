@@ -9,7 +9,7 @@ package com.work.guaishouxingqiu.aboutball.my.bean;
 public class ResultTeamDetailsMemberBean {
     public long playerId;
     public String nickName;
-    public String imageUrl="";
+    public String imageUrl;
     public int isLeader;
     public String position;
     public int number=-1;
