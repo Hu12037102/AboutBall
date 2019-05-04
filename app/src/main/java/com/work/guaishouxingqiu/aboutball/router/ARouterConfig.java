@@ -27,12 +27,14 @@ public interface ARouterConfig {
         String ACTIVITY_UPDATE_PHONE = "/activity/update/phone";
         String ACTIVITY_UPDATE_PASSWORD = "/activity/update/password";
         String ACTIVITY_VENUE_BOOKING = "/activity/venue/booking";
-        String ACTIVITY_VENUE_ORDER_DETAILS="/activity/venue/order_details";
-        String ACTIVITY_LAUNCHER_BALL="/activity/launcher/ball";
-        String ACTIVITY_MY_BALL_TEAM ="/activity/my/ball/team";
-        String ACTIVITY_MANAGE_BALL_TEAM="/activity/manage/ball/team";
-        String ACTIVITY_BALL_TEAM_DETAILS="/activity/ball/team/details";
-        String ACTIVITY_BALL_TEAM_MY_DETAILS="/activity/ball/team/my/details";
+        String ACTIVITY_VENUE_ORDER_DETAILS = "/activity/venue/order_details";
+        String ACTIVITY_LAUNCHER_BALL = "/activity/launcher/ball";
+        String ACTIVITY_MY_BALL_TEAM = "/activity/my/ball/team";
+        String ACTIVITY_MANAGE_BALL_TEAM = "/activity/manage/ball/team";
+        String ACTIVITY_BALL_TEAM_DETAILS = "/activity/ball/team/details";
+        String ACTIVITY_BALL_TEAM_MY_DETAILS = "/activity/ball/team/my/details";
+        String ACTIVITY_WELCOME="/activity/welcome";
+        String ACTIVITY_GUIDE="/activity/guide";
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";
@@ -60,8 +62,8 @@ public interface ARouterConfig {
         String FRAGMENT_REGISTER_CODE = "/fragment/register/code";
         String FRAGMENT_REGISTER_PASSWORD = "/fragment/register/password";
         String FRAGMENT_BASE_PRIZE = "/fragment/base/prize";
-        String FRAGMENT_BALL_TEAM_DETAILS="/fragment/ball/team/details";
-        String FRAGMENT_BALL_TEAM_MEMBER="/fragment/ball/team/member";
+        String FRAGMENT_BALL_TEAM_DETAILS = "/fragment/ball/team/details";
+        String FRAGMENT_BALL_TEAM_MEMBER = "/fragment/ball/team/member";
 
     }
 
@@ -78,11 +80,12 @@ public interface ARouterConfig {
         String TYPE_ID = "typeId";
         String PARCELABLE = "parcelable";
         String ARRAY_LIST_PARCELABLE = "array_list_parcelable";
-        String POSITION="position";
-        String AREA_ID="areaId";
-        String ORDER_ID="orderId";
-        String CALENDAR_ID="calendarId";
-        String TEAM_ID="teamId";
+        String POSITION = "position";
+        String AREA_ID = "areaId";
+        String ORDER_ID = "orderId";
+        String CALENDAR_ID = "calendarId";
+        String TEAM_ID = "teamId";
+        String PLAYER_ID = "playerId";
     }
 
 }

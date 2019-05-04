@@ -71,6 +71,7 @@
     <dimen name="size_68dp">68dp</dimen>
     <dimen name="size_69dp">69dp</dimen>
     <dimen name="size_70dp">70dp</dimen>
+    <dimen name="size_75dp">75dp</dimen>
     <dimen name="size_80dp">80dp</dimen>
     <dimen name="size_85dp">85dp</dimen>
     <dimen name="size_90dp">90dp</dimen>

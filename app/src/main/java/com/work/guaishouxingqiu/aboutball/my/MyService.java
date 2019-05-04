@@ -10,6 +10,7 @@ import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestEditAddressBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestManageBallTeamBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestNewAddressBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestTeamMyDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateBirthdayBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateHeadPhotoBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateHeightBean;
@@ -107,4 +108,8 @@ public interface MyService {
 
     @GET(IApiService.GET_EXIT_TEAM_BALL)
     Observable<BaseBean<BaseDataBean<String>>> exitBallTeam(@Query(Contast.TEAM_ID) Long teamId, @Query(Contast.PLAYER_ID) Long playerId);
+
+    @POST(IApiService.POST_EDIT_PLAYER_INFO)
+    Observable<BaseBean<BaseDataBean<String>>> saveMyPlayerInfo(@Body RequestTeamMyDetailsBean bean);
+
 }

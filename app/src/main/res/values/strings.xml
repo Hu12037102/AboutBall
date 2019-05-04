@@ -152,6 +152,10 @@
     <string name="please_input_phone_number">请输入手机号码</string>
     <string name="please_input_sure_phone_number">请输入正确的手机号码</string>
     <string name="please_input_you_phone_number">请输入您的手机号码</string>
+    <string name="please_enter_the_jersey_number">请输入球衣号码</string>
+    <string name="please_selector_main_location">请选择主位置</string>
+    <string name="please_selector_substitution_location">请选择替补位置</string>
+    <string name="not_find_ball_team_id">没有找到球队Id</string>
     <string name="address_data">详细地址</string>
     <string name="please_input_address_data">请填写详细地址</string>
     <string name="please_inout_team_name">请输入队名</string>
@@ -175,6 +179,8 @@
     <string name="way">兑奖方式:</string>
     <string name="have_change">已兑换</string>
     <string name="out_off_date">已过期</string>
+    <string name="skip_s_second">跳过（%sS）</string>
+    <string name="experience_immediately">立即体验</string>
     <string name="prize_data">%s&#160;%s</string>
     <string name="line_prize_input_address">线上邮寄奖品，请先完善收货信息，才能发货</string>
     <string name="resume_click_exit_app">再点击一次退出APP</string>

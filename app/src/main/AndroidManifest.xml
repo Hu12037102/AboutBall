@@ -43,6 +43,27 @@
         <activity
             android:name=".home.activity.MainActivity"
             android:screenOrientation="portrait">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="com.aboutball"
+                    android:scheme="android" />
+            </intent-filter>-->
+
+        </activity>
+        <activity
+            android:name=".start.activity.WelcomeActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -62,7 +83,7 @@
 
         </activity>
         <activity
-            android:name=".home.activity.WelcomeActivity"
+            android:name=".start.activity.GuideActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".login.activity.LoginActivity"
@@ -178,6 +199,7 @@
         <activity
             android:name=".my.activity.BallTeamMyDetailsActivity"
             android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

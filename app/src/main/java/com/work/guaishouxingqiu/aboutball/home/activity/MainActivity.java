@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.game.fragment.GameFragment;
 import com.work.guaishouxingqiu.aboutball.home.adapter.MainTabAdapter;
@@ -38,6 +39,7 @@ import butterknife.BindView;
  * 更新时间: 2019/3/4 13:36
  * 描述: 主页面
  */
+@Route(path = ARouterConfig.Path.ACTIVITY_MAIN)
 public class MainActivity extends PermissionActivity<MainPresenter> implements MainContract.View {
 
 
@@ -71,29 +73,7 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
         super.onDestroy();
     }
 
-    @Override
-    public void initPermission() {
-        requestPermission(new OnPermissionsResult() {
-                              @Override
-                              public void onAllow(List<String> allowPermissions) {
-                                  MainActivity.super.initPermission();
-                              }
 
-                              @Override
-                              public void onNoAllow(List<String> noAllowPermissions) {
-                                  Toasts.with().showToast(R.string.must_permission);
-                                  initPermission();
-                              }
-
-                              @Override
-                              public void onForbid(List<String> noForbidPermissions) {
-                                  showForbidPermissionDialog();
-                              }
-                          }, Manifest.permission.WRITE_EXTERNAL_STORAGE
-                , Manifest.permission.ACCESS_COARSE_LOCATION
-                , Manifest.permission.ACCESS_FINE_LOCATION);
-
-    }
 
     private void initFragment() {
 

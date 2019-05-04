@@ -2,26 +2,24 @@ package com.work.guaishouxingqiu.aboutball.my.activity;
 
 import android.support.design.chip.ChipGroup;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.util.ArrayMap;
-import android.support.v4.util.SimpleArrayMap;
 import android.support.v4.util.SparseArrayCompat;
+import android.support.v7.widget.AppCompatEditText;
 import android.util.Log;
-import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.ItemView;
 import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestTeamMyDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.BallTeamMyDetailsContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.BallTeamMyDetailsPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
-import com.work.guaishouxingqiu.aboutball.util.LogUtils;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
@@ -30,7 +28,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.internal.operators.flowable.FlowableOnErrorReturn;
 
 /**
  * 作者: 胡庆岭
@@ -51,6 +48,8 @@ public class BallTeamMyDetailsActivity extends BaseActivity<BallTeamMyDetailsPre
     ViewStub mVsMain;
     @BindView(R.id.vs_substitution)
     ViewStub mVsSubstitution;
+    @BindView(R.id.aet_number)
+    AppCompatEditText mAetNumber;
     private boolean isCheckMain;
     private boolean isCheckSubstitution;
     private View mMainInflateView;
@@ -100,6 +99,8 @@ public class BallTeamMyDetailsActivity extends BaseActivity<BallTeamMyDetailsPre
     private List<ViewGroup> mSubstitutionData;
     private List<CheckBox> mMainCheckData;
     private List<CheckBox> mSubstitutionCheckData;
+    private static final int SUBSTITUTION_CHECK_MAX_COUNT = 3;
+    private long mPlayerId;
 
 
     @Override
@@ -109,7 +110,18 @@ public class BallTeamMyDetailsActivity extends BaseActivity<BallTeamMyDetailsPre
 
     @Override
     protected void initView() {
-
+        mPlayerId = mIntent.getLongExtra(ARouterConfig.Key.PLAYER_ID, -1);
+        if (mPlayerId == -1) {
+            UIUtils.showToast(R.string.not_find_ball_team_id);
+            finish();
+            return;
+        }
+        mItemMain.mTvRight.setTextColor(ContextCompat.getColor(this, R.color.color_4));
+        mItemMain.mTvRight.setHintTextColor(ContextCompat.getColor(this, R.color.colorFFA6A6A6));
+        mItemMain.mTvRight.setHint(R.string.please_selector_location);
+        mItemSubstitution.mTvRight.setTextColor(ContextCompat.getColor(this, R.color.color_4));
+        mItemSubstitution.mTvRight.setHintTextColor(ContextCompat.getColor(this, R.color.colorFFA6A6A6));
+        mItemSubstitution.mTvRight.setHint(R.string.please_selector_the_backup);
     }
 
     @Override
@@ -253,141 +265,141 @@ public class BallTeamMyDetailsActivity extends BaseActivity<BallTeamMyDetailsPre
 
         mCbGoalkeeper1.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 1;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbGoalkeeper1, isChecked);
         });
         mCbLeftDefender1.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 1;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbLeftDefender1, isChecked);
         });
         mCbCenterDefender1.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 1;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbCenterDefender1, isChecked);
         });
         mCbRightDefender1.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 1;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbRightDefender1, isChecked);
         });
         mCbLeftWing1.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 1;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbLeftWing1, isChecked);
         });
         mCbRightWing1.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 1;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbRightWing1, isChecked);
         });
         mCbShortLoin1.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 1;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbShortLoin1, isChecked);
         });
         mCbLaterLoin1.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 1;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbLaterLoin1, isChecked);
 
         });
         mCbLeftCenterMidfield1.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 1;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbLeftCenterMidfield1, isChecked);
         });
         mCbRightCenterMidfield1.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 1;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbRightCenterMidfield1, isChecked);
         });
         mCbLeftWingBack1.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 1;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbLeftWingBack1, isChecked);
         });
         mCbRightWingBack1.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 1;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbRightWingBack1, isChecked);
         });
         mCbCenterForward1.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 1;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbCenterForward1, isChecked);
         });
         mCbLeftForward1.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 1;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbLeftForward1, isChecked);
         });
         mCbRightForward1.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 1;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbRightForward1, isChecked);
         });
         mCbLeftWings1.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 1;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbLeftWings1, isChecked);
         });
         mCbRightWings1.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 1;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbRightWings1, isChecked);
         });
 
         mCbGoalkeeper2.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 2;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbGoalkeeper2, isChecked);
         });
         mCbLeftDefender2.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 2;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbLeftDefender2, isChecked);
         });
         mCbCenterDefender2.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 2;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbCenterDefender2, isChecked);
         });
         mCbRightDefender2.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 2;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbRightDefender2, isChecked);
         });
         mCbLeftWing2.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 2;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbLeftWing2, isChecked);
         });
         mCbRightWing2.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 2;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbRightWing2, isChecked);
         });
         mCbShortLoin2.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 2;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbShortLoin2, isChecked);
         });
         mCbLaterLoin2.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 2;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbLaterLoin2, isChecked);
         });
         mCbLeftCenterMidfield2.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 2;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbLeftCenterMidfield2, isChecked);
         });
         mCbRightCenterMidfield2.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 2;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbRightCenterMidfield2, isChecked);
         });
         mCbLeftWingBack2.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 2;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbLeftWingBack2, isChecked);
         });
         mCbRightWingBack2.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 2;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbRightWingBack2, isChecked);
         });
         mCbCenterForward2.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 2;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbCenterForward2, isChecked);
         });
         mCbLeftForward2.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 2;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbLeftForward2, isChecked);
         });
         mCbRightForward2.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 2;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbRightForward2, isChecked);
         });
         mCbLeftWings2.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 2;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbLeftWings2, isChecked);
         });
         mCbRightWings2.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTag = 2;
-            judgeCheckStatus(buttonView.getId(), isChecked);
+            judgeCheckStatus(mCbRightWings2, isChecked);
         });
     }
 
@@ -413,43 +425,94 @@ public class BallTeamMyDetailsActivity extends BaseActivity<BallTeamMyDetailsPre
 
     @OnClick(R.id.tv_save)
     public void onViewClicked() {
+        if (isInputNumber() && isInputMainLocation() && isInputSubstitutionLocation()) {
+            RequestTeamMyDetailsBean bean = new RequestTeamMyDetailsBean();
+            bean.number = DataUtils.getEditDetails(mAetNumber);
+            bean.alternate = getLocationArray(mSubstitutionCheckData);
+            bean.playerId = mPlayerId;
+            bean.position = getCheckContent(mMainCheckData);
+            mPresenter.saveMyDetails(bean);
+        }
     }
 
+    public String getCheckContent(List<CheckBox> checkData) {
+        String content = "";
+        for (int i = 0; i < checkData.size(); i++) {
+            if (checkData.get(i).isChecked()) {
+                content = content.concat(checkData.get(i).getText().toString());
+                if (checkData.size() > 1 && i != checkData.size() - 1) {
+                    content = content + " ";
+                }
+            }
+        }
+        return DataUtils.isEmpty(content) ? null : content;
+    }
 
-    private void judgeCheckStatus(int checkResId, boolean isChecked) {
+    private void judgeCheckStatus(CheckBox checkBox, boolean isChecked) {
         if (mTag == 1) {
+            if (mMainCheckData.size() > 0) {
+                if (!mMainCheckData.contains(checkBox)) {
+                    mMainCheckData.get(0).setEnabled(true);
+                    mMainCheckData.get(0).setChecked(false);
+                    mMainCheckData.get(0).setBackgroundResource(R.drawable.selector_venue_count_view);
+                    mMainCheckData.get(0).setTextColor(ContextCompat.getColorStateList(this, R.color.selector_text_blue_white_color));
+                    mMainCheckData.clear();
+                    mMainCheckData.add(checkBox);
+                }
+
+            } else {
+                mMainCheckData.add(checkBox);
+            }
             for (int i = 0; i < mMainData.size(); i++) {
                 ViewGroup viewGroup = mMainData.get(i);
-                setCheckViewGroup(viewGroup, isChecked, checkResId);
+                setCheckViewGroup(viewGroup, isChecked, checkBox);
             }
             for (int h = 0; h < mSubstitutionData.size(); h++) {
                 ViewGroup viewGroup = mSubstitutionData.get(h);
-                setUnCheckViewGroup(viewGroup, checkResId, isChecked);
+                setUnCheckViewGroup(viewGroup, checkBox.getId(), isChecked);
             }
 
+            mItemMain.setContentText(getCheckContent(mMainCheckData));
+
         } else if (mTag == 2) {
+            if (mSubstitutionCheckData.size() < SUBSTITUTION_CHECK_MAX_COUNT && !mSubstitutionCheckData.contains(checkBox)) {
+                mSubstitutionCheckData.add(checkBox);
+            } else {
+                if (!mSubstitutionCheckData.contains(checkBox)) {
+                    mSubstitutionCheckData.get(0).setEnabled(true);
+                    mSubstitutionCheckData.get(0).setChecked(false);
+                    mSubstitutionCheckData.get(0).setBackgroundResource(R.drawable.selector_venue_count_view);
+                    mSubstitutionCheckData.get(0).setTextColor(ContextCompat.getColorStateList(this, R.color.selector_text_blue_white_color));
+                    mSubstitutionCheckData.remove(0);
+                    mSubstitutionCheckData.add(checkBox);
+                }
+
+            }
+
+
             for (int i = 0; i < mSubstitutionData.size(); i++) {
                 ViewGroup viewGroup = mSubstitutionData.get(i);
-                setCheckViewGroup(viewGroup, isChecked, checkResId);
+                setCheckViewGroup(viewGroup, isChecked, checkBox);
             }
             for (int h = 0; h < mMainData.size(); h++) {
                 ViewGroup viewGroup = mMainData.get(h);
-                setUnCheckViewGroup(viewGroup, checkResId, isChecked);
+                setUnCheckViewGroup(viewGroup, checkBox.getId(), isChecked);
             }
+            mItemSubstitution.setContentText(getCheckContent(mSubstitutionCheckData));
 
         }
 
+
     }
 
-    private void setCheckViewGroup(ViewGroup viewGroup, boolean isCheck, int checkResId) {
+    private void setCheckViewGroup(ViewGroup viewGroup, boolean isCheck, CheckBox checkView) {
         for (int j = 0; j < viewGroup.getChildCount(); j++) {
             CheckBox checkBox = (CheckBox) viewGroup.getChildAt(j);
-            if (checkBox.getId() == checkResId) {
-                checkBox.setEnabled(true);
-                checkBox.setChecked(isCheck);
-                checkBox.setBackgroundResource(R.drawable.selector_venue_count_view);
-                checkBox.setTextColor(ContextCompat.getColorStateList(this, R.color.selector_text_blue_white_color));
-
+            if (checkBox.getId() == checkView.getId()) {
+                checkView.setEnabled(true);
+                checkView.setChecked(isCheck);
+                checkView.setBackgroundResource(R.drawable.selector_venue_count_view);
+                checkView.setTextColor(ContextCompat.getColorStateList(this, R.color.selector_text_blue_white_color));
             }
         }
     }
@@ -472,5 +535,44 @@ public class BallTeamMyDetailsActivity extends BaseActivity<BallTeamMyDetailsPre
                 }
             }
         }
+    }
+
+    private boolean isInputNumber() {
+        if (DataUtils.isEmpty(DataUtils.getEditDetails(mAetNumber))) {
+            UIUtils.showToast(R.string.please_enter_the_jersey_number);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isInputMainLocation() {
+        if (DataUtils.isEmpty(getCheckContent(mMainCheckData))) {
+            UIUtils.showToast(R.string.please_selector_main_location);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isInputSubstitutionLocation() {
+        if (DataUtils.isEmpty(getCheckContent(mSubstitutionCheckData))) {
+            UIUtils.showToast(R.string.please_selector_substitution_location);
+            return false;
+        }
+        return true;
+    }
+
+    public String[] getLocationArray(List<CheckBox> checkData) {
+        List<String> contentData = new ArrayList<>();
+        for (int i = 0; i < checkData.size(); i++) {
+            if (checkData.get(i).isChecked()) {
+                contentData.add(checkData.get(i).getText().toString());
+            }
+        }
+        return (String[]) contentData.toArray();
+    }
+
+    @Override
+    public void resultMyDetailsSucceed() {
+        finish();
     }
 }

@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.my.contract;
 
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestTeamMyDetailsBean;
 
 /**
  * 作者: 胡庆岭
@@ -11,9 +12,10 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
  */
 public interface BallTeamMyDetailsContract {
     interface View extends IBaseView {
-
+        void resultMyDetailsSucceed();
     }
 
     interface Presenter extends IBasePresenter {
+        void saveMyDetails(RequestTeamMyDetailsBean bean);
     }
 }

@@ -64,6 +64,7 @@
                     android:textSize="@dimen/size_14sp" />
 
                 <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/aet_number"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
@@ -86,7 +87,6 @@
                 android:layout_height="@dimen/item_height"
                 app:bottom_line_margin_left="@dimen/default_margin"
                 app:bottom_line_margin_right="@dimen/default_margin"
-                app:content_data="@string/please_selector_location"
                 app:content_drawable_padding="@dimen/size_10dp"
                 app:content_right_icon="@mipmap/icon_item_bottom"
                 app:content_text_color="@color/colorFFA6A6A6"
@@ -112,7 +112,6 @@
                 android:layout_height="@dimen/item_height"
                 app:bottom_line_margin_left="@dimen/default_margin"
                 app:bottom_line_margin_right="@dimen/default_margin"
-                app:content_data="@string/please_selector_the_backup"
                 app:content_drawable_padding="@dimen/size_10dp"
                 app:content_right_icon="@mipmap/icon_item_bottom"
                 app:content_text_color="@color/colorFFA6A6A6"
