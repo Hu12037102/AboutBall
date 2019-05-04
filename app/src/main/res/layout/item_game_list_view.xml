@@ -17,17 +17,19 @@
         tools:text="古月哥欠"
         android:visibility="gone"/>
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/default_margin"
         android:paddingLeft="@dimen/size_40dp"
         android:paddingRight="@dimen/size_40dp"
-        android:paddingTop="@dimen/default_margin">
+        android:paddingTop="@dimen/default_margin"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/ll_left"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical">
@@ -44,38 +46,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_10dp"
                 android:textColor="@color/color_4"
+                android:singleLine="true"
+                android:ellipsize="end"
                 tools:text="梅州客家" />
 
         </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/ll_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            app:layout_constraintRight_toRightOf="parent">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/civ_right_name"
-                android:layout_width="@dimen/size_40dp"
-                android:layout_height="@dimen/size_40dp"
-                android:contentDescription="@null" />
-
-            <TextView
-                android:id="@+id/tv_right_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/size_10dp"
-                android:textColor="@color/color_4"
-                tools:text="梅州客家" />
-
-        </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="0dp"
+            android:layout_weight="2"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/default_margin"
             android:layout_marginRight="@dimen/default_margin"
@@ -119,7 +98,39 @@
                 android:textSize="@dimen/size_12sp"
                 tools:text="未开始直播" />
         </LinearLayout>
-    </android.support.constraint.ConstraintLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/ll_right"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_right_name"
+                android:layout_width="@dimen/size_40dp"
+                android:layout_height="@dimen/size_40dp"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:id="@+id/tv_right_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_10dp"
+                android:textColor="@color/color_4"
+                tools:text="梅州客家"
+                android:singleLine="true"
+                android:ellipsize="end"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
 
     <View style="@style/HorizontalLine"
         android:layout_marginLeft="@dimen/default_margin"
