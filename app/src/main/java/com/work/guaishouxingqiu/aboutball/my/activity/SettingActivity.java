@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -42,15 +43,17 @@ public class SettingActivity extends BaseActivity<SettingPresenter>
         implements SettingContract.View {
     @BindView(R.id.item_feedback)
     ItemView mItemFeedback;
-    @BindView(R.id.item_about)
-    ItemView mItemAbout;
     @BindView(R.id.item_cache)
     ItemView mItemCache;
     @BindView(R.id.item_agreement)
     ItemView mItemAgreement;
     @BindView(R.id.item_login_out)
     TextView mItemLoginOut;
-    private long mFileSize;
+    @BindView(R.id.rl_about_we)
+    RelativeLayout mRlAboutWe;
+    @BindView(R.id.tv_versions)
+    TextView mTvVersions;
+    private ResultUpdateApkBean mUpdateBean;
 
     @Override
     protected int getLayoutId() {
@@ -65,6 +68,7 @@ public class SettingActivity extends BaseActivity<SettingPresenter>
     @Override
     protected void initData() {
         mPresenter.getFileSize();
+        mPresenter.updateApkInfo(DownloadApkHelp.getVersionName(this));
     }
 
     @Override
@@ -78,27 +82,17 @@ public class SettingActivity extends BaseActivity<SettingPresenter>
         mItemCache.setOnItemClickListener(view -> {
             clickClearCache();
         });
-        mItemAbout.setOnItemClickListener(view -> {
-            clickAboutWe();
+
+        mRlAboutWe.setOnClickListener(view -> {
+            ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ABOUT_WE);
         });
         mItemAgreement.setOnItemClickListener(view -> clickAgreement());
     }
 
     private void clickAgreement() {
-        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_USER_AGREEMENT);
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_USER_AGREEMENT, ARouterConfig.Key.PARCELABLE, mUpdateBean);
     }
 
-    private void clickAboutWe() {
-        try {
-            PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            String versionName = packageInfo.versionName;
-            int versionCode = packageInfo.versionCode;
-            mPresenter.updateApkInfo(versionName);
-            LogUtils.w("clickAboutWe--", versionName + "--" + versionCode);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 
     private void clickClearCache() {
         FileUtils.removeFileCache();
@@ -137,20 +131,10 @@ public class SettingActivity extends BaseActivity<SettingPresenter>
 
     @Override
     public void resultApkInfo(ResultUpdateApkBean bean) {
+        mUpdateBean = bean;
         //版本信息回调
         if (!bean.version.equals(DownloadApkHelp.getVersionName(this))) {
-            HintDialog hintDialog = new HintDialog.Builder(this)
-                    .setTitle(R.string.update_apk)
-                    .setBody(bean.content)
-                    .setSure(R.string.sure).builder();
-            hintDialog.show();
-            hintDialog.setOnItemClickListener(view -> {
-                hintDialog.dismiss();
-                DownloadApkHelp.loadApk(SettingActivity.this, bean.updateUrl);
-
-
-            });
-
+            mTvVersions.setVisibility(View.VISIBLE);
         }
     }
 }

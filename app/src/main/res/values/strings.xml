@@ -133,6 +133,8 @@
     <string name="weight_not_zero">体重不能为0</string>
     <string name="feedback">意见反馈</string>
     <string name="about_we">关于我们</string>
+    <string name="versions">版本</string>
+    <string name="go_grade">去评分</string>
     <string name="clear_cache">清理缓存</string>
     <string name="user_agreement">用户协议</string>
     <string name="login_out">退出登录</string>
@@ -145,6 +147,9 @@
     <string name="cancel_weichat_login">取消微信登录！</string>
     <string name="weichat_login_failed">微信登录失败！</string>
     <string name="update_apk">版本更新</string>
+    <string name="check_for_updates">检查更新</string>
+    <string name="find_new_versions">发现新版本</string>
+    <string name="all_right_reserved">五华汇游文化传播有限公司版权所有</string>
     <string name="not_more_data">没有更多数据哦</string>
     <string name="edit_address_info">编辑收货信息</string>
     <string name="consignee">收货人</string>
@@ -179,7 +184,7 @@
     <string name="way">兑奖方式:</string>
     <string name="have_change">已兑换</string>
     <string name="out_off_date">已过期</string>
-    <string name="skip_s_second">跳过（%sS）</string>
+    <string name="skip_s_second">跳过(%sS)</string>
     <string name="experience_immediately">立即体验</string>
     <string name="prize_data">%s&#160;%s</string>
     <string name="line_prize_input_address">线上邮寄奖品，请先完善收货信息，才能发货</string>

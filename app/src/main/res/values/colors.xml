@@ -37,6 +37,8 @@
     <color name="colorFFFCFCFA">#FFFCFCFA</color>
     <color name="colorFFF15A24">#FFF15A24</color>
     <color name="colorFFFF803C">#FFFF803C</color>
+    <color name="colorFFFF5B4F">#FFFF5B4F</color>
+    <color name="colorFFFE4E41">#FFFE4E41</color>
 
     <color name="color_1">@color/colorWhite</color>
     <color name="color_2">@color/colorFF3586FF</color>

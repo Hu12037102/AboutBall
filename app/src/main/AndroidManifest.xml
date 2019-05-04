@@ -199,6 +199,9 @@
         <activity
             android:name=".my.activity.BallTeamMyDetailsActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.activity.AboutWeActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 

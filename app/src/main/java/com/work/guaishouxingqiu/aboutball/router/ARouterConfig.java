@@ -35,6 +35,7 @@ public interface ARouterConfig {
         String ACTIVITY_BALL_TEAM_MY_DETAILS = "/activity/ball/team/my/details";
         String ACTIVITY_WELCOME="/activity/welcome";
         String ACTIVITY_GUIDE="/activity/guide";
+        String ACTIVITY_ABOUT_WE="/activity/about/we";
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";
