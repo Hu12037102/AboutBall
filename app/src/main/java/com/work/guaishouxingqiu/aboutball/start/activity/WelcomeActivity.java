@@ -65,7 +65,7 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
     });
 
     private void skipActivity() {
-        mSkipHandler.removeMessages(WHAT);
+        mSkipHandler.removeMessages(WHAT,null);
         SharedPreferencesHelp sp = new SharedPreferencesHelp();
         if (sp.getBoolean(SharedPreferencesHelp.KEY_GUIDE_OPEN)) {
             ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MAIN);
@@ -123,7 +123,7 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mSkipHandler.removeMessages(WHAT);
+        mSkipHandler.removeMessages(WHAT,null);
     }
 
     @Override
@@ -135,5 +135,11 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
     @OnClick(R.id.tv_skip)
     public void onViewClicked() {
         skipActivity();
+    }
+
+    @Override
+    public void onBackPressed() {
+        mSkipHandler.removeMessages(WHAT,null);
+        super.onBackPressed();
     }
 }
