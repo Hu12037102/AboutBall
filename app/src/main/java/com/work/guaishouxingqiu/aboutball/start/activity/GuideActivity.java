@@ -65,9 +65,9 @@ public class GuideActivity extends BaseActivity<GuidePresenter> implements Guide
     @Override
     protected void initEvent() {
         mTvExperience.setOnClickListener(view -> {
+            ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MAIN);
             SharedPreferencesHelp sp = new SharedPreferencesHelp();
             sp.putObject(SharedPreferencesHelp.KEY_GUIDE_OPEN, true);
-            ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MAIN);
             finish();
         });
         mBvpContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

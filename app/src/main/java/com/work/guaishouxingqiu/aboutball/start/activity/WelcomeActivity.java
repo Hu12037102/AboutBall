@@ -60,18 +60,18 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
             } else {
                 skipActivity();
             }
-            return false;
+            return true;
         }
     });
 
     private void skipActivity() {
+        mSkipHandler.removeMessages(WHAT);
         SharedPreferencesHelp sp = new SharedPreferencesHelp();
         if (sp.getBoolean(SharedPreferencesHelp.KEY_GUIDE_OPEN)) {
             ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MAIN);
         } else {
             ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_GUIDE);
         }
-        mSkipHandler.removeMessages(WHAT);
         finish();
     }
 

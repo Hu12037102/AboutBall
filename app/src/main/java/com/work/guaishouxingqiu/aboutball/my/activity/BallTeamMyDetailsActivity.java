@@ -263,143 +263,143 @@ public class BallTeamMyDetailsActivity extends BaseActivity<BallTeamMyDetailsPre
             clickItemSubstitution();
         });
 
-        mCbGoalkeeper1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbGoalkeeper1.setOnClickListener(v -> {
             mTag = 1;
-            judgeCheckStatus(mCbGoalkeeper1, isChecked);
+            judgeCheckStatus(mCbGoalkeeper1, mCbGoalkeeper1.isChecked());
         });
-        mCbLeftDefender1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbLeftDefender1.setOnClickListener(v -> {
             mTag = 1;
-            judgeCheckStatus(mCbLeftDefender1, isChecked);
+            judgeCheckStatus(mCbLeftDefender1, mCbLeftDefender1.isChecked());
         });
-        mCbCenterDefender1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbCenterDefender1.setOnClickListener(v -> {
             mTag = 1;
-            judgeCheckStatus(mCbCenterDefender1, isChecked);
+            judgeCheckStatus(mCbCenterDefender1, mCbCenterDefender1.isChecked());
         });
-        mCbRightDefender1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbRightDefender1.setOnClickListener(v -> {
             mTag = 1;
-            judgeCheckStatus(mCbRightDefender1, isChecked);
+            judgeCheckStatus(mCbRightDefender1, mCbRightDefender1.isChecked());
         });
-        mCbLeftWing1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbLeftWing1.setOnClickListener(v -> {
             mTag = 1;
-            judgeCheckStatus(mCbLeftWing1, isChecked);
+            judgeCheckStatus(mCbLeftWing1, mCbLeftWing1.isChecked());
         });
-        mCbRightWing1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbRightWing1.setOnClickListener(v -> {
             mTag = 1;
-            judgeCheckStatus(mCbRightWing1, isChecked);
+            judgeCheckStatus(mCbRightWing1, mCbRightWing1.isChecked());
         });
-        mCbShortLoin1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbShortLoin1.setOnClickListener(v -> {
             mTag = 1;
-            judgeCheckStatus(mCbShortLoin1, isChecked);
+            judgeCheckStatus(mCbShortLoin1, mCbShortLoin1.isChecked());
         });
-        mCbLaterLoin1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbLaterLoin1.setOnClickListener(v -> {
             mTag = 1;
-            judgeCheckStatus(mCbLaterLoin1, isChecked);
+            judgeCheckStatus(mCbLaterLoin1, mCbLaterLoin1.isChecked());
 
         });
-        mCbLeftCenterMidfield1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbLeftCenterMidfield1.setOnClickListener(v -> {
             mTag = 1;
-            judgeCheckStatus(mCbLeftCenterMidfield1, isChecked);
+            judgeCheckStatus(mCbLeftCenterMidfield1, mCbLeftCenterMidfield1.isChecked());
         });
-        mCbRightCenterMidfield1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbRightCenterMidfield1.setOnClickListener(v -> {
             mTag = 1;
-            judgeCheckStatus(mCbRightCenterMidfield1, isChecked);
+            judgeCheckStatus(mCbRightCenterMidfield1, mCbRightCenterMidfield1.isChecked());
         });
-        mCbLeftWingBack1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbLeftWingBack1.setOnClickListener(v -> {
             mTag = 1;
-            judgeCheckStatus(mCbLeftWingBack1, isChecked);
+            judgeCheckStatus(mCbLeftWingBack1, mCbLeftWingBack1.isChecked());
         });
-        mCbRightWingBack1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbRightWingBack1.setOnClickListener(v -> {
             mTag = 1;
-            judgeCheckStatus(mCbRightWingBack1, isChecked);
+            judgeCheckStatus(mCbRightWingBack1, mCbRightWingBack1.isChecked());
         });
-        mCbCenterForward1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbCenterForward1.setOnClickListener(v -> {
             mTag = 1;
-            judgeCheckStatus(mCbCenterForward1, isChecked);
+            judgeCheckStatus(mCbCenterForward1, mCbCenterForward1.isChecked());
         });
-        mCbLeftForward1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbLeftForward1.setOnClickListener(v -> {
             mTag = 1;
-            judgeCheckStatus(mCbLeftForward1, isChecked);
+            judgeCheckStatus(mCbLeftForward1, mCbLeftForward1.isChecked());
         });
-        mCbRightForward1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbRightForward1.setOnClickListener(v -> {
             mTag = 1;
-            judgeCheckStatus(mCbRightForward1, isChecked);
+            judgeCheckStatus(mCbRightForward1, mCbRightForward1.isChecked());
         });
-        mCbLeftWings1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbLeftWings1.setOnClickListener(v -> {
             mTag = 1;
-            judgeCheckStatus(mCbLeftWings1, isChecked);
+            judgeCheckStatus(mCbLeftWings1, mCbLeftWings1.isChecked());
         });
-        mCbRightWings1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbRightWings1.setOnClickListener(v -> {
             mTag = 1;
-            judgeCheckStatus(mCbRightWings1, isChecked);
+            judgeCheckStatus(mCbRightWings1, mCbRightWings1.isChecked());
         });
 
-        mCbGoalkeeper2.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbGoalkeeper2.setOnClickListener(v -> {
             mTag = 2;
-            judgeCheckStatus(mCbGoalkeeper2, isChecked);
+            judgeCheckStatus(mCbGoalkeeper2, mCbGoalkeeper2.isChecked());
         });
-        mCbLeftDefender2.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbLeftDefender2.setOnClickListener(v -> {
             mTag = 2;
-            judgeCheckStatus(mCbLeftDefender2, isChecked);
+            judgeCheckStatus(mCbLeftDefender2, mCbLeftDefender2.isChecked());
         });
-        mCbCenterDefender2.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbCenterDefender2.setOnClickListener(v -> {
             mTag = 2;
-            judgeCheckStatus(mCbCenterDefender2, isChecked);
+            judgeCheckStatus(mCbCenterDefender2, mCbCenterDefender2.isChecked());
         });
-        mCbRightDefender2.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbRightDefender2.setOnClickListener(v -> {
             mTag = 2;
-            judgeCheckStatus(mCbRightDefender2, isChecked);
+            judgeCheckStatus(mCbRightDefender2, mCbRightDefender2.isChecked());
         });
-        mCbLeftWing2.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbLeftWing2.setOnClickListener(v -> {
             mTag = 2;
-            judgeCheckStatus(mCbLeftWing2, isChecked);
+            judgeCheckStatus(mCbLeftWing2, mCbLeftWing2.isChecked());
         });
-        mCbRightWing2.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbRightWing2.setOnClickListener(v -> {
             mTag = 2;
-            judgeCheckStatus(mCbRightWing2, isChecked);
+            judgeCheckStatus(mCbRightWing2, mCbRightWing2.isChecked());
         });
-        mCbShortLoin2.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbShortLoin2.setOnClickListener(v -> {
             mTag = 2;
-            judgeCheckStatus(mCbShortLoin2, isChecked);
+            judgeCheckStatus(mCbShortLoin2, mCbShortLoin2.isChecked());
         });
-        mCbLaterLoin2.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbLaterLoin2.setOnClickListener(v -> {
             mTag = 2;
-            judgeCheckStatus(mCbLaterLoin2, isChecked);
+            judgeCheckStatus(mCbLaterLoin2, mCbLaterLoin2.isChecked());
         });
-        mCbLeftCenterMidfield2.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbLeftCenterMidfield2.setOnClickListener(v -> {
             mTag = 2;
-            judgeCheckStatus(mCbLeftCenterMidfield2, isChecked);
+            judgeCheckStatus(mCbLeftCenterMidfield2, mCbLeftCenterMidfield2.isChecked());
         });
-        mCbRightCenterMidfield2.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbRightCenterMidfield2.setOnClickListener(v -> {
             mTag = 2;
-            judgeCheckStatus(mCbRightCenterMidfield2, isChecked);
+            judgeCheckStatus(mCbRightCenterMidfield2, mCbRightCenterMidfield2.isChecked());
         });
-        mCbLeftWingBack2.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbLeftWingBack2.setOnClickListener(v -> {
             mTag = 2;
-            judgeCheckStatus(mCbLeftWingBack2, isChecked);
+            judgeCheckStatus(mCbLeftWingBack2, mCbLeftWingBack2.isChecked());
         });
-        mCbRightWingBack2.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbRightWingBack2.setOnClickListener(v -> {
             mTag = 2;
-            judgeCheckStatus(mCbRightWingBack2, isChecked);
+            judgeCheckStatus(mCbRightWingBack2, mCbRightWingBack2.isChecked());
         });
-        mCbCenterForward2.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbCenterForward2.setOnClickListener(v -> {
             mTag = 2;
-            judgeCheckStatus(mCbCenterForward2, isChecked);
+            judgeCheckStatus(mCbCenterForward2, mCbCenterForward2.isChecked());
         });
-        mCbLeftForward2.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbLeftForward2.setOnClickListener(v -> {
             mTag = 2;
-            judgeCheckStatus(mCbLeftForward2, isChecked);
+            judgeCheckStatus(mCbLeftForward2, mCbLeftForward2.isChecked());
         });
-        mCbRightForward2.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbRightForward2.setOnClickListener(v -> {
             mTag = 2;
-            judgeCheckStatus(mCbRightForward2, isChecked);
+            judgeCheckStatus(mCbRightForward2, mCbRightForward2.isChecked());
         });
-        mCbLeftWings2.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbLeftWings2.setOnClickListener(v -> {
             mTag = 2;
-            judgeCheckStatus(mCbLeftWings2, isChecked);
+            judgeCheckStatus(mCbLeftWings2, mCbLeftWings2.isChecked());
         });
-        mCbRightWings2.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        mCbRightWings2.setOnClickListener(v -> {
             mTag = 2;
-            judgeCheckStatus(mCbRightWings2, isChecked);
+            judgeCheckStatus(mCbRightWings2, mCbRightWings2.isChecked());
         });
     }
 
@@ -456,6 +456,10 @@ public class BallTeamMyDetailsActivity extends BaseActivity<BallTeamMyDetailsPre
                     mMainCheckData.get(0).setChecked(false);
                     mMainCheckData.get(0).setBackgroundResource(R.drawable.selector_venue_count_view);
                     mMainCheckData.get(0).setTextColor(ContextCompat.getColorStateList(this, R.color.selector_text_blue_white_color));
+                    for (int h = 0; h < mSubstitutionData.size(); h++) {
+                        ViewGroup viewGroup = mSubstitutionData.get(h);
+                        setUnCheckViewGroup(viewGroup, mMainCheckData.get(0).getId(),  mMainCheckData.get(0).isChecked());
+                    }
                     mMainCheckData.clear();
                     mMainCheckData.add(checkBox);
                 }
@@ -483,8 +487,15 @@ public class BallTeamMyDetailsActivity extends BaseActivity<BallTeamMyDetailsPre
                     mSubstitutionCheckData.get(0).setChecked(false);
                     mSubstitutionCheckData.get(0).setBackgroundResource(R.drawable.selector_venue_count_view);
                     mSubstitutionCheckData.get(0).setTextColor(ContextCompat.getColorStateList(this, R.color.selector_text_blue_white_color));
+                    for (int h = 0; h < mMainData.size(); h++) {
+                        ViewGroup viewGroup = mMainData.get(h);
+                        setUnCheckViewGroup(viewGroup, mSubstitutionCheckData.get(0).getId(), mSubstitutionCheckData.get(0).isChecked());
+                    }
                     mSubstitutionCheckData.remove(0);
                     mSubstitutionCheckData.add(checkBox);
+                } else {
+                    checkBox.setChecked(false);
+                    mSubstitutionCheckData.remove(checkBox);
                 }
 
             }
