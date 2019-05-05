@@ -7,6 +7,7 @@ import android.widget.EditText;
 
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
+import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 
 import java.io.BufferedReader;
@@ -219,7 +220,11 @@ public class DataUtils {
         return null;
     }
 
-    public static String getEditDetails(EditText editText){
+    public static String getEditDetails(EditText editText) {
         return DataUtils.checkData(editText.getText()).toString().trim();
+    }
+
+    public static<T> boolean baseDataBeanIsSucceed(BaseBean<BaseDataBean<T>> bean) {
+        return bean.code == IApi.Code.SUCCEED && bean.result != null && bean.result.code == IApi.Code.SUCCEED;
     }
 }

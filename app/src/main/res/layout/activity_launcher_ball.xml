@@ -165,10 +165,12 @@
             style="@style/HorizontalLine"
           />
         <TextView
+            android:id="@+id/tv_next"
             style="@style/ButtonCenterText"
             android:layout_centerVertical="true"
             android:background="@drawable/shape_default_button"
             android:text="@string/next"
+            android:clickable="false"
             />
     </RelativeLayout>
 </LinearLayout>

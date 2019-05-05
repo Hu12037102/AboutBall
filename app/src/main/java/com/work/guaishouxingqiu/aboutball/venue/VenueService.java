@@ -5,6 +5,7 @@ import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
+import com.work.guaishouxingqiu.aboutball.venue.bean.RequestLauncherBallBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.RequestVenueOrderBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultAboutBallBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultMyBallTeamBean;
@@ -75,4 +76,6 @@ public interface VenueService {
 
     @GET(IApiService.GET_MY_BALL_TEAM)
     Observable<BaseBean<List<ResultMyBallTeamBean>>> loadMyBallTeam();
+    @POST(IApiService.POST_LAUNCHER_BALL)
+    Observable<BaseBean<BaseDataBean<String>>> launcherBall(@Body RequestLauncherBallBean ballBean);
 }

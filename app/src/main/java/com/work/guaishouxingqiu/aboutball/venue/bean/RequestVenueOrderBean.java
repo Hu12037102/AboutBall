@@ -10,5 +10,5 @@ public class RequestVenueOrderBean {
     public int areaId;
     public long[] calendarId;
     public int flag;//1,约球预定2，包场
-    public int stadiumId;
+    public long stadiumId;
 }

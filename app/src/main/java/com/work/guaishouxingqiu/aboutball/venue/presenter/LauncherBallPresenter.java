@@ -3,10 +3,12 @@ package com.work.guaishouxingqiu.aboutball.venue.presenter;
 import android.support.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
+import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.venue.bean.RequestLauncherBallBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultRefereeBean;
 import com.work.guaishouxingqiu.aboutball.venue.contract.LauncherBallContract;
 import com.work.guaishouxingqiu.aboutball.venue.model.LauncherBallModel;
@@ -35,8 +37,25 @@ public class LauncherBallPresenter extends BasePresenter<LauncherBallContract.Vi
         mModel.loadRefereeList(new BaseObserver<>(true, this, new BaseObserver.Observer<List<ResultRefereeBean>>() {
             @Override
             public void onNext(BaseBean<List<ResultRefereeBean>> t) {
-                if (DataUtils.isResultSure(t)){
+                if (DataUtils.isResultSure(t)) {
                     mView.resultRefereeList(t.result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+
+    @Override
+    public void launcherBall(RequestLauncherBallBean requestBean) {
+        mModel.launcherBall(requestBean, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
+            @Override
+            public void onNext(BaseBean<BaseDataBean<String>> t) {
+                if (DataUtils.baseDataBeanIsSucceed(t)) {
+                    mView.launcherBallSucceed();
                 }
             }
 

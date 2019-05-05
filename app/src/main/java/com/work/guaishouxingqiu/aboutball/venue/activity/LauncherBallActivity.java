@@ -2,13 +2,12 @@ package com.work.guaishouxingqiu.aboutball.venue.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.ItemView;
@@ -16,8 +15,11 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.adapter.RefereeListAdapter;
+import com.work.guaishouxingqiu.aboutball.venue.bean.RequestLauncherBallBean;
+import com.work.guaishouxingqiu.aboutball.venue.bean.RequestVenueOrderBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultMyBallTeamBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultRefereeBean;
 import com.work.guaishouxingqiu.aboutball.venue.contract.LauncherBallContract;
@@ -44,9 +46,13 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
     ItemView mItemColor;
     @BindView(R.id.rv_referee)
     RecyclerView mRvReferee;
+    @BindView(R.id.tv_next)
+    TextView mTvNext;
     private RefereeListAdapter mRefereeAdapter;
     private List<ResultRefereeBean> mRefereeData;
     private ResultMyBallTeamBean mMyBallTeam;
+    private long mCalendarId;
+    private long mStadiumId;
 
     @Override
     protected int getLayoutId() {
@@ -62,8 +68,8 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
             finish();
             return;
         }
-        long mStadiumId = bundle.getLong(ARouterConfig.Key.STADIUM_ID, -1);
-        long mCalendarId = bundle.getLong(ARouterConfig.Key.CALENDAR_ID, -1);
+        mStadiumId = bundle.getLong(ARouterConfig.Key.STADIUM_ID, -1);
+        mCalendarId = bundle.getLong(ARouterConfig.Key.CALENDAR_ID, -1);
         if (mStadiumId == -1 || mCalendarId == -1) {
             UIUtils.showToast(R.string.this_order_not_exist);
             finish();
@@ -97,6 +103,7 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
                     mColorDialog = new SelectorColorDialog(LauncherBallActivity.this);
                     mColorDialog.setOnColorSelectorListener((view1, color) -> {
                         mItemColor.mTvRight.setText(color);
+                        setNextStatus();
                     });
                 }
                 if (!mColorDialog.isShowing() && !isFinishing()) {
@@ -106,6 +113,15 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
         });
         mItemTeam.setOnItemClickListener(view -> ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_SELECTOR_BALL_TEAM,
                 LauncherBallActivity.this, ARouterConfig.Key.PARCELABLE, mMyBallTeam));
+        mRefereeAdapter.setOnCheckContentListener((view, position) -> setNextStatus());
+        mTvNext.setOnClickListener(v -> {
+            RequestLauncherBallBean requestBean = new RequestLauncherBallBean();
+            requestBean.calendarId = mCalendarId;
+            requestBean.stadiumId = mStadiumId;
+            requestBean.refereeId = mRefereeAdapter.getSelectorInviteReferee();
+            requestBean.teamId = mMyBallTeam.teamId;
+            mPresenter.launcherBall(requestBean);
+        });
     }
 
     @Override
@@ -121,6 +137,17 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
     }
 
     @Override
+    public void launcherBallSucceed() {
+        //发起约球成功后，生成订单
+        /*RequestVenueOrderBean bean = new RequestVenueOrderBean();
+        bean.areaId = mAreaId;
+        bean.calendarId = new long[]{mCalendarId};
+        bean.flag = 2;
+        bean.stadiumId = mStadiumId;
+        mPresenter.createOrder(bean, mIsSelectorBook);*/
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -130,6 +157,29 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
             }
             mMyBallTeam = data.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
             mItemTeam.setContentText(mMyBallTeam.teamName);
+            setNextStatus();
+        }
+    }
+
+    private boolean isSelectorTeam() {
+        return !(mMyBallTeam == null);
+    }
+
+    private boolean isSelectorColor() {
+        return !DataUtils.isEmpty(mItemColor.mTvRight.getText());
+    }
+
+    public boolean isSelectorReferee() {
+        return mRefereeAdapter != null && mRefereeAdapter.isInviteReferee();
+    }
+
+    private void setNextStatus() {
+        if (isSelectorTeam() && isSelectorColor() && isSelectorReferee()) {
+            mTvNext.setClickable(true);
+            mTvNext.setBackgroundResource(R.drawable.shape_click_button);
+        } else {
+            mTvNext.setClickable(false);
+            mTvNext.setBackgroundResource(R.drawable.shape_default_button);
         }
     }
 }

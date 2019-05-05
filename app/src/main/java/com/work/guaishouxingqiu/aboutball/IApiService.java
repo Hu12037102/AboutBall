@@ -89,6 +89,7 @@ public interface IApiService {
     String POST_UPDATE_PHONE_NUMBER = "/api/accountManagement/bandingPhone";
     String POST_UPDATE_PASSWORD = "/api/account/modifyPassword";
     String GET_MY_BALL_TEAM = "/api/myTeam/getMyTeam";
+    String POST_LAUNCHER_BALL="/api/agreeBall/initiateAgreeBall";
     String GET_OSS_TOKEN = "/api/commons/static/ossCredentials";
 
     String POST_MANAGE_TEAM = "/api/myTeam/createTeam";

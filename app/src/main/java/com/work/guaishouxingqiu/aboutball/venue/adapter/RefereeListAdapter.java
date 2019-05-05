@@ -10,8 +10,10 @@ import android.widget.TextView;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
+import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultRefereeBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -27,18 +29,24 @@ public class RefereeListAdapter extends BaseRecyclerAdapter<RefereeListAdapter.V
         super(data);
     }
 
+    public void setOnCheckContentListener(OnCheckContentListener onCheckContentListener) {
+        this.onCheckContentListener = onCheckContentListener;
+    }
+
+    public OnCheckContentListener onCheckContentListener;
+
     @Override
     protected void onBindViewDataHolder(@NonNull ViewHolder viewHolder, int i) {
         ResultRefereeBean bean = mData.get(i);
-        GlideManger.get().loadHeadImage(mContext,bean.photo,viewHolder.mCivHead);
+        GlideManger.get().loadHeadImage(mContext, bean.photo, viewHolder.mCivHead);
         viewHolder.mTvName.setText(bean.name);
-        viewHolder.mTvCount.setText(bean.matchCount+"次");
+        viewHolder.mTvCount.setText(bean.matchCount + "次");
         viewHolder.mTvLevel.setText(bean.level);
-        if (bean.isInvite){
+        if (bean.isInvite) {
             viewHolder.mTvInvite.setEnabled(true);
             viewHolder.mTvInvite.setBackgroundResource(R.drawable.shape_click_button);
             viewHolder.mTvInvite.setText(R.string.invite);
-        }else {
+        } else {
             viewHolder.mTvInvite.setEnabled(false);
             viewHolder.mTvInvite.setBackgroundResource(R.drawable.shape_default_button);
             viewHolder.mTvInvite.setText(R.string.inviting);
@@ -48,8 +56,32 @@ public class RefereeListAdapter extends BaseRecyclerAdapter<RefereeListAdapter.V
             public void onClick(View v) {
                 bean.isInvite = !bean.isInvite;
                 notifyItemChanged(i);
+                if (onCheckContentListener != null) {
+                    onCheckContentListener.checkContent(v, i);
+                }
             }
         });
+    }
+
+    public boolean isInviteReferee() {
+        for (ResultRefereeBean bean : mData) {
+            if (!bean.isInvite) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public Long[] getSelectorInviteReferee() {
+        List<Long> idData = new ArrayList<>();
+        for (ResultRefereeBean bean : mData) {
+            if (!bean.isInvite) {
+                idData.add(bean.refereeId);
+            }
+        }
+        Long[] idArray = new Long[idData.size()];
+        return idData.toArray(idArray);
     }
 
     @Override
@@ -77,5 +109,9 @@ public class RefereeListAdapter extends BaseRecyclerAdapter<RefereeListAdapter.V
             mTvLevel = itemView.findViewById(R.id.tv_level);
             mTvInvite = itemView.findViewById(R.id.tv_invite);
         }
+    }
+
+    public interface OnCheckContentListener {
+        void checkContent(View view, int position);
     }
 }
