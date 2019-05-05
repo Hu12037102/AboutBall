@@ -1,7 +1,10 @@
 package com.work.guaishouxingqiu.aboutball.venue.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,8 +15,10 @@ import com.example.item.weight.ItemView;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.adapter.RefereeListAdapter;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultMyBallTeamBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultRefereeBean;
 import com.work.guaishouxingqiu.aboutball.venue.contract.LauncherBallContract;
 import com.work.guaishouxingqiu.aboutball.venue.presenter.LauncherBallPresenter;
@@ -41,6 +46,7 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
     RecyclerView mRvReferee;
     private RefereeListAdapter mRefereeAdapter;
     private List<ResultRefereeBean> mRefereeData;
+    private ResultMyBallTeamBean mMyBallTeam;
 
     @Override
     protected int getLayoutId() {
@@ -62,7 +68,12 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
             UIUtils.showToast(R.string.this_order_not_exist);
             finish();
         }
-
+        mItemColor.mTvRight.setHintTextColor(ContextCompat.getColor(this, R.color.colorFFA6A6A6));
+        mItemColor.mTvRight.setTextColor(ContextCompat.getColor(this, R.color.color_4));
+        mItemColor.mTvRight.setHint(R.string.please_selector_ball_clothing_color);
+        mItemTeam.mTvRight.setHintTextColor(ContextCompat.getColor(this, R.color.colorFFA6A6A6));
+        mItemTeam.mTvRight.setTextColor(ContextCompat.getColor(this, R.color.color_4));
+        mItemTeam.mTvRight.setHint(R.string.please_selector_ball_team);
 
     }
 
@@ -93,6 +104,8 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
                 }
             }
         });
+        mItemTeam.setOnItemClickListener(view -> ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_SELECTOR_BALL_TEAM,
+                LauncherBallActivity.this, ARouterConfig.Key.PARCELABLE, mMyBallTeam));
     }
 
     @Override
@@ -105,5 +118,18 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
     public void resultRefereeList(List<ResultRefereeBean> data) {
         mRefereeData.addAll(data);
         mRefereeAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == ARouterIntent.REQUEST_CODE && resultCode == RESULT_OK) {
+            if (data == null) {
+                return;
+            }
+            mMyBallTeam = data.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
+            mItemTeam.setContentText(mMyBallTeam.teamName);
+        }
     }
 }

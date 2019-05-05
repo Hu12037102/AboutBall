@@ -2,6 +2,9 @@ package com.work.guaishouxingqiu.aboutball.venue.contract;
 
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultMyBallTeamBean;
+
+import java.util.List;
 
 /**
  * 作者: 胡庆岭
@@ -11,6 +14,7 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
  */
 public interface SelectorBallTeamContract {
     interface View extends IBaseView {
+        void resultMyBallTeam(List<ResultMyBallTeamBean> data);
     }
 
     interface Presenter extends IBasePresenter {

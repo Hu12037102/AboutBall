@@ -33,9 +33,10 @@ public interface ARouterConfig {
         String ACTIVITY_MANAGE_BALL_TEAM = "/activity/manage/ball/team";
         String ACTIVITY_BALL_TEAM_DETAILS = "/activity/ball/team/details";
         String ACTIVITY_BALL_TEAM_MY_DETAILS = "/activity/ball/team/my/details";
-        String ACTIVITY_WELCOME="/activity/welcome";
-        String ACTIVITY_GUIDE="/activity/guide";
-        String ACTIVITY_ABOUT_WE="/activity/about/we";
+        String ACTIVITY_WELCOME = "/activity/welcome";
+        String ACTIVITY_GUIDE = "/activity/guide";
+        String ACTIVITY_ABOUT_WE = "/activity/about/we";
+        String ACTIVITY_SELECTOR_BALL_TEAM = "/activity/selector/ball/team";
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";
@@ -65,6 +66,7 @@ public interface ARouterConfig {
         String FRAGMENT_BASE_PRIZE = "/fragment/base/prize";
         String FRAGMENT_BALL_TEAM_DETAILS = "/fragment/ball/team/details";
         String FRAGMENT_BALL_TEAM_MEMBER = "/fragment/ball/team/member";
+
 
     }
 

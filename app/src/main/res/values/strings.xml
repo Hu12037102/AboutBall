@@ -13,6 +13,7 @@
     <string name="invite">邀请</string>
     <string name="inviting">已邀请</string>
     <string name="please_selector_ball_team">请选择球队</string>
+    <string name="selector_ball_team">选择球队</string>
     <string name="ball_team_clothing_color">球衣颜色</string>
     <string name="invite_referee_hint">最多邀请三个，无人应邀由系统安排，如24小时内无人应邀，则由平台进行安排</string>
     <string name="top_month_amount_of_law_enforcement">上月执法量</string>
