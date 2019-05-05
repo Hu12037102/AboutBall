@@ -14,12 +14,21 @@ import io.reactivex.schedulers.Schedulers;
  * 更新时间: 2019/4/25 15:43
  * 描述:球队信息model
  */
-public class BallTeamDetailsModel extends BaseModel{
-    public void exitBallTeam(Long teamId, Long playerId, BaseObserver<BaseDataBean<String> > observer) {
+public class BallTeamDetailsModel extends BaseModel {
+    public void exitBallTeam(Long teamId, Long playerId, BaseObserver<BaseDataBean<String>> observer) {
         mRetrofitManger.create(MyService.class)
-                .exitBallTeam(teamId,playerId)
+                .exitBallTeam(teamId, playerId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
+    }
+
+    public void dissolutionBallTeam(long teamId, BaseObserver<BaseDataBean<String>> observer) {
+        mRetrofitManger.create(MyService.class)
+                .dissolutionBallTeam(teamId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+
     }
 }

@@ -12,5 +12,6 @@ public class ResultTeamDetailsMemberBean {
     public String imageUrl;
     public int isLeader;
     public String position;
-    public int number=-1;
+    public int number = -1;
+    public int isMe;//1、是自己 0、代表不是
 }

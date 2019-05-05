@@ -51,6 +51,8 @@ public class BallTeamDetailsActivity extends BaseActivity<BallTeamDetailsPresent
     BaseViewPager mBvpContent;
     private ResultMyBallBean mMyBallBean;
     private SingPopupWindows mExitWindows;
+    private BallTeamMemberFragment mTeamMemberFragment;
+    private long mMyPlayerId;
 
     @Override
     protected int getLayoutId() {
@@ -59,6 +61,7 @@ public class BallTeamDetailsActivity extends BaseActivity<BallTeamDetailsPresent
 
     @Override
     protected void initView() {
+        mTitleView.mTvSure.setVisibility(View.GONE);
         mMyBallBean = mIntent.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
         if (mMyBallBean == null) {
             UIUtils.showToast(R.string.not_this_ball_team_details);
@@ -75,7 +78,14 @@ public class BallTeamDetailsActivity extends BaseActivity<BallTeamDetailsPresent
 
     private void initFragments() {
         BallTeamDetailsFragment mTeamDetailsFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_BALL_TEAM_DETAILS, ARouterConfig.Key.PARCELABLE, mMyBallBean);
-        BallTeamMemberFragment mTeamMemberFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_BALL_TEAM_MEMBER, ARouterConfig.Key.PARCELABLE, mMyBallBean);
+        mTeamMemberFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_BALL_TEAM_MEMBER, ARouterConfig.Key.PARCELABLE, mMyBallBean);
+        mTeamMemberFragment.setOnPlayIdResult(new BallTeamMemberFragment.onPlayIdResult() {
+            @Override
+            public void resultMyPlayId(long myPlayId) {
+                mMyPlayerId = myPlayId;
+                mTitleView.mTvSure.setVisibility(View.VISIBLE);
+            }
+        });
         Fragment[] fragments = {mTeamDetailsFragment, mTeamMemberFragment};
         FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -167,7 +177,11 @@ public class BallTeamDetailsActivity extends BaseActivity<BallTeamDetailsPresent
                     @Override
                     public void onClickSure(@NonNull View view) {
                         hintDialog.dismiss();
-                        mPresenter.exitBallTeam(mMyBallBean.teamId, null);
+                        if (mMyBallBean.isLeader == Contast.LEADER) {
+                            mPresenter.dissolutionBallTeam(mMyBallBean.teamId);
+                        } else {
+                            mPresenter.exitBallTeam(mMyBallBean.teamId, mMyPlayerId);
+                        }
                     }
 
                     @Override
@@ -199,7 +213,7 @@ public class BallTeamDetailsActivity extends BaseActivity<BallTeamDetailsPresent
 
 
     @Override
-    public void resultExitBallTeam() {
+    public void resultBallTeamSucceed() {
         setResult(RESULT_OK);
         finish();
     }

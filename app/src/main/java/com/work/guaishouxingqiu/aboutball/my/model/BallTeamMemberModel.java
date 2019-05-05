@@ -29,7 +29,7 @@ public class BallTeamMemberModel extends BaseModel {
 
     public void deleteMember(long teamId, long playId, BaseObserver<BaseDataBean<String>> observer) {
         mRetrofitManger.create(MyService.class)
-                .exitBallTeam(teamId,playId)
+                .deleteMeber(teamId,playId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

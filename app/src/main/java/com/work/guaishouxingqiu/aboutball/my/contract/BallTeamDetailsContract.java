@@ -11,9 +11,11 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
  */
 public interface BallTeamDetailsContract {
     interface View extends IBaseView{
-        void resultExitBallTeam();
+        void resultBallTeamSucceed();
     }
     interface Presenter extends IBasePresenter{
         void exitBallTeam(Long teamId, Long playerId);
+
+        void dissolutionBallTeam(long teamId);
     }
 }

@@ -9,6 +9,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
 import com.work.guaishouxingqiu.aboutball.my.adapter.BallTeamMemberAdapter;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyBallBean;
@@ -33,7 +34,7 @@ import butterknife.OnClick;
  * 描述:球队成员fragment
  */
 @Route(path = ARouterConfig.Path.FRAGMENT_BALL_TEAM_MEMBER)
-public class BallTeamMemberFragment extends DelayedFragment<BallTeamMemberPresenter> implements BallTeamMemberContract.View {
+public class BallTeamMemberFragment extends BaseFragment<BallTeamMemberPresenter> implements BallTeamMemberContract.View {
     @BindView(R.id.rv_data)
     RecyclerView mRvData;
     @BindView(R.id.srl_refresh)
@@ -43,6 +44,12 @@ public class BallTeamMemberFragment extends DelayedFragment<BallTeamMemberPresen
     private ResultMyBallBean mBallBean;
     private SingPopupWindows mDeleteWindows;
 
+    public void setOnPlayIdResult(BallTeamMemberFragment.onPlayIdResult onPlayIdResult) {
+        this.onPlayIdResult = onPlayIdResult;
+    }
+
+    private onPlayIdResult onPlayIdResult;
+
 
     @Override
     protected int getLayoutId() {
@@ -50,20 +57,25 @@ public class BallTeamMemberFragment extends DelayedFragment<BallTeamMemberPresen
     }
 
     @Override
-    protected void initDelayedView() {
+    protected void initView() {
         mBallBean = mBundle.getParcelable(ARouterConfig.Key.PARCELABLE);
         mRvData.setLayoutManager(new LinearLayoutManager(mContext));
-
     }
 
     @Override
-    protected void initDelayedData() {
+    protected void initData() {
         mData = new ArrayList<>();
         mAdapter = new BallTeamMemberAdapter(mData);
         mAdapter.setOnItemLongClickListener(this::showDeletePhone);
         mRvData.setAdapter(mAdapter);
         mSrlRefresh.autoRefresh();
     }
+
+    @Override
+    protected void initEvent() {
+        mSrlRefresh.setOnRefreshListener(this::loadRefresh);
+    }
+
 
     private void showDeletePhone(View view, int position) {
         ResultTeamDetailsMemberBean bean = mData.get(position);
@@ -85,10 +97,6 @@ public class BallTeamMemberFragment extends DelayedFragment<BallTeamMemberPresen
 
     }
 
-    @Override
-    protected void initDelayedEvent() {
-        mSrlRefresh.setOnRefreshListener(this::loadRefresh);
-    }
 
     private void loadRefresh(RefreshLayout refreshLayout) {
         refreshLayout.finishRefresh();
@@ -128,6 +136,7 @@ public class BallTeamMemberFragment extends DelayedFragment<BallTeamMemberPresen
     public void resultMemberDetails(List<ResultTeamDetailsMemberBean> data) {
         mData.clear();
         mData.addAll(data);
+        resultMyPlayId(mData);
         mAdapter.notifyDataSetChanged();
     }
 
@@ -136,5 +145,19 @@ public class BallTeamMemberFragment extends DelayedFragment<BallTeamMemberPresen
         mData.remove(position);
         mAdapter.notifyItemRemoved(position);
         mAdapter.notifyItemRangeChanged(position, mData.size() - 1);
+    }
+
+    private void resultMyPlayId(List<ResultTeamDetailsMemberBean> data) {
+        for (ResultTeamDetailsMemberBean bean : data) {
+            if (bean != null && bean.isMe == 1) {
+                if (onPlayIdResult != null) {
+                    onPlayIdResult.resultMyPlayId(bean.playerId);
+                }
+            }
+        }
+    }
+
+    public interface onPlayIdResult {
+        void resultMyPlayId(long myPlayId);
     }
 }

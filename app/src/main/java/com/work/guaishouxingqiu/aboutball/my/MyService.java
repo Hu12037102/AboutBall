@@ -5,7 +5,6 @@ import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
-import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestEditAddressBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestManageBallTeamBean;
@@ -108,6 +107,12 @@ public interface MyService {
 
     @GET(IApiService.GET_EXIT_TEAM_BALL)
     Observable<BaseBean<BaseDataBean<String>>> exitBallTeam(@Query(Contast.TEAM_ID) Long teamId, @Query(Contast.PLAYER_ID) Long playerId);
+
+    @GET(IApiService.GET_DELETE_MEMBER)
+    Observable<BaseBean<BaseDataBean<String>>> deleteMeber(@Query(Contast.TEAM_ID) long teamId, @Query(Contast.PLAYER_ID) long playerId);
+
+    @GET(IApiService.GET_DISSOLUTION_BALL_TEAM)
+    Observable<BaseBean<BaseDataBean<String>>> dissolutionBallTeam(@Query(Contast.TEAM_ID) long teamId);
 
     @POST(IApiService.POST_EDIT_PLAYER_INFO)
     Observable<BaseBean<BaseDataBean<String>>> saveMyPlayerInfo(@Body RequestTeamMyDetailsBean bean);
