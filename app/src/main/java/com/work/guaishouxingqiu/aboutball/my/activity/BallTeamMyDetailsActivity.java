@@ -563,12 +563,14 @@ public class BallTeamMyDetailsActivity extends BaseActivity<BallTeamMyDetailsPre
 
     public String[] getLocationArray(List<CheckBox> checkData) {
         List<String> contentData = new ArrayList<>();
+
         for (int i = 0; i < checkData.size(); i++) {
             if (checkData.get(i).isChecked()) {
                 contentData.add(checkData.get(i).getText().toString());
             }
         }
-        return (String[]) contentData.toArray();
+        String[] contentArray = new String[contentData.size()];
+        return contentData.toArray(contentArray);
     }
 
     @Override

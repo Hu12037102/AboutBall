@@ -18,10 +18,12 @@ import com.work.guaishouxingqiu.aboutball.my.contract.BallTeamMemberContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.BallTeamMemberPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.weight.ShareDialog;
 import com.work.guaishouxingqiu.aboutball.weight.SingPopupWindows;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -43,6 +45,7 @@ public class BallTeamMemberFragment extends BaseFragment<BallTeamMemberPresenter
     private List<ResultTeamDetailsMemberBean> mData;
     private ResultMyBallBean mBallBean;
     private SingPopupWindows mDeleteWindows;
+    private long mPlayerId = -1;
 
     public void setOnPlayIdResult(BallTeamMemberFragment.onPlayIdResult onPlayIdResult) {
         this.onPlayIdResult = onPlayIdResult;
@@ -68,6 +71,12 @@ public class BallTeamMemberFragment extends BaseFragment<BallTeamMemberPresenter
         mAdapter = new BallTeamMemberAdapter(mData);
         mAdapter.setOnItemLongClickListener(this::showDeletePhone);
         mRvData.setAdapter(mAdapter);
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
         mSrlRefresh.autoRefresh();
     }
 
@@ -79,7 +88,7 @@ public class BallTeamMemberFragment extends BaseFragment<BallTeamMemberPresenter
 
     private void showDeletePhone(View view, int position) {
         ResultTeamDetailsMemberBean bean = mData.get(position);
-        if (bean == null || bean.isLeader == Contast.LEADER) {
+        if (bean == null || bean.isLeader == Contast.LEADER || !myIsLeader()) {
             return;
         }
         if (mDeleteWindows == null) {
@@ -122,7 +131,7 @@ public class BallTeamMemberFragment extends BaseFragment<BallTeamMemberPresenter
     }
 
     private void clickEditMyDetails() {
-        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_BALL_TEAM_MY_DETAILS);
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_BALL_TEAM_MY_DETAILS, ARouterConfig.Key.PLAYER_ID, mPlayerId);
     }
 
     private void clickShareFriend() {
@@ -150,6 +159,7 @@ public class BallTeamMemberFragment extends BaseFragment<BallTeamMemberPresenter
     private void resultMyPlayId(List<ResultTeamDetailsMemberBean> data) {
         for (ResultTeamDetailsMemberBean bean : data) {
             if (bean != null && bean.isMe == 1) {
+                mPlayerId = bean.playerId;
                 if (onPlayIdResult != null) {
                     onPlayIdResult.resultMyPlayId(bean.playerId);
                 }
@@ -159,5 +169,16 @@ public class BallTeamMemberFragment extends BaseFragment<BallTeamMemberPresenter
 
     public interface onPlayIdResult {
         void resultMyPlayId(long myPlayId);
+    }
+
+    private boolean myIsLeader() {
+        if (mData != null && mData.size() > 0) {
+            for (ResultTeamDetailsMemberBean bean : mData) {
+                if (bean.isMe == 1 && bean.isLeader == Contast.LEADER) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

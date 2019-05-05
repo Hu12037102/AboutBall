@@ -53,7 +53,7 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
     private Handler mSkipHandler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
         @Override
         public boolean handleMessage(Message message) {
-            if (mTimeLength > 0) {
+            if (mTimeLength > 1) {
                 mTimeLength--;
                 mTvSkip.setText(UIUtils.getString(R.string.skip_s_second, mTimeLength));
                 mSkipHandler.sendEmptyMessageDelayed(WHAT, 1000);
