@@ -8,8 +8,14 @@
     <string name="my_message">我的消息</string>
     <string name="my_dynamic_state">我的动态</string>
     <string name="my_as_the_referee">成为裁判</string>
+    <string name="apply_to_become_referee">申请成为裁判</string>
     <string name="invite_friend">邀请好友</string>
     <string name="invite_referee">邀请裁判</string>
+    <string name="apply_to_be_a_judge_on_the_platform">在平台申请成为裁判</string>
+    <string name="use_the_platform_to_enforce_the_game">通过平台去执法比赛</string>
+    <string name="get_paid_from_the_platform">从平台上获得报酬</string>
+    <string name="apply_referee_hint">注：执法报酬，每次比赛为80元，然后再根据裁判证件等级进行加成，
+        三级裁判增加10%，以此类推，到国际级增加40%。 需要绑定微信号，报酬可提取到微信</string>
     <string name="please_invite_the_referee">请邀请裁判</string>
     <string name="invite">邀请</string>
     <string name="inviting">已邀请</string>

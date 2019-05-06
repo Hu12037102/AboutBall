@@ -207,6 +207,9 @@
         <activity
             android:name=".venue.activity.SelectorBallTeamActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.activity.ApplyRefereeActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 

@@ -129,7 +129,7 @@ public class MyFragment extends DelayedFragment<MyPresenter> implements MyContra
         mItemAsReferee.setOnItemClickListener(new ItemView.OnItemClickListener() {
             @Override
             public void onClickItem(View view) {
-                Toasts.with().showToast(R.string.pleases_next_open);
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_APPLY_REFEREE);
             }
         });
     }
