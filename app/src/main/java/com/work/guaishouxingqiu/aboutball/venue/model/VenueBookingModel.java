@@ -19,7 +19,7 @@ import io.reactivex.schedulers.Schedulers;
  * 描述:
  */
 public class VenueBookingModel extends BaseModel {
-    public void loadBookList(int areaId, String date, BaseObserver<List<ResultVenueBookBean>> observer) {
+    public void loadBookList(long areaId, String date, BaseObserver<List<ResultVenueBookBean>> observer) {
         mRetrofitManger.create(VenueService.class)
                 .getVenueBookList(areaId, date)
                 .subscribeOn(Schedulers.io())
@@ -27,7 +27,7 @@ public class VenueBookingModel extends BaseModel {
                 .subscribe(observer);
     }
 
-    public void loadWaitBookList(int areaId, String date, BaseObserver<List<ResultVenueBookBean>> observer) {
+    public void loadWaitBookList(long areaId, String date, BaseObserver<List<ResultVenueBookBean>> observer) {
         mRetrofitManger.create(VenueService.class)
                 .getVenueWaitBookList(areaId, date)
                 .subscribeOn(Schedulers.io())

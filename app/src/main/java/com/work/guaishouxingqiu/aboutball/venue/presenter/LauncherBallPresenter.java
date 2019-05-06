@@ -9,6 +9,7 @@ import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.venue.bean.RequestLauncherBallBean;
+import com.work.guaishouxingqiu.aboutball.venue.bean.RequestVenueOrderBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultRefereeBean;
 import com.work.guaishouxingqiu.aboutball.venue.contract.LauncherBallContract;
 import com.work.guaishouxingqiu.aboutball.venue.model.LauncherBallModel;
@@ -56,6 +57,24 @@ public class LauncherBallPresenter extends BasePresenter<LauncherBallContract.Vi
             public void onNext(BaseBean<BaseDataBean<String>> t) {
                 if (DataUtils.baseDataBeanIsSucceed(t)) {
                     mView.launcherBallSucceed();
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+
+    @Override
+    public void createOrder(RequestVenueOrderBean bean) {
+        mModel.createOrder(bean, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<Long>>() {
+            @Override
+            public void onNext(BaseBean<BaseDataBean<Long>> t) {
+                if (t.code == IApi.Code.SUCCEED && t.result != null &&
+                        t.result.code == IApi.Code.SUCCEED) {
+                    mView.resultOrderId(t.result.result);
                 }
             }
 

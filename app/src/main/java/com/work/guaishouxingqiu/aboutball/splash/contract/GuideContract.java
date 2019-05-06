@@ -1,4 +1,4 @@
-package com.work.guaishouxingqiu.aboutball.start.contract;
+package com.work.guaishouxingqiu.aboutball.splash.contract;
 
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
@@ -9,14 +9,13 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
  * 类  名 :  ${CLASS_NAME}
  * 作  者 :  胡庆岭
  * 时  间 : 2019/5/4
- * 描  述 :  ${TODO欢迎页契约
+ * 描  述 :  ${TODO}引导页契约
  *
  * @author ：
  */
-public interface WelcomeContract {
+public interface GuideContract {
     interface View extends IBaseView {
     }
+    interface Presenter extends IBasePresenter{}
 
-    interface Presenter extends IBasePresenter {
-    }
 }

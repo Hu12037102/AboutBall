@@ -5,6 +5,7 @@ import com.work.guaishouxingqiu.aboutball.base.BaseModel;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.venue.VenueService;
 import com.work.guaishouxingqiu.aboutball.venue.bean.RequestLauncherBallBean;
+import com.work.guaishouxingqiu.aboutball.venue.bean.RequestVenueOrderBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultRefereeBean;
 
 import java.util.List;
@@ -31,6 +32,13 @@ public class LauncherBallModel extends BaseModel {
     public void launcherBall(RequestLauncherBallBean requestBean, BaseObserver<BaseDataBean<String>>observer) {
         mRetrofitManger.create(VenueService.class)
                 .launcherBall(requestBean)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void createOrder(RequestVenueOrderBean bean, BaseObserver<BaseDataBean<Long>> observer) {
+        mRetrofitManger.create(VenueService.class)
+                .createOrderId(bean)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

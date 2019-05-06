@@ -1,7 +1,6 @@
-package com.work.guaishouxingqiu.aboutball.start.activity;
+package com.work.guaishouxingqiu.aboutball.splash.activity;
 
 import android.Manifest;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -10,22 +9,19 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
-import com.work.guaishouxingqiu.aboutball.home.activity.MainActivity;
 import com.work.guaishouxingqiu.aboutball.other.SharedPreferencesHelp;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
 import com.work.guaishouxingqiu.aboutball.permission.imp.OnPermissionsResult;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
-import com.work.guaishouxingqiu.aboutball.start.contract.WelcomeContract;
-import com.work.guaishouxingqiu.aboutball.start.presenter.WelcomePresenter;
+import com.work.guaishouxingqiu.aboutball.splash.contract.WelcomeContract;
+import com.work.guaishouxingqiu.aboutball.splash.presenter.WelcomePresenter;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**

@@ -1,11 +1,10 @@
-package com.work.guaishouxingqiu.aboutball.start.presenter;
+package com.work.guaishouxingqiu.aboutball.splash.presenter;
 
 import android.support.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
-import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
-import com.work.guaishouxingqiu.aboutball.start.contract.GuideContract;
-import com.work.guaishouxingqiu.aboutball.start.model.GuideModel;
+import com.work.guaishouxingqiu.aboutball.splash.contract.GuideContract;
+import com.work.guaishouxingqiu.aboutball.splash.model.GuideModel;
 
 /**
  * 项  目 :  AboutBall

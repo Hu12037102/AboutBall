@@ -54,11 +54,11 @@ public interface VenueService {
                                                                       @Query(Contast.LATITUDE) String latitude);
 
     @GET(IApiService.GET_VENUE_BOOK)
-    Observable<BaseBean<List<ResultVenueBookBean>>> getVenueBookList(@Query(Contast.AREA_ID) int areaId,
+    Observable<BaseBean<List<ResultVenueBookBean>>> getVenueBookList(@Query(Contast.AREA_ID) long areaId,
                                                                      @Query(Contast.DATE) String date);
 
     @GET(IApiService.GET_VENUE_WAIT_BOOK)
-    Observable<BaseBean<List<ResultVenueBookBean>>> getVenueWaitBookList(@Query(Contast.AREA_ID) int areaId,
+    Observable<BaseBean<List<ResultVenueBookBean>>> getVenueWaitBookList(@Query(Contast.AREA_ID) long areaId,
                                                                          @Query(Contast.DATE) String date);
 
     @POST(IApiService.POST_CREATE_VENUE_ORDER_ID)

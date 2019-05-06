@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <color android:color="@color/colorWhite" />
+    </item>
+    <item  android:bottom="@dimen/size_50dp">
+        <bitmap
+            android:gravity="bottom"
+            android:src="@mipmap/icon_welcome_logo" />
+
+    </item>
+</layer-list>

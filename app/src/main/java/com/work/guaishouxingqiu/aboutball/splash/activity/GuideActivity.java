@@ -1,6 +1,5 @@
-package com.work.guaishouxingqiu.aboutball.start.activity;
+package com.work.guaishouxingqiu.aboutball.splash.activity;
 
-import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
@@ -11,16 +10,15 @@ import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.other.SharedPreferencesHelp;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
-import com.work.guaishouxingqiu.aboutball.start.adapter.GuidePagerAdapter;
-import com.work.guaishouxingqiu.aboutball.start.contract.GuideContract;
-import com.work.guaishouxingqiu.aboutball.start.presenter.GuidePresenter;
+import com.work.guaishouxingqiu.aboutball.splash.adapter.GuidePagerAdapter;
+import com.work.guaishouxingqiu.aboutball.splash.contract.GuideContract;
+import com.work.guaishouxingqiu.aboutball.splash.presenter.GuidePresenter;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 项  目 :  AboutBall

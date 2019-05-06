@@ -53,6 +53,7 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
     private ResultMyBallTeamBean mMyBallTeam;
     private long mCalendarId;
     private long mStadiumId;
+    private long mAreaId;
 
     @Override
     protected int getLayoutId() {
@@ -70,7 +71,8 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
         }
         mStadiumId = bundle.getLong(ARouterConfig.Key.STADIUM_ID, -1);
         mCalendarId = bundle.getLong(ARouterConfig.Key.CALENDAR_ID, -1);
-        if (mStadiumId == -1 || mCalendarId == -1) {
+        mAreaId = bundle.getLong(ARouterConfig.Key.AREA_ID, -1);
+        if (mStadiumId == -1 || mCalendarId == -1 || mAreaId == -1) {
             UIUtils.showToast(R.string.this_order_not_exist);
             finish();
         }
@@ -139,12 +141,18 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
     @Override
     public void launcherBallSucceed() {
         //发起约球成功后，生成订单
-        /*RequestVenueOrderBean bean = new RequestVenueOrderBean();
+        RequestVenueOrderBean bean = new RequestVenueOrderBean();
         bean.areaId = mAreaId;
         bean.calendarId = new long[]{mCalendarId};
         bean.flag = 2;
         bean.stadiumId = mStadiumId;
-        mPresenter.createOrder(bean, mIsSelectorBook);*/
+        mPresenter.createOrder(bean);
+    }
+
+    @Override
+    public void resultOrderId(long orderId) {
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_ORDER_DETAILS, ARouterConfig.Key.ORDER_ID, orderId);
+        finish();
     }
 
     @Override

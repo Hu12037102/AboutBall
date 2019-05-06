@@ -63,7 +63,7 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
     @BindView(R.id.ll_bottom)
     View mLlBottom;
     private int mTabPosition;
-    private int mAreaId, mStadiumId;
+    private long mAreaId, mStadiumId;
     private String mDate;
     private List<ResultVenueBookBean> mBookData;
     private BookPagerAdapter mPagerAdapter;
@@ -86,8 +86,8 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
             return;
         }
         mTabPosition = bundle.getInt(ARouterConfig.Key.POSITION, 0);
-        mAreaId = bundle.getInt(ARouterConfig.Key.AREA_ID, 0);
-        mStadiumId = bundle.getInt(ARouterConfig.Key.STADIUM_ID, 0);
+        mAreaId = bundle.getLong(ARouterConfig.Key.AREA_ID, 0);
+        mStadiumId = bundle.getLong(ARouterConfig.Key.STADIUM_ID, 0);
         LogUtils.w("initView--", mTabPosition + "--" + mAreaId);
         mCalendarData = IntentData.get().getData();
         for (int i = 0; i < mCalendarData.size(); i++) {
@@ -250,6 +250,7 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
                     Bundle bundle = new Bundle();
                     bundle.putLong(ARouterConfig.Key.STADIUM_ID,mStadiumId);
                     bundle.putLong(ARouterConfig.Key.CALENDAR_ID,mBookData.get(mBookAdapter.getSelectorPosition()).calendarId);
+                    bundle.putLong(ARouterConfig.Key.AREA_ID,mAreaId);
                     ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_LAUNCHER_BALL, bundle);
                 }
                 break;

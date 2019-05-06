@@ -40,7 +40,7 @@ public class VenueBookingPresenter extends BasePresenter<VenueBookingContract.Vi
     }
 
     @Override
-    public void loadBookList(int areaId, String date) {
+    public void loadBookList(long areaId, String date) {
         mModel.loadBookList(areaId, date, new BaseObserver<>(true, this, new BaseObserver.Observer<List<ResultVenueBookBean>>() {
             @Override
             public void onNext(BaseBean<List<ResultVenueBookBean>> t) {
@@ -57,7 +57,7 @@ public class VenueBookingPresenter extends BasePresenter<VenueBookingContract.Vi
     }
 
     @Override
-    public void loadWaitBookList(int areaId, String date) {
+    public void loadWaitBookList(long areaId, String date) {
         mModel.loadWaitBookList(areaId, date, new BaseObserver<>(true, this, new BaseObserver.Observer<List<ResultVenueBookBean>>() {
             @Override
             public void onNext(BaseBean<List<ResultVenueBookBean>> t) {

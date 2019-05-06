@@ -189,7 +189,7 @@ public class FileUtils {
     }
 
     public static void removeFile(File file) {
-        if (file == null) {
+        if (file == null || !file.exists()) {
             return;
         }
         if (file.isFile()) {

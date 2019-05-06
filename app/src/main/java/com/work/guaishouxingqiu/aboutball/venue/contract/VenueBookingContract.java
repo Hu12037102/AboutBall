@@ -21,8 +21,8 @@ public interface VenueBookingContract {
     }
 
     interface Presenter extends IBasePresenter {
-        void loadBookList(int areaId, String date);
-        void loadWaitBookList(int areaId, String date);
+        void loadBookList(long areaId, String date);
+        void loadWaitBookList(long areaId, String date);
 
         void createOrder(RequestVenueOrderBean bean,boolean isSelectorBook);
     }

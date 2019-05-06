@@ -1,4 +1,4 @@
-package com.work.guaishouxingqiu.aboutball.start.adapter;
+package com.work.guaishouxingqiu.aboutball.splash.adapter;
 
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;

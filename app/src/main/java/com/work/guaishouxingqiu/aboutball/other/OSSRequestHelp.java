@@ -20,6 +20,7 @@ import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.work.guaishouxingqiu.aboutball.BuildConfig;
 import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.util.FileUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
@@ -124,6 +125,7 @@ public class OSSRequestHelp {
                 String ossFilePath = "https://" + OSSRequestHelp.BUCKET.concat(".").concat(OSSRequestHelp.ENDPOINT_BODY).concat("/")
                         .concat(request.getObjectKey());
                 LogUtils.w("onSuccess--", "上传成功啦！" + ossFilePath + "--" + Thread.currentThread().getName());
+                FileUtils.removeFile(file);
                 mMainHandler.post(() -> {
                     if (listener != null) {
                         listener.onSucceed(ossFilePath);

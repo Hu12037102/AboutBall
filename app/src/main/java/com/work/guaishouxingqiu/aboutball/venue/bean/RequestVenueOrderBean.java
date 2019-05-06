@@ -7,7 +7,7 @@ package com.work.guaishouxingqiu.aboutball.venue.bean;
  * 描述: 生成订单IdBean
  */
 public class RequestVenueOrderBean {
-    public int areaId;
+    public long areaId;
     public long[] calendarId;
     public int flag;//1,约球预定2，包场
     public long stadiumId;

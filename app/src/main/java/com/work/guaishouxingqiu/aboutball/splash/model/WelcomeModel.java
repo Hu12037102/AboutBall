@@ -1,4 +1,4 @@
-package com.work.guaishouxingqiu.aboutball.start.model;
+package com.work.guaishouxingqiu.aboutball.splash.model;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseModel;
 
