@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionFragment;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
@@ -18,6 +19,8 @@ import com.work.guaishouxingqiu.aboutball.weight.LoadingView;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -121,6 +124,11 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
 
     @Override
     public void resultOSSToken(OSSToken ossBean) {
+
+    }
+
+    @Override
+    public void resultLevelData(List<ResultRefereeLevelBean> data) {
 
     }
 }

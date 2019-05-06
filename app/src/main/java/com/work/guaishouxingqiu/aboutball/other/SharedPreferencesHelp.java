@@ -17,6 +17,7 @@ public class SharedPreferencesHelp {
     private static final String DEFAULT_SP_NAME = "About_Ball_SP";
     private static final String DEFAULT_STRING_VALUES = "";
     public static final String KEY_GUIDE_OPEN="key_guide_open";
+    public static final String KEY_REFEREE_CACHE_LIST="key_referee_cache_list";
     private SharedPreferences mSharedPreferences;
 
     public SharedPreferencesHelp() {

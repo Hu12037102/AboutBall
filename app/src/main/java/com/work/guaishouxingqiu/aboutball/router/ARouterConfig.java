@@ -38,6 +38,7 @@ public interface ARouterConfig {
         String ACTIVITY_ABOUT_WE = "/activity/about/we";
         String ACTIVITY_SELECTOR_BALL_TEAM = "/activity/selector/ball/team";
         String ACTIVITY_APPLY_REFEREE="/activity/apply/referee";
+        String ACTIVITY_APPLY_BECOME_REFEREE="/activity/apply/become/referee";
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";

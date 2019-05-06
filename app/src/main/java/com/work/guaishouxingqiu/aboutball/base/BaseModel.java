@@ -3,6 +3,9 @@ package com.work.guaishouxingqiu.aboutball.base;
 import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
 import com.work.guaishouxingqiu.aboutball.http.RetrofitManger;
 import com.work.guaishouxingqiu.aboutball.my.MyService;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
+
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -33,4 +36,11 @@ public class BaseModel {
                 .subscribe(observer);
     }
 
+    public void loadRefereeLevelData(BaseObserver<List<ResultRefereeLevelBean>> observer) {
+        mRetrofitManger.create(MyService.class)
+                .loadRefereeLevelList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
 }

@@ -2,13 +2,21 @@ package com.work.guaishouxingqiu.aboutball.base;
 
 import android.support.annotation.NonNull;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseModelCallback;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
+import com.work.guaishouxingqiu.aboutball.other.SharedPreferencesHelp;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -80,4 +88,29 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
     }
 
 
+    public void loadRefereeLevelData() {
+        SharedPreferencesHelp sp = new SharedPreferencesHelp();
+        String refereeJson = sp.getString(SharedPreferencesHelp.KEY_REFEREE_CACHE_LIST);
+        if (DataUtils.isEmpty(refereeJson)) {
+            mModel.loadRefereeLevelData(new BaseObserver<>(this, new BaseObserver.Observer<List<ResultRefereeLevelBean>>() {
+                @Override
+                public void onNext(BaseBean<List<ResultRefereeLevelBean>> t) {
+                    sp.putObject(SharedPreferencesHelp.KEY_REFEREE_CACHE_LIST, new Gson().toJson(t.result));
+                    LogUtils.w("SharedPreferencesHelp--",new Gson().toJson(t.result));
+                    mView.resultLevelData(t.result);
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+            }));
+        } else {
+            LogUtils.w("SharedPreferencesHelp---",refereeJson);
+            Gson gson = new Gson();
+            List<ResultRefereeLevelBean> data = gson.fromJson(refereeJson, new TypeToken<List<ResultRefereeLevelBean>>() {
+            }.getType());
+            mView.resultLevelData(data);
+        }
+    }
 }

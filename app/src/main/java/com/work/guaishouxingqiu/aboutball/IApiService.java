@@ -100,6 +100,8 @@ public interface IApiService {
     String GET_DISSOLUTION_BALL_TEAM="/api/myTeam/dissolveTeam";
     String POST_EDIT_PLAYER_INFO="/api/myTeam/editPlayerInfo";
     String GET_DELETE_MEMBER ="/api/myTeam/leaveTeam";
+    String GET_REFEREE_LEVEL_LIST="/api/referee/getCertificateLevel";
+    String POST_APPLY_REFEREE_CERTIFICATE="/api/referee/applyForReferee";
 
     interface H5 {
         String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";

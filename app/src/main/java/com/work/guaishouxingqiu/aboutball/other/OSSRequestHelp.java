@@ -82,7 +82,10 @@ public class OSSRequestHelp {
     public void uploadingFile(String filePath, OnOSSResultListener listener) {
 
         //super.run();
-
+        if (filePath == null){
+            UIUtils.showToast("上传文件不能为空！");
+            return;
+        }
         File file = new File(filePath);
         if (!file.exists() || !file.isFile()) {
             UIUtils.showToast("上传文件不能为空！");

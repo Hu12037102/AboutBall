@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginRight="@dimen/default_margin"
+            android:gravity="center_vertical"
+            android:text="@string/name" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/aet_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:gravity="right|center_vertical"
+            android:hint="@string/please_input_your_name"
+            android:inputType="none"
+            android:maxLength="8"
+            android:paddingLeft="@dimen/default_margin"
+            android:paddingRight="@dimen/default_margin"
+            android:singleLine="true"
+            android:textColorHint="@color/colorFFA6A6A6"
+            android:textSize="@dimen/size_14sp" />
+    </RelativeLayout>
+
+    <View
+        style="@style/HorizontalLine"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginTop="@dimen/default_margin"
+        android:text="@string/photo"
+        android:textColor="@color/color_4"
+        android:textSize="@dimen/size_17sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginTop="@dimen/size_5dp"
+        android:text="@string/referee_photo_hint"
+        android:textColor="@color/colorFFA6A6A6"
+        android:textSize="@dimen/size_12sp" />
+
+    <RelativeLayout
+        android:layout_width="225dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/size_30dp"
+        android:background="@drawable/shape_stroke_dash_view">
+        <ImageView
+            android:id="@+id/iv_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:contentDescription="@null"
+            />
+
+        <TextView
+            android:id="@+id/tv_update_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawablePadding="@dimen/size_10dp"
+            android:drawableTop="@mipmap/icon_camera_referee"
+            android:text="@string/click_update_photo"
+            android:textColor="@color/color_2"
+            android:textSize="@dimen/size_12sp"
+            />
+        <TextView
+            android:id="@+id/tv_photo_again"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_30dp"
+            android:background="@color/color99000000"
+            android:textColor="@color/colorWhite"
+            android:text="@string/upload_again"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>

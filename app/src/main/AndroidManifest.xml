@@ -210,6 +210,9 @@
         <activity
             android:name=".my.activity.ApplyRefereeActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".my.activity.ApplyBecomeRefereeActivity"
+            android:screenOrientation="portrait"
+            />
 
     </application>
 

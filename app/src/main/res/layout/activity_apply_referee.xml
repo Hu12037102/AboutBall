@@ -74,6 +74,7 @@
         android:lineSpacingExtra="@dimen/size_3dp"
         />
     <TextView
+        android:id="@+id/tv_apply"
         style="@style/ButtonCenterText"
         android:layout_marginTop="@dimen/size_20dp"
         android:text="@string/apply_to_become_referee"/>

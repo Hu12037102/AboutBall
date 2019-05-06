@@ -15,6 +15,7 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.media.bean.MediaSelectorFile;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
 import com.work.guaishouxingqiu.aboutball.other.ActivityManger;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
@@ -177,6 +178,11 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
 
     @Override
     public void resultOSSToken(OSSToken ossBean) {
+
+    }
+
+    @Override
+    public void resultLevelData(List<ResultRefereeLevelBean> data) {
 
     }
 }

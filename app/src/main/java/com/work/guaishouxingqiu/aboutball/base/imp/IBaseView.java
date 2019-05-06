@@ -4,6 +4,9 @@ import android.support.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
+
+import java.util.List;
 
 /**
  * 作者: 胡庆岭
@@ -21,4 +24,6 @@ public interface IBaseView {
     void resultBaseData(@NonNull BaseBean baseBean);
 
     void resultOSSToken(OSSToken ossBean);
+
+    void resultLevelData(List<ResultRefereeLevelBean> data);
 }

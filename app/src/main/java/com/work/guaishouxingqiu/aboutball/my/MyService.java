@@ -6,6 +6,7 @@ import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
 import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestApplyRefereeBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestEditAddressBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestManageBallTeamBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestNewAddressBean;
@@ -22,6 +23,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyAddress;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyBallBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultPrizeBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultTeamDetailsMemberBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 
@@ -116,5 +118,10 @@ public interface MyService {
 
     @POST(IApiService.POST_EDIT_PLAYER_INFO)
     Observable<BaseBean<BaseDataBean<String>>> saveMyPlayerInfo(@Body RequestTeamMyDetailsBean bean);
+
+    @GET(IApiService.GET_REFEREE_LEVEL_LIST)
+    Observable<BaseBean<List<ResultRefereeLevelBean>>> loadRefereeLevelList();
+    @POST(IApiService.POST_APPLY_REFEREE_CERTIFICATE)
+    Observable<BaseBean<String>> commitRefereeCredential(@Body RequestApplyRefereeBean bean);
 
 }
