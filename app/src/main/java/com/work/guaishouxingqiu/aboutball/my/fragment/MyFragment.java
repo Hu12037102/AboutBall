@@ -182,6 +182,7 @@ public class MyFragment extends DelayedFragment<MyPresenter> implements MyContra
         } else {
             view = LayoutInflater.from(getContext()).inflate(R.layout.item_no_login_my_head_view, null);
             mItemAsReferee.setVisibility(View.VISIBLE);
+            mItemAsReferee.setTitleText(R.string.my_as_the_referee);
         }
         GlideManger.get().loadHeadImage(mContext, userBean.headerImg, mCivMyHead);
         mLlHeadGroup.addView(view);
