@@ -21,6 +21,8 @@ import com.work.guaishouxingqiu.aboutball.game.presenter.GameOfficialPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.DateUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import java.util.ArrayList;
@@ -42,7 +44,7 @@ public class GameOfficialFragment extends BaseFragment<GameOfficialPresenter> im
     SmartRefreshLayout mSrlData;
     private GameListAdapter mAdapter;
     private List<ResultGameBean> mData;
-    private List<ResultGameBean> mGameData;
+
 
     @Override
     protected int getLayoutId() {
@@ -51,13 +53,13 @@ public class GameOfficialFragment extends BaseFragment<GameOfficialPresenter> im
 
     @Override
     protected void initView() {
-        mRvData.setLayoutManager(new LinearLayoutManager(DataUtils.checkData(getContext())));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(DataUtils.checkData(getContext()));
+        mRvData.setLayoutManager(layoutManager);
     }
 
     @Override
     protected void initData() {
         mData = new ArrayList<>();
-        mGameData = new ArrayList<>();
         mAdapter = new GameListAdapter(mData);
         mRvData.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
@@ -77,15 +79,16 @@ public class GameOfficialFragment extends BaseFragment<GameOfficialPresenter> im
             }
         });
         mPresenter.loadGameData(Contast.TYPE_GAME_OFFICIAL);
+
     }
 
     private void loadGameList(boolean isRefresh) {
         mPresenter.isRefresh = isRefresh;
-        if (mGameData != null && mGameData.size() > 0) {
+        if (mData.size() > 0) {
             if (mPresenter.isRefresh) {
                 mPresenter.loadGameRefreshOrMoreData(Contast.TYPE_GAME_OFFICIAL, mData.get(0).endTime);
             } else {
-                mPresenter.loadGameRefreshOrMoreData(Contast.TYPE_GAME_OFFICIAL, mGameData.get(mGameData.size() - 1).endTime);
+                mPresenter.loadGameRefreshOrMoreData(Contast.TYPE_GAME_OFFICIAL, DateUtils.getNextDayTime(mData.get(mData.size() - 1).endTime));
             }
         } else {
             Toasts.with().showToast(R.string.there_are_no_related_events);
@@ -107,6 +110,7 @@ public class GameOfficialFragment extends BaseFragment<GameOfficialPresenter> im
                 refreshLayout.finishRefresh();
             }
         });
+
     }
 
     @Override
@@ -119,18 +123,28 @@ public class GameOfficialFragment extends BaseFragment<GameOfficialPresenter> im
     public void resultGameData(@NonNull BaseBean<List<ResultGameBean>> bean) {
         if (DataUtils.isResultSure(bean) && bean.result.size() > 0) {
 
-            mGameData.addAll(bean.result);
+            //mGameData.addAll(bean.result);
             mData.addAll(bean.result);
-            mAdapter.notifyDataSetChanged();
+            mAdapter.notifyItemRangeChanged(0, mData.size());
         }
     }
 
     @Override
     public void resultGameRefreshOrMoreData(@NonNull BaseBean<List<ResultGameBean>> bean) {
         if (DataUtils.isResultSure(bean) && bean.result.size() > 0) {
-            mData.clear();
-            mData.addAll(bean.result);
-            mAdapter.notifyDataSetChanged();
+            if (mPresenter.isRefresh) {
+                mData.addAll(0, bean.result);
+                mAdapter.notifyItemRangeChanged(0, mData.size());
+            } else {
+                mData.addAll(mData.size() - 1, bean.result);
+                mAdapter.notifyDataSetChanged();
+            }
+
+           /* LogUtils.w("resultGameRefreshOrMoreData--", Math.ceil((float) mRvData.getHeight() / (float) mAdapter.itemHeight) + "--");
+            if (mPresenter.isRefresh) {
+                mRvData.smoothScrollToPosition(bean.result.size());
+                mRvData.smoothScrollBy(0,mRvData.getHeight());
+            }*/
         }
     }
 }

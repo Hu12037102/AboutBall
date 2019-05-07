@@ -25,6 +25,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class GameListAdapter extends BaseRecyclerAdapter<GameListAdapter.ViewHolder, List<ResultGameBean>> {
     private List<ResultGameBean> mData;
+    public int itemHeight;
 
     public GameListAdapter(@NonNull List<ResultGameBean> data) {
         super(data);
@@ -33,6 +34,12 @@ public class GameListAdapter extends BaseRecyclerAdapter<GameListAdapter.ViewHol
 
     @Override
     protected void onBindViewDataHolder(@NonNull ViewHolder viewHolder, int i) {
+        viewHolder.itemView.post(new Runnable() {
+            @Override
+            public void run() {
+                itemHeight = viewHolder.itemView.getHeight();
+            }
+        });
         ResultGameBean bean = mData.get(i);
         if (bean.matchName != null && bean.gameName != null) {
             viewHolder.mTvName.setText(bean.matchName.concat("  ").concat(bean.gameName));
@@ -76,6 +83,7 @@ public class GameListAdapter extends BaseRecyclerAdapter<GameListAdapter.ViewHol
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             initView(itemView);
+
         }
 
         private void initView(View itemView) {

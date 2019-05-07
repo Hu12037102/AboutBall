@@ -105,4 +105,27 @@ public class DateUtils {
         }
         return null;
     }
+
+    /**
+     * 根据年月日时分秒获取下一天的时间
+     *
+     * @param time yyyy-MM-dd hh:mm:ss
+     * @return 下一天的时间
+     */
+    public static String getNextDayTime(String time) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String newTime = "";
+        try {
+            Date date = sdf.parse(time);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            calendar.set(Calendar.DAY_OF_MONTH, day + 1);
+            newTime = sdf.format(calendar.getTime());
+            LogUtils.w("getNextDayTime--", sdf.format(calendar.getTime()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return newTime;
+    }
 }
