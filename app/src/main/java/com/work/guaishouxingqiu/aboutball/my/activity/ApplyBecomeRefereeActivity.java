@@ -190,6 +190,9 @@ public class ApplyBecomeRefereeActivity extends CameraActivity<ApplyBecomeRefere
     }
 
     private void clickCommit() {
+        if (mRefereeAdapter.mAcetName != null) {
+            mRequestBean.name = DataUtils.getEditDetails(mRefereeAdapter.mAcetName);
+        }
         OSSRequestHelp.get().uploadingFile(mRequestBean.photo, new OSSRequestHelp.OnOSSResultListener() {
             @Override
             public void onStart() {
@@ -204,7 +207,7 @@ public class ApplyBecomeRefereeActivity extends CameraActivity<ApplyBecomeRefere
             @Override
             public void onSucceed(String path) {
                 mRequestBean.photo = path;
-                if (mRequestBean.certificateLevel >1) {
+                if (mRequestBean.certificateLevel > 1) {
                     OSSRequestHelp.get().uploadingFile(mRequestBean.certificatePhoto, new OSSRequestHelp.OnOSSResultListener() {
                         @Override
                         public void onStart() {
@@ -237,7 +240,6 @@ public class ApplyBecomeRefereeActivity extends CameraActivity<ApplyBecomeRefere
 
             }
         });
-        mPresenter.commitRefereeCredential(mRequestBean);
     }
 
     public boolean isInputName() {

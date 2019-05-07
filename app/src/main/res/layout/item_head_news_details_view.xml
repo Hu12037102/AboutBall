@@ -34,7 +34,9 @@
         android:layout_height="wrap_content"
         android:background="@drawable/shape_input_name_edit"
         android:focusable="false"
-        android:focusableInTouchMode="false" />
+        android:focusableInTouchMode="false"
+        android:layout_marginLeft="@dimen/size_10dp"
+        android:layout_marginRight="@dimen/size_10dp"/>
 
     <View
         android:layout_width="match_parent"
