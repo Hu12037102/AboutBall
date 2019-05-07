@@ -58,6 +58,9 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
             EventBus.getDefault().unregister(this);
         }
     }
+    public BaseActivity getBaseActivity(){
+     return (BaseActivity) getActivity();
+    }
 
     @Nullable
     @Override

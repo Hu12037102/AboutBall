@@ -8,9 +8,11 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.work.guaishouxingqiu.aboutball.Contast;
+import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
+import com.work.guaishouxingqiu.aboutball.commonality.fragment.LoginOrShareFragment;
 import com.work.guaishouxingqiu.aboutball.my.adapter.BallTeamMemberAdapter;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyBallBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultTeamDetailsMemberBean;
@@ -36,7 +38,7 @@ import butterknife.OnClick;
  * 描述:球队成员fragment
  */
 @Route(path = ARouterConfig.Path.FRAGMENT_BALL_TEAM_MEMBER)
-public class BallTeamMemberFragment extends BaseFragment<BallTeamMemberPresenter> implements BallTeamMemberContract.View {
+public class BallTeamMemberFragment extends LoginOrShareFragment<BallTeamMemberPresenter> implements BallTeamMemberContract.View {
     @BindView(R.id.rv_data)
     RecyclerView mRvData;
     @BindView(R.id.srl_refresh)
@@ -137,6 +139,10 @@ public class BallTeamMemberFragment extends BaseFragment<BallTeamMemberPresenter
     private void clickShareFriend() {
         ShareDialog shareDialog = new ShareDialog(mContext);
         shareDialog.show();
+        shareDialog.setWeichatClicklistener(v -> {
+            shareWebToWeiChat(IApiService.H5.SHARE_BALL_TEAM + mBallBean.teamId);
+            shareDialog.dismiss();
+        });
 
 
     }

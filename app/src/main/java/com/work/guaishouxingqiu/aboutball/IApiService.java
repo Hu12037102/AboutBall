@@ -89,7 +89,7 @@ public interface IApiService {
     String POST_UPDATE_PHONE_NUMBER = "/api/accountManagement/bandingPhone";
     String POST_UPDATE_PASSWORD = "/api/account/modifyPassword";
     String GET_MY_BALL_TEAM = "/api/myTeam/getMyTeam";
-    String POST_LAUNCHER_BALL="/api/agreeBall/initiateAgreeBall";
+    String POST_LAUNCHER_BALL = "/api/agreeBall/initiateAgreeBall";
     String GET_OSS_TOKEN = "/api/commons/static/ossCredentials";
 
     String POST_MANAGE_TEAM = "/api/myTeam/createTeam";
@@ -97,11 +97,13 @@ public interface IApiService {
     String GET_BALL_TEAM_MEMBER_DETAILS = "/api/myTeam/getTeamPlayer";
     String POST_EDIT_TEAM_INFO = "/api/myTeam/editTeamInfo";
     String GET_EXIT_TEAM_BALL = "/api/myTeam/dropOutTeam";
-    String GET_DISSOLUTION_BALL_TEAM="/api/myTeam/dissolveTeam";
-    String POST_EDIT_PLAYER_INFO="/api/myTeam/editPlayerInfo";
-    String GET_DELETE_MEMBER ="/api/myTeam/leaveTeam";
-    String GET_REFEREE_LEVEL_LIST="/api/referee/getCertificateLevel";
-    String POST_APPLY_REFEREE_CERTIFICATE="/api/referee/applyForReferee";
+    String GET_DISSOLUTION_BALL_TEAM = "/api/myTeam/dissolveTeam";
+    String POST_EDIT_PLAYER_INFO = "/api/myTeam/editPlayerInfo";
+    String GET_DELETE_MEMBER = "/api/myTeam/leaveTeam";
+    String GET_REFEREE_LEVEL_LIST = "/api/referee/getCertificateLevel";
+    String POST_APPLY_REFEREE_CERTIFICATE = "/api/referee/applyForReferee";
+    String GET_JUDGE_REFEREE_STATUS = "/api/referee/isReferee";
+    String GET_SURE_REFEREE_STATUS = "/api/referee/refereeConfirm";
 
     interface H5 {
         String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";

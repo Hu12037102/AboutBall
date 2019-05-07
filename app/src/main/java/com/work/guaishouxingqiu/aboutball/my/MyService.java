@@ -121,7 +121,14 @@ public interface MyService {
 
     @GET(IApiService.GET_REFEREE_LEVEL_LIST)
     Observable<BaseBean<List<ResultRefereeLevelBean>>> loadRefereeLevelList();
+
     @POST(IApiService.POST_APPLY_REFEREE_CERTIFICATE)
     Observable<BaseBean<String>> commitRefereeCredential(@Body RequestApplyRefereeBean bean);
+
+    @GET(IApiService.GET_JUDGE_REFEREE_STATUS)
+    Observable<BaseBean<Integer>> judgeRefereeStatus();
+
+    @GET(IApiService.GET_SURE_REFEREE_STATUS)
+    Observable<BaseBean<String>> sureRefereeStatus();
 
 }

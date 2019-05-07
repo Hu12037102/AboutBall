@@ -210,9 +210,15 @@
         <activity
             android:name=".my.activity.ApplyRefereeActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".my.activity.ApplyBecomeRefereeActivity"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".my.activity.ApplyBecomeRefereeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.activity.RefereeStatusActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.activity.MyRefereeRecordActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 

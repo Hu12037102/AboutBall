@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.my.contract;
 
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.commonality.contract.LoginOrShareContract;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultTeamDetailsMemberBean;
 
 import java.util.List;
@@ -13,13 +14,13 @@ import java.util.List;
  * 描述:
  */
 public interface BallTeamMemberContract {
-    interface View extends IBaseView{
+    interface View extends LoginOrShareContract.View{
         void resultMemberDetails(List<ResultTeamDetailsMemberBean> data);
 
         void resultDeleteMember(int position);
 
     }
-    interface Presenter extends IBasePresenter{
+    interface Presenter extends LoginOrShareContract.Presenter{
         void loadMemberDetails(long teamId);
 
         void deleteMember(long teamId, long playId,int position);

@@ -178,9 +178,11 @@ public class ApplyBecomeRefereeActivity extends CameraActivity<ApplyBecomeRefere
                 }
                 break;
             case 1:
-                if (mRequestBean.certificateLevel <= 1 || !DataUtils.isEmpty(mRequestBean.certificatePhoto)) {
+                if (mRequestBean.certificateLevel <= 0){
+                    UIUtils.showToast(R.string.please_selector_referee_class);
+                }else if (mRequestBean.certificateLevel==1||!DataUtils.isEmpty(mRequestBean.certificatePhoto)){
                     clickCommit();
-                } else {
+                }else {
                     UIUtils.showToast(R.string.please_update_your_referee_grading_certificate);
                 }
                 break;

@@ -9,20 +9,17 @@ import io.reactivex.schedulers.Schedulers;
 
 /**
  * 作者: 胡庆岭
- * 创建时间: 2019/3/6 15:51
- * 更新时间: 2019/3/6 15:51
- * 描述:我的模型
+ * 创建时间: 2019/5/7 13:40
+ * 更新时间: 2019/5/7 13:40
+ * 描述:裁判状态Model
  */
-public class MyModel  extends BaseModel{
+public class RefereeStatusModel extends BaseModel{
 
-
-    public void judgeRefereeStatus(BaseObserver<Integer> observer) {
+    public void sureRefereeStatus(BaseObserver<String> observer) {
         mRetrofitManger.create(MyService.class)
-                .judgeRefereeStatus()
+                .sureRefereeStatus()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
-
-
     }
 }

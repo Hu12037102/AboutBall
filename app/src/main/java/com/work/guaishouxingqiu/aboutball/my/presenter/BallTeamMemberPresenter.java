@@ -6,6 +6,7 @@ import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.commonality.presenter.LoginOrSharePresenter;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultTeamDetailsMemberBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.BallTeamMemberContract;
@@ -21,7 +22,7 @@ import java.util.List;
  * 更新时间: 2019/4/26 9:26
  * 描述:球队信息P
  */
-public class BallTeamMemberPresenter extends BasePresenter<BallTeamMemberContract.View, BallTeamMemberModel>
+public class BallTeamMemberPresenter extends LoginOrSharePresenter<BallTeamMemberContract.View, BallTeamMemberModel>
         implements BallTeamMemberContract.Presenter {
     public BallTeamMemberPresenter(@NonNull BallTeamMemberContract.View view) {
         super(view);

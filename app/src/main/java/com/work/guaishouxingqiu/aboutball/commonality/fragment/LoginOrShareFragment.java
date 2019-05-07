@@ -1,10 +1,14 @@
-package com.work.guaishouxingqiu.aboutball.commonality.activity;
+package com.work.guaishouxingqiu.aboutball.commonality.fragment;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
@@ -13,12 +17,14 @@ import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
-import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
-import com.work.guaishouxingqiu.aboutball.util.LogUtils;
+import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.RequestWeiChatTokenBean;
 import com.work.guaishouxingqiu.aboutball.commonality.contract.LoginOrShareContract;
 import com.work.guaishouxingqiu.aboutball.commonality.presenter.LoginOrSharePresenter;
+import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
+import com.work.guaishouxingqiu.aboutball.other.UserManger;
+import com.work.guaishouxingqiu.aboutball.permission.PermissionFragment;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
@@ -26,39 +32,39 @@ import org.greenrobot.eventbus.Subscribe;
 
 /**
  * 作者: 胡庆岭
- * 创建时间: 2019/4/4 9:33
- * 更新时间: 2019/4/4 9:33
- * 描述: 登录或者分享Activity
+ * 创建时间: 2019/5/7 10:49
+ * 更新时间: 2019/5/7 10:49
+ * 描述:
  */
-public abstract class LoginOrShareActivity<P extends LoginOrSharePresenter> extends PermissionActivity<P> implements
+public abstract class LoginOrShareFragment<P extends LoginOrSharePresenter> extends BaseFragment<P> implements
         LoginOrShareContract.View {
 
 
-
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         registerEventBus();
     }
 
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         unRegisterEventBus();
     }
 
+
     public void loginWeiChat() {
-        if (this.getBaseApplication().getWeiChatApi().isWXAppInstalled()) {
+        if (this.getBaseActivity().getBaseApplication().getWeiChatApi().isWXAppInstalled()) {
             SendAuth.Req req = new SendAuth.Req();
             req.scope = "snsapi_userinfo";
             req.state = "aboutball_wx_login";
             //  req.state = "wechat_sdk_demo_test";
             //  req.state = getPackageName() + (Math.random() * 100);
-            this.getBaseApplication().getWeiChatApi().sendReq(req);
+            this.getBaseActivity().getBaseApplication().getWeiChatApi().sendReq(req);
 
         } else {
-            HintDialog hintDialog = new HintDialog.Builder(this)
+            HintDialog hintDialog = new HintDialog.Builder(mContext)
                     .setTitle(R.string.hint)
                     .setBody(R.string.you_not_installed_weichat)
                     .setSure(R.string.sure)
@@ -72,16 +78,20 @@ public abstract class LoginOrShareActivity<P extends LoginOrSharePresenter> exte
             });
         }
     }
-    public void shareWebToWeiChat(String url){
-        IWXAPI weiChatApi = this.getBaseApplication().getWeiChatApi();
+
+    public void shareWebToWeiChat(String url) {
+        LogUtils.w("shareWebToWeiChat--",url);
+        IWXAPI weiChatApi = this.getBaseActivity().getBaseApplication().getWeiChatApi();
         WXWebpageObject webObject = new WXWebpageObject();
         webObject.webpageUrl = url;
         WXMediaMessage msg = new WXMediaMessage();
-        msg.setThumbImage(BitmapFactory.decodeResource(getResources(),R.mipmap.app_launcher));
-        msg.title="邀请好友";
-        msg.description="快来参加我们的球队吧！";
+        msg.setThumbImage(BitmapFactory.decodeResource(getResources(), R.mipmap.app_launcher));
+        msg.title = "邀请好友";
+        msg.description = "快来参加我们的球队吧！";
+        msg.mediaObject =webObject;
         SendMessageToWX.Req req = new SendMessageToWX.Req();
-        req.message =msg;
+        req.message = msg;
+        req.openId = UserManger.get().getUser().weChatOpenId;
         weiChatApi.sendReq(req);
     }
 
@@ -109,6 +119,7 @@ public abstract class LoginOrShareActivity<P extends LoginOrSharePresenter> exte
         }
 
     }
+
     @Override
     public void resultOtherLogin(LoginResultBean bean) {
 
@@ -133,5 +144,4 @@ public abstract class LoginOrShareActivity<P extends LoginOrSharePresenter> exte
     public void resultMessageCode() {
 
     }
-
 }

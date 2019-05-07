@@ -29,7 +29,10 @@ import io.reactivex.disposables.Disposable;
  */
 public abstract class LoginOrSharePresenter<V extends LoginOrShareContract.View, M extends LoginOrShareModel> extends MessagePresenter<V, M>
         implements LoginOrShareContract.Presenter {
-
+    //微信登录
+    public static final int WEICHAT_LOGIN_TYPE = 1;
+    //微信分享
+    public static final int WEICHAT_SHARE_TYPE = 2;
 
     public LoginOrSharePresenter(@NonNull V view) {
         super(view);

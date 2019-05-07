@@ -37,8 +37,10 @@ public interface ARouterConfig {
         String ACTIVITY_GUIDE = "/activity/guide";
         String ACTIVITY_ABOUT_WE = "/activity/about/we";
         String ACTIVITY_SELECTOR_BALL_TEAM = "/activity/selector/ball/team";
-        String ACTIVITY_APPLY_REFEREE="/activity/apply/referee";
-        String ACTIVITY_APPLY_BECOME_REFEREE="/activity/apply/become/referee";
+        String ACTIVITY_APPLY_REFEREE = "/activity/apply/referee";
+        String ACTIVITY_APPLY_BECOME_REFEREE = "/activity/apply/become/referee";
+        String ACTIVITY_REFEREE_STATUS = "/activity/referee/status";
+        String ACTIVITY_MY_REFEREE_RECORD = "/activity/my/referee/record";
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";
@@ -69,7 +71,6 @@ public interface ARouterConfig {
         String FRAGMENT_BALL_TEAM_DETAILS = "/fragment/ball/team/details";
         String FRAGMENT_BALL_TEAM_MEMBER = "/fragment/ball/team/member";
 
-
     }
 
     interface Key {
@@ -91,6 +92,7 @@ public interface ARouterConfig {
         String CALENDAR_ID = "calendarId";
         String TEAM_ID = "teamId";
         String PLAYER_ID = "playerId";
+        String REFEREE_STATUS = "refereeStatus";
     }
 
 }

@@ -19,6 +19,7 @@ import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import butterknife.BindView;
@@ -56,6 +57,7 @@ public class MyFragment extends DelayedFragment<MyPresenter> implements MyContra
     @BindView(R.id.item_as_referee)
     ItemView mItemAsReferee;
     private View view;
+    private Integer mMyRefereeStatus;
 
     public static MyFragment newInstance() {
         return new MyFragment();
@@ -111,7 +113,7 @@ public class MyFragment extends DelayedFragment<MyPresenter> implements MyContra
             @Override
             public void onClickItem(View view) {
                 ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_BALL_TEAM);
-              //  Toasts.with().showToast(R.string.pleases_next_open);
+                //  Toasts.with().showToast(R.string.pleases_next_open);
             }
         });
         mItemMessage.setOnItemClickListener(new ItemView.OnItemClickListener() {
@@ -129,7 +131,17 @@ public class MyFragment extends DelayedFragment<MyPresenter> implements MyContra
         mItemAsReferee.setOnItemClickListener(new ItemView.OnItemClickListener() {
             @Override
             public void onClickItem(View view) {
-                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_APPLY_REFEREE);
+                if (UserManger.get().isLogin()) {
+                    if (mMyRefereeStatus == null) {
+                        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_APPLY_REFEREE);
+                    } else if (mMyRefereeStatus == 1) {
+                        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_REFEREE_RECORD);
+                    } else {
+                        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_REFEREE_STATUS, ARouterConfig.Key.REFEREE_STATUS, mMyRefereeStatus.intValue());
+                    }
+                } else {
+                    UIUtils.showLoginDialog(mContext);
+                }
             }
         });
     }
@@ -148,7 +160,11 @@ public class MyFragment extends DelayedFragment<MyPresenter> implements MyContra
     public void onStart() {
         super.onStart();
         initLoginView();
+
     }
+
+
+
 
     private void initLoginView() {
         if (mLlHeadGroup.getChildCount() > 0) {
@@ -162,9 +178,10 @@ public class MyFragment extends DelayedFragment<MyPresenter> implements MyContra
             TextView mTvFocusFans = view.findViewById(R.id.tv_focus_fans);
             mTvName.setText(DataUtils.isEmpty(userBean.nickName) ? userBean.phone : userBean.nickName);
             mTvFocusFans.setText(getString(R.string.focus_and_fans, "0", "0"));
+            mPresenter.judgeRefereeStatus();
         } else {
             view = LayoutInflater.from(getContext()).inflate(R.layout.item_no_login_my_head_view, null);
-
+            mItemAsReferee.setVisibility(View.VISIBLE);
         }
         GlideManger.get().loadHeadImage(mContext, userBean.headerImg, mCivMyHead);
         mLlHeadGroup.addView(view);
@@ -225,6 +242,22 @@ public class MyFragment extends DelayedFragment<MyPresenter> implements MyContra
 
         } else {
             $startActivity(ARouterConfig.Path.ACTIVITY_MY_DETAILS);
+        }
+    }
+
+    /**
+     * 审核裁判状态
+     *
+     * @param status 0：审核中;1：已通过（用户确认);2：未通过;3：已通过（后台审核）
+     */
+    @Override
+    public void resultRefereeStatus(Integer status) {
+        mMyRefereeStatus = status;
+        mItemAsReferee.setVisibility(View.VISIBLE);
+        if (status != null && status == 1) {
+            mItemAsReferee.setTitleText(R.string.my_referee_record);
+        } else {
+            mItemAsReferee.setTitleText(R.string.my_as_the_referee);
         }
     }
 }

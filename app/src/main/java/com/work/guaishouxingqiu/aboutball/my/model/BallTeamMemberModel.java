@@ -3,6 +3,7 @@ package com.work.guaishouxingqiu.aboutball.my.model;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseModel;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
+import com.work.guaishouxingqiu.aboutball.commonality.model.LoginOrShareModel;
 import com.work.guaishouxingqiu.aboutball.my.MyService;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultTeamDetailsMemberBean;
 
@@ -17,7 +18,7 @@ import io.reactivex.schedulers.Schedulers;
  * 更新时间: 2019/4/26 9:26
  * 描述:球队成员model
  */
-public class BallTeamMemberModel extends BaseModel {
+public class BallTeamMemberModel extends LoginOrShareModel {
     public void loadMemberDetails(long teamId, BaseObserver<List<ResultTeamDetailsMemberBean>> observer) {
         mRetrofitManger.create(MyService.class)
                 .loadBallTeamMember(teamId)
