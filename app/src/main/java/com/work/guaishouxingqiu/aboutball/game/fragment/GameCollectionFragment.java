@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -48,7 +49,12 @@ public class GameCollectionFragment extends DelayedFragment<GameCollectionPresen
     private GameCollectionAdapter mAdapter;
     private List<ResultGameCollectionBean> mData;
     private GridLayoutManager gridLayoutManager;
-    private boolean flag ;
+
+    public void setOnCollectionClickListener(OnCollectionClickListener onCollectionClickListener) {
+        this.onCollectionClickListener = onCollectionClickListener;
+    }
+
+    private OnCollectionClickListener onCollectionClickListener;
 
     @Override
     protected int getLayoutId() {
@@ -78,23 +84,27 @@ public class GameCollectionFragment extends DelayedFragment<GameCollectionPresen
             mPresenter.loadData(mBean.matchId);
             refreshLayout.finishRefresh();
         });
+        mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onNotNetClick(View view) {
+
+            }
+
+            @Override
+            public void onNotDataClick(View view) {
+
+            }
+
+            @Override
+            public void onItemClick(View view, int position) {
+                if (onCollectionClickListener != null) {
+                    onCollectionClickListener.clickCollection(mData.get(position).videoUrl);
+                }
+            }
+        });
     }
 
-    @Override
-    protected void initView() {
 
-    }
-
-    @Override
-    protected void initData() {
-
-
-    }
-
-    @Override
-    protected void initEvent() {
-
-    }
 
 
     @Override
@@ -105,11 +115,12 @@ public class GameCollectionFragment extends DelayedFragment<GameCollectionPresen
     @Override
     public void resultData(List<ResultGameCollectionBean> data) {
         mData.clear();
-        for (int i = 0; i < 10; i++) {
-            mData.addAll(data);
-        }
-        flag = true;
+        mData.addAll(data);
         mAdapter.notifyDataSetChanged();
         mSrlRefresh.setNoMoreData(true);
+    }
+
+    public interface OnCollectionClickListener {
+        void clickCollection(String videoUrl);
     }
 }

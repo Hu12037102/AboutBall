@@ -58,6 +58,6 @@ public interface GameService {
     @GET(IApiService.GET_MATCH_DETAILS)
     Observable<BaseBean<ResultGameDetailsBean>> loadGameDetails(@Query(Contast.MATCH_ID) int gameId);
 
-    @GET(IApiService.GET_COLLECTION_LIST)
+    @GET(IApiService.GET_COLLECTION_VIDEO_LIST)
     Observable<BaseBean<List<ResultGameCollectionBean>>> loadCollectionList(@Query(Contast.MATCH_ID) int gameId);
 }

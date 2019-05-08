@@ -13,6 +13,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.Html;
 import android.view.OrientationEventListener;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -102,6 +103,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
     private ImageView mIvScreen;
     private boolean mIsCanRotate = false;//默认可以旋转
     private SpinKitView mSkvLoading;
+    private ResultGameSimpleBean mDataBean;
     // String mLivePath = "http://player.alicdn.com/video/aliyunmedia.mp4";
 
     @Override
@@ -238,6 +240,23 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
             GameDataFragment dataFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_DATA, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
             GameCommentFragment commentFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_COMMENT, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
             GameCollectionFragment collectionFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_COLLECTION, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
+            collectionFragment.setOnCollectionClickListener(videoUrl -> {
+                mDataBean.liveAddress = videoUrl;
+                if (mVideoPlay != null) {
+                    if (mVideoPlay.isPlaying()) {
+                        mVideoPlay.stop();
+                        //   mVideoPlay.release();
+                    }
+                    AliyunLocalSource.AliyunLocalSourceBuilder builder = new AliyunLocalSource.AliyunLocalSourceBuilder();
+                    builder.setSource(bean.liveAddress);
+                    builder.setCoverPath(bean.liveAddress);
+                    builder.setTitle(bean.liveAddress);
+                    // mVideoPlay.setAutoPlay(true);
+                    mVideoPlay.prepareAsync(builder.build());
+                } else {
+                    initLiveVideoView(mDataBean);
+                }
+            });
             Fragment[] fragments = {resultFragment, dataFragment, commentFragment, collectionFragment};
             mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
                 @Override
@@ -286,6 +305,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
 
     @Override
     public void resultGameSimple(@NonNull ResultGameSimpleBean bean) {
+        mDataBean = bean;
         initTabData();
         initPagerData(bean);
 
@@ -427,7 +447,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
             });
 
             mVideoPlay.setOnErrorListener((i, i1, s) -> {
-              //  mVideoPlay.stop();
+                //  mVideoPlay.stop();
                 mIvVideoStatus.setImageResource(R.mipmap.icon_video_play);
                 HintDialog hintDialog = new HintDialog.Builder(GameDetailsActivity.this)
                         .setTitle(R.string.hint)
@@ -449,10 +469,15 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
                 if (mVideoPlay.getPlayerState() == IAliyunVodPlayer.PlayerState.Started) {
                     mVideoPlay.pause();
                     mIvVideoStatus.setImageResource(R.mipmap.icon_video_play);
-                } else {
+                } else if (mVideoPlay.getPlayerState() == IAliyunVodPlayer.PlayerState.Completed){
+                    mVideoPlay.replay();
+                    mIvVideoStatus.setImageResource(R.mipmap.icon_video_pause);
+                }else {
                     mIvVideoStatus.setImageResource(R.mipmap.icon_video_pause);
                     mVideoPlay.start();
                 }
+
+
             });
             mIvLockVideo.setOnClickListener(v -> {
                 mIsCanRotate = !mIsCanRotate;
@@ -464,10 +489,21 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
                 }
 
             });
+            mVideoPlay.setOnCompletionListener(new IAliyunVodPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion() {
+                    mIvVideoStatus.setVisibility(View.VISIBLE);
+                    mIvVideoStatus.setImageResource(R.mipmap.icon_video_play);
 
-        } else {
+                }
+            });
+
+        } else
+
+        {
             mHeadLiveParent.setVisibility(View.VISIBLE);
         }
+
     }
 
 

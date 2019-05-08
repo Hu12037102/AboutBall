@@ -134,17 +134,14 @@ public class GameOfficialFragment extends BaseFragment<GameOfficialPresenter> im
         if (DataUtils.isResultSure(bean) && bean.result.size() > 0) {
             if (mPresenter.isRefresh) {
                 mData.addAll(0, bean.result);
-                mAdapter.notifyItemRangeChanged(0, mData.size());
+                mAdapter.notifyItemRangeChanged(0, bean.result.size());
+                mRvData.smoothScrollToPosition((int) (bean.result.size() - 1 + Math.ceil((float) mRvData.getHeight() / (float) mAdapter.itemHeight)));
             } else {
                 mData.addAll(mData.size() - 1, bean.result);
                 mAdapter.notifyDataSetChanged();
             }
 
-           /* LogUtils.w("resultGameRefreshOrMoreData--", Math.ceil((float) mRvData.getHeight() / (float) mAdapter.itemHeight) + "--");
-            if (mPresenter.isRefresh) {
-                mRvData.smoothScrollToPosition(bean.result.size());
-                mRvData.smoothScrollBy(0,mRvData.getHeight());
-            }*/
+
         }
     }
 }

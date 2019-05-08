@@ -11,4 +11,8 @@ public class ResultGameCollectionBean {
     public int matchId;
     public String photoUrl;
     public String title;
+    public long videoId;
+    public String description;
+    public String videoUrl;
+    public String ordinal;
 }

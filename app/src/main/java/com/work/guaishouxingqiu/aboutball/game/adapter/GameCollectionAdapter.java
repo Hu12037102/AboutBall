@@ -32,9 +32,9 @@ public class GameCollectionAdapter extends BaseRecyclerAdapter<GameCollectionAda
     @Override
     protected void onBindViewDataHolder(@NonNull ViewHolder viewHolder, int i) {
         ResultGameCollectionBean bean = mData.get(i);
-        GlideManger.get().loadDefaultImage(mContext, bean.photoUrl, viewHolder.mRivData);
-        viewHolder.mTvContent.setText(bean.title);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+        GlideManger.get().loadBannerImage(mContext, bean.photoUrl, viewHolder.mRivData);
+        viewHolder.mTvContent.setText(bean.description);
+       /* LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         layoutParams.width = ScreenUtils.screenWidth(mContext) / 2;
         layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -49,7 +49,7 @@ public class GameCollectionAdapter extends BaseRecyclerAdapter<GameCollectionAda
             viewHolder.mRivData.setPadding(ScreenUtils.dp2px(mContext, 8), ScreenUtils.dp2px(mContext, 15),
                     ScreenUtils.dp2px(mContext, 20), 0);
         }
-        viewHolder.itemView.setLayoutParams(layoutParams);
+        viewHolder.itemView.setLayoutParams(layoutParams);*/
 
 
     }
