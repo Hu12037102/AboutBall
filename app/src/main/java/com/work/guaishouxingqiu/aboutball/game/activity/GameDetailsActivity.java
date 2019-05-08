@@ -497,15 +497,12 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
                 mVideoHandler.postDelayed(mVideoRunnable, 5000);
                 mVideoHandler.sendEmptyMessage(SEEK_WHAT);
             });
-            mVideoPlay.setOnSeekCompleteListener(new IAliyunVodPlayer.OnSeekCompleteListener() {
-                @Override
-                public void onSeekComplete() {
-                    mIvLockVideo.setVisibility(View.GONE);
-                    if (mVideoPlay.getPlayerState() == IAliyunVodPlayer.PlayerState.Paused) {
-                        mVideoPlay.resume();
-                    }
-                    mVideoHandler.sendEmptyMessage(SEEK_WHAT);
+            mVideoPlay.setOnSeekCompleteListener(() -> {
+                mIvLockVideo.setVisibility(View.GONE);
+                if (mVideoPlay.getPlayerState() == IAliyunVodPlayer.PlayerState.Paused) {
+                    mVideoPlay.resume();
                 }
+                mVideoHandler.sendEmptyMessage(SEEK_WHAT);
             });
             /**
              * 播放器错误
