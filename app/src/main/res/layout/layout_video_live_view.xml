@@ -66,5 +66,23 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
+    <SeekBar
+        android:id="@+id/sb_seek"
+        android:layout_width="@dimen/size_0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/iv_screen"
+        android:layout_marginBottom="@dimen/default_margin"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="@dimen/size_20dp"
+        android:layout_marginRight="@dimen/size_20dp"
+        android:max="100"
+        android:progressDrawable="@drawable/layer_list_seek_bar"
+        android:minHeight="@dimen/size_2dp"
+        android:maxHeight="@dimen/size_2dp"
+        android:visibility="gone"
+
+        />
+
 
 </android.support.constraint.ConstraintLayout>

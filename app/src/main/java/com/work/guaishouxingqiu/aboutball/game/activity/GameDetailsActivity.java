@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
@@ -23,6 +24,7 @@ import android.view.ViewStub;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -91,6 +93,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
     private FragmentPagerAdapter mPagerAdapter;
     private View mHeadLiveParent;
     private boolean mIconShowWindows = true;
+    private static final int SEEK_WHAT = 101;
 
     // String mLivePath = "http://5815.liveplay.myqcloud.com/live/5815_89aad37e06ff11e892905cb9018cf0d4_900.flv";
     //String mLivePath = "http://li.ifeell.com.cn/ipk/live.flv?auth_key=1555645522-0-0-87c9e12dfd362e4b3dd3698c826553f9";
@@ -104,6 +107,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
     private boolean mIsCanRotate = false;//默认可以旋转
     private SpinKitView mSkvLoading;
     private ResultGameSimpleBean mDataBean;
+    private SeekBar mSbVideo;
     // String mLivePath = "http://player.alicdn.com/video/aliyunmedia.mp4";
 
     @Override
@@ -243,6 +247,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
             collectionFragment.setOnCollectionClickListener(videoUrl -> {
                 mDataBean.liveAddress = videoUrl;
                 if (mVideoPlay != null) {
+                    mSkvLoading.setVisibility(View.VISIBLE);
                     if (mVideoPlay.isPlaying()) {
                         mVideoPlay.stop();
                         //   mVideoPlay.release();
@@ -364,7 +369,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
         } else {
             mIvBack.setVisibility(View.GONE);
             mIvShare.setVisibility(View.GONE);
-            mIvScreen.setVisibility(View.GONE);
+            mIvScreen.setVisibility(View.INVISIBLE);
             mIvVideoStatus.setVisibility(View.GONE);
         }
     }
@@ -379,6 +384,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
             mIvLockVideo = mHeadLiveParent.findViewById(R.id.iv_lock);
             mIvVideoStatus = mHeadLiveParent.findViewById(R.id.iv_video_status);
             mSkvLoading = mHeadLiveParent.findViewById(R.id.skv_loading);
+            mSbVideo = mHeadLiveParent.findViewById(R.id.sb_seek);
             mIvVideoStatus.setVisibility(View.GONE);
             mIvLockVideo.setVisibility(View.GONE);
             SurfaceView svVideo = mHeadLiveParent.findViewById(R.id.sv_video);
@@ -404,7 +410,49 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
                 setVideoIconStatus(mIconShowWindows);
                 svVideo.setClickable(true);
             };
-            mVideoHandler = new Handler();
+            mVideoHandler = new Handler(msg -> {
+                switch (msg.what) {
+                    case SEEK_WHAT:
+                        mSbVideo.setProgress((int) mVideoPlay.getCurrentPosition());
+                        mSbVideo.setSecondaryProgress(mVideoPlay.getBufferingPosition());
+                        mVideoHandler.sendEmptyMessageDelayed(SEEK_WHAT, 100);
+                        break;
+                }
+                return true;
+            });
+
+            mSbVideo.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    LogUtils.w("mSbVideo--", progress + "--");
+                    // mVideoPlay.seekTo(progress);
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+                    mIvVideoStatus.setImageResource(R.mipmap.icon_video_pause);
+                    mVideoHandler.removeMessages(SEEK_WHAT, null);
+                    if (mVideoPlay.isPlaying()) {
+                        mVideoPlay.pause();
+                    } else if (mVideoPlay.getPlayerState() == IAliyunVodPlayer.PlayerState.Stopped) {
+                        mVideoPlay.start();
+                        mVideoPlay.pause();
+                    } else if (mVideoPlay.getPlayerState() == IAliyunVodPlayer.PlayerState.Completed) {
+                        mVideoPlay.replay();
+                        mVideoPlay.pause();
+                    }
+                    LogUtils.w("mSbVideo---", mSbVideo.getProgress() + "--");
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                    LogUtils.w("mSbVideo----", mSbVideo.getProgress() + "--" + mSbVideo.getProgress());
+                    mVideoPlay.seekTo(mSbVideo.getProgress());
+                    mSbVideo.setProgress(mSbVideo.getProgress());
+
+                    //   mIvLockVideo.setVisibility(View.VISIBLE);
+                }
+            });
 
             svVideo.getHolder().addCallback(new SurfaceHolder.Callback() {
                 @Override
@@ -443,9 +491,25 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
             mVideoPlay.setOnFirstFrameStartListener(() -> {
                 mSkvLoading.setVisibility(View.GONE);
                 mIvVideoStatus.setVisibility(View.VISIBLE);
+                mIvVideoStatus.setImageResource(R.mipmap.icon_video_pause);
+                mSbVideo.setVisibility(View.VISIBLE);
+                mSbVideo.setMax((int) mVideoPlay.getDuration());
                 mVideoHandler.postDelayed(mVideoRunnable, 5000);
+                mVideoHandler.sendEmptyMessage(SEEK_WHAT);
             });
-
+            mVideoPlay.setOnSeekCompleteListener(new IAliyunVodPlayer.OnSeekCompleteListener() {
+                @Override
+                public void onSeekComplete() {
+                    mIvLockVideo.setVisibility(View.GONE);
+                    if (mVideoPlay.getPlayerState() == IAliyunVodPlayer.PlayerState.Paused) {
+                        mVideoPlay.resume();
+                    }
+                    mVideoHandler.sendEmptyMessage(SEEK_WHAT);
+                }
+            });
+            /**
+             * 播放器错误
+             */
             mVideoPlay.setOnErrorListener((i, i1, s) -> {
                 //  mVideoPlay.stop();
                 mIvVideoStatus.setImageResource(R.mipmap.icon_video_play);
@@ -469,15 +533,25 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
                 if (mVideoPlay.getPlayerState() == IAliyunVodPlayer.PlayerState.Started) {
                     mVideoPlay.pause();
                     mIvVideoStatus.setImageResource(R.mipmap.icon_video_play);
-                } else if (mVideoPlay.getPlayerState() == IAliyunVodPlayer.PlayerState.Completed){
+                } else if (mVideoPlay.getPlayerState() == IAliyunVodPlayer.PlayerState.Completed) {
                     mVideoPlay.replay();
                     mIvVideoStatus.setImageResource(R.mipmap.icon_video_pause);
-                }else {
+                } else {
                     mIvVideoStatus.setImageResource(R.mipmap.icon_video_pause);
                     mVideoPlay.start();
                 }
 
 
+            });
+            mVideoPlay.setOnStoppedListner(new IAliyunVodPlayer.OnStoppedListener() {
+                @Override
+                public void onStopped() {
+                    mSbVideo.setProgress(0);
+                    //设置到缓存进度
+                    mSbVideo.setSecondaryProgress(mVideoPlay.getBufferingPosition());
+                    mIvVideoStatus.setVisibility(View.VISIBLE);
+                    mIvVideoStatus.setImageResource(R.mipmap.icon_video_play);
+                }
             });
             mIvLockVideo.setOnClickListener(v -> {
                 mIsCanRotate = !mIsCanRotate;
@@ -494,6 +568,10 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
                 public void onCompletion() {
                     mIvVideoStatus.setVisibility(View.VISIBLE);
                     mIvVideoStatus.setImageResource(R.mipmap.icon_video_play);
+                    mVideoHandler.removeMessages(SEEK_WHAT);
+                    mSbVideo.setProgress(0);
+                    //设置到缓存进度
+                    mSbVideo.setSecondaryProgress(mVideoPlay.getBufferingPosition());
 
                 }
             });
