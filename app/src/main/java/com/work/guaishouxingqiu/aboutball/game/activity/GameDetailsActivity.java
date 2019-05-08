@@ -108,6 +108,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
     private SpinKitView mSkvLoading;
     private ResultGameSimpleBean mDataBean;
     private SeekBar mSbVideo;
+    private Fragment[] mFragments;
     // String mLivePath = "http://player.alicdn.com/video/aliyunmedia.mp4";
 
     @Override
@@ -217,6 +218,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
         super.onPause();
         if (mVideoPlay != null) {
             mVideoPlay.pause();
+            mIvVideoStatus.setImageResource(R.mipmap.icon_video_play);
         }
     }
 
@@ -225,16 +227,14 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
         super.onResume();
         if (mVideoPlay != null) {
             mVideoPlay.resume();
+
         }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if (mVideoPlay != null) {
-            mVideoPlay.stop();
-            mIvVideoStatus.setImageResource(R.mipmap.icon_video_play);
-        }
+
     }
 
 
@@ -262,19 +262,19 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
                     initLiveVideoView(mDataBean);
                 }
             });
-            Fragment[] fragments = {resultFragment, dataFragment, commentFragment, collectionFragment};
+            mFragments = new Fragment[]{resultFragment, dataFragment, commentFragment, collectionFragment};
             mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
                 @Override
                 public Fragment getItem(int i) {
-                    return fragments[i];
+                    return mFragments[i];
                 }
 
                 @Override
                 public int getCount() {
-                    return fragments.length;
+                    return mFragments.length;
                 }
             };
-            mBvData.setOffscreenPageLimit(fragments.length);
+            mBvData.setOffscreenPageLimit(mFragments.length);
             mBvData.setAdapter(mPagerAdapter);
 
             mBvData.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -314,10 +314,10 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
         initTabData();
         initPagerData(bean);
 
-        GlideManger.get().loadImage(this, bean.hostLogoUrl, R.mipmap.icon_image_background,
-                R.mipmap.icon_image_background, mCivLeft);
-        GlideManger.get().loadImage(this, bean.guestLogoUrl, R.mipmap.icon_image_background,
-                R.mipmap.icon_image_background, mCivRight);
+        GlideManger.get().loadImage(this, bean.hostLogoUrl, R.mipmap.icon_default_logo,
+                R.mipmap.icon_default_logo, mCivLeft);
+        GlideManger.get().loadImage(this, bean.guestLogoUrl, R.mipmap.icon_default_logo,
+                R.mipmap.icon_default_logo, mCivRight);
         mTvLeft.setText(bean.hostName);
         mTvRight.setText(bean.guestName);
         if (mLlLiveDetails.getChildCount() > 0) {
@@ -349,11 +349,14 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
                 tVGrade.setText(bean.hostScore.concat(" - ").concat(bean.guestScore));
                 mTvStatus.setOnClickListener(v -> {
                     // ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_GAME_VIDEO);
-                    initLiveVideoView(bean);
+                    if (bean.stateId == Contast.GAME_STATUS_STARTING) {
+                        initLiveVideoView(bean);
+                    } else {
+                        mBvData.setCurrentItem(mFragments.length - 1);
+                    }
+
                 });
                 break;
-
-
         }
     }
 
@@ -373,6 +376,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
             mIvVideoStatus.setVisibility(View.GONE);
         }
     }
+
 
     private void initLiveVideoView(ResultGameSimpleBean bean) {
 
@@ -512,7 +516,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
                 mIvVideoStatus.setImageResource(R.mipmap.icon_video_play);
                 HintDialog hintDialog = new HintDialog.Builder(GameDetailsActivity.this)
                         .setTitle(R.string.hint)
-                        .setBody(R.string.not_find_live)
+                        .setBody(bean.stateId == Contast.GAME_STATUS_STARTING ? R.string.not_find_live : R.string.video_recorded_error)
                         .setSure(R.string.sure)
                         .setCancelTouchOut(false)
                         .builder();
@@ -615,8 +619,16 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (mVideoPlay != null) {
+            mVideoPlay.stop();
+            mVideoPlay.release();
+
+        }
+
+
         if (mVideoHandler != null && mVideoRunnable != null) {
             mVideoHandler.removeCallbacks(mVideoRunnable);
+            mVideoHandler.removeMessages(SEEK_WHAT);
         }
     }
 

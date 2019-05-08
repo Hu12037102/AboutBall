@@ -223,6 +223,7 @@
     <string name="resume_click_exit_app">再点击一次退出APP</string>
     <string name="pleases_next_open">功能正在开发中...</string>
     <string name="not_find_live">没有找到该直播</string>
+    <string name="video_recorded_error">视频解码错误</string>
     <string name="original_password">原密码</string>
     <string name="new_password">新密码</string>
     <string name="sure_password">确定密码</string>
