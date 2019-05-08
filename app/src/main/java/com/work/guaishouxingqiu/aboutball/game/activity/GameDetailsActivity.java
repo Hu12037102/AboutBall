@@ -165,7 +165,9 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
             String[] tabArray = getResources().getStringArray(R.array.game_details_tab_array);
             for (int i = 0; i < tabArray.length; i++) {
                 //  mTbData.addTab(mTbData.newTab().setText(tabArray[i]), i == 0);
-                UIUtils.setBaseCustomTabLayout(mTbData, tabArray[i], i == 1, 45,false);
+                UIUtils.setBaseCustomTabLayout(mTbData, tabArray[i], i == 1, 45);
+
+
             }
         }
         mTbData.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -287,7 +289,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
             @Override
             public void onPageSelected(int i) {
                 DataUtils.checkData(mTbData.getTabAt(i)).select();
-                UIUtils.notifySelectorBaseTab(mTbData);
+               // UIUtils.notifySelectorBaseTab(mTbData);
 
             }
 

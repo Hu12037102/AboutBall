@@ -50,7 +50,7 @@ public class RecommendHeadGameAdapter extends RecyclerView.Adapter<RecommendHead
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         ResultRecommendDataBean.Match match = mData.get(i);
-        viewHolder.mTvTitle.setText(match.matchName);
+        viewHolder.mTvTitle.setText(match.gameName);
         viewHolder.mTvLiveStatus.setText(match.matchState);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ScreenUtils.dp2px(viewHolder.itemView.getContext(), 200),
                 LinearLayout.LayoutParams.WRAP_CONTENT);

@@ -269,14 +269,14 @@ public class UIUtils {
         lineLayoutParams.width = rect.width();
         lineLayoutParams.height = ScreenUtils.dp2px(tabLayout.getContext(), 4);
         viewSelector.setLayoutParams(lineLayoutParams);
+        TabLayout.Tab tab = tabLayout.newTab().setCustomView(inflateView);
+        tabLayout.addTab(tab);
         if (isSelector) {
             viewSelector.setVisibility(View.VISIBLE);
+            tab.select();
         } else {
             viewSelector.setVisibility(View.GONE);
         }
-
-        TabLayout.Tab tab = tabLayout.newTab().setCustomView(inflateView);
-        tabLayout.addTab(tab);
         if (tab.getCustomView() != null) {
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ScreenUtils.dp2px(mContext, tabHeight));
@@ -318,14 +318,16 @@ public class UIUtils {
         lineLayoutParams.width = rect.width();
         lineLayoutParams.height = ScreenUtils.dp2px(tabLayout.getContext(), 4);
         viewSelector.setLayoutParams(lineLayoutParams);
-        if (isSelector) {
-            viewSelector.setVisibility(View.VISIBLE);
-        } else {
-            viewSelector.setVisibility(View.GONE);
-        }
+
 
         TabLayout.Tab tab = tabLayout.newTab().setCustomView(inflateView);
         tabLayout.addTab(tab);
+        if (isSelector) {
+            viewSelector.setVisibility(View.VISIBLE);
+            tab.select();
+        } else {
+            viewSelector.setVisibility(View.GONE);
+        }
         if (tab.getCustomView() != null) {
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ScreenUtils.dp2px(mContext, tabHeight));
