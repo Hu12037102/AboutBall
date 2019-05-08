@@ -1,6 +1,8 @@
 package com.work.guaishouxingqiu.aboutball.game.adapter;
 
 import android.support.annotation.NonNull;
+import android.support.v4.util.ArrayMap;
+import android.support.v4.util.SparseArrayCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +12,10 @@ import android.widget.TextView;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameBean;
+import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameCommentBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
+import com.work.guaishouxingqiu.aboutball.util.DateUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import java.util.List;
@@ -24,12 +29,30 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * 描述:比赛列表Adapter
  */
 public class GameListAdapter extends BaseRecyclerAdapter<GameListAdapter.ViewHolder, List<ResultGameBean>> {
-    private List<ResultGameBean> mData;
     public int itemHeight;
+    private ArrayMap<Integer, String> mDateMap;
 
     public GameListAdapter(@NonNull List<ResultGameBean> data) {
         super(data);
-        this.mData = data;
+        initDateMap();
+    }
+
+    private void initDateMap() {
+        mDateMap = new ArrayMap<>();
+
+    }
+
+    public void notifyData() {
+        mDateMap.clear();
+        for (int i = 0; i < mData.size(); i++) {
+            LogUtils.w("notifyData--", DateUtils.getDate(mData.get(i).startTime));
+
+            if (!mDateMap.containsValue(DateUtils.getDate(mData.get(i).startTime))) {
+                mDateMap.put(i, DateUtils.getDate(mData.get(i).startTime));
+            }
+        }
+        this.notifyDataSetChanged();
+
     }
 
     @Override
@@ -40,13 +63,20 @@ public class GameListAdapter extends BaseRecyclerAdapter<GameListAdapter.ViewHol
                 itemHeight = viewHolder.itemView.getHeight();
             }
         });
+
         ResultGameBean bean = mData.get(i);
-        if (bean.matchName != null && bean.gameName != null) {
-            viewHolder.mTvName.setText(bean.matchName.concat("  ").concat(bean.gameName));
+        LogUtils.w("onBindViewDataHolder--", mDateMap.containsKey(i) + "--");
+        if (mDateMap.containsKey(i)) {
+            viewHolder.mTvTime.setVisibility(View.VISIBLE);
+            viewHolder.mTvTime.setText(mDateMap.get(i));
+        } else {
+            viewHolder.mTvTime.setVisibility(View.GONE);
         }
-        GlideManger.get().loadImage(viewHolder.itemView.getContext(), bean.hostLogoUrl, viewHolder.mCivLeft);
+        String content = "";
+        viewHolder.mTvName.setText(content.concat(bean.gameName == null ? "" : bean.gameName).concat(" ").concat(bean.matchName == null ? "" : bean.matchName));
+        GlideManger.get().loadLogoImage(viewHolder.itemView.getContext(), bean.hostLogoUrl, viewHolder.mCivLeft);
         viewHolder.mTvLeft.setText(bean.hostName);
-        GlideManger.get().loadImage(viewHolder.itemView.getContext(), bean.guestLogoUrl, viewHolder.mCivRight);
+        GlideManger.get().loadLogoImage(viewHolder.itemView.getContext(), bean.guestLogoUrl, viewHolder.mCivRight);
         viewHolder.mTvRight.setText(bean.guestName);
         viewHolder.mTvScore.setText(String.valueOf(bean.hostScore).concat(" - ").concat(String.valueOf(bean.guestScore)));
         viewHolder.mTvStatus.setText(bean.matchState);

@@ -44,6 +44,7 @@ public class GameOfficialFragment extends BaseFragment<GameOfficialPresenter> im
     SmartRefreshLayout mSrlData;
     private GameListAdapter mAdapter;
     private List<ResultGameBean> mData;
+    private LinearLayoutManager mLayoutManager;
 
 
     @Override
@@ -53,8 +54,8 @@ public class GameOfficialFragment extends BaseFragment<GameOfficialPresenter> im
 
     @Override
     protected void initView() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(DataUtils.checkData(getContext()));
-        mRvData.setLayoutManager(layoutManager);
+        mLayoutManager = new LinearLayoutManager(DataUtils.checkData(getContext()), LinearLayoutManager.VERTICAL, false);
+        mRvData.setLayoutManager(mLayoutManager);
     }
 
     @Override
@@ -125,7 +126,8 @@ public class GameOfficialFragment extends BaseFragment<GameOfficialPresenter> im
 
             //mGameData.addAll(bean.result);
             mData.addAll(bean.result);
-            mAdapter.notifyItemRangeChanged(0, mData.size());
+            //mAdapter.notifyItemRangeChanged(0, mData.size());
+            mAdapter.notifyData();
         }
     }
 
@@ -134,11 +136,15 @@ public class GameOfficialFragment extends BaseFragment<GameOfficialPresenter> im
         if (DataUtils.isResultSure(bean) && bean.result.size() > 0) {
             if (mPresenter.isRefresh) {
                 mData.addAll(0, bean.result);
-                mAdapter.notifyItemRangeChanged(0, bean.result.size());
-                mRvData.smoothScrollToPosition((int) (bean.result.size() - 1 + Math.ceil((float) mRvData.getHeight() / (float) mAdapter.itemHeight)));
+                // mAdapter.notifyItemRangeChanged(0, bean.result.size());
+                mAdapter.notifyData();
+                //mRvData.smoothScrollToPosition((int) (bean.result.size() - 1 + Math.ceil((float) mRvData.getHeight() / (float) mAdapter.itemHeight)));
+                mLayoutManager.scrollToPositionWithOffset(bean.result.size() ,0);
+                mLayoutManager.setStackFromEnd(true);
             } else {
-                mData.addAll(mData.size() - 1, bean.result);
-                mAdapter.notifyDataSetChanged();
+                mData.addAll(bean.result);
+                //  mAdapter.notifyDataSetChanged();
+                mAdapter.notifyData();
             }
 
 

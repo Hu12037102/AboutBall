@@ -155,6 +155,10 @@ public class UIUtils {
                 textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.icon_recommend_no_start, 0);
                 textView.setTextColor(ContextCompat.getColor(textView.getContext(), R.color.colorFFA6A6A6));
                 break;
+            case Contast.GAME_STATUS_NO_START:
+                textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                textView.setTextColor(ContextCompat.getColor(textView.getContext(), R.color.colorFFA6A6A6));
+                break;
             default:
                 break;
         }

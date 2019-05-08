@@ -128,4 +128,81 @@ public class DateUtils {
         }
         return newTime;
     }
+
+    /**
+     * 根据年月日时分秒，显示今天明天后天+日期
+     *
+     * @param time yyyy-MM-dd hh:mm:ss
+     * @return
+     */
+    public static String getDate(String time) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String dateTime = "";
+        try {
+            Date date = sdf.parse(time);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            calendar.clear();
+            calendar.setTime(new Date(System.currentTimeMillis()));
+            int newYear = calendar.get(Calendar.YEAR);
+            int newMonth = calendar.get(Calendar.MONTH);
+            int newDay = calendar.get(Calendar.DAY_OF_MONTH);
+            if (newYear == year && newMonth == month) {
+                switch (day - newDay) {
+                    case 0:
+                        dateTime = dateTime.concat("今天 ").concat(getMonthAndDay(month, day));
+                        break;
+                    case 1:
+                        dateTime = dateTime.concat("明天 ").concat(getMonthAndDay(month, day));
+                        break;
+                    case 2:
+                        dateTime = dateTime.concat("后天 ").concat(getMonthAndDay(month, day));
+                        break;
+                    case -1:
+                        dateTime = dateTime.concat("昨天 ").concat(getMonthAndDay(month, day));
+                        break;
+                    case -2:
+                        dateTime = dateTime.concat("前天 ").concat(getMonthAndDay(month, day));
+                        break;
+                    default:
+                        dateTime = getMonthAndDay(month, day);
+                        break;
+                }
+            } else {
+                dateTime = getMonthAndDay(month, day);
+            }
+
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return dateTime;
+    }
+
+
+    public static String getMonthAndDay(String time) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String dateTime = "";
+        try {
+            Date date = sdf.parse(time);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            dateTime = year + "-" + (month + 1) + "-" + day;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return dateTime;
+    }
+
+    public static String getMonthAndDay(int month, int day) {
+        return (month + 1) + "月" + day + "日";
+    }
 }
