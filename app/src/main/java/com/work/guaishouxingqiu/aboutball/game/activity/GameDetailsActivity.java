@@ -48,6 +48,7 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
+import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
 import com.work.guaishouxingqiu.aboutball.weight.FocusableTextView;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
@@ -163,26 +164,27 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
         if (mTbData.getTabCount() == 0) {
             String[] tabArray = getResources().getStringArray(R.array.game_details_tab_array);
             for (int i = 0; i < tabArray.length; i++) {
-                mTbData.addTab(mTbData.newTab().setText(tabArray[i]), i == 0);
+                //  mTbData.addTab(mTbData.newTab().setText(tabArray[i]), i == 0);
+                UIUtils.setBaseCustomTabLayout(mTbData, tabArray[i], i == 1, 45,false);
+            }
+        }
+        mTbData.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mBvData.setCurrentItem(tab.getPosition(), true);
+
             }
 
-            mTbData.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-                @Override
-                public void onTabSelected(TabLayout.Tab tab) {
-                    mBvData.setCurrentItem(tab.getPosition(), true);
-                }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
 
-                @Override
-                public void onTabUnselected(TabLayout.Tab tab) {
+            }
 
-                }
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
 
-                @Override
-                public void onTabReselected(TabLayout.Tab tab) {
-
-                }
-            });
-        }
+            }
+        });
     }
 
     @Override
@@ -239,61 +241,61 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
 
 
     private void initPagerData(ResultGameSimpleBean bean) {
-        if (mPagerAdapter == null) {
-            GameResultFragment resultFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_RESULT, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
-            GameDataFragment dataFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_DATA, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
-            GameCommentFragment commentFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_COMMENT, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
-            GameCollectionFragment collectionFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_COLLECTION, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
-            collectionFragment.setOnCollectionClickListener(videoUrl -> {
-                mDataBean.liveAddress = videoUrl;
-                if (mVideoPlay != null) {
-                    mSkvLoading.setVisibility(View.VISIBLE);
-                    if (mVideoPlay.isPlaying()) {
-                        mVideoPlay.stop();
-                        //   mVideoPlay.release();
-                    }
-                    AliyunLocalSource.AliyunLocalSourceBuilder builder = new AliyunLocalSource.AliyunLocalSourceBuilder();
-                    builder.setSource(bean.liveAddress);
-                    builder.setCoverPath(bean.liveAddress);
-                    builder.setTitle(bean.liveAddress);
-                    // mVideoPlay.setAutoPlay(true);
-                    mVideoPlay.prepareAsync(builder.build());
-                } else {
-                    initLiveVideoView(mDataBean);
+        GameResultFragment resultFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_RESULT, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
+        GameDataFragment dataFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_DATA, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
+        GameCommentFragment commentFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_COMMENT, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
+        GameCollectionFragment collectionFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_COLLECTION, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
+        collectionFragment.setOnCollectionClickListener(videoUrl -> {
+            mDataBean.liveAddress = videoUrl;
+            if (mVideoPlay != null) {
+                mSkvLoading.setVisibility(View.VISIBLE);
+                if (mVideoPlay.isPlaying()) {
+                    mVideoPlay.stop();
+                    //   mVideoPlay.release();
                 }
-            });
-            mFragments = new Fragment[]{resultFragment, dataFragment, commentFragment, collectionFragment};
-            mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
-                @Override
-                public Fragment getItem(int i) {
-                    return mFragments[i];
-                }
+                AliyunLocalSource.AliyunLocalSourceBuilder builder = new AliyunLocalSource.AliyunLocalSourceBuilder();
+                builder.setSource(bean.liveAddress);
+                builder.setCoverPath(bean.liveAddress);
+                builder.setTitle(bean.liveAddress);
+                // mVideoPlay.setAutoPlay(true);
+                mVideoPlay.prepareAsync(builder.build());
+            } else {
+                initLiveVideoView(mDataBean);
+            }
+        });
+        mFragments = new Fragment[]{resultFragment, dataFragment, commentFragment, collectionFragment};
+        mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int i) {
+                return mFragments[i];
+            }
 
-                @Override
-                public int getCount() {
-                    return mFragments.length;
-                }
-            };
-            mBvData.setOffscreenPageLimit(mFragments.length);
-            mBvData.setAdapter(mPagerAdapter);
+            @Override
+            public int getCount() {
+                return mFragments.length;
+            }
+        };
+        mBvData.setOffscreenPageLimit(mFragments.length);
+        mBvData.setAdapter(mPagerAdapter);
+        mBvData.setCurrentItem(1, true);
+        mBvData.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
 
-            mBvData.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                @Override
-                public void onPageScrolled(int i, float v, int i1) {
+            }
 
-                }
+            @Override
+            public void onPageSelected(int i) {
+                DataUtils.checkData(mTbData.getTabAt(i)).select();
+                UIUtils.notifySelectorBaseTab(mTbData);
 
-                @Override
-                public void onPageSelected(int i) {
-                    DataUtils.checkData(mTbData.getTabAt(i)).select();
-                }
+            }
 
-                @Override
-                public void onPageScrollStateChanged(int i) {
+            @Override
+            public void onPageScrollStateChanged(int i) {
 
-                }
-            });
-        }
+            }
+        });
     }
 
     @Override
@@ -314,10 +316,8 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
         initTabData();
         initPagerData(bean);
 
-        GlideManger.get().loadImage(this, bean.hostLogoUrl, R.mipmap.icon_default_logo,
-                R.mipmap.icon_default_logo, mCivLeft);
-        GlideManger.get().loadImage(this, bean.guestLogoUrl, R.mipmap.icon_default_logo,
-                R.mipmap.icon_default_logo, mCivRight);
+        GlideManger.get().loadLogoImage(this, bean.hostLogoUrl, mCivLeft);
+        GlideManger.get().loadLogoImage(this, bean.guestLogoUrl, mCivRight);
         mTvLeft.setText(bean.hostName);
         mTvRight.setText(bean.guestName);
         if (mLlLiveDetails.getChildCount() > 0) {

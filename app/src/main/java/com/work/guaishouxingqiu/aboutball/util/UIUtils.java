@@ -301,7 +301,59 @@ public class UIUtils {
         });
     }
 
-    private static void notifySelectorBaseTab(TabLayout tabLayout) {
+    public static void setBaseCustomTabLayout(TabLayout tabLayout, String content, boolean isSelector, int tabHeight, boolean isAddListener) {
+        View inflateView = LayoutInflater.from(tabLayout.getContext()).inflate(R.layout.item_base_tab_view, tabLayout, false);
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        TextView tvTitle = inflateView.findViewById(R.id.tv_title);
+        tvTitle.setText(content);
+        if (isSelector) {
+            tvTitle.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+        } else {
+            tvTitle.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+        }
+        View viewSelector = inflateView.findViewById(R.id.view_selector);
+        Rect rect = new Rect();
+        tvTitle.getPaint().getTextBounds(content, 0, content.length(), rect);
+        ViewGroup.LayoutParams lineLayoutParams = viewSelector.getLayoutParams();
+        lineLayoutParams.width = rect.width();
+        lineLayoutParams.height = ScreenUtils.dp2px(tabLayout.getContext(), 4);
+        viewSelector.setLayoutParams(lineLayoutParams);
+        if (isSelector) {
+            viewSelector.setVisibility(View.VISIBLE);
+        } else {
+            viewSelector.setVisibility(View.GONE);
+        }
+
+        TabLayout.Tab tab = tabLayout.newTab().setCustomView(inflateView);
+        tabLayout.addTab(tab);
+        if (tab.getCustomView() != null) {
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ScreenUtils.dp2px(mContext, tabHeight));
+
+            tab.getCustomView().setLayoutParams(layoutParams);
+        }
+        if (isAddListener) {
+            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+                    notifySelectorBaseTab(tabLayout);
+                }
+
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {
+
+                }
+
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {
+
+                }
+            });
+        }
+    }
+
+
+    public static void notifySelectorBaseTab(TabLayout tabLayout) {
         int tabCount = tabLayout.getTabCount();
         for (int i = 0; i < tabCount; i++) {
             TabLayout.Tab tab = tabLayout.getTabAt(i);
@@ -318,7 +370,7 @@ public class UIUtils {
                 viewSelector.setVisibility(View.VISIBLE);
                 tvTitle.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
                 Rect rect = new Rect();
-                tvTitle.getPaint().getTextBounds(tvTitle.getText().toString(), 0,tvTitle.getText().length(), rect);
+                tvTitle.getPaint().getTextBounds(tvTitle.getText().toString(), 0, tvTitle.getText().length(), rect);
                 ViewGroup.LayoutParams lineLayoutParams = viewSelector.getLayoutParams();
                 lineLayoutParams.width = rect.width();
                 lineLayoutParams.height = ScreenUtils.dp2px(tabLayout.getContext(), 4);
