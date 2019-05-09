@@ -24,6 +24,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyAddress;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyBallBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultPrizeBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeRecordBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultTeamDetailsMemberBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 
@@ -130,5 +131,7 @@ public interface MyService {
 
     @GET(IApiService.GET_SURE_REFEREE_STATUS)
     Observable<BaseBean<String>> sureRefereeStatus();
+    @GET(IApiService.GET_MY_REFEREE_RECORD)
+    Observable<BaseBean<List<ResultRefereeRecordBean>>> loadMyRefereeRecord();
 
 }

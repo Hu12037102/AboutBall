@@ -70,6 +70,8 @@ public interface ARouterConfig {
         String FRAGMENT_BASE_PRIZE = "/fragment/base/prize";
         String FRAGMENT_BALL_TEAM_DETAILS = "/fragment/ball/team/details";
         String FRAGMENT_BALL_TEAM_MEMBER = "/fragment/ball/team/member";
+        String FRAGMENT_MY_REFEREE_EVALUATE="/fragment/my/referee/evaluate";
+        String FRAGMENT_MY_REFEREE_RECORD="/fragment/my/referee/record";
 
     }
 

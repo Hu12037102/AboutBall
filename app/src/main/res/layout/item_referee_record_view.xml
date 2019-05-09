@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:selectableItemBackground">
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/SingLineTextView"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
+        android:layout_marginTop="@dimen/size_10dp"
+        android:textColor="@color/color_4"
+        android:textSize="@dimen/size_17sp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="梅州发展足球场" />
+
+    <TextView
+        android:id="@+id/tv_match_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/size_20dp"
+        android:layout_marginTop="@dimen/size_10dp"
+        android:background="@drawable/shape_black_line_view"
+        android:paddingBottom="@dimen/size_5dp"
+        android:paddingLeft="@dimen/size_15dp"
+        android:paddingRight="@dimen/size_15dp"
+        android:paddingTop="@dimen/size_5dp"
+        android:text="@string/record_the_action"
+        android:textColor="@color/color_4"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+
+        />
+
+    <TextView
+        android:id="@+id/tv_time"
+        style="@style/SingLineTextView"
+        android:layout_width="@dimen/size_0dp"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
+        android:drawableLeft="@mipmap/icon_about_ball_time"
+        android:drawablePadding="@dimen/size_10dp"
+        android:textColor="@color/colorFFA6A6A6"
+        android:textSize="@dimen/size_12sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_match_result"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/tv_match_result"
+        app:layout_constraintTop_toTopOf="@id/tv_match_result"
+        tools:text="2018-12-25" />
+
+    <TextView
+        android:id="@+id/tv_team_name"
+        style="@style/SingLineTextView"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
+        android:layout_marginTop="@dimen/size_10dp"
+        android:drawableLeft="@mipmap/icon_about_ball_people"
+        android:drawablePadding="@dimen/size_10dp"
+        android:textColor="@color/colorFFA6A6A6"
+        android:textSize="@dimen/size_12sp"
+        app:layout_constraintTop_toBottomOf="@id/tv_match_result"
+        tools:text="梅州体育足球队" />
+
+    <View
+        style="@style/HorizontalLine"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
+        android:layout_marginTop="@dimen/size_15dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_team_name" />
+</android.support.constraint.ConstraintLayout>

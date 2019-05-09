@@ -39,6 +39,8 @@ import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 import com.yalantis.ucrop.UCrop;
 
+import org.jsoup.helper.DataUtil;
+
 import java.io.File;
 import java.util.List;
 
@@ -385,5 +387,9 @@ public class UIUtils {
 
         }
 
+    }
+
+    public static void setText(@NonNull TextView textView, String content) {
+        textView.setText(DataUtils.isEmpty(content) ? "" : content);
     }
 }

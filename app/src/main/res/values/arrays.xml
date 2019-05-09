@@ -69,4 +69,8 @@
         <item>球队信息</item>
         <item>球队成员</item>
     </string-array>
+    <string-array name="my_referee_tab_array">
+        <item>我的记录</item>
+        <item>我的评价</item>
+    </string-array>
 </resources>
