@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
+import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameCommentBean;
@@ -78,7 +79,12 @@ public class GameListAdapter extends BaseRecyclerAdapter<GameListAdapter.ViewHol
         viewHolder.mTvLeft.setText(bean.hostName);
         GlideManger.get().loadLogoImage(viewHolder.itemView.getContext(), bean.guestLogoUrl, viewHolder.mCivRight);
         viewHolder.mTvRight.setText(bean.guestName);
-        viewHolder.mTvScore.setText(String.valueOf(bean.hostScore).concat(" - ").concat(String.valueOf(bean.guestScore)));
+        if (Contast.GAME_STATUS_NO_START == Integer.valueOf(bean.stateId)){
+            UIUtils.setText(viewHolder.mTvScore,DateUtils.getHourMinutes(bean.startTime));
+        }else {
+            viewHolder.mTvScore.setText(String.valueOf(bean.hostScore).concat(" - ").concat(String.valueOf(bean.guestScore)));
+        }
+
         viewHolder.mTvStatus.setText(bean.matchState);
         try {
             UIUtils.setGameIconStatus(Integer.valueOf(bean.stateId), viewHolder.mTvStatus);

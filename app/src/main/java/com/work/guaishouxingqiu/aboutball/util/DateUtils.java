@@ -205,4 +205,26 @@ public class DateUtils {
     public static String getMonthAndDay(int month, int day) {
         return (month + 1) + "月" + day + "日";
     }
+
+    /**
+     * 根据年月日时分秒显示24小时时间
+     *
+     * @param time yyyy-MM-dd hh:mm:ss
+     * @return
+     */
+    public static String getHourMinutes(String time) {
+        String resultHour = "";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        try {
+            Date date = sdf.parse(time);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+            int minute = calendar.get(Calendar.MINUTE);
+            resultHour = hour + ":" + minute;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return resultHour;
+    }
 }
