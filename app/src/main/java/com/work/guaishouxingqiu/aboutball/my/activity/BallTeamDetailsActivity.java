@@ -172,7 +172,7 @@ public class BallTeamDetailsActivity extends BaseActivity<BallTeamDetailsPresent
                 }
                 HintDialog hintDialog = new HintDialog.Builder(this)
                         .setTitle(R.string.hint)
-                        .setBody(SpanUtils.getTextColor(R.color.color_2, host.length(), host.length() + mMyBallBean.teamName.length(), body))
+                        .setBody(SpanUtils.getTextColor(R.color.color_4, host.length(), host.length() + mMyBallBean.teamName.length(), body))
                         .setShowSingButton(false)
                         .builder();
                 hintDialog.show();

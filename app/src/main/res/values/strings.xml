@@ -201,6 +201,8 @@
     <string name="add_shipping_address">新增收货地址</string>
     <string name="message_my_address">管理我的收获地址</string>
     <string name="please_selector_address">请选择省/市/区</string>
+    <string name="your_sure_delete_member_body">是否将&#160;%s&#160;从成员中删除？</string>
+    <string name="your_sure_delete_member_host">是否将&#160;</string>
     <string name="my_prize">我的奖品</string>
     <string name="you_not_installed_weichat">您还没有安装微信，是否前去下载</string>
     <string name="camera_is_must_permission">相机为必要权限，请允许！</string>
@@ -324,9 +326,9 @@
     <string name="delete">删除</string>
     <string name="delete_team_member">删除队员</string>
     <string name="exit_ball_team">退出球队</string>
-    <string name="you_sure_exit_s_team">您确定退出%s球队</string>
-    <string name="you_sure_exit">您确定退出</string>
-    <string name="you_sure_dissolution_of_the_team_s">您确定解除%s球队</string>
+    <string name="you_sure_exit_s_team">您确定退出&#160;%s&#160;球队</string>
+    <string name="you_sure_exit">您确定退出&#160;</string>
+    <string name="you_sure_dissolution_of_the_team_s">您确定解除&#160;%s&#160;球队</string>
     <string name="weichat_friend">微信好友</string>
     <string name="weichat_circle_of_friends">朋友圈</string>
     <string name="qq_friend">朋友圈</string>

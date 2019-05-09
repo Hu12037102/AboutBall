@@ -1,5 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.my.fragment;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -22,6 +23,10 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
+import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
+import com.work.guaishouxingqiu.aboutball.util.UIUtils;
+import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
+import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.ShareDialog;
 import com.work.guaishouxingqiu.aboutball.weight.SingPopupWindows;
 
@@ -100,13 +105,36 @@ public class BallTeamMemberFragment extends LoginOrShareFragment<BallTeamMemberP
             mDeleteWindows.setContentDrawableRes(R.mipmap.icon_delete, 0, 0, 0);
         }
         mDeleteWindows.setPopupWindowsItemClickListener(v -> {
-            mPresenter.deleteMember(mBallBean.teamId, bean.playerId, position);
+            clickShowDeleteDialog(bean, position);
             mDeleteWindows.dismiss();
         });
         if (mDeleteWindows != null && !mDeleteWindows.isShowing()) {
             mDeleteWindows.showAsDropDown(view, view.getMeasuredWidth() / 2 - mDeleteWindows.getWindow().getWidth() / 2, -view.getMeasuredHeight() / 2);
         }
 
+    }
+
+    private void clickShowDeleteDialog(ResultTeamDetailsMemberBean bean, int position) {
+        String body = UIUtils.getString(R.string.your_sure_delete_member_body, bean.nickName);
+        String host = getString(R.string.your_sure_delete_member_host);
+        HintDialog hintDialog = new HintDialog.Builder(mContext)
+                .setTitle(R.string.hint)
+                .setBody(SpanUtils.getTextColor(R.color.color_4, host.length(), host.length() + bean.nickName.length(), body))
+                .setShowSingButton(false)
+                .builder();
+        hintDialog.show();
+        hintDialog.setOnItemClickSureAndCancelListener(new BaseDialog.OnItemClickSureAndCancelListener() {
+            @Override
+            public void onClickSure(@NonNull View view) {
+                mPresenter.deleteMember(mBallBean.teamId, bean.playerId, position);
+                hintDialog.dismiss();
+            }
+
+            @Override
+            public void onClickCancel(@NonNull View view) {
+                hintDialog.dismiss();
+            }
+        });
     }
 
 

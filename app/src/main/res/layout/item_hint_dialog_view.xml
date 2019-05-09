@@ -32,6 +32,7 @@
                 style="@style/DefaultTextView"
                 android:layout_marginTop="@dimen/size_15dp"
                 android:textColor="@color/color_3"
+                android:textSize="15sp"
                 tools:text="手机已经登录" />
         </LinearLayout>
 

@@ -145,6 +145,11 @@ public class GameOfficialFragment extends BaseFragment<GameOfficialPresenter> im
 
             //mGameData.addAll(bean.result);
             mData.addAll(bean.result);
+            if (mData.size()>0){
+                mTvTime.setVisibility(View.VISIBLE);
+            }else {
+                mTvTime.setVisibility(View.GONE);
+            }
             //mAdapter.notifyItemRangeChanged(0, mData.size());
             mAdapter.notifyData();
         }
@@ -166,7 +171,11 @@ public class GameOfficialFragment extends BaseFragment<GameOfficialPresenter> im
                 mAdapter.notifyData();
             }
 
-
+            if (mData.size()>0){
+                mTvTime.setVisibility(View.VISIBLE);
+            }else {
+                mTvTime.setVisibility(View.GONE);
+            }
         }
     }
 }
