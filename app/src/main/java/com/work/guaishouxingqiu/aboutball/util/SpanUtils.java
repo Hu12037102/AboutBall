@@ -70,7 +70,7 @@ public class SpanUtils {
         ss.setSpan(backgroundColorSpan,start, end,SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
         return ss;
     }
-    public static SpannableString getTextDrawable( @DrawableRes int drawableRes, int start, int end, @NonNull String content){
+    public static SpannableString getTextDrawable( @DrawableRes int drawableRes, int start, int end, @NonNull CharSequence content){
 
         SpannableString ss = new SpannableString(content);
        // TextAppearanceSpan textAppearanceSpan = new TextAppearanceSpan(UIUtils.getContext(), android.R.style.TextAppearance_Material);

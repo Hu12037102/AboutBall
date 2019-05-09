@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -39,7 +40,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * 描述:比赛数据fragment
  */
 @Route(path = ARouterConfig.Path.FRAGMENT_GAME_DATA)
-public class GameDataFragment extends DelayedFragment<GameDataPresenter> implements GameDataContract.View {
+public class GameDataFragment extends BaseFragment<GameDataPresenter> implements GameDataContract.View {
 
     @BindView(R.id.rv_data)
     RecyclerView mRvData;
@@ -55,15 +56,8 @@ public class GameDataFragment extends DelayedFragment<GameDataPresenter> impleme
         return R.layout.fragment_game_data;
     }
 
-
     @Override
-    protected GameDataPresenter createPresenter() {
-        return new GameDataPresenter(this);
-    }
-
-
-    @Override
-    protected void initDelayedView() {
+    protected void initView() {
         mBean = mBundle.getParcelable(ARouterConfig.Key.GAME_DETAILS_BEAN);
         mRvData.setLayoutManager(new LinearLayoutManager(getContext()));
         mHeadView = LayoutInflater.from(getContext()).inflate(R.layout.item_game_data_head_view, mRvData, false);
@@ -71,11 +65,11 @@ public class GameDataFragment extends DelayedFragment<GameDataPresenter> impleme
         GlideManger.get().loadImage(DataUtils.checkData(getContext()), mBean.hostLogoUrl, cIvLeft);
         CircleImageView cIvRight = mHeadView.findViewById(R.id.civ_right);
         GlideManger.get().loadImage(getContext(), mBean.guestLogoUrl, cIvRight);
-
+        mHeadView.setVisibility(View.GONE);
     }
 
     @Override
-    protected void initDelayedData() {
+    protected void initData() {
         mData = new ArrayList<>();
         mAdapter = new GameDataAdapter(mData);
         mAdapter.setHasStableIds(true);
@@ -85,17 +79,47 @@ public class GameDataFragment extends DelayedFragment<GameDataPresenter> impleme
     }
 
     @Override
-    protected void initDelayedEvent() {
+    protected void initEvent() {
         mSrlRefresh.setOnRefreshListener(refreshLayout -> {
             mPresenter.loadGameDetails(mBean.matchId);
             refreshLayout.finishRefresh();
         });
+        mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onNotNetClick(View view) {
+                mSrlRefresh.autoRefresh();
+            }
+
+            @Override
+            public void onNotDataClick(View view) {
+                mSrlRefresh.autoRefresh();
+            }
+
+            @Override
+            public void onItemClick(View view, int position) {
+
+            }
+        });
     }
+
+
+    @Override
+    protected GameDataPresenter createPresenter() {
+        return new GameDataPresenter(this);
+    }
+
+
+
 
     @Override
     public void resultGameDetails(List<ResultGameDetailsBean.Bean> data) {
         mData.clear();
         mData.addAll(data);
+        if (mData.size() > 0){
+            mHeadView.setVisibility(View.VISIBLE);
+        }else {
+            mHeadView.setVisibility(View.GONE);
+        }
         mAdapter.notifyDataSetChanged();
     }
 }

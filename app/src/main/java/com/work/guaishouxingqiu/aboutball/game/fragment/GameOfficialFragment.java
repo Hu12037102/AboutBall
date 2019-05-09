@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
@@ -23,6 +24,7 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
+import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import java.util.ArrayList;
@@ -42,6 +44,8 @@ public class GameOfficialFragment extends BaseFragment<GameOfficialPresenter> im
     RecyclerView mRvData;
     @BindView(R.id.srl_recommend)
     SmartRefreshLayout mSrlData;
+    @BindView(R.id.tv_time)
+    TextView mTvTime;
     private GameListAdapter mAdapter;
     private List<ResultGameBean> mData;
     private LinearLayoutManager mLayoutManager;
@@ -112,6 +116,21 @@ public class GameOfficialFragment extends BaseFragment<GameOfficialPresenter> im
             }
         });
 
+        mRvData.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (mData.size() > mLayoutManager.findFirstVisibleItemPosition()) {
+                    UIUtils.setText(mTvTime, DateUtils.getDate(mData.get(mLayoutManager.findFirstVisibleItemPosition()).startTime));
+                }
+            }
+        });
+
     }
 
     @Override
@@ -139,7 +158,7 @@ public class GameOfficialFragment extends BaseFragment<GameOfficialPresenter> im
                 // mAdapter.notifyItemRangeChanged(0, bean.result.size());
                 mAdapter.notifyData();
                 //mRvData.smoothScrollToPosition((int) (bean.result.size() - 1 + Math.ceil((float) mRvData.getHeight() / (float) mAdapter.itemHeight)));
-                mLayoutManager.scrollToPositionWithOffset(bean.result.size() ,0);
+                mLayoutManager.scrollToPositionWithOffset(bean.result.size(), 0);
                 mLayoutManager.setStackFromEnd(true);
             } else {
                 mData.addAll(bean.result);

@@ -150,7 +150,7 @@
     <string name="net_error">网络异常！</string>
     <string name="live_no_start">直播尚未开始</string>
     <string name="team_stats">球队统计</string>
-    <string name="game_send_comment_hint">踢球吧对直播内容进行24小时巡查，禁止传播违法
+    <string name="game_send_comment_hint">1&#160;&#160;踢球吧对直播内容进行24小时巡查，禁止传播违法
 违规、封建迷信、暴力血腥、低俗色情、招嫖诈骗、违禁品
 等不良信息，坚决维护青少年精神文明健康。</string>
     <string name="update_phone_number_title">更换绑定手机</string>

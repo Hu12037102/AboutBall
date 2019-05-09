@@ -86,8 +86,8 @@ public class GameCommentFragment extends DelayedFragment<GameCommentPresenter> i
         mAdapter = new GameCommentAdapter(mData);
         View headView = LayoutInflater.from(mRvData.getContext()).inflate(R.layout.item_game_comment_head_view, mRvData, false);
         TextView mTvHint = headView.findViewById(R.id.tv_hint);
-        String data = getString(R.string.notice).concat(getString(R.string.game_send_comment_hint));
-        mTvHint.setText(SpanUtils.getTextSize(10, 0, getString(R.string.notice).length(), data));
+        String data = getString(R.string.game_send_comment_hint);
+        mTvHint.setText(SpanUtils.getTextDrawable(R.mipmap.icon_systematic_notification,0,1,data));
         mAdapter.addHeadView(headView);
         mAdapter.setNotDataView(R.mipmap.icon_not_data_message);
         mAdapter.setNotDataContentRes(R.string.not_message);
