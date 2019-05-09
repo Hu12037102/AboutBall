@@ -189,13 +189,7 @@ public class MyFragment extends DelayedFragment<MyPresenter> implements MyContra
     }
 
 
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if (!hidden) {
-            initLoginView();
-        }
-    }
+
 
     @Override
     protected void initEvent() {

@@ -185,4 +185,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
     public void resultLevelData(List<ResultRefereeLevelBean> data) {
 
     }
+
+    protected void clickBackForResult(){
+        setResult(RESULT_OK);
+        finish();
+    }
 }

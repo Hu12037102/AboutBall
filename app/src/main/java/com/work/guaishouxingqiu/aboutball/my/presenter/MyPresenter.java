@@ -44,6 +44,6 @@ public class MyPresenter extends BasePresenter<MyContract.View, MyModel> impleme
             public void onError(Throwable e) {
 
             }
-        }));
+        }, false));
     }
 }

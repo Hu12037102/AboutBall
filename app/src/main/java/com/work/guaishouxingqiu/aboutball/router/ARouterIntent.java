@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.router;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -87,5 +88,13 @@ public class ARouterIntent {
 
     public static void startActivity(@NonNull String path, @NonNull String key, @NonNull ArrayList<Parcelable> data) {
         ARouter.getInstance().build(path).withParcelableArrayList(key, data).navigation();
+    }
+
+    public static void startActivityForResult(@NonNull Fragment fragment, Class clazz) {
+        fragment.startActivityForResult(new Intent(fragment.getContext(), clazz), REQUEST_CODE);
+    }
+
+    public static void startActivityForResult(@NonNull Fragment fragment, Class clazz, int requestCode) {
+        fragment.startActivityForResult(new Intent(fragment.getContext(), clazz), requestCode);
     }
 }

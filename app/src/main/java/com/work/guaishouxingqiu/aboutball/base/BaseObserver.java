@@ -25,6 +25,7 @@ public class BaseObserver<T> implements Observer<BaseBean<T>> {
 
     private BasePresenter mPresenter;
     private BaseObserver.Observer<T> mObserver;
+    private boolean mIsShowToast = true;
 
 
     public BaseObserver(@NonNull BasePresenter presenter, BaseObserver.Observer<T> observer) {
@@ -35,6 +36,15 @@ public class BaseObserver<T> implements Observer<BaseBean<T>> {
     public BaseObserver(boolean isShowLoadingView, @NonNull BasePresenter presenter, BaseObserver.Observer<T> observer) {
         this.mPresenter = presenter;
         this.mObserver = observer;
+        if (isShowLoadingView && mPresenter.mView != null) {
+            mPresenter.mView.showLoadingView();
+        }
+    }
+
+    public BaseObserver(boolean isShowLoadingView, @NonNull BasePresenter presenter, BaseObserver.Observer<T> observer, boolean isShowToast) {
+        this.mPresenter = presenter;
+        this.mObserver = observer;
+        this.mIsShowToast = isShowToast;
         if (isShowLoadingView && mPresenter.mView != null) {
             mPresenter.mView.showLoadingView();
         }
@@ -67,12 +77,14 @@ public class BaseObserver<T> implements Observer<BaseBean<T>> {
         }
         mPresenter.mView.resultBaseData(baseBean);
         if (!DataUtils.isEmpty(baseBean.message)) {
-            mPresenter.mView.showToast(baseBean.message);
+            if (mIsShowToast) {
+                mPresenter.mView.showToast(baseBean.message);
+            }
         } else {
             Object object = baseBean.result;
             if (object instanceof BaseDataBean) {
                 BaseDataBean baseDataBean = (BaseDataBean) object;
-                if (!DataUtils.isEmpty(baseDataBean.message)) {
+                if (!DataUtils.isEmpty(baseDataBean.message) && mIsShowToast) {
                     mPresenter.mView.showToast(baseDataBean.message);
                 }
             }
@@ -87,7 +99,9 @@ public class BaseObserver<T> implements Observer<BaseBean<T>> {
             mObserver.onError(e);
         }
         if (e instanceof HttpException) {
-            mPresenter.mView.showToast("网络异常！"+((HttpException) e).code());
+            if (mIsShowToast) {
+                mPresenter.mView.showToast("网络异常！");
+            }
         } else {
             BaseBean baseBean = new BaseBean();
             baseBean.code = IApi.Code.SERVICE_ERROR;
