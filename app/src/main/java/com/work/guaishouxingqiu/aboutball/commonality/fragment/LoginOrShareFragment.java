@@ -19,6 +19,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.RequestWeiChatTokenBean;
+import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
 import com.work.guaishouxingqiu.aboutball.commonality.contract.LoginOrShareContract;
 import com.work.guaishouxingqiu.aboutball.commonality.presenter.LoginOrSharePresenter;
 import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
@@ -26,6 +27,7 @@ import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionFragment;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
+import com.work.guaishouxingqiu.aboutball.weight.ShareDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -38,7 +40,7 @@ import org.greenrobot.eventbus.Subscribe;
  */
 public abstract class LoginOrShareFragment<P extends LoginOrSharePresenter> extends BaseFragment<P> implements
         LoginOrShareContract.View {
-
+private ShareDialog mShareDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,19 +81,19 @@ public abstract class LoginOrShareFragment<P extends LoginOrSharePresenter> exte
         }
     }
 
-    public void shareWebToWeiChat(String url) {
-        LogUtils.w("shareWebToWeiChat--",url);
+    private void shareWebToWeiChat(ShareWebBean bean) {
         IWXAPI weiChatApi = this.getBaseActivity().getBaseApplication().getWeiChatApi();
         WXWebpageObject webObject = new WXWebpageObject();
-        webObject.webpageUrl = url;
+        webObject.webpageUrl = bean.webUrl;
         WXMediaMessage msg = new WXMediaMessage();
-        msg.setThumbImage(BitmapFactory.decodeResource(getResources(), R.mipmap.app_launcher));
-        msg.title = "邀请好友";
-        msg.description = "快来参加我们的球队吧！";
-        msg.mediaObject =webObject;
+        msg.setThumbImage(BitmapFactory.decodeResource(getResources(), bean.iconRes));
+        msg.title = bean.title;
+        msg.description = bean.description;
+        msg.mediaObject = webObject;
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         req.message = msg;
         req.openId = UserManger.get().getUser().weChatOpenId;
+        req.scene = bean.scene;
         weiChatApi.sendReq(req);
     }
 
@@ -143,5 +145,22 @@ public abstract class LoginOrShareFragment<P extends LoginOrSharePresenter> exte
     @Override
     public void resultMessageCode() {
 
+    }
+    public void showShareDialog(ShareWebBean bean) {
+        if (mShareDialog == null) {
+            mShareDialog = new ShareDialog(getContext());
+        }
+        if (!mShareDialog.isShowing()) {
+            mShareDialog.show();
+        }
+        mShareDialog.setWeichatClicklistener(v -> {
+            shareWebToWeiChat(bean);
+            mShareDialog.dismiss();
+        });
+        mShareDialog.setWeichatFriendClickListener(v -> {
+            bean.scene =  SendMessageToWX.Req.WXSceneTimeline;
+            shareWebToWeiChat(bean);
+            mShareDialog.dismiss();
+        });
     }
 }

@@ -16,6 +16,9 @@ import android.widget.ProgressBar;
 import com.example.item.util.ScreenUtils;
 import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.commonality.activity.LoginOrShareActivity;
+import com.work.guaishouxingqiu.aboutball.commonality.model.LoginOrShareModel;
+import com.work.guaishouxingqiu.aboutball.commonality.presenter.LoginOrSharePresenter;
 import com.work.guaishouxingqiu.aboutball.other.WebHelp;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
@@ -32,7 +35,7 @@ import org.jsoup.select.Elements;
  * 更新时间: 2019/3/21 16:31
  * 描述:WebView基类
  */
-public abstract class BaseWebActivity<P extends BasePresenter> extends PermissionActivity<P> {
+public abstract class BaseWebActivity<P extends LoginOrSharePresenter> extends LoginOrShareActivity<P> {
     private WebView mWebView;
     private ProgressBar mPbLoading;
     private TitleView mTitleView;

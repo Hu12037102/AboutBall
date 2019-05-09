@@ -8,6 +8,7 @@ import android.widget.EditText;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
+import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 
 import java.io.BufferedReader;
@@ -224,7 +225,15 @@ public class DataUtils {
         return DataUtils.checkData(editText.getText()).toString().trim();
     }
 
-    public static<T> boolean baseDataBeanIsSucceed(BaseBean<BaseDataBean<T>> bean) {
+    public static <T> boolean baseDataBeanIsSucceed(BaseBean<BaseDataBean<T>> bean) {
         return bean.code == IApi.Code.SUCCEED && bean.result != null && bean.result.code == IApi.Code.SUCCEED;
+    }
+
+    public static ShareWebBean resultShareBallTeam(@NonNull String webUrl) {
+        ShareWebBean bean = new ShareWebBean();
+        bean.webUrl = webUrl;
+        bean.title = "加入球队";
+        bean.description = "您的朋友邀请您一起组建球队，马上点击确认吧";
+        return bean;
     }
 }

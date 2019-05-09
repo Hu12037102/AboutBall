@@ -3,6 +3,7 @@ package com.work.guaishouxingqiu.aboutball.home.contract;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.commonality.contract.LoginOrShareContract;
 import com.work.guaishouxingqiu.aboutball.home.bean.RequestSendMessageBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsMessageBean;
 
@@ -15,14 +16,14 @@ import java.util.List;
  * 描述:首页-资讯详情契约
  */
 public interface NewsDetailsContract {
-    interface View extends IBaseView {
+    interface View extends LoginOrShareContract.View {
         void resultNewsContent(BaseDataBean<String> dataBean);
 
         void resultMessageData(List<ResultNewsMessageBean> data);
         void resultSendNewsMessage();
     }
 
-    interface Presenter extends IBasePresenter {
+    interface Presenter extends LoginOrShareContract.Presenter {
         void loadNewsContent(long newsId);
 
         void loadMessage(long newsId);

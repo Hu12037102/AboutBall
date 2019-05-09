@@ -7,6 +7,7 @@ import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.commonality.presenter.LoginOrSharePresenter;
 import com.work.guaishouxingqiu.aboutball.home.bean.RequestSendMessageBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsMessageBean;
 import com.work.guaishouxingqiu.aboutball.home.contract.NewsDetailsContract;
@@ -22,7 +23,7 @@ import java.util.List;
  * 更新时间: 2019/3/21 15:02
  * 描述:首页-资讯详情P
  */
-public class NewDetailsPresenter extends BasePresenter<NewsDetailsContract.View,
+public class NewDetailsPresenter extends LoginOrSharePresenter<NewsDetailsContract.View,
         NewsDetailsModel> implements NewsDetailsContract.Presenter {
     public NewDetailsPresenter(@NonNull NewsDetailsContract.View view) {
         super(view);

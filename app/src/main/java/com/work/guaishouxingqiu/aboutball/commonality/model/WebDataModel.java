@@ -8,5 +8,5 @@ import com.work.guaishouxingqiu.aboutball.base.BaseModel;
  * 更新时间: 2019/4/11 10:28
  * 描述:
  */
-public class WebDataModel extends BaseModel {
+public class WebDataModel extends LoginOrShareModel {
 }

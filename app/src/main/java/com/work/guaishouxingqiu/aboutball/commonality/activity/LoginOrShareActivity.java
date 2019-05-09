@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
@@ -12,17 +13,24 @@ import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
+import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.RequestWeiChatTokenBean;
 import com.work.guaishouxingqiu.aboutball.commonality.contract.LoginOrShareContract;
 import com.work.guaishouxingqiu.aboutball.commonality.presenter.LoginOrSharePresenter;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
+import com.work.guaishouxingqiu.aboutball.weight.ShareDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import org.greenrobot.eventbus.Subscribe;
+
+import static com.tencent.mm.opensdk.modelmsg.SendMessageToWX.Req.WXSceneSession;
 
 /**
  * 作者: 胡庆岭
@@ -34,6 +42,7 @@ public abstract class LoginOrShareActivity<P extends LoginOrSharePresenter> exte
         LoginOrShareContract.View {
 
 
+    private ShareDialog mShareDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,16 +81,20 @@ public abstract class LoginOrShareActivity<P extends LoginOrSharePresenter> exte
             });
         }
     }
-    public void shareWebToWeiChat(String url){
+
+    public void shareWebToWeiChat(ShareWebBean bean) {
         IWXAPI weiChatApi = this.getBaseApplication().getWeiChatApi();
         WXWebpageObject webObject = new WXWebpageObject();
-        webObject.webpageUrl = url;
+        webObject.webpageUrl = bean.webUrl;
         WXMediaMessage msg = new WXMediaMessage();
-        msg.setThumbImage(BitmapFactory.decodeResource(getResources(),R.mipmap.app_launcher));
-        msg.title="邀请好友";
-        msg.description="快来参加我们的球队吧！";
+        msg.setThumbImage(BitmapFactory.decodeResource(getResources(), bean.iconRes));
+        msg.title = bean.title;
+        msg.description = bean.description;
+        msg.mediaObject = webObject;
         SendMessageToWX.Req req = new SendMessageToWX.Req();
-        req.message =msg;
+        req.message = msg;
+        req.openId = UserManger.get().getUser().weChatOpenId;
+        req.scene = bean.scene;
         weiChatApi.sendReq(req);
     }
 
@@ -109,6 +122,7 @@ public abstract class LoginOrShareActivity<P extends LoginOrSharePresenter> exte
         }
 
     }
+
     @Override
     public void resultOtherLogin(LoginResultBean bean) {
 
@@ -132,6 +146,24 @@ public abstract class LoginOrShareActivity<P extends LoginOrSharePresenter> exte
     @Override
     public void resultMessageCode() {
 
+    }
+
+    public void showShareDialog(ShareWebBean bean) {
+        if (mShareDialog == null) {
+            mShareDialog = new ShareDialog(this);
+        }
+        if (!mShareDialog.isShowing()) {
+            mShareDialog.show();
+        }
+        mShareDialog.setWeichatClicklistener(v -> {
+            shareWebToWeiChat(bean);
+            mShareDialog.dismiss();
+        });
+        mShareDialog.setWeichatFriendClickListener(v -> {
+            bean.scene =  SendMessageToWX.Req.WXSceneTimeline;
+            shareWebToWeiChat(bean);
+            mShareDialog.dismiss();
+        });
     }
 
 }

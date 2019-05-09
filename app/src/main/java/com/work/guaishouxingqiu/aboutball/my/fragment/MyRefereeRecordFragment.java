@@ -70,7 +70,9 @@ public class MyRefereeRecordFragment extends BaseFragment<MyRefereeRecordChildPr
     public void resultMyRefereeRecord(List<ResultRefereeRecordBean> data) {
         mData.clear();
         mData.addAll(data);
-        mAdapter.addFootView(UIUtils.loadNotMoreView(mRvContent));
+        if (mData.size() > 0) {
+            mAdapter.addFootView(UIUtils.loadNotMoreView(mRvContent));
+        }
         mAdapter.notifyItemChanged(0, mData.size());
     }
 }

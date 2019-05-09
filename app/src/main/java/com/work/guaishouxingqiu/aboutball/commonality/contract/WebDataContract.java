@@ -10,6 +10,6 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
  * 描述:纯web契约
  */
 public interface WebDataContract {
-    interface View extends IBaseView{}
-    interface Presenter extends IBasePresenter{}
+    interface View extends LoginOrShareContract.View{}
+    interface Presenter extends LoginOrShareContract.Presenter{}
 }

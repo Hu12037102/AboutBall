@@ -12,7 +12,7 @@ import com.work.guaishouxingqiu.aboutball.commonality.model.WebDataModel;
  * 更新时间: 2019/4/11 10:29
  * 描述:纯web数据Presenter
  */
-public class WebDataPresenter extends BasePresenter<WebDataContract.View,WebDataModel>
+public class WebDataPresenter extends LoginOrSharePresenter<WebDataContract.View,WebDataModel>
 implements WebDataContract.Presenter{
     public WebDataPresenter(@NonNull WebDataContract.View view) {
         super(view);

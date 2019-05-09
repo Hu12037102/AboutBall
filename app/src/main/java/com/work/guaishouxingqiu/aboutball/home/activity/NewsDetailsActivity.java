@@ -22,10 +22,13 @@ import com.example.item.weight.TitleView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseWebActivity;
+import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
 import com.work.guaishouxingqiu.aboutball.home.adapter.NewsMessageAdapter;
 import com.work.guaishouxingqiu.aboutball.home.bean.RequestSendMessageBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsMessageBean;
@@ -151,6 +154,12 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_send_message:
+                ShareWebBean shareWebBean = new ShareWebBean();
+                shareWebBean.webUrl = IApiService.H5.SHARE_NEWS_DETAILS + mNewsId;
+                LogUtils.w("onViewClicked--", shareWebBean.webUrl + "\n" + mWebView.getTitle());
+                shareWebBean.title = "资讯分享";
+                shareWebBean.description = mWebView.getTitle();
+                showShareDialog(shareWebBean);
                 break;
             case R.id.tv_input_message:
                 if (mSendMessageDialog == null) {

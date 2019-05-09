@@ -21,6 +21,7 @@ import com.work.guaishouxingqiu.aboutball.my.presenter.BallTeamMemberPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.weight.ShareDialog;
 import com.work.guaishouxingqiu.aboutball.weight.SingPopupWindows;
 
@@ -137,13 +138,14 @@ public class BallTeamMemberFragment extends LoginOrShareFragment<BallTeamMemberP
     }
 
     private void clickShareFriend() {
-        ShareDialog shareDialog = new ShareDialog(mContext);
+     /*   ShareDialog shareDialog = new ShareDialog(mContext);
         shareDialog.show();
         shareDialog.setWeichatClicklistener(v -> {
-            shareWebToWeiChat(IApiService.H5.SHARE_BALL_TEAM + mBallBean.teamId);
+            shareWebToWeiChat(DataUtils.resultShareBallTeam(IApiService.H5.SHARE_BALL_TEAM + mBallBean.teamId));
             shareDialog.dismiss();
-        });
+        });*/
 
+        showShareDialog(DataUtils.resultShareBallTeam(IApiService.H5.SHARE_BALL_TEAM + mBallBean.teamId));
 
     }
 

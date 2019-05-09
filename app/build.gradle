@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 //应用 Bugtags 插件
 apply plugin: 'com.bugtags.library.plugin'
 apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'com.growingio.android'
 android {
     useLibrary 'org.apache.http.legacy'
     def android = rootProject.ext.android
@@ -17,7 +18,9 @@ android {
         versionCode 3
         versionName 'v1.0.3'
         testInstrumentationRunner android.testInstrumentationRunner
-
+        //GrowingIO数据统计
+        resValue("string", "growingio_project_id", "924c976f18bd2145")
+        resValue("string", "growingio_url_scheme", "growing.788865291abc90a2")
         ndk {
             // 设置支持的 SO 库构架，一般而言，取你所有的库支持的构架的`交集`。
             abiFilters 'armeabi', 'armeabi-v7a'//, 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
@@ -166,4 +169,6 @@ dependencies {
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     /*zxing二维码扫一扫*/
     implementation project(':lib-zxing')
+    /**growingio数据统计*/
+    implementation 'com.growingio.android:vds-android-agent:autotrack-2.7.5@aar'
 }
