@@ -17,6 +17,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.SpannableString;
 import android.text.TextWatcher;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -303,14 +304,16 @@ public class UIUtils {
         });
     }
 
-    public static void setBaseCustomTabLayout(TabLayout tabLayout, String content, boolean isSelector, int tabHeight, boolean isAddListener) {
+    public static void setBaseCustomTabLayout(TabLayout tabLayout, String content, boolean isSelector, int tabHeight,int textSize) {
         View inflateView = LayoutInflater.from(tabLayout.getContext()).inflate(R.layout.item_base_tab_view, tabLayout, false);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         TextView tvTitle = inflateView.findViewById(R.id.tv_title);
         tvTitle.setText(content);
         if (isSelector) {
+            tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP,textSize);
             tvTitle.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         } else {
+            tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP,textSize-1);
             tvTitle.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
         }
         View viewSelector = inflateView.findViewById(R.id.view_selector);
@@ -336,7 +339,6 @@ public class UIUtils {
 
             tab.getCustomView().setLayoutParams(layoutParams);
         }
-        if (isAddListener) {
             tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                 @Override
                 public void onTabSelected(TabLayout.Tab tab) {
@@ -353,7 +355,6 @@ public class UIUtils {
 
                 }
             });
-        }
     }
 
 

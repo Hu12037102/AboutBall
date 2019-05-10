@@ -18,8 +18,10 @@ import java.util.List;
 public interface HomeContract {
     interface View extends IBaseView {
         void resultTabData(@NonNull BaseBean<List<ResultHomeTabBean>> data);
+        void resultDataError();
     }
 
     interface Presenter extends IBasePresenter {
+
     }
 }

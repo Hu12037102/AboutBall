@@ -31,15 +31,14 @@
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_title"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/size_0dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/size_20dp"
-            android:layout_marginStart="@dimen/size_20dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/iv_scan_code"
             app:tabIndicatorGravity="bottom"
             app:tabIndicatorColor="@color/color_2"
-            app:tabIndicatorHeight="@dimen/size_2dp"
+            app:tabIndicatorHeight="@dimen/size_0dp"
+            app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/color_4"
             app:tabTextColor="@color/colorFF777777" />
     </android.support.constraint.ConstraintLayout>
@@ -51,5 +50,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:is_scroll="true" />
+    <ViewStub
+        android:id="@+id/vs_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/item_not_data_view"
+        />
 
 </LinearLayout>

@@ -39,7 +39,7 @@ public class HomePresenter extends BasePresenter<HomeContract.View, HomeModel> i
 
             @Override
             public void onError(Throwable e) {
-
+                mView.resultDataError();
             }
         }));
     }

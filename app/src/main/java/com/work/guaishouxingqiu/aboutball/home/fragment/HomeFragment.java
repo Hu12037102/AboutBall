@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.ViewStub;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.work.guaishouxingqiu.aboutball.R;
@@ -17,6 +18,7 @@ import com.work.guaishouxingqiu.aboutball.home.presenter.HomePresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
 
 import java.util.List;
@@ -36,6 +38,9 @@ public class HomeFragment extends CameraFragment<HomePresenter> implements HomeC
     TabLayout mTabTitle;
     @BindView(R.id.bvp_content)
     BaseViewPager mBvpContent;
+    @BindView(R.id.vs_data)
+    ViewStub mVsData;
+    private View mInflateDataView;
 
 
     public static HomeFragment newInstance() {
@@ -49,8 +54,16 @@ public class HomeFragment extends CameraFragment<HomePresenter> implements HomeC
 
     @Override
     protected void initView() {
-
-
+        if (mInflateDataView == null) {
+            mInflateDataView = mVsData.inflate();
+        }
+        mInflateDataView.findViewById(R.id.iv_not_data).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.start();
+            }
+        });
+        mInflateDataView.setVisibility(View.GONE);
     }
 
     private void initPager(List<ResultHomeTabBean> tabData) {
@@ -141,16 +154,25 @@ public class HomeFragment extends CameraFragment<HomePresenter> implements HomeC
 
     @Override
     public void resultTabData(@NonNull BaseBean<List<ResultHomeTabBean>> data) {
+        mBvpContent.setVisibility(View.VISIBLE);
+        mInflateDataView.setVisibility(View.GONE);
         if (DataUtils.isResultSure(data) && data.result.size() > 0) {
             data.result.add(0, new ResultHomeTabBean(getString(R.string.recommend)));
             for (int i = 0; i < data.result.size(); i++) {
-                mTabTitle.addTab(mTabTitle.newTab().setText(data.result.get(i).labelName));
+               /* mTabTitle.addTab(mTabTitle.newTab().setText(data.result.get(i).labelName));
                 if (i == 0) {
                     DataUtils.checkData(mTabTitle.getTabAt(0)).select();
-                }
+                }*/
+                UIUtils.setBaseCustomTabLayout(mTabTitle, data.result.get(i).labelName, i == 0, 45,18);
             }
             initPager(data.result);
         }
+    }
+
+    @Override
+    public void resultDataError() {
+        mBvpContent.setVisibility(View.GONE);
+        mInflateDataView.setVisibility(View.VISIBLE);
     }
 
 

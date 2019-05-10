@@ -496,7 +496,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
              */
             mVideoPlay.setOnFirstFrameStartListener(() -> {
                 mSkvLoading.setVisibility(View.GONE);
-                mIvVideoStatus.setVisibility(View.VISIBLE);
+              //  mIvVideoStatus.setVisibility(View.VISIBLE);
                 mIvVideoStatus.setImageResource(R.mipmap.icon_video_pause);
                 mSbVideo.setVisibility(View.VISIBLE);
                 mSbVideo.setMax((int) mVideoPlay.getDuration());
