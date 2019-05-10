@@ -33,7 +33,7 @@ import butterknife.BindView;
  * 作者: 胡庆岭
  * 创建时间: 2019/3/12 17:57
  * 更新时间: 2019/3/12 17:57
- * 描述:集锦Fragment
+ * 描述:赛事Fragment
  */
 @Route(path = ARouterConfig.Path.FRAGMENT_HIGHLIGHTS)
 public class HighlightsFragment extends DelayedFragment<HighlightsPresenter>

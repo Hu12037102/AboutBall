@@ -12,6 +12,7 @@ import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataBean;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class GameResultAdapter extends BaseRecyclerAdapter<GameResultAdapter.Vie
     @Override
     protected void onBindViewDataHolder(@NonNull ViewHolder viewHolder, int i) {
         viewHolder.mTvName.setText(mData.get(i).nickName);
+        UIUtils.setText(viewHolder.mTvName, mData.get(i).nickName + "（" + mData.get(i).anchorName + "）");
         viewHolder.mTvContent.setText(mData.get(i).content);
         viewHolder.mTvName.setCompoundDrawablesWithIntrinsicBounds(i == 0 ? R.drawable.shape_game_result_check_view
                 : R.drawable.shape_game_result_default_view, 0, 0, 0);

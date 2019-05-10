@@ -76,13 +76,15 @@ public class HomeFragment extends CameraFragment<HomePresenter> implements HomeC
                 .getFragment(ARouterConfig.Path.FRAGMENT_HOT, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(1).labelId);
         HighlightsFragment mHighlightsFragment = ARouterIntent
                 .getFragment(ARouterConfig.Path.FRAGMENT_HIGHLIGHTS, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(2).labelId);
-        SpecialFragment mSpecialFragment = ARouterIntent
-                .getFragment(ARouterConfig.Path.FRAGMENT_SPECIAL, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(3).labelId);
-        VideoFragment mVideoFragment = ARouterIntent
-                .getFragment(ARouterConfig.Path.FRAGMENT_VIDEO, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(4).labelId);
 
+        VideoFragment mVideoFragment = ARouterIntent
+                .getFragment(ARouterConfig.Path.FRAGMENT_VIDEO, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(3).labelId);
+        DrillFragment drillFragment = ARouterIntent
+                .getFragment(ARouterConfig.Path.FRAGMENT_DRILL, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(4).labelId);
+        SpecialFragment mSpecialFragment = ARouterIntent
+                .getFragment(ARouterConfig.Path.FRAGMENT_SPECIAL, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(5).labelId);
         Fragment[] fragments = new Fragment[]{mRecommendedFragment, mHotFragment,
-                mHighlightsFragment, mSpecialFragment, mVideoFragment};
+                mHighlightsFragment, mVideoFragment, drillFragment, mSpecialFragment};
 
         FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
@@ -163,7 +165,7 @@ public class HomeFragment extends CameraFragment<HomePresenter> implements HomeC
                 if (i == 0) {
                     DataUtils.checkData(mTabTitle.getTabAt(0)).select();
                 }*/
-                UIUtils.setBaseCustomTabLayout(mTabTitle, data.result.get(i).labelName, i == 0, 45,18);
+                UIUtils.setBaseCustomTabLayout(mTabTitle, data.result.get(i).labelName, i == 0, 45, 18);
             }
             initPager(data.result);
         }
