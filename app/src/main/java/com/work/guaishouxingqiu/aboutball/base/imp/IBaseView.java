@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 
 import java.util.List;
 
@@ -26,4 +27,6 @@ public interface IBaseView {
     void resultOSSToken(OSSToken ossBean);
 
     void resultLevelData(List<ResultRefereeLevelBean> data);
+
+    void resultApkInfo(ResultUpdateApkBean result);
 }

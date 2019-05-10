@@ -73,12 +73,13 @@ public class AboutWeActivity extends BaseActivity<AboutWePresenter> implements A
             if (mUpdateBean == null) {
                 mPresenter.updateApkInfo(DownloadApkHelp.getVersionName(this));
             } else {
-                showUpdateDialog(mUpdateBean);
+              //  showUpdateDialog(mUpdateBean);
+                UIUtils.showUpdateDialog(this,mUpdateBean);
             }
         });
     }
 
-    private void showUpdateDialog(ResultUpdateApkBean updateBean) {
+   /* private void showUpdateDialog(ResultUpdateApkBean updateBean) {
         HintDialog hintDialog = new HintDialog.Builder(this)
                 .setTitle(R.string.update_apk)
                 .setBody(updateBean.content)
@@ -90,7 +91,7 @@ public class AboutWeActivity extends BaseActivity<AboutWePresenter> implements A
 
 
         });
-    }
+    }*/
 
     @Override
     protected AboutWePresenter createPresenter() {
@@ -100,6 +101,7 @@ public class AboutWeActivity extends BaseActivity<AboutWePresenter> implements A
 
     @Override
     public void resultApkInfo(ResultUpdateApkBean bean) {
-        showUpdateDialog(bean);
+       // showUpdateDialog(bean);
+        UIUtils.showUpdateDialog(this,bean);
     }
 }

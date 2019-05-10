@@ -11,6 +11,7 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.other.SharedPreferencesHelp;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
@@ -112,5 +113,22 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
             }.getType());
             mView.resultLevelData(data);
         }
+    }
+
+    public void updateApkInfo(String version) {
+
+        mModel.updateApkInfo(version, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<ResultUpdateApkBean>>() {
+            @Override
+            public void onNext(BaseBean<BaseDataBean<ResultUpdateApkBean>> t) {
+                if (t.code == IApi.Code.SUCCEED && t.result.code == IApi.Code.SUCCEED && t.result.result != null) {
+                    mView.resultApkInfo(t.result.result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
     }
 }

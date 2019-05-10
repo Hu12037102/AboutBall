@@ -32,6 +32,9 @@ import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
+import com.work.guaishouxingqiu.aboutball.my.activity.AboutWeActivity;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
+import com.work.guaishouxingqiu.aboutball.other.DownloadApkHelp;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.venue.activity.VenueDetailsActivity;
@@ -54,6 +57,7 @@ import java.util.List;
 public class UIUtils {
     @SuppressLint("StaticFieldLeak")
     private static Context mContext;
+    private static HintDialog mUpdateDialog;
 
     public static void init(@NonNull Context context) {
         UIUtils.mContext = context;
@@ -304,16 +308,16 @@ public class UIUtils {
         });
     }
 
-    public static void setBaseCustomTabLayout(TabLayout tabLayout, String content, boolean isSelector, int tabHeight,int textSize) {
+    public static void setBaseCustomTabLayout(TabLayout tabLayout, String content, boolean isSelector, int tabHeight, int textSize) {
         View inflateView = LayoutInflater.from(tabLayout.getContext()).inflate(R.layout.item_base_tab_view, tabLayout, false);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         TextView tvTitle = inflateView.findViewById(R.id.tv_title);
         tvTitle.setText(content);
         if (isSelector) {
-            tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP,textSize);
+            tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
             tvTitle.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         } else {
-            tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP,textSize-1);
+            tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize - 1);
             tvTitle.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
         }
         View viewSelector = inflateView.findViewById(R.id.view_selector);
@@ -339,22 +343,22 @@ public class UIUtils {
 
             tab.getCustomView().setLayoutParams(layoutParams);
         }
-            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-                @Override
-                public void onTabSelected(TabLayout.Tab tab) {
-                    notifySelectorBaseTab(tabLayout);
-                }
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                notifySelectorBaseTab(tabLayout);
+            }
 
-                @Override
-                public void onTabUnselected(TabLayout.Tab tab) {
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
 
-                }
+            }
 
-                @Override
-                public void onTabReselected(TabLayout.Tab tab) {
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
 
-                }
-            });
+            }
+        });
     }
 
 
@@ -392,5 +396,23 @@ public class UIUtils {
 
     public static void setText(@NonNull TextView textView, String content) {
         textView.setText(DataUtils.isEmpty(content) ? "" : content);
+    }
+
+    public static void showUpdateDialog(Context context, ResultUpdateApkBean updateBean) {
+        if (mUpdateDialog == null) {
+            mUpdateDialog = new HintDialog.Builder(context)
+                    .setTitle(R.string.update_apk)
+                    .setBody(updateBean.content)
+                    .setSure(R.string.sure).builder();
+        }
+        if (!mUpdateDialog.isShowing()) {
+            mUpdateDialog.show();
+        }
+        mUpdateDialog.setOnItemClickListener(view -> {
+            mUpdateDialog.dismiss();
+            DownloadApkHelp.loadApk(UIUtils.getContext(), updateBean.updateUrl);
+
+
+        });
     }
 }

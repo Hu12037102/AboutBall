@@ -1,9 +1,11 @@
 package com.work.guaishouxingqiu.aboutball.base;
 
+import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
 import com.work.guaishouxingqiu.aboutball.http.RetrofitManger;
 import com.work.guaishouxingqiu.aboutball.my.MyService;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 
 import java.util.List;
 
@@ -39,6 +41,14 @@ public class BaseModel {
     public void loadRefereeLevelData(BaseObserver<List<ResultRefereeLevelBean>> observer) {
         mRetrofitManger.create(MyService.class)
                 .loadRefereeLevelList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    public void updateApkInfo(String version, BaseObserver<BaseDataBean<ResultUpdateApkBean>> observer) {
+        mRetrofitManger.create(MyService.class)
+                .updateApkInfo(Contast.ANDROID, version)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

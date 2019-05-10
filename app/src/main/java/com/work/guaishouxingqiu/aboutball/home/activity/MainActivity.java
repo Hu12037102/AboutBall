@@ -17,6 +17,7 @@ import com.work.guaishouxingqiu.aboutball.home.contract.MainContract;
 import com.work.guaishouxingqiu.aboutball.home.fragment.HomeFragment;
 import com.work.guaishouxingqiu.aboutball.home.presenter.MainPresenter;
 import com.work.guaishouxingqiu.aboutball.my.fragment.MyFragment;
+import com.work.guaishouxingqiu.aboutball.other.DownloadApkHelp;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
 import com.work.guaishouxingqiu.aboutball.permission.imp.OnPermissionsResult;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
@@ -59,6 +60,7 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
     @Override
     protected void initView() {
         registerEventBus();
+        mPresenter.updateApkInfo(DownloadApkHelp.getVersionName(this));
         mRvMainTab.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
     }
 
@@ -147,4 +149,6 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
         }
 
     }
+
+
 }
