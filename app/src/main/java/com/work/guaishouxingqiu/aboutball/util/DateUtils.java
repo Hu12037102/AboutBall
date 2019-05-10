@@ -214,14 +214,17 @@ public class DateUtils {
      */
     public static String getHourMinutes(String time) {
         String resultHour = "";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
         try {
             Date date = sdf.parse(time);
-            Calendar calendar = Calendar.getInstance();
+            SimpleDateFormat newSdf = new SimpleDateFormat("HH:mm");
+            resultHour = newSdf.format(date);
+            /*Calendar calendar = Calendar.getInstance();
             calendar.setTime(date);
             int hour = calendar.get(Calendar.HOUR_OF_DAY);
             int minute = calendar.get(Calendar.MINUTE);
-            resultHour = hour + ":" + minute;
+            resultHour = hour + ":" + (minute < 10 ? "0" + minute : minute);*/
         } catch (ParseException e) {
             e.printStackTrace();
         }
