@@ -86,7 +86,7 @@ public interface Contast {
     String HAS_REFEREE = "1";
     String HAS_RIVAL = "2";
 
-    String VIDEO_RECOMMENDED_TYPE = "4";
+    String VIDEO_RECOMMENDED_TYPE = "3";
 
 
     String KEY_PREVIEW_DATA_MEDIA = "key_preview_data_media";

@@ -23,5 +23,5 @@ public class ResultGameBean {
     public String endTime;
     public String liveAddress;
     public String livePhoto;
-    public String liveType;
+    public String liveType;//1、视频，2、图文
 }
