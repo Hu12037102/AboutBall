@@ -170,7 +170,7 @@
             android:layout_centerVertical="true"
             android:background="@drawable/shape_default_button"
             android:text="@string/next"
-            android:clickable="false"
+            android:enabled="false"
             />
     </RelativeLayout>
 </LinearLayout>

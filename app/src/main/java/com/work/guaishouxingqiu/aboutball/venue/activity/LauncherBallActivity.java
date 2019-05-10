@@ -183,10 +183,10 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
 
     private void setNextStatus() {
         if (isSelectorTeam() && isSelectorColor() && isSelectorReferee()) {
-            mTvNext.setClickable(true);
+            mTvNext.setEnabled(true);
             mTvNext.setBackgroundResource(R.drawable.shape_click_button);
         } else {
-            mTvNext.setClickable(false);
+            mTvNext.setEnabled(false);
             mTvNext.setBackgroundResource(R.drawable.shape_default_button);
         }
     }
