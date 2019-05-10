@@ -17,6 +17,7 @@ import com.work.guaishouxingqiu.aboutball.home.adapter.RecommendedAdapter;
 import com.work.guaishouxingqiu.aboutball.home.fragment.HomeFragment;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
+import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.contract.VenueContract;
 import com.work.guaishouxingqiu.aboutball.venue.presenter.VenuePresenter;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
@@ -129,7 +130,8 @@ public class VenueFragment extends DelayedFragment<VenuePresenter> implements Ve
     private void initTabData() {
         String[] tabArray = getResources().getStringArray(R.array.venue_tab_array);
         for (int i = 0; i < tabArray.length; i++) {
-            mTabTitle.addTab(mTabTitle.newTab().setText(tabArray[i]), i == 0);
+          //  mTabTitle.addTab(mTabTitle.newTab().setText(tabArray[i]), i == 0);
+            UIUtils.setBaseCustomTabLayout(mTabTitle,tabArray[i],i==0,45,18);
         }
     }
 

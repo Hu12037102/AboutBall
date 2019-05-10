@@ -22,6 +22,7 @@ import com.work.guaishouxingqiu.aboutball.home.fragment.HomeFragment;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -102,7 +103,6 @@ public class GameFragment extends DelayedFragment<GamePresenter> implements Game
     }
 
 
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -110,14 +110,14 @@ public class GameFragment extends DelayedFragment<GamePresenter> implements Game
     }
 
 
-
     private void initTabData() {
         String[] tabArray = getResources().getStringArray(R.array.game_tab_array);
         for (int i = 0; i < tabArray.length; i++) {
-            mTabTitle.addTab(mTabTitle.newTab().setText(tabArray[i]));
+            /*mTabTitle.addTab(mTabTitle.newTab().setText(tabArray[i]));
             if (i == 0) {
                 DataUtils.checkData(mTabTitle.getTabAt(i)).select();
-            }
+            }*/
+            UIUtils.setBaseCustomTabLayout(mTabTitle, tabArray[i], i == 0, 45, 18);
         }
     }
 
@@ -140,7 +140,6 @@ public class GameFragment extends DelayedFragment<GamePresenter> implements Game
         };
         mBvpContent.setAdapter(pagerAdapter);
     }
-
 
 
     @Override
