@@ -73,6 +73,7 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
     private View mHeadView;
     private TextView mTvTitle;
     private TextView mTvFrom;
+    private BaseDataBean<String> mContentBean;
 
 
     @Override
@@ -157,8 +158,8 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
                 ShareWebBean shareWebBean = new ShareWebBean();
                 shareWebBean.webUrl = IApiService.H5.SHARE_NEWS_DETAILS + mNewsId;
                 LogUtils.w("onViewClicked--", shareWebBean.webUrl + "\n" + mWebView.getTitle());
-                shareWebBean.title = "资讯分享";
-                shareWebBean.description = mWebView.getTitle();
+                shareWebBean.title = mContentBean.title;
+                shareWebBean.description = "来源：" + mContentBean.source;
                 showShareDialog(shareWebBean);
                 break;
             case R.id.tv_input_message:
@@ -181,6 +182,7 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
     @Override
     public void resultNewsContent(BaseDataBean<String> dataBean) {
         loadEditData(dataBean.content);
+        mContentBean = dataBean;
         mTvTitle.setText(dataBean.title);
         mTvFrom.setText(UIUtils.getString(R.string.from_data, dataBean.source, dataBean.releaseTime));
         // mTitleView.mTvCenter.setText(dataBean.title);
