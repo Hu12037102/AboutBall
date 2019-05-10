@@ -38,17 +38,20 @@ public class GameDataAdapter extends BaseRecyclerAdapter<GameDataAdapter.ViewHol
     @Override
     protected void onBindViewDataHolder(@NonNull ViewHolder viewHolder, int i) {
         ResultGameDetailsBean.Bean bean = mData.get(i);
-        viewHolder.mTvLeft.setText(String.valueOf(bean.hostValue));
-        viewHolder.mTvRight.setText(String.valueOf(bean.guestValue));
+
         viewHolder.mTvCenter.setText(bean.statsName);
         switch (bean.dataType) {
             case TYPE_INTEGER:
-                viewHolder.mGdbLeft.setProportion(bean.hostValue / (bean.hostValue + bean.guestValue));
-                viewHolder.mGdbRight.setProportion(bean.guestValue / (bean.hostValue + bean.guestValue));
+                viewHolder.mGdbLeft.setProportion(bean.hostValue == 0 ? bean.hostValue : bean.hostValue / (bean.hostValue + bean.guestValue));
+                viewHolder.mGdbRight.setProportion(bean.guestValue == 0 ? bean.guestValue : bean.guestValue / (bean.hostValue + bean.guestValue));
+                viewHolder.mTvLeft.setText(String.valueOf(DataUtils.getInt(bean.hostValue + "")));
+                viewHolder.mTvRight.setText(String.valueOf(DataUtils.getInt(bean.guestValue + "")));
                 break;
             case TYPE_FLOAT:
                 viewHolder.mGdbLeft.setProportion(bean.hostValue);
                 viewHolder.mGdbRight.setProportion(bean.guestValue);
+                viewHolder.mTvLeft.setText(String.valueOf(DataUtils.getPercent(bean.hostValue)));
+                viewHolder.mTvRight.setText(String.valueOf(DataUtils.getPercent(bean.guestValue )));
                 break;
         }
         if (bean.hostValue == bean.guestValue) {

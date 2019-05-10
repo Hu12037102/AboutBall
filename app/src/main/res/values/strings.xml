@@ -51,7 +51,7 @@
     <string name="you_sure_of_submission_of_accreditation">您确定放弃提交裁判资质认证</string>
     <string name="please_selector_referee_class">请选择裁判等级</string>
     <string name="please_selector_type">请选择球类类型</string>
-    <string name="selector_referee_grade_book">选择教练等级证书</string>
+    <string name="selector_referee_grade_book">选择裁判等级证书</string>
     <string name="please_input_number">请输入号码</string>
     <string name="please_selector_shirt_color">请选择球衣颜色</string>
     <string name="ball_team_details">球队信息</string>

@@ -10,6 +10,8 @@ import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestManageBallTeamBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.ManageBallTeamContract;
 import com.work.guaishouxingqiu.aboutball.my.model.ManageBallTeamModel;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultTypeBean;
 
 import java.util.List;
@@ -57,7 +59,7 @@ public class ManageBallTeamPresenter extends BasePresenter<ManageBallTeamContrac
         mModel.createTeam(requestBean, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<Long>>() {
             @Override
             public void onNext(BaseBean<BaseDataBean<Long>> t) {
-                if (t.code == IApi.Code.SUCCEED && t.result != null) {
+                if (DataUtils.baseDataBeanIsSucceed(t)) {
                     mView.resultManageTeam(t.result.result);
                 }
             }

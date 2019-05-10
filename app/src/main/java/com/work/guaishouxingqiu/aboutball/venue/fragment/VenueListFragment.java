@@ -1,5 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.venue.fragment;
 
+import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,12 +15,14 @@ import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
+import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
+import com.work.guaishouxingqiu.aboutball.util.PhoneUtils;
 import com.work.guaishouxingqiu.aboutball.venue.adapter.BallTypeAdapter;
 import com.work.guaishouxingqiu.aboutball.venue.adapter.VenueListAdapter;
 import com.work.guaishouxingqiu.aboutball.venue.bean.RequestVenueListBean;
@@ -88,6 +92,16 @@ public class VenueListFragment extends BaseFragment<VenueListPresenter> implemen
         }
     }
 
+    private void initLocation() {
+        Location location = PhoneUtils.getGPSLocation(this);
+        if (location != null) {
+            LogUtils.w("location--", mRequestBean.latitude + "--" + mRequestBean.longitude);
+            mRequestBean.latitude = String.valueOf(location.getLatitude());
+            mRequestBean.longitude = String.valueOf(location.getLongitude());
+        }
+        mSrlRefresh.autoRefresh();
+    }
+
     @Override
     protected void initEvent() {
         mSrlRefresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
@@ -155,14 +169,13 @@ public class VenueListFragment extends BaseFragment<VenueListPresenter> implemen
 
                 @Override
                 public void onItemClick(View view, int position) {
-                 ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_DETAILS,ARouterConfig.Key.STADIUM_ID,mListData.get(position).stadiumId);
+                    ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_DETAILS, ARouterConfig.Key.STADIUM_ID, mListData.get(position).stadiumId);
                     //Toasts.with().showToast(R.string.pleases_next_open);
                 }
             });
             mRequestBean = new RequestVenueListBean();
             mRequestBean.typeId = data.get(0).typeId;
-            mSrlRefresh.autoRefresh();
-
+            initLocation();
         }
     }
 
@@ -174,5 +187,13 @@ public class VenueListFragment extends BaseFragment<VenueListPresenter> implemen
         mListData.addAll(data);
         mSrlRefresh.setNoMoreData(data.size() < mPresenter.mPageSize);
         mListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Contast.REQUEST_CODE && resultCode == Contast.REQUEST_CODE) {
+            initLocation();
+        }
     }
 }

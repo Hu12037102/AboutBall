@@ -75,7 +75,7 @@ public class GameDataBar extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        mBarPaint.setStrokeWidth(getHeight());
+      //  mBarPaint.setStrokeWidth(getHeight());
         mBarPaint.setColor(mBarColors);
         if (isDrawLeftToRight) {
             mBarRectF = new RectF(0, 0, getWidth() * mDrawProportion, getHeight());

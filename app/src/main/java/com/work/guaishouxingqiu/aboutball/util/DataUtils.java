@@ -15,6 +15,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -229,11 +232,45 @@ public class DataUtils {
         return bean.code == IApi.Code.SUCCEED && bean.result != null && bean.result.code == IApi.Code.SUCCEED;
     }
 
+    /**
+     * 构造默认的球队分享bean
+     *
+     * @param webUrl
+     * @return
+     */
     public static ShareWebBean resultShareBallTeam(@NonNull String webUrl) {
         ShareWebBean bean = new ShareWebBean();
         bean.webUrl = webUrl;
         bean.title = "加入球队";
         bean.description = "您的朋友邀请您一起组建球队，马上点击确认吧";
         return bean;
+    }
+
+    /**
+     * @param number 数据
+     * @return 返回int整形数据
+     */
+    public static int getInt(String number) {
+        if (DataUtils.isEmpty(number)) {
+            return -1;
+        }
+        try {
+            NumberFormat nf = NumberFormat.getInstance();
+            nf.setParseIntegerOnly(true);
+            return nf.parse(number).intValue();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    /**
+     * @param number 小数
+     * @return 返回百分数
+     */
+    public static String getPercent(Number number) {
+        NumberFormat numberFormat = NumberFormat.getPercentInstance();
+        numberFormat.setMaximumFractionDigits(2); //最大保留两位小数百分数后两位
+        return numberFormat.format(number);
     }
 }
