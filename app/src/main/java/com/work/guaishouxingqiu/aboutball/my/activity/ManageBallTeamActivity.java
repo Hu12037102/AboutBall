@@ -145,7 +145,7 @@ public class ManageBallTeamActivity extends CameraActivity<ManageBallTeamPresent
             mRequestBean.typeId = mBallBean.teamTypeId;
             mRequestBean.shirtColor = mBallBean.shirtColor;
             mItemColor.setContentText(mBallBean.shirtColor);
-            mTvCreate.setText(R.string.edit_ball_team);
+            mTvCreate.setText(R.string.save);
         } else {
             mTitleView.mTvCenter.setText(R.string.create_ball_team);
             mTvCreate.setText(R.string.create_ball_team);
