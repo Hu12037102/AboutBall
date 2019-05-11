@@ -39,6 +39,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
     private LoadingView mLoadingView;
     protected Bundle mBundle;
     protected Context mContext;
+    protected ViewModel mViewModel;
 
     protected abstract int getLayoutId();
 
@@ -59,8 +60,9 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
             EventBus.getDefault().unregister(this);
         }
     }
-    public BaseActivity getBaseActivity(){
-     return (BaseActivity) getActivity();
+
+    public BaseActivity getBaseActivity() {
+        return (BaseActivity) getActivity();
     }
 
     @Nullable
@@ -74,6 +76,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        mViewModel = ViewModel.createViewModel(getActivity());
         mPresenter = createPresenter();
         initPermission();
     }
@@ -112,8 +115,9 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
         mPresenter.deathPresenter();
+        mViewModel.onDestroy();
+        super.onDestroyView();
         mBinder.unbind();
     }
 
@@ -123,7 +127,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
 
     @Override
     public void resultBaseData(@NonNull BaseBean baseBean) {
-        UIUtils.resultBaseData(baseBean, DataUtils.checkData(getActivity()));
+        mViewModel.resultBaseData(baseBean);
     }
 
     @Override
@@ -138,6 +142,6 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
 
     @Override
     public void resultApkInfo(ResultUpdateApkBean result) {
-        UIUtils.showUpdateDialog(mContext,result);
+        mViewModel.showUpdateDialog(mContext, result);
     }
 }

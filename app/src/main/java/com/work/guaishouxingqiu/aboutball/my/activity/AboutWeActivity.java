@@ -74,7 +74,7 @@ public class AboutWeActivity extends BaseActivity<AboutWePresenter> implements A
                 mPresenter.updateApkInfo(DownloadApkHelp.getVersionName(this));
             } else {
               //  showUpdateDialog(mUpdateBean);
-                UIUtils.showUpdateDialog(this,mUpdateBean);
+                mViewModel.showUpdateDialog(this,mUpdateBean);
             }
         });
     }
@@ -102,6 +102,6 @@ public class AboutWeActivity extends BaseActivity<AboutWePresenter> implements A
     @Override
     public void resultApkInfo(ResultUpdateApkBean bean) {
        // showUpdateDialog(bean);
-        UIUtils.showUpdateDialog(this,bean);
+        mViewModel.showUpdateDialog(this,bean);
     }
 }

@@ -141,7 +141,7 @@ public class MyDetailsActivity extends CameraActivity<MyDetailsPresenter> implem
         if (UserManger.get().isLogin()) {
             ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_UPDATE_PHONE);
         } else {
-            UIUtils.showLoginDialog(this);
+            mViewModel.showLoginDialog();
         }
     }
 

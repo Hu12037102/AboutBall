@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.util.ScreenUtils;
 import com.example.item.weight.TitleView;
+import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
@@ -193,6 +194,22 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
+            }
+        });
+        mVenueListAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onNotNetClick(View view) {
+
+            }
+
+            @Override
+            public void onNotDataClick(View view) {
+
+            }
+
+            @Override
+            public void onItemClick(View view, int position) {
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_DETAILS, ARouterConfig.Key.STADIUM_ID, mVenueData.get(position).stadiumId);
             }
         });
     }

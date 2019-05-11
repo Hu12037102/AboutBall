@@ -1,10 +1,13 @@
 package com.work.guaishouxingqiu.aboutball.base;
 
+import android.app.Activity;
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.work.guaishouxingqiu.aboutball.Contast;
+import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseModelCallback;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
@@ -12,9 +15,15 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
+import com.work.guaishouxingqiu.aboutball.other.DownloadApkHelp;
 import com.work.guaishouxingqiu.aboutball.other.SharedPreferencesHelp;
+import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
+import com.work.guaishouxingqiu.aboutball.util.UIUtils;
+import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
+import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +42,8 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
     public boolean isRefresh = true;
     protected CompositeDisposable mCompositeDisposable;
     public V mView;
-
     protected M mModel;
+    private HintDialog mUpdateDialog;
 
 
     protected abstract M createModel();
@@ -97,7 +106,7 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
                 @Override
                 public void onNext(BaseBean<List<ResultRefereeLevelBean>> t) {
                     sp.putObject(SharedPreferencesHelp.KEY_REFEREE_CACHE_LIST, new Gson().toJson(t.result));
-                    LogUtils.w("SharedPreferencesHelp--",new Gson().toJson(t.result));
+                    LogUtils.w("SharedPreferencesHelp--", new Gson().toJson(t.result));
                     mView.resultLevelData(t.result);
                 }
 
@@ -107,7 +116,7 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
                 }
             }));
         } else {
-            LogUtils.w("SharedPreferencesHelp---",refereeJson);
+            LogUtils.w("SharedPreferencesHelp---", refereeJson);
             Gson gson = new Gson();
             List<ResultRefereeLevelBean> data = gson.fromJson(refereeJson, new TypeToken<List<ResultRefereeLevelBean>>() {
             }.getType());
@@ -131,4 +140,9 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
             }
         }));
     }
+
+
+
+
+
 }

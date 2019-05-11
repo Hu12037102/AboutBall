@@ -69,7 +69,7 @@ public class WebDataActivity extends BaseWebActivity<WebDataPresenter> implement
             mWebView.addJavascriptInterface(new YunYou(), "YunYou");
 
         } else {
-            UIUtils.showLoginDialog(this);
+            mViewModel.showLoginDialog();
         }
 
     }

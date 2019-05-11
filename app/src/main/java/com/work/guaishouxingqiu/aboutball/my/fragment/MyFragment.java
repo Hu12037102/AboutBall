@@ -140,7 +140,7 @@ public class MyFragment extends DelayedFragment<MyPresenter> implements MyContra
                         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_REFEREE_STATUS, ARouterConfig.Key.REFEREE_STATUS, mMyRefereeStatus.intValue());
                     }
                 } else {
-                    UIUtils.showLoginDialog(mContext);
+                    mViewModel.showLoginDialog();
                 }
             }
         });

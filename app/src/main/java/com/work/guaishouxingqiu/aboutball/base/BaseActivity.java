@@ -45,12 +45,14 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
     private Unbinder mBinder;
     private LoadingView mLoadingView;
     protected Intent mIntent;
+    protected ViewModel mViewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         mBinder = ButterKnife.bind(this);
+        mViewModel = ViewModel.createViewModel(this);
         initStatusColor();
         initPermission();
         ActivityManger.get().addActivity(this);
@@ -136,11 +138,14 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
-        mBinder.unbind();
+        if (mViewModel != null) {
+            mViewModel.onDestroy();
+        }
         if (mPresenter != null) {
             mPresenter.deathPresenter();
         }
+        super.onDestroy();
+        mBinder.unbind();
         ActivityManger.get().removeActivity(this.getClass());
 
     }
@@ -164,7 +169,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
      */
     @Override
     public void resultBaseData(@NonNull BaseBean baseBean) {
-        UIUtils.resultBaseData(baseBean, DataUtils.checkData(this));
+        mViewModel.resultBaseData(baseBean);
     }
 
     protected void compressImage(List<MediaSelectorFile> mMediaFileData, CompressImageTask.OnImagesResult onImagesResult) {
@@ -194,6 +199,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
 
     @Override
     public void resultApkInfo(ResultUpdateApkBean result) {
-        UIUtils.showUpdateDialog(this, result);
+        mViewModel.showUpdateDialog(this, result);
     }
 }

@@ -57,7 +57,7 @@ import java.util.List;
 public class UIUtils {
     @SuppressLint("StaticFieldLeak")
     private static Context mContext;
-    private static HintDialog mUpdateDialog;
+
 
     public static void init(@NonNull Context context) {
         UIUtils.mContext = context;
@@ -105,52 +105,7 @@ public class UIUtils {
         });
     }
 
-    public static void resultBaseData(@NonNull BaseBean baseBean, @NonNull Activity activity) {
-        switch (baseBean.code) {
-            case IApi.Code.USER_NO_EXIST:
-                HintDialog hintDialog = new HintDialog.Builder(activity)
-                        .setTitle(R.string.hint)
-                        .setBody(R.string.this_phone_not_register)
-                        .setSure(R.string.go_register)
-                        .builder();
-                hintDialog.show();
-                hintDialog.setOnItemClickListener(view -> {
-                    ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_REGISTER);
-                    hintDialog.dismiss();
-                });
-                Toasts.with().showToast(baseBean.title);
-                break;
-            case IApi.Code.SERVICE_ERROR:
-                Toasts.with().showToast(baseBean.message);
-                break;
-            case IApi.Code.USER_EXIST:
-                final HintDialog loginDialog = new HintDialog.Builder(activity)
-                        .setTitle(R.string.hint)
-                        .setBody(R.string.this_phone_is_register)
-                        .setSure(R.string.login_immediately)
-                        .builder();
-                loginDialog.show();
-                loginDialog.setOnItemClickListener(view -> {
-                    activity.finish();
-                    loginDialog.dismiss();
-                });
-                break;
-            case IApi.Code.USER_NOT_LOGIN:
-                final HintDialog notLoginDialog = new HintDialog.Builder(activity)
-                        .setTitle(R.string.hint)
-                        .setBody(R.string.is_go_to_login)
-                        .setSure(R.string.login_immediately)
-                        .builder();
-                notLoginDialog.show();
-                notLoginDialog.setOnItemClickListener(view -> {
-                    ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_LOGIN);
-                    notLoginDialog.dismiss();
-                });
-                break;
-            default:
-                break;
-        }
-    }
+
 
     public static void setGameIconStatus(int stateId, TextView textView) {
         switch (stateId) {
@@ -205,18 +160,7 @@ public class UIUtils {
         }
     }
 
-    public static void showLoginDialog(Context context) {
-        HintDialog notLoginDialog = new HintDialog.Builder(context)
-                .setTitle(R.string.hint)
-                .setBody(R.string.is_go_to_login)
-                .setSure(R.string.login_immediately)
-                .builder();
-        notLoginDialog.show();
-        notLoginDialog.setOnItemClickListener(view -> {
-            ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_LOGIN);
-            notLoginDialog.dismiss();
-        });
-    }
+
 
     public static void showToast(String content) {
         Toasts.with().showToast(content);
@@ -398,21 +342,5 @@ public class UIUtils {
         textView.setText(DataUtils.isEmpty(content) ? "" : content);
     }
 
-    public static void showUpdateDialog(Context context, ResultUpdateApkBean updateBean) {
-        if (mUpdateDialog == null) {
-            mUpdateDialog = new HintDialog.Builder(context)
-                    .setTitle(R.string.update_apk)
-                    .setBody(updateBean.content)
-                    .setSure(R.string.sure).builder();
-        }
-        if (!mUpdateDialog.isShowing()) {
-            mUpdateDialog.show();
-        }
-        mUpdateDialog.setOnItemClickListener(view -> {
-            mUpdateDialog.dismiss();
-            DownloadApkHelp.loadApk(UIUtils.getContext(), updateBean.updateUrl);
 
-
-        });
-    }
 }

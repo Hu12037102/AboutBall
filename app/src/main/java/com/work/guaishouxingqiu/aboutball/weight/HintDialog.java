@@ -60,6 +60,7 @@ public class HintDialog extends Dialog {
     }
 
 
+
     private void initEvent() {
         mTvSure.setOnClickListener(v -> {
             if (onItemClickListener != null) {
