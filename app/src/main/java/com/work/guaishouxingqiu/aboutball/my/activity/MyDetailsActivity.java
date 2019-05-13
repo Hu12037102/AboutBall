@@ -32,6 +32,7 @@ import com.work.guaishouxingqiu.aboutball.weight.SexDialog;
 import com.work.guaishouxingqiu.aboutball.weight.WeightDialog;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -277,7 +278,7 @@ public class MyDetailsActivity extends CameraActivity<MyDetailsPresenter> implem
 
     @Override
     protected void resultAlbumResult(List<MediaSelectorFile> data) {
-        uploadingImage2OSS(data.get(0).filePath);
+         uploadingImage2OSS(data.get(0).filePath);
         LogUtils.w("resultAlbumResult--", data.size() + "--");
     }
 

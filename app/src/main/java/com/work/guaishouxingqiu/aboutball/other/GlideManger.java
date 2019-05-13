@@ -94,7 +94,8 @@ public class GlideManger {
     }
 
     public void loadImage(@NonNull Context context, @NonNull String imagePath, @NonNull ImageView imageView) {
-        RequestOptions requestOptions = new RequestOptions().centerCrop();
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        RequestOptions requestOptions = new RequestOptions().centerCrop().placeholder(R.mipmap.icon_default_banner).error(R.mipmap.icon_default_banner);
         Glide.with(context).asDrawable().apply(requestOptions).load(imagePath).into(imageView);
     }
 

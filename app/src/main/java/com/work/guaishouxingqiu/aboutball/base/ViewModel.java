@@ -3,6 +3,7 @@ package com.work.guaishouxingqiu.aboutball.base;
 import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.view.View;
 
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
@@ -11,6 +12,7 @@ import com.work.guaishouxingqiu.aboutball.other.DownloadApkHelp;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
+import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
@@ -98,17 +100,25 @@ public class ViewModel {
             mUpdateDialog = new HintDialog.Builder(context)
                     .setTitle(R.string.update_apk)
                     .setBody(updateBean.content)
-                    .setSure(R.string.sure).builder();
+                    .setShowSingButton(false)
+                    .builder();
         }
         if (!mUpdateDialog.isShowing()) {
             mUpdateDialog.show();
         }
-        mUpdateDialog.setOnItemClickListener(view -> {
-            mUpdateDialog.dismiss();
-            DownloadApkHelp.loadApk(UIUtils.getContext(), updateBean.updateUrl);
+        mUpdateDialog.setOnItemClickSureAndCancelListener(new BaseDialog.OnItemClickSureAndCancelListener() {
+            @Override
+            public void onClickSure(@NonNull View view) {
+                DownloadApkHelp.loadApk(UIUtils.getContext(), updateBean.updateUrl);
+                mUpdateDialog.dismiss();
+            }
 
-
+            @Override
+            public void onClickCancel(@NonNull View view) {
+                mUpdateDialog.dismiss();
+            }
         });
+
     }
 
 

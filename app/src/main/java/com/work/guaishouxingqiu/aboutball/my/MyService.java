@@ -8,6 +8,7 @@ import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
 import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestApplyRefereeBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestEditAddressBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestFeedbackBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestManageBallTeamBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestNewAddressBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestTeamMyDetailsBean;
@@ -133,5 +134,7 @@ public interface MyService {
     Observable<BaseBean<String>> sureRefereeStatus();
     @GET(IApiService.GET_MY_REFEREE_RECORD)
     Observable<BaseBean<List<ResultRefereeRecordBean>>> loadMyRefereeRecord();
+    @POST(IApiService.POST_FEEDBACK)
+    Observable<BaseBean<BaseDataBean<String>>> feedback(@Body RequestFeedbackBean bean);
 
 }

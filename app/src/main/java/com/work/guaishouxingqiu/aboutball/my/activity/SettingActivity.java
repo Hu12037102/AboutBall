@@ -74,7 +74,7 @@ public class SettingActivity extends BaseActivity<SettingPresenter>
     @Override
     protected void initEvent() {
         mItemFeedback.setOnItemClickListener(view -> {
-
+            clickFeedback();
         });
         mItemLoginOut.setOnClickListener(v -> {
             clickLoginOut();
@@ -87,6 +87,10 @@ public class SettingActivity extends BaseActivity<SettingPresenter>
             ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ABOUT_WE);
         });
         mItemAgreement.setOnItemClickListener(view -> clickAgreement());
+    }
+
+    private void clickFeedback() {
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_FEEDBACK);
     }
 
     private void clickAgreement() {

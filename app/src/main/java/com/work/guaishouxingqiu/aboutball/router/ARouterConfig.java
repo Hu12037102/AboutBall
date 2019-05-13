@@ -41,6 +41,7 @@ public interface ARouterConfig {
         String ACTIVITY_APPLY_BECOME_REFEREE = "/activity/apply/become/referee";
         String ACTIVITY_REFEREE_STATUS = "/activity/referee/status";
         String ACTIVITY_MY_REFEREE_RECORD = "/activity/my/referee/record";
+        String ACTIVITY_FEEDBACK="/activity/feedback";
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";

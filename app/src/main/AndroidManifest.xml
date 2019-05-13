@@ -227,6 +227,8 @@
         <activity
             android:name=".my.activity.MyRefereeRecordActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".my.activity.FeedbackActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 

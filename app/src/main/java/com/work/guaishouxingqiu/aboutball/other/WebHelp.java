@@ -45,7 +45,7 @@ public class WebHelp {
         webSettings.setDatabaseEnabled(true);   //开启 database storage API 功能
 
         //硬件加速
-      //  webSettings.setPluginState(WebSettings.PluginState.OFF);
+       webSettings.setPluginState(WebSettings.PluginState.ON);
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         webSettings.setUseWideViewPort(false); // 关键点
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -54,5 +54,7 @@ public class WebHelp {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         }
+
+
     }
 }

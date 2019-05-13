@@ -73,4 +73,11 @@
         <item>我的记录</item>
         <item>我的评价</item>
     </string-array>
+    <string-array name="feedback_type_array">
+        <item>侵权举报</item>
+        <item>功能出错</item>
+        <item>帐号出错</item>
+        <item>优化建议</item>
+        <item>其他</item>
+    </string-array>
 </resources>
