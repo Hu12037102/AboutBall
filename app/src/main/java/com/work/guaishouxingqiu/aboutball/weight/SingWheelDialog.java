@@ -24,7 +24,7 @@ import java.util.List;
  * 更新时间: 2019/4/24 13:50
  * 描述:
  */
-public class SingWheelDialog extends BaseDialog {
+public  class SingWheelDialog extends BaseDialog {
     private List<String> mData;
     private TitleView mTitleView;
     private WheelView mWheelView;
@@ -39,8 +39,45 @@ public class SingWheelDialog extends BaseDialog {
     public SingWheelDialog(Context context, List<String> data) {
         super(context);
         this.mData = data;
+        initViews(context);
+        initDatas();
+        initEvents();
 
+    }
 
+    private void initViews(Context context) {
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        View inflateView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_sing_wheel_view, null);
+        setContentView(inflateView);
+        mTitleView = inflateView.findViewById(R.id.title_view);
+        mWheelView = inflateView.findViewById(R.id.wv_data);
+        mWheelView.setCyclic(false);
+
+        mWheelView.setLineSpacingMultiplier(2.0f);
+        mWheelView.setTextColorCenter(ContextCompat.getColor(getContext(), R.color.colorFF333333));
+        mWheelView.setGravity(Gravity.CENTER);
+    }
+
+    private void initDatas() {
+        mWheelAdapter = new ArrayWheelAdapter<>(mData);
+        mWheelView.setAdapter(mWheelAdapter);
+    }
+
+    private void initEvents() {
+        mTitleView.setOnTitleViewClickListener(new TitleView.OnTitleViewClickListener() {
+            @Override
+            public void onBackClick(@NonNull View view) {
+                dismiss();
+            }
+
+            @Override
+            public void onSureClick(@NonNull View view) {
+                if (onItemClickListener != null) {
+                    onItemClickListener.onClickItem(view, mWheelView.getCurrentItem());
+                }
+                dismiss();
+            }
+        });
     }
 
     public void notifyData(List<String> data){
@@ -59,40 +96,17 @@ public class SingWheelDialog extends BaseDialog {
 
     @Override
     protected void initEvent() {
-        mTitleView.setOnTitleViewClickListener(new TitleView.OnTitleViewClickListener() {
-            @Override
-            public void onBackClick(@NonNull View view) {
-                dismiss();
-            }
 
-            @Override
-            public void onSureClick(@NonNull View view) {
-                if (onItemClickListener != null) {
-                    onItemClickListener.onClickItem(view, mWheelView.getCurrentItem());
-                }
-                dismiss();
-            }
-        });
     }
 
     @Override
     protected void initData() {
-        mWheelAdapter = new ArrayWheelAdapter<>(mData);
-        mWheelView.setAdapter(mWheelAdapter);
+
     }
 
     @Override
     protected void initView(Context context) {
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        View inflateView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_sing_wheel_view, null);
-        setContentView(inflateView);
-        mTitleView = inflateView.findViewById(R.id.title_view);
-        mWheelView = inflateView.findViewById(R.id.wv_data);
-        mWheelView.setCyclic(false);
 
-        mWheelView.setLineSpacingMultiplier(2.0f);
-        mWheelView.setTextColorCenter(ContextCompat.getColor(getContext(), R.color.colorFF333333));
-        mWheelView.setGravity(Gravity.CENTER);
     }
 
 }

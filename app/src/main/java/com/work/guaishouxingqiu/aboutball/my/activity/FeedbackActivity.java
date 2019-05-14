@@ -110,12 +110,12 @@ public class FeedbackActivity extends CameraActivity<FeedbackPresenter> implemen
             public void onClickItem(View view) {
                 if (mTypeDialog == null) {
                     mTypeDialog = new SingWheelDialog(FeedbackActivity.this, mTypeList);
-
+                    mTypeDialog.setTitle(R.string.selector_feedback_type);
                 }
                 if (!mTypeDialog.isShowing()) {
                     mTypeDialog.show();
                 }
-                mTypeDialog.setTitle(R.string.selector_feedback_type);
+
                 mTypeDialog.setOnItemClickListener((view1, position) -> {
                     mRequestBean.adviseType = mTypeList.get(position);
                     mItemType.setContentText(mRequestBean.adviseType);

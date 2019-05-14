@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorWhite">
+
+    <com.example.item.weight.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        app:back_left_drawable="@mipmap/icon_back"
+        app:back_text_padding_left="@dimen/default_margin"
+        app:back_text_padding_right="@dimen/default_margin"
+        app:center_data="@string/my_order"
+        app:center_text_color="@color/color_4"
+        app:center_text_size="@dimen/size_18sp" />
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_45dp"
+        app:tabIndicatorHeight="@dimen/size_0dp"
+        app:tabMode="scrollable"
+        />
+
+    <com.work.guaishouxingqiu.aboutball.weight.BaseViewPager
+        android:id="@+id/bvp_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

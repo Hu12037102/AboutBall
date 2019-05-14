@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/selector_item">
+
+        <View
+            android:id="@+id/line_top"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_5dp"
+            android:background="@color/colorFFF0F0F0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/riv_content"
+            android:layout_width="@dimen/size_120dp"
+            android:layout_height="@dimen/size_90dp"
+            android:layout_margin="@dimen/default_margin"
+            android:scaleType="center"
+            android:src="@mipmap/icon_default_banner"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line_top"
+            app:riv_corner_radius="@dimen/size_6dp"
+            app:riv_oval="false" />
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/default_margin"
+            android:textColor="@color/color_2"
+            android:textSize="@dimen/size_14sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/riv_content"
+            tools:text="待付款" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/SingLineTextView"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginRight="@dimen/size_10dp"
+            android:textColor="@color/color_4"
+            android:textSize="@dimen/size_14sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@id/riv_content"
+            app:layout_constraintRight_toLeftOf="@id/tv_status"
+            app:layout_constraintTop_toTopOf="@id/riv_content"
+            tools:text="五华县人民体育馆" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            style="@style/SingLineTextView"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginRight="@dimen/default_margin"
+            android:layout_marginTop="@dimen/size_15dp"
+            android:textColor="@color/color_4"
+            android:textSize="@dimen/size_12sp"
+            app:layout_constraintLeft_toRightOf="@id/riv_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_name"
+            tools:text="预定项目：足球场我的一生最美好的场景" />
+
+        <TextView
+            android:id="@+id/tv_address"
+            style="@style/SingLineTextView"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginRight="@dimen/default_margin"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:textColor="@color/color_4"
+            android:textSize="@dimen/size_12sp"
+            app:layout_constraintLeft_toRightOf="@id/riv_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_time"
+            tools:text="预定场地：一号地铁站" />
+
+        <TextView
+            android:id="@+id/tv_sum_prices"
+            style="@style/SingLineTextView"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginRight="@dimen/default_margin"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:textColor="@color/color_4"
+            android:textSize="@dimen/size_12sp"
+            app:layout_constraintLeft_toRightOf="@id/riv_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_address"
+            tools:text="总价：￥6.00" />
+
+        <TextView
+            android:id="@+id/tv_pay_time"
+            style="@style/SingLineTextView"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginRight="@dimen/default_margin"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:textColor="@color/color_4"
+            android:textSize="@dimen/size_12sp"
+            app:layout_constraintLeft_toRightOf="@id/riv_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_sum_prices"
+            tools:text="支付剩余时间：9分27秒" />
+
+        <View
+            android:id="@+id/line_bottom"
+            style="@style/HorizontalLine"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginRight="@dimen/default_margin"
+            android:layout_marginTop="@dimen/size_20dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_pay_time" />
+    </android.support.constraint.ConstraintLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_45dp"
+        app:layout_constraintTop_toBottomOf="@id/cl_top">
+
+        <TextView
+            android:id="@+id/tv_1"
+            android:layout_width="90dp"
+            android:layout_height="@dimen/size_25dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/default_margin"
+            android:background="@drawable/shape_black_line_view"
+            android:gravity="center"
+            android:textColor="@color/color_4"
+            tools:text="确定使用" />
+
+        <TextView
+            android:id="@+id/tv_2"
+            android:layout_width="90dp"
+            android:layout_height="@dimen/size_25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/size_10dp"
+            android:layout_toLeftOf="@id/tv_1"
+            android:background="@drawable/shape_black_line_view"
+            android:gravity="center"
+            android:textColor="@color/color_4"
+            tools:text="取消订单" />
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.ItemView;
+import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
@@ -151,7 +152,8 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
 
     @Override
     public void resultOrderId(long orderId) {
-        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_ORDER_DETAILS, ARouterConfig.Key.ORDER_ID, orderId);
+        //ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_ORDER_DETAILS, ARouterConfig.Key.ORDER_ID, orderId);
+        mViewModel.startActivityToOrderPay(orderId, Contast.PAY_ORDER_FLAG.PAY_LAUNCHER_ORDER);
         finish();
     }
 

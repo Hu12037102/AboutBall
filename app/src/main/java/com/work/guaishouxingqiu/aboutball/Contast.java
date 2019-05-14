@@ -45,11 +45,11 @@ public interface Contast {
     String ACTION_ID = "actionId";
     String STATS = "state";
     String STADIUM_ID = "stadiumId";
-    String AREA_ID="areaId";
-    String ORDER_ID="orderId";
-    String TEAM_ID="teamId";
-    String PLAYER_ID="playerId";
-
+    String AREA_ID = "areaId";
+    String ORDER_ID = "orderId";
+    String TEAM_ID = "teamId";
+    String PLAYER_ID = "playerId";
+    String ORDER_STATE = "orderState";
     String TOKEN = "Authorization";
     String SEX = "gender";
     //比赛未开始
@@ -109,5 +109,34 @@ public interface Contast {
         String WEICHAT_APP_ID = "wx41e9ee2ffa7b327e";
         String WEICHAT_APP_SECRET = "40a967eb50ce478246b63d8d78525893";
         String Bugtag_ID = "96481d2c6099fa3e827b8c04d036d566";
+    }
+
+    //订单状态
+    interface ORDER_STATUS {
+        //全部
+        int ALL = 0;
+        //待付款
+        int WAIT_PAY = 1;
+        //已取消
+        int CANCELED = 2;
+        //待使用
+        int WAIT_USER = 3;
+        //待评价
+        int WAIT_EVALUATE = 4;
+        //已完成
+        int COMPLETING = 5;
+        //退款中
+        int REFUNDING = 6;
+        //已退款
+        int REFUNDED = 7;
+        int ALL_REFUNDED = 10;
+    }
+
+    interface PAY_ORDER_FLAG {
+        //0：我的订单页面；1：包场订单；2：发起约球订单；3：待约球订单
+        int PAY_MY_ORDER = 0;
+        int PAY_VENUE_BOOK = 1;
+        int PAY_LAUNCHER_ORDER = 2;
+        int PAY_WAIT_ORDER = 3;
     }
 }

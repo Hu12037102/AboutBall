@@ -1,11 +1,14 @@
 package com.work.guaishouxingqiu.aboutball.venue.activity;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.InputType;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
@@ -60,9 +63,14 @@ public class VenueOrderDetailsActivity extends BaseActivity<VenueOrderDetailsPre
     TextView mTvPracticalContent;
     @BindView(R.id.tv_status_content)
     TextView mTvStatusContent;
+    @BindView(R.id.ll_top)
+    LinearLayout mLlTop;
+    @BindView(R.id.tv_top_hint)
+    TextView mTvTopHint;
     private ResultOrderDetailsBean mResultBean;
     private boolean mIsCheckAgreement;
     private long mOrderId;
+
 
     @Override
     protected int getLayoutId() {
@@ -71,12 +79,36 @@ public class VenueOrderDetailsActivity extends BaseActivity<VenueOrderDetailsPre
 
     @Override
     protected void initView() {
-        mOrderId = mIntent.getLongExtra(ARouterConfig.Key.ORDER_ID, -1);
-        if (mOrderId == -1) {
+        Bundle bundle = mIntent.getExtras();
+        if (bundle == null) {
             UIUtils.showToast(R.string.this_order_not_exist);
             finish();
             return;
         }
+        mOrderId = bundle.getLong(ARouterConfig.Key.ORDER_ID, -1);
+        //0：我的订单页面；1：包场订单；2：发起约球订单；3：待约球订单
+        int orderFlag = bundle.getInt(ARouterConfig.Key.ORDER_FLAG, -1);
+        if (mOrderId == -1 || orderFlag == -1) {
+            UIUtils.showToast(R.string.this_order_not_exist);
+            finish();
+            return;
+        }
+
+        switch (orderFlag) {
+            case Contast.PAY_ORDER_FLAG.PAY_MY_ORDER:
+                mTvTopHint.setText(R.string.please_check_the_information_carefully);
+                break;
+            case Contast.PAY_ORDER_FLAG.PAY_VENUE_BOOK:
+                mTvTopHint.setText(R.string.please_add_up_to_order);
+                break;
+            case Contast.PAY_ORDER_FLAG.PAY_LAUNCHER_ORDER:
+                mLlTop.setVisibility(View.VISIBLE);
+                break;
+            case Contast.PAY_ORDER_FLAG.PAY_WAIT_ORDER:
+                mLlTop.setVisibility(View.VISIBLE);
+                break;
+        }
+
         mPresenter.loadOrderDetails(mOrderId);
     }
 
@@ -161,7 +193,7 @@ public class VenueOrderDetailsActivity extends BaseActivity<VenueOrderDetailsPre
             } else {
                 mPresenter.bandOrderPhoneNumber(mOrderId, mTvPhoneContent.getText().toString());
             }
-        }else {
+        } else {
             UIUtils.showToast(R.string.please_sure_and_read_agreement);
         }
 

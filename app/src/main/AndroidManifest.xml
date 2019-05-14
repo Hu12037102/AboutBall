@@ -229,6 +229,9 @@
             android:screenOrientation="portrait" />
         <activity android:name=".my.activity.FeedbackActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".my.activity.MyOrderActivity"
+            android:screenOrientation="portrait"
+            />
 
     </application>
 

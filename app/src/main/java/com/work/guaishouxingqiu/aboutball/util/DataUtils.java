@@ -273,4 +273,8 @@ public class DataUtils {
         numberFormat.setMaximumFractionDigits(2); //最大保留两位小数百分数后两位
         return numberFormat.format(number);
     }
+
+    public static String getNotNullData(String content) {
+        return content == null ? "" : content;
+    }
 }

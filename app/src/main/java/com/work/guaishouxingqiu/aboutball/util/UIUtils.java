@@ -145,6 +145,9 @@ public class UIUtils {
     public static String getString(@StringRes int res, Object... obj) {
         return UIUtils.getContext().getString(res, obj);
     }
+    public static String getString(@StringRes int res) {
+        return UIUtils.getContext().getString(res);
+    }
 
     public static View loadNotMoreView(ViewGroup viewGroup) {
         return LayoutInflater.from(UIUtils.getContext()).inflate(R.layout.item_not_more, viewGroup, false);
@@ -338,9 +341,14 @@ public class UIUtils {
 
     }
 
-    public static void setText(@NonNull TextView textView, String content) {
+    public static void setText(@NonNull TextView textView, CharSequence content) {
         textView.setText(DataUtils.isEmpty(content) ? "" : content);
     }
 
-
+    public static void setText(@NonNull TextView textView, String content) {
+        textView.setText(DataUtils.isEmpty(content) ? "" : content);
+    }
+    public static void setText(@NonNull TextView textView,@StringRes int resContent) {
+        textView.setText(resContent);
+    }
 }

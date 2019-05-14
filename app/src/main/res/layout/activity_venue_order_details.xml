@@ -17,18 +17,66 @@
         app:center_text_color="@color/color_4"
         app:center_text_size="@dimen/size_18sp" />
 
+    <LinearLayout
+        android:id="@+id/ll_top"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_35dp"
+        android:layout_below="@id/title_view"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/size_40dp"
+        android:paddingRight="@dimen/size_40dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/one_post_about_ball"
+            android:textColor="@color/color_4" />
+
+        <View
+            style="@style/HorizontalLine"
+            android:layout_width="@dimen/size_30dp"
+            android:layout_marginLeft="@dimen/size_10dp"
+            android:layout_marginRight="@dimen/size_10dp"
+            android:background="@color/color_4"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/two_sure_order"
+            android:textColor="@color/color_4" />
+
+        <View
+            style="@style/HorizontalLine"
+            android:layout_width="@dimen/size_30dp"
+            android:layout_marginLeft="@dimen/size_10dp"
+            android:layout_marginRight="@dimen/size_10dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/three_complete_pay"
+            android:textColor="@color/colorFFA6A6A6" />
+    </LinearLayout>
+
+
     <TextView
         android:id="@+id/tv_top_hint"
         style="@style/SingLineTextView"
-        android:layout_below="@id/title_view"
+        android:layout_below="@id/ll_top"
         android:background="@color/colorFFFBFAFA"
-        android:paddingTop="@dimen/size_10dp"
+        android:paddingBottom="@dimen/size_10dp"
         android:paddingLeft="@dimen/default_margin"
         android:paddingRight="@dimen/default_margin"
-        android:paddingBottom="@dimen/size_10dp"
+        android:paddingTop="@dimen/size_10dp"
         android:text="@string/please_add_up_to_order"
         android:textColor="@color/colorFFA6A6A6"
         android:textSize="@dimen/size_14sp" />
+
 
     <LinearLayout
         android:id="@+id/ll_bottom_root"
@@ -37,21 +85,6 @@
         android:layout_alignParentBottom="true"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_agreement"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/size_10dp"
-            android:layout_marginTop="@dimen/size_10dp"
-            android:background="@drawable/selector_item"
-            android:drawableLeft="@drawable/selector_square_check_box_view"
-            android:drawablePadding="@dimen/size_5dp"
-            android:drawableStart="@drawable/selector_square_check_box_view"
-            android:paddingBottom="@dimen/size_10dp"
-            android:layout_marginLeft="@dimen/size_15dp"
-            android:paddingLeft="@dimen/size_5dp"
-            android:paddingTop="@dimen/size_10dp"
-            android:text="@string/me_agree_to_abide_by_user_agreement" />
 
         <RelativeLayout
             android:id="@+id/rl_bottom_group"
@@ -91,7 +124,9 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/default_margin">
+            android:paddingLeft="@dimen/default_margin"
+            android:paddingRight="@dimen/default_margin"
+            android:paddingTop="@dimen/default_margin">
 
             <TextView
                 android:id="@+id/tv_title"
@@ -106,9 +141,9 @@
                 android:id="@+id/rl_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_15dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_title"
-                android:layout_marginTop="@dimen/size_15dp">
+                app:layout_constraintTop_toBottomOf="@id/tv_title">
 
                 <ImageView
                     android:id="@+id/iv_address"
@@ -116,11 +151,11 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:contentDescription="@null"
                     android:paddingBottom="@dimen/size_10dp"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingTop="@dimen/size_10dp"
-                    android:src="@mipmap/icon_address"
-                    android:contentDescription="@null"/>
+                    android:src="@mipmap/icon_address" />
 
                 <TextView
                     android:id="@+id/tv_address"
@@ -128,12 +163,12 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginBottom="@dimen/size_15dp"
+                    android:layout_marginRight="@dimen/size_30dp"
                     android:layout_toLeftOf="@id/iv_address"
                     android:gravity="left"
                     android:lineSpacingExtra="@dimen/size_5dp"
                     android:textColor="@color/color_4"
                     android:textSize="@dimen/size_14sp"
-                    android:layout_marginRight="@dimen/size_30dp"
                     tools:text="五华县人民体育馆五华县人民体育馆五华县人民体育馆五华县人民体育馆五华县人民体育馆五华县人民体育馆" />
             </RelativeLayout>
 
@@ -155,9 +190,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_15dp"
                 android:orientation="horizontal"
+                android:visibility="gone"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_order_content"
-                android:visibility="gone">
+                app:layout_constraintTop_toBottomOf="@id/tv_order_content">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -232,25 +267,27 @@
                     android:text="@string/due_to_phone"
                     android:textColor="@color/colorFFA6A6A6"
                     android:textSize="14sp" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <ImageView
                         android:id="@+id/iv_phone_content"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/icon_edit_content"
-                        android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
-                        android:paddingRight="@dimen/size_10dp"
+                        android:layout_centerVertical="true"
                         android:paddingLeft="@dimen/size_10dp"
-                        />
-                <TextView
-                    android:id="@+id/tv_phone_content"
-                    style="@style/OrderDetailsContentTextView"
-                    android:textColor="@color/colorFFDB2F23"
-                    tools:text="天青色等烟雨"
-                    android:hint="@string/you_not_band_phone_number"/>
+                        android:paddingRight="@dimen/size_10dp"
+                        android:src="@mipmap/icon_edit_content" />
+
+                    <TextView
+                        android:id="@+id/tv_phone_content"
+                        style="@style/OrderDetailsContentTextView"
+                        android:hint="@string/you_not_band_phone_number"
+                        android:textColor="@color/colorFFDB2F23"
+                        tools:text="天青色等烟雨" />
 
                 </RelativeLayout>
             </LinearLayout>
@@ -361,6 +398,23 @@
                     style="@style/OrderDetailsContentTextView"
                     tools:text="天青色等烟雨" />
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_agreement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/size_10dp"
+                android:layout_marginLeft="@dimen/size_15dp"
+                android:layout_marginTop="@dimen/size_10dp"
+                android:background="@drawable/selector_item"
+                android:drawableLeft="@drawable/selector_square_check_box_view"
+                android:drawablePadding="@dimen/size_5dp"
+                android:drawableStart="@drawable/selector_square_check_box_view"
+                android:paddingBottom="@dimen/size_10dp"
+                android:paddingLeft="@dimen/size_5dp"
+                android:paddingTop="@dimen/size_10dp"
+                android:text="@string/me_agree_to_abide_by_user_agreement"
+                app:layout_constraintTop_toBottomOf="@id/ll_order_status" />
 
 
         </android.support.constraint.ConstraintLayout>

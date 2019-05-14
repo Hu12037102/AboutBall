@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
+import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.media.IntentData;
@@ -209,7 +210,9 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
                 mBookData.get(mBookAdapter.getSelectorPosition()).stateId = 1;
                 mBookAdapter.notifyDataSetChanged();
             }
-            ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_ORDER_DETAILS, ARouterConfig.Key.ORDER_ID, orderId);
+           // ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_ORDER_DETAILS, ARouterConfig.Key.ORDER_ID, orderId);
+            //包场
+            mViewModel.startActivityToOrderPay(orderId,Contast.PAY_ORDER_FLAG.PAY_VENUE_BOOK);
         } else {
             if (mWaitBookAdapter != null) {
                 mWaitBookData.get(mWaitBookAdapter.getSelectorPosition()).stateId = 1;

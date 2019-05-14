@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 
@@ -146,6 +147,12 @@ public class ViewModel {
         });
     }
 
+    public void startActivityToOrderPay(long orderId,int flag){
+        Bundle bundle = new Bundle();
+        bundle.putLong(ARouterConfig.Key.ORDER_ID,orderId);
+        bundle.putInt(ARouterConfig.Key.ORDER_FLAG,flag);
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_ORDER_DETAILS, bundle);
+    }
 
     public void onDestroy() {
         Activity activity = mSoftActivity.get();

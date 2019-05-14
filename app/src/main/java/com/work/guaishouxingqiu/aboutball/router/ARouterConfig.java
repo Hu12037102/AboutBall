@@ -41,7 +41,9 @@ public interface ARouterConfig {
         String ACTIVITY_APPLY_BECOME_REFEREE = "/activity/apply/become/referee";
         String ACTIVITY_REFEREE_STATUS = "/activity/referee/status";
         String ACTIVITY_MY_REFEREE_RECORD = "/activity/my/referee/record";
-        String ACTIVITY_FEEDBACK="/activity/feedback";
+        String ACTIVITY_FEEDBACK = "/activity/feedback";
+        String ACTIVITY_MY_ORDER = "/activity/my/order";
+
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";
@@ -71,9 +73,10 @@ public interface ARouterConfig {
         String FRAGMENT_BASE_PRIZE = "/fragment/base/prize";
         String FRAGMENT_BALL_TEAM_DETAILS = "/fragment/ball/team/details";
         String FRAGMENT_BALL_TEAM_MEMBER = "/fragment/ball/team/member";
-        String FRAGMENT_MY_REFEREE_EVALUATE="/fragment/my/referee/evaluate";
-        String FRAGMENT_MY_REFEREE_RECORD="/fragment/my/referee/record";
-        String FRAGMENT_DRILL="/fragment/drill";
+        String FRAGMENT_MY_REFEREE_EVALUATE = "/fragment/my/referee/evaluate";
+        String FRAGMENT_MY_REFEREE_RECORD = "/fragment/my/referee/record";
+        String FRAGMENT_DRILL = "/fragment/drill";
+        String FRAGMENT_MY_ORDER = "/fragment/my/order";
 
     }
 
@@ -97,6 +100,8 @@ public interface ARouterConfig {
         String TEAM_ID = "teamId";
         String PLAYER_ID = "playerId";
         String REFEREE_STATUS = "refereeStatus";
+        String ORDER_STATUS = "orderStatus";
+        String ORDER_FLAG = "orderFlag";
     }
 
 }

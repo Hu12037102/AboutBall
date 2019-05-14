@@ -106,7 +106,8 @@ public class MyFragment extends DelayedFragment<MyPresenter> implements MyContra
         mItemOrder.setOnItemClickListener(new ItemView.OnItemClickListener() {
             @Override
             public void onClickItem(View view) {
-                Toasts.with().showToast(R.string.pleases_next_open);
+                //Toasts.with().showToast(R.string.pleases_next_open);
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_ORDER);
             }
         });
         mItemTeam.setOnItemClickListener(new ItemView.OnItemClickListener() {
@@ -164,8 +165,6 @@ public class MyFragment extends DelayedFragment<MyPresenter> implements MyContra
     }
 
 
-
-
     private void initLoginView() {
         if (mLlHeadGroup.getChildCount() > 0) {
             mLlHeadGroup.removeAllViews();
@@ -187,8 +186,6 @@ public class MyFragment extends DelayedFragment<MyPresenter> implements MyContra
         GlideManger.get().loadHeadImage(mContext, userBean.headerImg, mCivMyHead);
         mLlHeadGroup.addView(view);
     }
-
-
 
 
     @Override

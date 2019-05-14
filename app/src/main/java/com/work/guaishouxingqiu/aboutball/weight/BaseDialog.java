@@ -26,16 +26,16 @@ public abstract class BaseDialog extends AppCompatDialog {
     public BaseDialog(Context context, int theme) {
         super(context, theme);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-
+        initView(getContext());
+        initWindows();
+        initData();
+        initEvent();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initView(getContext());
         initWindows();
-        initData();
-        initEvent();
     }
 
     protected void initWindows() {

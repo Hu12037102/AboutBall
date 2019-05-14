@@ -107,6 +107,7 @@ public interface IApiService {
     String GET_SURE_REFEREE_STATUS = "/api/referee/refereeConfirm";
     String GET_MY_REFEREE_RECORD="/api/referee/myRefereeRecord";
     String POST_FEEDBACK="/api/commons/feedback";
+    String GET_MY_ORDER="/api/order/getMyOrder";
 
     interface H5 {
         String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";

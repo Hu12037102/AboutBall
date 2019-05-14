@@ -23,6 +23,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateWeightBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyAddress;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyBallBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyOrderBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultPrizeBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeRecordBean;
@@ -132,9 +133,15 @@ public interface MyService {
 
     @GET(IApiService.GET_SURE_REFEREE_STATUS)
     Observable<BaseBean<String>> sureRefereeStatus();
+
     @GET(IApiService.GET_MY_REFEREE_RECORD)
     Observable<BaseBean<List<ResultRefereeRecordBean>>> loadMyRefereeRecord();
+
     @POST(IApiService.POST_FEEDBACK)
     Observable<BaseBean<BaseDataBean<String>>> feedback(@Body RequestFeedbackBean bean);
 
+    @GET(IApiService.GET_MY_ORDER)
+    Observable<BaseBean<List<ResultMyOrderBean>>> loadMyOrder(@Query(Contast.ORDER_STATE) int orderStatus,
+                                                              @Query(Contast.PAGE_NUM) int pageNum,
+                                                              @Query(Contast.PAGE_SIZE) int pageSize);
 }
