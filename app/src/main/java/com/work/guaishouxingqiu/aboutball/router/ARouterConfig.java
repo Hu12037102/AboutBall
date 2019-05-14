@@ -43,6 +43,7 @@ public interface ARouterConfig {
         String ACTIVITY_MY_REFEREE_RECORD = "/activity/my/referee/record";
         String ACTIVITY_FEEDBACK = "/activity/feedback";
         String ACTIVITY_MY_ORDER = "/activity/my/order";
+        String ACTIVITY_ORDER_COMPLETE_AND_CANCEL="/activity/order/complete/and/cancel";
 
 
         String FRAGMENT_GAME = "/fragment/game";

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <com.example.item.weight.TitleView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        app:back_left_drawable="@mipmap/icon_back"
+        app:back_text_padding_left="@dimen/default_margin"
+        app:back_text_padding_right="@dimen/default_margin"
+        app:center_data="@string/order_details"
+        app:center_text_color="@color/color_4"
+        app:center_text_size="@dimen/size_18sp" />
+
+    <View style="@style/HorizontalLine" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            android:textColor="@color/color_4"
+            android:textSize="@dimen/size_17sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="五华县人民体育馆"
+
+            />
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_4"
+            android:textSize="@dimen/size_14sp"
+            app:layout_constraintTop_toBottomOf="@id/tv_name"
+            app:layout_constraintRight_toLeftOf="@id/iv_address"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="@dimen/size_15dp"
+            android:layout_marginLeft="@dimen/size_15dp"
+            android:layout_marginRight="@dimen/size_15dp"
+            tools:text="五华县任命政府接口了啊哈哈了"
+            />
+
+
+        <ImageView
+            android:id="@+id/iv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/size_15dp"
+            android:paddingLeft="@dimen/default_margin"
+            android:paddingRight="@dimen/default_margin"
+            android:paddingTop="@dimen/size_15dp"
+            android:src="@mipmap/icon_address"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_address"
+            app:layout_constraintBottom_toBottomOf="@id/tv_address"
+            android:contentDescription="@null"/>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</LinearLayout>
