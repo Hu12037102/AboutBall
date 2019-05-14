@@ -183,7 +183,7 @@
             android:name=".venue.activity.VenueBookingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".venue.activity.VenueOrderDetailsActivity"
+            android:name=".venue.activity.WaitPayOrderDetailsActivity"
             android:screenOrientation="portrait" />
 
         <receiver android:name=".receiver.DownloadMangerReceiver">

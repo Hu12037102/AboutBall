@@ -152,7 +152,7 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
 
     @Override
     public void resultOrderId(long orderId) {
-        //ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_ORDER_DETAILS, ARouterConfig.Key.ORDER_ID, orderId);
+        //ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_WAIT_PAY_ORDER_DETAILS, ARouterConfig.Key.ORDER_ID, orderId);
         mViewModel.startActivityToOrderPay(orderId, Contast.PAY_ORDER_FLAG.PAY_LAUNCHER_ORDER);
         finish();
     }

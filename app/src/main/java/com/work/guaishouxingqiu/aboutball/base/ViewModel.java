@@ -151,7 +151,7 @@ public class ViewModel {
         Bundle bundle = new Bundle();
         bundle.putLong(ARouterConfig.Key.ORDER_ID,orderId);
         bundle.putInt(ARouterConfig.Key.ORDER_FLAG,flag);
-        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_ORDER_DETAILS, bundle);
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_WAIT_PAY_ORDER_DETAILS, bundle);
     }
 
     public void onDestroy() {

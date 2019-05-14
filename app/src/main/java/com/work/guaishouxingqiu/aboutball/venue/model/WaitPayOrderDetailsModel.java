@@ -8,5 +8,5 @@ import com.work.guaishouxingqiu.aboutball.base.BaseModel;
  * 更新时间: 2019/4/19 17:36
  * 描述:场馆订单Model
  */
-public class VenueOrderDetailsModel extends BaseOrderModel{
+public class WaitPayOrderDetailsModel extends BaseOrderModel{
 }

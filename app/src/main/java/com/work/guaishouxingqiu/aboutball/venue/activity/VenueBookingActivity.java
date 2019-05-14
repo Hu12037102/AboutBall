@@ -210,7 +210,7 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
                 mBookData.get(mBookAdapter.getSelectorPosition()).stateId = 1;
                 mBookAdapter.notifyDataSetChanged();
             }
-           // ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_ORDER_DETAILS, ARouterConfig.Key.ORDER_ID, orderId);
+           // ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_WAIT_PAY_ORDER_DETAILS, ARouterConfig.Key.ORDER_ID, orderId);
             //包场
             mViewModel.startActivityToOrderPay(orderId,Contast.PAY_ORDER_FLAG.PAY_VENUE_BOOK);
         } else {

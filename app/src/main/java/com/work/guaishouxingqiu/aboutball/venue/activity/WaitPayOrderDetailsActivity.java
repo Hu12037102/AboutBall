@@ -18,8 +18,8 @@ import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultOrderDetailsBean;
-import com.work.guaishouxingqiu.aboutball.venue.contract.VenueOrderDetailsContract;
-import com.work.guaishouxingqiu.aboutball.venue.presenter.VenueOrderDetailsPresenter;
+import com.work.guaishouxingqiu.aboutball.venue.contract.WaitPayOrderDetailsContract;
+import com.work.guaishouxingqiu.aboutball.venue.presenter.WaitPayOrderDetailsPresenter;
 import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
 import com.work.guaishouxingqiu.aboutball.weight.InputDialog;
 
@@ -34,9 +34,9 @@ import butterknife.OnClick;
  * 更新时间: 2019/4/22 13:08
  * 描述:订单详情
  */
-@Route(path = ARouterConfig.Path.ACTIVITY_VENUE_ORDER_DETAILS)
-public class VenueOrderDetailsActivity extends BaseActivity<VenueOrderDetailsPresenter>
-        implements VenueOrderDetailsContract.View {
+@Route(path = ARouterConfig.Path.ACTIVITY_WAIT_PAY_ORDER_DETAILS)
+public class WaitPayOrderDetailsActivity extends BaseActivity<WaitPayOrderDetailsPresenter>
+        implements WaitPayOrderDetailsContract.View {
     @BindView(R.id.tv_agreement)
     TextView mTvAgreement;
     @BindView(R.id.tv_pay)
@@ -128,8 +128,8 @@ public class VenueOrderDetailsActivity extends BaseActivity<VenueOrderDetailsPre
     }
 
     @Override
-    protected VenueOrderDetailsPresenter createPresenter() {
-        return new VenueOrderDetailsPresenter(this);
+    protected WaitPayOrderDetailsPresenter createPresenter() {
+        return new WaitPayOrderDetailsPresenter(this);
     }
 
     @Override
