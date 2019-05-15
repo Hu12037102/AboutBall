@@ -388,4 +388,8 @@
     <string name="pay_order_time_host">付款时间：</string>
     <string name="order_total_prices_host">订单总价：</string>
     <string name="order_practical_prices_host">实际支付：</string>
+    <string name="order_evaluate">订单评价</string>
+    <string name="give_to_mark">评分</string>
+    <string name="input_evaluate_content_hint">说说商家的亮点和不足吧~</string>
+    <string name="input_max_text">0/140</string>
 </resources>

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.work.guaishouxingqiu.aboutball.Contast;
+import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyOrderBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
@@ -30,6 +31,17 @@ import utils.UiUtils;
  * 描述:我的订单适配器
  */
 public class MyOrderAdapter extends BaseRecyclerAdapter<MyOrderAdapter.ViewHolder, List<ResultMyOrderBean>> {
+    public void setOnItemClickListenerTv1(com.work.guaishouxingqiu.aboutball.OnItemClickListener onItemClickListenerTv1) {
+        this.onItemClickListenerTv1 = onItemClickListenerTv1;
+    }
+
+    public void setOnItemClickListenerTv2(com.work.guaishouxingqiu.aboutball.OnItemClickListener onItemClickListenerTv2) {
+        this.onItemClickListenerTv2 = onItemClickListenerTv2;
+    }
+
+    private com.work.guaishouxingqiu.aboutball.OnItemClickListener onItemClickListenerTv1;
+    private com.work.guaishouxingqiu.aboutball.OnItemClickListener onItemClickListenerTv2;
+
     public MyOrderAdapter(@NonNull List<ResultMyOrderBean> data) {
         super(data);
     }
@@ -105,6 +117,16 @@ public class MyOrderAdapter extends BaseRecyclerAdapter<MyOrderAdapter.ViewHolde
             default:
                 break;
         }
+        viewHolder.mTv1.setOnClickListener(v -> {
+            if (onItemClickListenerTv1 != null) {
+                onItemClickListenerTv1.onClickItem(v, i);
+            }
+        });
+        viewHolder.mTv2.setOnClickListener(v -> {
+            if (onItemClickListenerTv2 != null) {
+                onItemClickListenerTv2.onClickItem(v, i);
+            }
+        });
 
     }
 

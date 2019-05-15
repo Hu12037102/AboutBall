@@ -147,11 +147,26 @@ public class ViewModel {
         });
     }
 
-    public void startActivityToOrderPay(long orderId,int flag){
+    public void startActivityToOrderPay(long orderId, int flag) {
         Bundle bundle = new Bundle();
-        bundle.putLong(ARouterConfig.Key.ORDER_ID,orderId);
-        bundle.putInt(ARouterConfig.Key.ORDER_FLAG,flag);
+        bundle.putLong(ARouterConfig.Key.ORDER_ID, orderId);
+        bundle.putInt(ARouterConfig.Key.ORDER_FLAG, flag);
         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_WAIT_PAY_ORDER_DETAILS, bundle);
+    }
+
+    /**
+     * 跳转到订单评价页面
+     *
+     * @param venueName 场馆名称
+     * @param time      预定时间
+     * @param site      预定场地
+     */
+    public void startActivityToEvaluate(String venueName, String time, String site) {
+        Bundle bundle = new Bundle();
+        bundle.putString(ARouterConfig.Key.VENUE_NAME, venueName);
+        bundle.putString(ARouterConfig.Key.TARGET_DATE, time);
+        bundle.putString(ARouterConfig.Key.TARGET_SITE, site);
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ORDER_EVALUATE, bundle);
     }
 
     public void onDestroy() {

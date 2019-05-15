@@ -16,6 +16,7 @@ import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.my.contract.OrderCompleteEvaluateCancelContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.OrderCompleteEvaluateCancelPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
@@ -65,6 +66,7 @@ public class OrderCompleteEvaluateCancelActivity extends BaseActivity<OrderCompl
     TextView mTvPracticalPrices;
     @BindView(R.id.tv_judge)
     TextView mTvJudge;
+    private ResultOrderDetailsBean mOrderDetailsBean;
 
     @Override
     protected int getLayoutId() {
@@ -101,7 +103,6 @@ public class OrderCompleteEvaluateCancelActivity extends BaseActivity<OrderCompl
             mTvStatus.setTextColor(ContextCompat.getColor(this, R.color.color_2));
             mTvPayTime.setVisibility(View.VISIBLE);
             mRlGrade.setVisibility(View.VISIBLE);
-            mTvJudge.setVisibility(View.VISIBLE);
             layoutParams.topMargin = 0;
         } else {
             UIUtils.showToast(R.string.not_find_this_order);
@@ -129,10 +130,16 @@ public class OrderCompleteEvaluateCancelActivity extends BaseActivity<OrderCompl
 
     @Override
     public void resultOrderDetails(ResultOrderDetailsBean bean) {
+        this.mOrderDetailsBean = bean;
+        if (bean.stateId == Contast.ORDER_STATUS.WAIT_EVALUATE) {
+            mTvJudge.setVisibility(View.VISIBLE);
+        } else {
+            mTvJudge.setVisibility(View.GONE);
+        }
         UIUtils.setText(mTvName, bean.stadiumName);
         UIUtils.setText(mTvAddress, bean.address);
         UIUtils.setText(mTvStatus, bean.stateName);
-        UIUtils.setOrderDetailsItemSpan(mTvTime, UIUtils.getString(R.string.order_item_time_host), bean.orderTime.concat("（").concat(DateUtils.getWeek(bean.orderTime)).concat("）"));
+        UIUtils.setOrderDetailsItemSpan(mTvTime, UIUtils.getString(R.string.order_item_time_host), DataUtils.getNotNullData(mOrderDetailsBean.orderTime).concat("（").concat(DateUtils.getWeek(bean.orderTime)).concat("）"));
         UIUtils.setText(mTvReserveContent, DataUtils.getOrderSiteContent(bean.orderDetailForOrders));
         UIUtils.setOrderDetailsItemSpan(mTvOrderNumber, UIUtils.getString(R.string.order_host), bean.orderNo);
         UIUtils.setOrderDetailsItemSpan(mTvPhoneNumber, UIUtils.getString(R.string.phone_number_host), bean.phoneNum);
@@ -148,7 +155,7 @@ public class OrderCompleteEvaluateCancelActivity extends BaseActivity<OrderCompl
     }
 
 
-    @OnClick({R.id.iv_address, R.id.tv_order_number, R.id.tv_phone_number})
+    @OnClick({R.id.iv_address, R.id.tv_order_number, R.id.tv_phone_number, R.id.tv_judge})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_address:
@@ -157,6 +164,17 @@ public class OrderCompleteEvaluateCancelActivity extends BaseActivity<OrderCompl
                 break;
             case R.id.tv_phone_number:
                 break;
+            case R.id.tv_judge:
+                clickJudge();
+                break;
         }
+    }
+
+    private void clickJudge() {
+        //ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ORDER_EVALUATE, ARouterConfig.Key.ORDER_DETAILS, mOrderDetailsBean);
+        mViewModel.startActivityToEvaluate(mOrderDetailsBean.stadiumName,
+                DataUtils.getNotNullData(mOrderDetailsBean.orderTime).concat("（").concat(DateUtils.getWeek(mOrderDetailsBean.orderTime)).concat("）"),
+                DataUtils.getOrderSiteContent(mOrderDetailsBean.orderDetailForOrders));
+
     }
 }

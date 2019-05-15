@@ -353,7 +353,7 @@ public class UIUtils {
         textView.setText(resContent);
     }
 
-    public static void setOrderDetailsItemSpan(@NonNull TextView textView, String host, @NonNull String body) {
+    public static void setOrderDetailsItemSpan(@NonNull TextView textView, String host,  String body) {
         if (DataUtils.isEmpty(host)) {
             return;
         }

@@ -43,7 +43,8 @@ public interface ARouterConfig {
         String ACTIVITY_MY_REFEREE_RECORD = "/activity/my/referee/record";
         String ACTIVITY_FEEDBACK = "/activity/feedback";
         String ACTIVITY_MY_ORDER = "/activity/my/order";
-        String ACTIVITY_ORDER_COMPLETE_EVALUATE_CANCEL="/activity/order/complete/evaluate/cancel";
+        String ACTIVITY_ORDER_COMPLETE_EVALUATE_CANCEL = "/activity/order/complete/evaluate/cancel";
+        String ACTIVITY_ORDER_EVALUATE = "/activity/order/evaluate";
 
 
         String FRAGMENT_GAME = "/fragment/game";
@@ -103,6 +104,10 @@ public interface ARouterConfig {
         String REFEREE_STATUS = "refereeStatus";
         String ORDER_STATUS = "orderStatus";
         String ORDER_FLAG = "orderFlag";
+        String ORDER_DETAILS = "orderDetails";
+        String VENUE_NAME = "venueName";
+        String TARGET_DATE = "targetDate";
+        String TARGET_SITE = "targetSite";
     }
 
 }
