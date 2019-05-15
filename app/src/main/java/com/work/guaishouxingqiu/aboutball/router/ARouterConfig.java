@@ -45,7 +45,7 @@ public interface ARouterConfig {
         String ACTIVITY_MY_ORDER = "/activity/my/order";
         String ACTIVITY_ORDER_COMPLETE_EVALUATE_CANCEL = "/activity/order/complete/evaluate/cancel";
         String ACTIVITY_ORDER_EVALUATE = "/activity/order/evaluate";
-
+        String ACTIVITY_WAIT_USER_ORDER_DETAILS="/activity/wait/user/order/details";
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";
@@ -79,6 +79,7 @@ public interface ARouterConfig {
         String FRAGMENT_MY_REFEREE_RECORD = "/fragment/my/referee/record";
         String FRAGMENT_DRILL = "/fragment/drill";
         String FRAGMENT_MY_ORDER = "/fragment/my/order";
+
 
     }
 

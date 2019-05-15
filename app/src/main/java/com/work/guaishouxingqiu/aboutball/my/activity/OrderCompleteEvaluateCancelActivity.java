@@ -94,7 +94,7 @@ public class OrderCompleteEvaluateCancelActivity extends BaseActivity<OrderCompl
             mTvStatus.setTextColor(ContextCompat.getColor(this, R.color.color_2));
             mTvPayTime.setVisibility(View.VISIBLE);
             layoutParams.topMargin = 0;
-        } else if (orderStatus == Contast.ORDER_STATUS.CANCELED) {
+        } else if (orderStatus == Contast.ORDER_STATUS.CANCELED || orderStatus == Contast.ORDER_STATUS.REFUNDED) {
             mRlGrade.setVisibility(View.GONE);
             mTvStatus.setTextColor(ContextCompat.getColor(this, R.color.colorFFA6A6A6));
             layoutParams.topMargin = ScreenUtils.dp2px(this, 20);

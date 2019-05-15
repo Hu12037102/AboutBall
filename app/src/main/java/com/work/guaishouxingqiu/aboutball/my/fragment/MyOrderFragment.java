@@ -129,6 +129,7 @@ public class MyOrderFragment extends DelayedFragment<MyOrderFragmentPresenter> i
                         break;
                     //待使用
                     case Contast.ORDER_STATUS.WAIT_USER:
+                        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_WAIT_USER_ORDER_DETAILS, ARouterConfig.Key.ORDER_ID, bean.orderId);
                         break;
                     //待评价
                     case Contast.ORDER_STATUS.WAIT_EVALUATE:
@@ -143,6 +144,7 @@ public class MyOrderFragment extends DelayedFragment<MyOrderFragmentPresenter> i
                         break;
                     //已退款
                     case Contast.ORDER_STATUS.REFUNDED:
+                        toCompleteOrCancelActivity(bean.orderId, bean.stateId);
                         break;
                     default:
                         break;
@@ -235,6 +237,7 @@ public class MyOrderFragment extends DelayedFragment<MyOrderFragmentPresenter> i
         if (mPresenter.isRefresh) {
             mData.clear();
         }
+        mSrlRefresh.setNoMoreData(data.size() < mPresenter.mPageSize);
         mData.addAll(data);
         mAdapter.notifyItemRangeChanged(0, mData.size());
     }

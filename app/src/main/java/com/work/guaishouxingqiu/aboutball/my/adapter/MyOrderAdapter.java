@@ -48,6 +48,11 @@ public class MyOrderAdapter extends BaseRecyclerAdapter<MyOrderAdapter.ViewHolde
 
     @Override
     protected void onBindViewDataHolder(@NonNull ViewHolder viewHolder, int i) {
+        if (i == mData.size()-1){
+            viewHolder.mLineBottomRoot.setVisibility(View.VISIBLE);
+        }else {
+            viewHolder.mLineBottomRoot.setVisibility(View.GONE);
+        }
         ResultMyOrderBean bean = mData.get(i);
         GlideManger.get().loadImage(mContext, bean.photoUrl, viewHolder.mRivContent);
         UIUtils.setText(viewHolder.mTvName, bean.stadiumName);
@@ -90,7 +95,7 @@ public class MyOrderAdapter extends BaseRecyclerAdapter<MyOrderAdapter.ViewHolde
             case Contast.ORDER_STATUS.WAIT_USER:
                 viewHolder.mTv1.setVisibility(View.VISIBLE);
                 viewHolder.mTv2.setVisibility(View.VISIBLE);
-                viewHolder.mTv1.setTextColor(R.string.sure_user);
+                viewHolder.mTv1.setText(R.string.sure_user);
                 viewHolder.mTv2.setText(R.string.cancel_order);
                 break;
             //待评价
@@ -148,6 +153,7 @@ public class MyOrderAdapter extends BaseRecyclerAdapter<MyOrderAdapter.ViewHolde
         private TextView mTv2;
         private RelativeLayout mRlBottom;
         private View mClickView;
+        private View mLineBottomRoot;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -166,6 +172,7 @@ public class MyOrderAdapter extends BaseRecyclerAdapter<MyOrderAdapter.ViewHolde
             mTv2 = itemView.findViewById(R.id.tv_2);
             mRlBottom = itemView.findViewById(R.id.rl_bottom);
             mClickView = itemView.findViewById(R.id.cl_top);
+            mLineBottomRoot = itemView.findViewById(R.id.line_bottom_root);
         }
     }
 }

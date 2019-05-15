@@ -239,9 +239,12 @@
         <activity
             android:name=".my.activity.OrderCompleteEvaluateCancelActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".my.activity.OrderEvaluateActivity"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".my.activity.OrderEvaluateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.activity.WaitUserOrderDetailsActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

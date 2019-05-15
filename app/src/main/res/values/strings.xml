@@ -308,6 +308,7 @@
     <string name="personnel">人员</string>
     <string name="location">位置</string>
     <string name="number">号码</string>
+    <string name="paying">已支付</string>
     <string name="not_this_ball_team_details">沒有找到该球队信息</string>
     <string name="edit">编辑</string>
     <!--相册选择器-->
@@ -392,4 +393,5 @@
     <string name="give_to_mark">评分</string>
     <string name="input_evaluate_content_hint">说说商家的亮点和不足吧~</string>
     <string name="input_max_text">0/140</string>
+    <string name="weichat_pay">微信支付</string>
 </resources>

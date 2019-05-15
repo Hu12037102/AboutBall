@@ -40,10 +40,11 @@ public class MyOrderFragmentPresenter extends BasePresenter<MyOrderFragmentContr
         if (isRefresh) {
             this.mPageNum = Contast.DEFAULT_PAGE_NUM;
         }
-        mModel.lordMyOrder(mOrderStatus, mPageNum, mPageSize,new BaseObserver<>(this, new BaseObserver.Observer<List<ResultMyOrderBean>>() {
+        mModel.lordMyOrder(mOrderStatus, mPageNum, mPageSize, new BaseObserver<>(this, new BaseObserver.Observer<List<ResultMyOrderBean>>() {
             @Override
             public void onNext(BaseBean<List<ResultMyOrderBean>> t) {
-                if (DataUtils.isResultSure(t)){
+                if (DataUtils.isResultSure(t)) {
+                    mPageNum++;
                     mView.resultMyOrderData(t.result);
                 }
             }

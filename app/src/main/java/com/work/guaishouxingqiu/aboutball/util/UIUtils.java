@@ -9,6 +9,7 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.design.widget.CoordinatorLayout;
@@ -362,6 +363,16 @@ public class UIUtils {
             return;
         }
         textView.setText(SpanUtils.getTextColor(R.color.colorFFA6A6A6, 0, host.length(), content));
+    }
+    public static void setOrderDetailsItemSpan(@NonNull TextView textView, String host, String body, @ColorRes int colorRes) {
+        if (DataUtils.isEmpty(host)) {
+            return;
+        }
+        String content = UIUtils.getString(R.string.s_s, DataUtils.getNotNullData(host), DataUtils.getNotNullData(body));
+        if (DataUtils.isEmpty(content)) {
+            return;
+        }
+        textView.setText(SpanUtils.getTextColor(colorRes, 0, host.length(), content));
     }
 
 }
