@@ -381,4 +381,10 @@
     <string name="judge">评价</string>
     <string name="refund_schedule">退款进度</string>
     <string name="please_check_the_information_carefully">请认真核对信息</string>
+    <string name="order_host">订单：</string>
+    <string name="phone_number_host">手机号码：</string>
+    <string name="order_time_host">下单时间：</string>
+    <string name="pay_order_time_host">付款时间：</string>
+    <string name="order_total_prices_host">订单总价：</string>
+    <string name="order_practical_prices_host">实际支付：</string>
 </resources>

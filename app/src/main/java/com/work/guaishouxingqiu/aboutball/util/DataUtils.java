@@ -2,14 +2,18 @@ package com.work.guaishouxingqiu.aboutball.util;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.work.guaishouxingqiu.aboutball.Contast;
+import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultOrderDetailsBean;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,6 +22,7 @@ import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -277,4 +282,18 @@ public class DataUtils {
     public static String getNotNullData(String content) {
         return content == null ? "" : content;
     }
+
+    public static String getOrderSiteContent(List<ResultOrderDetailsBean.OrderPeopleCountBean> data) {
+        if (data == null || data.size() == 0) {
+            return "";
+        }
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < data.size(); i++) {
+            ResultOrderDetailsBean.OrderPeopleCountBean bean = data.get(i);
+            sb = sb.append(bean.areaName).append("  ").append(bean.calendar).append("  ").append("￥").append(bean.price).append(i == data.size() - 1 ? "" : "\n");
+        }
+        return sb.toString();
+    }
+
+
 }

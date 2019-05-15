@@ -38,6 +38,7 @@ import com.work.guaishouxingqiu.aboutball.other.DownloadApkHelp;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.venue.activity.VenueDetailsActivity;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultOrderDetailsBean;
 import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
@@ -106,7 +107,6 @@ public class UIUtils {
     }
 
 
-
     public static void setGameIconStatus(int stateId, TextView textView) {
         switch (stateId) {
             case Contast.GAME_STATUS_STARTING:
@@ -145,6 +145,7 @@ public class UIUtils {
     public static String getString(@StringRes int res, Object... obj) {
         return UIUtils.getContext().getString(res, obj);
     }
+
     public static String getString(@StringRes int res) {
         return UIUtils.getContext().getString(res);
     }
@@ -162,7 +163,6 @@ public class UIUtils {
             ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_WEB_DATA, bundle);
         }
     }
-
 
 
     public static void showToast(String content) {
@@ -348,7 +348,20 @@ public class UIUtils {
     public static void setText(@NonNull TextView textView, String content) {
         textView.setText(DataUtils.isEmpty(content) ? "" : content);
     }
-    public static void setText(@NonNull TextView textView,@StringRes int resContent) {
+
+    public static void setText(@NonNull TextView textView, @StringRes int resContent) {
         textView.setText(resContent);
     }
+
+    public static void setOrderDetailsItemSpan(@NonNull TextView textView, String host, @NonNull String body) {
+        if (DataUtils.isEmpty(host)) {
+            return;
+        }
+        String content = UIUtils.getString(R.string.s_s, DataUtils.getNotNullData(host), DataUtils.getNotNullData(body));
+        if (DataUtils.isEmpty(content)) {
+            return;
+        }
+        textView.setText(SpanUtils.getTextColor(R.color.colorFFA6A6A6, 0, host.length(), content));
+    }
+
 }

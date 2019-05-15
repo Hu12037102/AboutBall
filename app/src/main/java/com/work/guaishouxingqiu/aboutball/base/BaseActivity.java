@@ -59,6 +59,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
 
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();

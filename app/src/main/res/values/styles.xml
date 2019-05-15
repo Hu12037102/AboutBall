@@ -182,4 +182,12 @@
         <item name="android:paddingRight">@dimen/default_margin</item>
         <item name="chipSpacingVertical">@dimen/size_10dp</item>
     </style>
+    <style name="OrderTextContentView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/color_4</item>
+        <item name="android:textSize">@dimen/size_14sp</item>
+        <item name="android:layout_marginLeft">@dimen/default_margin</item>
+        <item name="android:layout_marginRight">@dimen/default_margin</item>
+    </style>
 </resources>

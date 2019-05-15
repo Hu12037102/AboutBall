@@ -19,54 +19,237 @@
 
     <View style="@style/HorizontalLine" />
 
-    <android.support.constraint.ConstraintLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/default_margin"
-            android:textColor="@color/color_4"
-            android:textSize="@dimen/size_17sp"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="五华县人民体育馆"
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            />
-        <TextView
-            android:id="@+id/tv_address"
-            android:layout_width="@dimen/size_0dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/color_4"
-            android:textSize="@dimen/size_14sp"
-            app:layout_constraintTop_toBottomOf="@id/tv_name"
-            app:layout_constraintRight_toLeftOf="@id/iv_address"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="@dimen/size_15dp"
-            android:layout_marginLeft="@dimen/size_15dp"
-            android:layout_marginRight="@dimen/size_15dp"
-            tools:text="五华县任命政府接口了啊哈哈了"
-            />
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_margin"
+                android:textColor="@color/color_4"
+                android:textSize="@dimen/size_17sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="五华县人民体育馆"
 
+                />
 
-        <ImageView
-            android:id="@+id/iv_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/size_15dp"
-            android:paddingLeft="@dimen/default_margin"
-            android:paddingRight="@dimen/default_margin"
-            android:paddingTop="@dimen/size_15dp"
-            android:src="@mipmap/icon_address"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_address"
-            app:layout_constraintBottom_toBottomOf="@id/tv_address"
-            android:contentDescription="@null"/>
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="@dimen/size_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/size_15dp"
+                android:layout_marginRight="@dimen/size_15dp"
+                android:layout_marginTop="@dimen/size_15dp"
+                android:textColor="@color/color_4"
+                android:textSize="@dimen/size_14sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/iv_address"
+                app:layout_constraintTop_toBottomOf="@id/tv_name"
+                tools:text="五华县任命政府接口了啊哈哈了" />
 
 
-    </android.support.constraint.ConstraintLayout>
+            <ImageView
+                android:id="@+id/iv_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:paddingBottom="@dimen/size_15dp"
+                android:paddingLeft="@dimen/default_margin"
+                android:paddingRight="@dimen/default_margin"
+                android:paddingTop="@dimen/size_15dp"
+                android:src="@mipmap/icon_address"
+                app:layout_constraintBottom_toBottomOf="@id/tv_address"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_address" />
 
+            <View
+                android:id="@+id/line_title"
+                style="@style/HorizontalLine"
+                android:layout_width="@dimen/size_0dp"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:layout_marginTop="@dimen/default_margin"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_address" />
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginTop="@dimen/default_margin"
+                android:text="@string/order_content"
+                android:textColor="@color/color_4"
+                android:textSize="@dimen/size_17sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/line_title" />
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/default_margin"
+                app:layout_constraintBottom_toBottomOf="@id/tv_content"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_content"
+                tools:text="已取消" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginTop="@dimen/size_15dp"
+                android:textColor="@color/color_4"
+                android:textSize="@dimen/size_14sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_content"
+                tools:text="预定日期：2018-06-18" />
+
+            <TextView
+                android:id="@+id/tv_reserve_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginTop="@dimen/size_10dp"
+                android:text="@string/order_item_address_host"
+                android:textColor="@color/colorFFA6A6A6"
+                android:textSize="@dimen/size_14sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_time" />
+
+            <TextView
+                android:id="@+id/tv_reserve_content"
+                android:layout_width="@dimen/size_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_10dp"
+                android:lineSpacingExtra="@dimen/size_5dp"
+                android:textColor="@color/color_4"
+                app:layout_constraintLeft_toRightOf="@id/tv_reserve_hint"
+                app:layout_constraintTop_toBottomOf="@id/tv_time"
+                tools:text="七人场地 15:00-16:00\n七人场地 15:00-16:00" />
+
+            <RelativeLayout
+                android:id="@+id/rl_grade"
+                android:layout_width="@dimen/size_0dp"
+                android:layout_height="@dimen/size_45dp"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:layout_marginTop="@dimen/default_margin"
+                android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_reserve_content">
+
+                <View
+                    android:id="@+id/line_grade"
+                    style="@style/HorizontalLine" />
+
+                <RatingBar
+                    android:id="@+id/rb_grade"
+                    style="@style/DefaultRatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:isIndicator="true"
+
+                    />
+
+                <TextView
+                    android:id="@+id/tv_grade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/size_10dp"
+                    android:layout_toRightOf="@id/rb_grade"
+                    android:textColor="@color/color_4"
+                    android:textSize="@dimen/size_14sp"
+                    tools:text="4.0分" />
+
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/line_bottom"
+                style="@style/HorizontalLine"
+                android:layout_width="@dimen/size_0dp"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rl_grade" />
+
+            <TextView
+                android:id="@+id/tv_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginTop="@dimen/size_20dp"
+                android:text="@string/more_details"
+                android:textColor="@color/color_4"
+                android:textSize="@dimen/size_17sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/line_bottom" />
+
+            <TextView
+                android:id="@+id/tv_order_number"
+                style="@style/OrderTextContentView"
+                android:layout_marginTop="@dimen/size_15dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_more"
+                tools:text="订单：18500" />
+
+            <TextView
+                android:id="@+id/tv_phone_number"
+                style="@style/OrderTextContentView"
+                android:layout_marginTop="@dimen/size_10dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_order_number"
+                tools:text="手机号码：15079254622" />
+
+            <TextView
+                android:id="@+id/tv_order_time"
+                style="@style/OrderTextContentView"
+                android:layout_marginTop="@dimen/size_10dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_phone_number"
+                tools:text="下单时间：2018-11-30" />
+
+            <TextView
+                android:id="@+id/tv_pay_time"
+                style="@style/OrderTextContentView"
+                android:layout_marginTop="@dimen/size_10dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_order_time"
+                tools:text="付款时间：2018-11-30" />
+
+            <TextView
+                android:id="@+id/tv_total_prices"
+                style="@style/OrderTextContentView"
+                android:layout_marginTop="@dimen/size_10dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_pay_time"
+                tools:text="付款总价：￥1230" />
+
+            <TextView
+                android:id="@+id/tv_practical_prices"
+                style="@style/OrderTextContentView"
+                android:layout_marginTop="@dimen/size_10dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_total_prices"
+                tools:text="实际支付：￥1230" />
+
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

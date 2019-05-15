@@ -21,6 +21,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyOrderBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.MyOrderFragmentContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.MyOrderFragmentPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
@@ -123,6 +124,7 @@ public class MyOrderFragment extends DelayedFragment<MyOrderFragmentPresenter> i
                         break;
                     //已取消
                     case Contast.ORDER_STATUS.CANCELED:
+                        toCompleteOrCancelActivity(bean.orderId, bean.stateId);
                         break;
                     //待使用
                     case Contast.ORDER_STATUS.WAIT_USER:
@@ -132,6 +134,7 @@ public class MyOrderFragment extends DelayedFragment<MyOrderFragmentPresenter> i
                         break;
                     //已完成
                     case Contast.ORDER_STATUS.COMPLETING:
+                        toCompleteOrCancelActivity(bean.orderId, bean.stateId);
                         break;
                     //退款中
                     case Contast.ORDER_STATUS.REFUNDING:
@@ -144,6 +147,19 @@ public class MyOrderFragment extends DelayedFragment<MyOrderFragmentPresenter> i
                 }
             }
         });
+    }
+
+    /**
+     * 订单详情取消或者已完成
+     *
+     * @param orderId     订单id
+     * @param orderStatus 订单状态
+     */
+    private void toCompleteOrCancelActivity(long orderId, int orderStatus) {
+        Bundle bundle = new Bundle();
+        bundle.putLong(ARouterConfig.Key.ORDER_ID, orderId);
+        bundle.putInt(ARouterConfig.Key.ORDER_STATUS, orderStatus);
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ORDER_COMPLETE_AND_CANCEL, bundle);
     }
 
     private void loadOrder(boolean isRefresh, RefreshLayout refreshLayout) {
