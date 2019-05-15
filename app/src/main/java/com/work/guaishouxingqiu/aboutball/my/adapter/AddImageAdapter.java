@@ -1,13 +1,14 @@
 package com.work.guaishouxingqiu.aboutball.my.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
@@ -15,6 +16,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.AddImageBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 
+import java.io.File;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -25,12 +27,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * 更新时间: 2019/5/13 13:53
  * 描述:意见反馈适配器
  */
-public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.ViewHolder> {
+public class AddImageAdapter extends RecyclerView.Adapter<AddImageAdapter.ViewHolder> {
     public List<AddImageBean> mData;
     private Context mContext;
     public static final int MAX_IMAGE_COUNT = 9;
 
-    public FeedbackAdapter(Context context, List<AddImageBean> data) {
+    public AddImageAdapter(Context context, List<AddImageBean> data) {
         this.mContext = context;
         this.mData = data;
     }
@@ -58,11 +60,13 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         AddImageBean bean = mData.get(i);
         if (bean.isAdd) {
+
             viewHolder.itemView.setEnabled(true);
             viewHolder.mCivDelete.setVisibility(View.GONE);
             viewHolder.itemView.setBackgroundResource(bean.resIcon);
             viewHolder.mRivData.setImageDrawable(null);
             //  GlideManger.get().loadImage(mContext, bean.resIcon, viewHolder.mRivData);
+
         } else {
             viewHolder.itemView.setBackground(null);
             viewHolder.itemView.setEnabled(false);
@@ -75,14 +79,15 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.ViewHo
             }
         });
         viewHolder.mCivDelete.setOnClickListener(v -> {
-            mData.remove(i);
-            notifyItemRemoved(i);
-            notifyItemRangeChanged(0, mData.size());
+
             if (onDeleteClickListener != null) {
                 onDeleteClickListener.onClickItem(v, i);
             }
+            mData.remove(i);
+           notifyDataSetChanged();
         });
     }
+
 
     @Override
     public int getItemCount() {

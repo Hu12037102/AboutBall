@@ -3,6 +3,7 @@ package com.work.guaishouxingqiu.aboutball.other;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,6 +28,8 @@ import com.bumptech.glide.request.transition.Transition;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
+
+import java.io.File;
 
 
 /**
@@ -97,6 +100,11 @@ public class GlideManger {
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         RequestOptions requestOptions = new RequestOptions().centerCrop().placeholder(R.mipmap.icon_default_banner).error(R.mipmap.icon_default_banner);
         Glide.with(context).asDrawable().apply(requestOptions).load(imagePath).into(imageView);
+    }
+    public void loadImage(@NonNull Context context, @NonNull File file, @NonNull ImageView imageView) {
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        RequestOptions requestOptions = new RequestOptions().centerCrop().placeholder(R.mipmap.icon_default_banner).error(R.mipmap.icon_default_banner);
+        Glide.with(context).asBitmap().apply(requestOptions).load(file).into(imageView);
     }
 
     public void loadImage(@NonNull Context context, @NonNull String imagePath, @DrawableRes int resPlaceholderId,

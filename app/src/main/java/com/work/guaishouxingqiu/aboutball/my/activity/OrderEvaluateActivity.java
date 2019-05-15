@@ -1,19 +1,33 @@
 package com.work.guaishouxingqiu.aboutball.my.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
+import com.work.guaishouxingqiu.aboutball.base.CameraActivity;
+import com.work.guaishouxingqiu.aboutball.media.MediaSelector;
+import com.work.guaishouxingqiu.aboutball.media.bean.MediaSelectorFile;
+import com.work.guaishouxingqiu.aboutball.my.adapter.AddImageAdapter;
+import com.work.guaishouxingqiu.aboutball.my.bean.AddImageBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.OrderEvaluateContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.OrderEvaluatePresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,7 +40,7 @@ import butterknife.OnClick;
  * 描述:订单评价Activity
  */
 @Route(path = ARouterConfig.Path.ACTIVITY_ORDER_EVALUATE)
-public class OrderEvaluateActivity extends BaseActivity<OrderEvaluatePresenter> implements OrderEvaluateContract.View {
+public class OrderEvaluateActivity extends CameraActivity<OrderEvaluatePresenter> implements OrderEvaluateContract.View {
     @BindView(R.id.tv_name)
     TextView mTvName;
     @BindView(R.id.tv_time)
@@ -39,6 +53,9 @@ public class OrderEvaluateActivity extends BaseActivity<OrderEvaluatePresenter> 
     AppCompatEditText mAcetContent;
     @BindView(R.id.rv_data)
     RecyclerView mRvData;
+    private AddImageAdapter mImageAdapter;
+    private List<AddImageBean> mImageData;
+    private MediaSelector.MediaOptions mMediaOptions;
 
     @Override
     protected int getLayoutId() {
@@ -54,23 +71,42 @@ public class OrderEvaluateActivity extends BaseActivity<OrderEvaluatePresenter> 
             return;
         }
         String venueName = bundle.getString(ARouterConfig.Key.VENUE_NAME);
-        UIUtils.setText(mTvName,venueName);
+        UIUtils.setText(mTvName, venueName);
         String orderTime = bundle.getString(ARouterConfig.Key.TARGET_DATE);
-        UIUtils.setOrderDetailsItemSpan(mTvTime,UIUtils.getString(R.string.order_item_time_host),orderTime);
+        UIUtils.setOrderDetailsItemSpan(mTvTime, UIUtils.getString(R.string.order_item_time_host), orderTime);
         String siteContent = bundle.getString(ARouterConfig.Key.TARGET_SITE);
         UIUtils.setText(mTvReserveContent, siteContent);
+
+
     }
 
     @Override
     protected void initData() {
+        mMediaOptions = new MediaSelector.MediaOptions();
+        mMediaOptions.maxChooseMedia = AddImageAdapter.MAX_IMAGE_COUNT;
+        mMediaOptions.isCrop = false;
+        mMediaOptions.isCompress = true;
+        mMediaOptions.isShowCamera = false;
 
+        mRvData.setLayoutManager(new GridLayoutManager(this,4));
+        mImageData = new ArrayList<>();
+        mImageData.add(new AddImageBean(true));
+        mImageAdapter = new AddImageAdapter(this, mImageData);
+        mRvData.setAdapter(mImageAdapter);
     }
 
     @Override
     protected void initEvent() {
-
+        mImageAdapter.setOnItemClickListener((view, position) -> {
+            if (mImageData.get(position).isAdd){
+                clickMediaSelector();
+            }
+        });
     }
-
+    private void clickMediaSelector() {
+        mMediaOptions.maxChooseMedia = AddImageAdapter.MAX_IMAGE_COUNT - (mImageData.size() - 1);
+        openPhotoDialog(mMediaOptions);
+    }
     @Override
     protected OrderEvaluatePresenter createPresenter() {
         return new OrderEvaluatePresenter(this);
@@ -79,5 +115,28 @@ public class OrderEvaluateActivity extends BaseActivity<OrderEvaluatePresenter> 
 
     @OnClick(R.id.tv_commit)
     public void onViewClicked() {
+    }
+
+    @Override
+    protected void resultAlbumResult(List<MediaSelectorFile> data) {
+        for (int i = 0; i < data.size(); i++) {
+            MediaSelectorFile media = data.get(i);
+          //  mRequestOSSPathData.add(media.filePath);
+            AddImageBean addBean = new AddImageBean();
+            addBean.path = media.filePath;
+            mImageData.add(mImageData.size() - 1, addBean);
+        }
+        mImageAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void resultCameraResult(File cameraFile) {
+        String cameraPath = cameraFile.getAbsolutePath();
+       // mRequestOSSPathData.add(cameraPath);
+        AddImageBean addBean = new AddImageBean();
+        addBean.path = cameraPath;
+        int position = mImageData.size() - 1;
+        mImageData.add(position, addBean);
+        mImageAdapter.notifyDataSetChanged();
     }
 }

@@ -1,6 +1,5 @@
 package com.work.guaishouxingqiu.aboutball.my.activity;
 
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatEditText;
@@ -16,7 +15,7 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.CameraActivity;
 import com.work.guaishouxingqiu.aboutball.media.MediaSelector;
 import com.work.guaishouxingqiu.aboutball.media.bean.MediaSelectorFile;
-import com.work.guaishouxingqiu.aboutball.my.adapter.FeedbackAdapter;
+import com.work.guaishouxingqiu.aboutball.my.adapter.AddImageAdapter;
 import com.work.guaishouxingqiu.aboutball.my.bean.AddImageBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestFeedbackBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.FeedbackContract;
@@ -33,11 +32,9 @@ import com.work.guaishouxingqiu.aboutball.weight.SingWheelDialog;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -59,7 +56,7 @@ public class FeedbackActivity extends CameraActivity<FeedbackPresenter> implemen
     private List<String> mTypeList;
     private SingWheelDialog mTypeDialog;
     private RequestFeedbackBean mRequestBean;
-    private FeedbackAdapter mAdapter;
+    private AddImageAdapter mAdapter;
     private List<AddImageBean> mData;
     private MediaSelector.MediaOptions mMediaOptions;
     private List<String> mRequestOSSPathData;
@@ -80,7 +77,7 @@ public class FeedbackActivity extends CameraActivity<FeedbackPresenter> implemen
     @Override
     protected void initData() {
         mMediaOptions = new MediaSelector.MediaOptions();
-        mMediaOptions.maxChooseMedia = FeedbackAdapter.MAX_IMAGE_COUNT;
+        mMediaOptions.maxChooseMedia = AddImageAdapter.MAX_IMAGE_COUNT;
         mMediaOptions.isCrop = false;
         mMediaOptions.isCompress = true;
         mMediaOptions.isShowCamera = false;
@@ -93,7 +90,7 @@ public class FeedbackActivity extends CameraActivity<FeedbackPresenter> implemen
 
         mData = new ArrayList<>();
         mData.add(new AddImageBean(true));
-        mAdapter = new FeedbackAdapter(this, mData);
+        mAdapter = new AddImageAdapter(this, mData);
         mRvImage.setAdapter(mAdapter);
     }
 
@@ -141,7 +138,7 @@ public class FeedbackActivity extends CameraActivity<FeedbackPresenter> implemen
     }
 
     private void clickMediaSelector() {
-        mMediaOptions.maxChooseMedia = FeedbackAdapter.MAX_IMAGE_COUNT - (mData.size() - 1);
+        mMediaOptions.maxChooseMedia = AddImageAdapter.MAX_IMAGE_COUNT - (mData.size() - 1);
         openPhotoDialog(mMediaOptions);
     }
 
@@ -160,7 +157,7 @@ public class FeedbackActivity extends CameraActivity<FeedbackPresenter> implemen
             addBean.path = media.filePath;
             mData.add(mData.size() - 1, addBean);
         }
-        mAdapter.notifyItemRangeChanged(0, mData.size());
+        mAdapter.notifyDataSetChanged();
 
 
     }
@@ -173,8 +170,7 @@ public class FeedbackActivity extends CameraActivity<FeedbackPresenter> implemen
         addBean.path = cameraPath;
         int position = mData.size() - 1;
         mData.add(position, addBean);
-        mAdapter.notifyItemInserted(position);
-        mAdapter.notifyItemRangeChanged(0, mData.size());
+        mAdapter.notifyDataSetChanged();
     }
 
 
