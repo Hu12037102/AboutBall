@@ -22,6 +22,9 @@ public class DateUtils {
      */
     public static String getWeek(String date) {
         String resultWeek = "";
+        if (DataUtils.isEmpty(date)) {
+            return resultWeek;
+        }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Date time = simpleDateFormat.parse(date);

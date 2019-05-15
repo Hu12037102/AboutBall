@@ -309,6 +309,7 @@
     <string name="location">位置</string>
     <string name="number">号码</string>
     <string name="paying">已支付</string>
+    <string name="pay_order">支付订单</string>
     <string name="not_this_ball_team_details">沒有找到该球队信息</string>
     <string name="edit">编辑</string>
     <!--相册选择器-->

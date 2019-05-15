@@ -27,7 +27,6 @@ public abstract class BaseDialog extends AppCompatDialog {
         super(context, theme);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         initView(getContext());
-        initWindows();
         initData();
         initEvent();
     }
