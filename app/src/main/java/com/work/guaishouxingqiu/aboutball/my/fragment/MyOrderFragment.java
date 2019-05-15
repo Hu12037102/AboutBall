@@ -131,6 +131,7 @@ public class MyOrderFragment extends DelayedFragment<MyOrderFragmentPresenter> i
                         break;
                     //待评价
                     case Contast.ORDER_STATUS.WAIT_EVALUATE:
+                        toCompleteOrCancelActivity(bean.orderId, bean.stateId);
                         break;
                     //已完成
                     case Contast.ORDER_STATUS.COMPLETING:

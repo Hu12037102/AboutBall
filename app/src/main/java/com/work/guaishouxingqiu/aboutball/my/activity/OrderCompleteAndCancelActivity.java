@@ -1,6 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.my.activity;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -64,6 +65,8 @@ public class OrderCompleteAndCancelActivity extends BaseActivity<OrderCompleteAn
     TextView mTvTotalPrices;
     @BindView(R.id.tv_practical_prices)
     TextView mTvPracticalPrices;
+    @BindView(R.id.tv_judge)
+    TextView mTvJudge;
 
     @Override
     protected int getLayoutId() {
@@ -79,7 +82,7 @@ public class OrderCompleteAndCancelActivity extends BaseActivity<OrderCompleteAn
             return;
         }
         int orderStatus = bundle.getInt(ARouterConfig.Key.ORDER_STATUS, -1);
-       long orderId = bundle.getLong(ARouterConfig.Key.ORDER_ID, -1);
+        long orderId = bundle.getLong(ARouterConfig.Key.ORDER_ID, -1);
         if (orderStatus == -1 || orderId == -1) {
             UIUtils.showToast(R.string.not_find_this_order);
             finish();
@@ -96,6 +99,12 @@ public class OrderCompleteAndCancelActivity extends BaseActivity<OrderCompleteAn
             mTvStatus.setTextColor(ContextCompat.getColor(this, R.color.colorFFA6A6A6));
             layoutParams.topMargin = ScreenUtils.dp2px(this, 20);
             mTvPayTime.setVisibility(View.GONE);
+        } else if (orderStatus == Contast.ORDER_STATUS.WAIT_EVALUATE) {
+            mTvStatus.setTextColor(ContextCompat.getColor(this, R.color.color_2));
+            mTvPayTime.setVisibility(View.VISIBLE);
+            mRlGrade.setVisibility(View.VISIBLE);
+            mTvJudge.setVisibility(View.VISIBLE);
+            layoutParams.topMargin = 0;
         } else {
             UIUtils.showToast(R.string.not_find_this_order);
             finish();
@@ -125,14 +134,14 @@ public class OrderCompleteAndCancelActivity extends BaseActivity<OrderCompleteAn
         UIUtils.setText(mTvName, bean.stadiumName);
         UIUtils.setText(mTvAddress, bean.address);
         UIUtils.setText(mTvStatus, bean.stateName);
-        UIUtils.setOrderDetailsItemSpan(mTvTime,UIUtils.getString(R.string.order_item_time_host),bean.orderTime.concat("（").concat(DateUtils.getWeek(bean.orderTime)).concat("）"));
+        UIUtils.setOrderDetailsItemSpan(mTvTime, UIUtils.getString(R.string.order_item_time_host), bean.orderTime.concat("（").concat(DateUtils.getWeek(bean.orderTime)).concat("）"));
         UIUtils.setText(mTvReserveContent, DataUtils.getOrderSiteContent(bean.orderDetailForOrders));
-        UIUtils.setOrderDetailsItemSpan(mTvOrderNumber,UIUtils.getString(R.string.order_host),bean.orderNo);
-        UIUtils.setOrderDetailsItemSpan(mTvPhoneNumber,UIUtils.getString(R.string.phone_number_host),bean.phoneNum);
-        UIUtils.setOrderDetailsItemSpan(mTvOrderTime,UIUtils.getString(R.string.order_time_host),bean.createOrderTime);
-        UIUtils.setOrderDetailsItemSpan(mTvPayTime,UIUtils.getString(R.string.pay_order_time_host),bean.payTime);
-        UIUtils.setOrderDetailsItemSpan(mTvTotalPrices,UIUtils.getString(R.string.order_total_prices_host),"￥" + bean.totalPrice);
-        UIUtils.setOrderDetailsItemSpan(mTvPracticalPrices,UIUtils.getString(R.string.order_practical_prices_host),bean.realPrice > 0 ? "￥" + bean.realPrice : "￥" + bean.totalPrice);
+        UIUtils.setOrderDetailsItemSpan(mTvOrderNumber, UIUtils.getString(R.string.order_host), bean.orderNo);
+        UIUtils.setOrderDetailsItemSpan(mTvPhoneNumber, UIUtils.getString(R.string.phone_number_host), bean.phoneNum);
+        UIUtils.setOrderDetailsItemSpan(mTvOrderTime, UIUtils.getString(R.string.order_time_host), bean.createOrderTime);
+        UIUtils.setOrderDetailsItemSpan(mTvPayTime, UIUtils.getString(R.string.pay_order_time_host), bean.payTime);
+        UIUtils.setOrderDetailsItemSpan(mTvTotalPrices, UIUtils.getString(R.string.order_total_prices_host), "￥" + bean.totalPrice);
+        UIUtils.setOrderDetailsItemSpan(mTvPracticalPrices, UIUtils.getString(R.string.order_practical_prices_host), bean.realPrice > 0 ? "￥" + bean.realPrice : "￥" + bean.totalPrice);
     }
 
     @Override
