@@ -1,12 +1,9 @@
 package com.work.guaishouxingqiu.aboutball.my.fragment;
 
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
@@ -160,7 +157,7 @@ public class MyOrderFragment extends DelayedFragment<MyOrderFragmentPresenter> i
         Bundle bundle = new Bundle();
         bundle.putLong(ARouterConfig.Key.ORDER_ID, orderId);
         bundle.putInt(ARouterConfig.Key.ORDER_STATUS, orderStatus);
-        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ORDER_COMPLETE_AND_CANCEL, bundle);
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ORDER_COMPLETE_EVALUATE_CANCEL, bundle);
     }
 
     private void loadOrder(boolean isRefresh, RefreshLayout refreshLayout) {

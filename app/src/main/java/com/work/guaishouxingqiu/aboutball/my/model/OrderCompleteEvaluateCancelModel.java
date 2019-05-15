@@ -8,5 +8,5 @@ import com.work.guaishouxingqiu.aboutball.venue.model.BaseOrderModel;
  * 更新时间: 2019/5/14 18:08
  * 描述:订单详情完成和取消model
  */
-public class OrderCompleteAndCancelModel extends BaseOrderModel{
+public class OrderCompleteEvaluateCancelModel extends BaseOrderModel{
 }

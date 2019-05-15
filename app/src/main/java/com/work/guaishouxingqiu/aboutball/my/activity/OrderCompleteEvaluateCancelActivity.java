@@ -1,7 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.my.activity;
 
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -14,8 +13,8 @@ import com.example.item.util.ScreenUtils;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
-import com.work.guaishouxingqiu.aboutball.my.contract.OrderCompleteAndCancelContract;
-import com.work.guaishouxingqiu.aboutball.my.presenter.OrderCompleteAndCancelPresenter;
+import com.work.guaishouxingqiu.aboutball.my.contract.OrderCompleteEvaluateCancelContract;
+import com.work.guaishouxingqiu.aboutball.my.presenter.OrderCompleteEvaluateCancelPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
@@ -23,18 +22,17 @@ import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultOrderDetailsBean;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
  * 作者: 胡庆岭
  * 创建时间: 2019/5/14 18:15
  * 更新时间: 2019/5/14 18:15
- * 描述:订单完成和取消activity
+ * 描述:订单完成、取消、评价订单详情activity
  */
-@Route(path = ARouterConfig.Path.ACTIVITY_ORDER_COMPLETE_AND_CANCEL)
-public class OrderCompleteAndCancelActivity extends BaseActivity<OrderCompleteAndCancelPresenter> implements
-        OrderCompleteAndCancelContract.View {
+@Route(path = ARouterConfig.Path.ACTIVITY_ORDER_COMPLETE_EVALUATE_CANCEL)
+public class OrderCompleteEvaluateCancelActivity extends BaseActivity<OrderCompleteEvaluateCancelPresenter> implements
+        OrderCompleteEvaluateCancelContract.View {
     @BindView(R.id.tv_name)
     TextView mTvName;
     @BindView(R.id.tv_address)
@@ -125,8 +123,8 @@ public class OrderCompleteAndCancelActivity extends BaseActivity<OrderCompleteAn
     }
 
     @Override
-    protected OrderCompleteAndCancelPresenter createPresenter() {
-        return new OrderCompleteAndCancelPresenter(this);
+    protected OrderCompleteEvaluateCancelPresenter createPresenter() {
+        return new OrderCompleteEvaluateCancelPresenter(this);
     }
 
     @Override

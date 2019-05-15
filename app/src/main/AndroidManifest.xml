@@ -237,7 +237,7 @@
             android:name=".my.activity.MyOrderActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.activity.OrderCompleteAndCancelActivity"
+            android:name=".my.activity.OrderCompleteEvaluateCancelActivity"
             android:screenOrientation="portrait" />
     </application>
 

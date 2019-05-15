@@ -10,7 +10,7 @@ import com.work.guaishouxingqiu.aboutball.venue.contract.BaseOrderContrast;
  * 更新时间: 2019/5/14 18:07
  * 描述:
  */
-public interface OrderCompleteAndCancelContract {
+public interface OrderCompleteEvaluateCancelContract {
     interface View extends BaseOrderContrast.View {
     }
 
