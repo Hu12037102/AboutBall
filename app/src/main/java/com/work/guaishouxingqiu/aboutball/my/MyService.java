@@ -11,6 +11,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.RequestEditAddressBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestFeedbackBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestManageBallTeamBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestNewAddressBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestOrderEvaluateBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestTeamMyDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateBirthdayBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateHeadPhotoBean;
@@ -144,4 +145,9 @@ public interface MyService {
     Observable<BaseBean<List<ResultMyOrderBean>>> loadMyOrder(@Query(Contast.ORDER_STATE) int orderStatus,
                                                               @Query(Contast.PAGE_NUM) int pageNum,
                                                               @Query(Contast.PAGE_SIZE) int pageSize);
+
+    @GET(IApiService.GET_CANCEL_ORDER)
+    Observable<BaseBean<BaseDataBean<String>>> cancelOrder(@Query(Contast.ORDER_ID) long orderId);
+    @POST(IApiService.POST_EVALUATE_ORDER)
+    Observable<BaseBean<BaseDataBean<String>>> evaluateOrder(@Body RequestOrderEvaluateBean bean);
 }

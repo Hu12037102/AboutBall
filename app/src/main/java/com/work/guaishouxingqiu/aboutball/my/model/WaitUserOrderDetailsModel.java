@@ -1,7 +1,13 @@
 package com.work.guaishouxingqiu.aboutball.my.model;
 
+import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseModel;
+import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
+import com.work.guaishouxingqiu.aboutball.my.MyService;
 import com.work.guaishouxingqiu.aboutball.venue.model.BaseOrderModel;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 作者: 胡庆岭
@@ -10,4 +16,5 @@ import com.work.guaishouxingqiu.aboutball.venue.model.BaseOrderModel;
  * 描述：等待使用订单详情
  */
 public class WaitUserOrderDetailsModel extends BaseOrderModel{
+
 }

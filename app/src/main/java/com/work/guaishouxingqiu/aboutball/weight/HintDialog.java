@@ -73,6 +73,7 @@ public class HintDialog extends Dialog {
                 if (onItemClickSureAndCancelListener != null) {
                     onItemClickSureAndCancelListener.onClickCancel(v);
                 }
+                dismiss();
             }
         });
         mTvSures.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +82,7 @@ public class HintDialog extends Dialog {
                 if (onItemClickSureAndCancelListener != null) {
                     onItemClickSureAndCancelListener.onClickSure(v);
                 }
+                dismiss();
             }
         });
     }

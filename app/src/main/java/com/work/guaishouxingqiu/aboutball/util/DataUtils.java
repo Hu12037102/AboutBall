@@ -304,5 +304,21 @@ public class DataUtils {
         return sb.toString();
     }
 
+    /**
+     * 集合数据用逗号拼接
+     * @param data
+     * @return
+     */
+    public static String getStringFormat(List<String> data) {
+        if (data == null || data.size() == 0) {
+            return "";
+        }
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < data.size(); i++) {
+            sb = sb.append(data.get(i)).append(i == data.size() - 1 ? "" : ",");
+        }
+        return sb.toString();
+    }
+
 
 }

@@ -15,9 +15,12 @@ import java.util.List;
 public interface MyOrderFragmentContract {
     interface View extends IBaseView {
         void resultMyOrderData(List<ResultMyOrderBean> data);
+        void resultCancelOrderSucceed();
     }
 
     interface Presenter extends IBasePresenter {
         void lordMyOrder(int mOrderStatus);
+
+        void cancelOrder(long orderId);
     }
 }

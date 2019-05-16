@@ -36,7 +36,7 @@ import butterknife.OnClick;
  * 描述:订单详情
  */
 @Route(path = ARouterConfig.Path.ACTIVITY_WAIT_PAY_ORDER_DETAILS)
-public class WaitPayOrderDetailsActivity extends BaseActivity<WaitPayOrderDetailsPresenter>
+public class WaitPayOrderDetailsActivity extends BaseOrderActivity<WaitPayOrderDetailsPresenter>
         implements WaitPayOrderDetailsContract.View {
     @BindView(R.id.tv_agreement)
     TextView mTvAgreement;

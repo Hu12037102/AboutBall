@@ -4,10 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
+import com.work.guaishouxingqiu.aboutball.my.activity.OrderEvaluateActivity;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.other.DownloadApkHelp;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
@@ -36,6 +39,7 @@ public class ViewModel {
     private HintDialog mUserNoExitDialog;
     private HintDialog mLoginDialog;
     private HintDialog mNotLoginDialog;
+    private HintDialog mCancelOrderDialog;
 
     static ViewModel createViewModel(Activity activity) {
         return new ViewModel(activity);
@@ -161,13 +165,19 @@ public class ViewModel {
      * @param time      预定时间
      * @param site      预定场地
      */
-    public void startActivityToEvaluate(String venueName, String time, String site) {
+    public void startActivityToEvaluate(String venueName, String time, String site, long orderId, int requestCode, boolean isActivity, Fragment fragment) {
         Bundle bundle = new Bundle();
         bundle.putString(ARouterConfig.Key.VENUE_NAME, venueName);
         bundle.putString(ARouterConfig.Key.TARGET_DATE, time);
         bundle.putString(ARouterConfig.Key.TARGET_SITE, site);
-        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ORDER_EVALUATE, bundle);
+        bundle.putLong(ARouterConfig.Key.ORDER_ID, orderId);
+        if (isActivity) {
+            ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_ORDER_EVALUATE, mSoftActivity.get(), bundle, requestCode);
+        } else if (fragment != null) {
+            ARouterIntent.startActivityForResult(fragment, OrderEvaluateActivity.class, bundle, requestCode);
+        }
     }
+
 
     public void onDestroy() {
         Activity activity = mSoftActivity.get();
@@ -177,5 +187,23 @@ public class ViewModel {
     }
 
 
+    /**
+     * 取消订单
+     */
+    public void showCancelOrderDialog(BaseDialog.OnItemClickSureAndCancelListener listener) {
+        if (mCancelOrderDialog == null) {
+            mCancelOrderDialog = new HintDialog.Builder(mSoftActivity.get())
+                    .setShowSingButton(false)
+                    .setTitle(R.string.hint)
+                    .setBody(R.string.cancel_order_body)
+                    .builder();
+        }
+        if (!mCancelOrderDialog.isShowing()) {
+            mCancelOrderDialog.show();
+        }
+        mCancelOrderDialog.setOnItemClickSureAndCancelListener(listener);
+
+
+    }
 
 }

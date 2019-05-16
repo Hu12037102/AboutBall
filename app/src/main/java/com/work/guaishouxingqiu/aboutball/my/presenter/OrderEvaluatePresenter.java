@@ -2,9 +2,14 @@ package com.work.guaishouxingqiu.aboutball.my.presenter;
 
 import android.support.annotation.NonNull;
 
+import com.work.guaishouxingqiu.aboutball.base.BaseBean;
+import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
+import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestOrderEvaluateBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.OrderEvaluateContract;
 import com.work.guaishouxingqiu.aboutball.my.model.OrderEvaluateModel;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 
 /**
  * 作者: 胡庆岭
@@ -26,5 +31,22 @@ public class OrderEvaluatePresenter extends BasePresenter<OrderEvaluateContract.
     @Override
     public void start() {
 
+    }
+
+    @Override
+    public void evaluateOrder(RequestOrderEvaluateBean requestBean) {
+        mModel.evaluateOrder(requestBean,new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
+            @Override
+            public void onNext(BaseBean<BaseDataBean<String>> t) {
+                if (DataUtils.baseDataBeanIsSucceed(t)){
+                    mView.resultEvaluateOrder();
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
     }
 }

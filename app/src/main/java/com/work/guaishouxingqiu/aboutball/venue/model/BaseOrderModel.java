@@ -3,6 +3,7 @@ package com.work.guaishouxingqiu.aboutball.venue.model;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseModel;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
+import com.work.guaishouxingqiu.aboutball.my.MyService;
 import com.work.guaishouxingqiu.aboutball.venue.VenueService;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultOrderDetailsBean;
 
@@ -26,6 +27,13 @@ public class BaseOrderModel extends BaseModel{
     public void bandPhoneNumber(long orderId, String phoneNumber, BaseObserver<BaseDataBean<String>> observer){
         mRetrofitManger.create(VenueService.class)
                 .bandOrderPhoneNumber(orderId,phoneNumber)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void cancelOrder(long orderId, BaseObserver<BaseDataBean<String>>observer) {
+        mRetrofitManger.create(MyService.class)
+                .cancelOrder(orderId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

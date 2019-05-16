@@ -394,7 +394,11 @@
     <string name="order_practical_prices_host">实际支付：</string>
     <string name="order_evaluate">订单评价</string>
     <string name="give_to_mark">评分</string>
+    <string name="payment_has_been_received">已到账</string>
     <string name="input_evaluate_content_hint">说说商家的亮点和不足吧~</string>
     <string name="input_max_text">0/140</string>
     <string name="weichat_pay">微信支付</string>
+    <string name="cancel_order_body">您确定取消该订单</string>
+    <string name="please_selector_order_grade_rating">请给本次订单评分</string>
+    <string name="your_not_sed_what">不打算说点什么或者晒图</string>
 </resources>

@@ -12,8 +12,10 @@ import com.work.guaishouxingqiu.aboutball.venue.contract.BaseOrderContrast;
  */
 public interface WaitUserOrderDetailsContract {
     interface View extends BaseOrderContrast.View {
+        void resultCancelOrderSucceed();
     }
 
     interface Presenter extends BaseOrderContrast.Presenter {
+        void cancelOrder(long mOrderId);
     }
 }

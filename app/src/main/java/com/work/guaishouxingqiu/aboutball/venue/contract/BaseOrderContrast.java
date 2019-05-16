@@ -16,11 +16,14 @@ public interface BaseOrderContrast {
         void resultOrderDetails(ResultOrderDetailsBean bean);
 
         void resultBandPhoneNumber();
+        void resultCancelOrderSucceed();
     }
 
     interface Presenter extends IBasePresenter {
         void loadOrderDetails(long orderId);
 
         void bandOrderPhoneNumber(long orderId, String phoneNumber);
+
+        void cancelOrder(long orderId);
     }
 }

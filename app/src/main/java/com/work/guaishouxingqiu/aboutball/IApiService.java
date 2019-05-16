@@ -108,7 +108,8 @@ public interface IApiService {
     String GET_MY_REFEREE_RECORD="/api/referee/myRefereeRecord";
     String POST_FEEDBACK="/api/commons/feedback";
     String GET_MY_ORDER="/api/order/getMyOrder";
-
+    String GET_CANCEL_ORDER="/api/order/cancelOrder";
+    String POST_EVALUATE_ORDER="/api/order/commentOrder";
     interface H5 {
         String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";
         //资讯详情分享，后缀加上id;
@@ -116,4 +117,6 @@ public interface IApiService {
         //分享球队链接，后面跟上teamId
         String SHARE_BALL_TEAM = "http://ifeell.oss-cn-shenzhen.aliyuncs.com/app/ipk_android_release.apk?teamId=";
     }
+
+
 }

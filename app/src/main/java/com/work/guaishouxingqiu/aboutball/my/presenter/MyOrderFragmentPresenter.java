@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
+import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyOrderBean;
@@ -46,6 +47,23 @@ public class MyOrderFragmentPresenter extends BasePresenter<MyOrderFragmentContr
                 if (DataUtils.isResultSure(t)) {
                     mPageNum++;
                     mView.resultMyOrderData(t.result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+
+    @Override
+    public void cancelOrder(long orderId) {
+        mModel.cancelOrder(orderId, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
+            @Override
+            public void onNext(BaseBean<BaseDataBean<String>> t) {
+                if (DataUtils.baseDataBeanIsSucceed(t)) {
+                    mView.resultCancelOrderSucceed();
                 }
             }
 

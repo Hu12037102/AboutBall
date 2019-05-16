@@ -8,7 +8,6 @@ import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
-import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultOrderDetailsBean;
 import com.work.guaishouxingqiu.aboutball.venue.contract.BaseOrderContrast;
 import com.work.guaishouxingqiu.aboutball.venue.model.BaseOrderModel;
@@ -59,5 +58,21 @@ public abstract class BaseOrderPresenter<V extends BaseOrderContrast.View, M ext
 
             }
         }, false));
+    }
+    @Override
+    public void cancelOrder(long orderId) {
+        mModel.cancelOrder(orderId, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
+            @Override
+            public void onNext(BaseBean<BaseDataBean<String>> t) {
+                if (DataUtils.baseDataBeanIsSucceed(t)) {
+                    mView.resultCancelOrderSucceed();
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
     }
 }

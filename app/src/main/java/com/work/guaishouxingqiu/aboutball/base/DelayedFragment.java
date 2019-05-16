@@ -21,7 +21,7 @@ import com.work.guaishouxingqiu.aboutball.util.LogUtils;
  */
 public abstract class DelayedFragment<P extends BasePresenter> extends BaseFragment<P> {
 
-    private boolean isFirstCreate = true;
+    protected boolean isFirstCreate = true;
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {

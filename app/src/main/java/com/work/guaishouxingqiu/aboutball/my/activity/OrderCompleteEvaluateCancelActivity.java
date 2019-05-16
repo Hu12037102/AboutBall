@@ -1,6 +1,9 @@
 package com.work.guaishouxingqiu.aboutball.my.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -10,6 +13,7 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.util.ScreenUtils;
+import com.example.item.weight.ItemView;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
@@ -20,6 +24,7 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
+import com.work.guaishouxingqiu.aboutball.venue.activity.BaseOrderActivity;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultOrderDetailsBean;
 
 import butterknife.BindView;
@@ -32,7 +37,7 @@ import butterknife.OnClick;
  * 描述:订单完成、取消、评价订单详情activity
  */
 @Route(path = ARouterConfig.Path.ACTIVITY_ORDER_COMPLETE_EVALUATE_CANCEL)
-public class OrderCompleteEvaluateCancelActivity extends BaseActivity<OrderCompleteEvaluateCancelPresenter> implements
+public class OrderCompleteEvaluateCancelActivity extends BaseOrderActivity<OrderCompleteEvaluateCancelPresenter> implements
         OrderCompleteEvaluateCancelContract.View {
     @BindView(R.id.tv_name)
     TextView mTvName;
@@ -67,6 +72,8 @@ public class OrderCompleteEvaluateCancelActivity extends BaseActivity<OrderCompl
     @BindView(R.id.tv_judge)
     TextView mTvJudge;
     private ResultOrderDetailsBean mOrderDetailsBean;
+    @BindView(R.id.item_schedule)
+    ItemView mItemSchedule;
 
     @Override
     protected int getLayoutId() {
@@ -94,7 +101,7 @@ public class OrderCompleteEvaluateCancelActivity extends BaseActivity<OrderCompl
             mTvStatus.setTextColor(ContextCompat.getColor(this, R.color.color_2));
             mTvPayTime.setVisibility(View.VISIBLE);
             layoutParams.topMargin = 0;
-        } else if (orderStatus == Contast.ORDER_STATUS.CANCELED || orderStatus == Contast.ORDER_STATUS.REFUNDED) {
+        } else if (orderStatus == Contast.ORDER_STATUS.CANCELED) {
             mRlGrade.setVisibility(View.GONE);
             mTvStatus.setTextColor(ContextCompat.getColor(this, R.color.colorFFA6A6A6));
             layoutParams.topMargin = ScreenUtils.dp2px(this, 20);
@@ -103,6 +110,10 @@ public class OrderCompleteEvaluateCancelActivity extends BaseActivity<OrderCompl
             mTvStatus.setTextColor(ContextCompat.getColor(this, R.color.color_2));
             mTvPayTime.setVisibility(View.VISIBLE);
             mRlGrade.setVisibility(View.VISIBLE);
+            layoutParams.topMargin = 0;
+        } else if (orderStatus == Contast.ORDER_STATUS.REFUNDED) {
+            mItemSchedule.setVisibility(View.VISIBLE);
+            mRlGrade.setVisibility(View.GONE);
             layoutParams.topMargin = 0;
         } else {
             UIUtils.showToast(R.string.not_find_this_order);
@@ -149,11 +160,6 @@ public class OrderCompleteEvaluateCancelActivity extends BaseActivity<OrderCompl
         UIUtils.setOrderDetailsItemSpan(mTvPracticalPrices, UIUtils.getString(R.string.order_practical_prices_host), bean.realPrice > 0 ? "￥" + bean.realPrice : "￥" + bean.totalPrice);
     }
 
-    @Override
-    public void resultBandPhoneNumber() {
-
-    }
-
 
     @OnClick({R.id.iv_address, R.id.tv_order_number, R.id.tv_phone_number, R.id.tv_judge})
     public void onViewClicked(View view) {
@@ -174,7 +180,15 @@ public class OrderCompleteEvaluateCancelActivity extends BaseActivity<OrderCompl
         //ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ORDER_EVALUATE, ARouterConfig.Key.ORDER_DETAILS, mOrderDetailsBean);
         mViewModel.startActivityToEvaluate(mOrderDetailsBean.stadiumName,
                 DataUtils.getNotNullData(mOrderDetailsBean.orderTime).concat("（").concat(DateUtils.getWeek(mOrderDetailsBean.orderTime)).concat("）"),
-                DataUtils.getOrderSiteContent(mOrderDetailsBean.orderDetailForOrders));
+                DataUtils.getOrderSiteContent(mOrderDetailsBean.orderDetailForOrders), mOrderDetailsBean.orderId, mOrderDetailsBean.stateId, true, null);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && requestCode == mOrderDetailsBean.stateId) {
+            finish();
+        }
     }
 }

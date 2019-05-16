@@ -1,6 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.my.model;
 
 import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseModel;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
@@ -29,5 +30,12 @@ public class MyOrderFragmentModel extends BaseModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
 
+    }
+    public void cancelOrder(long orderId, BaseObserver<BaseDataBean<String>>observer) {
+        mRetrofitManger.create(MyService.class)
+                .cancelOrder(orderId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
     }
 }

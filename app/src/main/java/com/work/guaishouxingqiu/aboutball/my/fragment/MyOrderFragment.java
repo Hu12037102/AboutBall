@@ -1,5 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.my.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +17,7 @@ import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
+import com.work.guaishouxingqiu.aboutball.my.activity.WaitUserOrderDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.my.adapter.MyOrderAdapter;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyOrderBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.MyOrderFragmentContract;
@@ -24,7 +27,7 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
-import com.work.guaishouxingqiu.aboutball.venue.bean.ResultOrderDetailsBean;
+import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,8 +53,6 @@ public class MyOrderFragment extends DelayedFragment<MyOrderFragmentPresenter> i
 
     @Override
     protected void initDelayedView() {
-
-
     }
 
     @Override
@@ -78,10 +79,10 @@ public class MyOrderFragment extends DelayedFragment<MyOrderFragmentPresenter> i
 
     @Override
     protected void initData() {
+        initAdapter();
         if (mOrderStatus == Contast.ORDER_STATUS.ALL) {
             mSrlRefresh.autoRefresh();
         }
-        initAdapter();
     }
 
     private void initAdapter() {
@@ -129,7 +130,9 @@ public class MyOrderFragment extends DelayedFragment<MyOrderFragmentPresenter> i
                         break;
                     //待使用
                     case Contast.ORDER_STATUS.WAIT_USER:
-                        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_WAIT_USER_ORDER_DETAILS, ARouterConfig.Key.ORDER_ID, bean.orderId);
+                        // ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_WAIT_USER_ORDER_DETAILS, ARouterConfig.Key.ORDER_ID, bean.orderId);
+                        ARouterIntent.startActivityForResult(MyOrderFragment.this, WaitUserOrderDetailsActivity.class,
+                                ARouterConfig.Key.ORDER_ID, bean.orderId, Contast.ORDER_STATUS.WAIT_USER);
                         break;
                     //待评价
                     case Contast.ORDER_STATUS.WAIT_EVALUATE:
@@ -164,11 +167,13 @@ public class MyOrderFragment extends DelayedFragment<MyOrderFragmentPresenter> i
                         break;
                     //待使用
                     case Contast.ORDER_STATUS.WAIT_USER:
+
                         break;
                     //待评价
                     case Contast.ORDER_STATUS.WAIT_EVALUATE:
                         String orderTime = DataUtils.getNotNullData(bean.orderTime).concat("（").concat(DateUtils.getWeek(bean.orderTime)).concat("）");
-                        mViewModel.startActivityToEvaluate(bean.stadiumName, orderTime, getOrderSiteContent(bean.orderDetailForOrders));
+                        mViewModel.startActivityToEvaluate(bean.stadiumName, orderTime,
+                                getOrderSiteContent(bean.orderDetailForOrders), bean.orderId, Contast.ORDER_STATUS.WAIT_EVALUATE, false, MyOrderFragment.this);
                         break;
                     //已完成
                     case Contast.ORDER_STATUS.COMPLETING:
@@ -182,6 +187,26 @@ public class MyOrderFragment extends DelayedFragment<MyOrderFragmentPresenter> i
                     default:
                         break;
                 }
+            }
+        });
+        mAdapter.setOnItemClickListenerTv2((view, position) -> {
+            ResultMyOrderBean bean = mData.get(position);
+            if (bean.stateId == Contast.ORDER_STATUS.WAIT_USER) {
+                clickCancelOrder(bean.orderId);
+            }
+        });
+    }
+
+    private void clickCancelOrder(long orderId) {
+        mViewModel.showCancelOrderDialog(new BaseDialog.OnItemClickSureAndCancelListener() {
+            @Override
+            public void onClickSure(@NonNull View view) {
+                mPresenter.cancelOrder(orderId);
+            }
+
+            @Override
+            public void onClickCancel(@NonNull View view) {
+
             }
         });
     }
@@ -239,6 +264,26 @@ public class MyOrderFragment extends DelayedFragment<MyOrderFragmentPresenter> i
         }
         mSrlRefresh.setNoMoreData(data.size() < mPresenter.mPageSize);
         mData.addAll(data);
-        mAdapter.notifyItemRangeChanged(0, mData.size());
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void resultCancelOrderSucceed() {
+        mSrlRefresh.autoRefresh();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case Contast.ORDER_STATUS.WAIT_USER:
+                case Contast.ORDER_STATUS.WAIT_EVALUATE:
+                    mSrlRefresh.autoRefresh();
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

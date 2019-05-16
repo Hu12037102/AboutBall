@@ -1,6 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.my.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -16,7 +17,10 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
+import com.work.guaishouxingqiu.aboutball.venue.activity.BaseOrderActivity;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultOrderDetailsBean;
+import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
+import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,7 +33,7 @@ import butterknife.OnClick;
  * 描述:等待使用订单详情
  */
 @Route(path = ARouterConfig.Path.ACTIVITY_WAIT_USER_ORDER_DETAILS)
-public class WaitUserOrderDetailsActivity extends BaseActivity<WaitUserOrderDetailsPresenter> implements
+public class WaitUserOrderDetailsActivity extends BaseOrderActivity<WaitUserOrderDetailsPresenter> implements
         WaitUserOrderDetailsContract.View {
     @BindView(R.id.title_view)
     TitleView mTitleView;
@@ -55,6 +59,8 @@ public class WaitUserOrderDetailsActivity extends BaseActivity<WaitUserOrderDeta
     TextView mTvOrderStatus;
     @BindView(R.id.tv_phone)
     TextView mTvPhoneNumber;
+    private long mOrderId;
+    private HintDialog mCancelOrderDialog;
 
     @Override
     protected int getLayoutId() {
@@ -63,14 +69,14 @@ public class WaitUserOrderDetailsActivity extends BaseActivity<WaitUserOrderDeta
 
     @Override
     protected void initView() {
-        long orderId = mIntent.getLongExtra(ARouterConfig.Key.ORDER_ID, -1);
-        if (orderId == -1) {
+        mOrderId = mIntent.getLongExtra(ARouterConfig.Key.ORDER_ID, -1);
+        if (mOrderId == -1) {
             UIUtils.showToast(R.string.not_find_this_order);
             finish();
             return;
         }
         mTvStatus.setTextColor(ContextCompat.getColor(this, R.color.color_2));
-        mPresenter.loadOrderDetails(orderId);
+        mPresenter.loadOrderDetails(mOrderId);
     }
 
     @Override
@@ -103,21 +109,37 @@ public class WaitUserOrderDetailsActivity extends BaseActivity<WaitUserOrderDeta
 
     }
 
-    @Override
-    public void resultBandPhoneNumber() {
-
-    }
-
 
     @OnClick({R.id.tv_bottom_left, R.id.tv_bottom_right, R.id.iv_address})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_bottom_left:
+                clickCancelOrder();
                 break;
             case R.id.tv_bottom_right:
                 break;
             case R.id.iv_address:
                 break;
         }
+    }
+
+    private void clickCancelOrder() {
+        mViewModel.showCancelOrderDialog(new BaseDialog.OnItemClickSureAndCancelListener() {
+            @Override
+            public void onClickSure(@NonNull View view) {
+                mPresenter.cancelOrder(mOrderId);
+            }
+
+            @Override
+            public void onClickCancel(@NonNull View view) {
+            }
+        });
+    }
+
+
+    @Override
+    public void resultCancelOrderSucceed() {
+        setResult(RESULT_OK);
+        finish();
     }
 }

@@ -78,6 +78,9 @@ public class ARouterIntent {
         ARouter.getInstance().build(path).navigation(activity, REQUEST_CODE);
     }
 
+    public static void startActivityForResult(@NonNull String path, @NonNull Activity activity,Bundle bundle,int requestCode) {
+        ARouter.getInstance().build(path).with(bundle).navigation(activity, requestCode);
+    }
     public static void startActivityForResult(@NonNull String path, @NonNull Activity activity, @NonNull String key, @NonNull Parcelable parcelable) {
         ARouter.getInstance().build(path).withParcelable(key, parcelable).navigation(activity, REQUEST_CODE);
     }
@@ -96,5 +99,17 @@ public class ARouterIntent {
 
     public static void startActivityForResult(@NonNull Fragment fragment, Class clazz, int requestCode) {
         fragment.startActivityForResult(new Intent(fragment.getContext(), clazz), requestCode);
+    }
+
+    public static void startActivityForResult(@NonNull Fragment fragment, Class clazz, String key, long values, int requestCode) {
+        Intent intent = new Intent(fragment.getContext(), clazz);
+        intent.putExtra(key, values);
+        fragment.startActivityForResult(intent, requestCode);
+    }
+
+    public static void startActivityForResult(@NonNull Fragment fragment, Class clazz, Bundle bundle, int requestCode) {
+        Intent intent = new Intent(fragment.getContext(), clazz);
+        intent.putExtras(bundle);
+        fragment.startActivityForResult(intent, requestCode);
     }
 }
