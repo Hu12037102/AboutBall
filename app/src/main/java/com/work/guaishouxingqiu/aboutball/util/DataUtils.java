@@ -23,6 +23,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -276,6 +277,14 @@ public class DataUtils {
     public static String getPercent(Number number) {
         NumberFormat numberFormat = NumberFormat.getPercentInstance();
         numberFormat.setMaximumFractionDigits(2); //最大保留两位小数百分数后两位
+        return numberFormat.format(number);
+    }
+
+    public static String getMoneyFormat(Number number) {
+
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.CHINA);
+        numberFormat.setMaximumFractionDigits(2);
+        numberFormat.setMinimumFractionDigits(2);
         return numberFormat.format(number);
     }
 

@@ -22,6 +22,7 @@ import com.work.guaishouxingqiu.aboutball.venue.contract.WaitPayOrderDetailsCont
 import com.work.guaishouxingqiu.aboutball.venue.presenter.WaitPayOrderDetailsPresenter;
 import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
 import com.work.guaishouxingqiu.aboutball.weight.InputDialog;
+import com.work.guaishouxingqiu.aboutball.weight.PayDialog;
 
 import java.util.List;
 
@@ -70,6 +71,7 @@ public class WaitPayOrderDetailsActivity extends BaseActivity<WaitPayOrderDetail
     private ResultOrderDetailsBean mResultBean;
     private boolean mIsCheckAgreement;
     private long mOrderId;
+    private PayDialog mPayDialog;
 
 
     @Override
@@ -108,7 +110,7 @@ public class WaitPayOrderDetailsActivity extends BaseActivity<WaitPayOrderDetail
                 mLlTop.setVisibility(View.VISIBLE);
                 break;
         }
-
+        mTvPay.setVisibility(View.GONE);
         mPresenter.loadOrderDetails(mOrderId);
     }
 
@@ -134,6 +136,7 @@ public class WaitPayOrderDetailsActivity extends BaseActivity<WaitPayOrderDetail
 
     @Override
     public void resultOrderDetails(ResultOrderDetailsBean bean) {
+        mTvPay.setVisibility(View.VISIBLE);
         this.mResultBean = bean;
         mTvTitle.setText(bean.stadiumName);
         mTvAddress.setText(bean.address);
@@ -162,7 +165,18 @@ public class WaitPayOrderDetailsActivity extends BaseActivity<WaitPayOrderDetail
 
     @Override
     public void resultBandPhoneNumber() {
-        //吊起微信支付
+        if (mPayDialog == null) {
+            mPayDialog = new PayDialog(this)
+                    .setMoney(DataUtils.getMoneyFormat(mResultBean.totalPrice));
+        }
+        if (!mPayDialog.isShowing()) {
+            mPayDialog.show();
+        }
+        mPayDialog.setOnClickPayListener(v -> {
+            mPayDialog.dismiss();
+            //调起微信支付
+        });
+
     }
 
 

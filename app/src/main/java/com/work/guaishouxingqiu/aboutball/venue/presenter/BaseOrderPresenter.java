@@ -32,7 +32,7 @@ public abstract class BaseOrderPresenter<V extends BaseOrderContrast.View, M ext
         mModel.loadOrderDetails(orderId, new BaseObserver<>(true, this, new BaseObserver.Observer<ResultOrderDetailsBean>() {
             @Override
             public void onNext(BaseBean<ResultOrderDetailsBean> t) {
-                if (t.code == IApi.Code.SUCCEED) {
+                if (t.code == IApi.Code.SUCCEED && t.result != null) {
                     mView.resultOrderDetails(t.result);
                 }
             }
@@ -58,6 +58,6 @@ public abstract class BaseOrderPresenter<V extends BaseOrderContrast.View, M ext
             public void onError(Throwable e) {
 
             }
-        }));
+        }, false));
     }
 }

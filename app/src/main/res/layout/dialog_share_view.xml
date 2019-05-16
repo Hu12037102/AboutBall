@@ -63,7 +63,7 @@
             android:layout_weight="1"
             android:background="?android:attr/selectableItemBackground"
             android:drawablePadding="@dimen/size_5dp"
-            android:drawableTop="@mipmap/iocn_share_sin"
+            android:drawableTop="@mipmap/icon_share_sin"
             android:gravity="center_horizontal"
             android:text="@string/sin_weibo"
             android:textColor="@color/color_4" />

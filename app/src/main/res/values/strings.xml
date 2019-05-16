@@ -312,6 +312,8 @@
     <string name="pay_order">支付订单</string>
     <string name="not_this_ball_team_details">沒有找到该球队信息</string>
     <string name="edit">编辑</string>
+    <string name="immediate_payment">立即支付</string>
+    <string name="money_count">￥%s</string>
     <!--相册选择器-->
     <string name="back">返回</string>
     <string name="all_image">全部图片</string>
