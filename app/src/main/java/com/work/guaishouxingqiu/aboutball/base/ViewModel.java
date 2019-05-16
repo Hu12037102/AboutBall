@@ -202,8 +202,8 @@ public class ViewModel {
             mCancelOrderDialog.show();
         }
         mCancelOrderDialog.setOnItemClickSureAndCancelListener(listener);
-
-
     }
+
+
 
 }

@@ -46,6 +46,7 @@ public interface ARouterConfig {
         String ACTIVITY_ORDER_COMPLETE_EVALUATE_CANCEL = "/activity/order/complete/evaluate/cancel";
         String ACTIVITY_ORDER_EVALUATE = "/activity/order/evaluate";
         String ACTIVITY_WAIT_USER_ORDER_DETAILS="/activity/wait/user/order/details";
+        String ACTIVITY_ABOUT_BALL_DETAILS="/activity/about/ball/details";
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";
@@ -109,6 +110,8 @@ public interface ARouterConfig {
         String VENUE_NAME = "venueName";
         String TARGET_DATE = "targetDate";
         String TARGET_SITE = "targetSite";
+        String TEAM_STATUS="teamStatus";
+        String OFFER_ID="offerId";
     }
 
 }

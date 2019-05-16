@@ -52,6 +52,7 @@ public interface Contast {
     String ORDER_STATE = "orderState";
     String TOKEN = "Authorization";
     String SEX = "gender";
+    String OFFER_ID="offerId";
     //比赛未开始
     int GAME_STATUS_NO_START = 1;
     //比赛进行中
@@ -83,8 +84,8 @@ public interface Contast {
     int PRIZE_HAS_CHANGE = 1;
     //奖品已过期
     int PRIZE_TIME_OUT = 2;
-    String HAS_REFEREE = "1";
-    String HAS_RIVAL = "2";
+    int HAS_REFEREE = 0;//却裁判
+    int HAS_RIVAL = 0;//缺对手
 
     String VIDEO_RECOMMENDED_TYPE = "3";
 

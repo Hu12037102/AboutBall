@@ -1,0 +1,51 @@
+package com.work.guaishouxingqiu.aboutball.venue.presenter;
+
+import android.support.annotation.NonNull;
+
+import com.work.guaishouxingqiu.aboutball.base.BaseBean;
+import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
+import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultAboutBallDetailsBean;
+import com.work.guaishouxingqiu.aboutball.venue.contract.AboutBallDetailsContract;
+import com.work.guaishouxingqiu.aboutball.venue.model.AboutBallDetailsModel;
+
+/**
+ * 作者: 胡庆岭
+ * 创建时间: 2019/5/16 15:27
+ * 更新时间: 2019/5/16 15:27
+ * 描述:约球详情契约
+ */
+public class AboutBallDetailsPresenter extends BasePresenter<AboutBallDetailsContract.View,
+        AboutBallDetailsModel> implements AboutBallDetailsContract.Presenter {
+    public AboutBallDetailsPresenter(@NonNull AboutBallDetailsContract.View view) {
+        super(view);
+    }
+
+    @Override
+    protected AboutBallDetailsModel createModel() {
+        return new AboutBallDetailsModel();
+    }
+
+    @Override
+    public void start() {
+
+    }
+
+    @Override
+    public void loadDetails(long offerId) {
+        mModel.loadDetails(offerId, new BaseObserver<>(true, this, new BaseObserver.Observer<ResultAboutBallDetailsBean>() {
+            @Override
+            public void onNext(BaseBean<ResultAboutBallDetailsBean> t) {
+                if (DataUtils.isResultSure(t)) {
+                    mView.resultDetails(t.result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+}

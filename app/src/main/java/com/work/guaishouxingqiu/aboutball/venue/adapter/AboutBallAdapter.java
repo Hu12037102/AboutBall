@@ -16,6 +16,8 @@ import com.work.guaishouxingqiu.aboutball.venue.bean.ResultAboutBallBean;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * 作者: 胡庆岭
  * 创建时间: 2019/3/18 17:33
@@ -35,19 +37,18 @@ public class AboutBallAdapter extends BaseRecyclerAdapter<AboutBallAdapter.ViewH
     @Override
     protected void onBindViewDataHolder(@NonNull ViewHolder viewHolder, int i) {
         ResultAboutBallBean bean = mData.get(i);
-        GlideManger.get().loadImage(viewHolder.itemView.getContext(), bean.teamLogo, R.drawable.shape_item_recommend_preview_item,
-                R.drawable.shape_item_recommend_preview_item, viewHolder.mIvData);
+        GlideManger.get().loadImage(viewHolder.itemView.getContext(), bean.teamLogo,viewHolder.mCivData);
         viewHolder.mTvName.setText(bean.teamName);
         viewHolder.mTvTime.setText(bean.startTime);
         viewHolder.mTvAddress.setText(bean.stadiumName);
-        viewHolder.mTvStatus1.setVisibility(bean.hasReferee.equals(Contast.HAS_REFEREE) ? View.VISIBLE : View.GONE);
-        viewHolder.mTvStatus2.setVisibility(bean.hasOpponent.equals(Contast.HAS_RIVAL) ? View.VISIBLE : View.GONE);
+        viewHolder.mTvStatus1.setVisibility(bean.hasReferee == Contast.HAS_REFEREE ? View.VISIBLE : View.GONE);
+        viewHolder.mTvStatus2.setVisibility(bean.hasOpponent == Contast.HAS_RIVAL ? View.VISIBLE : View.GONE);
     }
 
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView mIvData;
+        private CircleImageView mCivData;
         private TextView mTvName;
         private TextView mTvTime;
         private TextView mTvAddress;
@@ -60,7 +61,7 @@ public class AboutBallAdapter extends BaseRecyclerAdapter<AboutBallAdapter.ViewH
         }
 
         private void initView(View itemView) {
-            mIvData = itemView.findViewById(R.id.iv_data);
+            mCivData = itemView.findViewById(R.id.civ_data);
             mTvName = itemView.findViewById(R.id.tv_name);
             mTvTime = itemView.findViewById(R.id.tv_time);
             mTvAddress = itemView.findViewById(R.id.tv_address);

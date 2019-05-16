@@ -17,7 +17,7 @@
         android:paddingLeft="@dimen/default_margin"
         android:paddingRight="@dimen/default_margin"
         android:paddingTop="@dimen/size_10dp"
-        android:src="@mipmap/icon_send_message" />
+        android:src="@mipmap/icon_share_view" />
 
     <TextView
         android:id="@+id/tv_input_message"

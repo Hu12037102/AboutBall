@@ -401,4 +401,12 @@
     <string name="cancel_order_body">您确定取消该订单</string>
     <string name="please_selector_order_grade_rating">请给本次订单评分</string>
     <string name="your_not_sed_what">不打算说点什么或者晒图</string>
+    <string name="about_ball_details">约球详情</string>
+    <string name="site">场地</string>
+    <string name="date">日期</string>
+    <string name="time">时间</string>
+    <string name="money_cash_pledge">场地+押金</string>
+    <string name="the_registration_team">报名队伍</string>
+    <string name="serve_as_a_judge">担任裁判</string>
+    <string name="invited_to_the_ball_about">应邀约球</string>
 </resources>

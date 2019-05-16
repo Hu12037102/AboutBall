@@ -78,9 +78,14 @@ public class ARouterIntent {
         ARouter.getInstance().build(path).navigation(activity, REQUEST_CODE);
     }
 
-    public static void startActivityForResult(@NonNull String path, @NonNull Activity activity,Bundle bundle,int requestCode) {
+    public static void startActivityForResult(@NonNull String path, @NonNull Activity activity, Bundle bundle, int requestCode) {
         ARouter.getInstance().build(path).with(bundle).navigation(activity, requestCode);
     }
+
+    public static void startActivityForResult(@NonNull String path, @NonNull Activity activity, Bundle bundle) {
+        ARouter.getInstance().build(path).with(bundle).navigation(activity, REQUEST_CODE);
+    }
+
     public static void startActivityForResult(@NonNull String path, @NonNull Activity activity, @NonNull String key, @NonNull Parcelable parcelable) {
         ARouter.getInstance().build(path).withParcelable(key, parcelable).navigation(activity, REQUEST_CODE);
     }
@@ -111,5 +116,10 @@ public class ARouterIntent {
         Intent intent = new Intent(fragment.getContext(), clazz);
         intent.putExtras(bundle);
         fragment.startActivityForResult(intent, requestCode);
+    }
+    public static void startActivityForResult(@NonNull Fragment fragment, Class clazz, Bundle bundle) {
+        Intent intent = new Intent(fragment.getContext(), clazz);
+        intent.putExtras(bundle);
+        fragment.startActivityForResult(intent, REQUEST_CODE);
     }
 }
