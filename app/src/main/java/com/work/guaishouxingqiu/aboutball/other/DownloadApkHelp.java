@@ -40,6 +40,10 @@ public class DownloadApkHelp {
         if (loadManager == null) {
             return;
         }
+        String http = "http://";
+        if (apkUrl.startsWith(http)) {
+            apkUrl = apkUrl.replace(http, "https://");
+        }
         Uri uri = Uri.parse(apkUrl);
         DownloadManager.Request request = new DownloadManager.Request(uri);
         File apkFile = new File(FileUtils.createFolder("APK").getAbsolutePath(), "/AboutBall_" + System.currentTimeMillis() + ".apk");
@@ -52,7 +56,7 @@ public class DownloadApkHelp {
     }
 
     private static void openWebViewLoadApk(Context context, String apkUrl) {
-        context.startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse(apkUrl)));
+        context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(apkUrl)));
     }
 
     public static void installApk(@NonNull File apkFile, @NonNull Context context) {

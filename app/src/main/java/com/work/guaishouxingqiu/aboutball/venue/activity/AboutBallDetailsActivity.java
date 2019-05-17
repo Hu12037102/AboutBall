@@ -1,6 +1,12 @@
 package com.work.guaishouxingqiu.aboutball.venue.activity;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +17,7 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.util.ScreenUtils;
 import com.example.item.weight.ItemView;
+import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
@@ -19,14 +26,16 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultAboutBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.venue.contract.AboutBallDetailsContract;
 import com.work.guaishouxingqiu.aboutball.venue.presenter.AboutBallDetailsPresenter;
+import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
+import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -70,9 +79,14 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
     ViewGroup mClBottomTeam;
     @BindView(R.id.cl_top_team)
     ViewGroup mClTopTeam;
-    private int mRefereeStatus;
-    private int mTeamStatus;
+    @BindView(R.id.title_view)
+    TitleView mTitleView;
+    private int mHasRefereeStatus;
+    private int mHasTeamStatus;
     private ResultAboutBallDetailsBean mResultBean;
+    private Integer mRefereeStatus;
+    private HintDialog mRequestRefereeDialog;
+    private long mOfferId;
 
     @Override
     protected int getLayoutId() {
@@ -83,6 +97,7 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
     protected void initView() {
         mClTopTeam.setEnabled(false);
         mClBottomTeam.setEnabled(false);
+        mTvBottomLeft.setEnabled(false);
     }
 
     @Override
@@ -93,20 +108,26 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
             finish();
             return;
         }
-        mRefereeStatus = bundle.getInt(ARouterConfig.Key.REFEREE_STATUS, -1);
-        mTeamStatus = bundle.getInt(ARouterConfig.Key.TEAM_STATUS, -1);
-        long offerId = bundle.getLong(ARouterConfig.Key.OFFER_ID, -1);
-        if (mRefereeStatus == -1 || mTeamStatus == -1 || offerId == -1) {
+        mHasRefereeStatus = bundle.getInt(ARouterConfig.Key.REFEREE_STATUS, -1);
+        mHasTeamStatus = bundle.getInt(ARouterConfig.Key.TEAM_STATUS, -1);
+        mOfferId = bundle.getLong(ARouterConfig.Key.OFFER_ID, -1);
+        if (mHasRefereeStatus == -1 || mHasTeamStatus == -1 || mOfferId == -1) {
             UIUtils.showToast(R.string.not_this_ball_team_details);
             finish();
             return;
         }
-        mPresenter.loadDetails(offerId);
+        mPresenter.loadDetails(mOfferId);
+        mPresenter.judgeRefereeStatus();
     }
 
     @Override
     protected void initEvent() {
-
+        mTitleView.setOnBackViewClickListener(new TitleView.OnBackViewClickListener() {
+            @Override
+            public void onBackClick(@NonNull View view) {
+              clickBack();
+            }
+        });
     }
 
     @Override
@@ -129,7 +150,7 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
         LinearLayout.LayoutParams tvTeamParams = (LinearLayout.LayoutParams) mTvTeamContent.getLayoutParams();
         tvTeamParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
         //缺对手
-        if (mTeamStatus == Contast.HAS_RIVAL) {
+        if (mHasTeamStatus == Contast.HAS_RIVAL) {
             String body = "暂无队伍";
             String content = host + "\n" + body;
             mTvTeamContent.setText(SpanUtils.getTextSize(17, 0, host.length(), content));
@@ -142,7 +163,7 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
 
 
             //缺裁判
-            if (mRefereeStatus == Contast.HAS_REFEREE) {
+            if (mHasRefereeStatus == Contast.HAS_REFEREE) {
                 mRlBottomMultiple.setVisibility(View.VISIBLE);
                 mRlBottomSing.setVisibility(View.GONE);
                 mTvBottomRight.setEnabled(true);
@@ -162,7 +183,7 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
             mTvTeamContent.setPadding(ScreenUtils.dp2px(this, 20), 0, 0, 0);
 
             //缺裁判
-            if (mRefereeStatus == Contast.HAS_REFEREE) {
+            if (mHasRefereeStatus == Contast.HAS_REFEREE) {
                 mRlBottomMultiple.setVisibility(View.VISIBLE);
                 mRlBottomSing.setVisibility(View.GONE);
                 mTvBottomRight.setEnabled(false);
@@ -178,24 +199,115 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
         mTvTeamContent.setLayoutParams(tvTeamParams);
     }
 
+    @Override
+    public void resultPlayReferee() {
+        mHasRefereeStatus = Contast.HAS_NO_REFEREE;
+        if (mResultBean != null) {
+            resultDetails(mResultBean);
+        }
+    }
+
 
     @OnClick({R.id.tv_bottom_left, R.id.tv_bottom_right, R.id.tv_sing, R.id.cl_bottom_team, R.id.cl_top_team})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_bottom_left:
+                clickAsReferee();
                 break;
             case R.id.tv_bottom_right:
                 break;
             case R.id.tv_sing:
                 break;
             case R.id.cl_bottom_team:
-                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_BALL_TEAM_DETAILS_VENUE,ARouterConfig.Key.TEAM_ID,mResultBean.guestTeamId);
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_BALL_TEAM_DETAILS_VENUE, ARouterConfig.Key.TEAM_ID, mResultBean.guestTeamId);
                 break;
             case R.id.cl_top_team:
-                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_BALL_TEAM_DETAILS_VENUE,ARouterConfig.Key.TEAM_ID,mResultBean.hostTeamId);
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_BALL_TEAM_DETAILS_VENUE, ARouterConfig.Key.TEAM_ID, mResultBean.hostTeamId);
                 break;
         }
     }
 
+    private void requestRefereeDialog() {
+        if (mRequestRefereeDialog == null) {
+            mRequestRefereeDialog = new HintDialog.Builder(this)
+                    .setTitle(R.string.hint)
+                    .setBody(R.string.you_not_referee_is_request)
+                    .setShowSingButton(true).builder();
+        }
+        if (!mRequestRefereeDialog.isShowing()) {
+            mRequestRefereeDialog.show();
+        }
+        mRequestRefereeDialog.setOnItemClickSureAndCancelListener(new BaseDialog.OnItemClickSureAndCancelListener() {
+            @Override
+            public void onClickSure(@NonNull View view) {
+                ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_APPLY_REFEREE, AboutBallDetailsActivity.this);
+            }
 
+            @Override
+            public void onClickCancel(@NonNull View view) {
+
+            }
+        });
+    }
+
+    /**
+     * 担任裁判
+     */
+    private void clickAsReferee() {
+        if (mRefereeStatus == null) {
+            requestRefereeDialog();
+        } else {
+            switch (mRefereeStatus) {
+                case Contast.REFEREE_STATUS.REFEREE_0:
+                    UIUtils.showToast(R.string.your_application_for_referee_is_under_review);
+                    break;
+                case Contast.REFEREE_STATUS.REFEREE_1:
+                    mPresenter.playReferee(mOfferId);
+                    break;
+                case Contast.REFEREE_STATUS.REFEREE_2:
+                    requestRefereeDialog();
+                    break;
+                case Contast.REFEREE_STATUS.REFEREE_3:
+                    mPresenter.playReferee(mOfferId);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    }
+
+    @Override
+    public void resultRefereeStatus(Integer status) {
+        super.resultRefereeStatus(status);
+        this.mRefereeStatus = status;
+        mTvBottomLeft.setEnabled(true);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case ARouterIntent.REQUEST_CODE:
+                    mPresenter.judgeRefereeStatus();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        clickBack();
+    }
+
+    private void clickBack() {
+        Intent intent = new Intent();
+        intent.putExtra(ARouterConfig.Key.REFEREE_STATUS,mHasRefereeStatus);
+        intent.putExtra(ARouterConfig.Key.TEAM_STATUS, mHasTeamStatus);
+        setResult(Activity.RESULT_OK,intent);
+        finish();
+    }
 }

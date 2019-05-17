@@ -171,8 +171,14 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
         mVenueListAdapter = new VenueListAdapter(mVenueData);
         mVenueListAdapter.addHeadView(mHeadView);
         mRvSession.setAdapter(mVenueListAdapter);
-        mPresenter.loadDetails(mStadiumId);
 
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mPresenter.loadDetails(mStadiumId);
     }
 
     @Override
@@ -180,10 +186,13 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
         mTabSession.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                mSelectorTabPosition = tab.getPosition();
+
+
                 if (mDetailsBean != null && mDetailsBean.areaForDetailList != null && mDetailsBean.areaForDetailList.size() > tab.getPosition()) {
+                    mSelectorTabPosition = tab.getPosition();
                     notifyDate(mDetailsBean, tab.getPosition());
                 }
+                LogUtils.w("initEvent===",mSelectorTabPosition+"");
             }
 
             @Override
@@ -277,7 +286,7 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
                 mTabSession.addTab(tab, i == 0);*/
                 UIUtils.setBaseCustomTabLayout(mTabSession, areaData.get(i).areaName, i == 0, 45);
             }
-            notifyDate(bean, 0);
+            notifyDate(bean, mSelectorTabPosition);
         }
         mPresenter.loadVenueData(mRequestVenueBean);
     }

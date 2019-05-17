@@ -1,8 +1,11 @@
 package com.work.guaishouxingqiu.aboutball.my.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.my.contract.ApplyRefereeContract;
@@ -10,6 +13,7 @@ import com.work.guaishouxingqiu.aboutball.my.presenter.ApplyRefereePresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -21,6 +25,8 @@ import butterknife.OnClick;
  */
 @Route(path = ARouterConfig.Path.ACTIVITY_APPLY_REFEREE)
 public class ApplyRefereeActivity extends BaseActivity<ApplyRefereePresenter> implements ApplyRefereeContract.View {
+    @BindView(R.id.title_view)
+    TitleView mTitleView;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_apply_referee;
@@ -37,7 +43,12 @@ public class ApplyRefereeActivity extends BaseActivity<ApplyRefereePresenter> im
 
     @Override
     protected void initEvent() {
-
+        mTitleView.setOnBackViewClickListener(new TitleView.OnBackViewClickListener() {
+            @Override
+            public void onBackClick(@NonNull View view) {
+                mViewModel.clickBackForResult();
+            }
+        });
     }
 
     @Override
@@ -51,4 +62,10 @@ public class ApplyRefereeActivity extends BaseActivity<ApplyRefereePresenter> im
     public void onViewClicked() {
         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_APPLY_BECOME_REFEREE);
     }
+
+    @Override
+    public void onBackPressed() {
+       mViewModel.clickBackForResult();
+    }
+
 }

@@ -48,6 +48,7 @@ public class AboutBallFragment extends DelayedFragment<AboutBallPresenter> imple
     private AboutBallAdapter mAdapter;
     private List<ResultAboutBallBean> mData;
     private View mInflateRuleView;
+    private int mClickPosition = -1;
 
     @Override
     protected int getLayoutId() {
@@ -134,6 +135,7 @@ public class AboutBallFragment extends DelayedFragment<AboutBallPresenter> imple
 
             @Override
             public void onItemClick(View view, int position) {
+                mClickPosition = position;
                 ResultAboutBallBean bean = mData.get(position);
                 startActivityToAboutBallDetails(bean);
             }
@@ -162,7 +164,15 @@ public class AboutBallFragment extends DelayedFragment<AboutBallPresenter> imple
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ARouterIntent.REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            loadData(true, mSrlData);
+            if (mClickPosition != -1 && data != null) {
+                int refereeStatus = data.getIntExtra(ARouterConfig.Key.REFEREE_STATUS, -1);
+                int teamStatus = data.getIntExtra(ARouterConfig.Key.TEAM_STATUS, -1);
+                if (refereeStatus != -1 && teamStatus != -1) {
+                    mData.get(mClickPosition).hasReferee = refereeStatus;
+                    mData.get(mClickPosition).hasOpponent = teamStatus;
+                }
+            }
+            mAdapter.notifyDataSetChanged();
         }
     }
 }

@@ -204,6 +204,12 @@ public class ViewModel {
         mCancelOrderDialog.setOnItemClickSureAndCancelListener(listener);
     }
 
-
+    public void clickBackForResult() {
+        Activity activity = mSoftActivity.get();
+        activity.setResult(Activity.RESULT_OK);
+        if (!activity.isFinishing()) {
+            mSoftActivity.get().finish();
+        }
+    }
 
 }

@@ -83,4 +83,6 @@ public interface VenueService {
 
     @GET(IApiService.GET_ABOUT_BALL_DETAILS)
     Observable<BaseBean<ResultAboutBallDetailsBean>> loadAboutBallDetails(@Query(Contast.OFFER_ID) long offerId);
+    @GET(IApiService.GET_PLAY_REFEREE)
+    Observable<BaseBean<BaseDataBean<String>>> playReferee(@Query(Contast.OFFER_ID) long offerId);
 }

@@ -52,7 +52,7 @@ public interface Contast {
     String ORDER_STATE = "orderState";
     String TOKEN = "Authorization";
     String SEX = "gender";
-    String OFFER_ID="offerId";
+    String OFFER_ID = "offerId";
     //比赛未开始
     int GAME_STATUS_NO_START = 1;
     //比赛进行中
@@ -85,7 +85,9 @@ public interface Contast {
     //奖品已过期
     int PRIZE_TIME_OUT = 2;
     int HAS_REFEREE = 0;//却裁判
+    int HAS_NO_REFEREE = 1;//不缺裁判
     int HAS_RIVAL = 0;//缺对手
+    int HAS_NO_RIVAL = 1;//不缺对手
 
     String VIDEO_RECOMMENDED_TYPE = "3";
 
@@ -139,5 +141,15 @@ public interface Contast {
         int PAY_VENUE_BOOK = 1;
         int PAY_LAUNCHER_ORDER = 2;
         int PAY_WAIT_ORDER = 3;
+    }
+    /**
+     * 审核裁判状态
+     *  0：审核中;1：已通过（用户确认);2：未通过;3：已通过（后台审核）
+     */
+    interface REFEREE_STATUS {
+        int REFEREE_0 = 0;
+        int REFEREE_1 = 1;
+        int REFEREE_2 = 2;
+        int REFEREE_3 = 3;
     }
 }

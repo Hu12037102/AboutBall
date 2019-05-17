@@ -111,6 +111,7 @@ public interface IApiService {
     String GET_CANCEL_ORDER="/api/order/cancelOrder";
     String POST_EVALUATE_ORDER="/api/order/commentOrder";
     String GET_ABOUT_BALL_DETAILS="/api/agreeBall/getAgreeBallDetail";
+    String GET_PLAY_REFEREE="/api/referee/serveAsReferee";
     interface H5 {
         String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";
         //资讯详情分享，后缀加上id;

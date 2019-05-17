@@ -1,5 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.venue.model;
 
+import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseModel;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.venue.VenueService;
@@ -18,6 +19,14 @@ public class AboutBallDetailsModel extends BaseModel {
     public void loadDetails(long offerId, BaseObserver<ResultAboutBallDetailsBean> observer) {
         mRetrofitManger.create(VenueService.class)
                 .loadAboutBallDetails(offerId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    public void playReferee(long offerId, BaseObserver<BaseDataBean<String>> observer) {
+        mRetrofitManger.create(VenueService.class)
+                .playReferee(offerId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

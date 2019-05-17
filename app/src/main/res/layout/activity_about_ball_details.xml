@@ -7,6 +7,7 @@
     android:orientation="vertical">
 
     <com.example.item.weight.TitleView
+        android:id="@+id/title_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_50dp"
         app:back_left_drawable="@mipmap/icon_back"

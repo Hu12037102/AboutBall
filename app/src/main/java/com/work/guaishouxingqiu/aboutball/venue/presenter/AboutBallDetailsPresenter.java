@@ -3,6 +3,7 @@ package com.work.guaishouxingqiu.aboutball.venue.presenter;
 import android.support.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
+import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
@@ -39,6 +40,23 @@ public class AboutBallDetailsPresenter extends BasePresenter<AboutBallDetailsCon
             public void onNext(BaseBean<ResultAboutBallDetailsBean> t) {
                 if (DataUtils.isResultSure(t)) {
                     mView.resultDetails(t.result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+
+    @Override
+    public void playReferee(long offerId) {
+        mModel.playReferee(offerId,new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
+            @Override
+            public void onNext(BaseBean<BaseDataBean<String>> t) {
+                if (DataUtils.baseDataBeanIsSucceed(t)){
+                    mView.resultPlayReferee();
                 }
             }
 
