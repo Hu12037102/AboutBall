@@ -132,10 +132,10 @@
     <TextView
         android:id="@+id/tv_team_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/size_40dp"
         android:background="@color/colorWhite"
+        android:lineSpacingExtra="@dimen/size_5dp"
         android:paddingLeft="@dimen/default_margin"
-        android:paddingTop="@dimen/default_margin"
         android:text="@string/the_registration_team"
         android:textColor="@color/color_4"
         android:textSize="@dimen/size_14sp" />
@@ -188,7 +188,6 @@
         android:id="@+id/rl_bottom_multiple"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorWhite"
         >
 
         <LinearLayout

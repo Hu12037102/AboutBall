@@ -1,12 +1,15 @@
 package com.work.guaishouxingqiu.aboutball.venue.activity;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.example.item.util.ScreenUtils;
 import com.example.item.weight.ItemView;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
@@ -113,14 +116,23 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
         GlideManger.get().loadLogoImage(this, bean.hostTeamLogo, mCivLogo);
         UIUtils.setText(mItemSite.mTvRight, bean.stadiumName);
         UIUtils.setText(mItemDate.mTvRight, DateUtils.getDate(bean.startTime));
-        UIUtils.setText(mItemMoney.mTvRight, DateUtils.getHourMinutes(bean.startTime) + "-" + DateUtils.getHourMinutes(bean.endTime));
+        UIUtils.setText(mItemTime.mTvRight, DateUtils.getHourMinutes(bean.startTime) + "-" + DateUtils.getHourMinutes(bean.endTime));
         String host = "报名队伍";
+        LinearLayout.LayoutParams tvTeamParams = (LinearLayout.LayoutParams) mTvTeamContent.getLayoutParams();
+        tvTeamParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
         //缺对手
         if (mTeamStatus == Contast.HAS_RIVAL) {
             String body = "暂无队伍";
             String content = host + "\n" + body;
             mTvTeamContent.setText(SpanUtils.getTextSize(17, 0, host.length(), content));
-            mClBottomTeam.setVisibility(View.INVISIBLE);
+            mClBottomTeam.setVisibility(View.GONE);
+
+            mTvTeamContent.setGravity(Gravity.TOP);
+            // tvTeamParams.gravity = Gravity.TOP;
+            tvTeamParams.height = ScreenUtils.dp2px(this, 115);
+            mTvTeamContent.setPadding(ScreenUtils.dp2px(this, 20), ScreenUtils.dp2px(this, 20), 0, 0);
+
+
             //缺裁判
             if (mRefereeStatus == Contast.HAS_REFEREE) {
                 mRlBottomMultiple.setVisibility(View.VISIBLE);
@@ -129,12 +141,33 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
                 mTvBottomRight.setBackgroundResource(R.drawable.shape_click_button);
                 mTvBottomLeft.setEnabled(true);
             } else {
-                mRlBottomMultiple.setVisibility(View.VISIBLE);
+                mRlBottomSing.setVisibility(View.VISIBLE);
+                mRlBottomMultiple.setVisibility(View.GONE);
+                mTvSing.setText(R.string.invited_to_the_ball_about);
             }
         } else {
             mTvTeamContent.setText(SpanUtils.getTextSize(17, 0, host.length(), host));
             mClBottomTeam.setVisibility(View.VISIBLE);
+            mTvTeamContent.setGravity(Gravity.BOTTOM);
+            //tvTeamParams.gravity = Gravity.BOTTOM;
+            tvTeamParams.height = ScreenUtils.dp2px(this, 40);
+            mTvTeamContent.setPadding(ScreenUtils.dp2px(this, 20), 0, 0, 0);
+
+            //缺裁判
+            if (mRefereeStatus == Contast.HAS_REFEREE) {
+                mRlBottomMultiple.setVisibility(View.VISIBLE);
+                mRlBottomSing.setVisibility(View.GONE);
+                mTvBottomRight.setEnabled(false);
+                mTvBottomRight.setBackgroundResource(R.drawable.shape_default_button);
+                mTvBottomLeft.setEnabled(true);
+            } else {
+                mRlBottomSing.setVisibility(View.GONE);
+                mRlBottomMultiple.setVisibility(View.GONE);
+                //  mTvSing.setText(R.string.invited_to_the_ball_about);
+            }
+
         }
+        mTvTeamContent.setLayoutParams(tvTeamParams);
     }
 
 
