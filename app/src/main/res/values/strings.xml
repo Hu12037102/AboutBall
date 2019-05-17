@@ -411,4 +411,5 @@
     <string name="invited_to_the_ball_about">应邀约球</string>
     <string name="you_not_referee_is_request">您还不是裁判，是否前去申请</string>
     <string name="your_application_for_referee_is_under_review">你的裁判申请正在审核，请耐心等待</string>
+    <string name="umpire">是否担任裁判</string>
 </resources>

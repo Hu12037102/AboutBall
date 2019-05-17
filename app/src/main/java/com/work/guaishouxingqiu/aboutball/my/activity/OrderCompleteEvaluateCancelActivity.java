@@ -107,6 +107,7 @@ public class OrderCompleteEvaluateCancelActivity extends BaseOrderActivity<Order
             layoutParams.topMargin = ScreenUtils.dp2px(this, 20);
             mTvPayTime.setVisibility(View.GONE);
         } else if (orderStatus == Contast.ORDER_STATUS.WAIT_EVALUATE) {
+            mTvStatus.setVisibility(View.GONE);
             mTvStatus.setTextColor(ContextCompat.getColor(this, R.color.color_2));
             mTvPayTime.setVisibility(View.VISIBLE);
             mRlGrade.setVisibility(View.VISIBLE);
@@ -158,6 +159,7 @@ public class OrderCompleteEvaluateCancelActivity extends BaseOrderActivity<Order
         UIUtils.setOrderDetailsItemSpan(mTvPayTime, UIUtils.getString(R.string.pay_order_time_host), bean.payTime);
         UIUtils.setOrderDetailsItemSpan(mTvTotalPrices, UIUtils.getString(R.string.order_total_prices_host), "￥" + bean.totalPrice);
         UIUtils.setOrderDetailsItemSpan(mTvPracticalPrices, UIUtils.getString(R.string.order_practical_prices_host), bean.realPrice > 0 ? "￥" + bean.realPrice : "￥" + bean.totalPrice);
+        mRbGrade.setRating(bean.grade);
     }
 
 

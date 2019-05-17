@@ -61,6 +61,7 @@ public class ApplyRefereeActivity extends BaseActivity<ApplyRefereePresenter> im
     @OnClick(R.id.tv_apply)
     public void onViewClicked() {
         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_APPLY_BECOME_REFEREE);
+        mViewModel.clickBackForResult();
     }
 
     @Override

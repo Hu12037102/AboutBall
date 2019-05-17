@@ -69,6 +69,7 @@ public class WaitUserOrderDetailsActivity extends BaseOrderActivity<WaitUserOrde
 
     @Override
     protected void initView() {
+        mTvOrderStatus.setVisibility(View.GONE);
         mOrderId = mIntent.getLongExtra(ARouterConfig.Key.ORDER_ID, -1);
         if (mOrderId == -1) {
             UIUtils.showToast(R.string.not_find_this_order);

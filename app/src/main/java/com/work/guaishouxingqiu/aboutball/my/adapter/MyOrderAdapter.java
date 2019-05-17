@@ -62,11 +62,11 @@ public class MyOrderAdapter extends BaseRecyclerAdapter<MyOrderAdapter.ViewHolde
         UIUtils.setText(viewHolder.mTvTime, SpanUtils.getTextColor(R.color.colorFFA6A6A6, 0, timeHost.length(), UIUtils.getString(R.string.s_s, timeHost, bean.orderTime)));
         //项目地址
         String addressHost = UIUtils.getString(R.string.order_item_address_host);
-        String addressContent = bean.address;
+        String addressContent = "";
         List<ResultMyOrderBean.DetailsOrder> orderDetailsData = mData.get(i).orderDetailForOrders;
         if (orderDetailsData != null && orderDetailsData.size() > 0) {
             for (ResultMyOrderBean.DetailsOrder details : orderDetailsData) {
-                addressContent = addressContent.concat(DataUtils.getNotNullData(details.areaName)).concat(DataUtils.getNotNullData(details.calendar));
+                addressContent = addressContent.concat(DataUtils.getNotNullData(details.areaName)).concat(" ").concat(DataUtils.getNotNullData(details.calendar));
             }
         }
         UIUtils.setText(viewHolder.mTvAddress, SpanUtils.getTextColor(R.color.colorFFA6A6A6, 0, addressHost.length(), UIUtils.getString(R.string.s_s, addressHost, addressContent)));

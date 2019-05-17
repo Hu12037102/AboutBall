@@ -87,6 +87,7 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
     private Integer mRefereeStatus;
     private HintDialog mRequestRefereeDialog;
     private long mOfferId;
+    private HintDialog mPlayRefereeDialog;
 
     @Override
     protected int getLayoutId() {
@@ -125,7 +126,7 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
         mTitleView.setOnBackViewClickListener(new TitleView.OnBackViewClickListener() {
             @Override
             public void onBackClick(@NonNull View view) {
-              clickBack();
+                clickBack();
             }
         });
     }
@@ -232,7 +233,10 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
             mRequestRefereeDialog = new HintDialog.Builder(this)
                     .setTitle(R.string.hint)
                     .setBody(R.string.you_not_referee_is_request)
-                    .setShowSingButton(true).builder();
+                    .setShowSingButton(false)
+                    .setCancel(R.string.cancel)
+                    .setSures(R.string.my_as_the_referee)
+                    .builder();
         }
         if (!mRequestRefereeDialog.isShowing()) {
             mRequestRefereeDialog.show();
@@ -262,18 +266,45 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
                     UIUtils.showToast(R.string.your_application_for_referee_is_under_review);
                     break;
                 case Contast.REFEREE_STATUS.REFEREE_1:
-                    mPresenter.playReferee(mOfferId);
+                    playRefereeDialog();
                     break;
                 case Contast.REFEREE_STATUS.REFEREE_2:
                     requestRefereeDialog();
                     break;
                 case Contast.REFEREE_STATUS.REFEREE_3:
-                    mPresenter.playReferee(mOfferId);
+                    playRefereeDialog();
                     break;
                 default:
                     break;
             }
         }
+
+    }
+
+    private void playRefereeDialog() {
+        if (mPlayRefereeDialog == null) {
+            mPlayRefereeDialog = new HintDialog.Builder(this)
+                    .setTitle(R.string.hint)
+                    .setBody(R.string.umpire)
+                    .setShowSingButton(false)
+                    .setCancel(R.string.cancel)
+                    .setSures(R.string.sure)
+                    .builder();
+        }
+        if (!mPlayRefereeDialog.isShowing()) {
+            mPlayRefereeDialog.show();
+        }
+        mPlayRefereeDialog.setOnItemClickSureAndCancelListener(new BaseDialog.OnItemClickSureAndCancelListener() {
+            @Override
+            public void onClickSure(@NonNull View view) {
+                mPresenter.playReferee(mOfferId);
+            }
+
+            @Override
+            public void onClickCancel(@NonNull View view) {
+
+            }
+        });
 
     }
 
@@ -305,9 +336,9 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
 
     private void clickBack() {
         Intent intent = new Intent();
-        intent.putExtra(ARouterConfig.Key.REFEREE_STATUS,mHasRefereeStatus);
+        intent.putExtra(ARouterConfig.Key.REFEREE_STATUS, mHasRefereeStatus);
         intent.putExtra(ARouterConfig.Key.TEAM_STATUS, mHasTeamStatus);
-        setResult(Activity.RESULT_OK,intent);
+        setResult(Activity.RESULT_OK, intent);
         finish();
     }
 }
