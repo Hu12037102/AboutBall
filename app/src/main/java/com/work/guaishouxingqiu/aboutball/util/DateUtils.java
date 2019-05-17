@@ -208,7 +208,7 @@ public class DateUtils {
     }
 
     public static String getMonthAndDay(int month, int day) {
-        return ((month + 1) >= 10 ? (month + 1) + "" : "0" + (month + 1) + "月") + (day >= 10 ? day + "" : "0" + day + "日");
+        return ((month + 1) >= 10 ? (month + 1) + "月" : "0" + (month + 1) + "月") + (day >= 10 ? day + "日" : "0" + day + "日");
     }
 
     /**

@@ -248,6 +248,9 @@
         <activity
             android:name=".venue.activity.AboutBallDetailsActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".venue.activity.BallTeamDetailsActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

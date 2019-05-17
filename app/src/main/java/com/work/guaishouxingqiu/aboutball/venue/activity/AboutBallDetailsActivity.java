@@ -16,6 +16,8 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
@@ -70,6 +72,7 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
     ViewGroup mClTopTeam;
     private int mRefereeStatus;
     private int mTeamStatus;
+    private ResultAboutBallDetailsBean mResultBean;
 
     @Override
     protected int getLayoutId() {
@@ -78,7 +81,8 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
 
     @Override
     protected void initView() {
-
+        mClTopTeam.setEnabled(false);
+        mClBottomTeam.setEnabled(false);
     }
 
     @Override
@@ -112,11 +116,15 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
 
     @Override
     public void resultDetails(ResultAboutBallDetailsBean bean) {
+        mClTopTeam.setEnabled(true);
+        mClBottomTeam.setEnabled(true);
+        mResultBean = bean;
         UIUtils.setText(mTvTopTeamName, bean.hostTeamName);
         GlideManger.get().loadLogoImage(this, bean.hostTeamLogo, mCivLogo);
         UIUtils.setText(mItemSite.mTvRight, bean.stadiumName);
         UIUtils.setText(mItemDate.mTvRight, DateUtils.getDate(bean.startTime));
         UIUtils.setText(mItemTime.mTvRight, DateUtils.getHourMinutes(bean.startTime) + "-" + DateUtils.getHourMinutes(bean.endTime));
+        UIUtils.setText(mItemMoney.mTvRight, DataUtils.getMoneyFormat(bean.cost));
         String host = "报名队伍";
         LinearLayout.LayoutParams tvTeamParams = (LinearLayout.LayoutParams) mTvTeamContent.getLayoutParams();
         tvTeamParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -181,8 +189,10 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
             case R.id.tv_sing:
                 break;
             case R.id.cl_bottom_team:
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_BALL_TEAM_DETAILS_VENUE,ARouterConfig.Key.TEAM_ID,mResultBean.guestTeamId);
                 break;
             case R.id.cl_top_team:
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_BALL_TEAM_DETAILS_VENUE,ARouterConfig.Key.TEAM_ID,mResultBean.hostTeamId);
                 break;
         }
     }

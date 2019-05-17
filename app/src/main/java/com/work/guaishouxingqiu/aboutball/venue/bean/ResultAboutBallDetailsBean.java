@@ -12,8 +12,8 @@ public class ResultAboutBallDetailsBean {
     public long areaId;
     public long calendarId;
     public String stadiumName;
-    public int hostTeamId;
-    public int guestTeamId;
+    public long hostTeamId;
+    public long guestTeamId;
     public String hostTeamName;
     public String hostTeamLogo;
     public String guestTeamLogo;
