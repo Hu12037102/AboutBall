@@ -141,7 +141,21 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
         }));
     }
 
+    public void judgeRefereeStatus() {
+        mModel.judgeRefereeStatus(new BaseObserver<>(true, this, new BaseObserver.Observer<Integer>() {
+            @Override
+            public void onNext(BaseBean<Integer> t) {
+                if (t.code == IApi.Code.SUCCEED) {
+                    mView.resultRefereeStatus(t.result);
+                }
+            }
 
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }, false));
+    }
 
 
 

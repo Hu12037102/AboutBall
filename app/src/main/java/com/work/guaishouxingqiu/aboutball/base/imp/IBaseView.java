@@ -29,4 +29,5 @@ public interface IBaseView {
     void resultLevelData(List<ResultRefereeLevelBean> data);
 
     void resultApkInfo(ResultUpdateApkBean result);
+    void resultRefereeStatus(Integer status);
 }

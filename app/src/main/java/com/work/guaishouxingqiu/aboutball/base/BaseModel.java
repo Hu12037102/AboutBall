@@ -53,4 +53,14 @@ public class BaseModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
+
+    public void judgeRefereeStatus(BaseObserver<Integer> observer) {
+        mRetrofitManger.create(MyService.class)
+                .judgeRefereeStatus()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+
+
+    }
 }

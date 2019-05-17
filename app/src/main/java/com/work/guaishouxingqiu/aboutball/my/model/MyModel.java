@@ -16,7 +16,7 @@ import io.reactivex.schedulers.Schedulers;
 public class MyModel  extends BaseModel{
 
 
-    public void judgeRefereeStatus(BaseObserver<Integer> observer) {
+  /*  public void judgeRefereeStatus(BaseObserver<Integer> observer) {
         mRetrofitManger.create(MyService.class)
                 .judgeRefereeStatus()
                 .subscribeOn(Schedulers.io())
@@ -24,5 +24,5 @@ public class MyModel  extends BaseModel{
                 .subscribe(observer);
 
 
-    }
+    }*/
 }

@@ -11,11 +11,11 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
  */
 public interface MyContract {
     interface View extends IBaseView {
-        void resultRefereeStatus(Integer status);
+       // void resultRefereeStatus(Integer status);
     }
 
     interface Presenter extends IBasePresenter {
-        void judgeRefereeStatus();
+    //    void judgeRefereeStatus();
 
     }
 }

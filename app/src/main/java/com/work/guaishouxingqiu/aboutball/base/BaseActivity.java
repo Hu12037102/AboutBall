@@ -202,4 +202,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
     public void resultApkInfo(ResultUpdateApkBean result) {
         mViewModel.showUpdateDialog(this, result);
     }
+
+    @Override
+    public void resultRefereeStatus(Integer status) {
+
+    }
 }

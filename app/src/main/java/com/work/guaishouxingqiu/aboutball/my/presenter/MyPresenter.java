@@ -30,7 +30,7 @@ public class MyPresenter extends BasePresenter<MyContract.View, MyModel> impleme
 
     }
 
-    @Override
+    /*@Override
     public void judgeRefereeStatus() {
         mModel.judgeRefereeStatus(new BaseObserver<>(true, this, new BaseObserver.Observer<Integer>() {
             @Override
@@ -45,5 +45,5 @@ public class MyPresenter extends BasePresenter<MyContract.View, MyModel> impleme
 
             }
         }, false));
-    }
+    }*/
 }
