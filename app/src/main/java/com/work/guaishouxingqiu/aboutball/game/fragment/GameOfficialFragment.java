@@ -145,9 +145,9 @@ public class GameOfficialFragment extends BaseFragment<GameOfficialPresenter> im
 
             //mGameData.addAll(bean.result);
             mData.addAll(bean.result);
-            if (mData.size()>0){
+            if (mData.size() > 0) {
                 mTvTime.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 mTvTime.setVisibility(View.GONE);
             }
             //mAdapter.notifyItemRangeChanged(0, mData.size());
@@ -157,7 +157,11 @@ public class GameOfficialFragment extends BaseFragment<GameOfficialPresenter> im
 
     @Override
     public void resultGameRefreshOrMoreData(@NonNull BaseBean<List<ResultGameBean>> bean) {
-        if (DataUtils.isResultSure(bean) && bean.result.size() > 0) {
+        if (bean.result!= null ){
+            mSrlData.setNoMoreData(bean.result.size() < mPresenter.mPageSize);
+        }
+        if (DataUtils.isResultSure(bean) &&bean.result!= null&& bean.result.size() > 0) {
+
             if (mPresenter.isRefresh) {
                 mData.addAll(0, bean.result);
                 // mAdapter.notifyItemRangeChanged(0, bean.result.size());
@@ -171,9 +175,9 @@ public class GameOfficialFragment extends BaseFragment<GameOfficialPresenter> im
                 mAdapter.notifyData();
             }
 
-            if (mData.size()>0){
+            if (mData.size() > 0) {
                 mTvTime.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 mTvTime.setVisibility(View.GONE);
             }
         }

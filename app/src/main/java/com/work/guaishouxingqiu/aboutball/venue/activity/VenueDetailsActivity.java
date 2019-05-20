@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -27,6 +28,7 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.media.IntentData;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
+import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
@@ -110,7 +112,7 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
     @Override
     protected void initView() {
         mStadiumId = mIntent.getIntExtra(ARouterConfig.Key.STADIUM_ID, -1);
-        LogUtils.w("viewHolder--",mStadiumId+"--");
+        LogUtils.w("viewHolder--", mStadiumId + "--");
         if (mStadiumId == -1) {
             finish();
             UIUtils.showToast(R.string.not_this_venue);
@@ -121,7 +123,10 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
     }
 
     private void initHeadView() {
-        mHeadView = getLayoutInflater().inflate(R.layout.item_head_venue_details_view, (ViewGroup) getWindow().getDecorView(), false);
+        mHeadView = getLayoutInflater().inflate(R.layout.item_head_venue_details_view, mRvSession, false);
+        mHeadView.requestFocus();
+        mHeadView.setFocusable(true);
+        mHeadView.setFocusableInTouchMode(true);
         mRvDate = mHeadView.findViewById(R.id.rv_date);
         mRvDate.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mDateData = new ArrayList<>();
@@ -192,7 +197,7 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
                     mSelectorTabPosition = tab.getPosition();
                     notifyDate(mDetailsBean, tab.getPosition());
                 }
-                LogUtils.w("initEvent===",mSelectorTabPosition+"");
+                LogUtils.w("initEvent===", mSelectorTabPosition + "");
             }
 
             @Override
@@ -251,7 +256,7 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
             bundle.putLong(ARouterConfig.Key.AREA_ID, mDetailsBean.areaForDetailList.get(mSelectorTabPosition).areaId);
             bundle.putLong(ARouterConfig.Key.STADIUM_ID, mStadiumId);
             IntentData.get().putData(mDetailsBean.areaForDetailList.get(mSelectorTabPosition).calendarListForAreaList);
-            ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_BOOKING,bundle);
+            ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_BOOKING, bundle);
         }
     }
 
@@ -281,10 +286,12 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
         mTvService.setText(getString(R.string.service_s, bean.service));
         List<ResultVenueDetailsBean.AreaForDetailsList> areaData = bean.areaForDetailList;
         if (areaData != null && areaData.size() > 0) {
-            for (int i = 0; i < areaData.size(); i++) {
+            if (mTabSession.getTabCount() == 0) {
+                for (int i = 0; i < areaData.size(); i++) {
                 /*TabLayout.Tab tab = mTabSession.newTab().setText(areaData.get(i).areaName);
                 mTabSession.addTab(tab, i == 0);*/
-                UIUtils.setBaseCustomTabLayout(mTabSession, areaData.get(i).areaName, i == 0, 45);
+                    UIUtils.setBaseCustomTabLayout(mTabSession, areaData.get(i).areaName, i == mSelectorTabPosition, 45);
+                }
             }
             notifyDate(bean, mSelectorTabPosition);
         }
@@ -303,9 +310,7 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
         if (areaBean == null) {
             return;
         }
-        if (mDateData.size() > 0) {
-            mDateData.clear();
-        }
+        mDateData.clear();
         //場次
         if (areaBean.calendarListForAreaList != null && areaBean.calendarListForAreaList.size() > 0) {
             mRvDate.setVisibility(View.VISIBLE);
@@ -397,5 +402,35 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
         } else {
             mAboutBallAdapter.notifyDataSetChanged();
         }
+        mAboutBallAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onNotNetClick(View view) {
+
+            }
+
+            @Override
+            public void onNotDataClick(View view) {
+
+            }
+
+            @Override
+            public void onItemClick(View view, int position) {
+                if (UserManger.get().isLogin()) {
+                    //mClickPosition = position;
+                    ResultAboutBallBean bean = mAboutBallData.get(position);
+                    startActivityToAboutBallDetails(bean);
+                } else {
+                    mViewModel.showLoginDialog();
+                }
+            }
+        });
+    }
+
+    private void startActivityToAboutBallDetails(ResultAboutBallBean bean) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(ARouterConfig.Key.REFEREE_STATUS, bean.hasReferee);
+        bundle.putInt(ARouterConfig.Key.TEAM_STATUS, bean.hasOpponent);
+        bundle.putLong(ARouterConfig.Key.OFFER_ID, bean.offerId);
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ABOUT_BALL_DETAILS, bundle);
     }
 }

@@ -129,11 +129,11 @@ public class HotFragment extends DelayedFragment<HotPresenter> implements HotCon
             }
             mSrLayout.setNoMoreData(bean.result.size() < Contast.DEFAULT_PAGE_SIZE);
             mData.addAll(bean.result);
-            if (mAdapter.isHaveFootView){
+         /*   if (mAdapter.isHaveFootView){
                 mAdapter.removeFootView();
             }else if (bean.result.size()<mPresenter.mPageSize){
                 mAdapter.addFootView(UIUtils.loadNotMoreView((ViewGroup) mRootView));
-            }
+            }*/
             mAdapter.notifyDataSetChanged();
         }
     }

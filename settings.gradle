@@ -1,1 +1,1 @@
-include ':app','adapter','view','lib-zxing'
+include ':app', 'adapter', 'view', 'lib-zxing', ':refresh-header', ':refresh-footer', ':refresh-layout'

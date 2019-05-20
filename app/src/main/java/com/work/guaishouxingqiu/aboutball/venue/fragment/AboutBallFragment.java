@@ -17,6 +17,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
 import com.work.guaishouxingqiu.aboutball.other.SharedPreferencesHelp;
+import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.venue.activity.AboutBallDetailsActivity;
@@ -135,9 +136,14 @@ public class AboutBallFragment extends DelayedFragment<AboutBallPresenter> imple
 
             @Override
             public void onItemClick(View view, int position) {
-                mClickPosition = position;
-                ResultAboutBallBean bean = mData.get(position);
-                startActivityToAboutBallDetails(bean);
+                if (UserManger.get().isLogin()){
+                    mClickPosition = position;
+                    ResultAboutBallBean bean = mData.get(position);
+                    startActivityToAboutBallDetails(bean);
+                }else {
+                    mViewModel.showLoginDialog();
+                }
+
             }
         });
     }

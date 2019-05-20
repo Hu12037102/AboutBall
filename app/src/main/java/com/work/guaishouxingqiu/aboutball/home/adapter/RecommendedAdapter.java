@@ -127,6 +127,9 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
 
 
     private void addTop(ResultNewsBean bean, TextView textView) {
+        if (bean == null) {
+            return;
+        }
         if (bean.onTop == 1) {
             String content = "A ".concat(bean.title);
             textView.setText(SpanUtils.getTextDrawable(R.mipmap.icon_top, 0, 1, content));

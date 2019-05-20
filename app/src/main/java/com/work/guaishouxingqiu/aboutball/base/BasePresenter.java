@@ -138,7 +138,7 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
             public void onError(Throwable e) {
 
             }
-        }));
+        }, false));
     }
 
     public void judgeRefereeStatus() {
@@ -156,7 +156,6 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
             }
         }, false));
     }
-
 
 
 }

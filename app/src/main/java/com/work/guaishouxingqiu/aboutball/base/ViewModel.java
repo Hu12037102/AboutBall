@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.my.activity.OrderEvaluateActivity;
@@ -211,5 +212,11 @@ public class ViewModel {
             mSoftActivity.get().finish();
         }
     }
+
+    public void setNoDataView(@NonNull SmartRefreshLayout refreshLayout, boolean hasData ){
+        //refreshLayout.resetNoMoreData();
+        refreshLayout.setNoMoreData(hasData);
+    }
+
 
 }
