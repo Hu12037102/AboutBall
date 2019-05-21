@@ -9,16 +9,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.modelpay.PayResp;
+import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.my.activity.OrderEvaluateActivity;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 import com.work.guaishouxingqiu.aboutball.other.DownloadApkHelp;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
+import com.work.guaishouxingqiu.aboutball.weight.PayDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import java.lang.ref.SoftReference;
@@ -213,10 +219,38 @@ public class ViewModel {
         }
     }
 
-    public void setNoDataView(@NonNull SmartRefreshLayout refreshLayout, boolean hasData ){
+    public void setNoDataView(@NonNull SmartRefreshLayout refreshLayout, boolean hasData) {
         //refreshLayout.resetNoMoreData();
         refreshLayout.setNoMoreData(hasData);
     }
 
+    public void showPayDialog(@NonNull String money, @NonNull PayDialog.OnPayDialogClickListener listener) {
+        PayDialog payDialog = new PayDialog(mSoftActivity.get())
+                .setMoney(money);
+        payDialog.setOnPayDialogClickListener(listener);
+
+    }
+
+    public void weiChatPay(ResultWeiChatSingBean bean) {
+        if (bean == null) {
+            UIUtils.showToast(R.string.not_find_wei_chat_sing);
+            return;
+        }
+        PayReq req = new PayReq();
+        // req.appId = Contast.SECRET_KEY.WEICHAT_APP_ID;
+        req.appId = bean.appid;
+        //req.partnerId = Contast.SECRET_KEY.WEI_CHAT_BUSINESS_ID;
+        req.partnerId = bean.partnerid;
+        req.prepayId = bean.prepayid;
+        req.nonceStr = bean.nonceStr;
+        req.packageValue = "Sign=WXPay";
+        req.sign = bean.sign;
+        req.timeStamp = bean.timeStamp;
+       // ((BaseActivity) (mSoftActivity.get())).getBaseApplication().getWeiChatApi().registerApp(Contast.SECRET_KEY.WEICHAT_APP_ID);
+        boolean isOk = ((BaseActivity) (mSoftActivity.get())).getBaseApplication().getWeiChatApi().sendReq(req);
+        LogUtils.w("weiChatPay--", isOk + "");
+        // req.prepayId = bean.
+
+    }
 
 }

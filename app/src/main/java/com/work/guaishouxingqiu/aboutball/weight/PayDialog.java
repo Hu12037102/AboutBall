@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.item.weight.ItemView;
 import com.example.item.weight.TitleView;
+import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
@@ -22,6 +24,16 @@ public class PayDialog extends BaseDialog {
     private TextView mTvPay;
     private TextView mTvMoney;
     private TitleView mTitleView;
+    public int mSelectorPosition;//0:微信；1：支付宝；2：银联...
+    private ItemView mItemWeiChat;
+    public static final int WEI_CHET_STATUS = 0;
+    public static final int ZHI_FU_BAO_STATUS = 1;
+
+    public void setOnPayDialogClickListener(OnPayDialogClickListener onPayDialogClickListener) {
+        this.onPayDialogClickListener = onPayDialogClickListener;
+    }
+
+    private OnPayDialogClickListener onPayDialogClickListener;
 
     public PayDialog(Context context) {
         super(context);
@@ -44,6 +56,32 @@ public class PayDialog extends BaseDialog {
         mTitleView = findViewById(R.id.title_view);
         mTvMoney = findViewById(R.id.tv_money);
         mTvPay = findViewById(R.id.tv_pay);
+        mItemWeiChat = findViewById(R.id.item_weichat);
+        mItemWeiChat.setOnItemClickListener(new ItemView.OnItemClickListener() {
+            @Override
+            public void onClickItem(View view) {
+                mSelectorPosition = PayDialog.WEI_CHET_STATUS;
+            }
+        });
+        mTvPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (mSelectorPosition) {
+                    case PayDialog.WEI_CHET_STATUS:
+                        if (onPayDialogClickListener != null) {
+                            onPayDialogClickListener.onWeiChat(mTvPay);
+                        }
+                        break;
+                    default:
+                        if (onPayDialogClickListener != null) {
+                            onPayDialogClickListener.onWeiChat(mTvPay);
+                        }
+                        break;
+                }
+                dismiss();
+
+            }
+        });
     }
 
     public PayDialog setMoney(double money) {
@@ -52,15 +90,18 @@ public class PayDialog extends BaseDialog {
     }
 
     public PayDialog setMoney(String money) {
-        mTvMoney.setText( money);
+        mTvMoney.setText(money);
 
         return this;
     }
 
-    public void setOnClickPayListener(View.OnClickListener clickPayListener) {
-        if (clickPayListener != null) {
-            mTvPay.setOnClickListener(clickPayListener);
-           // dismiss();
-        }
+    /*  public void setOnClickPayListener(View.OnClickListener clickPayListener) {
+          if (clickPayListener != null) {
+              mTvPay.setOnClickListener(clickPayListener);
+             // dismiss();
+          }
+      }*/
+    public interface OnPayDialogClickListener {
+        void onWeiChat(@NonNull View view);
     }
 }

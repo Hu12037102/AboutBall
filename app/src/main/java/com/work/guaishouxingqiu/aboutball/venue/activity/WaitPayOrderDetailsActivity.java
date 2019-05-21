@@ -11,6 +11,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
@@ -169,15 +170,23 @@ public class WaitPayOrderDetailsActivity extends BaseOrderActivity<WaitPayOrderD
             mPayDialog = new PayDialog(this)
                     .setMoney(DataUtils.getMoneyFormat(mResultBean.totalPrice));
         }
+
         if (!mPayDialog.isShowing()) {
             mPayDialog.show();
         }
-        mPayDialog.setOnClickPayListener(v -> {
+        mPayDialog.setOnPayDialogClickListener(new PayDialog.OnPayDialogClickListener() {
+            @Override
+            public void onWeiChat(@NonNull View view) {
+                mPresenter.payWeiChatSing(mOrderId);
+            }
+        });
+      /*  mPayDialog.setOnClickPayListener(v -> {
             mPayDialog.dismiss();
             //调起微信支付
-        });
+        });*/
 
     }
+
 
 
     @OnClick({R.id.tv_agreement, R.id.tv_pay, R.id.iv_address, R.id.iv_phone_content})

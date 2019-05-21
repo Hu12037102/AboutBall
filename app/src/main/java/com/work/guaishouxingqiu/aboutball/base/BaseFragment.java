@@ -13,6 +13,7 @@ import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionFragment;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
@@ -147,6 +148,11 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
 
     @Override
     public void resultRefereeStatus(Integer status) {
+
+    }
+
+    @Override
+    public void resultWeiChatSing(ResultWeiChatSingBean bean) {
 
     }
 }

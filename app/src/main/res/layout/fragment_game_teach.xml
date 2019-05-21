@@ -2,5 +2,42 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <RadioGroup
+        android:id="@+id/rg_book"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_55dp"
+        android:background="@color/colorWhite"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
+        <RadioButton
+            android:id="@+id/rb_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/size_20dp"
+            android:background="@drawable/selector_venue_count_view"
+            android:button="@null"
+            android:checked="true"
+            android:paddingBottom="@dimen/size_5dp"
+            android:paddingLeft="@dimen/size_15dp"
+            android:paddingRight="@dimen/size_15dp"
+            android:paddingTop="@dimen/size_5dp"
+            android:text="@string/adept"
+            android:textColor="@color/selector_text_blue_white_color" />
+
+        <RadioButton
+            android:id="@+id/rb_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/size_15dp"
+            android:background="@drawable/selector_venue_count_view"
+            android:button="@null"
+            android:checked="false"
+            android:paddingBottom="@dimen/size_5dp"
+            android:paddingLeft="@dimen/size_15dp"
+            android:paddingRight="@dimen/size_15dp"
+            android:paddingTop="@dimen/size_5dp"
+            android:text="@string/adept"
+            android:textColor="@color/selector_text_blue_white_color" />
+    </RadioGroup>
 </LinearLayout>

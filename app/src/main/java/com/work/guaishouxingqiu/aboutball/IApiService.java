@@ -112,6 +112,7 @@ public interface IApiService {
     String POST_EVALUATE_ORDER="/api/order/commentOrder";
     String GET_ABOUT_BALL_DETAILS="/api/agreeBall/getAgreeBallDetail";
     String GET_PLAY_REFEREE="/api/referee/serveAsReferee";
+    String GET_PAY_WEI_CHAT_SING="/api/order/weChatPay";
     interface H5 {
         String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";
         //资讯详情分享，后缀加上id;

@@ -15,6 +15,7 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 import com.work.guaishouxingqiu.aboutball.other.DownloadApkHelp;
 import com.work.guaishouxingqiu.aboutball.other.SharedPreferencesHelp;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
@@ -157,5 +158,20 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
         }, false));
     }
 
+    public void payWeiChatSing(long orderId) {
+        mModel.payWeiChatSing(orderId, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<ResultWeiChatSingBean>>() {
+            @Override
+            public void onNext(BaseBean<BaseDataBean<ResultWeiChatSingBean>> t) {
+                if (DataUtils.baseDataBeanIsSucceed(t) && t.result.result != null) {
+                    mView.resultWeiChatSing(t.result.result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }, false));
+    }
 
 }

@@ -110,6 +110,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
     private ResultGameSimpleBean mDataBean;
     private SeekBar mSbVideo;
     private Fragment[] mFragments;
+    private boolean isLive;//是不是直播，默认false
     // String mLivePath = "http://player.alicdn.com/video/aliyunmedia.mp4";
 
     @Override
@@ -249,6 +250,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
         GameCollectionFragment collectionFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_COLLECTION, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
         collectionFragment.setOnCollectionClickListener(videoUrl -> {
             mDataBean.liveAddress = videoUrl;
+            isLive = false;
             if (mVideoPlay != null) {
                 mSkvLoading.setVisibility(View.VISIBLE);
                 if (mVideoPlay.isPlaying()) {
@@ -289,7 +291,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
             @Override
             public void onPageSelected(int i) {
                 DataUtils.checkData(mTbData.getTabAt(i)).select();
-               // UIUtils.notifySelectorBaseTab(mTbData);
+                // UIUtils.notifySelectorBaseTab(mTbData);
 
             }
 
@@ -343,8 +345,10 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
                 TextView mTvStatus = startView.findViewById(R.id.tv_status);
                 if (bean.stateId == Contast.GAME_STATUS_STARTING) {
                     mTvStatus.setText(R.string.watch_live);
+                    isLive = true;
                 } else {
                     mTvStatus.setText(R.string.watch_collection);
+                    isLive = false;
                 }
                 tVTitle.setText(bean.gameName);
                 TextView tVGrade = startView.findViewById(R.id.tv_grade);
@@ -391,6 +395,12 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
             mIvVideoStatus = mHeadLiveParent.findViewById(R.id.iv_video_status);
             mSkvLoading = mHeadLiveParent.findViewById(R.id.skv_loading);
             mSbVideo = mHeadLiveParent.findViewById(R.id.sb_seek);
+            ConstraintLayout mClSchedule = mHeadLiveParent.findViewById(R.id.cl_schedule);
+            if (isLive) {
+                mClSchedule.setVisibility(View.GONE);
+            } else {
+                mClSchedule.setVisibility(View.VISIBLE);
+            }
             mIvVideoStatus.setVisibility(View.GONE);
             mIvLockVideo.setVisibility(View.GONE);
             SurfaceView svVideo = mHeadLiveParent.findViewById(R.id.sv_video);
@@ -496,7 +506,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
              */
             mVideoPlay.setOnFirstFrameStartListener(() -> {
                 mSkvLoading.setVisibility(View.GONE);
-              //  mIvVideoStatus.setVisibility(View.VISIBLE);
+                //  mIvVideoStatus.setVisibility(View.VISIBLE);
                 mIvVideoStatus.setImageResource(R.mipmap.icon_video_pause);
                 mSbVideo.setVisibility(View.VISIBLE);
                 mSbVideo.setMax((int) mVideoPlay.getDuration());

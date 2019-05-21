@@ -89,6 +89,9 @@ public class ARouterIntent {
     public static void startActivityForResult(@NonNull String path, @NonNull Activity activity, @NonNull String key, @NonNull Parcelable parcelable) {
         ARouter.getInstance().build(path).withParcelable(key, parcelable).navigation(activity, REQUEST_CODE);
     }
+    public static void startActivityForResult(@NonNull String path, @NonNull Activity activity, @NonNull String key, @NonNull Parcelable parcelable,int requestCode) {
+        ARouter.getInstance().build(path).withParcelable(key, parcelable).navigation(activity, requestCode);
+    }
 
     public static void startActivity(@NonNull String path, @NonNull String key, @NonNull Parcelable parcelable) {
         ARouter.getInstance().build(path).withParcelable(key, parcelable).navigation();

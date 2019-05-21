@@ -17,6 +17,7 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.media.bean.MediaSelectorFile;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 import com.work.guaishouxingqiu.aboutball.other.ActivityManger;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
@@ -207,4 +208,11 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
     public void resultRefereeStatus(Integer status) {
 
     }
+
+    @Override
+    public void resultWeiChatSing(ResultWeiChatSingBean bean) {
+        mViewModel.weiChatPay(bean);
+    }
+
+
 }

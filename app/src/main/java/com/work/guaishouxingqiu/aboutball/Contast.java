@@ -53,6 +53,7 @@ public interface Contast {
     String TOKEN = "Authorization";
     String SEX = "gender";
     String OFFER_ID = "offerId";
+    String TRADE_TYPE="tradeType";
     //比赛未开始
     int GAME_STATUS_NO_START = 1;
     //比赛进行中
@@ -111,7 +112,9 @@ public interface Contast {
     interface SECRET_KEY {
         String WEICHAT_APP_ID = "wx41e9ee2ffa7b327e";
         String WEICHAT_APP_SECRET = "40a967eb50ce478246b63d8d78525893";
+        String WEI_CHAT_BUSINESS_ID = "1524077161";//微信支付商户ID
         String Bugtag_ID = "96481d2c6099fa3e827b8c04d036d566";
+
     }
 
     //订单状态
@@ -142,9 +145,10 @@ public interface Contast {
         int PAY_LAUNCHER_ORDER = 2;
         int PAY_WAIT_ORDER = 3;
     }
+
     /**
      * 审核裁判状态
-     *  0：审核中;1：已通过（用户确认);2：未通过;3：已通过（后台审核）
+     * 0：审核中;1：已通过（用户确认);2：未通过;3：已通过（后台审核）
      */
     interface REFEREE_STATUS {
         int REFEREE_0 = 0;

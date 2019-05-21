@@ -6,6 +6,7 @@ import com.work.guaishouxingqiu.aboutball.http.RetrofitManger;
 import com.work.guaishouxingqiu.aboutball.my.MyService;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 
 import java.util.List;
 
@@ -61,6 +62,15 @@ public class BaseModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
 
+
+    }
+
+    public void payWeiChatSing(long orderId,BaseObserver<BaseDataBean<ResultWeiChatSingBean>>observer) {
+        mRetrofitManger.create(MyService.class)
+                .payWeiChatSing(orderId,"APP")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
 
     }
 }

@@ -88,6 +88,7 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
     private HintDialog mRequestRefereeDialog;
     private long mOfferId;
     private HintDialog mPlayRefereeDialog;
+    private static final int REQUEST_CODE = 123;
 
     @Override
     protected int getLayoutId() {
@@ -216,8 +217,10 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
                 clickAsReferee();
                 break;
             case R.id.tv_bottom_right:
+                ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_INVITATION_BALL, this,ARouterConfig.Key.PARCELABLE, mResultBean,AboutBallDetailsActivity.REQUEST_CODE);
                 break;
             case R.id.tv_sing:
+                ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_INVITATION_BALL, this,ARouterConfig.Key.PARCELABLE, mResultBean,AboutBallDetailsActivity.REQUEST_CODE);
                 break;
             case R.id.cl_bottom_team:
                 ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_BALL_TEAM_DETAILS_VENUE, ARouterConfig.Key.TEAM_ID, mResultBean.guestTeamId);

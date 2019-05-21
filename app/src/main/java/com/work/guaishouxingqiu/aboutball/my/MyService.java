@@ -30,6 +30,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeRecordBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultTeamDetailsMemberBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 
 import java.util.List;
 
@@ -148,6 +149,10 @@ public interface MyService {
 
     @GET(IApiService.GET_CANCEL_ORDER)
     Observable<BaseBean<BaseDataBean<String>>> cancelOrder(@Query(Contast.ORDER_ID) long orderId);
+
     @POST(IApiService.POST_EVALUATE_ORDER)
     Observable<BaseBean<BaseDataBean<String>>> evaluateOrder(@Body RequestOrderEvaluateBean bean);
+
+    @GET(IApiService.GET_PAY_WEI_CHAT_SING)
+    Observable<BaseBean<BaseDataBean<ResultWeiChatSingBean>>> payWeiChatSing(@Query(Contast.ORDER_ID) long orderId,@Query(Contast.TRADE_TYPE) String tradeType);
 }
