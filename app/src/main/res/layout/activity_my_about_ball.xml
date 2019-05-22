@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.example.item.weight.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        app:back_left_drawable="@mipmap/icon_back"
+        app:back_text_padding_left="@dimen/default_margin"
+        app:back_text_padding_right="@dimen/default_margin"
+        app:center_data="@string/my_about_ball"
+        app:center_text_color="@color/color_4"
+        app:center_text_size="@dimen/size_18sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tb_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_45dp"
+        app:layout_constraintTop_toBottomOf="@id/title_view"
+        app:tabIndicatorHeight="@dimen/size_0dp" />
+
+    <com.work.guaishouxingqiu.aboutball.weight.BaseViewPager
+        android:id="@+id/bvp_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tb_content" />
+</android.support.constraint.ConstraintLayout>

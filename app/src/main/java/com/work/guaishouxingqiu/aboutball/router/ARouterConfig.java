@@ -50,6 +50,7 @@ public interface ARouterConfig {
         String ACTIVITY_BALL_TEAM_DETAILS_VENUE = "/activity/ball/team/details/venue";
         String ACTIVITY_INVITATION_BALL = "/activity/invitation/ball";
         String ACTIVITY_PAY_SUCCEED = "/activity/pay/succeed";
+        String ACTIVITY_MY_ABOUT_BALL="/activity/my/about/ball";
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";

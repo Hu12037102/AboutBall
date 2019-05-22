@@ -87,4 +87,8 @@
         <item>待评价</item>
         <item>退款</item>
     </string-array>
+    <string-array name="my_about_ball_array">
+        <item>我的发布</item>
+        <item>我的参与</item>
+    </string-array>
 </resources>
