@@ -219,7 +219,7 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
                 mWaitBookAdapter.notifyDataSetChanged();
             }
         }
-
+        mLlBottom.setVisibility(View.GONE);
 
         LogUtils.w("resultOrderId--", orderId + "--");
     }

@@ -16,7 +16,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
+import com.work.guaishouxingqiu.aboutball.commonality.fragment.BasePayFragment;
 import com.work.guaishouxingqiu.aboutball.my.activity.WaitUserOrderDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.my.adapter.MyOrderAdapter;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyOrderBean;
@@ -27,7 +27,11 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
+import com.work.guaishouxingqiu.aboutball.venue.activity.WaitPayOrderDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
+import com.work.guaishouxingqiu.aboutball.weight.PayDialog;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +45,7 @@ import butterknife.BindView;
  * 描述:
  */
 @Route(path = ARouterConfig.Path.FRAGMENT_MY_ORDER)
-public class MyOrderFragment extends DelayedFragment<MyOrderFragmentPresenter> implements MyOrderFragmentContract.View {
+public class MyOrderFragment extends BasePayFragment<MyOrderFragmentPresenter> implements MyOrderFragmentContract.View {
 
     @BindView(R.id.rv_data)
     RecyclerView mRvData;
@@ -50,6 +54,8 @@ public class MyOrderFragment extends DelayedFragment<MyOrderFragmentPresenter> i
     private int mOrderStatus;
     private List<ResultMyOrderBean> mData;
     private MyOrderAdapter mAdapter;
+    private PayDialog mPayDialog;
+    private long mPayOrderId = -1;
 
     @Override
     protected void initDelayedView() {
@@ -64,6 +70,12 @@ public class MyOrderFragment extends DelayedFragment<MyOrderFragmentPresenter> i
 
     @Override
     protected void initDelayedEvent() {
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
 
     }
 
@@ -122,7 +134,7 @@ public class MyOrderFragment extends DelayedFragment<MyOrderFragmentPresenter> i
                 switch (bean.stateId) {
                     //待付款
                     case Contast.ORDER_STATUS.WAIT_PAY:
-                        mViewModel.startActivityToOrderPay(bean.orderId, Contast.PAY_ORDER_FLAG.PAY_MY_ORDER);
+                        mViewModel.startActivityForResultToOrderPay(bean.orderId, Contast.PAY_ORDER_FLAG.PAY_MY_ORDER, MyOrderFragment.this, Contast.ORDER_STATUS.WAIT_PAY);
                         break;
                     //已取消
                     case Contast.ORDER_STATUS.CANCELED:
@@ -130,9 +142,9 @@ public class MyOrderFragment extends DelayedFragment<MyOrderFragmentPresenter> i
                         break;
                     //待使用
                     case Contast.ORDER_STATUS.WAIT_USER:
-                        // ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_WAIT_USER_ORDER_DETAILS, ARouterConfig.Key.ORDER_ID, bean.orderId);
-                        ARouterIntent.startActivityForResult(MyOrderFragment.this, WaitUserOrderDetailsActivity.class,
-                                ARouterConfig.Key.ORDER_ID, bean.orderId, Contast.ORDER_STATUS.WAIT_USER);
+                         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_WAIT_USER_ORDER_DETAILS, ARouterConfig.Key.ORDER_ID, bean.orderId);
+                       /* ARouterIntent.startActivityForResult(MyOrderFragment.this, WaitUserOrderDetailsActivity.class,
+                                ARouterConfig.Key.ORDER_ID, bean.orderId, Contast.ORDER_STATUS.WAIT_USER);*/
                         break;
                     //待评价
                     case Contast.ORDER_STATUS.WAIT_EVALUATE:
@@ -161,6 +173,8 @@ public class MyOrderFragment extends DelayedFragment<MyOrderFragmentPresenter> i
                 switch (bean.stateId) {
                     //待付款
                     case Contast.ORDER_STATUS.WAIT_PAY:
+                        mPayOrderId = bean.orderId;
+                        clickPay(bean.totalPrice, bean.orderId);
                         break;
                     //已取消
                     case Contast.ORDER_STATUS.CANCELED:
@@ -193,6 +207,23 @@ public class MyOrderFragment extends DelayedFragment<MyOrderFragmentPresenter> i
             ResultMyOrderBean bean = mData.get(position);
             if (bean.stateId == Contast.ORDER_STATUS.WAIT_USER) {
                 clickCancelOrder(bean.orderId);
+            }
+        });
+    }
+
+    private void clickPay(double money, long orderId) {
+        if (mPayDialog == null) {
+            mPayDialog = new PayDialog(mContext);
+
+        }
+        mPayDialog.setMoney(DataUtils.getMoneyFormat(money));
+        if (!mPayDialog.isShowing()) {
+            mPayDialog.show();
+        }
+        mPayDialog.setOnPayDialogClickListener(new PayDialog.OnPayDialogClickListener() {
+            @Override
+            public void onWeiChat(@NonNull View view) {
+                mPresenter.payWeiChatSing(orderId);
             }
         });
     }
@@ -277,13 +308,31 @@ public class MyOrderFragment extends DelayedFragment<MyOrderFragmentPresenter> i
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
-                case Contast.ORDER_STATUS.WAIT_USER:
                 case Contast.ORDER_STATUS.WAIT_EVALUATE:
+                case Contast.ORDER_STATUS.WAIT_PAY:
                     mSrlRefresh.autoRefresh();
                     break;
                 default:
                     break;
             }
+        }
+
+    }
+
+
+
+    @Override
+    public void paySucceed() {
+        super.paySucceed();
+        if (mPayOrderId == -1)
+            return;
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_PAY_SUCCEED, ARouterConfig.Key.ORDER_ID, mPayOrderId);
+        mSrlRefresh.autoRefresh();
+    }
+    @Subscribe
+    public void resultCancelOrder(WaitUserOrderDetailsActivity.ResultPayBean bean){
+        if (bean!= null && bean.isUpdateResult){
+            mSrlRefresh.autoRefresh();
         }
     }
 }

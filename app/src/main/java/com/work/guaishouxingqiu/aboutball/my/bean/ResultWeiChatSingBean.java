@@ -7,12 +7,10 @@ package com.work.guaishouxingqiu.aboutball.my.bean;
  * 描述:微信订单签名返回bean
  */
 public class ResultWeiChatSingBean {
-    public String timeStamp;
+    public String timestamp;
     public String sign;
     public String appid;
-    public String nonceStr;
+    public String noncestr;
     public String partnerid;
     public String prepayid;
-    public String noncestr;
-    public String timestamp;
 }

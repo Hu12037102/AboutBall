@@ -77,6 +77,8 @@ public class MyOrderAdapter extends BaseRecyclerAdapter<MyOrderAdapter.ViewHolde
         viewHolder.mRlBottom.setVisibility(View.VISIBLE);
         viewHolder.mTv1.setBackgroundResource(R.drawable.shape_black_line_view);
         viewHolder.mTv2.setBackgroundResource(R.drawable.shape_black_line_view);
+        viewHolder.mTv1.setTextColor(ContextCompat.getColor(mContext,R.color.color_4));
+        viewHolder.mTv2.setTextColor(ContextCompat.getColor(mContext,R.color.color_4));
         switch (bean.stateId) {
             //待付款
             case Contast.ORDER_STATUS.WAIT_PAY:
@@ -96,7 +98,7 @@ public class MyOrderAdapter extends BaseRecyclerAdapter<MyOrderAdapter.ViewHolde
                 viewHolder.mTv1.setVisibility(View.VISIBLE);
                 viewHolder.mTv2.setVisibility(View.VISIBLE);
                 viewHolder.mTv1.setText(R.string.sure_user);
-                viewHolder.mTv2.setText(R.string.cancel_order);
+                viewHolder.mTv2.setText(R.string.application_for_drawback);
                 break;
             //待评价
             case Contast.ORDER_STATUS.WAIT_EVALUATE:

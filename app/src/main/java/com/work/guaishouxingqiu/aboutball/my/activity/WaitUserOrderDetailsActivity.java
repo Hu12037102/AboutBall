@@ -22,6 +22,8 @@ import com.work.guaishouxingqiu.aboutball.venue.bean.ResultOrderDetailsBean;
 import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -140,7 +142,17 @@ public class WaitUserOrderDetailsActivity extends BaseOrderActivity<WaitUserOrde
 
     @Override
     public void resultCancelOrderSucceed() {
-        setResult(RESULT_OK);
+        //  setResult(RESULT_OK);
+        EventBus.getDefault().post(new WaitUserOrderDetailsActivity.ResultPayBean(true));
         finish();
+    }
+
+
+    public static class ResultPayBean {
+        public boolean isUpdateResult;
+
+        public ResultPayBean(boolean isUpdateResult) {
+            this.isUpdateResult = isUpdateResult;
+        }
     }
 }

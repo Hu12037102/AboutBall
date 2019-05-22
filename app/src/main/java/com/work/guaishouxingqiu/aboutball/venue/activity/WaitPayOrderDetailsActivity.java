@@ -11,6 +11,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
+import com.work.guaishouxingqiu.aboutball.commonality.activity.BasePayActivity;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
@@ -37,7 +38,7 @@ import butterknife.OnClick;
  * 描述:订单详情
  */
 @Route(path = ARouterConfig.Path.ACTIVITY_WAIT_PAY_ORDER_DETAILS)
-public class WaitPayOrderDetailsActivity extends BaseOrderActivity<WaitPayOrderDetailsPresenter>
+public class WaitPayOrderDetailsActivity extends BasePayActivity<WaitPayOrderDetailsPresenter>
         implements WaitPayOrderDetailsContract.View {
     @BindView(R.id.tv_agreement)
     TextView mTvAgreement;
@@ -259,4 +260,11 @@ public class WaitPayOrderDetailsActivity extends BaseOrderActivity<WaitPayOrderD
             }
         });
     }
+
+    @Override
+    public long getOrderId() {
+        return mOrderId;
+    }
+
+
 }

@@ -11,6 +11,8 @@ import android.view.View;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.modelpay.PayResp;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
@@ -22,6 +24,7 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
+import com.work.guaishouxingqiu.aboutball.venue.activity.WaitPayOrderDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.PayDialog;
@@ -164,6 +167,13 @@ public class ViewModel {
         bundle.putInt(ARouterConfig.Key.ORDER_FLAG, flag);
         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_WAIT_PAY_ORDER_DETAILS, bundle);
     }
+    public void startActivityForResultToOrderPay(long orderId, int flag,Fragment fragment,int requestCode) {
+        Bundle bundle = new Bundle();
+        bundle.putLong(ARouterConfig.Key.ORDER_ID, orderId);
+        bundle.putInt(ARouterConfig.Key.ORDER_FLAG, flag);
+        ARouterIntent.startActivityForResult(fragment, WaitPayOrderDetailsActivity.class,bundle,requestCode);
+        //ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_WAIT_PAY_ORDER_DETAILS, bundle);
+    }
 
     /**
      * 跳转到订单评价页面
@@ -236,18 +246,20 @@ public class ViewModel {
             UIUtils.showToast(R.string.not_find_wei_chat_sing);
             return;
         }
+     /*  IWXAPI mWeiChatApi = WXAPIFactory.createWXAPI(mSoftActivity.get(), Contast.SECRET_KEY.WEICHAT_APP_ID, false);
+        mWeiChatApi.registerApp(Contast.SECRET_KEY.WEICHAT_APP_ID);*/
         PayReq req = new PayReq();
         // req.appId = Contast.SECRET_KEY.WEICHAT_APP_ID;
         req.appId = bean.appid;
         //req.partnerId = Contast.SECRET_KEY.WEI_CHAT_BUSINESS_ID;
         req.partnerId = bean.partnerid;
         req.prepayId = bean.prepayid;
-        req.nonceStr = bean.nonceStr;
+        req.nonceStr = bean.noncestr;
         req.packageValue = "Sign=WXPay";
         req.sign = bean.sign;
-        req.timeStamp = bean.timeStamp;
-       // ((BaseActivity) (mSoftActivity.get())).getBaseApplication().getWeiChatApi().registerApp(Contast.SECRET_KEY.WEICHAT_APP_ID);
+        req.timeStamp = bean.timestamp;
         boolean isOk = ((BaseActivity) (mSoftActivity.get())).getBaseApplication().getWeiChatApi().sendReq(req);
+     //   boolean isOk = mWeiChatApi.sendReq(req);
         LogUtils.w("weiChatPay--", isOk + "");
         // req.prepayId = bean.
 

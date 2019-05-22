@@ -49,7 +49,7 @@ public class SpanUtils {
         return ss;
     }
 
-    public static SpannableString getTextSize(int textSize, int start, int end, @NonNull String data) {
+    public static SpannableString getTextSize(int textSize, int start, int end, @NonNull CharSequence data) {
         SpannableString ss = new SpannableString(data);
         ss.setSpan(new AbsoluteSizeSpan(textSize, true), start, end, SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
         return ss;

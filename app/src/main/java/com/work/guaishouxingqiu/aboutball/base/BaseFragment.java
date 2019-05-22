@@ -153,6 +153,6 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
 
     @Override
     public void resultWeiChatSing(ResultWeiChatSingBean bean) {
-
+        mViewModel.weiChatPay(bean);
     }
 }

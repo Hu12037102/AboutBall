@@ -254,8 +254,8 @@
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
-            android:launchMode="singleTop"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -264,6 +264,9 @@
         </activity>
         <activity
             android:name=".venue.activity.InvitationBallActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.activity.PaySucceedActivity"
             android:screenOrientation="portrait" />
     </application>
 

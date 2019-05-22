@@ -415,4 +415,11 @@
     <string name="not_find_wei_chat_sing">没有获取到微信签名</string>
     <string name="adept">技巧</string>
     <string name="tactics">战术</string>
+    <string name="cancel_pay">取消支付</string>
+    <string name="succeed_pay">支付成功</string>
+    <string name="sing_error">签名错误</string>
+    <string name="back_order">返回订单</string>
+    <string name="pay_succeed_transmit_friend">支付成功\n已经成功预定场地，可以转发给队友</string>
+    <string name="transmit_friend">转发队友</string>
+    <string name="application_for_drawback">申请退款</string>
 </resources>
