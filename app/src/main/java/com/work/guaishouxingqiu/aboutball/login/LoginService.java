@@ -38,6 +38,9 @@ public interface LoginService {
     @POST(IApiService.REGISTER)
     Observable<BaseBean<RegisterResultBean>> register(@Body RequestRegisterBean bean);
 
+    @POST(IApiService.FORGET_PASSWORD)
+    Observable<BaseBean<RegisterResultBean>> forgetPassword(@Body RequestRegisterBean bean);
+
     @GET(IApiService.JUDGE_MESSAGE_CODE)
     Observable<BaseBean> judgeMessageCode(@Query(Contast.PHONE) String phone,
                                           @Query(Contast.CODE) String code);

@@ -18,6 +18,8 @@ public interface IApiService {
     String USER_ACCOUNT_INFO = "/api/accountManagement/getAccountInfo";
     //用户注册
     String REGISTER = "/api/account/register";
+    //忘记密码
+    String FORGET_PASSWORD="/api/account/resetPassword";
     //判断验证码是否有效
     String JUDGE_MESSAGE_CODE = "/api/account/verificationCodeIsPass";
     //首页-推荐头部信息列表

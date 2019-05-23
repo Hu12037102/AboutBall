@@ -20,6 +20,7 @@ public interface RegisterContract {
     }
 
     interface Presenter extends IBasePresenter {
-        void register(RequestRegisterBean mRequestBean);
+        void register(RequestRegisterBean requestBean);
+        void forgetPassword(RequestRegisterBean requestBean);
     }
 }

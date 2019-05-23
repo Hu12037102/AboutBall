@@ -6,6 +6,7 @@
     android:background="@color/colorTheme">
 
     <TextView
+        android:id="@+id/tv_title"
         style="@style/DefaultTitleText"
         android:text="@string/register" />
 

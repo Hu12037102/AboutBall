@@ -145,7 +145,7 @@ public class LoginActivity extends LoginOrShareActivity<LoginPresenter> implemen
 
 
     @OnClick({R.id.tv_gain_message_code,
-            R.id.tv_forget_password, R.id.tv_login, R.id.tv_register,R.id.tv_weichat})
+            R.id.tv_forget_password, R.id.tv_login, R.id.tv_register, R.id.tv_weichat})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -154,6 +154,7 @@ public class LoginActivity extends LoginOrShareActivity<LoginPresenter> implemen
                 break;
 
             case R.id.tv_forget_password:
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_REGISTER, ARouterConfig.Key.LOGIN_STATUS, Contast.LoginStatus.FORGET_PASSWORD);
                 break;
 
             case R.id.tv_login:
@@ -169,7 +170,7 @@ public class LoginActivity extends LoginOrShareActivity<LoginPresenter> implemen
     }
 
     private void clickRegister() {
-        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_REGISTER);
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_REGISTER, ARouterConfig.Key.LOGIN_STATUS, Contast.LoginStatus.REGISTER);
     }
 
     /**
@@ -212,7 +213,7 @@ public class LoginActivity extends LoginOrShareActivity<LoginPresenter> implemen
             if (bean.result != null) {
                 UserManger.get().putToken(bean.result.id_token);
                 mPresenter.loadUserAccount();
-              //  mPresenter.loadUserAccountInfo();
+                //  mPresenter.loadUserAccountInfo();
             }
         } else if (bean.code == IApi.Code.USER_NO_EXIST) {
 
@@ -248,6 +249,6 @@ public class LoginActivity extends LoginOrShareActivity<LoginPresenter> implemen
     public void resultOtherLogin(LoginResultBean bean) {
         UserManger.get().putToken(bean.id_token);
         mPresenter.loadUserAccount();
-     //   mPresenter.loadUserAccountInfo();
+        //   mPresenter.loadUserAccountInfo();
     }
 }

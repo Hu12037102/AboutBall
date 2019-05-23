@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.TitleView;
+import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
@@ -52,6 +53,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     private RequestRegisterBean mRequestBean;
     private RegisterPasswordFragment mPasswordFragment;
     private int mCurrentPager = 0;
+    private int mStatus;
 
     @Override
     protected int getLayoutId() {
@@ -60,18 +62,31 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
 
     @Override
     protected void initView() {
-        mPhoneFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_REGISTER_PHONE);
-        mCodeFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_REGISTER_CODE);
-        mPasswordFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_REGISTER_PASSWORD);
+        mStatus = mIntent.getIntExtra(ARouterConfig.Key.LOGIN_STATUS, Contast.LoginStatus.REGISTER);
+
+        mPhoneFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_REGISTER_PHONE,ARouterConfig.Key.LOGIN_STATUS, mStatus);
+        mCodeFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_REGISTER_CODE,ARouterConfig.Key.LOGIN_STATUS, mStatus);
+        mPasswordFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_REGISTER_PASSWORD,ARouterConfig.Key.LOGIN_STATUS, mStatus);
         mFragmentData = new ArrayList<>();
         mFragmentData.add(mPhoneFragment);
         mFragmentData.add(mCodeFragment);
         mFragmentData.add(mPasswordFragment);
+
+
     }
 
     @Override
     protected void initData() {
         mRequestBean = new RequestRegisterBean();
+        /*switch (mStatus){
+            case Contast.LoginStatus.REGISTER:
+                mRequestBean.type = Contast.TYPE_MESSAGE_CODE_REGISTER;
+                break;
+            case Contast.LoginStatus.FORGET_PASSWORD:
+                mRequestBean.type = Contast.TYPE_MESSAGE_CODE_RESET_PASSWORD;
+                break;
+        }*/
+        mRequestBean.type = 1;
         FragmentPagerAdapter mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             private int mChildCount = 0;
 
@@ -115,7 +130,15 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         });
         mPasswordFragment.setOnInputPasswordResult(password -> {
             mRequestBean.password = password;
-            mPresenter.register(mRequestBean);
+            switch (mStatus){
+                case Contast.LoginStatus.REGISTER:
+                    mPresenter.register(mRequestBean);
+                    break;
+                case Contast.LoginStatus.FORGET_PASSWORD:
+                    mPresenter.forgetPassword(mRequestBean);
+                    break;
+            }
+
         });
         mBvpContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

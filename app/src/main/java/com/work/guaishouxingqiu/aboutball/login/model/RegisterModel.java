@@ -25,4 +25,12 @@ public class RegisterModel extends BaseModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
+
+    public void forgetPassword(RequestRegisterBean requestBean,BaseObserver<RegisterResultBean> observer) {
+        mRetrofitManger.create(LoginService.class)
+                .forgetPassword(requestBean)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
 }

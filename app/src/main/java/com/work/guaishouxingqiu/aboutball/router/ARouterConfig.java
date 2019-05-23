@@ -120,6 +120,7 @@ public interface ARouterConfig {
         String OFFER_ID = "offerId";
         String ABOUT_BALL_FLAG = "aboutBallFlag";
         String MONEY="money";
+        String LOGIN_STATUS="loginStatus";
     }
 
 }

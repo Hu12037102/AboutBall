@@ -49,6 +49,8 @@
     <string name="message_code">验证码</string>
     <string name="gain_message_code">获取验证码</string>
     <string name="forget_the_password">忘记密码?</string>
+    <string name="reset_passwords">重置密码</string>
+    <string name="forget_password">忘记密码</string>
     <string name="uploading_fail_again">上传文件失败！请重试！</string>
     <string name="please_choose_team_logo">请选择球队logo</string>
     <string name="please_input_team_name">请输入球队队名</string>

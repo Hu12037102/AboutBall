@@ -79,7 +79,7 @@ public class ViewModel {
                     mUserNoExitDialog.show();
                 }
                 mUserNoExitDialog.setOnItemClickListener(view -> {
-                    ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_REGISTER);
+                    ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_REGISTER, ARouterConfig.Key.LOGIN_STATUS, Contast.LoginStatus.REGISTER);
                     mUserNoExitDialog.dismiss();
                 });
                 Toasts.with().showToast(baseBean.title);
@@ -269,22 +269,23 @@ public class ViewModel {
 
     /**
      * 申请退款页面
+     *
      * @param venueName
      * @param time
      * @param site
      * @param orderId
      * @param money
      */
-    public void toRefundActivityToResult(String venueName, String time, String site, long orderId, String money,Fragment fragment) {
+    public void toRefundActivityToResult(String venueName, String time, String site, long orderId, String money, Fragment fragment) {
         Bundle bundle = new Bundle();
         bundle.putString(ARouterConfig.Key.VENUE_NAME, venueName);
         bundle.putString(ARouterConfig.Key.TARGET_DATE, time);
         bundle.putString(ARouterConfig.Key.TARGET_SITE, site);
         bundle.putString(ARouterConfig.Key.MONEY, money);
         bundle.putLong(ARouterConfig.Key.ORDER_ID, orderId);
-        if (fragment!= null){
-            ARouterIntent.startActivityForResult(fragment, RefundActivity.class,bundle);
-        }else {
+        if (fragment != null) {
+            ARouterIntent.startActivityForResult(fragment, RefundActivity.class, bundle);
+        } else {
             ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_REFUND, mSoftActivity.get(), bundle);
         }
 

@@ -54,7 +54,7 @@ public interface Contast {
     String SEX = "gender";
     String OFFER_ID = "offerId";
     String TRADE_TYPE = "tradeType";
-    String FLAG="flag";
+    String FLAG = "flag";
     //比赛未开始
     int GAME_STATUS_NO_START = 1;
     //比赛进行中
@@ -116,6 +116,11 @@ public interface Contast {
         String WEI_CHAT_BUSINESS_ID = "1524077161";//微信支付商户ID
         String Bugtag_ID = "96481d2c6099fa3e827b8c04d036d566";
 
+    }
+
+    interface LoginStatus {
+        int REGISTER = 1;
+        int FORGET_PASSWORD = 2;
     }
 
     //订单状态

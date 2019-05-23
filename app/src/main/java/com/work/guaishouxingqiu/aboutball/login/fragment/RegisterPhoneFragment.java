@@ -1,6 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.login.fragment;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
@@ -41,7 +42,10 @@ public class RegisterPhoneFragment extends BaseFragment<RegisterPhonePresenter> 
     ImageView mIvClearPhone;
     @BindView(R.id.tv_next)
     TextView mTvNext;
+    @BindView(R.id.tv_title)
+    TextView mTvTitle;
     private OnNextClickListener mOnNextClickListener;
+    private int mStatus;
 
     public void setOnNextClickListener(OnNextClickListener onNextClickListener) {
         this.mOnNextClickListener = onNextClickListener;
@@ -64,8 +68,19 @@ public class RegisterPhoneFragment extends BaseFragment<RegisterPhonePresenter> 
 
     @Override
     protected void initData() {
-
+        mStatus = mBundle.getInt(ARouterConfig.Key.LOGIN_STATUS, Contast.LoginStatus.REGISTER);
+        switch (mStatus) {
+            case Contast.LoginStatus.REGISTER:
+                mTvTitle.setText(R.string.register);
+                break;
+            case Contast.LoginStatus.FORGET_PASSWORD:
+                mTvTitle.setText(R.string.forget_password);
+                break;
+            default:
+                break;
+        }
     }
+
 
     @Override
     protected void initEvent() {
@@ -135,7 +150,8 @@ public class RegisterPhoneFragment extends BaseFragment<RegisterPhonePresenter> 
     }
 
     private void clickNext() {
-        mPresenter.sendMessageCode(DataUtils.checkData(mTietPhone.getText()).toString().trim(), Contast.TYPE_MESSAGE_CODE_REGISTER);
+        mPresenter.sendMessageCode(DataUtils.checkData(mTietPhone.getText()).toString().trim(),
+                mStatus == Contast.LoginStatus.REGISTER ? Contast.TYPE_MESSAGE_CODE_REGISTER : Contast.TYPE_MESSAGE_CODE_RESET_PASSWORD);
 
     }
 

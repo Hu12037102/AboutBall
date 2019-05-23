@@ -62,4 +62,40 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View, Regi
 
         }));
     }
+
+    @Override
+    public void forgetPassword(RequestRegisterBean requestBean) {
+
+        mModel.forgetPassword(requestBean,new BaseObserver<>(true, this, new BaseObserver.Observer<RegisterResultBean>() {
+            @Override
+            public void onNext(BaseBean<RegisterResultBean> t) {
+                mView.registerResult(t);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+      /*  mModel.register(requestBean, new BaseObserver<>(this, new BaseObserver.Observer<RegisterResultBean>() {
+            @Override
+            public void onNext(BaseBean<RegisterResultBean> bean) {
+                if (mView == null) {
+                    return;
+                }
+                mView.showToast(bean.message);
+                mView.dismissLoadingView();
+                mView.registerResult(bean);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                if (mView != null) {
+                    mView.dismissLoadingView();
+                }
+            }
+
+
+        }));*/
+    }
 }

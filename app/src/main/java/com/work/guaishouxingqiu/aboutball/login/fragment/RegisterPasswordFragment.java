@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
 import com.work.guaishouxingqiu.aboutball.login.contract.RegisterPasswordContract;
@@ -44,9 +45,10 @@ public class RegisterPasswordFragment extends BaseFragment<RegisterPasswordPrese
 
     private OnInputPasswordResult mOnInputPasswordResult;
 
-    public interface OnInputPasswordResult{
+    public interface OnInputPasswordResult {
         void onInputPassword(@NonNull String password);
     }
+
     public static RegisterPasswordFragment newInstance() {
         return new RegisterPasswordFragment();
     }
@@ -58,7 +60,8 @@ public class RegisterPasswordFragment extends BaseFragment<RegisterPasswordPrese
 
     @Override
     protected void initView() {
-
+        int status = mBundle.getInt(ARouterConfig.Key.LOGIN_STATUS, Contast.LoginStatus.REGISTER);
+        mTvRegister.setText(status == Contast.LoginStatus.REGISTER ? R.string.register : R.string.reset_passwords);
     }
 
     @Override
@@ -68,8 +71,8 @@ public class RegisterPasswordFragment extends BaseFragment<RegisterPasswordPrese
 
     @Override
     protected void initEvent() {
-        UIUtils.checkClearImageStatus(mTietPassword,mIvClearPassword);
-        UIUtils.clickClearEditData(mIvClearPassword,mTietPassword);
+        UIUtils.checkClearImageStatus(mTietPassword, mIvClearPassword);
+        UIUtils.clickClearEditData(mIvClearPassword, mTietPassword);
         mTietPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -78,10 +81,10 @@ public class RegisterPasswordFragment extends BaseFragment<RegisterPasswordPrese
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (DataUtils.isPassword(DataUtils.checkData(mTietPassword.getText()).toString().trim())){
+                if (DataUtils.isPassword(DataUtils.checkData(mTietPassword.getText()).toString().trim())) {
                     mTvRegister.setClickable(true);
                     mTvRegister.setBackgroundResource(R.drawable.shape_click_button);
-                }else {
+                } else {
                     mTvRegister.setClickable(false);
                     mTvRegister.setBackgroundResource(R.drawable.shape_default_button);
                 }
@@ -102,11 +105,12 @@ public class RegisterPasswordFragment extends BaseFragment<RegisterPasswordPrese
 
     @OnClick(R.id.tv_register)
     public void onViewClicked() {
-        if (mOnInputPasswordResult != null){
+        if (mOnInputPasswordResult != null) {
             mOnInputPasswordResult.onInputPassword(DataUtils.checkData(mTietPassword.getText()).toString());
         }
     }
-    public void clearData(){
+
+    public void clearData() {
         mTietPassword.setText(null);
         mIvClearPassword.setVisibility(View.GONE);
         mTvRegister.setClickable(false);
