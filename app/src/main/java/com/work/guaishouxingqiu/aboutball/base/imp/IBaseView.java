@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundCauseBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 
@@ -34,4 +35,6 @@ public interface IBaseView {
     void resultRefereeStatus(Integer status);
 
     void resultWeiChatSing(ResultWeiChatSingBean bean);
+
+    void resultRefundCauseData(List<ResultRefundCauseBean> data);
 }

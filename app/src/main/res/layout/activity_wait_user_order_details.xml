@@ -41,7 +41,7 @@
             android:layout_weight="1"
             android:background="@drawable/shape_stroke_blue_view"
             android:gravity="center"
-            android:text="@string/cancel_order"
+            android:text="@string/application_for_drawback"
             android:textColor="@color/color_2" />
 
         <TextView

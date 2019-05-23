@@ -141,7 +141,7 @@ public class MyOrderFragment extends BasePayFragment<MyOrderFragmentPresenter> i
                         break;
                     //待使用
                     case Contast.OrderStatus.WAIT_USER:
-                         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_WAIT_USER_ORDER_DETAILS, ARouterConfig.Key.ORDER_ID, bean.orderId);
+                        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_WAIT_USER_ORDER_DETAILS, ARouterConfig.Key.ORDER_ID, bean.orderId);
                        /* ARouterIntent.startActivityForResult(MyOrderFragment.this, WaitUserOrderDetailsActivity.class,
                                 ARouterConfig.Key.ORDER_ID, bean.orderId, Contast.OrderStatus.WAIT_USER);*/
                         break;
@@ -205,7 +205,7 @@ public class MyOrderFragment extends BasePayFragment<MyOrderFragmentPresenter> i
         mAdapter.setOnItemClickListenerTv2((view, position) -> {
             ResultMyOrderBean bean = mData.get(position);
             if (bean.stateId == Contast.OrderStatus.WAIT_USER) {
-                clickCancelOrder(bean.orderId);
+                clickCancelOrder(bean);
             }
         });
     }
@@ -227,19 +227,13 @@ public class MyOrderFragment extends BasePayFragment<MyOrderFragmentPresenter> i
         });
     }
 
-    private void clickCancelOrder(long orderId) {
-        mViewModel.showCancelOrderDialog(new BaseDialog.OnItemClickSureAndCancelListener() {
-            @Override
-            public void onClickSure(@NonNull View view) {
-                mPresenter.cancelOrder(orderId);
-            }
+    private void clickCancelOrder(ResultMyOrderBean bean) {
+        mViewModel.toRefundActivityToResult(bean.stadiumName,
+                DataUtils.getNotNullData(bean.orderTime).concat("（").concat(DateUtils.getWeek(bean.orderTime)).concat("）"),
+                getOrderSiteContent(bean.orderDetailForOrders), bean.orderId, DataUtils.getMoneyFormat(bean.totalPrice),this);
 
-            @Override
-            public void onClickCancel(@NonNull View view) {
-
-            }
-        });
     }
+
 
     public static String getOrderSiteContent(List<ResultMyOrderBean.DetailsOrder> data) {
         if (data == null || data.size() == 0) {
@@ -309,6 +303,7 @@ public class MyOrderFragment extends BasePayFragment<MyOrderFragmentPresenter> i
             switch (requestCode) {
                 case Contast.OrderStatus.WAIT_EVALUATE:
                 case Contast.OrderStatus.WAIT_PAY:
+                case ARouterIntent.REQUEST_CODE:
                     mSrlRefresh.autoRefresh();
                     break;
                 default:
@@ -319,7 +314,6 @@ public class MyOrderFragment extends BasePayFragment<MyOrderFragmentPresenter> i
     }
 
 
-
     @Override
     public void paySucceed() {
         super.paySucceed();
@@ -328,9 +322,10 @@ public class MyOrderFragment extends BasePayFragment<MyOrderFragmentPresenter> i
         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_PAY_SUCCEED, ARouterConfig.Key.ORDER_ID, mPayOrderId);
         mSrlRefresh.autoRefresh();
     }
+
     @Subscribe
-    public void resultCancelOrder(WaitUserOrderDetailsActivity.ResultPayBean bean){
-        if (bean!= null && bean.isUpdateResult){
+    public void resultCancelOrder(WaitUserOrderDetailsActivity.ResultPayBean bean) {
+        if (bean != null && bean.isUpdateResult) {
             mSrlRefresh.autoRefresh();
         }
     }

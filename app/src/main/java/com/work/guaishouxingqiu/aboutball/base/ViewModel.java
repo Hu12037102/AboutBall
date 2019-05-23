@@ -17,6 +17,7 @@ import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.my.activity.OrderEvaluateActivity;
+import com.work.guaishouxingqiu.aboutball.my.activity.RefundActivity;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 import com.work.guaishouxingqiu.aboutball.other.DownloadApkHelp;
@@ -167,11 +168,12 @@ public class ViewModel {
         bundle.putInt(ARouterConfig.Key.ORDER_FLAG, flag);
         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_WAIT_PAY_ORDER_DETAILS, bundle);
     }
-    public void startActivityForResultToOrderPay(long orderId, int flag,Fragment fragment,int requestCode) {
+
+    public void startActivityForResultToOrderPay(long orderId, int flag, Fragment fragment, int requestCode) {
         Bundle bundle = new Bundle();
         bundle.putLong(ARouterConfig.Key.ORDER_ID, orderId);
         bundle.putInt(ARouterConfig.Key.ORDER_FLAG, flag);
-        ARouterIntent.startActivityForResult(fragment, WaitPayOrderDetailsActivity.class,bundle,requestCode);
+        ARouterIntent.startActivityForResult(fragment, WaitPayOrderDetailsActivity.class, bundle, requestCode);
         //ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_WAIT_PAY_ORDER_DETAILS, bundle);
     }
 
@@ -259,9 +261,32 @@ public class ViewModel {
         req.sign = bean.sign;
         req.timeStamp = bean.timestamp;
         boolean isOk = ((BaseActivity) (mSoftActivity.get())).getBaseApplication().getWeiChatApi().sendReq(req);
-     //   boolean isOk = mWeiChatApi.sendReq(req);
+        //   boolean isOk = mWeiChatApi.sendReq(req);
         LogUtils.w("weiChatPay--", isOk + "");
         // req.prepayId = bean.
+
+    }
+
+    /**
+     * 申请退款页面
+     * @param venueName
+     * @param time
+     * @param site
+     * @param orderId
+     * @param money
+     */
+    public void toRefundActivityToResult(String venueName, String time, String site, long orderId, String money,Fragment fragment) {
+        Bundle bundle = new Bundle();
+        bundle.putString(ARouterConfig.Key.VENUE_NAME, venueName);
+        bundle.putString(ARouterConfig.Key.TARGET_DATE, time);
+        bundle.putString(ARouterConfig.Key.TARGET_SITE, site);
+        bundle.putString(ARouterConfig.Key.MONEY, money);
+        bundle.putLong(ARouterConfig.Key.ORDER_ID, orderId);
+        if (fragment!= null){
+            ARouterIntent.startActivityForResult(fragment, RefundActivity.class,bundle);
+        }else {
+            ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_REFUND, mSoftActivity.get(), bundle);
+        }
 
     }
 

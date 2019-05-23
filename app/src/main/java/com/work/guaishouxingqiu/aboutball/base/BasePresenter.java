@@ -14,6 +14,7 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundCauseBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 import com.work.guaishouxingqiu.aboutball.other.DownloadApkHelp;
@@ -172,6 +173,32 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
 
             }
         }, false));
+    }
+
+    public void loadRefundCauseList() {
+        SharedPreferencesHelp sp = new SharedPreferencesHelp();
+        String refundJson = sp.getString(SharedPreferencesHelp.KEY_REFUND_CAUSE_LIST);
+        if (DataUtils.isEmpty(refundJson)) {
+            mModel.loadRefundCauseList(new BaseObserver<>(this, new BaseObserver.Observer<List<ResultRefundCauseBean>>() {
+                @Override
+                public void onNext(BaseBean<List<ResultRefundCauseBean>> t) {
+                    if (DataUtils.isResultSure(t) && t.result.size() > 0) {
+                        sp.putObject(SharedPreferencesHelp.KEY_REFUND_CAUSE_LIST, new Gson().toJson(t.result));
+                        mView.resultRefundCauseData(t.result);
+                    }
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+            }));
+        } else {
+            Gson gson = new Gson();
+            List<ResultRefundCauseBean> data = gson.fromJson(refundJson, new TypeToken<List<ResultRefundCauseBean>>() {
+            }.getType());
+            mView.resultRefundCauseData(data);
+        }
     }
 
 }

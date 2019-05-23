@@ -50,7 +50,8 @@ public interface ARouterConfig {
         String ACTIVITY_BALL_TEAM_DETAILS_VENUE = "/activity/ball/team/details/venue";
         String ACTIVITY_INVITATION_BALL = "/activity/invitation/ball";
         String ACTIVITY_PAY_SUCCEED = "/activity/pay/succeed";
-        String ACTIVITY_MY_ABOUT_BALL="/activity/my/about/ball";
+        String ACTIVITY_MY_ABOUT_BALL = "/activity/my/about/ball";
+        String ACTIVITY_REFUND = "/activity/refund";
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";
@@ -84,7 +85,7 @@ public interface ARouterConfig {
         String FRAGMENT_MY_REFEREE_RECORD = "/fragment/my/referee/record";
         String FRAGMENT_DRILL = "/fragment/drill";
         String FRAGMENT_MY_ORDER = "/fragment/my/order";
-        String FRAGMENT_MY_ABOUT_BALL="/fragment/my/about/ball";
+        String FRAGMENT_MY_ABOUT_BALL = "/fragment/my/about/ball";
 
 
     }
@@ -117,7 +118,8 @@ public interface ARouterConfig {
         String TARGET_SITE = "targetSite";
         String TEAM_STATUS = "teamStatus";
         String OFFER_ID = "offerId";
-        String ABOUT_BALL_FLAG="aboutBallFlag";
+        String ABOUT_BALL_FLAG = "aboutBallFlag";
+        String MONEY="money";
     }
 
 }

@@ -17,7 +17,10 @@ public class SharedPreferencesHelp {
     private static final String DEFAULT_SP_NAME = "About_Ball_SP";
     private static final String DEFAULT_STRING_VALUES = "";
     public static final String KEY_GUIDE_OPEN="key_guide_open";
+    //裁判列表key
     public static final String KEY_REFEREE_CACHE_LIST="key_referee_cache_list";
+    //退款原因key
+    public static final String KEY_REFUND_CAUSE_LIST="key_refund_cause_list";
     private SharedPreferences mSharedPreferences;
 
     public SharedPreferencesHelp() {

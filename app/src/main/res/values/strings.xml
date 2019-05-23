@@ -425,4 +425,7 @@
     <string name="application_for_drawback">申请退款</string>
     <string name="cancel_about_ball">取消约球</string>
     <string name="you_sure_cancel_about_ball">您确定取消约球，取消约球不能撤回</string>
+    <string name="please_selector_refund_cause">请选择退款原因：</string>
+    <string name="surrender_value">退还金额：</string>
+    <string name="please_selector_refund_causes">请选择退款理由</string>
 </resources>

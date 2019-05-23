@@ -16,6 +16,7 @@ import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.media.bean.MediaSelectorFile;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundCauseBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 import com.work.guaishouxingqiu.aboutball.other.ActivityManger;
@@ -215,4 +216,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
     }
 
 
+    @Override
+    public void resultRefundCauseData(List<ResultRefundCauseBean> data) {
+
+    }
 }

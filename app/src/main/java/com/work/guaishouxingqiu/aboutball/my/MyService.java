@@ -12,6 +12,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.RequestFeedbackBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestManageBallTeamBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestNewAddressBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestOrderEvaluateBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestRefundBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestTeamMyDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateBirthdayBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateHeadPhotoBean;
@@ -28,11 +29,14 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyOrderBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultPrizeBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeRecordBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundCauseBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultTeamDetailsMemberBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 
 import java.util.List;
+
+import javax.xml.transform.Result;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -154,5 +158,10 @@ public interface MyService {
     Observable<BaseBean<BaseDataBean<String>>> evaluateOrder(@Body RequestOrderEvaluateBean bean);
 
     @GET(IApiService.GET_PAY_WEI_CHAT_SING)
-    Observable<BaseBean<BaseDataBean<ResultWeiChatSingBean>>> payWeiChatSing(@Query(Contast.ORDER_ID) long orderId,@Query(Contast.TRADE_TYPE) String tradeType);
+    Observable<BaseBean<BaseDataBean<ResultWeiChatSingBean>>> payWeiChatSing(@Query(Contast.ORDER_ID) long orderId, @Query(Contast.TRADE_TYPE) String tradeType);
+
+    @GET(IApiService.GET_REFUND_CAUSE)
+    Observable<BaseBean<List<ResultRefundCauseBean>>> getRefundCause();
+    @POST(IApiService.POST_REFUND_ORDER)
+    Observable<BaseBean<BaseDataBean<String>>> refundOrder(@Body RequestRefundBean bean);
 }

@@ -12,6 +12,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundCauseBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionFragment;
@@ -154,5 +155,10 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
     @Override
     public void resultWeiChatSing(ResultWeiChatSingBean bean) {
         mViewModel.weiChatPay(bean);
+    }
+
+    @Override
+    public void resultRefundCauseData(List<ResultRefundCauseBean> data) {
+
     }
 }
