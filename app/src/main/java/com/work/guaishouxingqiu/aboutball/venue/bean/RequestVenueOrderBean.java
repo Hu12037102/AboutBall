@@ -8,7 +8,7 @@ package com.work.guaishouxingqiu.aboutball.venue.bean;
  */
 public class RequestVenueOrderBean {
     public long areaId;
-    public long[] calendarId;
+    public Long[] calendarId;
     public int flag;//1,约球预定2，包场
     public long stadiumId;
 }

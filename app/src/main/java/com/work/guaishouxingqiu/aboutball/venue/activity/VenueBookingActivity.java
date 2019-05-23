@@ -206,13 +206,18 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
     @Override
     public void resultOrderId(long orderId, boolean isSelectorBook) {
         if (isSelectorBook) {
-            if (mBookAdapter != null) {
-                mBookData.get(mBookAdapter.getSelectorPosition()).stateId = 1;
+            if (mBookAdapter != null&& mBookAdapter.getCheckData().size()>0) {
+
+
+                for (ResultVenueBookBean bean : mBookAdapter.getCheckData()) {
+                    bean.stateId = 1;
+                }
+               // mBookData.get(mBookAdapter.getCheckData()).stateId = 1;
                 mBookAdapter.notifyDataSetChanged();
             }
-           // ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_WAIT_PAY_ORDER_DETAILS, ARouterConfig.Key.ORDER_ID, orderId);
+            // ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_WAIT_PAY_ORDER_DETAILS, ARouterConfig.Key.ORDER_ID, orderId);
             //包场
-            mViewModel.startActivityToOrderPay(orderId,Contast.PayOrderFlag.PAY_VENUE_BOOK);
+            mViewModel.startActivityToOrderPay(orderId, Contast.PayOrderFlag.PAY_VENUE_BOOK);
         } else {
             if (mWaitBookAdapter != null) {
                 mWaitBookData.get(mWaitBookAdapter.getSelectorPosition()).stateId = 1;
@@ -239,7 +244,12 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
                     if (mBookAdapter != null) {
                         RequestVenueOrderBean bean = new RequestVenueOrderBean();
                         bean.areaId = mAreaId;
-                        bean.calendarId = new long[]{mBookData.get(mBookAdapter.getSelectorPosition()).calendarId};
+                        List<Long> calendarData = new ArrayList<>();
+                        for (ResultVenueBookBean bookBean : mBookAdapter.getCheckData()){
+                            calendarData.add(bookBean.calendarId);
+                        }
+                        Long[] calendarArray = new Long[]{};
+                        bean.calendarId = calendarData.toArray(calendarArray);
                         bean.flag = 2;
                         bean.stadiumId = mStadiumId;
                         mPresenter.createOrder(bean, mIsSelectorBook);
@@ -251,9 +261,9 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
             case R.id.tv_bottom_right:
                 if (mIsSelectorBook) {
                     Bundle bundle = new Bundle();
-                    bundle.putLong(ARouterConfig.Key.STADIUM_ID,mStadiumId);
-                    bundle.putLong(ARouterConfig.Key.CALENDAR_ID,mBookData.get(mBookAdapter.getSelectorPosition()).calendarId);
-                    bundle.putLong(ARouterConfig.Key.AREA_ID,mAreaId);
+                    bundle.putLong(ARouterConfig.Key.STADIUM_ID, mStadiumId);
+                    bundle.putLong(ARouterConfig.Key.CALENDAR_ID, mBookData.get(mBookAdapter.getSelectorPosition()).calendarId);
+                    bundle.putLong(ARouterConfig.Key.AREA_ID, mAreaId);
                     ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_LAUNCHER_BALL, bundle);
                 }
                 break;
@@ -301,14 +311,28 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
 
                             @Override
                             public void onItemClick(View view, int position) {
+                                if (mBookAdapter.getCheckData().size()>0){
+                                    mTvBottomLeft.setText(UIUtils.getString(R.string.money_make_booking, (mBookData.get(position).price*mBookAdapter.getCheckData().size())));
+                                    mLlBottom.setVisibility(View.VISIBLE);
+                                    if (mBookAdapter.getCheckData().size()>1){
+                                        mTvBottomRight.setEnabled(false);
+                                        mTvBottomRight.setBackgroundResource(R.drawable.shape_default_button);
+                                    }else {
+                                        mTvBottomRight.setEnabled(true);
+                                        mTvBottomRight.setBackgroundResource(R.drawable.shape_click_button);
+                                    }
+                                }else {
+                                    mLlBottom.setVisibility(View.GONE);
+                                    mTvBottomLeft.setText(UIUtils.getString(R.string.make_a_block_booking));
+                                }
 
-                                if (mBookData.get(position).isCheck) {
+                              /*  if (mBookData.get(position).isCheck) {
                                     mTvBottomLeft.setText(UIUtils.getString(R.string.money_make_booking, mBookData.get(position).price));
                                     mLlBottom.setVisibility(View.VISIBLE);
                                 } else {
                                     mTvBottomLeft.setText(UIUtils.getString(R.string.make_a_block_booking));
                                     mLlBottom.setVisibility(View.GONE);
-                                }
+                                }*/
                             }
                         });
                     } else {

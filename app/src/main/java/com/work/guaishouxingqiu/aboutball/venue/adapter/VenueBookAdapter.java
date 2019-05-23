@@ -17,6 +17,7 @@ import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueBookBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,10 +28,26 @@ import java.util.List;
  */
 public class VenueBookAdapter extends BaseRecyclerAdapter<VenueBookAdapter.ViewHolder, List<ResultVenueBookBean>> {
 
+    public List<ResultVenueBookBean> mCheckData;
+
     public VenueBookAdapter(@NonNull List<ResultVenueBookBean> data) {
         super(data, false);
+        mCheckData = new ArrayList<>();
     }
 
+    public List<ResultVenueBookBean> getCheckData() {
+        if (mCheckData.size() > 0) {
+            mCheckData.clear();
+        }
+        if (mData != null && mData.size() > 0) {
+            for (ResultVenueBookBean bean : mData) {
+                if (bean.isCheck) {
+                    mCheckData.add(bean);
+                }
+            }
+        }
+        return mCheckData;
+    }
     public int getSelectorPosition() {
         if (mData != null && mData.size() > 0) {
             for (ResultVenueBookBean bean : mData) {
@@ -79,7 +96,7 @@ public class VenueBookAdapter extends BaseRecyclerAdapter<VenueBookAdapter.ViewH
             viewHolder.mLine.setVisibility(View.VISIBLE);
         }
         viewHolder.itemView.setOnClickListener(v -> {
-            for (int j = 0; j < mData.size(); j++) {
+           /* for (int j = 0; j < mData.size(); j++) {
                 if (i != j) {
                     if (mData.get(j).isCheck) {
                         mData.get(j).isCheck = !mData.get(j).isCheck;
@@ -89,7 +106,9 @@ public class VenueBookAdapter extends BaseRecyclerAdapter<VenueBookAdapter.ViewH
                     bean.isCheck = !bean.isCheck;
                     notifyItemChanged(i);
                 }
-            }
+            }*/
+            bean.isCheck = !bean.isCheck;
+            notifyDataSetChanged();
             if (onItemClickListener != null) {
                 onItemClickListener.onItemClick(v, i);
             }

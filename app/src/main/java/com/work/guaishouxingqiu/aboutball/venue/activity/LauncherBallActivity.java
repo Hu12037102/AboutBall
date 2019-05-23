@@ -144,8 +144,8 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
         //发起约球成功后，生成订单
         RequestVenueOrderBean bean = new RequestVenueOrderBean();
         bean.areaId = mAreaId;
-        bean.calendarId = new long[]{mCalendarId};
-        bean.flag = 2;
+        bean.calendarId = new Long[]{mCalendarId};
+        bean.flag = 1;
         bean.stadiumId = mStadiumId;
         mPresenter.createOrder(bean);
     }

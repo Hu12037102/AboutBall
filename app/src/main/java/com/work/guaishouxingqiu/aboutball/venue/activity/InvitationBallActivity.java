@@ -69,7 +69,7 @@ public class InvitationBallActivity extends BaseActivity<InvitationBallPresenter
         mItemTeam.mTvRight.setHint(R.string.please_selector_ball_team);
 
         mRequestOrderBean = new RequestVenueOrderBean();
-        mRequestOrderBean.calendarId = new long[]{mDetailsBean.calendarId};
+        mRequestOrderBean.calendarId = new Long[]{mDetailsBean.calendarId};
         mRequestOrderBean.stadiumId = mDetailsBean.stadiumId;
         mRequestOrderBean.areaId = mDetailsBean.areaId;
         mRequestOrderBean.flag = 1;
