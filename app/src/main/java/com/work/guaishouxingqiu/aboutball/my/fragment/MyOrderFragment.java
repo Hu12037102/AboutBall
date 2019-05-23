@@ -27,7 +27,6 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
-import com.work.guaishouxingqiu.aboutball.venue.activity.WaitPayOrderDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
 import com.work.guaishouxingqiu.aboutball.weight.PayDialog;
 
@@ -63,7 +62,7 @@ public class MyOrderFragment extends BasePayFragment<MyOrderFragmentPresenter> i
 
     @Override
     protected void initDelayedData() {
-        if (mOrderStatus != Contast.ORDER_STATUS.ALL) {
+        if (mOrderStatus != Contast.OrderStatus.ALL) {
             mSrlRefresh.autoRefresh();
         }
     }
@@ -92,7 +91,7 @@ public class MyOrderFragment extends BasePayFragment<MyOrderFragmentPresenter> i
     @Override
     protected void initData() {
         initAdapter();
-        if (mOrderStatus == Contast.ORDER_STATUS.ALL) {
+        if (mOrderStatus == Contast.OrderStatus.ALL) {
             mSrlRefresh.autoRefresh();
         }
     }
@@ -133,32 +132,32 @@ public class MyOrderFragment extends BasePayFragment<MyOrderFragmentPresenter> i
                 ResultMyOrderBean bean = mData.get(position);
                 switch (bean.stateId) {
                     //待付款
-                    case Contast.ORDER_STATUS.WAIT_PAY:
-                        mViewModel.startActivityForResultToOrderPay(bean.orderId, Contast.PAY_ORDER_FLAG.PAY_MY_ORDER, MyOrderFragment.this, Contast.ORDER_STATUS.WAIT_PAY);
+                    case Contast.OrderStatus.WAIT_PAY:
+                        mViewModel.startActivityForResultToOrderPay(bean.orderId, Contast.PayOrderFlag.PAY_MY_ORDER, MyOrderFragment.this, Contast.OrderStatus.WAIT_PAY);
                         break;
                     //已取消
-                    case Contast.ORDER_STATUS.CANCELED:
+                    case Contast.OrderStatus.CANCELED:
                         toCompleteOrCancelActivity(bean.orderId, bean.stateId);
                         break;
                     //待使用
-                    case Contast.ORDER_STATUS.WAIT_USER:
+                    case Contast.OrderStatus.WAIT_USER:
                          ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_WAIT_USER_ORDER_DETAILS, ARouterConfig.Key.ORDER_ID, bean.orderId);
                        /* ARouterIntent.startActivityForResult(MyOrderFragment.this, WaitUserOrderDetailsActivity.class,
-                                ARouterConfig.Key.ORDER_ID, bean.orderId, Contast.ORDER_STATUS.WAIT_USER);*/
+                                ARouterConfig.Key.ORDER_ID, bean.orderId, Contast.OrderStatus.WAIT_USER);*/
                         break;
                     //待评价
-                    case Contast.ORDER_STATUS.WAIT_EVALUATE:
+                    case Contast.OrderStatus.WAIT_EVALUATE:
                         toCompleteOrCancelActivity(bean.orderId, bean.stateId);
                         break;
                     //已完成
-                    case Contast.ORDER_STATUS.COMPLETING:
+                    case Contast.OrderStatus.COMPLETING:
                         toCompleteOrCancelActivity(bean.orderId, bean.stateId);
                         break;
                     //退款中
-                    case Contast.ORDER_STATUS.REFUNDING:
+                    case Contast.OrderStatus.REFUNDING:
                         break;
                     //已退款
-                    case Contast.ORDER_STATUS.REFUNDED:
+                    case Contast.OrderStatus.REFUNDED:
                         toCompleteOrCancelActivity(bean.orderId, bean.stateId);
                         break;
                     default:
@@ -172,31 +171,31 @@ public class MyOrderFragment extends BasePayFragment<MyOrderFragmentPresenter> i
                 ResultMyOrderBean bean = mData.get(position);
                 switch (bean.stateId) {
                     //待付款
-                    case Contast.ORDER_STATUS.WAIT_PAY:
+                    case Contast.OrderStatus.WAIT_PAY:
                         mPayOrderId = bean.orderId;
                         clickPay(bean.totalPrice, bean.orderId);
                         break;
                     //已取消
-                    case Contast.ORDER_STATUS.CANCELED:
+                    case Contast.OrderStatus.CANCELED:
                         break;
                     //待使用
-                    case Contast.ORDER_STATUS.WAIT_USER:
+                    case Contast.OrderStatus.WAIT_USER:
 
                         break;
                     //待评价
-                    case Contast.ORDER_STATUS.WAIT_EVALUATE:
+                    case Contast.OrderStatus.WAIT_EVALUATE:
                         String orderTime = DataUtils.getNotNullData(bean.orderTime).concat("（").concat(DateUtils.getWeek(bean.orderTime)).concat("）");
                         mViewModel.startActivityToEvaluate(bean.stadiumName, orderTime,
-                                getOrderSiteContent(bean.orderDetailForOrders), bean.orderId, Contast.ORDER_STATUS.WAIT_EVALUATE, false, MyOrderFragment.this);
+                                getOrderSiteContent(bean.orderDetailForOrders), bean.orderId, Contast.OrderStatus.WAIT_EVALUATE, false, MyOrderFragment.this);
                         break;
                     //已完成
-                    case Contast.ORDER_STATUS.COMPLETING:
+                    case Contast.OrderStatus.COMPLETING:
                         break;
                     //退款中
-                    case Contast.ORDER_STATUS.REFUNDING:
+                    case Contast.OrderStatus.REFUNDING:
                         break;
                     //已退款
-                    case Contast.ORDER_STATUS.REFUNDED:
+                    case Contast.OrderStatus.REFUNDED:
                         break;
                     default:
                         break;
@@ -205,7 +204,7 @@ public class MyOrderFragment extends BasePayFragment<MyOrderFragmentPresenter> i
         });
         mAdapter.setOnItemClickListenerTv2((view, position) -> {
             ResultMyOrderBean bean = mData.get(position);
-            if (bean.stateId == Contast.ORDER_STATUS.WAIT_USER) {
+            if (bean.stateId == Contast.OrderStatus.WAIT_USER) {
                 clickCancelOrder(bean.orderId);
             }
         });
@@ -308,8 +307,8 @@ public class MyOrderFragment extends BasePayFragment<MyOrderFragmentPresenter> i
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
-                case Contast.ORDER_STATUS.WAIT_EVALUATE:
-                case Contast.ORDER_STATUS.WAIT_PAY:
+                case Contast.OrderStatus.WAIT_EVALUATE:
+                case Contast.OrderStatus.WAIT_PAY:
                     mSrlRefresh.autoRefresh();
                     break;
                 default:

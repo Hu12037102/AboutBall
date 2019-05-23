@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.work.guaishouxingqiu.aboutball.Contast;
-import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyOrderBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
@@ -21,8 +20,6 @@ import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import java.util.List;
-
-import utils.UiUtils;
 
 /**
  * 作者: 胡庆岭
@@ -81,7 +78,7 @@ public class MyOrderAdapter extends BaseRecyclerAdapter<MyOrderAdapter.ViewHolde
         viewHolder.mTv2.setTextColor(ContextCompat.getColor(mContext,R.color.color_4));
         switch (bean.stateId) {
             //待付款
-            case Contast.ORDER_STATUS.WAIT_PAY:
+            case Contast.OrderStatus.WAIT_PAY:
                 viewHolder.mTv1.setVisibility(View.VISIBLE);
                 viewHolder.mTv1.setBackgroundResource(R.drawable.shape_stroke_color_2_view);
                 viewHolder.mTv1.setTextColor(ContextCompat.getColor(mContext, R.color.color_2));
@@ -89,35 +86,35 @@ public class MyOrderAdapter extends BaseRecyclerAdapter<MyOrderAdapter.ViewHolde
                 UIUtils.setText(viewHolder.mTv1, R.string.go_pay);
                 break;
             //已取消
-            case Contast.ORDER_STATUS.CANCELED:
+            case Contast.OrderStatus.CANCELED:
                 viewHolder.mTvStatus.setTextColor(ContextCompat.getColor(mContext, R.color.colorFFA6A6A6));
                 viewHolder.mRlBottom.setVisibility(View.GONE);
                 break;
             //待使用
-            case Contast.ORDER_STATUS.WAIT_USER:
+            case Contast.OrderStatus.WAIT_USER:
                 viewHolder.mTv1.setVisibility(View.VISIBLE);
                 viewHolder.mTv2.setVisibility(View.VISIBLE);
                 viewHolder.mTv1.setText(R.string.sure_user);
                 viewHolder.mTv2.setText(R.string.application_for_drawback);
                 break;
             //待评价
-            case Contast.ORDER_STATUS.WAIT_EVALUATE:
+            case Contast.OrderStatus.WAIT_EVALUATE:
                 viewHolder.mTv2.setVisibility(View.GONE);
                 viewHolder.mTv1.setVisibility(View.VISIBLE);
                 viewHolder.mTv1.setText(R.string.judge);
                 break;
             //已完成
-            case Contast.ORDER_STATUS.COMPLETING:
+            case Contast.OrderStatus.COMPLETING:
                 viewHolder.mRlBottom.setVisibility(View.GONE);
                 break;
             //退款中
-            case Contast.ORDER_STATUS.REFUNDING:
+            case Contast.OrderStatus.REFUNDING:
                 viewHolder.mTv1.setVisibility(View.VISIBLE);
                 viewHolder.mTv2.setVisibility(View.GONE);
                 viewHolder.mTv1.setText(R.string.refund_schedule);
                 break;
             //已退款
-            case Contast.ORDER_STATUS.REFUNDED:
+            case Contast.OrderStatus.REFUNDED:
                 viewHolder.mRlBottom.setVisibility(View.GONE);
                 viewHolder.mTvStatus.setTextColor(ContextCompat.getColor(mContext, R.color.colorFFA6A6A6));
                 break;

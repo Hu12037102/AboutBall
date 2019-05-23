@@ -99,16 +99,16 @@ public class WaitPayOrderDetailsActivity extends BasePayActivity<WaitPayOrderDet
         }
 
         switch (orderFlag) {
-            case Contast.PAY_ORDER_FLAG.PAY_MY_ORDER:
+            case Contast.PayOrderFlag.PAY_MY_ORDER:
                 mTvTopHint.setText(R.string.please_check_the_information_carefully);
                 break;
-            case Contast.PAY_ORDER_FLAG.PAY_VENUE_BOOK:
+            case Contast.PayOrderFlag.PAY_VENUE_BOOK:
                 mTvTopHint.setText(R.string.please_add_up_to_order);
                 break;
-            case Contast.PAY_ORDER_FLAG.PAY_LAUNCHER_ORDER:
+            case Contast.PayOrderFlag.PAY_LAUNCHER_ORDER:
                 mLlTop.setVisibility(View.VISIBLE);
                 break;
-            case Contast.PAY_ORDER_FLAG.PAY_WAIT_ORDER:
+            case Contast.PayOrderFlag.PAY_WAIT_ORDER:
                 mLlTop.setVisibility(View.VISIBLE);
                 break;
         }

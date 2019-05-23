@@ -311,6 +311,7 @@
     <string name="paying">已支付</string>
     <string name="pay_order">支付订单</string>
     <string name="not_this_ball_team_details">沒有找到该球队信息</string>
+    <string name="not_this_find_about_ball">沒有找到约球记录</string>
     <string name="edit">编辑</string>
     <string name="immediate_payment">立即支付</string>
     <string name="money_count">￥%s</string>
@@ -422,4 +423,6 @@
     <string name="pay_succeed_transmit_friend">支付成功\n已经成功预定场地，可以转发给队友</string>
     <string name="transmit_friend">转发队友</string>
     <string name="application_for_drawback">申请退款</string>
+    <string name="cancel_about_ball">取消约球</string>
+    <string name="you_sure_cancel_about_ball">您确定取消约球，取消约球不能撤回</string>
 </resources>

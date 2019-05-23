@@ -212,7 +212,7 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
             }
            // ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_WAIT_PAY_ORDER_DETAILS, ARouterConfig.Key.ORDER_ID, orderId);
             //包场
-            mViewModel.startActivityToOrderPay(orderId,Contast.PAY_ORDER_FLAG.PAY_VENUE_BOOK);
+            mViewModel.startActivityToOrderPay(orderId,Contast.PayOrderFlag.PAY_VENUE_BOOK);
         } else {
             if (mWaitBookAdapter != null) {
                 mWaitBookData.get(mWaitBookAdapter.getSelectorPosition()).stateId = 1;

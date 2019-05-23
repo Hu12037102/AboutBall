@@ -53,7 +53,8 @@ public interface Contast {
     String TOKEN = "Authorization";
     String SEX = "gender";
     String OFFER_ID = "offerId";
-    String TRADE_TYPE="tradeType";
+    String TRADE_TYPE = "tradeType";
+    String FLAG="flag";
     //比赛未开始
     int GAME_STATUS_NO_START = 1;
     //比赛进行中
@@ -109,7 +110,7 @@ public interface Contast {
     String ALL_VIDEO = "全部视频";
     int REQUEST_CAMERA_CODE = 2000;
 
-    interface SECRET_KEY {
+    interface SecretKey {
         String WEICHAT_APP_ID = "wx41e9ee2ffa7b327e";
         String WEICHAT_APP_SECRET = "40a967eb50ce478246b63d8d78525893";
         String WEI_CHAT_BUSINESS_ID = "1524077161";//微信支付商户ID
@@ -118,7 +119,7 @@ public interface Contast {
     }
 
     //订单状态
-    interface ORDER_STATUS {
+    interface OrderStatus {
         //全部
         int ALL = 0;
         //待付款
@@ -138,7 +139,7 @@ public interface Contast {
         int ALL_REFUNDED = 10;
     }
 
-    interface PAY_ORDER_FLAG {
+    interface PayOrderFlag {
         //0：我的订单页面；1：包场订单；2：发起约球订单；3：待约球订单
         int PAY_MY_ORDER = 0;
         int PAY_VENUE_BOOK = 1;
@@ -150,10 +151,15 @@ public interface Contast {
      * 审核裁判状态
      * 0：审核中;1：已通过（用户确认);2：未通过;3：已通过（后台审核）
      */
-    interface REFEREE_STATUS {
+    interface RefereeStatus {
         int REFEREE_0 = 0;
         int REFEREE_1 = 1;
         int REFEREE_2 = 2;
         int REFEREE_3 = 3;
+    }
+
+    interface AboutBallFlag {
+        int PUBLISH = 1;//我发布的
+        int PARTICIPATION = 2;//我参与的
     }
 }

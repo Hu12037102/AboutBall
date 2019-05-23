@@ -246,8 +246,8 @@ public class ViewModel {
             UIUtils.showToast(R.string.not_find_wei_chat_sing);
             return;
         }
-     /*  IWXAPI mWeiChatApi = WXAPIFactory.createWXAPI(mSoftActivity.get(), Contast.SECRET_KEY.WEICHAT_APP_ID, false);
-        mWeiChatApi.registerApp(Contast.SECRET_KEY.WEICHAT_APP_ID);*/
+     /*  IWXAPI mWeiChatApi = WXAPIFactory.createWXAPI(mSoftActivity.get(), Contast.SecretKey.WEICHAT_APP_ID, false);
+        mWeiChatApi.registerApp(Contast.SecretKey.WEICHAT_APP_ID);*/
         PayReq req = new PayReq();
         // req.appId = Contast.SECRET_KEY.WEICHAT_APP_ID;
         req.appId = bean.appid;

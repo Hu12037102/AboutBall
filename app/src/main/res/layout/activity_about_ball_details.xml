@@ -145,7 +145,8 @@
         android:id="@+id/cl_bottom_team"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_75dp"
-        android:background="@drawable/selector_item">
+        android:background="@drawable/selector_item"
+        android:visibility="gone">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civ_logo_join"
@@ -189,8 +190,7 @@
         android:id="@+id/rl_bottom_multiple"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        >
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/ll_bottom_root"
@@ -251,5 +251,25 @@
             style="@style/HorizontalLine"
             android:layout_above="@id/tv_sing"
             android:layout_marginBottom="@dimen/size_5dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/size_5dp"
+            android:layout_marginLeft="@dimen/size_20dp"
+            android:layout_marginRight="@dimen/size_20dp"
+            android:background="@drawable/shape_stroke_blue_view"
+            android:gravity="center"
+            android:text="@string/cancel_about_ball"
+            android:textColor="@color/color_2" />
     </RelativeLayout>
 </LinearLayout>

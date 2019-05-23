@@ -9,6 +9,7 @@ import com.work.guaishouxingqiu.aboutball.venue.bean.RequestLauncherBallBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.RequestVenueOrderBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultAboutBallBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultAboutBallDetailsBean;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultMyAboutBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultMyBallTeamBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultOrderDetailsBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultRefereeBean;
@@ -83,6 +84,10 @@ public interface VenueService {
 
     @GET(IApiService.GET_ABOUT_BALL_DETAILS)
     Observable<BaseBean<ResultAboutBallDetailsBean>> loadAboutBallDetails(@Query(Contast.OFFER_ID) long offerId);
+
     @GET(IApiService.GET_PLAY_REFEREE)
     Observable<BaseBean<BaseDataBean<String>>> playReferee(@Query(Contast.OFFER_ID) long offerId);
+
+    @GET(IApiService.GET_MY_ABOUT_BALL)
+    Observable<BaseBean<List<ResultMyAboutBean>>> getMyAboutBean(@Query(Contast.FLAG) int flag);
 }

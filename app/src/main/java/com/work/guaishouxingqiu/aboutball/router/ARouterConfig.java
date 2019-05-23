@@ -84,6 +84,7 @@ public interface ARouterConfig {
         String FRAGMENT_MY_REFEREE_RECORD = "/fragment/my/referee/record";
         String FRAGMENT_DRILL = "/fragment/drill";
         String FRAGMENT_MY_ORDER = "/fragment/my/order";
+        String FRAGMENT_MY_ABOUT_BALL="/fragment/my/about/ball";
 
 
     }
@@ -116,6 +117,7 @@ public interface ARouterConfig {
         String TARGET_SITE = "targetSite";
         String TEAM_STATUS = "teamStatus";
         String OFFER_ID = "offerId";
+        String ABOUT_BALL_FLAG="aboutBallFlag";
     }
 
 }

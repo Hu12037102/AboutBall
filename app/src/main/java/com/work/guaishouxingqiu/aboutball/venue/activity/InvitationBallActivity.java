@@ -135,6 +135,6 @@ public class InvitationBallActivity extends BaseActivity<InvitationBallPresenter
 
     @Override
     public void resultOrderId(long result) {
-        mViewModel.startActivityToOrderPay(result, Contast.PAY_ORDER_FLAG.PAY_LAUNCHER_ORDER);
+        mViewModel.startActivityToOrderPay(result, Contast.PayOrderFlag.PAY_LAUNCHER_ORDER);
     }
 }

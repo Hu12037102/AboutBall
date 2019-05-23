@@ -9,8 +9,8 @@ import com.work.guaishouxingqiu.aboutball.Contast;
  * 描述:
  */
 public class RequestWeiChatTokenBean {
-    public String appid = Contast.SECRET_KEY.WEICHAT_APP_ID;
-    public String secret = Contast.SECRET_KEY.WEICHAT_APP_SECRET;
+    public String appid = Contast.SecretKey.WEICHAT_APP_ID;
+    public String secret = Contast.SecretKey.WEICHAT_APP_SECRET;
     public String code;
     public String grant_type = "authorization_code";
 }

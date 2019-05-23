@@ -100,7 +100,7 @@ public class MyFragment extends DelayedFragment<MyPresenter> implements MyContra
         mItemBall.setOnItemClickListener(new ItemView.OnItemClickListener() {
             @Override
             public void onClickItem(View view) {
-
+            ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_ABOUT_BALL);
             }
         });
         mItemOrder.setOnItemClickListener(new ItemView.OnItemClickListener() {

@@ -16,11 +16,9 @@ import com.example.item.util.ScreenUtils;
 import com.example.item.weight.ItemView;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.my.contract.OrderCompleteEvaluateCancelContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.OrderCompleteEvaluateCancelPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
-import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
@@ -96,24 +94,24 @@ public class OrderCompleteEvaluateCancelActivity extends BaseOrderActivity<Order
             return;
         }
         ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) mLineBottom.getLayoutParams();
-        if (orderStatus == Contast.ORDER_STATUS.COMPLETING) {
+        if (orderStatus == Contast.OrderStatus.COMPLETING) {
             mRlGrade.setVisibility(View.VISIBLE);
             mTvStatus.setTextColor(ContextCompat.getColor(this, R.color.color_2));
             mTvPayTime.setVisibility(View.VISIBLE);
             mTvGrade.setVisibility(View.VISIBLE);
             layoutParams.topMargin = 0;
-        } else if (orderStatus == Contast.ORDER_STATUS.CANCELED) {
+        } else if (orderStatus == Contast.OrderStatus.CANCELED) {
             mRlGrade.setVisibility(View.GONE);
             mTvStatus.setTextColor(ContextCompat.getColor(this, R.color.colorFFA6A6A6));
             layoutParams.topMargin = ScreenUtils.dp2px(this, 20);
             mTvPayTime.setVisibility(View.GONE);
-        } else if (orderStatus == Contast.ORDER_STATUS.WAIT_EVALUATE) {
+        } else if (orderStatus == Contast.OrderStatus.WAIT_EVALUATE) {
             mTvStatus.setVisibility(View.GONE);
             mTvStatus.setTextColor(ContextCompat.getColor(this, R.color.color_2));
             mTvPayTime.setVisibility(View.VISIBLE);
             mRlGrade.setVisibility(View.VISIBLE);
             layoutParams.topMargin = 0;
-        } else if (orderStatus == Contast.ORDER_STATUS.REFUNDED) {
+        } else if (orderStatus == Contast.OrderStatus.REFUNDED) {
             mItemSchedule.setVisibility(View.VISIBLE);
             mRlGrade.setVisibility(View.GONE);
             layoutParams.topMargin = 0;
@@ -144,7 +142,7 @@ public class OrderCompleteEvaluateCancelActivity extends BaseOrderActivity<Order
     @Override
     public void resultOrderDetails(ResultOrderDetailsBean bean) {
         this.mOrderDetailsBean = bean;
-        if (bean.stateId == Contast.ORDER_STATUS.WAIT_EVALUATE) {
+        if (bean.stateId == Contast.OrderStatus.WAIT_EVALUATE) {
             mTvJudge.setVisibility(View.VISIBLE);
         } else {
             mTvJudge.setVisibility(View.GONE);

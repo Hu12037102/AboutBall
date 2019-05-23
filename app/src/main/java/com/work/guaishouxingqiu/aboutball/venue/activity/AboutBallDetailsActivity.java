@@ -2,8 +2,6 @@ package com.work.guaishouxingqiu.aboutball.venue.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,7 +24,6 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
-import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultAboutBallDetailsBean;
@@ -81,6 +78,8 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
     ViewGroup mClTopTeam;
     @BindView(R.id.title_view)
     TitleView mTitleView;
+    @BindView(R.id.rl_cancel)
+    RelativeLayout mRlCancel;
     private int mHasRefereeStatus;
     private int mHasTeamStatus;
     private ResultAboutBallDetailsBean mResultBean;
@@ -89,6 +88,8 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
     private long mOfferId;
     private HintDialog mPlayRefereeDialog;
     private static final int REQUEST_CODE = 123;
+    private int mAboutBallFlag = -1;
+    private HintDialog mCancelBallDialog;
 
     @Override
     protected int getLayoutId() {
@@ -112,8 +113,11 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
         }
         mHasRefereeStatus = bundle.getInt(ARouterConfig.Key.REFEREE_STATUS, -1);
         mHasTeamStatus = bundle.getInt(ARouterConfig.Key.TEAM_STATUS, -1);
+        mAboutBallFlag = bundle.getInt(ARouterConfig.Key.ABOUT_BALL_FLAG, -1);
         mOfferId = bundle.getLong(ARouterConfig.Key.OFFER_ID, -1);
-        if (mHasRefereeStatus == -1 || mHasTeamStatus == -1 || mOfferId == -1) {
+
+
+        if (mAboutBallFlag == -1 || mOfferId == -1) {
             UIUtils.showToast(R.string.not_this_ball_team_details);
             finish();
             return;
@@ -148,6 +152,44 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
         UIUtils.setText(mItemDate.mTvRight, DateUtils.getDate(bean.startTime));
         UIUtils.setText(mItemTime.mTvRight, DateUtils.getHourMinutes(bean.startTime) + "-" + DateUtils.getHourMinutes(bean.endTime));
         UIUtils.setText(mItemMoney.mTvRight, DataUtils.getMoneyFormat(bean.cost));
+        if (mAboutBallFlag == 1) {
+            mRlCancel.setVisibility(View.VISIBLE);
+            LinearLayout.LayoutParams tvTeamParams = (LinearLayout.LayoutParams) mTvTeamContent.getLayoutParams();
+            String host = "报名队伍";
+            if (bean.guestTeamId <= 0) {
+                mClBottomTeam.setVisibility(View.GONE);
+                String body = "暂无队伍";
+                String content = host + "\n" + body;
+                mTvTeamContent.setText(SpanUtils.getTextSize(17, 0, host.length(), content));
+                mTvTeamContent.setGravity(Gravity.TOP);
+                // tvTeamParams.gravity = Gravity.TOP;
+                tvTeamParams.height = ScreenUtils.dp2px(this, 115);
+                mTvTeamContent.setPadding(ScreenUtils.dp2px(this, 20), ScreenUtils.dp2px(this, 20), 0, 0);
+
+            }else {
+                mClBottomTeam.setVisibility(View.VISIBLE);
+                mTvTeamContent.setText(SpanUtils.getTextSize(17, 0, host.length(), host));
+                mClBottomTeam.setVisibility(View.VISIBLE);
+                mTvTeamContent.setGravity(Gravity.BOTTOM);
+                //tvTeamParams.gravity = Gravity.BOTTOM;
+                tvTeamParams.height = ScreenUtils.dp2px(this, 40);
+                mTvTeamContent.setPadding(ScreenUtils.dp2px(this, 20), 0, 0, 0);
+            }
+            mTvTeamContent.setLayoutParams(tvTeamParams);
+        } else {
+            mRlCancel.setVisibility(View.GONE);
+            notifyRefereeTeamStatus(bean);
+        }
+
+
+    }
+
+    /**
+     * 判断裁判和队伍状态
+     *
+     * @param bean
+     */
+    private void notifyRefereeTeamStatus(ResultAboutBallDetailsBean bean) {
         String host = "报名队伍";
         LinearLayout.LayoutParams tvTeamParams = (LinearLayout.LayoutParams) mTvTeamContent.getLayoutParams();
         tvTeamParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -210,23 +252,49 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
     }
 
 
-    @OnClick({R.id.tv_bottom_left, R.id.tv_bottom_right, R.id.tv_sing, R.id.cl_bottom_team, R.id.cl_top_team})
+    @OnClick({R.id.tv_bottom_left, R.id.tv_bottom_right, R.id.tv_sing, R.id.cl_bottom_team, R.id.cl_top_team, R.id.tv_cancel})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_bottom_left:
                 clickAsReferee();
                 break;
             case R.id.tv_bottom_right:
-                ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_INVITATION_BALL, this,ARouterConfig.Key.PARCELABLE, mResultBean,AboutBallDetailsActivity.REQUEST_CODE);
+                ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_INVITATION_BALL, this, ARouterConfig.Key.PARCELABLE, mResultBean, AboutBallDetailsActivity.REQUEST_CODE);
                 break;
             case R.id.tv_sing:
-                ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_INVITATION_BALL, this,ARouterConfig.Key.PARCELABLE, mResultBean,AboutBallDetailsActivity.REQUEST_CODE);
+                ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_INVITATION_BALL, this, ARouterConfig.Key.PARCELABLE, mResultBean, AboutBallDetailsActivity.REQUEST_CODE);
                 break;
             case R.id.cl_bottom_team:
                 ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_BALL_TEAM_DETAILS_VENUE, ARouterConfig.Key.TEAM_ID, mResultBean.guestTeamId);
                 break;
             case R.id.cl_top_team:
                 ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_BALL_TEAM_DETAILS_VENUE, ARouterConfig.Key.TEAM_ID, mResultBean.hostTeamId);
+                break;
+            case R.id.tv_cancel:
+                if (mCancelBallDialog == null) {
+                    mCancelBallDialog = new HintDialog.Builder(this)
+                            .setTitle(R.string.hint)
+                            .setBody(R.string.you_sure_cancel_about_ball)
+                            .setShowSingButton(false)
+                            .builder();
+                }
+                if (!mCancelBallDialog.isShowing()) {
+                    mCancelBallDialog.show();
+                }
+                mCancelBallDialog.setOnItemClickSureAndCancelListener(new BaseDialog.OnItemClickSureAndCancelListener() {
+                    @Override
+                    public void onClickSure(@NonNull View view) {
+
+                    }
+
+                    @Override
+                    public void onClickCancel(@NonNull View view) {
+
+                    }
+                });
+
+                break;
+            default:
                 break;
         }
     }
@@ -265,16 +333,16 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
             requestRefereeDialog();
         } else {
             switch (mRefereeStatus) {
-                case Contast.REFEREE_STATUS.REFEREE_0:
+                case Contast.RefereeStatus.REFEREE_0:
                     UIUtils.showToast(R.string.your_application_for_referee_is_under_review);
                     break;
-                case Contast.REFEREE_STATUS.REFEREE_1:
+                case Contast.RefereeStatus.REFEREE_1:
                     playRefereeDialog();
                     break;
-                case Contast.REFEREE_STATUS.REFEREE_2:
+                case Contast.RefereeStatus.REFEREE_2:
                     requestRefereeDialog();
                     break;
-                case Contast.REFEREE_STATUS.REFEREE_3:
+                case Contast.RefereeStatus.REFEREE_3:
                     playRefereeDialog();
                     break;
                 default:

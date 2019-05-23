@@ -426,11 +426,17 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
         });
     }
 
+    /**
+     * flag 0:查看、参加约球裁判 1：取消约球
+      * @param bean
+     * @param
+     */
     private void startActivityToAboutBallDetails(ResultAboutBallBean bean) {
         Bundle bundle = new Bundle();
         bundle.putInt(ARouterConfig.Key.REFEREE_STATUS, bean.hasReferee);
         bundle.putInt(ARouterConfig.Key.TEAM_STATUS, bean.hasOpponent);
         bundle.putLong(ARouterConfig.Key.OFFER_ID, bean.offerId);
+        bundle.putInt(ARouterConfig.Key.ABOUT_BALL_FLAG, 0);
         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ABOUT_BALL_DETAILS, bundle);
     }
 }

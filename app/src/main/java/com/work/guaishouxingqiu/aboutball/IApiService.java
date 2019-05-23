@@ -113,6 +113,7 @@ public interface IApiService {
     String GET_ABOUT_BALL_DETAILS="/api/agreeBall/getAgreeBallDetail";
     String GET_PLAY_REFEREE="/api/referee/serveAsReferee";
     String GET_PAY_WEI_CHAT_SING="/api/order/weChatPay";
+    String GET_MY_ABOUT_BALL="/api/agreeBall/MyAgreeBall";
     interface H5 {
         String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";
         //资讯详情分享，后缀加上id;
@@ -120,6 +121,7 @@ public interface IApiService {
         //分享球队链接，后面跟上teamId
         String SHARE_BALL_TEAM = "http://ifeell.oss-cn-shenzhen.aliyuncs.com/app/ipk_android_release.apk?teamId=";
     }
+
 
 
 }

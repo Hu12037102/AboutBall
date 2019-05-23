@@ -1,6 +1,5 @@
 package com.work.guaishouxingqiu.aboutball.my.activity;
 
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -58,25 +57,25 @@ public class MyOrderActivity extends BaseActivity<MyOrderPresenter> implements M
             switch (i) {
                 case 0:
                     //全部
-                    orderStatus = Contast.ORDER_STATUS.ALL;
+                    orderStatus = Contast.OrderStatus.ALL;
                     break;
                 case 1:
                     //待付款
-                    orderStatus = Contast.ORDER_STATUS.WAIT_PAY;
+                    orderStatus = Contast.OrderStatus.WAIT_PAY;
                     break;
                 case 2:
                     //待使用
-                    orderStatus = Contast.ORDER_STATUS.WAIT_USER;
+                    orderStatus = Contast.OrderStatus.WAIT_USER;
                     break;
                 case 3:
                     //待评价
-                    orderStatus = Contast.ORDER_STATUS.WAIT_EVALUATE;
+                    orderStatus = Contast.OrderStatus.WAIT_EVALUATE;
                     break;
                 case 4:
-                    orderStatus = Contast.ORDER_STATUS.ALL_REFUNDED;
+                    orderStatus = Contast.OrderStatus.ALL_REFUNDED;
                     break;
                 default:
-                    orderStatus = Contast.ORDER_STATUS.ALL;
+                    orderStatus = Contast.OrderStatus.ALL;
                     break;
             }
             mFragmentData.add(ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_MY_ORDER, ARouterConfig.Key.ORDER_STATUS, orderStatus));
