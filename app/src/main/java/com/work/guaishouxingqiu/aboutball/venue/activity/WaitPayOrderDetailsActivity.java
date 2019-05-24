@@ -144,16 +144,12 @@ public class WaitPayOrderDetailsActivity extends BasePayActivity<WaitPayOrderDet
         mTvAddress.setText(bean.address);
         List<ResultOrderDetailsBean.OrderPeopleCountBean> countData = bean.orderDetailForOrders;
         if (countData != null && countData.size() > 0) {
-            String content = null;
+            StringBuilder sb = new StringBuilder();
             for (int i = 0; i < countData.size(); i++) {
                 ResultOrderDetailsBean.OrderPeopleCountBean countBean = countData.get(i);
-                content = countBean.areaName.concat("  ").concat(countBean.calendar)
-                        .concat("  ¥").concat(String.valueOf(countBean.price));
-                if (i != countData.size() - 1) {
-                    content = content.concat("\n");
-                }
+                sb.append(countBean.areaName).append("  ").append(countBean.calendar).append("  ¥").append(String.valueOf(countBean.price)).append(i == countData.size() - 1 ? "" : "\n");
             }
-            mTvAddressContent.setText(content);
+            mTvAddressContent.setText(sb.toString());
         }
         mTvPhoneContent.setText(DataUtils.isEmpty(bean.phoneNum) ? UserManger.get().getPhone() : bean.phoneNum);
         mTvPayContent.setText("微信支付");
@@ -187,7 +183,6 @@ public class WaitPayOrderDetailsActivity extends BasePayActivity<WaitPayOrderDet
         });*/
 
     }
-
 
 
     @OnClick({R.id.tv_agreement, R.id.tv_pay, R.id.iv_address, R.id.iv_phone_content})
