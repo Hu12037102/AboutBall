@@ -155,6 +155,7 @@ public class MyOrderFragment extends BasePayFragment<MyOrderFragmentPresenter> i
                         break;
                     //退款中
                     case Contast.OrderStatus.REFUNDING:
+                        toCompleteOrCancelActivity(bean.orderId, bean.stateId);
                         break;
                     //已退款
                     case Contast.OrderStatus.REFUNDED:

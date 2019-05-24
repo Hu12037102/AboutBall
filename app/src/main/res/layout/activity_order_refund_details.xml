@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorWhite">
+<com.example.item.weight.TitleView
+    android:id="@+id/title_view"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/size_50dp"
+    app:back_left_drawable="@mipmap/icon_back"
+    app:back_text_padding_left="@dimen/default_margin"
+    app:back_text_padding_right="@dimen/default_margin"
+    app:center_data="@string/refund_schedule"
+    app:center_text_color="@color/color_4"
+    app:center_text_size="@dimen/size_18sp"
+    app:layout_constraintTop_toTopOf="parent"/>
+    <View
+        android:id="@+id/line_top"
+        style="@style/HorizontalLine"
+        app:layout_constraintTop_toBottomOf="@id/title_view"
+      />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_schedule"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/line_top"
+        android:layout_margin="@dimen/default_margin"
+        />
+    <View
+        style="@style/HorizontalLine"
+        android:id="@+id/center_line"
+        app:layout_constraintTop_toBottomOf="@id/rv_schedule"
+       android:layout_margin="@dimen/default_margin"
+        />
+    <TextView
+        android:id="@+id/tv_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginTop="@dimen/size_20dp"
+        android:text="@string/more_details"
+        android:textColor="@color/color_4"
+        android:textSize="@dimen/size_17sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/center_line" />
+
+    <TextView
+        android:id="@+id/tv_order_number"
+        style="@style/OrderTextContentView"
+        android:layout_marginTop="@dimen/size_15dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_more"
+        tools:text="订单：18500" />
+    <TextView
+        android:id="@+id/tv_refund_cause"
+        style="@style/OrderTextContentView"
+        android:layout_marginTop="@dimen/size_10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_order_number"
+        tools:text="退款理由：不想买了" />
+
+    <TextView
+        android:id="@+id/tv_phone_number"
+        style="@style/OrderTextContentView"
+        android:layout_marginTop="@dimen/size_10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_refund_cause"
+        tools:text="手机号码：15079254622" />
+
+    <TextView
+        android:id="@+id/tv_order_time"
+        style="@style/OrderTextContentView"
+        android:layout_marginTop="@dimen/size_10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_phone_number"
+        tools:text="下单时间：2018-11-30" />
+
+    <TextView
+        android:id="@+id/tv_pay_time"
+        style="@style/OrderTextContentView"
+        android:layout_marginTop="@dimen/size_10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_order_time"
+        tools:text="付款时间：2018-11-30" />
+
+    <TextView
+        android:id="@+id/tv_total_prices"
+        style="@style/OrderTextContentView"
+        android:layout_marginTop="@dimen/size_10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_pay_time"
+        tools:text="付款总价：￥1230" />
+
+    <TextView
+        android:id="@+id/tv_practical_prices"
+        style="@style/OrderTextContentView"
+        android:layout_marginTop="@dimen/size_10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_total_prices"
+        tools:text="实际支付：￥1230" />
+</android.support.constraint.ConstraintLayout>

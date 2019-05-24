@@ -109,6 +109,26 @@ public class DateUtils {
         return null;
     }
 
+    /**
+     * 根据当前日期返回后几天的年月日
+     *
+     * @param dateFormat yyyy-MM-dd
+     * @return
+     */
+    public static String getNextCountData(String dateFormat, int dayCount) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date date = sdf.parse(dateFormat);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            calendar.add(Calendar.DAY_OF_MONTH, dayCount);
+            int week = calendar.get(Calendar.DAY_OF_WEEK);
+            return sdf.format(calendar.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 
 
     /**

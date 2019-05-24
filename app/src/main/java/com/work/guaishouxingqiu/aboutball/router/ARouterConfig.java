@@ -52,6 +52,7 @@ public interface ARouterConfig {
         String ACTIVITY_PAY_SUCCEED = "/activity/pay/succeed";
         String ACTIVITY_MY_ABOUT_BALL = "/activity/my/about/ball";
         String ACTIVITY_REFUND = "/activity/refund";
+        String ACTIVITY_ORDER_REFUND_DETAILS="/activity/order/refund/details";
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";
@@ -86,6 +87,7 @@ public interface ARouterConfig {
         String FRAGMENT_DRILL = "/fragment/drill";
         String FRAGMENT_MY_ORDER = "/fragment/my/order";
         String FRAGMENT_MY_ABOUT_BALL = "/fragment/my/about/ball";
+
 
 
     }

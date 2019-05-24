@@ -430,4 +430,9 @@
     <string name="please_selector_refund_cause">请选择退款原因：</string>
     <string name="surrender_value">退还金额：</string>
     <string name="please_selector_refund_causes">请选择退款理由</string>
+    <string name="refund_money_host">退款金额：</string>
+    <string name="expect_the_most_late">预计最晚%s到账</string>
+    <string name="exit_account">退回账户：</string>
+    <string name="exit_time">退回时间：</string>
+    <string name="refund_cause">退款理由：</string>
 </resources>

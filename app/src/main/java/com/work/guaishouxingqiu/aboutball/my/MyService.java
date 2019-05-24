@@ -30,6 +30,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultPrizeBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeRecordBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundCauseBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultTeamDetailsMemberBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
@@ -162,6 +163,10 @@ public interface MyService {
 
     @GET(IApiService.GET_REFUND_CAUSE)
     Observable<BaseBean<List<ResultRefundCauseBean>>> getRefundCause();
+
     @POST(IApiService.POST_REFUND_ORDER)
     Observable<BaseBean<BaseDataBean<String>>> refundOrder(@Body RequestRefundBean bean);
+
+    @GET(IApiService.GET_CHECK_REFUND)
+    Observable<BaseBean<BaseDataBean<ResultRefundDetailsBean>>> getCheckRefund(@Query(Contast.ORDER_ID) long orderId);
 }

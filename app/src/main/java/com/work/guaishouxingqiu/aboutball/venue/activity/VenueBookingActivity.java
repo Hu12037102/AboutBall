@@ -206,13 +206,14 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
     @Override
     public void resultOrderId(long orderId, boolean isSelectorBook) {
         if (isSelectorBook) {
-            if (mBookAdapter != null&& mBookAdapter.getCheckData().size()>0) {
+            if (mBookAdapter != null && mBookAdapter.getCheckData().size() > 0) {
 
 
                 for (ResultVenueBookBean bean : mBookAdapter.getCheckData()) {
                     bean.stateId = 1;
+                    bean.isCheck = false;
                 }
-               // mBookData.get(mBookAdapter.getCheckData()).stateId = 1;
+                // mBookData.get(mBookAdapter.getCheckData()).stateId = 1;
                 mBookAdapter.notifyDataSetChanged();
             }
             // ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_WAIT_PAY_ORDER_DETAILS, ARouterConfig.Key.ORDER_ID, orderId);
@@ -245,7 +246,7 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
                         RequestVenueOrderBean bean = new RequestVenueOrderBean();
                         bean.areaId = mAreaId;
                         List<Long> calendarData = new ArrayList<>();
-                        for (ResultVenueBookBean bookBean : mBookAdapter.getCheckData()){
+                        for (ResultVenueBookBean bookBean : mBookAdapter.getCheckData()) {
                             calendarData.add(bookBean.calendarId);
                         }
                         Long[] calendarArray = new Long[]{};
@@ -311,17 +312,17 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
 
                             @Override
                             public void onItemClick(View view, int position) {
-                                if (mBookAdapter.getCheckData().size()>0){
-                                    mTvBottomLeft.setText(UIUtils.getString(R.string.money_make_booking, (mBookData.get(position).price*mBookAdapter.getCheckData().size())));
+                                if (mBookAdapter.getCheckData().size() > 0) {
+                                    mTvBottomLeft.setText(UIUtils.getString(R.string.money_make_booking, (mBookData.get(position).price * mBookAdapter.getCheckData().size())));
                                     mLlBottom.setVisibility(View.VISIBLE);
-                                    if (mBookAdapter.getCheckData().size()>1){
+                                    if (mBookAdapter.getCheckData().size() > 1) {
                                         mTvBottomRight.setEnabled(false);
                                         mTvBottomRight.setBackgroundResource(R.drawable.shape_default_button);
-                                    }else {
+                                    } else {
                                         mTvBottomRight.setEnabled(true);
                                         mTvBottomRight.setBackgroundResource(R.drawable.shape_click_button);
                                     }
-                                }else {
+                                } else {
                                     mLlBottom.setVisibility(View.GONE);
                                     mTvBottomLeft.setText(UIUtils.getString(R.string.make_a_block_booking));
                                 }

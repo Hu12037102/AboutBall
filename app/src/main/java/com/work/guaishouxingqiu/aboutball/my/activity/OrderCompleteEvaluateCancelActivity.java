@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.my.contract.OrderCompleteEvaluateCancelContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.OrderCompleteEvaluateCancelPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
@@ -72,6 +74,18 @@ public class OrderCompleteEvaluateCancelActivity extends BaseOrderActivity<Order
     private ResultOrderDetailsBean mOrderDetailsBean;
     @BindView(R.id.item_schedule)
     ItemView mItemSchedule;
+    @BindView(R.id.ll_refund)
+    LinearLayout mLlRefund;
+    @BindView(R.id.tv_refund_money)
+    TextView mTvRefundMoney;
+    @BindView(R.id.tv_refund_account)
+    TextView mTvRefundAccount;
+    @BindView(R.id.tv_refund_time)
+    TextView mTvRefundTime;
+    @BindView(R.id.include_bottom)
+    View mIncludeBottom;
+    @BindView(R.id.tv_commit)
+    TextView mTvCommit;
 
     @Override
     protected int getLayoutId() {
@@ -115,6 +129,12 @@ public class OrderCompleteEvaluateCancelActivity extends BaseOrderActivity<Order
             mItemSchedule.setVisibility(View.VISIBLE);
             mRlGrade.setVisibility(View.GONE);
             layoutParams.topMargin = 0;
+        } else if (orderStatus == Contast.OrderStatus.REFUNDING) {
+            mLlRefund.setVisibility(View.VISIBLE);
+            mRlGrade.setVisibility(View.GONE);
+
+            mTvCommit.setText(R.string.refund_schedule);
+            layoutParams.topMargin = ScreenUtils.dp2px(this, 20);
         } else {
             UIUtils.showToast(R.string.not_find_this_order);
             finish();
@@ -147,6 +167,11 @@ public class OrderCompleteEvaluateCancelActivity extends BaseOrderActivity<Order
         } else {
             mTvJudge.setVisibility(View.GONE);
         }
+        if (bean.stateId == Contast.OrderStatus.REFUNDING) {
+            mIncludeBottom.setVisibility(View.VISIBLE);
+        } else {
+            mIncludeBottom.setVisibility(View.GONE);
+        }
         UIUtils.setText(mTvName, bean.stadiumName);
         UIUtils.setText(mTvAddress, bean.address);
         UIUtils.setText(mTvStatus, bean.stateName);
@@ -158,12 +183,15 @@ public class OrderCompleteEvaluateCancelActivity extends BaseOrderActivity<Order
         UIUtils.setOrderDetailsItemSpan(mTvPayTime, UIUtils.getString(R.string.pay_order_time_host), bean.payTime);
         UIUtils.setOrderDetailsItemSpan(mTvTotalPrices, UIUtils.getString(R.string.order_total_prices_host), "￥" + bean.totalPrice);
         UIUtils.setOrderDetailsItemSpan(mTvPracticalPrices, UIUtils.getString(R.string.order_practical_prices_host), bean.realPrice > 0 ? "￥" + bean.realPrice : "￥" + bean.totalPrice);
+        UIUtils.setOrderDetailsItemSpan(mTvRefundMoney, UIUtils.getString(R.string.refund_money_host), DataUtils.getMoneyFormat(bean.totalPrice));
+        UIUtils.setOrderDetailsItemSpan(mTvRefundAccount, UIUtils.getString(R.string.exit_account), "微信零钱");
+        UIUtils.setOrderDetailsItemSpan(mTvRefundTime, UIUtils.getString(R.string.exit_time), UIUtils.getString(R.string.expect_the_most_late, DateUtils.getNextCountData(bean.orderTime, 7)));
         mRbGrade.setRating(bean.grade);
-        UIUtils.setText(mTvGrade,UIUtils.getString(R.string.how_long_gradle,bean.grade));
+        UIUtils.setText(mTvGrade, UIUtils.getString(R.string.how_long_gradle, bean.grade));
     }
 
 
-    @OnClick({R.id.iv_address, R.id.tv_order_number, R.id.tv_phone_number, R.id.tv_judge})
+    @OnClick({R.id.iv_address, R.id.tv_order_number, R.id.tv_phone_number, R.id.tv_judge, R.id.tv_commit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_address:
@@ -175,7 +203,17 @@ public class OrderCompleteEvaluateCancelActivity extends BaseOrderActivity<Order
             case R.id.tv_judge:
                 clickJudge();
                 break;
+            case R.id.tv_commit:
+                clickRefundSchedule();
+                break;
         }
+    }
+
+    /**
+     * 进度查询
+     */
+    private void clickRefundSchedule() {
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ORDER_REFUND_DETAILS,ARouterConfig.Key.PARCELABLE,mOrderDetailsBean);
     }
 
     private void clickJudge() {

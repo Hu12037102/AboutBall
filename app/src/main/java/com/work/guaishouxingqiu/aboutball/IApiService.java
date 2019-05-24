@@ -118,6 +118,7 @@ public interface IApiService {
     String GET_MY_ABOUT_BALL="/api/agreeBall/MyAgreeBall";
     String GET_REFUND_CAUSE ="/api/order/getOrderRefundReason";
     String POST_REFUND_ORDER ="/api/order/refundOrder";
+    String GET_CHECK_REFUND="/api/order/weChatRefundQuery";
     interface H5 {
         String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";
         //资讯详情分享，后缀加上id;
