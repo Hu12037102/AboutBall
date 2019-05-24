@@ -113,7 +113,8 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
         }
         mHasRefereeStatus = bundle.getInt(ARouterConfig.Key.REFEREE_STATUS, -1);
         mHasTeamStatus = bundle.getInt(ARouterConfig.Key.TEAM_STATUS, -1);
-        mAboutBallFlag = bundle.getInt(ARouterConfig.Key.ABOUT_BALL_FLAG, -1);
+        //mAboutBallFlag 0,参加约球1，取消约球
+        mAboutBallFlag = bundle.getInt(ARouterConfig.Key.ABOUT_BALL_FLAG, 0);
         mOfferId = bundle.getLong(ARouterConfig.Key.OFFER_ID, -1);
 
 
@@ -148,6 +149,8 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
         mResultBean = bean;
         UIUtils.setText(mTvTopTeamName, bean.hostTeamName);
         GlideManger.get().loadLogoImage(this, bean.hostTeamLogo, mCivLogo);
+        GlideManger.get().loadLogoImage(this, bean.guestTeamLogo, mCivLogoJoin);
+        UIUtils.setText(mTvBottomTeamName,bean.guestTeamName);
         UIUtils.setText(mItemSite.mTvRight, bean.stadiumName);
         UIUtils.setText(mItemDate.mTvRight, DateUtils.getDate(bean.startTime));
         UIUtils.setText(mItemTime.mTvRight, DateUtils.getHourMinutes(bean.startTime) + "-" + DateUtils.getHourMinutes(bean.endTime));

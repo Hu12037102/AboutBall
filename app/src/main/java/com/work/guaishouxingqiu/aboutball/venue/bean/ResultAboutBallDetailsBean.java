@@ -23,6 +23,7 @@ public class ResultAboutBallDetailsBean implements Parcelable{
     public String startTime;
     public String endTime;
     public double cost;
+    public String guestTeamName;
 
     protected ResultAboutBallDetailsBean(Parcel in) {
         offerId = in.readLong();
@@ -38,6 +39,7 @@ public class ResultAboutBallDetailsBean implements Parcelable{
         startTime = in.readString();
         endTime = in.readString();
         cost = in.readDouble();
+        guestTeamName = in.readString();
     }
 
     public static final Creator<ResultAboutBallDetailsBean> CREATOR = new Creator<ResultAboutBallDetailsBean>() {
@@ -72,5 +74,6 @@ public class ResultAboutBallDetailsBean implements Parcelable{
         dest.writeString(startTime);
         dest.writeString(endTime);
         dest.writeDouble(cost);
+        dest.writeString(guestTeamName);
     }
 }

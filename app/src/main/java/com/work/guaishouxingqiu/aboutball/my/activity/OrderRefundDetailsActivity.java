@@ -50,6 +50,7 @@ public class OrderRefundDetailsActivity extends BaseActivity<OrderRefundDetailsP
     private List<ResultRefundDetailsBean.RefundDetailList> mData;
     private OrderRefundDetailsAdapter mAdapter;
 
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_order_refund_details;
@@ -57,22 +58,17 @@ public class OrderRefundDetailsActivity extends BaseActivity<OrderRefundDetailsP
 
     @Override
     protected void initView() {
-        ResultOrderDetailsBean bean = mIntent.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
-        if (bean == null) {
+      long orderId = mIntent.getLongExtra(ARouterConfig.Key.ORDER_ID,-1);
+        if (orderId == -1) {
             UIUtils.showToast(R.string.not_find_this_order);
             finish();
             return;
         }
         mRvSchedule.setLayoutManager(new LinearLayoutManager(this));
 
-        UIUtils.setOrderDetailsItemSpan(mTvOrderNumber, UIUtils.getString(R.string.order_host), bean.orderNo);
-        UIUtils.setOrderDetailsItemSpan(mTvPhoneNumber, UIUtils.getString(R.string.phone_number_host), bean.phoneNum);
-        UIUtils.setOrderDetailsItemSpan(mTvOrderTime, UIUtils.getString(R.string.order_time_host), bean.createOrderTime);
-        UIUtils.setOrderDetailsItemSpan(mTvPayTime, UIUtils.getString(R.string.pay_order_time_host), bean.payTime);
-        UIUtils.setOrderDetailsItemSpan(mTvTotalPrices, UIUtils.getString(R.string.order_total_prices_host), "￥" + bean.totalPrice);
-        UIUtils.setOrderDetailsItemSpan(mTvPracticalPrices, UIUtils.getString(R.string.order_practical_prices_host), bean.realPrice > 0 ? "￥" + bean.realPrice : "￥" + bean.totalPrice);
 
-        mPresenter.checkRefundDetails(bean.orderId);
+
+        mPresenter.checkRefundDetails(orderId);
     }
 
     @Override
@@ -95,6 +91,12 @@ public class OrderRefundDetailsActivity extends BaseActivity<OrderRefundDetailsP
     @Override
     public void resultRefundDetails(ResultRefundDetailsBean bean) {
         UIUtils.setOrderDetailsItemSpan(mTvRefundCause, UIUtils.getString(R.string.refund_cause), bean.refundReason);
+        UIUtils.setOrderDetailsItemSpan(mTvOrderNumber, UIUtils.getString(R.string.order_host), bean.orderNo);
+        UIUtils.setOrderDetailsItemSpan(mTvPhoneNumber, UIUtils.getString(R.string.phone_number_host), bean.telephone);
+        UIUtils.setOrderDetailsItemSpan(mTvOrderTime, UIUtils.getString(R.string.order_time_host), bean.orderTime);
+        UIUtils.setOrderDetailsItemSpan(mTvPayTime, UIUtils.getString(R.string.pay_order_time_host), bean.payTime);
+        UIUtils.setOrderDetailsItemSpan(mTvTotalPrices, UIUtils.getString(R.string.order_total_prices_host), "￥" + bean.totalPrice);
+        UIUtils.setOrderDetailsItemSpan(mTvPracticalPrices, UIUtils.getString(R.string.order_practical_prices_host), bean.realPrice > 0 ? "￥" + bean.realPrice : "￥" + bean.totalPrice);
         if (bean.orderRefundDetailList != null) {
             if (mData.size() > 0) {
                 mData.clear();

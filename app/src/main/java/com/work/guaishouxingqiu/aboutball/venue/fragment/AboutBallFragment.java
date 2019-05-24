@@ -107,6 +107,7 @@ public class AboutBallFragment extends DelayedFragment<AboutBallPresenter> imple
         bundle.putInt(ARouterConfig.Key.REFEREE_STATUS, bean.hasReferee);
         bundle.putInt(ARouterConfig.Key.TEAM_STATUS, bean.hasOpponent);
         bundle.putLong(ARouterConfig.Key.OFFER_ID, bean.offerId);
+        bundle.putInt(ARouterConfig.Key.ABOUT_BALL_FLAG, 0);
         ARouterIntent.startActivityForResult(this, AboutBallDetailsActivity.class, bundle);
     }
 

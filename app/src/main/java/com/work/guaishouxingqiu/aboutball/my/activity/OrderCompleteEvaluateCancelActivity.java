@@ -213,7 +213,7 @@ public class OrderCompleteEvaluateCancelActivity extends BaseOrderActivity<Order
      * 进度查询
      */
     private void clickRefundSchedule() {
-        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ORDER_REFUND_DETAILS,ARouterConfig.Key.PARCELABLE,mOrderDetailsBean);
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ORDER_REFUND_DETAILS,ARouterConfig.Key.ORDER_ID,mOrderDetailsBean.orderId);
     }
 
     private void clickJudge() {

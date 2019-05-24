@@ -35,6 +35,7 @@ public class AlterNameActivity extends BaseActivity<AlterNamePresenter> implemen
     @BindView(R.id.title_view)
     TitleView mTitleView;
 
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_alter_name;
@@ -45,7 +46,7 @@ public class AlterNameActivity extends BaseActivity<AlterNamePresenter> implemen
         String nickName = UserManger.get().getNickName();
         if (!DataUtils.isEmpty(nickName)) {
             mTietName.setText(nickName);
-            mTietName.setSelection(nickName.length());
+            mTietName.setSelection(DataUtils.getTextTrimLength(DataUtils.getEditDetails(mTietName)));
         }
 
     }

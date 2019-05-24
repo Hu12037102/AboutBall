@@ -180,7 +180,8 @@
             android:layout_marginRight="@dimen/default_margin"
             android:gravity="center_vertical"
             android:textColor="@color/color_4"
-            android:textSize="@dimen/size_12sp"
+            android:textSize="@dimen/size_17sp"
+            android:textStyle="bold"
             app:layout_constraintLeft_toRightOf="@id/civ_logo_join"
             app:layout_constraintRight_toLeftOf="@id/tv_read_join"
             tools:text="我们都是熊碧一家人" />

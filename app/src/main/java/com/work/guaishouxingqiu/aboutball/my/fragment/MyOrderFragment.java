@@ -194,6 +194,7 @@ public class MyOrderFragment extends BasePayFragment<MyOrderFragmentPresenter> i
                         break;
                     //退款中
                     case Contast.OrderStatus.REFUNDING:
+                        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ORDER_REFUND_DETAILS,ARouterConfig.Key.ORDER_ID,bean.orderId);
                         break;
                     //已退款
                     case Contast.OrderStatus.REFUNDED:
