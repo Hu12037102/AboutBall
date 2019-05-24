@@ -67,18 +67,7 @@ public abstract class LoginOrShareActivity<P extends LoginOrSharePresenter> exte
             this.getBaseApplication().getWeiChatApi().sendReq(req);
 
         } else {
-            HintDialog hintDialog = new HintDialog.Builder(this)
-                    .setTitle(R.string.hint)
-                    .setBody(R.string.you_not_installed_weichat)
-                    .setSure(R.string.sure)
-                    .builder();
-            hintDialog.show();
-            hintDialog.setOnItemClickListener(view -> {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.tencent.mm"));
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                hintDialog.dismiss();
-            });
+            mViewModel.showInstallWeiChatDialog();
         }
     }
 

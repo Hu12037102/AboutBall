@@ -19,6 +19,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -285,7 +286,15 @@ public class DataUtils {
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.CHINA);
         numberFormat.setMaximumFractionDigits(2);
         numberFormat.setMinimumFractionDigits(2);
+        numberFormat.setGroupingUsed(false);
         return numberFormat.format(number);
+    }
+    public static Double getMoneyFormats(Number number) {
+        NumberFormat numberFormat = NumberFormat.getInstance();
+        numberFormat.setMaximumFractionDigits(2);
+        numberFormat.setMinimumFractionDigits(2);
+        numberFormat.setGroupingUsed(false);
+        return Double.valueOf(numberFormat.format(number));
     }
 
     public static String getNotNullData(String content) {

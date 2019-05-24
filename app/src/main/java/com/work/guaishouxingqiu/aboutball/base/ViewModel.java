@@ -2,6 +2,8 @@ package com.work.guaishouxingqiu.aboutball.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -244,26 +246,30 @@ public class ViewModel {
     }
 
     public void weiChatPay(ResultWeiChatSingBean bean) {
+
         if (bean == null) {
             UIUtils.showToast(R.string.not_find_wei_chat_sing);
             return;
         }
+        IWXAPI wxApi = ((BaseActivity) (mSoftActivity.get())).getBaseApplication().getWeiChatApi();
+        if (wxApi.isWXAppInstalled()) {
      /*  IWXAPI mWeiChatApi = WXAPIFactory.createWXAPI(mSoftActivity.get(), Contast.SecretKey.WEICHAT_APP_ID, false);
         mWeiChatApi.registerApp(Contast.SecretKey.WEICHAT_APP_ID);*/
-        PayReq req = new PayReq();
-        // req.appId = Contast.SECRET_KEY.WEICHAT_APP_ID;
-        req.appId = bean.appid;
-        //req.partnerId = Contast.SECRET_KEY.WEI_CHAT_BUSINESS_ID;
-        req.partnerId = bean.partnerid;
-        req.prepayId = bean.prepayid;
-        req.nonceStr = bean.noncestr;
-        req.packageValue = "Sign=WXPay";
-        req.sign = bean.sign;
-        req.timeStamp = bean.timestamp;
-        boolean isOk = ((BaseActivity) (mSoftActivity.get())).getBaseApplication().getWeiChatApi().sendReq(req);
-        //   boolean isOk = mWeiChatApi.sendReq(req);
-        LogUtils.w("weiChatPay--", isOk + "");
-        // req.prepayId = bean.
+            PayReq req = new PayReq();
+            // req.appId = Contast.SECRET_KEY.WEICHAT_APP_ID;
+            req.appId = bean.appid;
+            //req.partnerId = Contast.SECRET_KEY.WEI_CHAT_BUSINESS_ID;
+            req.partnerId = bean.partnerid;
+            req.prepayId = bean.prepayid;
+            req.nonceStr = bean.noncestr;
+            req.packageValue = "Sign=WXPay";
+            req.sign = bean.sign;
+            req.timeStamp = bean.timestamp;
+            wxApi.sendReq(req);
+        } else {
+            showInstallWeiChatDialog();
+        }
+
 
     }
 
@@ -291,11 +297,25 @@ public class ViewModel {
 
     }
 
-    public void setActivityForAboutBallDetails(long offerId,int flag){
+    public void setActivityForAboutBallDetails(long offerId, int flag) {
         Bundle bundle = new Bundle();
         bundle.putLong(ARouterConfig.Key.OFFER_ID, offerId);
         bundle.putInt(ARouterConfig.Key.ABOUT_BALL_FLAG, flag);
         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ABOUT_BALL_DETAILS, bundle);
     }
 
+    public void showInstallWeiChatDialog() {
+        HintDialog hintDialog = new HintDialog.Builder(mSoftActivity.get())
+                .setTitle(R.string.hint)
+                .setBody(R.string.you_not_installed_weichat)
+                .setSure(R.string.sure)
+                .builder();
+        hintDialog.show();
+        hintDialog.setOnItemClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.tencent.mm"));
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            mSoftActivity.get().startActivity(intent);
+            hintDialog.dismiss();
+        });
+    }
 }

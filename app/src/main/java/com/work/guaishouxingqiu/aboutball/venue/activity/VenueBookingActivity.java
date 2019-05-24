@@ -22,6 +22,7 @@ import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.media.IntentData;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.adapter.VenueBookAdapter;
@@ -313,7 +314,7 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
                             @Override
                             public void onItemClick(View view, int position) {
                                 if (mBookAdapter.getCheckData().size() > 0) {
-                                    mTvBottomLeft.setText(UIUtils.getString(R.string.money_make_booking, (mBookData.get(position).price * mBookAdapter.getCheckData().size())));
+                                    mTvBottomLeft.setText(UIUtils.getString(R.string.money_make_booking, (DataUtils.getMoneyFormats(mBookData.get(position).price) * mBookAdapter.getCheckData().size())));
                                     mLlBottom.setVisibility(View.VISIBLE);
                                     if (mBookAdapter.getCheckData().size() > 1) {
                                         mTvBottomRight.setEnabled(false);
