@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.item.util.ScreenUtils;
 import com.example.item.weight.ItemView;
 import com.work.guaishouxingqiu.aboutball.Contast;
@@ -86,6 +87,7 @@ public class OrderCompleteEvaluateCancelActivity extends BaseOrderActivity<Order
     View mIncludeBottom;
     @BindView(R.id.tv_commit)
     TextView mTvCommit;
+    private long mOrderId;
 
     @Override
     protected int getLayoutId() {
@@ -101,8 +103,8 @@ public class OrderCompleteEvaluateCancelActivity extends BaseOrderActivity<Order
             return;
         }
         int orderStatus = bundle.getInt(ARouterConfig.Key.ORDER_STATUS, -1);
-        long orderId = bundle.getLong(ARouterConfig.Key.ORDER_ID, -1);
-        if (orderStatus == -1 || orderId == -1) {
+        mOrderId = bundle.getLong(ARouterConfig.Key.ORDER_ID, -1);
+        if (orderStatus == -1 || mOrderId == -1) {
             UIUtils.showToast(R.string.not_find_this_order);
             finish();
             return;
@@ -142,7 +144,7 @@ public class OrderCompleteEvaluateCancelActivity extends BaseOrderActivity<Order
         }
         mLineBottom.setLayoutParams(layoutParams);
 
-        mPresenter.loadOrderDetails(orderId);
+        mPresenter.loadOrderDetails(mOrderId);
     }
 
     @Override
@@ -152,6 +154,12 @@ public class OrderCompleteEvaluateCancelActivity extends BaseOrderActivity<Order
 
     @Override
     protected void initEvent() {
+        mItemSchedule.setOnItemClickListener(new ItemView.OnItemClickListener() {
+            @Override
+            public void onClickItem(View view) {
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ORDER_REFUND_DETAILS,ARouterConfig.Key.ORDER_ID,mOrderId);
+            }
+        });
     }
 
     @Override
@@ -186,6 +194,7 @@ public class OrderCompleteEvaluateCancelActivity extends BaseOrderActivity<Order
         UIUtils.setOrderDetailsItemSpan(mTvRefundMoney, UIUtils.getString(R.string.refund_money_host), DataUtils.getMoneyFormat(bean.totalPrice));
         UIUtils.setOrderDetailsItemSpan(mTvRefundAccount, UIUtils.getString(R.string.exit_account), "微信零钱");
         UIUtils.setOrderDetailsItemSpan(mTvRefundTime, UIUtils.getString(R.string.exit_time), UIUtils.getString(R.string.expect_the_most_late, DateUtils.getNextCountData(bean.orderTime, 7)));
+        UIUtils.setText(mItemSchedule.mTvRight,DataUtils.getMoneyFormat(bean.totalPrice)+UIUtils.getString(R.string.payment_has_been_received));
         mRbGrade.setRating(bean.grade);
         UIUtils.setText(mTvGrade, UIUtils.getString(R.string.how_long_gradle, bean.grade));
     }

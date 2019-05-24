@@ -291,4 +291,11 @@ public class ViewModel {
 
     }
 
+    public void setActivityForAboutBallDetails(long offerId,int flag){
+        Bundle bundle = new Bundle();
+        bundle.putLong(ARouterConfig.Key.OFFER_ID, offerId);
+        bundle.putInt(ARouterConfig.Key.ABOUT_BALL_FLAG, flag);
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ABOUT_BALL_DETAILS, bundle);
+    }
+
 }

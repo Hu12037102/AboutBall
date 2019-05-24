@@ -1,5 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.home.adapter;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -484,7 +485,11 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toasts.with().showToast(R.string.pleases_next_open);
+                   // Toasts.with().showToast(R.string.pleases_next_open);
+                    Bundle bundle = new Bundle();
+                    bundle.putLong(ARouterConfig.Key.OFFER_ID, bean.offerId);
+                    bundle.putInt(ARouterConfig.Key.ABOUT_BALL_FLAG, 0);
+                    ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ABOUT_BALL_DETAILS, bundle);
                 }
             });
         }

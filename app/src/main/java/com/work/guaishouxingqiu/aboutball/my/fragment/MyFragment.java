@@ -9,8 +9,11 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.ItemView;
 import com.example.item.weight.TitleView;
+import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
+import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
+import com.work.guaishouxingqiu.aboutball.commonality.fragment.LoginOrShareFragment;
 import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.MyContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.MyPresenter;
@@ -33,7 +36,7 @@ import io.bugtags.ui.view.rounded.CircleImageView;
  * 描述:我的Fragment
  */
 @Route(path = ARouterConfig.Path.FRAGMENT_MY)
-public class MyFragment extends DelayedFragment<MyPresenter> implements MyContract.View {
+public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyContract.View {
     @BindView(R.id.civ_my_head)
     CircleImageView mCivMyHead;
     @BindView(R.id.ll_head_group)
@@ -81,8 +84,9 @@ public class MyFragment extends DelayedFragment<MyPresenter> implements MyContra
     @Override
     protected void initDelayedEvent() {
         mItemFriend.setOnItemClickListener(view -> {
-            Toasts.with().showToast(R.string.pleases_next_open);
+            //Toasts.with().showToast(R.string.pleases_next_open);
             //ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_SHARE_FRIEND);
+            clickShareFriend();
         });
         mTitleView.setOnTitleViewClickListener(new TitleView.OnTitleViewClickListener() {
             @Override
@@ -145,6 +149,14 @@ public class MyFragment extends DelayedFragment<MyPresenter> implements MyContra
                 }
             }
         });
+    }
+
+    private void clickShareFriend() {
+        ShareWebBean bean = new ShareWebBean();
+        bean.webUrl = IApiService.H5.DOWNLOAD_APK;
+        bean.title = UIUtils.getString(R.string.download_about_ball);
+        bean.description = UIUtils.getString(R.string.you_friend_download_about_ball);
+        showShareDialog(bean);
     }
 
     @Override

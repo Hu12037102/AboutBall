@@ -68,6 +68,21 @@ public class BallTeamMemberFragment extends LoginOrShareFragment<BallTeamMemberP
     }
 
     @Override
+    protected void initDelayedView() {
+
+    }
+
+    @Override
+    protected void initDelayedData() {
+
+    }
+
+    @Override
+    protected void initDelayedEvent() {
+
+    }
+
+    @Override
     protected void initView() {
         mBallBean = mBundle.getParcelable(ARouterConfig.Key.PARCELABLE);
         mRvData.setLayoutManager(new LinearLayoutManager(mContext));

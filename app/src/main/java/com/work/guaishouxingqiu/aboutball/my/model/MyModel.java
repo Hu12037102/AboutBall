@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.my.model;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseModel;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
+import com.work.guaishouxingqiu.aboutball.commonality.model.LoginOrShareModel;
 import com.work.guaishouxingqiu.aboutball.my.MyService;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -13,7 +14,7 @@ import io.reactivex.schedulers.Schedulers;
  * 更新时间: 2019/3/6 15:51
  * 描述:我的模型
  */
-public class MyModel  extends BaseModel{
+public class MyModel  extends LoginOrShareModel{
 
 
   /*  public void judgeRefereeStatus(BaseObserver<Integer> observer) {

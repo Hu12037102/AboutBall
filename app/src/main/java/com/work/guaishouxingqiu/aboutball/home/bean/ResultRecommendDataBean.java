@@ -48,7 +48,7 @@ public class ResultRecommendDataBean {
         public String photoUrl;
     }
     public static class AgreeBallMatch{
-        public String offerId;
+        public long offerId;
         public String stadiumName;
         public String startTime;
         public String endTime;

@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.commonality.presenter.LoginOrSharePresenter;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.my.contract.MyContract;
 import com.work.guaishouxingqiu.aboutball.my.model.MyModel;
@@ -15,7 +16,7 @@ import com.work.guaishouxingqiu.aboutball.my.model.MyModel;
  * 更新时间: 2019/3/6 15:54
  * 描述:我的P
  */
-public class MyPresenter extends BasePresenter<MyContract.View, MyModel> implements MyContract.Presenter {
+public class MyPresenter extends LoginOrSharePresenter<MyContract.View, MyModel> implements MyContract.Presenter {
     public MyPresenter(@NonNull MyContract.View view) {
         super(view);
     }

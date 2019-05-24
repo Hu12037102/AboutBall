@@ -18,6 +18,7 @@ import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
+import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.RequestWeiChatTokenBean;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
 import com.work.guaishouxingqiu.aboutball.commonality.contract.LoginOrShareContract;
@@ -38,7 +39,7 @@ import org.greenrobot.eventbus.Subscribe;
  * 更新时间: 2019/5/7 10:49
  * 描述:
  */
-public abstract class LoginOrShareFragment<P extends LoginOrSharePresenter> extends BaseFragment<P> implements
+public abstract class LoginOrShareFragment<P extends LoginOrSharePresenter> extends DelayedFragment<P> implements
         LoginOrShareContract.View {
 private ShareDialog mShareDialog;
 

@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.my.contract;
 
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.commonality.contract.LoginOrShareContract;
 
 /**
  * 作者: 胡庆岭
@@ -10,11 +11,11 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
  * 描述: 我的契约
  */
 public interface MyContract {
-    interface View extends IBaseView {
+    interface View extends LoginOrShareContract.View {
        // void resultRefereeStatus(Integer status);
     }
 
-    interface Presenter extends IBasePresenter {
+    interface Presenter extends LoginOrShareContract.Presenter {
     //    void judgeRefereeStatus();
 
     }

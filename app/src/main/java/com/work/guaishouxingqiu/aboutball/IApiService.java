@@ -19,7 +19,7 @@ public interface IApiService {
     //用户注册
     String REGISTER = "/api/account/register";
     //忘记密码
-    String FORGET_PASSWORD="/api/account/resetPassword";
+    String FORGET_PASSWORD = "/api/account/resetPassword";
     //判断验证码是否有效
     String JUDGE_MESSAGE_CODE = "/api/account/verificationCodeIsPass";
     //首页-推荐头部信息列表
@@ -107,26 +107,28 @@ public interface IApiService {
     String POST_APPLY_REFEREE_CERTIFICATE = "/api/referee/applyForReferee";
     String GET_JUDGE_REFEREE_STATUS = "/api/referee/isReferee";
     String GET_SURE_REFEREE_STATUS = "/api/referee/refereeConfirm";
-    String GET_MY_REFEREE_RECORD="/api/referee/myRefereeRecord";
-    String POST_FEEDBACK="/api/commons/feedback";
-    String GET_MY_ORDER="/api/order/getMyOrder";
-    String GET_CANCEL_ORDER="/api/order/cancelOrder";
-    String POST_EVALUATE_ORDER="/api/order/commentOrder";
-    String GET_ABOUT_BALL_DETAILS="/api/agreeBall/getAgreeBallDetail";
-    String GET_PLAY_REFEREE="/api/referee/serveAsReferee";
-    String GET_PAY_WEI_CHAT_SING="/api/order/weChatPay";
-    String GET_MY_ABOUT_BALL="/api/agreeBall/MyAgreeBall";
-    String GET_REFUND_CAUSE ="/api/order/getOrderRefundReason";
-    String POST_REFUND_ORDER ="/api/order/refundOrder";
-    String GET_CHECK_REFUND="/api/order/weChatRefundQuery";
+    String GET_MY_REFEREE_RECORD = "/api/referee/myRefereeRecord";
+    String POST_FEEDBACK = "/api/commons/feedback";
+    String GET_MY_ORDER = "/api/order/getMyOrder";
+    String GET_CANCEL_ORDER = "/api/order/cancelOrder";
+    String POST_EVALUATE_ORDER = "/api/order/commentOrder";
+    String GET_ABOUT_BALL_DETAILS = "/api/agreeBall/getAgreeBallDetail";
+    String GET_PLAY_REFEREE = "/api/referee/serveAsReferee";
+    String GET_PAY_WEI_CHAT_SING = "/api/order/weChatPay";
+    String GET_MY_ABOUT_BALL = "/api/agreeBall/MyAgreeBall";
+    String GET_REFUND_CAUSE = "/api/order/getOrderRefundReason";
+    String POST_REFUND_ORDER = "/api/order/refundOrder";
+    String GET_CHECK_REFUND = "/api/order/weChatRefundQuery";
+
     interface H5 {
         String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";
         //资讯详情分享，后缀加上id;
         String SHARE_NEWS_DETAILS = "http://ifeell.com.cn/share/index.html?id=";
         //分享球队链接，后面跟上teamId
         String SHARE_BALL_TEAM = "http://ifeell.oss-cn-shenzhen.aliyuncs.com/app/ipk_android_release.apk?teamId=";
+        //APK下载路径
+        String DOWNLOAD_APK = "https://ifi.bmece.com/download";
     }
-
 
 
 }
