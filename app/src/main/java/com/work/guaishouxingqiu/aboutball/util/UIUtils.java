@@ -354,7 +354,7 @@ public class UIUtils {
         textView.setText(resContent);
     }
 
-    public static void setOrderDetailsItemSpan(@NonNull TextView textView, String host,  String body) {
+    public static void setOrderDetailsItemSpan(@NonNull TextView textView, String host, String body) {
         if (DataUtils.isEmpty(host)) {
             return;
         }
@@ -364,6 +364,7 @@ public class UIUtils {
         }
         textView.setText(SpanUtils.getTextColor(R.color.colorFFA6A6A6, 0, host.length(), content));
     }
+
     public static void setOrderDetailsItemSpan(@NonNull TextView textView, String host, String body, @ColorRes int colorRes) {
         if (DataUtils.isEmpty(host)) {
             return;
@@ -375,4 +376,44 @@ public class UIUtils {
         textView.setText(SpanUtils.getTextColor(colorRes, 0, host.length(), content));
     }
 
+    public static View getInputEvaluationView(@NonNull ViewGroup viewGroup, @NonNull String imagePaths) {
+        viewGroup = DataUtils.checkData(viewGroup);
+        Context context = viewGroup.getContext();
+        imagePaths = DataUtils.checkData(imagePaths);
+        String[] imagePathArray = imagePaths.split(",");
+        View inflateView = null;
+        switch (imagePathArray.length) {
+            case 1:
+                inflateView = LayoutInflater.from(context).inflate(R.layout.item_evaluate_image_1, viewGroup, false);
+                break;
+            case 2:
+                inflateView = LayoutInflater.from(context).inflate(R.layout.item_evaluate_image_2, viewGroup, false);
+                break;
+            case 3:
+                inflateView = LayoutInflater.from(context).inflate(R.layout.item_evaluate_image_3, viewGroup, false);
+                break;
+            case 4:
+                inflateView = LayoutInflater.from(context).inflate(R.layout.item_evaluate_image_4, viewGroup, false);
+                break;
+            case 5:
+                inflateView = LayoutInflater.from(context).inflate(R.layout.item_evaluate_image_5, viewGroup, false);
+                break;
+            case 6:
+                inflateView = LayoutInflater.from(context).inflate(R.layout.item_evaluate_image_6, viewGroup, false);
+                break;
+            case 7:
+                inflateView = LayoutInflater.from(context).inflate(R.layout.item_evaluate_image_7, viewGroup, false);
+                break;
+            case 8:
+                inflateView = LayoutInflater.from(context).inflate(R.layout.item_evaluate_image_8, viewGroup, false);
+                break;
+            case 9:
+                inflateView = LayoutInflater.from(context).inflate(R.layout.item_evaluate_image_9, viewGroup, false);
+                break;
+            default:
+                break;
+
+        }
+        return inflateView;
+    }
 }

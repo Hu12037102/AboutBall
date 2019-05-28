@@ -37,10 +37,10 @@ public class AboutBallAdapter extends BaseRecyclerAdapter<AboutBallAdapter.ViewH
     @Override
     protected void onBindViewDataHolder(@NonNull ViewHolder viewHolder, int i) {
         ResultAboutBallBean bean = mData.get(i);
-        GlideManger.get().loadImage(viewHolder.itemView.getContext(), bean.teamLogo,viewHolder.mCivData);
-        viewHolder.mTvName.setText(bean.teamName);
+        GlideManger.get().loadImage(viewHolder.itemView.getContext(), bean.hostTeamLogo,viewHolder.mCivData);
+        viewHolder.mTvName.setText(bean.stadiumName);
         viewHolder.mTvTime.setText(bean.startTime);
-        viewHolder.mTvAddress.setText(bean.stadiumName);
+        viewHolder.mTvAddress.setText(bean.hostTeamName);
         viewHolder.mTvStatus1.setVisibility(bean.hasReferee == Contast.HAS_REFEREE ? View.VISIBLE : View.GONE);
         viewHolder.mTvStatus2.setVisibility(bean.hasOpponent == Contast.HAS_RIVAL ? View.VISIBLE : View.GONE);
     }

@@ -345,10 +345,10 @@ public class ExpandableTextView extends LinearLayout implements View.OnClickList
                 Drawable collapseDrawable = typedArray.getDrawable(R.styleable.ExpandableTextView_collapseIndicator);
 
                 if (expandDrawable == null) {
-                    expandDrawable = getDrawable(context, R.drawable.ic_expand_more_black_12dp);
+                    expandDrawable = getDrawable(context, R.mipmap.icon_full_text);
                 }
                 if (collapseDrawable == null) {
-                    collapseDrawable = getDrawable(context, R.drawable.ic_expand_less_black_12dp);
+                    collapseDrawable = getDrawable(context,  R.mipmap.icon_pack_up);
                 }
                 expandIndicatorController = new ImageButtonExpandController(expandDrawable, collapseDrawable);
                 break;

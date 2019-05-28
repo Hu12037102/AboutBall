@@ -29,7 +29,7 @@ public class LauncherBallModel extends BaseModel {
                 .subscribe(observer);
     }
 
-    public void launcherBall(RequestLauncherBallBean requestBean, BaseObserver<BaseDataBean<String>>observer) {
+    public void launcherBall(RequestLauncherBallBean requestBean, BaseObserver<BaseDataBean<Long>>observer) {
         mRetrofitManger.create(VenueService.class)
                 .launcherBall(requestBean)
                 .subscribeOn(Schedulers.io())

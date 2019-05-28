@@ -91,4 +91,9 @@
         <item>我的发布</item>
         <item>我的参与</item>
     </string-array>
+
+    <string-array name="referee_details_tab_array">
+        <item>执法记录</item>
+        <item>执法评价</item>
+    </string-array>
 </resources>

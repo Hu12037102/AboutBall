@@ -18,5 +18,6 @@ public interface MyRefereeRecordChildContract {
     }
 
     interface Presenter extends IBasePresenter {
+        void loadRefereeRecord(long mRefereeId);
     }
 }

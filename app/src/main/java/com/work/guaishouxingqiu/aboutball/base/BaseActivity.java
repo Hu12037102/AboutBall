@@ -53,6 +53,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
+        mIntent = getIntent();
         mBinder = ButterKnife.bind(this);
         mViewModel = ViewModel.createViewModel(this);
         initStatusColor();
@@ -98,8 +99,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
     }
 
     public void initPermission() {
-        mIntent = getIntent();
-        if (mIntent == null) {
+
+        if (mIntent == null ) {
             finish();
             return;
         }

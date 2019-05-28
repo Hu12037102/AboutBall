@@ -13,6 +13,6 @@ public class ResultVenueBookBean {
     public String endTime;
     public float price;
     public int stateId;//0不占用，1占用
-    public int teamId;
+   // public int teamId;
     public boolean isCheck;
 }

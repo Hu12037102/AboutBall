@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
@@ -70,6 +71,8 @@ public class WaitPayOrderDetailsActivity extends BasePayActivity<WaitPayOrderDet
     LinearLayout mLlTop;
     @BindView(R.id.tv_top_hint)
     TextView mTvTopHint;
+    @BindView(R.id.title_view)
+    TitleView mTitleView;
     private ResultOrderDetailsBean mResultBean;
     private boolean mIsCheckAgreement;
     private long mOrderId;
@@ -128,7 +131,12 @@ public class WaitPayOrderDetailsActivity extends BasePayActivity<WaitPayOrderDet
 
     @Override
     protected void initEvent() {
-
+        mTitleView.setOnBackViewClickListener(new TitleView.OnBackViewClickListener() {
+            @Override
+            public void onBackClick(@NonNull View view) {
+                mViewModel.clickBackForResult();
+            }
+        });
     }
 
     @Override
@@ -261,5 +269,8 @@ public class WaitPayOrderDetailsActivity extends BasePayActivity<WaitPayOrderDet
         return mOrderId;
     }
 
-
+    @Override
+    public void onBackPressed() {
+        mViewModel.clickBackForResult();
+    }
 }

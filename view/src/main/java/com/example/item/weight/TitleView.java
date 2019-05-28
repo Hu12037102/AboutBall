@@ -23,6 +23,7 @@ public class TitleView extends RelativeLayout {
     public TextView mTvSure;
     public ViewGroup mViewRoot;
     private boolean mBackIsFinish;
+    private View mLineBottom;
 
     public void setOnBackViewClickListener(OnBackViewClickListener onBackViewClickListener) {
         this.onBackViewClickListener = onBackViewClickListener;
@@ -61,6 +62,7 @@ public class TitleView extends RelativeLayout {
         mTvBack = inflate.findViewById(R.id.tv_back);
         mTvCenter = inflate.findViewById(R.id.tv_center);
         mTvSure = inflate.findViewById(R.id.tv_sure);
+        mLineBottom = inflate.findViewById(R.id.bottom_line);
     }
 
     private void initAttrs(AttributeSet attrs) {
@@ -87,6 +89,7 @@ public class TitleView extends RelativeLayout {
             mTvSure.setCompoundDrawablePadding(R.styleable.TitleView_sure_drawable_padding);
             mTvSure.setPadding(typedArray.getDimensionPixelSize(R.styleable.TitleView_sure_text_padding_left, 0), typedArray.getDimensionPixelSize(R.styleable.TitleView_sure_text_padding_top, 0),
                     typedArray.getDimensionPixelSize(R.styleable.TitleView_sure_text_padding_right, 0), typedArray.getDimensionPixelSize(R.styleable.TitleView_sure_text_padding_bottom, 0));
+            mLineBottom.setVisibility(typedArray.getBoolean(R.styleable.TitleView_title_show_bottom_line, false) ? VISIBLE : GONE);
             typedArray.recycle();
         }
 
@@ -103,7 +106,7 @@ public class TitleView extends RelativeLayout {
                 if (onBackViewClickListener != null) {
                     onBackViewClickListener.onBackClick(v);
                 }
-                if (mBackIsFinish && getContext() instanceof Activity){
+                if (mBackIsFinish && getContext() instanceof Activity) {
                     ((Activity) getContext()).finish();
                 }
             }

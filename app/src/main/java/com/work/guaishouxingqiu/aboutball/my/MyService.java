@@ -23,10 +23,12 @@ import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdatePhoneBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateSexBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateWeightBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultInputEvaluationBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyAddress;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyBallBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyOrderBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultPrizeBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeRecordBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundCauseBean;
@@ -140,9 +142,16 @@ public interface MyService {
 
     @GET(IApiService.GET_SURE_REFEREE_STATUS)
     Observable<BaseBean<String>> sureRefereeStatus();
-
+    //我的裁判记录
     @GET(IApiService.GET_MY_REFEREE_RECORD)
     Observable<BaseBean<List<ResultRefereeRecordBean>>> loadMyRefereeRecord();
+    //通过Id查找裁判记录
+    @GET(IApiService.GET_REFEREE_RECORD)
+    Observable<BaseBean<List<ResultRefereeRecordBean>>> loadRefereeRecord(@Query(Contast.REFEREE_ID)long refereeId);
+
+    @GET(IApiService.GET_REFEREE_DETAILS)
+    Observable<BaseBean<ResultRefereeDetailsBean>> loadRefereeDetails(@Query(Contast.REFEREE_ID) long refereeId);
+
 
     @POST(IApiService.POST_FEEDBACK)
     Observable<BaseBean<BaseDataBean<String>>> feedback(@Body RequestFeedbackBean bean);
@@ -169,4 +178,11 @@ public interface MyService {
 
     @GET(IApiService.GET_CHECK_REFUND)
     Observable<BaseBean<BaseDataBean<ResultRefundDetailsBean>>> getCheckRefund(@Query(Contast.ORDER_ID) long orderId);
+
+    @GET(IApiService.GET_REFEREE_EVALUATION)
+    Observable<BaseBean<List<ResultInputEvaluationBean>>> getRefereeEvaluation(@Query(Contast.REFEREE_ID) long refereeId);
+
+    @GET(IApiService.GET_TEAM_EVALUATION)
+    Observable<BaseBean<List<ResultInputEvaluationBean>>> getTeamEvaluation(@Query(Contast.TEAM_ID) long teamId);
+
 }

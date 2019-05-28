@@ -28,6 +28,7 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.activity.WaitPayOrderDetailsActivity;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultRefereeBean;
 import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.PayDialog;
@@ -169,6 +170,12 @@ public class ViewModel {
         bundle.putLong(ARouterConfig.Key.ORDER_ID, orderId);
         bundle.putInt(ARouterConfig.Key.ORDER_FLAG, flag);
         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_WAIT_PAY_ORDER_DETAILS, bundle);
+    }
+    public void startActivityToOrderPay(long orderId, int flag,int requestCode) {
+        Bundle bundle = new Bundle();
+        bundle.putLong(ARouterConfig.Key.ORDER_ID, orderId);
+        bundle.putInt(ARouterConfig.Key.ORDER_FLAG, flag);
+        ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_WAIT_PAY_ORDER_DETAILS,mSoftActivity.get(), bundle,requestCode);
     }
 
     public void startActivityForResultToOrderPay(long orderId, int flag, Fragment fragment, int requestCode) {
@@ -317,5 +324,48 @@ public class ViewModel {
             mSoftActivity.get().startActivity(intent);
             hintDialog.dismiss();
         });
+    }
+
+    /**
+     * 查看队友评论
+     *
+     * @param teamId
+     */
+    public void startActivityToPostEvaluationForTeam(long teamId) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(ARouterConfig.Key.INPUT_EVALUATION_FLAG, Contast.InputEvaluationType.TEAMMATE);
+        bundle.putLong(ARouterConfig.Key.TEAM_ID, teamId);
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_POST_EVALUATION, bundle);
+    }
+
+    /**
+     * 查看对手评论
+     *
+     * @param teamId
+     */
+    public void startActivityToPostEvaluationForOpponent(long teamId) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(ARouterConfig.Key.INPUT_EVALUATION_FLAG, Contast.InputEvaluationType.OPPONENT);
+        bundle.putLong(ARouterConfig.Key.TEAM_ID, teamId);
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_POST_EVALUATION, bundle);
+    }
+
+    /**
+     * 查看裁判
+     *
+     * @param refereeId
+     */
+    public void startActivityToPostEvaluationForReferee(long refereeId) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(ARouterConfig.Key.INPUT_EVALUATION_FLAG, Contast.InputEvaluationType.OPPONENT);
+        bundle.putLong(ARouterConfig.Key.REFEREE_ID, refereeId);
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_POST_EVALUATION, bundle);
+    }
+
+    public void startActivityToRefereeDetailsForResult(ResultRefereeBean bean, int chooseRefereeCount,int requestCode) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(ARouterConfig.Key.PARCELABLE,bean);
+        bundle.putInt(ARouterConfig.Key.COUNT,chooseRefereeCount);
+        ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_REFEREE_DETAILS,mSoftActivity.get(),bundle,requestCode);
     }
 }

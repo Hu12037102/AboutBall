@@ -9,6 +9,5 @@ package com.work.guaishouxingqiu.aboutball.venue.bean;
 public class RequestLauncherBallBean {
     public long calendarId;
     public Long[] refereeId;
-    public long stadiumId;
-    public long teamId;
+    public long hostTeamId;
 }

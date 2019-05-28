@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.example.item.weight.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        app:back_left_drawable="@mipmap/icon_back"
+        app:back_text_padding_left="@dimen/default_margin"
+        app:back_text_padding_right="@dimen/default_margin"
+        app:center_text_color="@color/color_4"
+        app:center_text_size="@dimen/size_18sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/top_line"
+        style="@style/HorizontalLine"
+        app:layout_constraintTop_toBottomOf="@id/title_view" />
+
+    <include
+        android:id="@+id/include_bottom"
+        layout="@layout/include_bottom_click_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/srl_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_0dp"
+        app:layout_constraintBottom_toTopOf="@id/include_bottom"
+        app:layout_constraintTop_toBottomOf="@id/top_line"
+        app:srlEnableLoadMore="false">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</android.support.constraint.ConstraintLayout>

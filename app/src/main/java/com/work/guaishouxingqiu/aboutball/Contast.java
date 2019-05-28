@@ -55,6 +55,9 @@ public interface Contast {
     String OFFER_ID = "offerId";
     String TRADE_TYPE = "tradeType";
     String FLAG = "flag";
+    String REFEREE_ID="refereeId";
+    String AGREE_ID="agreeId";
+
     //比赛未开始
     int GAME_STATUS_NO_START = 1;
     //比赛进行中
@@ -166,5 +169,11 @@ public interface Contast {
     interface AboutBallFlag {
         int PUBLISH = 1;//我发布的
         int PARTICIPATION = 2;//我参与的
+    }
+
+    interface InputEvaluationType {
+        int REFEREE = 1;//评论裁判
+        int OPPONENT = 2;//评论对手
+        int TEAMMATE = 3;//队友评论
     }
 }

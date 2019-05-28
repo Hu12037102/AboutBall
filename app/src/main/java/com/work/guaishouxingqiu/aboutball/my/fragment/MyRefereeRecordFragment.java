@@ -36,6 +36,7 @@ public class MyRefereeRecordFragment extends BaseFragment<MyRefereeRecordChildPr
     RecyclerView mRvContent;
     private List<ResultRefereeRecordBean> mData;
     private RefereeRecordAdapter mAdapter;
+    private long mRefereeId;
 
     @Override
     protected int getLayoutId() {
@@ -49,10 +50,16 @@ public class MyRefereeRecordFragment extends BaseFragment<MyRefereeRecordChildPr
 
     @Override
     protected void initData() {
+        mRefereeId = mBundle.getLong(ARouterConfig.Key.REFEREE_ID, -1);
         mData = new ArrayList<>();
         mAdapter = new RefereeRecordAdapter(mData);
         mRvContent.setAdapter(mAdapter);
-        mPresenter.start();
+        //如果裁判id==-1说明是用户本身
+        if (mRefereeId == -1) {
+            mPresenter.start();
+        } else {
+            mPresenter.loadRefereeRecord(mRefereeId);
+        }
     }
 
     @Override
@@ -69,10 +76,10 @@ public class MyRefereeRecordFragment extends BaseFragment<MyRefereeRecordChildPr
     @Override
     public void resultMyRefereeRecord(List<ResultRefereeRecordBean> data) {
         mData.clear();
-        mData.addAll(data);
         if (mData.size() > 0) {
+            mData.addAll(data);
             mAdapter.addFootView(UIUtils.loadNotMoreView(mRvContent));
         }
-        mAdapter.notifyItemChanged(0, mData.size());
+        mAdapter.notifyDataSetChanged();
     }
 }

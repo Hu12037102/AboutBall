@@ -28,6 +28,13 @@ public class BallDetailsChildAdapter extends BaseRecyclerAdapter<BallDetailsChil
         super(data);
     }
 
+    public void setOnBallDetailsClickListener(OnBallDetailsClickListener onBallDetailsClickListener) {
+        this.onBallDetailsClickListener = onBallDetailsClickListener;
+    }
+
+    private OnBallDetailsClickListener onBallDetailsClickListener;
+
+
     @Override
     protected void onBindViewDataHolder(@NonNull ViewHolder viewHolder, int i) {
         ResultBallDetailsBean.MatchBean bean = mData.get(i);
@@ -35,8 +42,29 @@ public class BallDetailsChildAdapter extends BaseRecyclerAdapter<BallDetailsChil
         GlideManger.get().loadLogoImage(mContext, bean.hostTeamLogo, viewHolder.mCivLeftLogo);
         viewHolder.mTvLeftName.setText(bean.hostTeamName);
         viewHolder.mTvGradle.setText(bean.hostScore + "  -  " + bean.guestScore);
-        GlideManger.get().loadLogoImage(mContext,bean.guestTeamLogo,viewHolder.mCivRightLogo);
+        GlideManger.get().loadLogoImage(mContext, bean.guestTeamLogo, viewHolder.mCivRightLogo);
         viewHolder.mTvRightName.setText(bean.guestTeamName);
+        viewHolder.mTvJudgeReferee.setOnClickListener(v -> {
+            if (onBallDetailsClickListener != null) {
+                onBallDetailsClickListener.onClickJudgeReferee(v, i);
+            }
+        });
+        viewHolder.mTvJudgeOpponent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onBallDetailsClickListener != null) {
+                    onBallDetailsClickListener.onClickJudgeOpponent(v, i);
+                }
+            }
+        });
+        viewHolder.mTvJudgeTeam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onBallDetailsClickListener != null) {
+                    onBallDetailsClickListener.onClickJudgeTeam(v, i);
+                }
+            }
+        });
     }
 
     @Override
@@ -72,5 +100,13 @@ public class BallDetailsChildAdapter extends BaseRecyclerAdapter<BallDetailsChil
             mTvJudgeOpponent = itemView.findViewById(R.id.tv_judge_opponent);
             mTvJudgeTeam = itemView.findViewById(R.id.tv_judge_team);
         }
+    }
+
+    public interface OnBallDetailsClickListener {
+        void onClickJudgeReferee(View view, int position);
+
+        void onClickJudgeOpponent(View view, int position);
+
+        void onClickJudgeTeam(View view, int position);
     }
 }

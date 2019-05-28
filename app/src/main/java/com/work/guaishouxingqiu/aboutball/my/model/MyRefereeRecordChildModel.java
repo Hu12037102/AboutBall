@@ -25,4 +25,13 @@ public class MyRefereeRecordChildModel extends BaseModel{
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
+
+    public void loadRefereeRecord(long refereeId,BaseObserver<List<ResultRefereeRecordBean>> observer) {
+        mRetrofitManger.create(MyService.class)
+                .loadRefereeRecord(refereeId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+
+    }
 }

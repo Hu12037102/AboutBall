@@ -52,7 +52,11 @@ public interface ARouterConfig {
         String ACTIVITY_PAY_SUCCEED = "/activity/pay/succeed";
         String ACTIVITY_MY_ABOUT_BALL = "/activity/my/about/ball";
         String ACTIVITY_REFUND = "/activity/refund";
-        String ACTIVITY_ORDER_REFUND_DETAILS="/activity/order/refund/details";
+        String ACTIVITY_ORDER_REFUND_DETAILS = "/activity/order/refund/details";
+        String ACTIVITY_ABOUT_RULE = "/activity/about/rule";
+        String ACTIVITY_INPUT_EVALUATION = "/activity/input/evaluation";
+        String ACTIVITY_POST_EVALUATION = "/activity/post/evaluation";
+        String ACTIVITY_REFEREE_DETAILS = "/activity/referee/details";
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";
@@ -89,7 +93,6 @@ public interface ARouterConfig {
         String FRAGMENT_MY_ABOUT_BALL = "/fragment/my/about/ball";
 
 
-
     }
 
     interface Key {
@@ -121,8 +124,11 @@ public interface ARouterConfig {
         String TEAM_STATUS = "teamStatus";
         String OFFER_ID = "offerId";
         String ABOUT_BALL_FLAG = "aboutBallFlag";
-        String MONEY="money";
-        String LOGIN_STATUS="loginStatus";
+        String MONEY = "money";
+        String LOGIN_STATUS = "loginStatus";
+        String INPUT_EVALUATION_FLAG = "inputEvaluationFlag";
+        String REFEREE_ID = "refereeId";
+        String COUNT = "count";
     }
 
 }

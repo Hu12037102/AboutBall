@@ -33,6 +33,11 @@ public class ResultBallDetailsBean implements Parcelable {
         public String guestTeamLogo;
         public String guestTeamName;
         public int guestScore;
+        public long agreeId;
+        public long refereeId;
+        public long hostTeamId;
+        public long guestTeamId;
+
 
         protected MatchBean(Parcel in) {
             matchId = in.readLong();
@@ -44,6 +49,10 @@ public class ResultBallDetailsBean implements Parcelable {
             guestTeamLogo = in.readString();
             guestTeamName = in.readString();
             guestScore = in.readInt();
+            agreeId = in.readLong();
+            refereeId = in.readLong();
+            hostTeamId = in.readLong();
+            guestTeamId = in.readLong();
         }
 
         public static final Creator<MatchBean> CREATOR = new Creator<MatchBean>() {
@@ -74,6 +83,10 @@ public class ResultBallDetailsBean implements Parcelable {
             dest.writeString(guestTeamLogo);
             dest.writeString(guestTeamName);
             dest.writeInt(guestScore);
+            dest.writeLong(agreeId);
+            dest.writeLong(refereeId);
+            dest.writeLong(hostTeamId);
+            dest.writeLong(guestTeamId);
         }
     }
 

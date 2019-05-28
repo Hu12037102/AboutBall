@@ -7,12 +7,15 @@ package com.work.guaishouxingqiu.aboutball.venue.bean;
  * 描述:约球列表结果返回
  */
 public class ResultAboutBallBean {
-    public long offerId;
-    public String teamLogo;
+   // public long offerId;
+   // public String teamLogo;
+   //public String teamName;
     public String stadiumName;
     public String startTime;
     public String endTime;
-    public String teamName;
     public int hasReferee;
     public int hasOpponent;
+    public long agreeId;
+    public String hostTeamLogo;
+    public String hostTeamName;
 }

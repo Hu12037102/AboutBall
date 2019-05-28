@@ -85,7 +85,7 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
     private ResultAboutBallDetailsBean mResultBean;
     private Integer mRefereeStatus;
     private HintDialog mRequestRefereeDialog;
-    private long mOfferId;
+    private long mAgreeId;
     private HintDialog mPlayRefereeDialog;
     private static final int REQUEST_CODE = 123;
     private int mAboutBallFlag = -1;
@@ -115,15 +115,15 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
         mHasTeamStatus = bundle.getInt(ARouterConfig.Key.TEAM_STATUS, -1);
         //mAboutBallFlag 0,参加约球1，取消约球
         mAboutBallFlag = bundle.getInt(ARouterConfig.Key.ABOUT_BALL_FLAG, 0);
-        mOfferId = bundle.getLong(ARouterConfig.Key.OFFER_ID, -1);
+        mAgreeId = bundle.getLong(ARouterConfig.Key.OFFER_ID, -1);
 
 
-        if (mAboutBallFlag == -1 || mOfferId == -1) {
+        if (mAboutBallFlag == -1 || mAgreeId == -1) {
             UIUtils.showToast(R.string.not_this_ball_team_details);
             finish();
             return;
         }
-        mPresenter.loadDetails(mOfferId);
+        mPresenter.loadDetails(mAgreeId);
         mPresenter.judgeRefereeStatus();
     }
 
@@ -371,7 +371,7 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
         mPlayRefereeDialog.setOnItemClickSureAndCancelListener(new BaseDialog.OnItemClickSureAndCancelListener() {
             @Override
             public void onClickSure(@NonNull View view) {
-                mPresenter.playReferee(mOfferId);
+                mPresenter.playReferee(mAgreeId);
             }
 
             @Override

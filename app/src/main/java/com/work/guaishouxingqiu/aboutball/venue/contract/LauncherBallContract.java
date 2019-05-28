@@ -17,7 +17,7 @@ import java.util.List;
 public interface LauncherBallContract {
     interface View extends IBaseView {
         void resultRefereeList(List<ResultRefereeBean> data);
-        void launcherBallSucceed();
+        void launcherBallSucceed(long orderId);
 
         void resultOrderId(long result);
     }

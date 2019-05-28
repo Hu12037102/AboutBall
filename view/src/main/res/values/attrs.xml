@@ -44,25 +44,25 @@
         <!--Item选择器样式-->
         <attr name="selector_drawable" format="reference" />
         <!--Item上划线高度-->
-        <attr name="top_line_height" format="dimension"/>
+        <attr name="top_line_height" format="dimension" />
         <!--Item下划线高度-->
-        <attr name="bottom_line_height" format="dimension"/>
+        <attr name="bottom_line_height" format="dimension" />
         <!--Item上线left外边距-->
-        <attr name="top_line_margin_left" format="dimension"/>
+        <attr name="top_line_margin_left" format="dimension" />
         <!--Item上线top外边距-->
-        <attr name="top_line_margin_top" format="dimension"/>
+        <attr name="top_line_margin_top" format="dimension" />
         <!--Item上线right外边距-->
-        <attr name="top_line_margin_right" format="dimension"/>
+        <attr name="top_line_margin_right" format="dimension" />
         <!--Item上线bottom外边距-->
-        <attr name="top_line_margin_bottom" format="dimension"/>
+        <attr name="top_line_margin_bottom" format="dimension" />
         <!--Item下线left外边距-->
-        <attr name="bottom_line_margin_left" format="dimension"/>
+        <attr name="bottom_line_margin_left" format="dimension" />
         <!--Item下线top外边距-->
-        <attr name="bottom_line_margin_top" format="dimension"/>
+        <attr name="bottom_line_margin_top" format="dimension" />
         <!--Item下线right外边距-->
-        <attr name="bottom_line_margin_right" format="dimension"/>
+        <attr name="bottom_line_margin_right" format="dimension" />
         <!--Item下线bottom外边距-->
-        <attr name="bottom_line_margin_bottom" format="dimension"/>
+        <attr name="bottom_line_margin_bottom" format="dimension" />
     </declare-styleable>
 
 
@@ -97,6 +97,7 @@
         <attr name="sure_text_padding_top" format="dimension|reference" />
         <attr name="sure_text_padding_bottom" format="dimension|reference" />
         <attr name="sure_drawable_padding" format="dimension" />
+        <attr name="title_show_bottom_line" format="boolean" />
 
     </declare-styleable>
 </resources>

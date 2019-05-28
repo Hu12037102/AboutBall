@@ -80,13 +80,13 @@ public interface VenueService {
     Observable<BaseBean<List<ResultMyBallTeamBean>>> loadMyBallTeam();
 
     @POST(IApiService.POST_LAUNCHER_BALL)
-    Observable<BaseBean<BaseDataBean<String>>> launcherBall(@Body RequestLauncherBallBean ballBean);
+    Observable<BaseBean<BaseDataBean<Long>>> launcherBall(@Body RequestLauncherBallBean ballBean);
 
     @GET(IApiService.GET_ABOUT_BALL_DETAILS)
-    Observable<BaseBean<ResultAboutBallDetailsBean>> loadAboutBallDetails(@Query(Contast.OFFER_ID) long offerId);
+    Observable<BaseBean<ResultAboutBallDetailsBean>> loadAboutBallDetails(@Query(Contast.AGREE_ID) long offerId);
 
     @GET(IApiService.GET_PLAY_REFEREE)
-    Observable<BaseBean<BaseDataBean<String>>> playReferee(@Query(Contast.OFFER_ID) long offerId);
+    Observable<BaseBean<BaseDataBean<String>>> playReferee(@Query(Contast.AGREE_ID) long offerId);
 
     @GET(IApiService.GET_MY_ABOUT_BALL)
     Observable<BaseBean<List<ResultMyAboutBean>>> getMyAboutBean(@Query(Contast.FLAG) int flag);

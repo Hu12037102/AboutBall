@@ -29,6 +29,8 @@ public class RefereeListAdapter extends BaseRecyclerAdapter<RefereeListAdapter.V
         super(data);
     }
 
+    public static final int MAX_INVITE_COUNT = 3;
+
     public void setOnCheckContentListener(OnCheckContentListener onCheckContentListener) {
         this.onCheckContentListener = onCheckContentListener;
     }
@@ -42,7 +44,7 @@ public class RefereeListAdapter extends BaseRecyclerAdapter<RefereeListAdapter.V
         viewHolder.mTvName.setText(bean.name);
         viewHolder.mTvCount.setText(bean.matchCount + "次");
         viewHolder.mTvLevel.setText(bean.level);
-        if (bean.isInvite) {
+        if (!bean.isInvite) {
             viewHolder.mTvInvite.setEnabled(true);
             viewHolder.mTvInvite.setBackgroundResource(R.drawable.shape_click_button);
             viewHolder.mTvInvite.setText(R.string.invite);
@@ -54,18 +56,23 @@ public class RefereeListAdapter extends BaseRecyclerAdapter<RefereeListAdapter.V
         viewHolder.mTvInvite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bean.isInvite = !bean.isInvite;
-                notifyItemChanged(i);
-                if (onCheckContentListener != null) {
-                    onCheckContentListener.checkContent(v, i);
+                if (getInviteCount() < RefereeListAdapter.MAX_INVITE_COUNT) {
+                    bean.isInvite = !bean.isInvite;
+                    notifyItemChanged(i);
+                    if (onCheckContentListener != null) {
+                        onCheckContentListener.checkContent(v, i);
+                    }
+                } else {
+                    UIUtils.showToast(R.string.invite_up_to_three_judges_at_time);
                 }
+
             }
         });
     }
 
     public boolean isInviteReferee() {
         for (ResultRefereeBean bean : mData) {
-            if (!bean.isInvite) {
+            if (bean.isInvite) {
                 return true;
             }
         }
@@ -76,12 +83,22 @@ public class RefereeListAdapter extends BaseRecyclerAdapter<RefereeListAdapter.V
     public Long[] getSelectorInviteReferee() {
         List<Long> idData = new ArrayList<>();
         for (ResultRefereeBean bean : mData) {
-            if (!bean.isInvite) {
+            if (bean.isInvite) {
                 idData.add(bean.refereeId);
             }
         }
         Long[] idArray = new Long[idData.size()];
         return idData.toArray(idArray);
+    }
+
+    public int getInviteCount() {
+        int count = 0;
+        for (int i = 0; i < mData.size(); i++) {
+            if (mData.get(i).isInvite) {
+                count++;
+            }
+        }
+        return count;
     }
 
     @Override

@@ -25,6 +25,7 @@
         三级裁判增加10%，以此类推，到国际级增加40%。 需要绑定微信号，报酬可提取到微信</string>
     <string name="please_invite_the_referee">请邀请裁判</string>
     <string name="not_find_this_order">没有找到该订单</string>
+    <string name="not_find_this_referee">没有找到该裁判</string>
     <string name="invite">邀请</string>
     <string name="inviting">已邀请</string>
     <string name="please_selector_ball_team">请选择球队</string>
@@ -33,6 +34,7 @@
     <string name="invite_referee_hint">最多邀请三个，无人应邀由系统安排，如24小时内无人应邀，则由平台进行安排</string>
     <string name="top_month_amount_of_law_enforcement">上月执法量</string>
     <string name="referee_class">裁判等级</string>
+    <string name="referee_class_s">裁判等级：%s</string>
     <string name="feedback_type">反馈类型</string>
     <string name="feedback_content_hint">说说您要反馈的信息吧~</string>
     <string name="selector_feedback_type">选择反馈类别</string>
@@ -116,6 +118,7 @@
     <string name="focus_and_fans">关注 %s | 粉丝 %s</string>
     <string name="address_to_where">地址： %s</string>
     <string name="about_rule">约球规则说明，点我查看规则</string>
+    <string name="about_rule_title">约球规则</string>
     <string name="lack_of_the_referee">缺裁判</string>
     <string name="lack_of_competitors">缺对手</string>
     <string name="is_go_to_login">您还没有登陆，是否前去登陆？</string>
@@ -399,6 +402,7 @@
     <string name="give_to_mark">评分</string>
     <string name="payment_has_been_received">已到账</string>
     <string name="input_evaluate_content_hint">说说商家的亮点和不足吧~</string>
+    <string name="input_evaluate">填写评价</string>
     <string name="input_max_text">0/140</string>
     <string name="weichat_pay">微信支付</string>
     <string name="cancel_order_body">您确定取消该订单</string>
@@ -437,4 +441,31 @@
     <string name="refund_cause">退款理由：</string>
     <string name="download_about_ball">下载踢球么</string>
     <string name="you_friend_download_about_ball">您的好友邀请您下载踢球么，一起加入圈子吧</string>
+
+    <string name="about_rule_content_1">球队队长发起约球，邀请其他队伍进行PK</string>
+    <string name="about_rule_content_hint">备注：1、只能队长有权限参加或发起约球\n2、队伍人数应与场地人数匹配</string>
+    <string name="about_rule_title_2">无人应邀</string>
+    <string name="about_rule_content_2">比赛日前一天依旧无人报名参加约球，则退回全款</string>
+
+    <string name="about_rule_title_3">参加约球</string>
+    <string name="about_rule_content_3">另一队队长可以查看发起约球的队伍情况，参加约球</string>
+
+    <string name="about_rule_title_4">正常完赛</string>
+    <string name="about_rule_content_4">两队在裁判员的支持下，完成友好比赛，完赛后平台回返回两队的押金，两队可以互相评论</string>
+
+    <string name="about_rule_title_5">违约</string>
+    <string name="about_rule_content_5">一方违约没有进行约球，则违约方不退款，守约方则退回全款</string>
+
+    <string name="about_rule_title_6">@string/cancel</string>
+    <string name="about_rule_content_6">发起方或者参加方如果情况不能参加，可以在比赛的24小时前取消约球活动。平台将予以退全款</string>
+    <string name="not_find_evaluation">没有找到评论列表</string>
+    <string name="please_post_evaluation">请发表评价</string>
+    <string name="referee_details">裁判详情</string>
+    <string name="invite_a_referee">邀约裁判</string>
+    <string name="count_s">%s次</string>
+    <string name="strip_s">%s条</string>
+    <string name="law_enforcement_record">执法记录</string>
+    <string name="law_enforcement_evaluate">执法评价</string>
+    <string name="invite_up_to_three_judges_at_time">每次最多邀请三个裁判</string>
+    <string name="invite_succeed">邀请成功</string>
 </resources>

@@ -36,4 +36,10 @@
         android:singleLine="true"
         android:textSize="14sp"
         tools:text="标题" />
+
+    <View
+        android:id="@+id/bottom_line"
+        style="@style/HorizontalLine"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"/>
 </RelativeLayout>

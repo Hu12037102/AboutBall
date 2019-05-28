@@ -108,6 +108,8 @@ public interface IApiService {
     String GET_JUDGE_REFEREE_STATUS = "/api/referee/isReferee";
     String GET_SURE_REFEREE_STATUS = "/api/referee/refereeConfirm";
     String GET_MY_REFEREE_RECORD = "/api/referee/myRefereeRecord";
+    String GET_REFEREE_RECORD = "/api/referee/getRefereeRecord";
+    String GET_REFEREE_DETAILS="/api/referee/getRefereeDetail";
     String POST_FEEDBACK = "/api/commons/feedback";
     String GET_MY_ORDER = "/api/order/getMyOrder";
     String GET_CANCEL_ORDER = "/api/order/cancelOrder";
@@ -119,6 +121,8 @@ public interface IApiService {
     String GET_REFUND_CAUSE = "/api/order/getOrderRefundReason";
     String POST_REFUND_ORDER = "/api/order/refundOrder";
     String GET_CHECK_REFUND = "/api/order/weChatRefundQuery";
+    String GET_REFEREE_EVALUATION = "/api/referee/getRefereeComment";
+    String GET_TEAM_EVALUATION = "/api/myTeam/getTeamComment";
 
     interface H5 {
         String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";

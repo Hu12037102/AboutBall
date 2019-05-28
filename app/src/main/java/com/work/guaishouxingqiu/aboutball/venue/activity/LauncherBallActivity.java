@@ -1,5 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.venue.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,9 +12,11 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.ItemView;
+import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeDetailsBean;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
@@ -55,6 +58,8 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
     private long mCalendarId;
     private long mStadiumId;
     private long mAreaId;
+    private static final int REQUEST_CODE_REFEREE_DETAILS = 45;
+    private static final int REQUEST_CODE_ORDER_PAY = 46;
 
     @Override
     protected int getLayoutId() {
@@ -117,12 +122,28 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
         mItemTeam.setOnItemClickListener(view -> ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_SELECTOR_BALL_TEAM,
                 LauncherBallActivity.this, ARouterConfig.Key.PARCELABLE, mMyBallTeam));
         mRefereeAdapter.setOnCheckContentListener((view, position) -> setNextStatus());
+        mRefereeAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onNotNetClick(View view) {
+
+            }
+
+            @Override
+            public void onNotDataClick(View view) {
+
+            }
+
+            @Override
+            public void onItemClick(View view, int position) {
+                // ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_REFEREE_DETAILS, LauncherBallActivity.this, ARouterConfig.Key.REFEREE_ID, mRefereeData.get(position).refereeId);
+                mViewModel.startActivityToRefereeDetailsForResult(mRefereeData.get(position), mRefereeAdapter.getInviteCount(), REQUEST_CODE_REFEREE_DETAILS);
+            }
+        });
         mTvNext.setOnClickListener(v -> {
             RequestLauncherBallBean requestBean = new RequestLauncherBallBean();
             requestBean.calendarId = mCalendarId;
-            requestBean.stadiumId = mStadiumId;
+            requestBean.hostTeamId = mMyBallTeam.teamId;
             requestBean.refereeId = mRefereeAdapter.getSelectorInviteReferee();
-            requestBean.teamId = mMyBallTeam.teamId;
             mPresenter.launcherBall(requestBean);
         });
     }
@@ -140,34 +161,67 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
     }
 
     @Override
-    public void launcherBallSucceed() {
+    public void launcherBallSucceed(long orderId) {
         //发起约球成功后，生成订单
-        RequestVenueOrderBean bean = new RequestVenueOrderBean();
+       /* RequestVenueOrderBean bean = new RequestVenueOrderBean();
         bean.areaId = mAreaId;
         bean.calendarId = new Long[]{mCalendarId};
         bean.flag = 1;
         bean.stadiumId = mStadiumId;
-        mPresenter.createOrder(bean);
+        mPresenter.createOrder(bean);*/
+        mViewModel.startActivityToOrderPay(orderId, Contast.PayOrderFlag.PAY_LAUNCHER_ORDER, LauncherBallActivity.REQUEST_CODE_ORDER_PAY);
     }
 
     @Override
     public void resultOrderId(long orderId) {
         //ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_WAIT_PAY_ORDER_DETAILS, ARouterConfig.Key.ORDER_ID, orderId);
-        mViewModel.startActivityToOrderPay(orderId, Contast.PayOrderFlag.PAY_LAUNCHER_ORDER);
-        finish();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == ARouterIntent.REQUEST_CODE && resultCode == RESULT_OK) {
+      /*  if (requestCode == ARouterIntent.REQUEST_CODE && resultCode == RESULT_OK) {
             if (data == null) {
                 return;
             }
             mMyBallTeam = data.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
             mItemTeam.setContentText(mMyBallTeam.teamName);
             setNextStatus();
+        }*/
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                //选择球队
+                case ARouterIntent.REQUEST_CODE:
+                    if (data == null) {
+                        return;
+                    }
+                    mMyBallTeam = data.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
+                    mItemTeam.setContentText(mMyBallTeam.teamName);
+                    setNextStatus();
+                    break;
+                //裁判详情
+                case LauncherBallActivity.REQUEST_CODE_REFEREE_DETAILS:
+                    if (data == null) {
+                        return;
+                    }
+                    ResultRefereeBean refereeBean = data.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
+                    if (mRefereeData.size() > 0) {
+                        for (int i = 0; i < mRefereeData.size(); i++) {
+                            if (mRefereeData.get(i).refereeId == refereeBean.refereeId) {
+                                mRefereeData.get(i).isInvite = refereeBean.isInvite;
+                            }
+                        }
+                        mRefereeAdapter.notifyDataSetChanged();
+                        setNextStatus();
+                    }
+                    break;
+                    //订单返回
+                case LauncherBallActivity.REQUEST_CODE_ORDER_PAY:
+                    setResult(Activity.RESULT_OK);
+                    finish();
+                    break;
+            }
         }
     }
 

@@ -96,7 +96,32 @@ public class BallTeamDetailsFragment extends BaseFragment<BallTeamDetailsChildPr
     @Override
     protected void initEvent() {
         mSrlRefresh.setOnRefreshListener(this::loadRefreshData);
+        mAdapter.setOnBallDetailsClickListener(new BallDetailsChildAdapter.OnBallDetailsClickListener() {
+            @Override
+            public void onClickJudgeReferee(View view, int position) {
+                mViewModel.startActivityToPostEvaluationForReferee(mData.get(position).refereeId);
+            }
 
+            @Override
+            public void onClickJudgeOpponent(View view, int position) {
+                ResultBallDetailsBean.MatchBean bean = mData.get(position);
+                if (bean.hostTeamId == mBallBean.teamId) {
+                    mViewModel.startActivityToPostEvaluationForOpponent(bean.guestTeamId);
+                } else {
+                    mViewModel.startActivityToPostEvaluationForOpponent(bean.hostTeamId);
+                }
+            }
+
+            @Override
+            public void onClickJudgeTeam(View view, int position) {
+                ResultBallDetailsBean.MatchBean bean = mData.get(position);
+                if (bean.hostTeamId == mBallBean.teamId) {
+                    mViewModel.startActivityToPostEvaluationForTeam(bean.hostTeamId);
+                } else {
+                    mViewModel.startActivityToPostEvaluationForTeam(bean.guestTeamId);
+                }
+            }
+        });
     }
 
     @Override
@@ -108,7 +133,7 @@ public class BallTeamDetailsFragment extends BaseFragment<BallTeamDetailsChildPr
     public void resultDetails(ResultBallDetailsBean bean) {
         if (mBallBean.isLeader == Contast.LEADER) {
             mTvEdit.setVisibility(View.VISIBLE);
-            mTvEdit.setOnClickListener(v -> ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MANAGE_BALL_TEAM,ARouterConfig.Key.PARCELABLE,bean));
+            mTvEdit.setOnClickListener(v -> ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MANAGE_BALL_TEAM, ARouterConfig.Key.PARCELABLE, bean));
         } else if (mBallBean.isLeader == Contast.MEMBER) {
             mTvEdit.setVisibility(View.GONE);
         }

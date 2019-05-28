@@ -88,8 +88,8 @@ public class VenueBookAdapter extends BaseRecyclerAdapter<VenueBookAdapter.ViewH
             default:
                 break;
         }
-        viewHolder.mTvStart.setText(DateUtils.getHourMinute(bean.startTime));
-        viewHolder.mTvEnd.setText(UIUtils.getString(R.string.time_end, DateUtils.getHourMinute(bean.endTime)));
+        viewHolder.mTvStart.setText(DateUtils.getHourMinutes(bean.startTime));
+        viewHolder.mTvEnd.setText(UIUtils.getString(R.string.time_end, DateUtils.getHourMinutes(bean.endTime)));
         if (i == mData.size() - 1) {
             viewHolder.mLine.setVisibility(View.GONE);
         } else {

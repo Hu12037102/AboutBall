@@ -52,11 +52,11 @@ public class LauncherBallPresenter extends BasePresenter<LauncherBallContract.Vi
 
     @Override
     public void launcherBall(RequestLauncherBallBean requestBean) {
-        mModel.launcherBall(requestBean, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
+        mModel.launcherBall(requestBean, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<Long>>() {
             @Override
-            public void onNext(BaseBean<BaseDataBean<String>> t) {
-                if (DataUtils.baseDataBeanIsSucceed(t)) {
-                    mView.launcherBallSucceed();
+            public void onNext(BaseBean<BaseDataBean<Long>> t) {
+                if (DataUtils.baseDataBeanIsSucceed(t) && t.result.result != null) {
+                    mView.launcherBallSucceed(t.result.result);
                 }
             }
 

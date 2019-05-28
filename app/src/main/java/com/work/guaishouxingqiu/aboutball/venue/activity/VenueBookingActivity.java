@@ -1,7 +1,10 @@
 package com.work.guaishouxingqiu.aboutball.venue.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -239,6 +242,7 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
                 mIncludeRuleView.setVisibility(View.GONE);
                 break;
             case R.id.tv_rule:
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ABOUT_RULE);
                 break;
             case R.id.tv_bottom_left:
 
@@ -252,7 +256,7 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
                         }
                         Long[] calendarArray = new Long[]{};
                         bean.calendarId = calendarData.toArray(calendarArray);
-                        bean.flag = 2;
+                        bean.flag = 3;
                         bean.stadiumId = mStadiumId;
                         mPresenter.createOrder(bean, mIsSelectorBook);
                     }
@@ -266,12 +270,23 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
                     bundle.putLong(ARouterConfig.Key.STADIUM_ID, mStadiumId);
                     bundle.putLong(ARouterConfig.Key.CALENDAR_ID, mBookData.get(mBookAdapter.getSelectorPosition()).calendarId);
                     bundle.putLong(ARouterConfig.Key.AREA_ID, mAreaId);
-                    ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_LAUNCHER_BALL, bundle);
+                    ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_LAUNCHER_BALL, this, bundle);
                 }
                 break;
+
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //发起约球返回结果
+        if (requestCode == ARouterIntent.REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            mBookData.get(mBookAdapter.getSelectorPosition()).stateId = 1;
+            mBookData.get(mBookAdapter.getSelectorPosition()).isCheck = false;
+            mBookAdapter.notifyDataSetChanged();
+        }
+    }
 
     class BookPagerAdapter extends PagerAdapter {
 

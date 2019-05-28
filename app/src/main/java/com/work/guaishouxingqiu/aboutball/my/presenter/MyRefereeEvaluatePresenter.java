@@ -14,7 +14,7 @@ import com.work.guaishouxingqiu.aboutball.my.model.MyRefereeEvaluateModel;
  * 描述:我的裁判评价P
  */
 public class MyRefereeEvaluatePresenter extends BasePresenter<MyRefereeEvaluateContract.View,
-        MyRefereeEvaluateModel>implements MyRefereeRecordChildContract.Presenter{
+        MyRefereeEvaluateModel>implements MyRefereeEvaluateContract.Presenter{
 
     public MyRefereeEvaluatePresenter(@NonNull MyRefereeEvaluateContract.View view) {
         super(view);

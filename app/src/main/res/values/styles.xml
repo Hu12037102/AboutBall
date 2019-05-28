@@ -191,4 +191,26 @@
         <item name="android:layout_marginRight">@dimen/default_margin</item>
     </style>
 
+    <style name="AboutRuleTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">@dimen/size_17sp</item>
+        <item name="android:textColor">@color/color_4</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:drawablePadding">@dimen/size_10dp</item>
+        <item name="android:layout_marginLeft">@dimen/default_margin</item>
+        <item name="android:layout_marginRight">@dimen/default_margin</item>
+    </style>
+    <style name="AboutRuleContent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/size_14sp</item>
+        <item name="android:textColor">@color/color_4</item>
+        <item name="android:lineSpacingExtra">5dp</item>
+        <item name="android:layout_marginLeft">@dimen/default_margin</item>
+        <item name="android:layout_marginRight">@dimen/default_margin</item>
+        <item name="android:layout_marginTop">@dimen/size_15dp</item>
+    </style>
 </resources>
