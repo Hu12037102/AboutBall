@@ -8,6 +8,6 @@
     android:scaleType="centerCrop"
     app:riv_corner_radius="@dimen/size_6dp"
     app:riv_oval="false"
-    android:layout_marginLeft="@dimen/size_75dp"
-    android:layout_marginStart="@dimen/size_75dp"
+    app:riv_border_color="@color/colorFFDCDCDC"
+    app:riv_border_width="@dimen/size_1dp"
     />

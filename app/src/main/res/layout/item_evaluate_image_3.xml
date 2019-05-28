@@ -12,7 +12,8 @@
         app:riv_corner_radius="@dimen/size_6dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="@dimen/size_75dp"
+        app:riv_border_color="@color/colorFFDCDCDC"
+        app:riv_border_width="@dimen/size_1dp"
         />
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/riv_2"
@@ -23,6 +24,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@id/riv_1"
         android:layout_marginLeft="@dimen/size_5dp"
+        app:riv_border_color="@color/colorFFDCDCDC"
+        app:riv_border_width="@dimen/size_1dp"
         />
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/riv_3"
@@ -33,5 +36,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@id/riv_2"
         android:layout_marginLeft="@dimen/size_5dp"
+        app:riv_border_color="@color/colorFFDCDCDC"
+        app:riv_border_width="@dimen/size_1dp"
         />
 </android.support.constraint.ConstraintLayout>

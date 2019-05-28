@@ -90,7 +90,8 @@ public class BallTeamDetailsFragment extends BaseFragment<BallTeamDetailsChildPr
 
     private void loadRefreshData(RefreshLayout refreshLayout) {
         refreshLayout.finishRefresh();
-        mPresenter.loadDetails(mBallBean.teamId);
+      //  mPresenter.loadDetails(mBallBean.teamId);
+        mPresenter.loadDetails(27);
     }
 
     @Override
