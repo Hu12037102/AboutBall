@@ -89,7 +89,7 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
     private VenueUserCommentAdapter mCommentAdapter;
     private List<ResultVenueDetailsBean.CalendarListForAreaList> mDateData;
     private RecyclerView mRvComment;
-    private List<ResultVenueDetailsBean.OrderCommentForAreaList> mCommentData;
+    private List<ResultVenueDetailsBean.OrderCommentForAreaSimpleList> mCommentData;
     private RecyclerView mRvAboutBall;
     private List<ResultAboutBallBean> mAboutBallData;
     private AboutBallAdapter mAboutBallAdapter;
@@ -373,14 +373,16 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
         if (mCommentData.size() > 0) {
             mCommentData.clear();
         }
+        int commentCount =0;
         if (areaBean.orderCommentForAreaList != null && areaBean.orderCommentForAreaList.size() > 0) {
             mLlHeadCommentGroup.setVisibility(View.VISIBLE);
-            mCommentData.addAll(areaBean.orderCommentForAreaList);
+            mCommentData.addAll(areaBean.orderCommentForAreaList.get(0).orderCommentForAreaSimpleList);
+            commentCount = areaBean.orderCommentForAreaList.get(0).totalCount;
         } else {
             mLlHeadCommentGroup.setVisibility(View.GONE);
         }
         if (mCommentAdapter == null) {
-            mCommentAdapter = new VenueUserCommentAdapter(this, mCommentData);
+            mCommentAdapter = new VenueUserCommentAdapter(this, mCommentData,commentCount);
             mRvComment.setAdapter(mCommentAdapter);
         } else {
             mCommentAdapter.notifyDataSetChanged();

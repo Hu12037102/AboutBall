@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
+import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueDetailsBean;
 import com.work.guaishouxingqiu.aboutball.weight.ExpandableTextView;
 
@@ -26,11 +27,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class VenueUserCommentAdapter extends RecyclerView.Adapter<VenueUserCommentAdapter.ViewHolder> {
     private Context mContext;
-    private List<ResultVenueDetailsBean.OrderCommentForAreaList> mData;
+    private List<ResultVenueDetailsBean.OrderCommentForAreaSimpleList> mData;
+    private int mCommentCount;
 
-    public VenueUserCommentAdapter(Context context, List<ResultVenueDetailsBean.OrderCommentForAreaList> data) {
+    public VenueUserCommentAdapter(Context context, List<ResultVenueDetailsBean.OrderCommentForAreaSimpleList> data, int commentCount) {
         this.mContext = context;
         this.mData = data;
+        this.mCommentCount = commentCount;
     }
 
     @NonNull
@@ -41,22 +44,24 @@ public class VenueUserCommentAdapter extends RecyclerView.Adapter<VenueUserComme
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        ResultVenueDetailsBean.OrderCommentForAreaList bean = mData.get(i);
+        ResultVenueDetailsBean.OrderCommentForAreaSimpleList bean = mData.get(i);
         GlideManger.get().loadHeadImage(mContext, bean.headerImg, viewHolder.mCivHead);
         viewHolder.mTvName.setText(bean.nickName);
         viewHolder.mTvTime.setText(bean.commentTime);
         viewHolder.mEtvContent.setText(bean.commentContent);
         viewHolder.mRbGradle.setRating(Float.valueOf(bean.grade));
+
         if (i == 2) {
             viewHolder.mTvAllComment.setVisibility(View.VISIBLE);
+            viewHolder.mTvAllComment.setText(UIUtils.getString(R.string.read_all_comment_s, mCommentCount));
         } else {
             viewHolder.mTvAllComment.setVisibility(View.GONE);
         }
-        if (i == mData.size() -1){
+        /*if (i == mData.size() -1){
             viewHolder.mLine.setVisibility(View.GONE);
         }else {
             viewHolder.mLine.setVisibility(View.VISIBLE);
-        }
+        }*/
     }
 
     @Override
