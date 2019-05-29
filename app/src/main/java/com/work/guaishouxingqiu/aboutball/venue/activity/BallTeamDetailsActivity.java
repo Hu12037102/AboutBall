@@ -71,7 +71,7 @@ public class BallTeamDetailsActivity extends BaseActivity<BallTeamDetailsPresent
         initHeadView();
 
         mData = new ArrayList<>();
-        mAdapter = new BallDetailsChildAdapter(mData);
+        mAdapter = new BallDetailsChildAdapter(mData,false);
         mAdapter.addHeadView(mHeadView);
         mRvData.setAdapter(mAdapter);
         mSrlRefresh.autoRefresh();
@@ -102,6 +102,27 @@ public class BallTeamDetailsActivity extends BaseActivity<BallTeamDetailsPresent
     @Override
     protected void initEvent() {
         mSrlRefresh.setOnRefreshListener(this::loadRefreshData);
+        mAdapter.setOnBallDetailsClickListener(new BallDetailsChildAdapter.OnBallDetailsClickListener() {
+            @Override
+            public void onClickJudgeReferee(View view, int position) {
+
+            }
+
+            @Override
+            public void onClickJudgeOpponent(View view, int position) {
+
+            }
+
+            @Override
+            public void onClickJudgeTeam(View view, int position) {
+                ResultBallDetailsBean.MatchBean bean = mData.get(position);
+                if (bean.hostTeamId == mTeamId) {
+                    mViewModel.startActivityToPostEvaluationForTeam(bean.hostTeamId);
+                } else {
+                    mViewModel.startActivityToPostEvaluationForTeam(bean.guestTeamId);
+                }
+            }
+        });
     }
 
     @Override

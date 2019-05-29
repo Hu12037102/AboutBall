@@ -24,8 +24,19 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class BallDetailsChildAdapter extends BaseRecyclerAdapter<BallDetailsChildAdapter.ViewHolder,
         List<ResultBallDetailsBean.MatchBean>> {
+    private boolean mIsInputEvaluate = true;
     public BallDetailsChildAdapter(@NonNull List<ResultBallDetailsBean.MatchBean> data) {
         super(data);
+    }
+
+    /**
+     * 要不要显示输入评价（对手评价，裁判评价）
+     * @param data
+     * @param isInputEvaluate
+     */
+    public BallDetailsChildAdapter(@NonNull List<ResultBallDetailsBean.MatchBean> data,boolean isInputEvaluate) {
+        super(data);
+        mIsInputEvaluate = isInputEvaluate;
     }
 
     public void setOnBallDetailsClickListener(OnBallDetailsClickListener onBallDetailsClickListener) {
@@ -44,6 +55,13 @@ public class BallDetailsChildAdapter extends BaseRecyclerAdapter<BallDetailsChil
         viewHolder.mTvGradle.setText(bean.hostScore + "  -  " + bean.guestScore);
         GlideManger.get().loadLogoImage(mContext, bean.guestTeamLogo, viewHolder.mCivRightLogo);
         viewHolder.mTvRightName.setText(bean.guestTeamName);
+        if(mIsInputEvaluate){
+           viewHolder.mTvJudgeReferee.setVisibility(View.VISIBLE);
+           viewHolder.mTvJudgeOpponent.setVisibility(View.VISIBLE);
+        }else {
+            viewHolder.mTvJudgeReferee.setVisibility(View.GONE);
+            viewHolder.mTvJudgeOpponent.setVisibility(View.GONE);
+        }
         viewHolder.mTvJudgeReferee.setOnClickListener(v -> {
             if (onBallDetailsClickListener != null) {
                 onBallDetailsClickListener.onClickJudgeReferee(v, i);
