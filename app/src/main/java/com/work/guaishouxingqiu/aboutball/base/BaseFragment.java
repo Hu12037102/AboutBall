@@ -80,16 +80,16 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModel.createViewModel(getActivity());
         mPresenter = createPresenter();
-        initPermission();
-    }
-
-    protected void initPermission() {
+        mContext = getContext();
         mBundle = getArguments();
         if (mBundle == null) {
             DataUtils.checkData(getActivity()).finish();
             return;
         }
-        mContext = getContext();
+        initPermission();
+    }
+
+    protected void initPermission() {
         initView();
         initData();
         initEvent();

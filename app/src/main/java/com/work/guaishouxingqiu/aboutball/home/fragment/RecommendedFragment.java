@@ -101,6 +101,7 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
     private int mTypeId;
     private RequestRecommendDataBean mHeadBean;
     private ResultRecommendDataBean mResultHeadBean;
+    private List<ResultRecommendDataBean.Match> mLiveMatchData;
 
     public static RecommendedFragment newInstance() {
         return new RecommendedFragment();
@@ -142,15 +143,16 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
             return false;
         });
         mTvVenue.setOnClickListener(v -> {
-            EventBus.getDefault().post(new HomeFragment.Message(TYPE_VENUE,2));
+            EventBus.getDefault().post(new HomeFragment.Message(TYPE_VENUE, 2));
         });
         mTvBall.setOnClickListener(v -> {
-            EventBus.getDefault().post(new HomeFragment.Message(TYPE_BALL,2));
+            EventBus.getDefault().post(new HomeFragment.Message(TYPE_BALL, 2));
         });
         mTvGame.setOnClickListener(v -> {
-            EventBus.getDefault().post(new HomeFragment.Message(0,1));
+            EventBus.getDefault().post(new HomeFragment.Message(0, 1));
         });
     }
+
     private void postTimeMessage() {
         mTimeHandler.sendEmptyMessageDelayed(RecommendedFragment.WHAT, RecommendedFragment.POST_TIME);
     }
@@ -168,6 +170,8 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
         mRecommendAdapter.addHeadView(mInflateHead);
         mRvRecommend.setAdapter(mRecommendAdapter);
         mHeadBean = new RequestRecommendDataBean();
+        //直播list
+        mLiveMatchData = new ArrayList<>();
         initLocation();
 
     }
@@ -271,8 +275,12 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
 
             }
             if (bean.result.match != null) {
+                if (mLiveMatchData.size() > 0) {
+                    mLiveMatchData.clear();
+                }
+                mLiveMatchData.addAll(bean.result.match);
                 if (mHeadGameAdapter == null) {
-                    mHeadGameAdapter = new RecommendHeadGameAdapter(bean.result.match);
+                    mHeadGameAdapter = new RecommendHeadGameAdapter(mLiveMatchData);
                     mRvGameLive.setAdapter(mHeadGameAdapter);
                     mHeadGameAdapter.setOnItemClickListener((view, position) -> {
                         LogUtils.w("mHeadGameAdapter--", bean.result.match.get(position).matchId + "---");

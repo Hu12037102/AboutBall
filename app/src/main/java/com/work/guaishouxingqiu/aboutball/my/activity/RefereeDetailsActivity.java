@@ -12,12 +12,14 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.TitleView;
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.RefereeDetailsContract;
 import com.work.guaishouxingqiu.aboutball.my.fragment.MyRefereeEvaluateFragment;
 import com.work.guaishouxingqiu.aboutball.my.fragment.MyRefereeRecordFragment;
+import com.work.guaishouxingqiu.aboutball.my.fragment.PostEvaluationFragment;
 import com.work.guaishouxingqiu.aboutball.my.presenter.RefereeDetailsPresenter;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
@@ -110,7 +112,10 @@ public class RefereeDetailsActivity extends BaseActivity<RefereeDetailsPresenter
         }
 
         MyRefereeRecordFragment refereeRecordFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_MY_REFEREE_RECORD, ARouterConfig.Key.REFEREE_ID, mRefereeParcelable.refereeId);
-        MyRefereeEvaluateFragment evaluateFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_MY_REFEREE_EVALUATE, ARouterConfig.Key.REFEREE_ID, mRefereeParcelable.refereeId);
+        Bundle bundle = new Bundle();
+        bundle.putLong(ARouterConfig.Key.REFEREE_ID, mRefereeParcelable.refereeId);
+        bundle.putInt(ARouterConfig.Key.INPUT_EVALUATION_FLAG, Contast.InputEvaluationType.REFEREE);
+        PostEvaluationFragment evaluateFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_POST_EVALUATION, bundle);
         Fragment[] fragments = {refereeRecordFragment, evaluateFragment};
         FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override

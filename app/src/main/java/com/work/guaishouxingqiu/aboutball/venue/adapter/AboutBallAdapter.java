@@ -12,6 +12,8 @@ import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultAboutBallBean;
 
 import java.util.List;
@@ -39,7 +41,7 @@ public class AboutBallAdapter extends BaseRecyclerAdapter<AboutBallAdapter.ViewH
         ResultAboutBallBean bean = mData.get(i);
         GlideManger.get().loadImage(viewHolder.itemView.getContext(), bean.hostTeamLogo,viewHolder.mCivData);
         viewHolder.mTvName.setText(bean.stadiumName);
-        viewHolder.mTvTime.setText(bean.startTime);
+        viewHolder.mTvTime.setText(bean.startTime+"-"+ DateUtils.getHourMinutes(bean.endTime));
         viewHolder.mTvAddress.setText(bean.hostTeamName);
         viewHolder.mTvStatus1.setVisibility(bean.hasReferee == Contast.HAS_REFEREE ? View.VISIBLE : View.GONE);
         viewHolder.mTvStatus2.setVisibility(bean.hasOpponent == Contast.HAS_RIVAL ? View.VISIBLE : View.GONE);

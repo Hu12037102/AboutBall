@@ -53,6 +53,9 @@ public class ARouterIntent {
     public static <T extends Fragment> T getFragment(@NonNull String path) {
         return (T) ARouter.getInstance().build(path).navigation();
     }
+    public static <T extends Fragment> T getFragment(@NonNull String path,Bundle bundle) {
+        return (T) ARouter.getInstance().build(path).with(bundle).navigation();
+    }
 
     public static <T extends Fragment> T getFragment(@NonNull String path, @NonNull String key, int values) {
         return (T) ARouter.getInstance().build(path).withInt(key, values).navigation();

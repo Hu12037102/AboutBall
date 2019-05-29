@@ -91,6 +91,7 @@ public interface ARouterConfig {
         String FRAGMENT_DRILL = "/fragment/drill";
         String FRAGMENT_MY_ORDER = "/fragment/my/order";
         String FRAGMENT_MY_ABOUT_BALL = "/fragment/my/about/ball";
+        String FRAGMENT_POST_EVALUATION = "/fragment/post/evaluation";
 
 
     }
