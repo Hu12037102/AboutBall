@@ -1,5 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.venue.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,7 +16,9 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
+import com.work.guaishouxingqiu.aboutball.venue.bean.RequestInvitationBallBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.RequestVenueOrderBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultAboutBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultMyBallTeamBean;
@@ -45,7 +48,9 @@ public class InvitationBallActivity extends BaseActivity<InvitationBallPresenter
     TextView mTvCommit;
     private ResultMyBallTeamBean mMyBallTeam;
     private ResultAboutBallDetailsBean mDetailsBean;
-    private RequestVenueOrderBean mRequestOrderBean;
+    private RequestInvitationBallBean mRequestBean;
+    private static final int REQUEST_CODE_WAIT_PAY = 123;
+    //  private RequestVenueOrderBean mRequestOrderBean;
 
     @Override
     protected int getLayoutId() {
@@ -67,12 +72,16 @@ public class InvitationBallActivity extends BaseActivity<InvitationBallPresenter
         mItemTeam.mTvRight.setHintTextColor(ContextCompat.getColor(this, R.color.colorFFA6A6A6));
         mItemTeam.mTvRight.setTextColor(ContextCompat.getColor(this, R.color.color_4));
         mItemTeam.mTvRight.setHint(R.string.please_selector_ball_team);
+        mRequestBean = new RequestInvitationBallBean();
+        mRequestBean.agreeId = mDetailsBean.agreeId;
+        mRequestBean.calendarId = mDetailsBean.calendarId;
 
-        mRequestOrderBean = new RequestVenueOrderBean();
+
+        /*mRequestOrderBean = new RequestVenueOrderBean();
         mRequestOrderBean.calendarId = new Long[]{mDetailsBean.calendarId};
         mRequestOrderBean.stadiumId = mDetailsBean.stadiumId;
         mRequestOrderBean.areaId = mDetailsBean.areaId;
-        mRequestOrderBean.flag = 1;
+        mRequestOrderBean.flag = 1;*/
     }
 
     @Override
@@ -114,27 +123,64 @@ public class InvitationBallActivity extends BaseActivity<InvitationBallPresenter
         return new InvitationBallPresenter(this);
     }
 
+    private boolean isSelectorTeam() {
+        if (mMyBallTeam == null) {
+            UIUtils.showToast(R.string.selector_ball_team);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isSelectorTeamColor() {
+        if (DataUtils.isEmpty(mItemColor.mTvRight.getText())) {
+            UIUtils.showToast(R.string.please_selector_shirt_color);
+            return false;
+        }
+        return true;
+    }
 
     @OnClick(R.id.tv_commit)
     public void onViewClicked() {
-        mPresenter.createOrder(mRequestOrderBean);
+        //mPresenter.createOrder(mRequestOrderBean);
+        if (isSelectorTeam() && isSelectorTeamColor()) {
+            mPresenter.invitationBall(mRequestBean);
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == ARouterIntent.REQUEST_CODE && resultCode == RESULT_OK) {
+     /*   if (requestCode == ARouterIntent.REQUEST_CODE && resultCode == RESULT_OK) {
             if (data == null) {
                 return;
             }
             mMyBallTeam = data.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
             mItemTeam.setContentText(mMyBallTeam.teamName);
+            mRequestBean.guestTeamId = mMyBallTeam.teamId;
+        }*/
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case ARouterIntent.REQUEST_CODE:
+                    if (data == null) {
+                        return;
+                    }
+                    mMyBallTeam = data.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
+                    mItemTeam.setContentText(mMyBallTeam.teamName);
+                    mRequestBean.guestTeamId = mMyBallTeam.teamId;
+                    break;
+                case InvitationBallActivity.REQUEST_CODE_WAIT_PAY:
+                    setResult(Activity.RESULT_OK);
+                    finish();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
     @Override
     public void resultOrderId(long result) {
-        mViewModel.startActivityToOrderPay(result, Contast.PayOrderFlag.PAY_LAUNCHER_ORDER);
+        mViewModel.startActivityToOrderPay(result, Contast.PayOrderFlag.PAY_LAUNCHER_ORDER, InvitationBallActivity.REQUEST_CODE_WAIT_PAY);
     }
 }

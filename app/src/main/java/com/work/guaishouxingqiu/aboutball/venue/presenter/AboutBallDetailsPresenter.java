@@ -52,11 +52,28 @@ public class AboutBallDetailsPresenter extends BasePresenter<AboutBallDetailsCon
 
     @Override
     public void playReferee(long offerId) {
-        mModel.playReferee(offerId,new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
+        mModel.playReferee(offerId, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
             @Override
             public void onNext(BaseBean<BaseDataBean<String>> t) {
-                if (DataUtils.baseDataBeanIsSucceed(t)){
+                if (DataUtils.baseDataBeanIsSucceed(t)) {
                     mView.resultPlayReferee();
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+
+    @Override
+    public void cancelAboutBall(long agreeId) {
+        mModel.cancelAboutBall(agreeId, new BaseObserver<>(true, this, new BaseObserver.Observer<Long>() {
+            @Override
+            public void onNext(BaseBean<Long> t) {
+                if (DataUtils.isResultSure(t)) {
+                    mView.resultCancelAboutBall(t.result);
                 }
             }
 

@@ -92,7 +92,7 @@
         app:content_text_size="@dimen/size_14sp"
         app:layout_constraintTop_toBottomOf="@id/item_team"
         app:show_bottom_line="true"
-        app:title_data="@string/ball_team"
+        app:title_data="@string/ball_shirt_color"
         app:title_text_color="@color/color_4"
         app:title_text_size="@dimen/size_14sp" />
 

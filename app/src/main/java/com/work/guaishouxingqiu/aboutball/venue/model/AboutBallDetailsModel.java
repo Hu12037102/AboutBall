@@ -31,4 +31,12 @@ public class AboutBallDetailsModel extends BaseModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
+
+    public void cancelAboutBall(long agreeId,BaseObserver<Long> observer) {
+        mRetrofitManger.create(VenueService.class)
+                .cancelAboutBall(agreeId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
 }

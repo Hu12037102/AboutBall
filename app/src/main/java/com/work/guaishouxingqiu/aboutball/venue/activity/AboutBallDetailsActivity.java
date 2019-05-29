@@ -19,6 +19,7 @@ import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
+import com.work.guaishouxingqiu.aboutball.my.activity.WaitUserOrderDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
@@ -31,6 +32,8 @@ import com.work.guaishouxingqiu.aboutball.venue.contract.AboutBallDetailsContrac
 import com.work.guaishouxingqiu.aboutball.venue.presenter.AboutBallDetailsPresenter;
 import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -88,6 +91,7 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
     private long mAgreeId;
     private HintDialog mPlayRefereeDialog;
     private static final int REQUEST_CODE = 123;
+    private static final int REQUEST_CODE_ORDER_USER = 124;
     private int mAboutBallFlag = -1;
     private HintDialog mCancelBallDialog;
 
@@ -98,9 +102,16 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
 
     @Override
     protected void initView() {
+        registerEventBus();
         mClTopTeam.setEnabled(false);
         mClBottomTeam.setEnabled(false);
         mTvBottomLeft.setEnabled(false);
+    }
+
+    @Override
+    protected void onDestroy() {
+        unRegisterEventBus();
+        super.onDestroy();
     }
 
     @Override
@@ -150,7 +161,7 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
         UIUtils.setText(mTvTopTeamName, bean.hostTeamName);
         GlideManger.get().loadLogoImage(this, bean.hostTeamLogo, mCivLogo);
         GlideManger.get().loadLogoImage(this, bean.guestTeamLogo, mCivLogoJoin);
-        UIUtils.setText(mTvBottomTeamName,bean.guestTeamName);
+        UIUtils.setText(mTvBottomTeamName, bean.guestTeamName);
         UIUtils.setText(mItemSite.mTvRight, bean.stadiumName);
         UIUtils.setText(mItemDate.mTvRight, DateUtils.getDate(bean.startTime));
         UIUtils.setText(mItemTime.mTvRight, DateUtils.getHourMinutes(bean.startTime) + "-" + DateUtils.getHourMinutes(bean.endTime));
@@ -169,7 +180,7 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
                 tvTeamParams.height = ScreenUtils.dp2px(this, 115);
                 mTvTeamContent.setPadding(ScreenUtils.dp2px(this, 20), ScreenUtils.dp2px(this, 20), 0, 0);
 
-            }else {
+            } else {
                 mClBottomTeam.setVisibility(View.VISIBLE);
                 mTvTeamContent.setText(SpanUtils.getTextSize(17, 0, host.length(), host));
                 mClBottomTeam.setVisibility(View.VISIBLE);
@@ -254,6 +265,16 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
         }
     }
 
+    /**
+     * 取消约球后，让用户去订单详情中自己选择
+     *
+     * @param orderId
+     */
+    @Override
+    public void resultCancelAboutBall(long orderId) {
+        ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_WAIT_USER_ORDER_DETAILS, this, ARouterConfig.Key.ORDER_ID, orderId, AboutBallDetailsActivity.REQUEST_CODE_ORDER_USER);
+    }
+
 
     @OnClick({R.id.tv_bottom_left, R.id.tv_bottom_right, R.id.tv_sing, R.id.cl_bottom_team, R.id.cl_top_team, R.id.tv_cancel})
     public void onViewClicked(View view) {
@@ -287,7 +308,7 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
                 mCancelBallDialog.setOnItemClickSureAndCancelListener(new BaseDialog.OnItemClickSureAndCancelListener() {
                     @Override
                     public void onClickSure(@NonNull View view) {
-
+                        mPresenter.cancelAboutBall(mAgreeId);
                     }
 
                     @Override
@@ -394,9 +415,20 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
+                //裁判状态
                 case ARouterIntent.REQUEST_CODE:
                     mPresenter.judgeRefereeStatus();
                     break;
+                //应邀约球
+                case AboutBallDetailsActivity.REQUEST_CODE:
+                    mHasTeamStatus = 1;
+                    mPresenter.loadDetails(mAgreeId);
+                    break;
+               /* //取消约球
+                case AboutBallDetailsActivity.REQUEST_CODE_ORDER_USER:
+                    setResult(Activity.RESULT_OK);
+                    finish();
+                    break;*/
                 default:
                     break;
             }
@@ -414,5 +446,13 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
         intent.putExtra(ARouterConfig.Key.TEAM_STATUS, mHasTeamStatus);
         setResult(Activity.RESULT_OK, intent);
         finish();
+    }
+    //取消约球结果返回
+    @Subscribe
+    public void resultCancelAboutBall(WaitUserOrderDetailsActivity.ResultPayBean bean) {
+        if (bean != null && bean.isUpdateResult) {
+            setResult(Activity.RESULT_OK);
+            finish();
+        }
     }
 }

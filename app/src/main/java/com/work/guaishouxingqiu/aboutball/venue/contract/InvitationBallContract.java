@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.venue.contract;
 
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.venue.bean.RequestInvitationBallBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.RequestVenueOrderBean;
 
 /**
@@ -17,5 +18,7 @@ public interface InvitationBallContract {
 
     interface Presenter extends IBasePresenter {
         void createOrder(RequestVenueOrderBean bean);
+
+        void invitationBall(RequestInvitationBallBean requestBean);
     }
 }

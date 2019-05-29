@@ -7,11 +7,11 @@ package com.work.guaishouxingqiu.aboutball.venue.bean;
  * 描述:我的约球bean
  */
 public class ResultMyAboutBean {
-    public long offerId;
+    public long agreeId;
     public String stadiumName;
     public String areaName;
-    public String teamLogo;
-    public String teamName;
     public String startTime;
     public String endTime;
+    public String hostTeamLogo;
+    public String hostTeamName;
 }

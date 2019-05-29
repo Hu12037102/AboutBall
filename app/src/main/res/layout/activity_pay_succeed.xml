@@ -52,5 +52,6 @@
         android:text="@string/transmit_friend"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        android:visibility="gone"/>
 </android.support.constraint.ConstraintLayout>

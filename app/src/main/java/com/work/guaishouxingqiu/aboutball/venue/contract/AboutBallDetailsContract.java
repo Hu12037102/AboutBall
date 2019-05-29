@@ -13,12 +13,17 @@ import com.work.guaishouxingqiu.aboutball.venue.bean.ResultAboutBallDetailsBean;
 public interface AboutBallDetailsContract {
     interface View extends IBaseView {
         void resultDetails(ResultAboutBallDetailsBean bean);
+
         void resultPlayReferee();
+
+        void resultCancelAboutBall(long orderId);
     }
 
     interface Presenter extends IBasePresenter {
         void loadDetails(long offerId);
 
         void playReferee(long mOfferId);
+
+        void cancelAboutBall(long mAgreeId);
     }
 }

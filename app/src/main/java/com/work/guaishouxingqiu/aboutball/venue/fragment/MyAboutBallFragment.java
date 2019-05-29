@@ -1,5 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.venue.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +20,7 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
+import com.work.guaishouxingqiu.aboutball.venue.activity.AboutBallDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.venue.adapter.MyAboutBallAdapter;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultAboutBallBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultMyAboutBean;
@@ -134,6 +137,21 @@ public class MyAboutBallFragment extends DelayedFragment<MyAboutBallChildPresent
         mAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case ARouterIntent.REQUEST_CODE:
+                    mSrlRefresh.autoRefresh();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    }
+
     /**
      * flag 0:查看、参加约球裁判 1：取消约球
      *
@@ -142,8 +160,8 @@ public class MyAboutBallFragment extends DelayedFragment<MyAboutBallChildPresent
      */
     private void startActivityToAboutBallDetails(ResultMyAboutBean bean) {
         Bundle bundle = new Bundle();
-        bundle.putLong(ARouterConfig.Key.OFFER_ID, bean.offerId);
+        bundle.putLong(ARouterConfig.Key.OFFER_ID, bean.agreeId);
         bundle.putInt(ARouterConfig.Key.ABOUT_BALL_FLAG, 1);
-        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ABOUT_BALL_DETAILS, bundle);
+        ARouterIntent.startActivityForResult(this, AboutBallDetailsActivity.class, bundle);
     }
 }

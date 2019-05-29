@@ -34,7 +34,7 @@ public class MyAboutBallAdapter extends BaseRecyclerAdapter<MyAboutBallAdapter.V
         ResultMyAboutBean bean = mData.get(i);
         UIUtils.setText(viewHolder.mTvTitle, bean.stadiumName);
         UIUtils.setText(viewHolder.mTvTime, bean.startTime);
-        UIUtils.setText(viewHolder.mTvTeamName, bean.teamName);
+        UIUtils.setText(viewHolder.mTvTeamName, bean.hostTeamName);
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
+import com.work.guaishouxingqiu.aboutball.venue.bean.RequestInvitationBallBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.RequestLauncherBallBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.RequestVenueOrderBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultAboutBallBean;
@@ -90,4 +91,10 @@ public interface VenueService {
 
     @GET(IApiService.GET_MY_ABOUT_BALL)
     Observable<BaseBean<List<ResultMyAboutBean>>> getMyAboutBean(@Query(Contast.FLAG) int flag);
+
+    @POST(IApiService.POST_INVITATION_BALL)
+    Observable<BaseBean<BaseDataBean<Long>>> invitationBall(@Body RequestInvitationBallBean bean);
+
+    @GET(IApiService.GET_CANCEL_ABOUT_BALL)
+    Observable<BaseBean<Long>> cancelAboutBall(@Query(Contast.AGREE_ID) long agreeId);
 }
