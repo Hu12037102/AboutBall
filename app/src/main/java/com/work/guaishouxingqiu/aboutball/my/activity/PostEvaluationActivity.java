@@ -1,6 +1,8 @@
 package com.work.guaishouxingqiu.aboutball.my.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -17,6 +19,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultInputEvaluationBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.PostEvaluationContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.PostEvaluationPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import java.util.ArrayList;
@@ -46,6 +49,7 @@ public class PostEvaluationActivity extends BaseActivity<PostEvaluationPresenter
     private long mRefereeId;
     private long mTeamId;
     private int mFlag;
+    private long mAgreeId;
 
     @Override
     protected int getLayoutId() {
@@ -62,17 +66,29 @@ public class PostEvaluationActivity extends BaseActivity<PostEvaluationPresenter
         mFlag = bundle.getInt(ARouterConfig.Key.INPUT_EVALUATION_FLAG, -1);
         mRefereeId = bundle.getLong(ARouterConfig.Key.REFEREE_ID, -1);
         mTeamId = bundle.getLong(ARouterConfig.Key.TEAM_ID, -1);
+        mAgreeId = bundle.getLong(ARouterConfig.Key.AGREE_ID, -1);
         if (mFlag == -1) {
             UIUtils.showToast(R.string.not_find_evaluation);
             finish();
             return;
         }
-        if (mFlag == Contast.InputEvaluationType.TEAMMATE) {
-            mTvCommit.setVisibility(View.GONE);
-        } else {
-            mTvCommit.setVisibility(View.VISIBLE);
-            mTvCommit.setText(R.string.please_post_evaluation);
+        switch (mFlag) {
+            case Contast.InputEvaluationType.REFEREE:
+                mTvCommit.setVisibility(View.VISIBLE);
+                mTvCommit.setText(R.string.please_post_evaluation);
+                UIUtils.setText(mTitleView.mTvCenter, R.string.referee_evaluation);
+                break;
+            case Contast.InputEvaluationType.OPPONENT:
+                mTvCommit.setVisibility(View.VISIBLE);
+                mTvCommit.setText(R.string.please_post_evaluation);
+                UIUtils.setText(mTitleView.mTvCenter, R.string.opponent_evaluation);
+                break;
+            case Contast.InputEvaluationType.TEAMMATE:
+                mTvCommit.setVisibility(View.GONE);
+                UIUtils.setText(mTitleView.mTvCenter, R.string.team_evaluation);
+                break;
         }
+
         mRvData.setLayoutManager(new LinearLayoutManager(this));
         mData = new ArrayList<>();
         mAdapter = new PostEvaluationAdapter(mData, mFlag);
@@ -111,6 +127,15 @@ public class PostEvaluationActivity extends BaseActivity<PostEvaluationPresenter
 
     @OnClick(R.id.tv_commit)
     public void onViewClicked() {
+        Bundle bundle = new Bundle();
+        bundle.putInt(ARouterConfig.Key.INPUT_EVALUATION_FLAG, mFlag);
+        bundle.putLong(ARouterConfig.Key.AGREE_ID,mAgreeId);
+        if (mFlag == Contast.InputEvaluationType.REFEREE) {
+            bundle.putLong(ARouterConfig.Key.REFEREE_ID, mRefereeId);
+        } else if (mFlag == Contast.InputEvaluationType.OPPONENT) {
+            bundle.putLong(ARouterConfig.Key.TEAM_ID, mTeamId);
+        }
+        ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_INPUT_EVALUATION, this, bundle);
     }
 
     @Override
@@ -120,5 +145,13 @@ public class PostEvaluationActivity extends BaseActivity<PostEvaluationPresenter
         }
         mData.addAll(data);
         mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ARouterIntent.REQUEST_CODE && resultCode == RESULT_OK) {
+            mSrlRefresh.autoRefresh();
+        }
     }
 }

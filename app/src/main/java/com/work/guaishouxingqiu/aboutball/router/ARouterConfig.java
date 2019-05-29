@@ -129,6 +129,7 @@ public interface ARouterConfig {
         String INPUT_EVALUATION_FLAG = "inputEvaluationFlag";
         String REFEREE_ID = "refereeId";
         String COUNT = "count";
+        String AGREE_ID = "agreeId";
     }
 
 }

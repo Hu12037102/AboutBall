@@ -9,6 +9,7 @@ import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestApplyRefereeBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestEditAddressBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestFeedbackBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestInputEvaluationBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestManageBallTeamBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestNewAddressBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestOrderEvaluateBean;
@@ -185,4 +186,8 @@ public interface MyService {
     @GET(IApiService.GET_TEAM_EVALUATION)
     Observable<BaseBean<List<ResultInputEvaluationBean>>> getTeamEvaluation(@Query(Contast.TEAM_ID) long teamId);
 
+    @POST(IApiService.POST_EVALUATE_OPPONENT)
+    Observable<BaseBean<BaseDataBean<String>>> postEvaluateOpponent(@Body RequestInputEvaluationBean bean);
+    @POST(IApiService.POST_EVALUATE_REFEREE)
+    Observable<BaseBean<BaseDataBean<String>>> postEvaluateReferee(@Body RequestInputEvaluationBean bean);
 }

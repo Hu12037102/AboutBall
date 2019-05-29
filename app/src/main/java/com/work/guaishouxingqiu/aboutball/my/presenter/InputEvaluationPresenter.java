@@ -2,9 +2,14 @@ package com.work.guaishouxingqiu.aboutball.my.presenter;
 
 import android.support.annotation.NonNull;
 
+import com.work.guaishouxingqiu.aboutball.base.BaseBean;
+import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
+import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestInputEvaluationBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.InputEvaluationContract;
 import com.work.guaishouxingqiu.aboutball.my.model.InputEvaluationModel;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 
 /**
  * 作者: 胡庆岭
@@ -26,5 +31,39 @@ public class InputEvaluationPresenter extends BasePresenter<InputEvaluationContr
     @Override
     public void start() {
 
+    }
+
+    @Override
+    public void postEvaluationOpponent(RequestInputEvaluationBean requestBean) {
+        mModel.postEvaluationOpponent(requestBean,new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
+            @Override
+            public void onNext(BaseBean<BaseDataBean<String>> t) {
+                if (DataUtils.baseDataBeanIsSucceed(t)){
+                    mView.resultEvaluationSucceed();
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+
+    @Override
+    public void postEvaluationReferee(RequestInputEvaluationBean requestBean) {
+        mModel.postEvaluationReferee(requestBean,new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
+            @Override
+            public void onNext(BaseBean<BaseDataBean<String>> t) {
+                if (DataUtils.baseDataBeanIsSucceed(t)){
+                    mView.resultEvaluationSucceed();
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
     }
 }

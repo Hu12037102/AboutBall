@@ -468,4 +468,9 @@
     <string name="law_enforcement_evaluate">执法评价</string>
     <string name="invite_up_to_three_judges_at_time">每次最多邀请三个裁判</string>
     <string name="invite_succeed">邀请成功</string>
+    <string name="referee_evaluation">裁判评价</string>
+    <string name="team_evaluation">球队评价</string>
+    <string name="opponent_evaluation">对手评价</string>
+    <string name="tell_me_what_you_think">说说你的想法~</string>
+    <string name="please_tell_me_what_you_think">请说说你的想法</string>
 </resources>

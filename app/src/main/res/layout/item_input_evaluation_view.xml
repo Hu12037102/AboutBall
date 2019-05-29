@@ -44,13 +44,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:maxCollapsedLines="3">
+            app:maxCollapsedLines="3"
+            android:layout_marginTop="@dimen/size_15dp"
+           >
 
             <TextView
                 android:id="@id/expandable_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_4"
+                android:lineSpacingExtra="@dimen/size_5dp"
                 android:textSize="@dimen/size_17sp" />
 
             <ImageButton
@@ -71,10 +74,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="@dimen/default_margin"
-            android:paddingBottom="@dimen/default_margin"/>
+            android:paddingTop="@dimen/size_20dp"
+            android:paddingBottom="@dimen/size_20dp"
+            />
         <View
+            android:id="@+id/line_bottom"
             style="@style/HorizontalLine"
+            android:layout_marginTop="@dimen/default_margin"
             />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

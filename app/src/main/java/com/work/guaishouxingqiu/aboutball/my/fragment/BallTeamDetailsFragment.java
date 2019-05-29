@@ -99,16 +99,16 @@ public class BallTeamDetailsFragment extends BaseFragment<BallTeamDetailsChildPr
         mAdapter.setOnBallDetailsClickListener(new BallDetailsChildAdapter.OnBallDetailsClickListener() {
             @Override
             public void onClickJudgeReferee(View view, int position) {
-                mViewModel.startActivityToPostEvaluationForReferee(mData.get(position).refereeId);
+                mViewModel.startActivityToPostEvaluationForReferee(mData.get(position).refereeId,mData.get(position).agreeId);
             }
 
             @Override
             public void onClickJudgeOpponent(View view, int position) {
                 ResultBallDetailsBean.MatchBean bean = mData.get(position);
                 if (bean.hostTeamId == mBallBean.teamId) {
-                    mViewModel.startActivityToPostEvaluationForOpponent(bean.guestTeamId);
+                    mViewModel.startActivityToPostEvaluationForOpponent(bean.guestTeamId,bean.agreeId);
                 } else {
-                    mViewModel.startActivityToPostEvaluationForOpponent(bean.hostTeamId);
+                    mViewModel.startActivityToPostEvaluationForOpponent(bean.hostTeamId,bean.agreeId);
                 }
             }
 

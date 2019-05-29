@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.item.util.ScreenUtils;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.work.guaishouxingqiu.aboutball.Contast;
@@ -61,6 +62,7 @@ public class PostEvaluationAdapter extends BaseRecyclerAdapter<PostEvaluationAda
     private void initImageContent(ViewHolder viewHolder, int i) {
         ResultInputEvaluationBean bean = mData.get(i);
         int imageCount = DataUtils.splitImagePathCount(bean.commentPic);
+        viewHolder.mLlImages.removeAllViews();
         if (imageCount > 0) {
             viewHolder.mLlImages.setVisibility(View.VISIBLE);
             String[] imagePathArray = bean.commentPic.split(",");
@@ -188,9 +190,16 @@ public class PostEvaluationAdapter extends BaseRecyclerAdapter<PostEvaluationAda
 
             }
             viewHolder.mLlImages.addView(inflateView);
-        }else {
+        } else {
             viewHolder.mLlImages.setVisibility(View.GONE);
         }
+        LinearLayout.LayoutParams lineParams = (LinearLayout.LayoutParams) viewHolder.mLineBottom.getLayoutParams();
+        if (viewHolder.mLlImages.getVisibility() == View.VISIBLE) {
+            lineParams.topMargin = 0;
+        } else {
+            lineParams.topMargin = ScreenUtils.dp2px(mContext, 20);
+        }
+        viewHolder.mLineBottom.setLayoutParams(lineParams);
     }
 
     @Override
@@ -205,6 +214,7 @@ public class PostEvaluationAdapter extends BaseRecyclerAdapter<PostEvaluationAda
         private TextView mTvTime;
         private ExpandableTextView mEtvContent;
         private LinearLayout mLlImages;
+        private View mLineBottom;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -217,6 +227,7 @@ public class PostEvaluationAdapter extends BaseRecyclerAdapter<PostEvaluationAda
             mTvTime = itemView.findViewById(R.id.tv_time);
             mEtvContent = itemView.findViewById(R.id.rtv_content);
             mLlImages = itemView.findViewById(R.id.ll_images);
+            mLineBottom = itemView.findViewById(R.id.line_bottom);
         }
     }
 }

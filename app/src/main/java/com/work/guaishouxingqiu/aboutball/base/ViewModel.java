@@ -171,11 +171,12 @@ public class ViewModel {
         bundle.putInt(ARouterConfig.Key.ORDER_FLAG, flag);
         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_WAIT_PAY_ORDER_DETAILS, bundle);
     }
-    public void startActivityToOrderPay(long orderId, int flag,int requestCode) {
+
+    public void startActivityToOrderPay(long orderId, int flag, int requestCode) {
         Bundle bundle = new Bundle();
         bundle.putLong(ARouterConfig.Key.ORDER_ID, orderId);
         bundle.putInt(ARouterConfig.Key.ORDER_FLAG, flag);
-        ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_WAIT_PAY_ORDER_DETAILS,mSoftActivity.get(), bundle,requestCode);
+        ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_WAIT_PAY_ORDER_DETAILS, mSoftActivity.get(), bundle, requestCode);
     }
 
     public void startActivityForResultToOrderPay(long orderId, int flag, Fragment fragment, int requestCode) {
@@ -343,10 +344,11 @@ public class ViewModel {
      *
      * @param teamId
      */
-    public void startActivityToPostEvaluationForOpponent(long teamId) {
+    public void startActivityToPostEvaluationForOpponent(long teamId, long agreeId) {
         Bundle bundle = new Bundle();
         bundle.putInt(ARouterConfig.Key.INPUT_EVALUATION_FLAG, Contast.InputEvaluationType.OPPONENT);
         bundle.putLong(ARouterConfig.Key.TEAM_ID, teamId);
+        bundle.putLong(ARouterConfig.Key.AGREE_ID,agreeId);
         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_POST_EVALUATION, bundle);
     }
 
@@ -355,17 +357,18 @@ public class ViewModel {
      *
      * @param refereeId
      */
-    public void startActivityToPostEvaluationForReferee(long refereeId) {
+    public void startActivityToPostEvaluationForReferee(long refereeId, long agreeId) {
         Bundle bundle = new Bundle();
-        bundle.putInt(ARouterConfig.Key.INPUT_EVALUATION_FLAG, Contast.InputEvaluationType.OPPONENT);
+        bundle.putInt(ARouterConfig.Key.INPUT_EVALUATION_FLAG, Contast.InputEvaluationType.REFEREE);
         bundle.putLong(ARouterConfig.Key.REFEREE_ID, refereeId);
+        bundle.putLong(ARouterConfig.Key.AGREE_ID,agreeId);
         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_POST_EVALUATION, bundle);
     }
 
-    public void startActivityToRefereeDetailsForResult(ResultRefereeBean bean, int chooseRefereeCount,int requestCode) {
+    public void startActivityToRefereeDetailsForResult(ResultRefereeBean bean, int chooseRefereeCount, int requestCode) {
         Bundle bundle = new Bundle();
-        bundle.putParcelable(ARouterConfig.Key.PARCELABLE,bean);
-        bundle.putInt(ARouterConfig.Key.COUNT,chooseRefereeCount);
-        ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_REFEREE_DETAILS,mSoftActivity.get(),bundle,requestCode);
+        bundle.putParcelable(ARouterConfig.Key.PARCELABLE, bean);
+        bundle.putInt(ARouterConfig.Key.COUNT, chooseRefereeCount);
+        ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_REFEREE_DETAILS, mSoftActivity.get(), bundle, requestCode);
     }
 }

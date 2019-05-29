@@ -8,11 +8,12 @@
         android:id="@+id/riv_1"
         android:layout_width="@dimen/size_90dp"
         android:layout_height="@dimen/size_65dp"
-        android:layout_marginLeft="@dimen/size_75dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:riv_corner_radius="@dimen/size_6dp"
-        app:riv_oval="false" />
+        app:riv_oval="false"
+        app:riv_border_color="@color/colorFFDCDCDC"
+        app:riv_border_width="@dimen/size_1dp"/>
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/riv_2"
@@ -22,18 +23,21 @@
         app:layout_constraintLeft_toRightOf="@id/riv_1"
         app:layout_constraintTop_toTopOf="parent"
         app:riv_corner_radius="@dimen/size_6dp"
-        app:riv_oval="false" />
+        app:riv_oval="false"
+        app:riv_border_color="@color/colorFFDCDCDC"
+        app:riv_border_width="@dimen/size_1dp"/>
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/riv_3"
         android:layout_width="@dimen/size_90dp"
         android:layout_height="@dimen/size_65dp"
-        android:layout_marginLeft="@dimen/size_75dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/riv_1"
         app:riv_corner_radius="@dimen/size_6dp"
         android:layout_marginTop="@dimen/size_5dp"
-        app:riv_oval="false" />
+        app:riv_oval="false"
+        app:riv_border_color="@color/colorFFDCDCDC"
+        app:riv_border_width="@dimen/size_1dp"/>
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/riv_4"
@@ -44,5 +48,7 @@
         app:layout_constraintTop_toBottomOf="@id/riv_2"
         app:riv_corner_radius="@dimen/size_6dp"
         android:layout_marginTop="@dimen/size_5dp"
-        app:riv_oval="false" />
+        app:riv_oval="false"
+        app:riv_border_color="@color/colorFFDCDCDC"
+        app:riv_border_width="@dimen/size_1dp"/>
 </android.support.constraint.ConstraintLayout>

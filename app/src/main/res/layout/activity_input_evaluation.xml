@@ -37,7 +37,7 @@
         android:layout_margin="@dimen/default_margin"
         android:background="@drawable/shape_radius_six_color_6_view"
         android:gravity="left|top"
-        android:hint="@string/feedback_content_hint"
+        android:hint="@string/tell_me_what_you_think"
         android:inputType="textMultiLine"
         android:lineSpacingExtra="@dimen/size_5dp"
         android:maxLength="140"
@@ -65,6 +65,8 @@
         android:layout_marginBottom="@dimen/size_15dp"
         android:layout_marginTop="@dimen/size_15dp"
         app:layout_constraintBottom_toTopOf="@id/include_bottom"
-        app:layout_constraintTop_toBottomOf="@id/acet_content" />
+        app:layout_constraintTop_toBottomOf="@id/acet_content"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"/>
 
 </android.support.constraint.ConstraintLayout>

@@ -123,6 +123,8 @@ public interface IApiService {
     String GET_CHECK_REFUND = "/api/order/weChatRefundQuery";
     String GET_REFEREE_EVALUATION = "/api/referee/getRefereeComment";
     String GET_TEAM_EVALUATION = "/api/myTeam/getTeamComment";
+    String POST_EVALUATE_OPPONENT = "/api/myTeam/commentOpponent";
+    String POST_EVALUATE_REFEREE = "/api/referee/commentReferee";
 
     interface H5 {
         String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";

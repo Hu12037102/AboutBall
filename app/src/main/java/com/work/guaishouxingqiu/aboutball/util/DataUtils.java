@@ -289,6 +289,7 @@ public class DataUtils {
         numberFormat.setGroupingUsed(false);
         return numberFormat.format(number);
     }
+
     public static Double getMoneyFormats(Number number) {
         NumberFormat numberFormat = NumberFormat.getInstance();
         numberFormat.setMaximumFractionDigits(2);
@@ -315,6 +316,7 @@ public class DataUtils {
 
     /**
      * 集合数据用逗号拼接
+     *
      * @param data
      * @return
      */
@@ -329,5 +331,15 @@ public class DataUtils {
         return sb.toString();
     }
 
+    public static String appendImagesPath(List<String> pathData) {
+        if (pathData == null || pathData.size() == 0) {
+            return "";
+        }
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < pathData.size(); i++) {
+            sb = sb.append(pathData.get(i)).append(i == pathData.size() - 1 ? "" : ",");
+        }
+        return sb.toString();
+    }
 
 }
