@@ -77,6 +77,7 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
     private List<ResultVenueBookBean> mWaitBookData;
     private VenueBookAdapter mBookAdapter;
     private VenueWaitBookAdapter mWaitBookAdapter;
+    private static final int REQUEST_CODE_INVITATION = 112;
 
     @Override
     protected int getLayoutId() {
@@ -261,7 +262,7 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
                         mPresenter.createOrder(bean, mIsSelectorBook);
                     }
                 } else {
-
+                    ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_BALL_TEAM_DETAILS_VENUE, ARouterConfig.Key.TEAM_ID, mWaitBookData.get(mWaitBookAdapter.getSelectorPosition()).hostTeamId);
                 }
                 break;
             case R.id.tv_bottom_right:
@@ -271,6 +272,9 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
                     bundle.putLong(ARouterConfig.Key.CALENDAR_ID, mBookData.get(mBookAdapter.getSelectorPosition()).calendarId);
                     bundle.putLong(ARouterConfig.Key.AREA_ID, mAreaId);
                     ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_LAUNCHER_BALL, this, bundle);
+                } else {
+                    ResultVenueBookBean bean = mWaitBookData.get(mWaitBookAdapter.getSelectorPosition());
+                    mViewModel.startActivityToInvitation(bean.agreeId, bean.calendarId, VenueBookingActivity.REQUEST_CODE_INVITATION);
                 }
                 break;
 
@@ -281,11 +285,27 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //发起约球返回结果
-        if (requestCode == ARouterIntent.REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case ARouterIntent.REQUEST_CODE:
+                    mBookData.get(mBookAdapter.getSelectorPosition()).stateId = 1;
+                    mBookData.get(mBookAdapter.getSelectorPosition()).isCheck = false;
+                    mBookAdapter.notifyDataSetChanged();
+                    break;
+                case VenueBookingActivity.REQUEST_CODE_INVITATION:
+                    mWaitBookData.get(mWaitBookAdapter.getSelectorPosition()).stateId = 1;
+                    mWaitBookData.get(mWaitBookAdapter.getSelectorPosition()).isCheck = false;
+                    mWaitBookAdapter.notifyDataSetChanged();
+                    break;
+                default:
+                    break;
+            }
+        }
+       /* if (requestCode == ARouterIntent.REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             mBookData.get(mBookAdapter.getSelectorPosition()).stateId = 1;
             mBookData.get(mBookAdapter.getSelectorPosition()).isCheck = false;
             mBookAdapter.notifyDataSetChanged();
-        }
+        }*/
     }
 
     class BookPagerAdapter extends PagerAdapter {
@@ -331,6 +351,7 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
                                 if (mBookAdapter.getCheckData().size() > 0) {
                                     mTvBottomLeft.setText(UIUtils.getString(R.string.money_make_booking, (DataUtils.getMoneyFormats(mBookData.get(position).price) * mBookAdapter.getCheckData().size())));
                                     mLlBottom.setVisibility(View.VISIBLE);
+                                    mTvBottomRight.setText(R.string.post_about_ball);
                                     if (mBookAdapter.getCheckData().size() > 1) {
                                         mTvBottomRight.setEnabled(false);
                                         mTvBottomRight.setBackgroundResource(R.drawable.shape_default_button);
@@ -382,6 +403,8 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
                             public void onItemClick(View view, int position) {
                                 if (mWaitBookData.get(position).isCheck) {
                                     mLlBottom.setVisibility(View.VISIBLE);
+                                    mTvBottomLeft.setText(R.string.read_ball_details);
+                                    mTvBottomRight.setText(R.string.join_about_ball);
                                 } else {
                                     mLlBottom.setVisibility(View.GONE);
                                 }

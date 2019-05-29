@@ -47,10 +47,8 @@ public class InvitationBallActivity extends BaseActivity<InvitationBallPresenter
     @BindView(R.id.tv_commit)
     TextView mTvCommit;
     private ResultMyBallTeamBean mMyBallTeam;
-    private ResultAboutBallDetailsBean mDetailsBean;
     private RequestInvitationBallBean mRequestBean;
     private static final int REQUEST_CODE_WAIT_PAY = 123;
-    //  private RequestVenueOrderBean mRequestOrderBean;
 
     @Override
     protected int getLayoutId() {
@@ -59,8 +57,10 @@ public class InvitationBallActivity extends BaseActivity<InvitationBallPresenter
 
     @Override
     protected void initView() {
-        mDetailsBean = mIntent.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
-        if (mDetailsBean == null) {
+        // mDetailsBean = mIntent.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
+        long agreeId = mIntent.getLongExtra(ARouterConfig.Key.AGREE_ID, -1);
+        long calendarId = mIntent.getLongExtra(ARouterConfig.Key.CALENDAR_ID, -1);
+        if (agreeId == -1 || calendarId == -1) {
             UIUtils.showToast(R.string.not_find_ball_team_id);
             finish();
             return;
@@ -73,15 +73,10 @@ public class InvitationBallActivity extends BaseActivity<InvitationBallPresenter
         mItemTeam.mTvRight.setTextColor(ContextCompat.getColor(this, R.color.color_4));
         mItemTeam.mTvRight.setHint(R.string.please_selector_ball_team);
         mRequestBean = new RequestInvitationBallBean();
-        mRequestBean.agreeId = mDetailsBean.agreeId;
-        mRequestBean.calendarId = mDetailsBean.calendarId;
+        mRequestBean.agreeId = agreeId;
+        mRequestBean.calendarId = calendarId;
 
 
-        /*mRequestOrderBean = new RequestVenueOrderBean();
-        mRequestOrderBean.calendarId = new Long[]{mDetailsBean.calendarId};
-        mRequestOrderBean.stadiumId = mDetailsBean.stadiumId;
-        mRequestOrderBean.areaId = mDetailsBean.areaId;
-        mRequestOrderBean.flag = 1;*/
     }
 
     @Override

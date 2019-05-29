@@ -27,6 +27,7 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
+import com.work.guaishouxingqiu.aboutball.venue.activity.AboutBallDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.venue.activity.WaitPayOrderDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultRefereeBean;
 import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
@@ -370,5 +371,16 @@ public class ViewModel {
         bundle.putParcelable(ARouterConfig.Key.PARCELABLE, bean);
         bundle.putInt(ARouterConfig.Key.COUNT, chooseRefereeCount);
         ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_REFEREE_DETAILS, mSoftActivity.get(), bundle, requestCode);
+    }
+
+    /**
+     * 跳转参加约球Activity
+     */
+    public void startActivityToInvitation(long agreeId,long calendarId,int requestCode){
+        Bundle bundle = new Bundle();
+        bundle.putLong(ARouterConfig.Key.AGREE_ID,agreeId);
+        bundle.putLong(ARouterConfig.Key.CALENDAR_ID,calendarId);
+        ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_INVITATION_BALL, mSoftActivity.get(), bundle,requestCode);
+
     }
 }

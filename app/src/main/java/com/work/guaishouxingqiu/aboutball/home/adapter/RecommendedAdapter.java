@@ -468,10 +468,10 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
         @Override
         public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
             ResultRecommendDataBean.AgreeBallMatch bean = mData.get(i);
-            GlideManger.get().loadHeadImage(viewHolder.itemView.getContext(), bean.teamLogo, viewHolder.mCivHead);
+            GlideManger.get().loadHeadImage(viewHolder.itemView.getContext(), bean.hostTeamLogo, viewHolder.mCivHead);
             viewHolder.mTvContent.setText(bean.stadiumName + "\n" + bean.areaName);
             viewHolder.mTvTime.setText(bean.startTime);
-            viewHolder.mTvName.setText(bean.teamName);
+            viewHolder.mTvName.setText(bean.hostTeamName);
             CardView.LayoutParams layoutParams = new FrameLayout.LayoutParams(ScreenUtils.dp2px(viewHolder.itemView.getContext(), 190),
                     ScreenUtils.dp2px(viewHolder.itemView.getContext(), 135));
             layoutParams.leftMargin = ScreenUtils.dp2px(viewHolder.itemView.getContext(), 0);
@@ -487,7 +487,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
                 public void onClick(View v) {
                    // Toasts.with().showToast(R.string.pleases_next_open);
                     Bundle bundle = new Bundle();
-                    bundle.putLong(ARouterConfig.Key.OFFER_ID, bean.offerId);
+                    bundle.putLong(ARouterConfig.Key.OFFER_ID, bean.agreeId);
                     bundle.putInt(ARouterConfig.Key.ABOUT_BALL_FLAG, 0);
                     ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ABOUT_BALL_DETAILS, bundle);
                 }

@@ -48,12 +48,14 @@ public class ResultRecommendDataBean {
         public String photoUrl;
     }
     public static class AgreeBallMatch{
-        public long offerId;
+        public long agreeId;
         public String stadiumName;
         public String startTime;
         public String endTime;
         public String areaName;
-        public String teamLogo;
-        public String teamName;
+        public String hostTeamLogo;
+        public String hostTeamName;
+        public int hasOpponent;
+        public int hasReferee;
     }
 }

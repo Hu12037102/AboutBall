@@ -15,4 +15,6 @@ public class ResultVenueBookBean {
     public int stateId;//0不占用，1占用
    // public int teamId;
     public boolean isCheck;
+    public long agreeId;
+    public long hostTeamId;
 }
