@@ -76,7 +76,7 @@ public class MyRefereeRecordFragment extends BaseFragment<MyRefereeRecordChildPr
     @Override
     public void resultMyRefereeRecord(List<ResultRefereeRecordBean> data) {
         mData.clear();
-        if (mData.size() > 0) {
+        if (data.size() > 0) {
             mData.addAll(data);
             mAdapter.addFootView(UIUtils.loadNotMoreView(mRvContent));
         }

@@ -7,9 +7,9 @@ package com.work.guaishouxingqiu.aboutball.my.bean;
  * 描述:返回裁判记录bean
  */
 public class ResultRefereeRecordBean {
-
+    public long agreeId;
     public String stadiumName;
     public String startTime;
     public String endTime;
-    public String initiatingTeam;
+    public String hostTeamName;
 }

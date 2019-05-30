@@ -32,7 +32,7 @@ public class RefereeRecordAdapter extends BaseRecyclerAdapter<RefereeRecordAdapt
         ResultRefereeRecordBean bean = mData.get(i);
         UIUtils.setText(viewHolder.mTvTitle, bean.stadiumName);
         UIUtils.setText(viewHolder.mTvTime, bean.endTime);
-        UIUtils.setText(viewHolder.mTvTeamName, bean.initiatingTeam);
+        UIUtils.setText(viewHolder.mTvTeamName, bean.hostTeamName);
     }
 
     @Override
