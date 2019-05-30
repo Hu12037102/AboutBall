@@ -9,8 +9,10 @@ import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
+import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueDetailsBean;
 import com.work.guaishouxingqiu.aboutball.weight.ExpandableTextView;
@@ -25,10 +27,18 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * 更新时间: 2019/4/17 17:23
  * 描述:用户评论Adapter
  */
+
 public class VenueUserCommentAdapter extends RecyclerView.Adapter<VenueUserCommentAdapter.ViewHolder> {
     private Context mContext;
     private List<ResultVenueDetailsBean.OrderCommentForAreaSimpleList> mData;
     private int mCommentCount;
+
+    public void setOnLoadMoreCommentListener(OnLoadMoreCommentListener onLoadMoreCommentListener) {
+        this.onLoadMoreCommentListener = onLoadMoreCommentListener;
+    }
+
+    private OnLoadMoreCommentListener onLoadMoreCommentListener;
+
 
     public VenueUserCommentAdapter(Context context, List<ResultVenueDetailsBean.OrderCommentForAreaSimpleList> data, int commentCount) {
         this.mContext = context;
@@ -57,6 +67,11 @@ public class VenueUserCommentAdapter extends RecyclerView.Adapter<VenueUserComme
         } else {
             viewHolder.mTvAllComment.setVisibility(View.GONE);
         }
+        viewHolder.mTvAllComment.setOnClickListener(view -> {
+            if (onLoadMoreCommentListener != null) {
+                onLoadMoreCommentListener.onClickMore(view);
+            }
+        });
         /*if (i == mData.size() -1){
             viewHolder.mLine.setVisibility(View.GONE);
         }else {
@@ -94,5 +109,9 @@ public class VenueUserCommentAdapter extends RecyclerView.Adapter<VenueUserComme
             mLine = itemView.findViewById(R.id.line);
 
         }
+    }
+
+    public interface OnLoadMoreCommentListener {
+        void onClickMore(View view);
     }
 }

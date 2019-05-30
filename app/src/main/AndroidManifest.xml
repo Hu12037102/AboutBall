@@ -277,14 +277,21 @@
         <activity
             android:name=".my.activity.OrderRefundDetailsActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".venue.activity.AboutRuleActivity"
+        <activity
+            android:name=".venue.activity.AboutRuleActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".my.activity.InputEvaluationActivity"
+        <activity
+            android:name=".my.activity.InputEvaluationActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".my.activity.PostEvaluationActivity"
-            android:screenOrientation="portrait"  />
-        <activity android:name=".my.activity.RefereeDetailsActivity"
-            android:screenOrientation="portrait"  />
+        <activity
+            android:name=".my.activity.PostEvaluationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.activity.RefereeDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".venue.activity.VenueEvaluateActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

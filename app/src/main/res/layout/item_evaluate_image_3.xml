@@ -14,6 +14,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:riv_border_color="@color/colorFFDCDCDC"
         app:riv_border_width="@dimen/size_1dp"
+        android:scaleType="centerCrop"
         />
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/riv_2"
@@ -26,6 +27,7 @@
         android:layout_marginLeft="@dimen/size_5dp"
         app:riv_border_color="@color/colorFFDCDCDC"
         app:riv_border_width="@dimen/size_1dp"
+        android:scaleType="centerCrop"
         />
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/riv_3"
@@ -38,5 +40,6 @@
         android:layout_marginLeft="@dimen/size_5dp"
         app:riv_border_color="@color/colorFFDCDCDC"
         app:riv_border_width="@dimen/size_1dp"
+        android:scaleType="centerCrop"
         />
 </android.support.constraint.ConstraintLayout>

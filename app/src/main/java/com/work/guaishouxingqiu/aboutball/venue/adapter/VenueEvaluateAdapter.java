@@ -1,23 +1,26 @@
-package com.work.guaishouxingqiu.aboutball.my.adapter;
+package com.work.guaishouxingqiu.aboutball.venue.adapter;
 
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.item.util.ScreenUtils;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.makeramen.roundedimageview.RoundedImageView;
-import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.my.adapter.PostEvaluationAdapter;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultInputEvaluationBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueEvaluateBean;
 import com.work.guaishouxingqiu.aboutball.weight.ExpandableTextView;
 
 import java.util.List;
@@ -25,43 +28,39 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
- * 作者: 胡庆岭
- * 创建时间: 2019/5/27 13:32
- * 更新时间: 2019/5/27 13:32
- * 描述:用户评价Adapter
+ * 项  目 :  AboutBalls
+ * 包  名 :  com.work.guaishouxingqiu.aboutball.venue.adapter
+ * 类  名 :  ${CLASS_NAME}
+ * 作  者 :  胡庆岭
+ * 时  间 : 2019/5/30
+ * 描  述 :  ${TODO}场馆评价适配器
+ *
+ * @author ：
  */
-public class PostEvaluationAdapter extends BaseRecyclerAdapter<PostEvaluationAdapter.ViewHolder, List<ResultInputEvaluationBean>> {
-    private int mFlag;
+public class VenueEvaluateAdapter extends BaseRecyclerAdapter<VenueEvaluateAdapter.ViewHolder, List<ResultVenueEvaluateBean.ChildEvaluateBean>> {
 
-    public PostEvaluationAdapter(@NonNull List<ResultInputEvaluationBean> data, int flag) {
+
+    public VenueEvaluateAdapter(@NonNull List<ResultVenueEvaluateBean.ChildEvaluateBean> data) {
         super(data);
-        this.mFlag = flag;
     }
 
     @Override
     protected void onBindViewDataHolder(@NonNull ViewHolder viewHolder, int i) {
-        ResultInputEvaluationBean bean = mData.get(i);
-        switch (mFlag) {
-            case Contast.InputEvaluationType.REFEREE:
-                GlideManger.get().loadHeadImage(mContext, bean.photoUrl, viewHolder.mCivHead);
-                break;
-            case Contast.InputEvaluationType.TEAMMATE:
-            case Contast.InputEvaluationType.OPPONENT:
-                GlideManger.get().loadHeadImage(mContext, bean.headerImg, viewHolder.mCivHead);
-                break;
-            default:
-                break;
-        }
+        ResultVenueEvaluateBean.ChildEvaluateBean bean = mData.get(i);
+        viewHolder.mRbGrade.setRating(bean.grade);
+        GlideManger.get().loadHeadImage(mContext, bean.headerImg, viewHolder.mCivHead);
         UIUtils.setText(viewHolder.mTvName, bean.nickName);
         UIUtils.setText(viewHolder.mTvTime, DateUtils.getYear2Minutes(bean.commentTime));
         viewHolder.mEtvContent.setText(bean.commentContent);
-        initImageContent(viewHolder, i);
-
-
+        initImageContent(viewHolder, bean);
     }
 
-    private void initImageContent(ViewHolder viewHolder, int i) {
-        ResultInputEvaluationBean bean = mData.get(i);
+    @Override
+    protected ViewHolder onCreateDataViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_input_evaluation_view, viewGroup, false));
+    }
+
+    private void initImageContent(VenueEvaluateAdapter.ViewHolder viewHolder, ResultVenueEvaluateBean.ChildEvaluateBean bean) {
         int imageCount = DataUtils.splitImagePathCount(bean.commentPic);
         viewHolder.mLlImages.removeAllViews();
         if (imageCount > 0) {
@@ -203,19 +202,14 @@ public class PostEvaluationAdapter extends BaseRecyclerAdapter<PostEvaluationAda
         viewHolder.mLineBottom.setLayoutParams(lineParams);
     }
 
-    @Override
-    protected ViewHolder onCreateDataViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_input_evaluation_view, viewGroup, false));
-    }
-
     static class ViewHolder extends RecyclerView.ViewHolder {
-
         private CircleImageView mCivHead;
         private TextView mTvName;
         private TextView mTvTime;
         private ExpandableTextView mEtvContent;
         private LinearLayout mLlImages;
         private View mLineBottom;
+        private RatingBar mRbGrade;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -229,6 +223,9 @@ public class PostEvaluationAdapter extends BaseRecyclerAdapter<PostEvaluationAda
             mEtvContent = itemView.findViewById(R.id.rtv_content);
             mLlImages = itemView.findViewById(R.id.ll_images);
             mLineBottom = itemView.findViewById(R.id.line_bottom);
+            ConstraintLayout mClGrade = itemView.findViewById(R.id.cl_grade);
+            mClGrade.setVisibility(View.VISIBLE);
+            mRbGrade = itemView.findViewById(R.id.rb_grade);
         }
     }
 }

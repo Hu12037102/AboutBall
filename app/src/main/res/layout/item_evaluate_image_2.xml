@@ -13,6 +13,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:riv_border_color="@color/colorFFDCDCDC"
         app:riv_border_width="@dimen/size_1dp"
+        android:scaleType="centerCrop"
         />
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/riv_2"
@@ -25,5 +26,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:riv_border_color="@color/colorFFDCDCDC"
         app:riv_border_width="@dimen/size_1dp"
+        android:scaleType="centerCrop"
         />
 </android.support.constraint.ConstraintLayout>

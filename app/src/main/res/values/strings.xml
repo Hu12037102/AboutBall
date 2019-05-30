@@ -26,6 +26,7 @@
     <string name="please_invite_the_referee">请邀请裁判</string>
     <string name="not_find_this_order">没有找到该订单</string>
     <string name="not_find_this_referee">没有找到该裁判</string>
+    <string name="not_find_this_venue_evaluate">没有找到该场馆评价</string>
     <string name="invite">邀请</string>
     <string name="inviting">已邀请</string>
     <string name="please_selector_ball_team">请选择球队</string>
@@ -479,4 +480,5 @@
     <string name="please_tell_me_what_you_think">请说说你的想法</string>
     <string name="refused_to_join_the">拒绝加入</string>
     <string name="join_the_team">加入球队</string>
+    <string name="evaluate_list">评价列表</string>
 </resources>

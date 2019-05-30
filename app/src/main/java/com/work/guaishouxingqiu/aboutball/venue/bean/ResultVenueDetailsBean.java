@@ -26,7 +26,7 @@ public class ResultVenueDetailsBean implements Serializable {
      * 场馆类别（7人场、9人场...）
      */
     public static class AreaForDetailsList implements Serializable {
-        public int areaId;
+        public long areaId;
         public String areaName;
         public String introduce;
         public String supporting;

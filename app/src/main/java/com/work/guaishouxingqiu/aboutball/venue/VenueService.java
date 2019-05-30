@@ -18,6 +18,7 @@ import com.work.guaishouxingqiu.aboutball.venue.bean.ResultTypeBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueBookBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueData;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueDetailsBean;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueEvaluateBean;
 
 import java.util.List;
 
@@ -97,4 +98,8 @@ public interface VenueService {
 
     @GET(IApiService.GET_CANCEL_ABOUT_BALL)
     Observable<BaseBean<Long>> cancelAboutBall(@Query(Contast.AGREE_ID) long agreeId);
+
+    @GET(IApiService.GET_VENUE_EVALUATE)
+    Observable<BaseBean<BaseDataBean<ResultVenueEvaluateBean>>> loadVenueEvaluate(@Query(Contast.AREA_ID) long areaId, @Query(Contast.FLAG) int flag,
+                                                                                  @Query(Contast.PAGE_NUM) int pageNum, @Query(Contast.PAGE_SIZE) int pageSize);
 }

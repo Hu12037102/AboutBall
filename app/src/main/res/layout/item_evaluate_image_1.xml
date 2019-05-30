@@ -10,4 +10,5 @@
     app:riv_oval="false"
     app:riv_border_color="@color/colorFFDCDCDC"
     app:riv_border_width="@dimen/size_1dp"
+
     />

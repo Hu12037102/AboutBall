@@ -129,6 +129,7 @@ public interface IApiService {
     String GET_CANCEL_ABOUT_BALL = "/api/agreeBall/cancelAgreeBall";
     String GET_MY_REFEREE_EVALUATION = "/api/referee/myRefereeComment";
     String GET_JOIN_TEAM="/api/myTeam/confirmJoin";
+    String GET_VENUE_EVALUATE="/api/stadium/getCommentForArea";
 
     interface H5 {
         String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";

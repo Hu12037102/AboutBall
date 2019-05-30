@@ -39,21 +39,50 @@
             android:textSize="@dimen/size_12sp"
             tools:text="匿名用戶" />
 
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/cl_grade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/size_10dp"
+            android:paddingBottom="@dimen/size_20dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_grade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/grade"
+                android:textColor="@color/color_4"
+                android:textSize="@dimen/size_12sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <RatingBar
+                android:id="@+id/rb_grade"
+                style="@style/DefaultRatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/size_10dp"
+                android:isIndicator="true"
+                app:layout_constraintBottom_toBottomOf="@id/tv_grade"
+                app:layout_constraintLeft_toRightOf="@id/tv_grade"
+                app:layout_constraintTop_toTopOf="@id/tv_grade" />
+        </android.support.constraint.ConstraintLayout>
+
         <com.work.guaishouxingqiu.aboutball.weight.ExpandableTextView
             android:id="@+id/rtv_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:maxCollapsedLines="3"
             android:layout_marginTop="@dimen/size_15dp"
-           >
+            android:orientation="vertical"
+            app:maxCollapsedLines="3">
 
             <TextView
                 android:id="@id/expandable_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/color_4"
                 android:lineSpacingExtra="@dimen/size_5dp"
+                android:textColor="@color/color_4"
                 android:textSize="@dimen/size_17sp" />
 
             <ImageButton
@@ -63,10 +92,10 @@
                 android:layout_gravity="left|bottom"
                 android:background="@android:color/transparent"
                 android:contentDescription="@null"
-                android:paddingBottom="@dimen/size_5dp"
                 android:paddingLeft="@dimen/size_10dp"
+                android:paddingTop="@dimen/size_5dp"
                 android:paddingRight="@dimen/size_10dp"
-                android:paddingTop="@dimen/size_5dp" />
+                android:paddingBottom="@dimen/size_5dp" />
         </com.work.guaishouxingqiu.aboutball.weight.ExpandableTextView>
 
         <LinearLayout
@@ -75,12 +104,11 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingTop="@dimen/size_20dp"
-            android:paddingBottom="@dimen/size_20dp"
-            />
+            android:paddingBottom="@dimen/size_20dp" />
+
         <View
             android:id="@+id/line_bottom"
             style="@style/HorizontalLine"
-            android:layout_marginTop="@dimen/default_margin"
-            />
+            android:layout_marginTop="@dimen/default_margin" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

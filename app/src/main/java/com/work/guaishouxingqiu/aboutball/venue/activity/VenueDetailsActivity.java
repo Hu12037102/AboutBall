@@ -373,7 +373,7 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
         if (mCommentData.size() > 0) {
             mCommentData.clear();
         }
-        int commentCount =0;
+        int commentCount = 0;
         if (areaBean.orderCommentForAreaList != null && areaBean.orderCommentForAreaList.size() > 0) {
             mLlHeadCommentGroup.setVisibility(View.VISIBLE);
             mCommentData.addAll(areaBean.orderCommentForAreaList.get(0).orderCommentForAreaSimpleList);
@@ -382,11 +382,17 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
             mLlHeadCommentGroup.setVisibility(View.GONE);
         }
         if (mCommentAdapter == null) {
-            mCommentAdapter = new VenueUserCommentAdapter(this, mCommentData,commentCount);
+            mCommentAdapter = new VenueUserCommentAdapter(this, mCommentData, commentCount);
             mRvComment.setAdapter(mCommentAdapter);
         } else {
             mCommentAdapter.notifyDataSetChanged();
         }
+        mCommentAdapter.setOnLoadMoreCommentListener(new VenueUserCommentAdapter.OnLoadMoreCommentListener() {
+            @Override
+            public void onClickMore(View view) {
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_EVALUATE, ARouterConfig.Key.AREA_ID, areaBean.areaId);
+            }
+        });
 
         //約球
         if (mAboutBallData.size() > 0) {
@@ -430,7 +436,8 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
 
     /**
      * flag 0:查看、参加约球裁判 1：取消约球
-      * @param bean
+     *
+     * @param bean
      * @param
      */
     private void startActivityToAboutBallDetails(ResultAboutBallBean bean) {
