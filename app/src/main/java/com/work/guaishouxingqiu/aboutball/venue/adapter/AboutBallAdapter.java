@@ -41,7 +41,7 @@ public class AboutBallAdapter extends BaseRecyclerAdapter<AboutBallAdapter.ViewH
         ResultAboutBallBean bean = mData.get(i);
         GlideManger.get().loadImage(viewHolder.itemView.getContext(), bean.hostTeamLogo,viewHolder.mCivData);
         viewHolder.mTvName.setText(bean.stadiumName);
-        viewHolder.mTvTime.setText(bean.startTime+"-"+ DateUtils.getHourMinutes(bean.endTime));
+        viewHolder.mTvTime.setText(DateUtils.getStartTime2EndTime(bean.startTime,bean.endTime));
         viewHolder.mTvAddress.setText(bean.hostTeamName);
         viewHolder.mTvStatus1.setVisibility(bean.hasReferee == Contast.HAS_REFEREE ? View.VISIBLE : View.GONE);
         viewHolder.mTvStatus2.setVisibility(bean.hasOpponent == Contast.HAS_RIVAL ? View.VISIBLE : View.GONE);

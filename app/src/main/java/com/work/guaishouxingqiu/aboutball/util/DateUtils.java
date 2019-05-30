@@ -1,5 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.util;
 
+import android.annotation.SuppressLint;
 import android.support.v7.widget.CardView;
 
 import java.text.ParseException;
@@ -254,5 +255,33 @@ public class DateUtils {
             e.printStackTrace();
         }
         return resultHour;
+    }
+
+    /**
+     * 返回时间年月日时分
+     *
+     * @param time
+     * @return
+     */
+    public static String getYear2Minutes(String time) {
+        String resultTime = "";
+        if (DataUtils.isEmpty(time)) {
+            return resultTime;
+        }
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date date = sdf.parse(time);
+            @SuppressLint("SimpleDateFormat")
+            SimpleDateFormat newSdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            resultTime = newSdf.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return resultTime;
+    }
+
+    public static String getStartTime2EndTime(String startTime, String endTime) {
+        return DateUtils.getYear2Minutes(startTime) + " - " + DateUtils.getHourMinutes(endTime);
     }
 }

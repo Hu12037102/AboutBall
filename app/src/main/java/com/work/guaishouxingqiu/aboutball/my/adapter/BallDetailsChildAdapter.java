@@ -11,6 +11,7 @@ import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
+import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 
 import java.util.List;
 
@@ -25,16 +26,18 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class BallDetailsChildAdapter extends BaseRecyclerAdapter<BallDetailsChildAdapter.ViewHolder,
         List<ResultBallDetailsBean.MatchBean>> {
     private boolean mIsInputEvaluate = true;
+
     public BallDetailsChildAdapter(@NonNull List<ResultBallDetailsBean.MatchBean> data) {
         super(data);
     }
 
     /**
      * 要不要显示输入评价（对手评价，裁判评价）
+     *
      * @param data
      * @param isInputEvaluate
      */
-    public BallDetailsChildAdapter(@NonNull List<ResultBallDetailsBean.MatchBean> data,boolean isInputEvaluate) {
+    public BallDetailsChildAdapter(@NonNull List<ResultBallDetailsBean.MatchBean> data, boolean isInputEvaluate) {
         super(data);
         mIsInputEvaluate = isInputEvaluate;
     }
@@ -49,16 +52,16 @@ public class BallDetailsChildAdapter extends BaseRecyclerAdapter<BallDetailsChil
     @Override
     protected void onBindViewDataHolder(@NonNull ViewHolder viewHolder, int i) {
         ResultBallDetailsBean.MatchBean bean = mData.get(i);
-        viewHolder.mTvTime.setText(bean.startTime + " " + bean.endTime);
+        viewHolder.mTvTime.setText(DateUtils.getStartTime2EndTime(bean.startTime, bean.endTime));
         GlideManger.get().loadLogoImage(mContext, bean.hostTeamLogo, viewHolder.mCivLeftLogo);
         viewHolder.mTvLeftName.setText(bean.hostTeamName);
         viewHolder.mTvGradle.setText(bean.hostScore + "  -  " + bean.guestScore);
         GlideManger.get().loadLogoImage(mContext, bean.guestTeamLogo, viewHolder.mCivRightLogo);
         viewHolder.mTvRightName.setText(bean.guestTeamName);
-        if(mIsInputEvaluate){
-           viewHolder.mTvJudgeReferee.setVisibility(View.VISIBLE);
-           viewHolder.mTvJudgeOpponent.setVisibility(View.VISIBLE);
-        }else {
+        if (mIsInputEvaluate) {
+            viewHolder.mTvJudgeReferee.setVisibility(View.VISIBLE);
+            viewHolder.mTvJudgeOpponent.setVisibility(View.VISIBLE);
+        } else {
             viewHolder.mTvJudgeReferee.setVisibility(View.GONE);
             viewHolder.mTvJudgeOpponent.setVisibility(View.GONE);
         }

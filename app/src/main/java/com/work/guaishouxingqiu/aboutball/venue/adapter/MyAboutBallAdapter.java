@@ -13,6 +13,7 @@ import com.example.item.util.ScreenUtils;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.my.adapter.RefereeRecordAdapter;
+import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultMyAboutBean;
 
@@ -33,7 +34,7 @@ public class MyAboutBallAdapter extends BaseRecyclerAdapter<MyAboutBallAdapter.V
     protected void onBindViewDataHolder(@NonNull ViewHolder viewHolder, int i) {
         ResultMyAboutBean bean = mData.get(i);
         UIUtils.setText(viewHolder.mTvTitle, bean.stadiumName);
-        UIUtils.setText(viewHolder.mTvTime, bean.startTime);
+        UIUtils.setText(viewHolder.mTvTime, DateUtils.getStartTime2EndTime(bean.startTime, bean.endTime));
         UIUtils.setText(viewHolder.mTvTeamName, bean.hostTeamName);
     }
 
