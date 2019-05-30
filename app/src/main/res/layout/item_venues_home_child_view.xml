@@ -5,8 +5,9 @@
     android:id="@+id/cv_item"
     android:layout_width="@dimen/size_120dp"
     android:layout_height="160dp"
-    app:cardElevation="@dimen/size_5dp"
-    app:cardMaxElevation="@dimen/size_10dp">
+    app:cardElevation="@dimen/size_6dp"
+    app:cardCornerRadius="@dimen/size_6dp"
+    android:foreground="?android:selectableItemBackground">
 
     <LinearLayout
         android:layout_width="match_parent"

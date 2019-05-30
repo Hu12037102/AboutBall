@@ -17,7 +17,7 @@
     <string-array name="game_tab_array">
         <item>官方</item>
         <item>民间</item>
-        <item>教学</item>
+       <!-- <item>教学</item>-->
     </string-array>
     <string-array name="venue_tab_array">
         <item>场馆</item>
@@ -33,9 +33,9 @@
         <item>女</item>
     </string-array>
     <string-array name="game_details_tab_array">
-        <item>赛况</item>
+       <!-- <item>赛况</item>-->
         <item>数据</item>
-        <item>评论</item>
+       <!-- <item>评论</item>-->
         <item>集锦</item>
     </string-array>
     <string-array name="award_status_array">

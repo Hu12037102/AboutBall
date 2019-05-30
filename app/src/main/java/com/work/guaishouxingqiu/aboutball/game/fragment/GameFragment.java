@@ -124,8 +124,8 @@ public class GameFragment extends DelayedFragment<GamePresenter> implements Game
     private void initPagerData() {
         GameOfficialFragment mOfficialFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_OFFICIAL);
         GameFolkFragment mFolkFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_FOLK);
-        GameTeachFragment mTeachFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_TEACH);
-        Fragment[] fragments = new Fragment[]{mOfficialFragment, mFolkFragment, mTeachFragment};
+     //   GameTeachFragment mTeachFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_TEACH);
+        Fragment[] fragments = new Fragment[]{mOfficialFragment, mFolkFragment};
         FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int i) {

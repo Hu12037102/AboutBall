@@ -4,11 +4,11 @@
     android:id="@+id/cv_item"
     android:layout_width="190dp"
     android:layout_height="135dp"
-    app:cardElevation="@dimen/size_5dp"
+    app:cardElevation="@dimen/size_6dp"
     app:cardPreventCornerOverlap="true"
-    app:cardBackgroundColor="@color/colorWhite"
+    app:cardCornerRadius="@dimen/size_6dp"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/selector_item"
+    android:foreground="?android:selectableItemBackground"
     >
 
     <LinearLayout

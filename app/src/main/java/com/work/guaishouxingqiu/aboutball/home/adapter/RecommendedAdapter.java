@@ -208,7 +208,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
         } else if (viewHolder instanceof VideoHolder) {
             VideoHolder videoHolder = (VideoHolder) viewHolder;
             // videoHolder.mTvContent.setText(mData.get(i).title);
-            videoHolder.mTvFrom.setText(UIUtils.getString(R.string.from_data, mData.get(i).source, mData.get(i).releaseTime));
+            videoHolder.mTvFrom.setText(UIUtils.getString(R.string.from_data, mData.get(i).source, DataUtils.getNotNullData(mData.get(i).releaseTime)));
             addTop(bean, videoHolder.mTvContent);
            /* GlideManger.get().loadImageDrawable(mData.get(i).coverUrl, new CustomTarget<Drawable>() {
                 @Override

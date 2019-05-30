@@ -166,7 +166,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
             String[] tabArray = getResources().getStringArray(R.array.game_details_tab_array);
             for (int i = 0; i < tabArray.length; i++) {
                 //  mTbData.addTab(mTbData.newTab().setText(tabArray[i]), i == 0);
-                UIUtils.setBaseCustomTabLayout(mTbData, tabArray[i], i == 1, 45);
+                UIUtils.setBaseCustomTabLayout(mTbData, tabArray[i], i == 0, 45);
 
 
             }
@@ -244,9 +244,9 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
 
 
     private void initPagerData(ResultGameSimpleBean bean) {
-        GameResultFragment resultFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_RESULT, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
+       // GameResultFragment resultFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_RESULT, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
         GameDataFragment dataFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_DATA, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
-        GameCommentFragment commentFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_COMMENT, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
+       // GameCommentFragment commentFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_COMMENT, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
         GameCollectionFragment collectionFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_COLLECTION, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
         collectionFragment.setOnCollectionClickListener(videoUrl -> {
             mDataBean.liveAddress = videoUrl;
@@ -267,7 +267,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
                 initLiveVideoView(mDataBean);
             }
         });
-        mFragments = new Fragment[]{resultFragment, dataFragment, commentFragment, collectionFragment};
+        mFragments = new Fragment[]{/*resultFragment, */dataFragment, /*commentFragment, */collectionFragment};
         mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int i) {
@@ -281,7 +281,6 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
         };
         mBvData.setOffscreenPageLimit(mFragments.length);
         mBvData.setAdapter(mPagerAdapter);
-        mBvData.setCurrentItem(1, true);
         mBvData.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {

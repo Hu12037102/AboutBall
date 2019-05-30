@@ -3,6 +3,7 @@ package com.work.guaishouxingqiu.aboutball.my.activity;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.TextView;
 
@@ -138,7 +139,7 @@ public class ManageBallTeamActivity extends CameraActivity<ManageBallTeamPresent
             GlideManger.get().loadLogoImage(this, mRequestBean.logoUrl, mCivLogo);
             mAcetTeamName.setText(mBallBean.teamName);
             if (mBallBean.teamName != null) {
-                mAcetTeamName.setSelection(mBallBean.teamName.length());
+                mAcetTeamName.setSelection(DataUtils.getEditDetails(mAcetTeamName).length());
             }
             mItemType.setContentText(mBallBean.teamType);
             LogUtils.w("initView--", mBallBean.teamTypeId + "---");

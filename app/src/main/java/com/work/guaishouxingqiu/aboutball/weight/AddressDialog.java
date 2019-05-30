@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.view.WindowManager;
 import com.bigkoo.pickerview.adapter.ArrayWheelAdapter;
 import com.contrarywind.listener.OnItemSelectedListener;
 import com.contrarywind.view.WheelView;
+import com.example.item.util.ScreenUtils;
 import com.example.item.weight.TitleView;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -214,6 +216,7 @@ public class AddressDialog extends BaseDialog {
         wheelView.setCyclic(false);
         wheelView.setLineSpacingMultiplier(2.0f);
         wheelView.setTextColorCenter(ContextCompat.getColor(getContext(), R.color.colorFF333333));
+        wheelView.setTextSize(15);
         wheelView.setGravity(Gravity.CENTER);
     }
 

@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_ball_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:id="@+id/item_ball_root"
-    android:background="@color/colorWhite"
+    android:layout_marginBottom="@dimen/size_5dp"
     android:layout_marginTop="@dimen/size_5dp"
-    android:layout_marginBottom="@dimen/size_5dp">
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/rl_ball_more"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_50dp"
         android:paddingLeft="@dimen/default_margin"
-        android:paddingRight="@dimen/default_margin"
-        >
+        android:paddingRight="@dimen/default_margin">
 
         <TextView
             android:layout_width="wrap_content"
