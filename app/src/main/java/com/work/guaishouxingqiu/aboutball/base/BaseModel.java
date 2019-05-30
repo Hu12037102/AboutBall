@@ -4,6 +4,7 @@ import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
 import com.work.guaishouxingqiu.aboutball.http.RetrofitManger;
 import com.work.guaishouxingqiu.aboutball.my.MyService;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundCauseBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
@@ -78,6 +79,21 @@ public class BaseModel {
     public void loadRefundCauseList(BaseObserver<List<ResultRefundCauseBean>> observer) {
         mRetrofitManger.create(MyService.class)
                 .getRefundCause()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void loadTeamDetails(long teamId, BaseObserver<ResultBallDetailsBean> observer) {
+        mRetrofitManger.create(MyService.class)
+                .loadBallTeamDetails(teamId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    public void joinTeam(long teamId,BaseObserver<BaseDataBean<String>> observer) {
+        mRetrofitManger.create(MyService.class)
+                .joinTeam(teamId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

@@ -1,31 +1,34 @@
 package com.work.guaishouxingqiu.aboutball.home.activity;
 
 
-import android.Manifest;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.game.fragment.GameFragment;
 import com.work.guaishouxingqiu.aboutball.home.adapter.MainTabAdapter;
+import com.work.guaishouxingqiu.aboutball.home.bean.EventOpenTypeBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.MainTabBean;
 import com.work.guaishouxingqiu.aboutball.home.contract.MainContract;
 import com.work.guaishouxingqiu.aboutball.home.fragment.HomeFragment;
 import com.work.guaishouxingqiu.aboutball.home.presenter.MainPresenter;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.fragment.MyFragment;
 import com.work.guaishouxingqiu.aboutball.other.DownloadApkHelp;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
-import com.work.guaishouxingqiu.aboutball.permission.imp.OnPermissionsResult;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
-import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.fragment.VenueFragment;
+import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
+import com.work.guaishouxingqiu.aboutball.weight.TeamBallInviteDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -50,6 +53,7 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
     BaseViewPager mBvpContent;
     private MainTabAdapter mTabAdapter;
     private long mFinishTime;
+    private TeamBallInviteDialog mTeamInviteDialog;
 
 
     @Override
@@ -74,6 +78,9 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
         unRegisterEventBus();
         super.onDestroy();
     }
+
+
+
 
 
 

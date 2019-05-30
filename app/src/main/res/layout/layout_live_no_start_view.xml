@@ -5,13 +5,28 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
+    <com.work.guaishouxingqiu.aboutball.weight.FocusableTextView
+        android:id="@+id/tv_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:gravity="center_horizontal"
+        android:singleLine="true"
+        android:textColor="@color/colorTheme"
+        android:scrollHorizontally="true"
+        tools:text="第十八届球王杯" />
+
+   <!-- <TextView
+        android:id="@+id/tv_status"
         style="@style/SingLineTextView"
         android:gravity="center"
         android:textColor="@color/colorTheme"
         android:textSize="@dimen/size_12sp"
         android:text="@string/live_no_start"
-        tools:text="直播尚未开始" />
+        tools:text="直播尚未开始" />-->
 
     <TextView
         android:layout_width="match_parent"

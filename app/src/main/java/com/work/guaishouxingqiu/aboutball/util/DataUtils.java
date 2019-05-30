@@ -2,13 +2,11 @@ package com.work.guaishouxingqiu.aboutball.util;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.work.guaishouxingqiu.aboutball.Contast;
-import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
@@ -19,8 +17,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.List;
@@ -30,13 +26,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -242,12 +235,13 @@ public class DataUtils {
     /**
      * 构造默认的球队分享bean
      *
-     * @param webUrl
+     * @param teamId
      * @return
      */
-    public static ShareWebBean resultShareBallTeam(@NonNull String webUrl) {
+    public static ShareWebBean resultShareBallTeam(long teamId) {
         ShareWebBean bean = new ShareWebBean();
-        bean.webUrl = webUrl;
+        bean.webUrl = IApiService.H5.DOWNLOAD_APK + "?teamId=" + teamId + "&typeId=" + IApiService.TypeId.OPEN_BALL_INVITE;
+        LogUtils.w("ShareWebBean--", bean.webUrl);
         bean.title = "加入球队";
         bean.description = "您的朋友邀请您一起组建球队，马上点击确认吧";
         return bean;

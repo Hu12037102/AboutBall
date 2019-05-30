@@ -358,6 +358,7 @@
     <string name="please_selector_location">请选择位置</string>
     <string name="the_backup">替补位置（最多选3个）</string>
     <string name="please_selector_the_backup">请选择替补位置</string>
+    <string name="ball_invite">球队邀请</string>
 
     <string name="the_goalkeeper">门将</string>
     <string name="defender">后卫</string>
@@ -442,6 +443,8 @@
     <string name="refund_cause">退款理由：</string>
     <string name="download_about_ball">下载踢球么</string>
     <string name="you_friend_download_about_ball">您的好友邀请您下载踢球么，一起加入圈子吧</string>
+    <string name="the_team_captain">球队队长</string>
+    <string name="the_team_member">球队成员</string>
 
     <string name="about_rule_content_1">球队队长发起约球，邀请其他队伍进行PK</string>
     <string name="about_rule_content_hint">备注：1、只能队长有权限参加或发起约球\n2、队伍人数应与场地人数匹配</string>
@@ -474,4 +477,6 @@
     <string name="opponent_evaluation">对手评价</string>
     <string name="tell_me_what_you_think">说说你的想法~</string>
     <string name="please_tell_me_what_you_think">请说说你的想法</string>
+    <string name="refused_to_join_the">拒绝加入</string>
+    <string name="join_the_team">加入球队</string>
 </resources>

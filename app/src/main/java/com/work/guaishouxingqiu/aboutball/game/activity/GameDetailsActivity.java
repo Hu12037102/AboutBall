@@ -332,6 +332,8 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
                 View noStartView = getLayoutInflater().inflate(R.layout.layout_live_no_start_view, mLlLiveDetails, false);
                 mLlLiveDetails.addView(noStartView);
                 TextView tvTime = noStartView.findViewById(R.id.tv_time);
+                FocusableTextView tvStatus = noStartView.findViewById(R.id.tv_status);
+                UIUtils.setText(tvStatus,bean.gameName);
                 tvTime.setText(bean.startTime);
                 break;
             //比赛进行中

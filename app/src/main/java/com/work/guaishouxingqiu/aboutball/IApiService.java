@@ -109,7 +109,7 @@ public interface IApiService {
     String GET_SURE_REFEREE_STATUS = "/api/referee/refereeConfirm";
     String GET_MY_REFEREE_RECORD = "/api/referee/myRefereeRecord";
     String GET_REFEREE_RECORD = "/api/referee/getRefereeRecord";
-    String GET_REFEREE_DETAILS="/api/referee/getRefereeDetail";
+    String GET_REFEREE_DETAILS = "/api/referee/getRefereeDetail";
     String POST_FEEDBACK = "/api/commons/feedback";
     String GET_MY_ORDER = "/api/order/getMyOrder";
     String GET_CANCEL_ORDER = "/api/order/cancelOrder";
@@ -125,18 +125,25 @@ public interface IApiService {
     String GET_TEAM_EVALUATION = "/api/myTeam/getTeamComment";
     String POST_EVALUATE_OPPONENT = "/api/myTeam/commentOpponent";
     String POST_EVALUATE_REFEREE = "/api/referee/commentReferee";
-    String POST_INVITATION_BALL="/api/agreeBall/applyBall";
-    String GET_CANCEL_ABOUT_BALL="/api/agreeBall/cancelAgreeBall";
-    String GET_MY_REFEREE_EVALUATION="/api/referee/myRefereeComment";
+    String POST_INVITATION_BALL = "/api/agreeBall/applyBall";
+    String GET_CANCEL_ABOUT_BALL = "/api/agreeBall/cancelAgreeBall";
+    String GET_MY_REFEREE_EVALUATION = "/api/referee/myRefereeComment";
+    String GET_JOIN_TEAM="/api/myTeam/confirmJoin";
+
     interface H5 {
         String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";
         //资讯详情分享，后缀加上id;
         String SHARE_NEWS_DETAILS = "http://ifeell.com.cn/share/index.html?id=";
         //分享球队链接，后面跟上teamId
-        String SHARE_BALL_TEAM = "http://ifeell.oss-cn-shenzhen.aliyuncs.com/app/ipk_android_release.apk?teamId=";
+        //https://ifi.bmece.com/download?teamId=1&typeId=1
+        String SHARE_BALL_TEAM = "https://ifi.bmece.com/download";
         //APK下载路径
         String DOWNLOAD_APK = "https://ifi.bmece.com/download";
     }
 
+    interface TypeId{
+        //球队邀请
+        int OPEN_BALL_INVITE = 1;
+    }
 
 }

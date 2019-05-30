@@ -143,12 +143,14 @@ public interface MyService {
 
     @GET(IApiService.GET_SURE_REFEREE_STATUS)
     Observable<BaseBean<String>> sureRefereeStatus();
+
     //我的裁判记录
     @GET(IApiService.GET_MY_REFEREE_RECORD)
     Observable<BaseBean<List<ResultRefereeRecordBean>>> loadMyRefereeRecord();
+
     //通过Id查找裁判记录
     @GET(IApiService.GET_REFEREE_RECORD)
-    Observable<BaseBean<List<ResultRefereeRecordBean>>> loadRefereeRecord(@Query(Contast.REFEREE_ID)long refereeId);
+    Observable<BaseBean<List<ResultRefereeRecordBean>>> loadRefereeRecord(@Query(Contast.REFEREE_ID) long refereeId);
 
     @GET(IApiService.GET_REFEREE_DETAILS)
     Observable<BaseBean<ResultRefereeDetailsBean>> loadRefereeDetails(@Query(Contast.REFEREE_ID) long refereeId);
@@ -188,9 +190,14 @@ public interface MyService {
 
     @POST(IApiService.POST_EVALUATE_OPPONENT)
     Observable<BaseBean<BaseDataBean<String>>> postEvaluateOpponent(@Body RequestInputEvaluationBean bean);
+
     @POST(IApiService.POST_EVALUATE_REFEREE)
     Observable<BaseBean<BaseDataBean<String>>> postEvaluateReferee(@Body RequestInputEvaluationBean bean);
+
     @GET(IApiService.GET_MY_REFEREE_EVALUATION)
     Observable<BaseBean<List<ResultInputEvaluationBean>>> loadMyRefereeEvaluation();
+
+    @GET(IApiService.GET_JOIN_TEAM)
+    Observable<BaseBean<BaseDataBean<String>>> joinTeam(@Query(Contast.TEAM_ID) long teamId);
 
 }

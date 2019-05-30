@@ -188,7 +188,7 @@ public class BallTeamMemberFragment extends LoginOrShareFragment<BallTeamMemberP
             shareDialog.dismiss();
         });*/
 
-        showShareDialog(DataUtils.resultShareBallTeam(IApiService.H5.SHARE_BALL_TEAM + mBallBean.teamId));
+        showShareDialog(DataUtils.resultShareBallTeam(mBallBean.teamId));
 
     }
 

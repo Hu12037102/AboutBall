@@ -35,7 +35,6 @@
             app:tabTextColor="@color/colorFF777777" />
     </android.support.constraint.ConstraintLayout>
 
-    <View style="@style/HorizontalLine" />
 
     <com.work.guaishouxingqiu.aboutball.weight.BaseViewPager
         android:id="@+id/bvp_content"

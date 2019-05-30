@@ -15,6 +15,7 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.media.bean.MediaSelectorFile;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundCauseBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
@@ -100,7 +101,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
 
     public void initPermission() {
 
-        if (mIntent == null ) {
+        if (mIntent == null) {
             finish();
             return;
         }
@@ -219,6 +220,16 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
 
     @Override
     public void resultRefundCauseData(List<ResultRefundCauseBean> data) {
+
+    }
+
+    @Override
+    public void resultTeamDetails(ResultBallDetailsBean bean) {
+
+    }
+
+    @Override
+    public void resultJoinTeamSucceed() {
 
     }
 }

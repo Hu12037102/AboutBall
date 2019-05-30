@@ -50,22 +50,21 @@
                     style="@style/DefaultRatingBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/size_30dp"
                     android:isIndicator="true"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/tv_gradle" />
+                    app:layout_constraintLeft_toRightOf="@id/tv_gradle"
+                    app:layout_constraintTop_toTopOf="@id/tv_gradle"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_gradle"
+                    android:layout_marginLeft="@dimen/size_10dp"/>
 
                 <TextView
                     android:id="@+id/tv_gradle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/size_10dp"
                     android:text="@string/grade"
                     android:textColor="@color/color_4"
                     android:textSize="@dimen/size_12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent" />
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    />
 
             </android.support.constraint.ConstraintLayout>
 

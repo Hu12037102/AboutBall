@@ -70,7 +70,7 @@ import static com.work.guaishouxingqiu.aboutball.home.adapter.RecommendedAdapter
 @Route(path = ARouterConfig.Path.FRAGMENT_RECOMMENDED)
 public class RecommendedFragment extends BaseFragment<RecommendedPresenter> implements RecommendedContract.View {
     private static final int WHAT = 100;
-    private static final int POST_TIME = 2000;
+    private static final int POST_TIME = 4000;
     @BindView(R.id.rv_recommend)
     RecyclerView mRvRecommend;
     @BindView(R.id.srl_recommend)
