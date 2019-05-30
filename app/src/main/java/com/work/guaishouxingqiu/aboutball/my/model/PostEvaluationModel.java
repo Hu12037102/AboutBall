@@ -32,4 +32,12 @@ public class PostEvaluationModel extends BaseModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
+
+    public void loadMyRefereeEvaluation(BaseObserver<List<ResultInputEvaluationBean>> observer) {
+        mRetrofitManger.create(MyService.class)
+                .loadMyRefereeEvaluation()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
 }

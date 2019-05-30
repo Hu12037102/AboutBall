@@ -175,5 +175,6 @@ public interface Contast {
         int REFEREE = 1;//评论裁判
         int OPPONENT = 2;//评论对手
         int TEAMMATE = 3;//队友评论
+        int MY_REFEREE = 0;//我的裁判评论
     }
 }

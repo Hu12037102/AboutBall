@@ -22,6 +22,7 @@ import com.work.guaishouxingqiu.aboutball.my.activity.OrderEvaluateActivity;
 import com.work.guaishouxingqiu.aboutball.my.activity.RefundActivity;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
+import com.work.guaishouxingqiu.aboutball.my.fragment.PostEvaluationFragment;
 import com.work.guaishouxingqiu.aboutball.other.DownloadApkHelp;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
@@ -349,7 +350,7 @@ public class ViewModel {
         Bundle bundle = new Bundle();
         bundle.putInt(ARouterConfig.Key.INPUT_EVALUATION_FLAG, Contast.InputEvaluationType.OPPONENT);
         bundle.putLong(ARouterConfig.Key.TEAM_ID, teamId);
-        bundle.putLong(ARouterConfig.Key.AGREE_ID,agreeId);
+        bundle.putLong(ARouterConfig.Key.AGREE_ID, agreeId);
         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_POST_EVALUATION, bundle);
     }
 
@@ -362,7 +363,7 @@ public class ViewModel {
         Bundle bundle = new Bundle();
         bundle.putInt(ARouterConfig.Key.INPUT_EVALUATION_FLAG, Contast.InputEvaluationType.REFEREE);
         bundle.putLong(ARouterConfig.Key.REFEREE_ID, refereeId);
-        bundle.putLong(ARouterConfig.Key.AGREE_ID,agreeId);
+        bundle.putLong(ARouterConfig.Key.AGREE_ID, agreeId);
         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_POST_EVALUATION, bundle);
     }
 
@@ -376,11 +377,18 @@ public class ViewModel {
     /**
      * 跳转参加约球Activity
      */
-    public void startActivityToInvitation(long agreeId,long calendarId,int requestCode){
+    public void startActivityToInvitation(long agreeId, long calendarId, int requestCode) {
         Bundle bundle = new Bundle();
-        bundle.putLong(ARouterConfig.Key.AGREE_ID,agreeId);
-        bundle.putLong(ARouterConfig.Key.CALENDAR_ID,calendarId);
-        ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_INVITATION_BALL, mSoftActivity.get(), bundle,requestCode);
+        bundle.putLong(ARouterConfig.Key.AGREE_ID, agreeId);
+        bundle.putLong(ARouterConfig.Key.CALENDAR_ID, calendarId);
+        ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_INVITATION_BALL, mSoftActivity.get(), bundle, requestCode);
 
+    }
+
+    public PostEvaluationFragment getRefereeEvaluationFragment(long refereeId,int flag) {
+        Bundle bundle = new Bundle();
+        bundle.putLong(ARouterConfig.Key.REFEREE_ID, refereeId);
+        bundle.putInt(ARouterConfig.Key.INPUT_EVALUATION_FLAG,flag);
+        return ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_POST_EVALUATION, bundle);
     }
 }

@@ -127,6 +127,7 @@ public interface IApiService {
     String POST_EVALUATE_REFEREE = "/api/referee/commentReferee";
     String POST_INVITATION_BALL="/api/agreeBall/applyBall";
     String GET_CANCEL_ABOUT_BALL="/api/agreeBall/cancelAgreeBall";
+    String GET_MY_REFEREE_EVALUATION="/api/referee/myRefereeComment";
     interface H5 {
         String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";
         //资讯详情分享，后缀加上id;

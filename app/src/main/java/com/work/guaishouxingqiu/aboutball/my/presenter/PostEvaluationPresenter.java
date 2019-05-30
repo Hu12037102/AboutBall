@@ -67,4 +67,21 @@ public class PostEvaluationPresenter extends BasePresenter<PostEvaluationContrac
             }
         }));
     }
+
+    @Override
+    public void loadMyRefereeEvaluation() {
+        mModel.loadMyRefereeEvaluation(new BaseObserver<>(true, this, new BaseObserver.Observer<List<ResultInputEvaluationBean>>() {
+            @Override
+            public void onNext(BaseBean<List<ResultInputEvaluationBean>> t) {
+                if (DataUtils.isResultSure(t)) {
+                    mView.resultEvaluation(t.result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
 }

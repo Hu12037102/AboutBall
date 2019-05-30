@@ -20,5 +20,7 @@ public interface PostEvaluationContract {
         void loadTeamEvaluation(long teamId);
 
         void loadRefereeEvaluation(long refereeId);
+
+        void loadMyRefereeEvaluation();
     }
 }

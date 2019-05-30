@@ -10,11 +10,13 @@ import android.support.v4.view.ViewPager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.TitleView;
+import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.my.contract.MyRefereeRecordContract;
 import com.work.guaishouxingqiu.aboutball.my.fragment.MyRefereeEvaluateFragment;
 import com.work.guaishouxingqiu.aboutball.my.fragment.MyRefereeRecordFragment;
+import com.work.guaishouxingqiu.aboutball.my.fragment.PostEvaluationFragment;
 import com.work.guaishouxingqiu.aboutball.my.presenter.MyRefereeRecordPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
@@ -53,7 +55,8 @@ public class MyRefereeRecordActivity extends BaseActivity<MyRefereeRecordPresent
             UIUtils.setBaseCustomTabLayout(mTabData, refereeArray[i], i == 0, 45);
         }
         MyRefereeRecordFragment refereeRecordFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_MY_REFEREE_RECORD);
-        MyRefereeEvaluateFragment refereeEvaluateFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_MY_REFEREE_EVALUATE);
+
+        PostEvaluationFragment refereeEvaluateFragment = mViewModel.getRefereeEvaluationFragment(-1, Contast.InputEvaluationType.MY_REFEREE);
         Fragment[] fragments = {refereeRecordFragment, refereeEvaluateFragment};
         FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override

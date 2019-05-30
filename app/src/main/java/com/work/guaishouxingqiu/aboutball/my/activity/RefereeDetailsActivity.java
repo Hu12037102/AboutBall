@@ -112,10 +112,11 @@ public class RefereeDetailsActivity extends BaseActivity<RefereeDetailsPresenter
         }
 
         MyRefereeRecordFragment refereeRecordFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_MY_REFEREE_RECORD, ARouterConfig.Key.REFEREE_ID, mRefereeParcelable.refereeId);
-        Bundle bundle = new Bundle();
+       /* Bundle bundle = new Bundle();
         bundle.putLong(ARouterConfig.Key.REFEREE_ID, mRefereeParcelable.refereeId);
         bundle.putInt(ARouterConfig.Key.INPUT_EVALUATION_FLAG, Contast.InputEvaluationType.REFEREE);
-        PostEvaluationFragment evaluateFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_POST_EVALUATION, bundle);
+        PostEvaluationFragment evaluateFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_POST_EVALUATION, bundle);*/
+        PostEvaluationFragment evaluateFragment  = mViewModel.getRefereeEvaluationFragment(mRefereeParcelable.refereeId,Contast.InputEvaluationType.REFEREE);
         Fragment[] fragments = {refereeRecordFragment, evaluateFragment};
         FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override

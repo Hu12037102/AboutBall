@@ -190,4 +190,7 @@ public interface MyService {
     Observable<BaseBean<BaseDataBean<String>>> postEvaluateOpponent(@Body RequestInputEvaluationBean bean);
     @POST(IApiService.POST_EVALUATE_REFEREE)
     Observable<BaseBean<BaseDataBean<String>>> postEvaluateReferee(@Body RequestInputEvaluationBean bean);
+    @GET(IApiService.GET_MY_REFEREE_EVALUATION)
+    Observable<BaseBean<List<ResultInputEvaluationBean>>> loadMyRefereeEvaluation();
+
 }

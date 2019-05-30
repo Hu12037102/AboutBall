@@ -12,6 +12,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
@@ -53,11 +54,14 @@ public class PostEvaluationFragment extends DelayedFragment<PostEvaluationPresen
         return R.layout.fragment_post_evaluation;
     }
 
+    /**
+     * 根据flag判断是别的裁判记录还是自己的裁判记录
+     */
     @Override
     protected void initPermission() {
         mFlag = mBundle.getInt(ARouterConfig.Key.INPUT_EVALUATION_FLAG, -1);
         mRefereeId = mBundle.getLong(ARouterConfig.Key.REFEREE_ID, -1);
-        if (mRefereeId == -1 || mFlag == -1) {
+        if (mFlag == -1 || (mFlag == Contast.InputEvaluationType.REFEREE && mRefereeId == -1)) {
             UIUtils.showToast(R.string.not_find_this_referee);
             DataUtils.checkData(getActivity()).finish();
             return;
@@ -81,7 +85,11 @@ public class PostEvaluationFragment extends DelayedFragment<PostEvaluationPresen
     @Override
     protected void initDelayedEvent() {
         mSrlRefresh.setOnRefreshListener(refreshLayout -> {
-            mPresenter.loadRefereeEvaluation(mRefereeId);
+            if (mFlag == Contast.InputEvaluationType.REFEREE) {
+                mPresenter.loadRefereeEvaluation(mRefereeId);
+            } else {
+                mPresenter.loadMyRefereeEvaluation();
+            }
             refreshLayout.finishRefresh();
         });
     }
