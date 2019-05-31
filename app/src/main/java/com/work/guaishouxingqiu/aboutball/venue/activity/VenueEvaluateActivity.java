@@ -86,6 +86,7 @@ public class VenueEvaluateActivity extends BaseActivity<VenueEvaluatePresenter> 
         mEvaluateData = new ArrayList<>();
         mEvaluateAdapter = new VenueEvaluateAdapter(mEvaluateData);
         mRvData.setAdapter(mEvaluateAdapter);
+        mSrlRefresh.autoRefresh();
     }
 
     @Override
@@ -150,7 +151,11 @@ public class VenueEvaluateActivity extends BaseActivity<VenueEvaluatePresenter> 
         }
         if (bean.orderCommentForAreaList.size() > 0 && bean.orderCommentForAreaList.get(0) != null) {
             mEvaluateData.addAll(bean.orderCommentForAreaList.get(0).orderCommentForAreaSimpleList);
+            mSrlRefresh.setNoMoreData(bean.orderCommentForAreaList.get(0).orderCommentForAreaSimpleList.size() < mPresenter.mPageSize);
+        } else {
+            mSrlRefresh.setNoMoreData(true);
         }
+
         mEvaluateAdapter.notifyDataSetChanged();
     }
 }

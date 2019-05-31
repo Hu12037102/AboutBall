@@ -20,7 +20,7 @@ import io.reactivex.schedulers.Schedulers;
  * @author ：
  */
 public class VenueEvaluateModel extends BaseModel {
-    public void loadVenueEvaluate(long areaId, int flag, int pageNum, int pageSize, BaseObserver<BaseDataBean<ResultVenueEvaluateBean>> observer) {
+    public void loadVenueEvaluate(long areaId, int flag, int pageNum, int pageSize, BaseObserver<ResultVenueEvaluateBean> observer) {
         mRetrofitManger.create(VenueService.class)
                 .loadVenueEvaluate(areaId, flag, pageNum, pageSize)
                 .subscribeOn(Schedulers.io())

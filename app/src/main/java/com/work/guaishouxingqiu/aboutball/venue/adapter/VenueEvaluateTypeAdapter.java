@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.venue.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,8 +69,10 @@ public class VenueEvaluateTypeAdapter extends RecyclerView.Adapter<VenueEvaluate
         }
         if (bean.isCheck) {
             viewHolder.mTvType.setBackgroundResource(R.drawable.shape_item_ball_type);
+            viewHolder.mTvType.setTextColor(ContextCompat.getColor(mContext,R.color.colorWhite));
         } else {
             viewHolder.mTvType.setBackgroundResource(R.drawable.shape_venue_evaluate_type_default_view);
+            viewHolder.mTvType.setTextColor(ContextCompat.getColor(mContext,R.color.color_4));
         }
         viewHolder.itemView.setOnClickListener(view -> {
             if (!bean.isCheck) {

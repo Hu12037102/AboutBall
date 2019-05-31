@@ -44,12 +44,12 @@ public class VenueEvaluatePresenter extends BasePresenter<VenueEvaluateContract.
         if (isRefresh) {
             mPageNum = Contast.DEFAULT_PAGE_NUM;
         }
-        mModel.loadVenueEvaluate(areaId, flag, mPageNum, mPageSize, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<ResultVenueEvaluateBean>>() {
+        mModel.loadVenueEvaluate(areaId, flag, mPageNum, mPageSize, new BaseObserver<>(true, this, new BaseObserver.Observer<ResultVenueEvaluateBean>() {
             @Override
-            public void onNext(BaseBean<BaseDataBean<ResultVenueEvaluateBean>> t) {
-                if (DataUtils.baseDataBeanIsSucceed(t)) {
+            public void onNext(BaseBean<ResultVenueEvaluateBean> t) {
+                if (DataUtils.isResultSure(t)) {
                     mPageNum++;
-                    mView.resultVenueEvaluate(t.result.result);
+                    mView.resultVenueEvaluate(t.result);
                 }
             }
 

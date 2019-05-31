@@ -28,11 +28,11 @@ public class ResultVenueEvaluateTypeBean {
         data.add(allBean);
         ResultVenueEvaluateTypeBean imageBean = new ResultVenueEvaluateTypeBean();
         imageBean.content = "有图";
-        allBean.flag = 1;
+        imageBean.flag = 1;
         data.add(imageBean);
         ResultVenueEvaluateTypeBean noImageBeanBean = new ResultVenueEvaluateTypeBean();
-        allBean.content = "无图";
-        allBean.flag = 2;
+        noImageBeanBean.content = "无图";
+        noImageBeanBean.flag = 2;
         data.add(noImageBeanBean);
         return data;
     }

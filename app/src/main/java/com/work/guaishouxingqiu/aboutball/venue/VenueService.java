@@ -100,6 +100,6 @@ public interface VenueService {
     Observable<BaseBean<Long>> cancelAboutBall(@Query(Contast.AGREE_ID) long agreeId);
 
     @GET(IApiService.GET_VENUE_EVALUATE)
-    Observable<BaseBean<BaseDataBean<ResultVenueEvaluateBean>>> loadVenueEvaluate(@Query(Contast.AREA_ID) long areaId, @Query(Contast.FLAG) int flag,
+    Observable<BaseBean<ResultVenueEvaluateBean>> loadVenueEvaluate(@Query(Contast.AREA_ID) long areaId, @Query(Contast.FLAG) int flag,
                                                                                   @Query(Contast.PAGE_NUM) int pageNum, @Query(Contast.PAGE_SIZE) int pageSize);
 }
