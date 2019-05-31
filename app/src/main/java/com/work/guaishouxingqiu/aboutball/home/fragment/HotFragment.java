@@ -111,6 +111,11 @@ public class HotFragment extends DelayedFragment<HotPresenter> implements HotCon
 
             @Override
             public void onItemClick(View view, int position) {
+                ResultNewsBean bean = mData.get(position);
+                if (!bean.isRead) {
+                    DataUtils.putNewsKey(bean.newsId);
+                    mAdapter.notifyDataSetChanged();
+                }
                 ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_NEW_DETAILS,
                         ARouterConfig.Key.NEW_DETAILS_ID, mData.get(position).newsId);
             }

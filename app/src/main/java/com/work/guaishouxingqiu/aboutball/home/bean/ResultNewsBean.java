@@ -20,4 +20,5 @@ public class ResultNewsBean {
     public String typeId;
     public String coverImgType;
     public  boolean isPlayVideo;
+    public boolean isRead;
 }

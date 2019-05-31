@@ -7,8 +7,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.tencent.mm.opensdk.modelpay.PayReq;
@@ -24,6 +27,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 import com.work.guaishouxingqiu.aboutball.my.fragment.PostEvaluationFragment;
 import com.work.guaishouxingqiu.aboutball.other.DownloadApkHelp;
+import com.work.guaishouxingqiu.aboutball.other.SharedPreferencesHelp;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
@@ -120,14 +124,30 @@ public class ViewModel {
         if (mUpdateDialog == null) {
             mUpdateDialog = new HintDialog.Builder(context)
                     .setTitle(R.string.update_apk)
-                    .setBody(updateBean.content)
-                    .setShowSingButton(false)
+                    .setBody(R.string.update_content)
+                    .setSure(R.string.sure)
                     .builder();
         }
+        mUpdateDialog.setContentGravity(Gravity.LEFT);
+        mUpdateDialog.setCanceledOnTouchOutside(false);
+        mUpdateDialog.setCancelable(false);
         if (!mUpdateDialog.isShowing()) {
             mUpdateDialog.show();
         }
-        mUpdateDialog.setOnItemClickSureAndCancelListener(new BaseDialog.OnItemClickSureAndCancelListener() {
+        mUpdateDialog.setOnItemClickListener(new HintDialog.OnItemClickListener() {
+            @Override
+            public void onClickSure(@NonNull View view) {
+                if (view instanceof TextView){
+                    TextView textView = (TextView) view;
+                    textView.setTextColor(ContextCompat.getColor(mSoftActivity.get(),R.color.colorFFA6A6A6));
+                    textView.setText("正在下载...");
+                }
+                DownloadApkHelp.loadApk(UIUtils.getContext(), updateBean.updateUrl);
+                view.setEnabled(false);
+              //  mUpdateDialog.dismiss();
+            }
+        });
+        /*mUpdateDialog.setOnItemClickSureAndCancelListener(new BaseDialog.OnItemClickSureAndCancelListener() {
             @Override
             public void onClickSure(@NonNull View view) {
                 DownloadApkHelp.loadApk(UIUtils.getContext(), updateBean.updateUrl);
@@ -138,9 +158,10 @@ public class ViewModel {
             public void onClickCancel(@NonNull View view) {
                 mUpdateDialog.dismiss();
             }
-        });
+        });*/
 
     }
+
 
 
     /**
@@ -385,10 +406,23 @@ public class ViewModel {
 
     }
 
-    public PostEvaluationFragment getRefereeEvaluationFragment(long refereeId,int flag) {
+    public PostEvaluationFragment getRefereeEvaluationFragment(long refereeId, int flag) {
         Bundle bundle = new Bundle();
         bundle.putLong(ARouterConfig.Key.REFEREE_ID, refereeId);
-        bundle.putInt(ARouterConfig.Key.INPUT_EVALUATION_FLAG,flag);
+        bundle.putInt(ARouterConfig.Key.INPUT_EVALUATION_FLAG, flag);
         return ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_POST_EVALUATION, bundle);
+    }
+
+    public boolean isReadNews(String key) {
+        SharedPreferencesHelp sp = new SharedPreferencesHelp();
+        return sp.isContainsKey(key);
+    }
+
+    public void putNewsKey(long newId) {
+        String key = "News" + newId;
+        SharedPreferencesHelp sp = new SharedPreferencesHelp();
+        if (!sp.isContainsKey(key)) {
+            sp.putObject(key, true);
+        }
     }
 }

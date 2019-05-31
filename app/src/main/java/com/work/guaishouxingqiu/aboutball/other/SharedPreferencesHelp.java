@@ -16,11 +16,11 @@ import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 public class SharedPreferencesHelp {
     private static final String DEFAULT_SP_NAME = "About_Ball_SP";
     private static final String DEFAULT_STRING_VALUES = "";
-    public static final String KEY_GUIDE_OPEN="key_guide_open";
+    public static final String KEY_GUIDE_OPEN = "key_guide_open";
     //裁判列表key
-    public static final String KEY_REFEREE_CACHE_LIST="key_referee_cache_list";
+    public static final String KEY_REFEREE_CACHE_LIST = "key_referee_cache_list";
     //退款原因key
-    public static final String KEY_REFUND_CAUSE_LIST="key_refund_cause_list";
+    public static final String KEY_REFUND_CAUSE_LIST = "key_refund_cause_list";
     private SharedPreferences mSharedPreferences;
 
     public SharedPreferencesHelp() {
@@ -43,6 +43,9 @@ public class SharedPreferencesHelp {
         editor.commit();
     }
 
+    public boolean isContainsKey(String key) {
+        return mSharedPreferences.contains(key);
+    }
 
     public void putObject(String key, Object obj) {
         if (mSharedPreferences != null) {

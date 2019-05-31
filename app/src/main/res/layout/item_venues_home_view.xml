@@ -33,7 +33,7 @@
             android:layout_centerVertical="true"
             android:drawablePadding="@dimen/size_10dp"
             android:drawableRight="@mipmap/icon_item_right"
-            android:text="@string/read_more" />
+            android:text="@string/read_more_venue" />
 
     </RelativeLayout>
 

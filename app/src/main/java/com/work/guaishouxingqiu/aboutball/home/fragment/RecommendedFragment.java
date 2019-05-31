@@ -33,6 +33,7 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
+import com.work.guaishouxingqiu.aboutball.base.ViewModel;
 import com.work.guaishouxingqiu.aboutball.home.activity.MainActivity;
 import com.work.guaishouxingqiu.aboutball.home.adapter.CarousePagerAdapter;
 import com.work.guaishouxingqiu.aboutball.home.adapter.RecommendHeadGameAdapter;
@@ -217,9 +218,18 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
             public void onItemClick(View view, int position) {
                 if (position != RecommendedAdapter.POSITION_VENUE_ITEM
                         && position != RecommendedAdapter.POSITION_BALL_ITEM) {
+
+                    ResultNewsBean bean = mRecommendData.get(position);
+                    if (!bean.isRead) {
+                        DataUtils.putNewsKey(bean.newsId);
+                        mRecommendAdapter.notifyDataSetChanged();
+                    }
+
                     ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_NEW_DETAILS,
                             ARouterConfig.Key.NEW_DETAILS_ID, mRecommendData.get(position).newsId);
                 }
+
+
             }
         });
 
@@ -311,8 +321,8 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
                     mRecommendData.add(RecommendedAdapter.POSITION_BALL_ITEM, null);
                 }
             }
-            if (mResultHeadBean != null && mResultHeadBean.stadium != null && mResultHeadBean.stadium.size() > 0 &&
-                    mResultHeadBean.agreeBallMatch != null && mResultHeadBean.agreeBallMatch.size() > 0) {
+            if (mResultHeadBean != null /*&& mResultHeadBean.stadium != null && mResultHeadBean.stadium.size() > 0 &&
+                    mResultHeadBean.agreeBallMatch != null && mResultHeadBean.agreeBallMatch.size() > 0*/) {
                 mRecommendAdapter.notifyData(mResultHeadBean.stadium, mResultHeadBean.agreeBallMatch);
             } else {
                 mRecommendAdapter.notifyDataSetChanged();

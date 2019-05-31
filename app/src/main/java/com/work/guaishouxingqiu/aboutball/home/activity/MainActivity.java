@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -25,6 +26,7 @@ import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
+import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.fragment.VenueFragment;
 import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
@@ -78,10 +80,6 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
         unRegisterEventBus();
         super.onDestroy();
     }
-
-
-
-
 
 
     private void initFragment() {
@@ -147,6 +145,7 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
 
     @Override
     public void onBackPressed() {
+
         long clickBack = System.currentTimeMillis();
         if (clickBack - mFinishTime > 2000) {
             mFinishTime = clickBack;
@@ -156,6 +155,9 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
         }
 
     }
+
+
+
 
 
 }

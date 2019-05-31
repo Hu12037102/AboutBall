@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.home.adapter;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -130,6 +131,12 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
     private void addTop(ResultNewsBean bean, TextView textView) {
         if (bean == null) {
             return;
+        }
+        bean.isRead = DataUtils.isReadNews(bean.newsId);
+        if (bean.isRead) {
+            textView.setTextColor(ContextCompat.getColor(mContext, R.color.colorFF777777));
+        } else {
+            textView.setTextColor(ContextCompat.getColor(mContext, R.color.color_4));
         }
         if (bean.onTop == 1) {
             String content = "A ".concat(bean.title);
@@ -485,7 +492,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   // Toasts.with().showToast(R.string.pleases_next_open);
+                    // Toasts.with().showToast(R.string.pleases_next_open);
                     Bundle bundle = new Bundle();
                     bundle.putLong(ARouterConfig.Key.OFFER_ID, bean.agreeId);
                     bundle.putInt(ARouterConfig.Key.ABOUT_BALL_FLAG, 0);

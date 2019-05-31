@@ -223,6 +223,8 @@
     <string name="search_you_want_news">搜索您想了解的资讯</string>
     <string name="please_input_search_content">请输入搜索内容</string>
     <string name="recently_the_venue">最近场馆</string>
+    <string name="read_more_venue">查看更多场馆</string>
+    <string name="read_more_ball">查看更多约球</string>
     <string name="read_more">查看更多</string>
     <string name="friend_ball">球友约球</string>
     <string name="title">标题</string>
@@ -481,4 +483,8 @@
     <string name="refused_to_join_the">拒绝加入</string>
     <string name="join_the_team">加入球队</string>
     <string name="evaluate_list">评价列表</string>
+    <string name="update_content">1.首页增加资讯、训练等模块；\n2.赛事模块对部分细节进行完善；\n3.增加新功能模块：场馆、约球、裁判、球队等；\n4.修复部分遗留bug；</string>
+
+
+
 </resources>

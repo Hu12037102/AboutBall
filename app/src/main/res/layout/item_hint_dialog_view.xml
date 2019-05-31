@@ -14,8 +14,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/size_100dp"
-            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/size_100dp"
+            android:gravity="center_horizontal"
             android:orientation="vertical"
             android:paddingLeft="@dimen/default_margin"
             android:paddingRight="@dimen/default_margin">
@@ -25,15 +26,20 @@
                 style="@style/DefaultTextView"
                 android:textColor="@color/color_4"
                 android:textSize="@dimen/size_18sp"
+                android:layout_marginTop="@dimen/size_20dp"
                 tools:text="提示" />
 
             <TextView
                 android:id="@+id/tv_body"
-                style="@style/DefaultTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_15dp"
                 android:textColor="@color/color_3"
+                android:gravity="center_horizontal"
                 android:textSize="15sp"
-                tools:text="手机已经登录" />
+                tools:text="手机已经登录"
+                android:lineSpacingExtra="@dimen/size_5dp"
+                android:layout_marginBottom="@dimen/size_20dp"/>
         </LinearLayout>
 
         <View style="@style/HorizontalLine" />

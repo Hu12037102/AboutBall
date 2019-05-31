@@ -11,6 +11,7 @@ import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
+import com.work.guaishouxingqiu.aboutball.other.SharedPreferencesHelp;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultOrderDetailsBean;
 
 import java.io.BufferedReader;
@@ -336,4 +337,16 @@ public class DataUtils {
         return sb.toString();
     }
 
+    public static boolean isReadNews(long newId) {
+        SharedPreferencesHelp sp = new SharedPreferencesHelp();
+        return sp.isContainsKey("News" + newId);
+    }
+
+    public static void putNewsKey(long newId) {
+        String key = "News" + newId;
+        SharedPreferencesHelp sp = new SharedPreferencesHelp();
+        if (!sp.isContainsKey(key)) {
+            sp.putObject(key, true);
+        }
+    }
 }

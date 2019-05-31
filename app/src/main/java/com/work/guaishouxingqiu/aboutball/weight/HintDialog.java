@@ -60,7 +60,6 @@ public class HintDialog extends Dialog {
     }
 
 
-
     private void initEvent() {
         mTvSure.setOnClickListener(v -> {
             if (onItemClickListener != null) {
@@ -101,6 +100,10 @@ public class HintDialog extends Dialog {
         window.setWindowAnimations(R.style.DefaultDialogAnimation);
 
 
+    }
+
+    public void setContentGravity(int gravity) {
+        mTvBody.setGravity(gravity);
     }
 
     public void setTitle(@NonNull String title) {
@@ -167,7 +170,6 @@ public class HintDialog extends Dialog {
     public interface OnItemClickListener {
         void onClickSure(@NonNull View view);
     }
-
 
 
     public static class Builder {
