@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Timer;
 
 /**
  * 作者: 胡庆岭
@@ -284,4 +285,96 @@ public class DateUtils {
     public static String getStartTime2EndTime(String startTime, String endTime) {
         return DateUtils.getYear2Minutes(startTime) + " - " + DateUtils.getHourMinutes(endTime);
     }
+
+    /**
+     * 根据时间长度返回时分秒 长度为毫秒秒
+     *
+     * @param timeLength
+     * @return
+     */
+    public static String getHourMinuteSecond(int timeLength) {
+        LogUtils.w("getHourMinuteSecond--", timeLength + "");
+        if (timeLength <= 0) {
+            return "00:00";
+        }
+        timeLength = timeLength / 1000;
+        int oneHour = 60 * 60;
+        int hourLength = DateUtils.getIntTimeLengthToHour(timeLength);
+        int minuteLength = DateUtils.getIntTimeLengthToMinute(timeLength - hourLength * oneHour);
+        int secondLength = timeLength - hourLength * oneHour - minuteLength * 60;
+        String hourResult;
+        if (hourLength <= 0) {
+            hourResult = "";
+        } else if (hourLength < 10) {
+            hourResult = "0" + hourLength + ":";
+        } else {
+            hourResult = hourLength + ":";
+        }
+        String minuteResult;
+        if (minuteLength <= 0) {
+            minuteResult = "00:";
+        } else if (minuteLength < 10) {
+            minuteResult = "0" + minuteLength + ":";
+        } else {
+            minuteResult = minuteLength + ":";
+        }
+        String secondResult;
+        if (secondLength <= 0) {
+            secondResult = "00";
+        } else if (secondLength < 10) {
+            secondResult = "0" + secondLength;
+        } else {
+            secondResult = "" + secondLength;
+        }
+        return hourResult + minuteResult + secondResult;
+    }
+
+    public static String getTimeLengthToHour(int timeLength) {
+        int oneHour = 60 * 60;
+        int hourLength = timeLength / oneHour;
+        if (hourLength > 0) {
+            return hourLength >= 10 ? hourLength + "" : "0" + hourLength;
+        } else {
+            return "";
+        }
+    }
+
+    public static int getIntTimeLengthToHour(int timeLength) {
+        int oneHour = 60 * 60;
+        return timeLength / oneHour;
+    }
+
+    public static String getTimeLengthToMinute(int timeLength) {
+        int oneMinute = 60;
+        int minuteLength = timeLength / oneMinute;
+        if (minuteLength > 0) {
+            return minuteLength >= 10 ? minuteLength + "" : "0" + minuteLength;
+        } else {
+            return "00";
+        }
+    }
+
+    public static int getIntTimeLengthToMinute(int timeLength) {
+        int oneMinute = 60;
+        return timeLength / oneMinute;
+    }
+
+    /**
+     * 现在时间有没有超过time的时间
+     *
+     * @param time
+     * @return
+     */
+    public static boolean isNewTimeMoreThan(String time) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        try {
+            Date date = sdf.parse(time);
+            return System.currentTimeMillis() - date.getTime() > 0;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    ;
 }

@@ -95,6 +95,7 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
     private int mAboutBallFlag = -1;
     private HintDialog mCancelBallDialog;
 
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_about_ball_details;
@@ -167,7 +168,12 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
         UIUtils.setText(mItemTime.mTvRight, DateUtils.getHourMinutes(bean.startTime) + "-" + DateUtils.getHourMinutes(bean.endTime));
         UIUtils.setText(mItemMoney.mTvRight, DataUtils.getMoneyFormat(bean.cost));
         if (mAboutBallFlag == 1) {
-            mRlCancel.setVisibility(View.VISIBLE);
+            if (DateUtils.isNewTimeMoreThan(bean.startTime)){
+                mRlCancel.setVisibility(View.GONE);
+            }else {
+                mRlCancel.setVisibility(View.VISIBLE);
+            }
+
             LinearLayout.LayoutParams tvTeamParams = (LinearLayout.LayoutParams) mTvTeamContent.getLayoutParams();
             String host = "报名队伍";
             if (bean.guestTeamId <= 0) {

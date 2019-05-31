@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cl_head_video"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -23,8 +24,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_50dp"
         android:background="@drawable/layer_list_reverse_home_pager_view"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <ImageView
         android:id="@+id/iv_share_video"
@@ -36,17 +37,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/iv_lock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/size_10dp"
-        android:contentDescription="@null"
-        android:padding="@dimen/size_10dp"
-        android:src="@mipmap/icon_video_lock"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
     <ImageView
         android:id="@+id/iv_video_status"
@@ -71,6 +62,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/iv_lock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/size_10dp"
+        android:contentDescription="@null"
+        android:padding="@dimen/size_10dp"
+        android:src="@mipmap/icon_video_unlock"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
         android:id="@+id/iv_screen"
         android:layout_width="@dimen/size_25dp"
         android:layout_height="@dimen/size_25dp"
@@ -90,17 +93,55 @@
         android:layout_marginRight="@dimen/size_20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/iv_screen">
+        app:layout_constraintRight_toLeftOf="@id/iv_screen"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_play_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/size_12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="00:00" />
+
+        <TextView
+            android:id="@+id/tv_length_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/size_12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="00:00" />
 
         <SeekBar
             android:id="@+id/sb_seek"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/size_0dp"
             android:layout_height="wrap_content"
             android:max="100"
             android:maxHeight="@dimen/size_2dp"
             android:minHeight="@dimen/size_2dp"
-            android:progressDrawable="@drawable/layer_list_seek_bar" />
+            android:progressDrawable="@drawable/layer_list_seek_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/tv_play_time"
+            app:layout_constraintRight_toLeftOf="@id/tv_length_time"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </android.support.constraint.ConstraintLayout>
+
+    <ProgressBar
+        android:id="@+id/pb_play_length"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:progressDrawable="@drawable/layer_list_seek_bar"
+        android:visibility="gone"
+        />
 
 
 </android.support.constraint.ConstraintLayout>

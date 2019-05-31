@@ -1,21 +1,17 @@
 package com.work.guaishouxingqiu.aboutball.game.activity;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.text.Html;
-import android.view.OrientationEventListener;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -24,6 +20,7 @@ import android.view.ViewStub;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -38,15 +35,14 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameSimpleBean;
 import com.work.guaishouxingqiu.aboutball.game.contract.GameDetailsContract;
 import com.work.guaishouxingqiu.aboutball.game.fragment.GameCollectionFragment;
-import com.work.guaishouxingqiu.aboutball.game.fragment.GameCommentFragment;
 import com.work.guaishouxingqiu.aboutball.game.fragment.GameDataFragment;
-import com.work.guaishouxingqiu.aboutball.game.fragment.GameResultFragment;
 import com.work.guaishouxingqiu.aboutball.game.presenter.GameDetailsPresenter;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
@@ -95,6 +91,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
     private View mHeadLiveParent;
     private boolean mIconShowWindows = true;
     private static final int SEEK_WHAT = 101;
+    private static final String RESET_TIME_LENGTH = "00:00";
 
     // String mLivePath = "http://5815.liveplay.myqcloud.com/live/5815_89aad37e06ff11e892905cb9018cf0d4_900.flv";
     //String mLivePath = "http://li.ifeell.com.cn/ipk/live.flv?auth_key=1555645522-0-0-87c9e12dfd362e4b3dd3698c826553f9";
@@ -112,6 +109,14 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
     private Fragment[] mFragments;
     private boolean isLive;//是不是直播，默认false
     private View mViewTopStatus;
+    private TextView mTvLengthTime;
+    private TextView mTvPlayTime;
+    private ProgressBar mPbVideo;
+    private boolean isPortraitWindows = true;//是不是竖屏
+    private ConstraintLayout mClSchedule;
+    private boolean isLockVideos;
+    private TextView mTvHasVideoStatus;
+    private GameCollectionFragment mCollectionFragment;
     // String mLivePath = "http://player.alicdn.com/video/aliyunmedia.mp4";
 
     @Override
@@ -167,7 +172,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
             String[] tabArray = getResources().getStringArray(R.array.game_details_tab_array);
             for (int i = 0; i < tabArray.length; i++) {
                 //  mTbData.addTab(mTbData.newTab().setText(tabArray[i]), i == 0);
-                UIUtils.setBaseCustomTabLayout(mTbData, tabArray[i], i == 0, 45);
+                UIUtils.setBaseCustomTabLayout(mTbData, tabArray[i], i == 1, 45);
 
 
             }
@@ -203,7 +208,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
             if (mIvLockVideo != null) {
                 mIvLockVideo.setVisibility(View.GONE);
             }
-
+            isPortraitWindows = true;
             //横屏
         } else if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             setHeadParentParamsScreen(true);
@@ -213,6 +218,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
 
             }
 
+            isPortraitWindows = false;
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
 
@@ -243,32 +249,58 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
 
     }
 
+    private void initCollectionVideo(ResultGameSimpleBean bean, String videoUrl) {
+        mDataBean.liveAddress = videoUrl;
+        isLive = false;
+        if (mVideoPlay != null) {
+            mSkvLoading.setVisibility(View.VISIBLE);
+            if (mVideoPlay.isPlaying()) {
+                mVideoPlay.stop();
+                //   mVideoPlay.release();
+            }
+            AliyunLocalSource.AliyunLocalSourceBuilder builder = new AliyunLocalSource.AliyunLocalSourceBuilder();
+            builder.setSource(bean.liveAddress);
+            builder.setCoverPath(bean.liveAddress);
+            builder.setTitle(bean.liveAddress);
+            // mVideoPlay.setAutoPlay(true);
+            mVideoPlay.prepareAsync(builder.build());
+        } else {
+            initLiveVideoView(mDataBean);
+        }
+    }
 
     private void initPagerData(ResultGameSimpleBean bean) {
         // GameResultFragment resultFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_RESULT, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
         GameDataFragment dataFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_DATA, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
         // GameCommentFragment commentFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_COMMENT, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
-        GameCollectionFragment collectionFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_COLLECTION, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
-        collectionFragment.setOnCollectionClickListener(videoUrl -> {
-            mDataBean.liveAddress = videoUrl;
-            isLive = false;
-            if (mVideoPlay != null) {
-                mSkvLoading.setVisibility(View.VISIBLE);
-                if (mVideoPlay.isPlaying()) {
-                    mVideoPlay.stop();
-                    //   mVideoPlay.release();
+        mCollectionFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_COLLECTION, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
+        mCollectionFragment.setOnCollectionClickListener(new GameCollectionFragment.OnCollectionClickListener() {
+            @Override
+            public void clickCollection(String videoUrl) {
+                initCollectionVideo(bean, videoUrl);
+            }
+
+            @Override
+            public void resultVideo(String videoUrl) {
+                if (videoUrl != null) {
+                    initCollectionVideo(bean, videoUrl);
                 }
-                AliyunLocalSource.AliyunLocalSourceBuilder builder = new AliyunLocalSource.AliyunLocalSourceBuilder();
-                builder.setSource(bean.liveAddress);
-                builder.setCoverPath(bean.liveAddress);
-                builder.setTitle(bean.liveAddress);
-                // mVideoPlay.setAutoPlay(true);
-                mVideoPlay.prepareAsync(builder.build());
-            } else {
-                initLiveVideoView(mDataBean);
+            }
+
+            @Override
+            public void resultVideosCount(int count) {
+                if (mTvHasVideoStatus != null && !isLive) {
+                    mTvHasVideoStatus.setVisibility(View.VISIBLE);
+                    if (count > 0) {
+                        mTvHasVideoStatus.setBackgroundResource(R.drawable.shape_watch_live_tv);
+                    } else {
+                        mTvHasVideoStatus.setBackground(null);
+                    }
+                }
+
             }
         });
-        mFragments = new Fragment[]{/*resultFragment, */dataFragment, /*commentFragment, */collectionFragment};
+        mFragments = new Fragment[]{/*resultFragment, */dataFragment, /*commentFragment, */mCollectionFragment};
         mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int i) {
@@ -281,7 +313,9 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
             }
         };
         mBvData.setOffscreenPageLimit(mFragments.length);
+        // mBvData.setCurrentItem(1,true);
         mBvData.setAdapter(mPagerAdapter);
+        mBvData.setCurrentItem(1, true);
         mBvData.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -344,23 +378,27 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
                 View startView = getLayoutInflater().inflate(R.layout.layout_watch_live_body_view, mLlLiveDetails, false);
                 mLlLiveDetails.addView(startView);
                 FocusableTextView tVTitle = startView.findViewById(R.id.tv_title);
-                TextView mTvStatus = startView.findViewById(R.id.tv_status);
+                mTvHasVideoStatus = startView.findViewById(R.id.tv_status);
                 if (bean.stateId == Contast.GAME_STATUS_STARTING) {
-                    mTvStatus.setText(R.string.watch_live);
+                    mTvHasVideoStatus.setText(R.string.watch_live);
                     isLive = true;
+                    mTvHasVideoStatus.setVisibility(View.VISIBLE);
                 } else {
-                    mTvStatus.setText(R.string.watch_collection);
+                    //  mTvStatus.setText(R.string.watch_collection);
+                    mTvHasVideoStatus.setText(bean.matchState);
                     isLive = false;
+                    mTvHasVideoStatus.setVisibility(View.GONE);
                 }
                 tVTitle.setText(bean.gameName);
                 TextView tVGrade = startView.findViewById(R.id.tv_grade);
                 tVGrade.setText(bean.hostScore.concat(" - ").concat(bean.guestScore));
-                mTvStatus.setOnClickListener(v -> {
+                mTvHasVideoStatus.setOnClickListener(v -> {
                     // ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_GAME_VIDEO);
                     if (bean.stateId == Contast.GAME_STATUS_STARTING) {
                         initLiveVideoView(bean);
                     } else {
-                        mBvData.setCurrentItem(mFragments.length - 1);
+                        //  mBvData.setCurrentItem(mFragments.length - 1);
+                        mCollectionFragment.playCollectionVideo();
                     }
 
                 });
@@ -370,6 +408,9 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
 
 
     private void setVideoIconStatus(boolean iconShowVideo) {
+        if (isLockVideos) {
+            return;
+        }
         if (iconShowVideo) {
             mIvBack.setVisibility(View.VISIBLE);
             mIvShare.setVisibility(View.VISIBLE);
@@ -377,11 +418,52 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
             if (mVideoPlay != null && mVideoPlay.isPlaying()) {
                 mIvVideoStatus.setVisibility(View.VISIBLE);
             }
+            mPbVideo.setVisibility(View.GONE);
+            mClSchedule.setVisibility(View.VISIBLE);
+            //如果屏幕获取焦点且是横屏的情况下
+            if (!isPortraitWindows) {
+                mIvLockVideo.setVisibility(View.VISIBLE);
+            } else {
+                mIvLockVideo.setVisibility(View.GONE);
+            }
+
         } else {
             mIvBack.setVisibility(View.GONE);
             mIvShare.setVisibility(View.GONE);
             mIvScreen.setVisibility(View.INVISIBLE);
             mIvVideoStatus.setVisibility(View.GONE);
+            if (isPortraitWindows) {
+                mPbVideo.setVisibility(View.VISIBLE);
+            } else {
+                mPbVideo.setVisibility(View.GONE);
+            }
+            mClSchedule.setVisibility(View.GONE);
+        }
+        if (isLive) {
+            mClSchedule.setVisibility(View.GONE);
+            mPbVideo.setVisibility(View.GONE);
+        }
+
+    }
+
+    public void notifyLockVideoStatus() {
+        mPbVideo.setVisibility(View.GONE);
+        if (isLockVideos) {
+            mIvLockVideo.setImageResource(R.mipmap.icon_video_lock);
+            mIvBack.setVisibility(View.GONE);
+            mIvShare.setVisibility(View.GONE);
+            mIvScreen.setVisibility(View.INVISIBLE);
+            mIvVideoStatus.setVisibility(View.GONE);
+            mClSchedule.setVisibility(View.GONE);
+        } else {
+            mIvLockVideo.setImageResource(R.mipmap.icon_video_unlock);
+            mIvBack.setVisibility(View.VISIBLE);
+            mIvShare.setVisibility(View.VISIBLE);
+            mIvScreen.setVisibility(View.VISIBLE);
+            mClSchedule.setVisibility(View.VISIBLE);
+            if (mVideoPlay != null && mVideoPlay.isPlaying()) {
+                mIvVideoStatus.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -398,15 +480,20 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
             mSkvLoading = mHeadLiveParent.findViewById(R.id.skv_loading);
             mSbVideo = mHeadLiveParent.findViewById(R.id.sb_seek);
             mViewTopStatus = mHeadLiveParent.findViewById(R.id.top_status_view);
+            mTvPlayTime = mHeadLiveParent.findViewById(R.id.tv_play_time);
+            mPbVideo = mHeadLiveParent.findViewById(R.id.pb_play_length);
+
+            mTvLengthTime = mHeadLiveParent.findViewById(R.id.tv_length_time);
+
             ConstraintLayout.LayoutParams topStatusParams = (ConstraintLayout.LayoutParams) mViewTopStatus.getLayoutParams();
             topStatusParams.height = ScreenUtils.dp2px(this, 50) + ScreenUtils.getStatuWindowsHeight(this);
             topStatusParams.width = ConstraintLayout.LayoutParams.MATCH_PARENT;
             mViewTopStatus.setLayoutParams(topStatusParams);
-            ConstraintLayout mClSchedule = mHeadLiveParent.findViewById(R.id.cl_schedule);
+            mClSchedule = mHeadLiveParent.findViewById(R.id.cl_schedule);
             if (isLive) {
-                mClSchedule.setVisibility(View.GONE);
+                mPbVideo.setVisibility(View.GONE);
             } else {
-                mClSchedule.setVisibility(View.VISIBLE);
+                mPbVideo.setVisibility(View.VISIBLE);
             }
             mIvVideoStatus.setVisibility(View.GONE);
             mIvLockVideo.setVisibility(View.GONE);
@@ -422,7 +509,8 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
                 } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                 }
-
+                mClSchedule.setVisibility(View.VISIBLE);
+                mPbVideo.setVisibility(View.GONE);
             });
             mIvShare.setPadding(ScreenUtils.dp2px(this, 20), ScreenUtils.dp2px(this, 20) + ScreenUtils.getStatuWindowsHeight(this),
                     ScreenUtils.dp2px(this, 20), ScreenUtils.dp2px(this, 20));
@@ -437,8 +525,11 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
                 switch (msg.what) {
                     case SEEK_WHAT:
                         mSbVideo.setProgress((int) mVideoPlay.getCurrentPosition());
+                        mPbVideo.setProgress((int) mVideoPlay.getCurrentPosition());
                         mSbVideo.setSecondaryProgress(mVideoPlay.getBufferingPosition());
+                        mPbVideo.setSecondaryProgress(mVideoPlay.getBufferingPosition());
                         mVideoHandler.sendEmptyMessageDelayed(SEEK_WHAT, 100);
+                        mTvPlayTime.setText(DateUtils.getHourMinuteSecond((int) mVideoPlay.getCurrentPosition()));
                         break;
                 }
                 return true;
@@ -472,8 +563,32 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
                     LogUtils.w("mSbVideo----", mSbVideo.getProgress() + "--" + mSbVideo.getProgress());
                     mVideoPlay.seekTo(mSbVideo.getProgress());
                     mSbVideo.setProgress(mSbVideo.getProgress());
-
+                    mPbVideo.setProgress(mSbVideo.getProgress());
                     //   mIvLockVideo.setVisibility(View.VISIBLE);
+                }
+            });
+            mIvLockVideo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    isLockVideos = !isLockVideos;
+                    notifyLockVideoStatus();
+                    /*if (isLockVideos){
+                        mIvLockVideo.setImageResource(R.mipmap.icon_video_lock);
+                        mIvBack.setVisibility(View.GONE);
+                        mIvShare.setVisibility(View.GONE);
+                        mIvScreen.setVisibility(View.INVISIBLE);
+                        mIvVideoStatus.setVisibility(View.GONE);
+                        mPbVideo.setVisibility(View.GONE);
+                    }else {
+                        mIvLockVideo.setImageResource(R.mipmap.icon_video_unlock);
+                        mIvBack.setVisibility(View.VISIBLE);
+                        mIvShare.setVisibility(View.VISIBLE);
+                        mIvScreen.setVisibility(View.VISIBLE);
+                        mPbVideo.setVisibility(View.VISIBLE);
+                        if (mVideoPlay != null && mVideoPlay.isPlaying()) {
+                            mIvVideoStatus.setVisibility(View.VISIBLE);
+                        }
+                    }*/
                 }
             });
 
@@ -505,7 +620,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
             // mVideoPlay.setAutoPlay(true);
             mVideoPlay.prepareAsync(builder.build());
             mVideoPlay.setOnPreparedListener(() -> {
-
+                mTvLengthTime.setText(DateUtils.getHourMinuteSecond((int) mVideoPlay.getDuration()));
                 mVideoPlay.start();
             });
             /**
@@ -515,17 +630,19 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
                 mSkvLoading.setVisibility(View.GONE);
                 //  mIvVideoStatus.setVisibility(View.VISIBLE);
                 mIvVideoStatus.setImageResource(R.mipmap.icon_video_pause);
-                mSbVideo.setVisibility(View.VISIBLE);
+                //mSbVideo.setVisibility(View.VISIBLE);
                 mSbVideo.setMax((int) mVideoPlay.getDuration());
+                mPbVideo.setMax((int) mVideoPlay.getDuration());
                 mVideoHandler.postDelayed(mVideoRunnable, 5000);
                 mVideoHandler.sendEmptyMessage(SEEK_WHAT);
             });
             mVideoPlay.setOnSeekCompleteListener(() -> {
-                mIvLockVideo.setVisibility(View.GONE);
+                //  mIvLockVideo.setVisibility(View.GONE);
                 if (mVideoPlay.getPlayerState() == IAliyunVodPlayer.PlayerState.Paused) {
                     mVideoPlay.resume();
                 }
                 mVideoHandler.sendEmptyMessage(SEEK_WHAT);
+
             });
             /**
              * 播放器错误
@@ -546,6 +663,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
                     hintDialog.dismiss();
                     finish();
                 });
+                mTvPlayTime.setText(GameDetailsActivity.RESET_TIME_LENGTH);
 
                 //Toasts.with().showToast(R.string.line_video_error);
             });
@@ -573,7 +691,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
                     mIvVideoStatus.setImageResource(R.mipmap.icon_video_play);
                 }
             });
-            mIvLockVideo.setOnClickListener(v -> {
+          /*  mIvLockVideo.setOnClickListener(v -> {
                 mIsCanRotate = !mIsCanRotate;
 
                 if (mIsCanRotate) {
@@ -582,7 +700,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
                     mIvLockVideo.setImageResource(R.mipmap.icon_video_lock);
                 }
 
-            });
+            });*/
             mVideoPlay.setOnCompletionListener(new IAliyunVodPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion() {
@@ -592,7 +710,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
                     mSbVideo.setProgress(0);
                     //设置到缓存进度
                     mSbVideo.setSecondaryProgress(mVideoPlay.getBufferingPosition());
-
+                    mTvPlayTime.setText(GameDetailsActivity.RESET_TIME_LENGTH);
                 }
             });
 
