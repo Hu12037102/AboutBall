@@ -111,6 +111,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
     private SeekBar mSbVideo;
     private Fragment[] mFragments;
     private boolean isLive;//是不是直播，默认false
+    private View mViewTopStatus;
     // String mLivePath = "http://player.alicdn.com/video/aliyunmedia.mp4";
 
     @Override
@@ -244,9 +245,9 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
 
 
     private void initPagerData(ResultGameSimpleBean bean) {
-       // GameResultFragment resultFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_RESULT, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
+        // GameResultFragment resultFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_RESULT, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
         GameDataFragment dataFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_DATA, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
-       // GameCommentFragment commentFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_COMMENT, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
+        // GameCommentFragment commentFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_COMMENT, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
         GameCollectionFragment collectionFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_COLLECTION, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
         collectionFragment.setOnCollectionClickListener(videoUrl -> {
             mDataBean.liveAddress = videoUrl;
@@ -333,7 +334,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
                 mLlLiveDetails.addView(noStartView);
                 TextView tvTime = noStartView.findViewById(R.id.tv_time);
                 FocusableTextView tvStatus = noStartView.findViewById(R.id.tv_status);
-                UIUtils.setText(tvStatus,bean.gameName);
+                UIUtils.setText(tvStatus, bean.gameName);
                 tvTime.setText(bean.startTime);
                 break;
             //比赛进行中
@@ -396,6 +397,11 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
             mIvVideoStatus = mHeadLiveParent.findViewById(R.id.iv_video_status);
             mSkvLoading = mHeadLiveParent.findViewById(R.id.skv_loading);
             mSbVideo = mHeadLiveParent.findViewById(R.id.sb_seek);
+            mViewTopStatus = mHeadLiveParent.findViewById(R.id.top_status_view);
+            ConstraintLayout.LayoutParams topStatusParams = (ConstraintLayout.LayoutParams) mViewTopStatus.getLayoutParams();
+            topStatusParams.height = ScreenUtils.dp2px(this, 50) + ScreenUtils.getStatuWindowsHeight(this);
+            topStatusParams.width = ConstraintLayout.LayoutParams.MATCH_PARENT;
+            mViewTopStatus.setLayoutParams(topStatusParams);
             ConstraintLayout mClSchedule = mHeadLiveParent.findViewById(R.id.cl_schedule);
             if (isLive) {
                 mClSchedule.setVisibility(View.GONE);
@@ -408,7 +414,7 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
             svVideo.setClickable(false);
             ViewGroup.LayoutParams layoutParams = svVideo.getLayoutParams();
             layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-            layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
+            layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
             svVideo.setLayoutParams(layoutParams);
             mIvScreen.setOnClickListener(v -> {
                 if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {

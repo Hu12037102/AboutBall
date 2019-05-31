@@ -8,8 +8,23 @@
     <SurfaceView
         android:id="@+id/sv_video"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent" />
+
+    <View
+        android:id="@+id/top_status_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        android:background="@drawable/layer_list_home_pager_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/bottom_status_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        android:background="@drawable/layer_list_reverse_home_pager_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <ImageView
         android:id="@+id/iv_share_video"
@@ -43,17 +58,17 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <com.github.ybq.android.spinkit.SpinKitView
         android:id="@+id/skv_loading"
+        style="@style/SpinKitView.FadingCircle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:SpinKit_Color="@color/colorTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:SpinKit_Color="@color/colorTheme"
-        style="@style/SpinKitView.FadingCircle"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/iv_screen"
@@ -65,25 +80,27 @@
         android:src="@mipmap/icon_video_screen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
-<android.support.constraint.ConstraintLayout
-    android:id="@+id/cl_schedule"
-    android:layout_width="@dimen/size_0dp"
-    android:layout_height="wrap_content"
-    app:layout_constraintRight_toLeftOf="@id/iv_screen"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintBottom_toBottomOf="parent"
-    android:layout_marginBottom="@dimen/default_margin"
-    android:layout_marginLeft="@dimen/size_20dp"
-    android:layout_marginRight="@dimen/size_20dp">
-    <SeekBar
-        android:id="@+id/sb_seek"
-        android:layout_width="match_parent"
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_schedule"
+        android:layout_width="@dimen/size_0dp"
         android:layout_height="wrap_content"
-        android:max="100"
-        android:progressDrawable="@drawable/layer_list_seek_bar"
-        android:minHeight="@dimen/size_2dp"
-        android:maxHeight="@dimen/size_2dp"
-        />
-</android.support.constraint.ConstraintLayout>
+        android:layout_marginBottom="@dimen/default_margin"
+        android:layout_marginLeft="@dimen/size_20dp"
+        android:layout_marginRight="@dimen/size_20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/iv_screen">
+
+        <SeekBar
+            android:id="@+id/sb_seek"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:maxHeight="@dimen/size_2dp"
+            android:minHeight="@dimen/size_2dp"
+            android:progressDrawable="@drawable/layer_list_seek_bar" />
+    </android.support.constraint.ConstraintLayout>
+
 
 </android.support.constraint.ConstraintLayout>

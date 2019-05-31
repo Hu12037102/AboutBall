@@ -63,16 +63,18 @@ public class VenueEvaluateTypeAdapter extends RecyclerView.Adapter<VenueEvaluate
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         ResultVenueEvaluateTypeBean bean = mData.get(i);
         if (bean.count > 100) {
-            UIUtils.setText(viewHolder.mTvType, bean.content + "100+");
+            UIUtils.setText(viewHolder.mTvType, bean.content + "(100+)");
+        } else if (bean.count > 0) {
+            UIUtils.setText(viewHolder.mTvType, bean.content + "(" + bean.count + ")");
         } else {
-            UIUtils.setText(viewHolder.mTvType, bean.content + bean.count);
+            UIUtils.setText(viewHolder.mTvType, bean.content);
         }
         if (bean.isCheck) {
             viewHolder.mTvType.setBackgroundResource(R.drawable.shape_item_ball_type);
-            viewHolder.mTvType.setTextColor(ContextCompat.getColor(mContext,R.color.colorWhite));
+            viewHolder.mTvType.setTextColor(ContextCompat.getColor(mContext, R.color.colorWhite));
         } else {
             viewHolder.mTvType.setBackgroundResource(R.drawable.shape_venue_evaluate_type_default_view);
-            viewHolder.mTvType.setTextColor(ContextCompat.getColor(mContext,R.color.color_4));
+            viewHolder.mTvType.setTextColor(ContextCompat.getColor(mContext, R.color.color_4));
         }
         viewHolder.itemView.setOnClickListener(view -> {
             if (!bean.isCheck) {
