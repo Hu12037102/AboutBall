@@ -1,7 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.splash.activity;
 
 import android.Manifest;
-import android.content.DialogInterface;
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
@@ -13,13 +13,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.EventOpenTypeBean;
+import com.work.guaishouxingqiu.aboutball.login.activity.LoginActivity;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
+import com.work.guaishouxingqiu.aboutball.other.ActivityManger;
 import com.work.guaishouxingqiu.aboutball.other.SharedPreferencesHelp;
+import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
 import com.work.guaishouxingqiu.aboutball.permission.imp.OnPermissionsResult;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
@@ -27,12 +28,11 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.splash.contract.WelcomeContract;
 import com.work.guaishouxingqiu.aboutball.splash.presenter.WelcomePresenter;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
+import com.work.guaishouxingqiu.aboutball.util.PhoneUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
 import com.work.guaishouxingqiu.aboutball.weight.TeamBallInviteDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -75,6 +75,7 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
             return true;
         }
     });
+    private Long mTeamId;
 
     private void skipActivity() {
         mSkipHandler.removeMessages(WHAT, null);
@@ -128,17 +129,24 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
     private void initOpenAgreement() {
         Uri uri = mIntent.getData();
         if (uri != null) {
-            String typeId = uri.getQueryParameter(ARouterConfig.Key.TYPE_ID);
-            if (typeId != null) {
+            LogUtils.w("initOpenAgreement--", uri.toString());
+            String typeId = uri.getQueryParameter(ARouterConfig.Key.SHARE_TYPE);
+            String shareId = uri.getQueryParameter(ARouterConfig.Key.SHARE_ID);
+            if (typeId != null && shareId != null) {
+                mSkipHandler.removeMessages(WHAT, null);
                 switch (Integer.valueOf(typeId)) {
                     case IApiService.TypeId.OPEN_BALL_INVITE:
-                        String teamId = uri.getQueryParameter(ARouterConfig.Key.TEAM_ID);
-                        EventOpenTypeBean bean = new EventOpenTypeBean();
-                        bean.typeId = Integer.valueOf(typeId);
-                        bean.teamId = Long.valueOf(teamId);
-                        mPresenter.loadTeamDetails(bean.teamId);
-                        mSkipHandler.removeMessages(WHAT,null);
-                     //   EventBus.getDefault().post(bean);
+                        mTeamId = Long.valueOf(shareId);
+                        if (UserManger.get().isLogin()) {
+                            mPresenter.loadTeamDetails(mTeamId);
+                        } else {
+                            mViewModel.showLoginDialog();
+                        }
+                        break;
+                    case IApiService.TypeId.OPEN_GAME_DETAILS_VIDEO:
+                        int matchId = Integer.valueOf(shareId);
+                        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_GAME_DETAILS, ARouterConfig.Key.GAME_ID, matchId);
+                        finish();
                         break;
                     default:
                         break;
@@ -150,22 +158,24 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
     @Override
     public void resultTeamDetails(ResultBallDetailsBean bean) {
         super.resultTeamDetails(bean);
-      //  mViewModel.showLoginDialog();
+        //  mViewModel.showLoginDialog();
         if (mTeamInviteDialog == null) {
             mTeamInviteDialog = new TeamBallInviteDialog(this, bean);
         }
-        if (!this.isFinishing()&&!mTeamInviteDialog.isShowing()) {
+        if (!this.isFinishing() && !mTeamInviteDialog.isShowing()) {
             mTeamInviteDialog.show();
         }
         mTeamInviteDialog.setOnItemClickSureAndCancelListener(new BaseDialog.OnItemClickSureAndCancelListener() {
             @Override
             public void onClickSure(@NonNull View view) {
                 mPresenter.joinTeam(bean.teamId);
+
             }
 
             @Override
             public void onClickCancel(@NonNull View view) {
                 mTeamInviteDialog.dismiss();
+                openDialogFinishActivity();
             }
         });
         mTeamInviteDialog.setOnDismissListener(dialog -> mSkipHandler.sendEmptyMessageDelayed(WHAT, 1000));
@@ -175,7 +185,17 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
     public void resultJoinTeamSucceed() {
         if (mTeamInviteDialog != null && mTeamInviteDialog.isShowing()) {
             mTeamInviteDialog.dismiss();
+            openDialogFinishActivity();
+
         }
+    }
+
+    private void openDialogFinishActivity() {
+        LogUtils.w("resultJoinTeamSucceed--", ActivityManger.get().getActivitySize() + "--");
+        if (ActivityManger.get().getActivitySize() > 1) {
+            finish();
+        }
+        PhoneUtils.launchBackgroundApp(this);
     }
 
     @Override
@@ -209,5 +229,19 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
     public void onBackPressed() {
         mSkipHandler.removeMessages(WHAT, null);
         super.onBackPressed();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode) {
+            case Activity.RESULT_OK:
+                if (requestCode == LoginActivity.REQUEST_CODE_LOGIN) {
+                    mPresenter.loadTeamDetails(mTeamId);
+                }
+                break;
+            default:
+                break;
+        }
     }
 }

@@ -123,7 +123,7 @@ public class GameCollectionFragment extends DelayedFragment<GameCollectionPresen
 
             @Override
             public void onNotDataClick(View view) {
-
+                mSrlRefresh.autoRefresh();
             }
 
             @Override

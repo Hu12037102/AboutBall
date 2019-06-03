@@ -32,6 +32,8 @@ import com.example.item.util.ScreenUtils;
 import com.github.ybq.android.spinkit.SpinKitView;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.commonality.activity.LoginOrShareActivity;
+import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameSimpleBean;
 import com.work.guaishouxingqiu.aboutball.game.contract.GameDetailsContract;
 import com.work.guaishouxingqiu.aboutball.game.fragment.GameCollectionFragment;
@@ -61,7 +63,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * 描述:比赛详情Activity
  */
 @Route(path = ARouterConfig.Path.ACTIVITY_GAME_DETAILS)
-public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter>
+public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresenter>
         implements GameDetailsContract.View {
     @BindView(R.id.civ_left)
     CircleImageView mCivLeft;
@@ -514,6 +516,10 @@ public class GameDetailsActivity extends PermissionActivity<GameDetailsPresenter
             });
             mIvShare.setPadding(ScreenUtils.dp2px(this, 20), ScreenUtils.dp2px(this, 20) + ScreenUtils.getStatuWindowsHeight(this),
                     ScreenUtils.dp2px(this, 20), ScreenUtils.dp2px(this, 20));
+            mIvShare.setOnClickListener(v -> {
+                ShareWebBean webBean = DataUtils.resultShareGameVideo(bean.matchId,bean.hostName,bean.guestName);
+                showShareDialog(webBean);
+            });
 
             mVideoPlay = new AliyunVodPlayer(this);
             mVideoRunnable = () -> {

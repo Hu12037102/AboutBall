@@ -7,11 +7,13 @@ import android.widget.EditText;
 
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.IApiService;
+import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.other.SharedPreferencesHelp;
+import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultOrderDetailsBean;
 
 import java.io.BufferedReader;
@@ -241,11 +243,19 @@ public class DataUtils {
      */
     public static ShareWebBean resultShareBallTeam(long teamId) {
         ShareWebBean bean = new ShareWebBean();
-        bean.webUrl = IApiService.H5.DOWNLOAD_APK + "?teamId=" + teamId + "&typeId=" + IApiService.TypeId.OPEN_BALL_INVITE;
+        bean.webUrl = IApiService.H5.DOWNLOAD_APK + "?" + ARouterConfig.Key.SHARE_ID + "=" + teamId + "&" + ARouterConfig.Key.SHARE_TYPE + "=" + IApiService.TypeId.OPEN_BALL_INVITE;
         LogUtils.w("ShareWebBean--", bean.webUrl);
         bean.title = "加入球队";
         bean.description = "您的朋友邀请您一起组建球队，马上点击确认吧";
         return bean;
+    }
+
+    public static ShareWebBean resultShareGameVideo(long gameId, String hostName, String guestName) {
+        ShareWebBean webBean = new ShareWebBean();
+        webBean.title = UIUtils.getString(R.string.share_game_video_title);
+        webBean.description = UIUtils.getString(R.string.share_game_video_content, hostName, guestName);
+        webBean.webUrl = IApiService.H5.DOWNLOAD_APK + "?" + ARouterConfig.Key.SHARE_ID + "=" + gameId + "&" + ARouterConfig.Key.SHARE_TYPE + "=" + IApiService.TypeId.OPEN_GAME_DETAILS_VIDEO;
+        return webBean;
     }
 
     /**

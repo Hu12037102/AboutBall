@@ -75,7 +75,7 @@ public class GameOfficialFragment extends BaseFragment<GameOfficialPresenter> im
 
             @Override
             public void onNotDataClick(View view) {
-
+                mPresenter.loadGameData(Contast.TYPE_GAME_OFFICIAL);
             }
 
             @Override

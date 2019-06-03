@@ -6,6 +6,7 @@ import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.commonality.presenter.LoginOrSharePresenter;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameSimpleBean;
 import com.work.guaishouxingqiu.aboutball.game.contract.GameContract;
 import com.work.guaishouxingqiu.aboutball.game.contract.GameDetailsContract;
@@ -18,7 +19,7 @@ import com.work.guaishouxingqiu.aboutball.http.IApi;
  * 更新时间: 2019/3/22 15:02
  * 描述:比赛详情P
  */
-public class GameDetailsPresenter extends BasePresenter<GameDetailsContract.View, GameDetailsModel> implements
+public class GameDetailsPresenter extends LoginOrSharePresenter<GameDetailsContract.View, GameDetailsModel> implements
         GameDetailsContract.Presenter {
 
 

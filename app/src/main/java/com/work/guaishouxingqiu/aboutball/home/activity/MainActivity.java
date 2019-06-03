@@ -1,6 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.home.activity;
 
 
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -10,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.work.guaishouxingqiu.aboutball.BuildConfig;
 import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.game.fragment.GameFragment;
@@ -66,7 +68,9 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
     @Override
     protected void initView() {
         registerEventBus();
-        mPresenter.updateApkInfo(DownloadApkHelp.getVersionName(this));
+        if (BuildConfig.IS_UPDATE) {
+            mPresenter.updateApkInfo(DownloadApkHelp.getVersionName(this));
+        }
         mRvMainTab.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
     }
 
@@ -155,9 +159,6 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
         }
 
     }
-
-
-
 
 
 }

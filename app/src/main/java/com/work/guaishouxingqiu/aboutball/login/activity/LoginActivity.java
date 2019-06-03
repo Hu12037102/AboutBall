@@ -1,5 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.login.activity;
 
+import android.app.Activity;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -64,7 +65,7 @@ public class LoginActivity extends LoginOrShareActivity<LoginPresenter> implemen
     private boolean isMessageCodeLogin = true;//默认是手机验证码登录
     @BindView(R.id.tv_login)
     TextView mTvLogin;
-
+    public static final int REQUEST_CODE_LOGIN = 88;
 
     @Override
     protected int getLayoutId() {
@@ -223,6 +224,7 @@ public class LoginActivity extends LoginOrShareActivity<LoginPresenter> implemen
 
     @Override
     public void resultUserDataSucceed() {
+        setResult(Activity.RESULT_OK);
         finish();
     }
 

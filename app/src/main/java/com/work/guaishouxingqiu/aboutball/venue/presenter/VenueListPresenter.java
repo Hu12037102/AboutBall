@@ -30,17 +30,19 @@ public class VenueListPresenter extends BasePresenter< VenueListContract.View,Ve
 
     @Override
     public void start() {
-        mModel.loadBallListType(new BaseObserver<>(this, new BaseObserver.Observer<List<ResultTypeBean>>() {
+        mModel.loadBallListType(new BaseObserver<>(true,this, new BaseObserver.Observer<List<ResultTypeBean>>() {
             @Override
             public void onNext(BaseBean<List<ResultTypeBean>> bean) {
-                if (mView != null && bean.result != null) {
+                if ( bean.result != null) {
                     mView.resultBallTypeList(bean.result);
+                }else {
+                    mView.resultBallTypeError();
                 }
             }
 
             @Override
             public void onError(Throwable e) {
-
+                mView.resultBallTypeError();
             }
         }));
     }

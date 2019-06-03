@@ -119,12 +119,12 @@ public class MyOrderFragment extends BasePayFragment<MyOrderFragmentPresenter> i
         mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onNotNetClick(View view) {
-
+                mSrlRefresh.autoRefresh();
             }
 
             @Override
             public void onNotDataClick(View view) {
-
+                mSrlRefresh.autoRefresh();
             }
 
             @Override

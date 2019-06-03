@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.commonality.contract.LoginOrShareContract;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameSimpleBean;
 
 /**
@@ -13,11 +14,11 @@ import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameSimpleBean;
  * 描述:比赛详情契约
  */
 public interface GameDetailsContract {
-    interface View extends IBaseView {
+    interface View extends LoginOrShareContract.View {
         void resultGameSimple(@NonNull ResultGameSimpleBean bean);
     }
 
-    interface Presenter extends IBasePresenter {
+    interface Presenter extends LoginOrShareContract.Presenter {
         void loadGameSimple(int matchId);
     }
 }

@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
@@ -69,10 +70,12 @@ public class AboutBallFragment extends DelayedFragment<AboutBallPresenter> imple
         if (mInflateRuleView == null) {
             mInflateRuleView = mVsRule.inflate();
             ImageView mIvClose = mInflateRuleView.findViewById(R.id.iv_close);
+            TextView mTvRule = mInflateRuleView.findViewById(R.id.tv_rule);
             mIvClose.setOnClickListener(v -> {
                 sph.putObject(KEY_RULE_STATUS, false);
                 mInflateRuleView.setVisibility(View.GONE);
             });
+            mTvRule.setOnClickListener(v -> ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ABOUT_RULE));
         }
         if (ruleStatus) {
             mInflateRuleView.setVisibility(View.VISIBLE);
@@ -137,11 +140,11 @@ public class AboutBallFragment extends DelayedFragment<AboutBallPresenter> imple
 
             @Override
             public void onItemClick(View view, int position) {
-                if (UserManger.get().isLogin()){
+                if (UserManger.get().isLogin()) {
                     mClickPosition = position;
                     ResultAboutBallBean bean = mData.get(position);
                     startActivityToAboutBallDetails(bean);
-                }else {
+                } else {
                     mViewModel.showLoginDialog();
                 }
 

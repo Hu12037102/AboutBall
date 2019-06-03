@@ -292,14 +292,13 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
                 if (mHeadGameAdapter == null) {
                     mHeadGameAdapter = new RecommendHeadGameAdapter(mLiveMatchData);
                     mRvGameLive.setAdapter(mHeadGameAdapter);
-                    mHeadGameAdapter.setOnItemClickListener((view, position) -> {
-                        LogUtils.w("mHeadGameAdapter--", bean.result.match.get(position).matchId + "---");
-                        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_GAME_DETAILS, ARouterConfig.Key.GAME_ID, (int) bean.result.match.get(position).matchId);
-                    });
                 } else {
-
                     mHeadGameAdapter.notifyDataSetChanged();
                 }
+                mHeadGameAdapter.setOnItemClickListener((view, position) -> {
+                    LogUtils.w("mHeadGameAdapter--", bean.result.match.get(position).matchId + "---");
+                    ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_GAME_DETAILS, ARouterConfig.Key.GAME_ID, (int) bean.result.match.get(position).matchId);
+                });
             }
         }
         mPresenter.loadData(mTypeId);

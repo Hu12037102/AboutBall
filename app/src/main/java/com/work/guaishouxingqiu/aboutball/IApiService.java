@@ -128,8 +128,8 @@ public interface IApiService {
     String POST_INVITATION_BALL = "/api/agreeBall/applyBall";
     String GET_CANCEL_ABOUT_BALL = "/api/agreeBall/cancelAgreeBall";
     String GET_MY_REFEREE_EVALUATION = "/api/referee/myRefereeComment";
-    String GET_JOIN_TEAM="/api/myTeam/confirmJoin";
-    String GET_VENUE_EVALUATE="/api/stadium/getCommentForArea";
+    String GET_JOIN_TEAM = "/api/myTeam/confirmJoin";
+    String GET_VENUE_EVALUATE = "/api/stadium/getCommentForArea";
 
     interface H5 {
         String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";
@@ -142,9 +142,11 @@ public interface IApiService {
         String DOWNLOAD_APK = "https://ifi.bmece.com/download";
     }
 
-    interface TypeId{
+    interface TypeId {
         //球队邀请
         int OPEN_BALL_INVITE = 1;
+        //视频分享
+        int OPEN_GAME_DETAILS_VIDEO = 2;
     }
 
 }

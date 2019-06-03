@@ -19,6 +19,7 @@ public interface VenueListContract {
     interface View extends IBaseView {
         void resultBallTypeList(List<ResultTypeBean> data);
         void resultVenueList(List<ResultVenueData> data);
+        void resultBallTypeError();
 
     }
 

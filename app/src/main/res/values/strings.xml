@@ -484,7 +484,7 @@
     <string name="join_the_team">加入球队</string>
     <string name="evaluate_list">评价列表</string>
     <string name="update_content">1.首页增加资讯、训练等模块；\n2.赛事模块对部分细节进行完善；\n3.增加新功能模块：场馆、约球、裁判、球队等；\n4.修复部分遗留bug；</string>
-
-
+    <string name="share_game_video_content">快来踢球么一起看比赛，%svs%s</string>
+    <string name="share_game_video_title">看球啦</string>
 
 </resources>

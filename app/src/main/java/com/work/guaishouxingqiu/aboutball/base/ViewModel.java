@@ -21,6 +21,7 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
+import com.work.guaishouxingqiu.aboutball.login.activity.LoginActivity;
 import com.work.guaishouxingqiu.aboutball.my.activity.OrderEvaluateActivity;
 import com.work.guaishouxingqiu.aboutball.my.activity.RefundActivity;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
@@ -183,7 +184,7 @@ public class ViewModel {
             mNotLoginDialog.show();
         }
         mNotLoginDialog.setOnItemClickListener(view -> {
-            ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_LOGIN);
+            ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_LOGIN,mSoftActivity.get(), LoginActivity.REQUEST_CODE_LOGIN);
             mNotLoginDialog.dismiss();
         });
     }

@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.view.animation.LinearInterpolator;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -58,6 +59,9 @@ public class VenueListFragment extends BaseFragment<VenueListPresenter> implemen
     private RequestVenueListBean mRequestBean;
     private List<ResultVenueData> mListData;
     private VenueListAdapter mListAdapter;
+    @BindView(R.id.vs_data)
+    ViewStub mVsNoData;
+    private View mNoTypeInflateView;
 
     @Override
     protected int getLayoutId() {
@@ -68,6 +72,11 @@ public class VenueListFragment extends BaseFragment<VenueListPresenter> implemen
     protected void initView() {
         mRvBallType.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         mRvData.setLayoutManager(new LinearLayoutManager(getContext()));
+        if (mNoTypeInflateView == null) {
+            mNoTypeInflateView = mVsNoData.inflate();
+            mNoTypeInflateView.findViewById(R.id.iv_not_data).setOnClickListener(v -> mPresenter.start());
+        }
+        mNoTypeInflateView.setVisibility(View.GONE);
     }
 
     @Override
@@ -187,6 +196,11 @@ public class VenueListFragment extends BaseFragment<VenueListPresenter> implemen
         mListData.addAll(data);
         mSrlRefresh.setNoMoreData(data.size() < mPresenter.mPageSize);
         mListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void resultBallTypeError() {
+        mNoTypeInflateView.setVisibility(View.VISIBLE);
     }
 
     @Override

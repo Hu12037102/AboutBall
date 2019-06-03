@@ -57,6 +57,8 @@ public interface Contast {
     String FLAG = "flag";
     String REFEREE_ID="refereeId";
     String AGREE_ID="agreeId";
+    String SHARE_ID="shareId";
+    String SHARE_TYPE="shareType";
 
     //比赛未开始
     int GAME_STATUS_NO_START = 1;

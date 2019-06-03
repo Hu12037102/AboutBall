@@ -46,6 +46,10 @@ public class ActivityManger {
         }
     }
 
+    public int getActivitySize() {
+        return mWeakMap.size();
+    }
+
     public void clearActivity() {
         Set<Map.Entry<String, WeakReference<Activity>>> entries = mWeakMap.entrySet();
         Iterator<Map.Entry<String, WeakReference<Activity>>> iterator = entries.iterator();

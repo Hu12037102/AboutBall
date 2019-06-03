@@ -1,7 +1,9 @@
 package com.work.guaishouxingqiu.aboutball.util;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -18,6 +20,7 @@ import android.support.v4.app.Fragment;
 
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.other.ActivityManger;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
@@ -172,5 +175,30 @@ public class PhoneUtils {
         //跳转到拨号界面，同时传递电话号码
         Intent phoneIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
         context.startActivity(phoneIntent);
+    }
+
+    public static void launchBackgroundApp(@NonNull Context context) {
+        boolean isRunApp = false;
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        String packageName = context.getPackageName();
+        if (am == null) {
+            return;
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            List<ActivityManager.AppTask> taskData = am.getAppTasks();
+            for (ActivityManager.AppTask task : taskData) {
+                ActivityManager.RecentTaskInfo taskInfo = task.getTaskInfo();
+                if (taskInfo != null && taskInfo.baseActivity != null && taskInfo.baseActivity.getPackageName().equals(packageName)) {
+                    context.startActivity(task.getTaskInfo().baseIntent);
+                }
+            }
+        } else {
+            List<ActivityManager.RunningTaskInfo> taskData = am.getRunningTasks(100);
+            for (ActivityManager.RunningTaskInfo taskInfo : taskData) {
+                if (taskInfo.baseActivity.getPackageName().equals(packageName)) {
+                    context.startActivity(new Intent(context, taskInfo.baseActivity.getClass()));
+                }
+            }
+        }
     }
 }
