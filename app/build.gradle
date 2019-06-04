@@ -86,6 +86,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField("boolean", "IS_DEBUG", "true")
+            buildConfigField("boolean", "IS_UPDATE", "false")
             // buildConfigField("String", "HOST_URL", '"https://ifi.bmece.com"')
             buildConfigField("String", "HOST_URL", '"http://47.106.255.172:8088"')
             shrinkResources false

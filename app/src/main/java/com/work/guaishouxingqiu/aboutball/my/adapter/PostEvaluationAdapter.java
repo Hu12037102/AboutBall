@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.item.util.ScreenUtils;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -43,7 +44,8 @@ public class PostEvaluationAdapter extends BaseRecyclerAdapter<PostEvaluationAda
         ResultInputEvaluationBean bean = mData.get(i);
         switch (mFlag) {
             case Contast.InputEvaluationType.REFEREE:
-                GlideManger.get().loadHeadImage(mContext, bean.photoUrl, viewHolder.mCivHead);
+            case Contast.InputEvaluationType.MY_REFEREE:
+               GlideManger.get().loadHeadImage(mContext, bean.photoUrl, viewHolder.mCivHead);
                 break;
             case Contast.InputEvaluationType.TEAMMATE:
             case Contast.InputEvaluationType.OPPONENT:

@@ -146,7 +146,7 @@ public interface IApiService {
         //球队邀请
         int OPEN_BALL_INVITE = 1;
         //视频分享
-        int OPEN_GAME_DETAILS_VIDEO = 2;
+        int OPEN_GAME_DETAILS_VIDEO = 3;
     }
 
 }

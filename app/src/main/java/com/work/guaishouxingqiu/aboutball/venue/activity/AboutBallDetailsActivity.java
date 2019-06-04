@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.item.util.ScreenUtils;
 import com.example.item.weight.ItemView;
 import com.example.item.weight.TitleView;
@@ -281,6 +282,8 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
         ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_WAIT_USER_ORDER_DETAILS, this, ARouterConfig.Key.ORDER_ID, orderId, AboutBallDetailsActivity.REQUEST_CODE_ORDER_USER);
     }
 
+    private void startActivityForBallTeamDetails(int teamId,String shirtColor){
+    }
 
     @OnClick({R.id.tv_bottom_left, R.id.tv_bottom_right, R.id.tv_sing, R.id.cl_bottom_team, R.id.cl_top_team, R.id.tv_cancel})
     public void onViewClicked(View view) {
@@ -294,10 +297,10 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
                 mViewModel.startActivityToInvitation(mResultBean.agreeId,mResultBean.calendarId,AboutBallDetailsActivity.REQUEST_CODE);
                 break;
             case R.id.cl_bottom_team:
-                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_BALL_TEAM_DETAILS_VENUE, ARouterConfig.Key.TEAM_ID, mResultBean.guestTeamId);
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_BALL_TEAM_DETAILS_VENUE, ARouterConfig.Key.TEAM_ID, mResultBean.guestTeamId,ARouterConfig.Key.SHIRT_COLOR,mResultBean.hostShirtColor);
                 break;
             case R.id.cl_top_team:
-                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_BALL_TEAM_DETAILS_VENUE, ARouterConfig.Key.TEAM_ID, mResultBean.hostTeamId);
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_BALL_TEAM_DETAILS_VENUE, ARouterConfig.Key.TEAM_ID, mResultBean.hostTeamId,ARouterConfig.Key.SHIRT_COLOR,mResultBean.guestShirtColor);
                 break;
             case R.id.tv_cancel:
                 if (mCancelBallDialog == null) {

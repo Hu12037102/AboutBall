@@ -9,7 +9,7 @@ import android.os.Parcelable;
  * 更新时间: 2019/5/16 17:39
  * 描述:约球详情bean
  */
-public class ResultAboutBallDetailsBean implements Parcelable{
+public class ResultAboutBallDetailsBean implements Parcelable {
     public long stadiumId;
     public long areaId;
     public long calendarId;
@@ -24,6 +24,8 @@ public class ResultAboutBallDetailsBean implements Parcelable{
     public double cost;
     public String guestTeamName;
     public long agreeId;
+    public String hostShirtColor;
+    public String guestShirtColor;
 
 
     protected ResultAboutBallDetailsBean(Parcel in) {
@@ -41,6 +43,8 @@ public class ResultAboutBallDetailsBean implements Parcelable{
         cost = in.readDouble();
         guestTeamName = in.readString();
         agreeId = in.readLong();
+        hostShirtColor = in.readString();
+        guestShirtColor = in.readString();
     }
 
     @Override
@@ -59,6 +63,8 @@ public class ResultAboutBallDetailsBean implements Parcelable{
         dest.writeDouble(cost);
         dest.writeString(guestTeamName);
         dest.writeLong(agreeId);
+        dest.writeString(hostShirtColor);
+        dest.writeString(guestShirtColor);
     }
 
     @Override

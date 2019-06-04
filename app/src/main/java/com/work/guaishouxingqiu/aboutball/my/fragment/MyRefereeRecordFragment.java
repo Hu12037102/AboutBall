@@ -52,7 +52,7 @@ public class MyRefereeRecordFragment extends BaseFragment<MyRefereeRecordChildPr
     protected void initData() {
         mRefereeId = mBundle.getLong(ARouterConfig.Key.REFEREE_ID, -1);
         mData = new ArrayList<>();
-        mAdapter = new RefereeRecordAdapter(mData);
+        mAdapter = new RefereeRecordAdapter(mData, mRefereeId == -1);
         mRvContent.setAdapter(mAdapter);
         //如果裁判id==-1说明是用户本身
         if (mRefereeId == -1) {

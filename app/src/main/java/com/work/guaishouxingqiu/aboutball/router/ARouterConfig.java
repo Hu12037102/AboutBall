@@ -134,6 +134,7 @@ public interface ARouterConfig {
         String AGREE_ID = "agreeId";
         String SHARE_ID = "teamId" /*"shareId"*/;
         String SHARE_TYPE = "typeId"/*shareType*/;
+        String SHIRT_COLOR="shirtColor";
     }
 
 }

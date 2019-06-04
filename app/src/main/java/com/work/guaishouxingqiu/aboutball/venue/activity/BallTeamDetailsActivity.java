@@ -1,5 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.venue.activity;
 
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.work.guaishouxingqiu.aboutball.my.contract.BallTeamMyDetailsContract;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.contract.BallTeamDetailsContract;
 import com.work.guaishouxingqiu.aboutball.venue.presenter.BallTeamDetailsPresenter;
@@ -52,6 +54,7 @@ public class BallTeamDetailsActivity extends BaseActivity<BallTeamDetailsPresent
     // private ResultMyBallBean mBallBean;
     private TextView mTvEdit;
     private long mTeamId;
+    private String mShirtColor;
 
     @Override
     protected int getLayoutId() {
@@ -60,8 +63,14 @@ public class BallTeamDetailsActivity extends BaseActivity<BallTeamDetailsPresent
 
     @Override
     protected void initView() {
-
+     /*   Bundle bundle = mIntent.getExtras();
+        if (bundle == null) {
+            UIUtils.showToast(R.string.not_find_ball_team_id);
+            finish();
+            return;
+        }*/
         mTeamId = mIntent.getLongExtra(ARouterConfig.Key.TEAM_ID, -1);
+        mShirtColor = mIntent.getStringExtra(ARouterConfig.Key.SHIRT_COLOR);
         if (mTeamId == -1) {
             UIUtils.showToast(R.string.not_find_ball_team_id);
             finish();
@@ -71,7 +80,7 @@ public class BallTeamDetailsActivity extends BaseActivity<BallTeamDetailsPresent
         initHeadView();
 
         mData = new ArrayList<>();
-        mAdapter = new BallDetailsChildAdapter(mData,false);
+        mAdapter = new BallDetailsChildAdapter(mData, false);
         mAdapter.addHeadView(mHeadView);
         mRvData.setAdapter(mAdapter);
         mSrlRefresh.autoRefresh();
@@ -144,7 +153,7 @@ public class BallTeamDetailsActivity extends BaseActivity<BallTeamDetailsPresent
         mTvTeamName.setText(bean.teamName);
         mTvTeamType.setText(bean.teamType);
         mItemMember.setContentText(bean.playerCount + "人");
-        mItemColor.setContentText(bean.shirtColor);
+        mItemColor.setContentText(DataUtils.isEmpty(mShirtColor) ? bean.shirtColor : mShirtColor);
         mData.clear();
         if (bean.matchForRecnetList != null) {
             mData.addAll(bean.matchForRecnetList);

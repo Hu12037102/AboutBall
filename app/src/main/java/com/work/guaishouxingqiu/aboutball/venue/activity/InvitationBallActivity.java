@@ -103,6 +103,7 @@ public class InvitationBallActivity extends BaseActivity<InvitationBallPresenter
                 if (mColorDialog == null) {
                     mColorDialog = new SelectorColorDialog(InvitationBallActivity.this);
                     mColorDialog.setOnColorSelectorListener((view1, color) -> {
+                        mRequestBean.guestShirtColor = color;
                         mItemColor.mTvRight.setText(color);
                     });
                 }
@@ -127,7 +128,7 @@ public class InvitationBallActivity extends BaseActivity<InvitationBallPresenter
     }
 
     private boolean isSelectorTeamColor() {
-        if (DataUtils.isEmpty(mItemColor.mTvRight.getText())) {
+        if (DataUtils.isEmpty(mRequestBean.guestShirtColor)) {
             UIUtils.showToast(R.string.please_selector_shirt_color);
             return false;
         }

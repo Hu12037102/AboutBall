@@ -10,4 +10,5 @@ public class RequestLauncherBallBean {
     public long calendarId;
     public Long[] refereeId;
     public long hostTeamId;
+    public String hostShirtColor;
 }

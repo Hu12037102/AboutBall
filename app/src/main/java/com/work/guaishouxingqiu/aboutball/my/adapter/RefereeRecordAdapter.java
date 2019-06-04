@@ -22,13 +22,20 @@ import java.util.List;
  */
 public class RefereeRecordAdapter extends BaseRecyclerAdapter<RefereeRecordAdapter.ViewHolder, List<ResultRefereeRecordBean>> {
 
+    private boolean mIsMySelf;
 
-    public RefereeRecordAdapter(@NonNull List<ResultRefereeRecordBean> data) {
+    public RefereeRecordAdapter(@NonNull List<ResultRefereeRecordBean> data, boolean isMySelf) {
         super(data);
+        this.mIsMySelf = isMySelf;
     }
 
     @Override
     protected void onBindViewDataHolder(@NonNull ViewHolder viewHolder, int i) {
+        if (mIsMySelf) {
+            viewHolder.mTvMatchResult.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.mTvMatchResult.setVisibility(View.INVISIBLE);
+        }
         ResultRefereeRecordBean bean = mData.get(i);
         UIUtils.setText(viewHolder.mTvTitle, bean.stadiumName);
         UIUtils.setText(viewHolder.mTvTime, bean.endTime);

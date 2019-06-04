@@ -144,6 +144,7 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
             requestBean.calendarId = mCalendarId;
             requestBean.hostTeamId = mMyBallTeam.teamId;
             requestBean.refereeId = mRefereeAdapter.getSelectorInviteReferee();
+            requestBean.hostShirtColor = mItemColor.mTvRight.getText().toString();
             mPresenter.launcherBall(requestBean);
         });
     }
@@ -216,7 +217,7 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
                         setNextStatus();
                     }
                     break;
-                    //订单返回
+                //订单返回
                 case LauncherBallActivity.REQUEST_CODE_ORDER_PAY:
                     setResult(Activity.RESULT_OK);
                     finish();

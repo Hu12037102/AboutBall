@@ -10,4 +10,5 @@ public class RequestInvitationBallBean {
     public long agreeId;
     public long calendarId;
     public long guestTeamId;
+    public String guestShirtColor;
 }
