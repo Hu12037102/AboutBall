@@ -134,6 +134,7 @@
     <string name="weight">体重</string>
     <string name="update_password">修改密码</string>
     <string name="bind_wechat">绑定微信</string>
+    <string name="modification">修改</string>
     <string name="bind_wechat_hint">绑定微信号并关注踢球么-五华公众号，\n可以在微信端获得消息推送</string>
     <string name="unbind">未绑定</string>
     <string name="save">保存</string>
@@ -487,5 +488,20 @@
     <string name="share_game_video_content">快来踢球么一起看比赛，%svs%s</string>
     <string name="share_game_video_title">看球啦</string>
     <string name="match_result">赛况记录</string>
-
+    <string name="about_ball_condition">约球情况</string>
+    <string name="must_fill_in">（必填）</string>
+    <string name="no_fill_in">（非必填）</string>
+    <string name="the_field_of">现场情况</string>
+    <string name="please_select_your_presence">请选择到场情况</string>
+    <string name="score">比分</string>
+    <string name="please_input_score">请输入比分</string>
+    <string name="number_digits">0123456789</string>
+    <string name="add_record">添加记录</string>
+    <string name="add_team_records">添加球队记录</string>
+    <string name="players_choose">球员选择</string>
+    <string name="please_select_team_members">请选择队员</string>
+    <string name="please_select_the_time">请选择时间</string>
+    <string name="time_selection">时间选择</string>
+    <string name="behavior">行为</string>
+    <string name="please_selector_team_behavior">请选择球员行为</string>
 </resources>

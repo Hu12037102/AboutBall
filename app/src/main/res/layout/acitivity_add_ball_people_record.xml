@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <com.example.item.weight.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        app:back_left_drawable="@mipmap/icon_back"
+        app:back_text_padding_left="@dimen/default_margin"
+        app:back_text_padding_right="@dimen/default_margin"
+        app:center_data="@string/add_team_records"
+        app:center_text_color="@color/color_4"
+        app:center_text_size="@dimen/size_18sp" />
+
+    <com.example.item.weight.ItemView
+        android:id="@+id/item_player"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        app:bottom_line_margin_left="@dimen/default_margin"
+        app:bottom_line_margin_right="@dimen/default_margin"
+        app:content_drawable_padding="@dimen/size_10dp"
+        app:content_right_icon="@mipmap/icon_item_right"
+        app:show_bottom_line="true"
+        app:show_top_line="true"
+        app:title_data="@string/players_choose"
+        app:title_text_color="@color/color_4"
+        app:title_text_size="@dimen/size_14sp" />
+
+    <com.example.item.weight.ItemView
+        android:id="@+id/item_time"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        app:bottom_line_margin_left="@dimen/default_margin"
+        app:bottom_line_margin_right="@dimen/default_margin"
+        app:content_drawable_padding="@dimen/size_10dp"
+        app:content_right_icon="@mipmap/icon_item_right"
+        app:show_bottom_line="true"
+        app:title_data="@string/time_selection"
+        app:title_text_color="@color/color_4"
+        app:title_text_size="@dimen/size_14sp" />
+
+    <com.example.item.weight.ItemView
+        android:id="@+id/item_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        app:bottom_line_margin_left="@dimen/default_margin"
+        app:bottom_line_margin_right="@dimen/default_margin"
+        app:content_drawable_padding="@dimen/size_10dp"
+        app:content_right_icon="@mipmap/icon_item_right"
+        app:show_bottom_line="true"
+        app:title_data="@string/behavior"
+        app:title_text_color="@color/color_4"
+        app:title_text_size="@dimen/size_14sp" />
+
+    <TextView
+        android:id="@+id/tv_save"
+        style="@style/ButtonCenterText"
+        android:layout_marginTop="@dimen/size_40dp"
+        android:text="@string/save" />
+
+
+</LinearLayout>

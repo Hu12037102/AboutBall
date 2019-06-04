@@ -295,6 +295,9 @@
         <activity
             android:name=".my.activity.MatchRefereeResultActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".my.activity.AddBallPeopleRecordActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
