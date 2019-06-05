@@ -180,4 +180,6 @@ dependencies {
     implementation project(':refresh-header')
     implementation project(':refresh-layout')
     implementation files('libs/TencentLocationSdk_v7.1.7_r02c4bb5a_20190523_115148.jar')
+    /*腾讯地图显示*/
+    implementation 'com.tencent.map:tencent-map-vector-sdk:latest.release'
 }

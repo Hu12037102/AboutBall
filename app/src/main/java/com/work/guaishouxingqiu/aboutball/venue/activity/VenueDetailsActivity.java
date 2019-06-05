@@ -159,13 +159,14 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
 
     private void initLocation() {
         mRequestVenueBean = new RequestVenueListBean();
-        Location location = PhoneUtils.getGPSLocation(this);
+      //  Location location = PhoneUtils.getGPSLocation(this);
         mRequestVenueBean.stadiumId = mStadiumId;
-        if (location != null) {
+      /*  if (location != null) {
             mRequestVenueBean.latitude = String.valueOf(location.getLatitude());
             mRequestVenueBean.longitude = String.valueOf(location.getLongitude());
-        }
-
+        }*/
+        mRequestVenueBean.longitude = String.valueOf(getSPLongitude());
+        mRequestVenueBean.latitude = String.valueOf(getSPLatitude());
     }
 
     @Override

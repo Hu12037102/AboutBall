@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeRecordBean;
+import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import java.util.List;
@@ -38,7 +39,7 @@ public class RefereeRecordAdapter extends BaseRecyclerAdapter<RefereeRecordAdapt
         }
         ResultRefereeRecordBean bean = mData.get(i);
         UIUtils.setText(viewHolder.mTvTitle, bean.stadiumName);
-        UIUtils.setText(viewHolder.mTvTime, bean.endTime);
+        UIUtils.setText(viewHolder.mTvTime, DateUtils.getStartTime2EndTime(bean.startTime,bean.endTime));
         UIUtils.setText(viewHolder.mTvTeamName, bean.hostTeamName);
     }
 
