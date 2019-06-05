@@ -504,4 +504,7 @@
     <string name="time_selection">时间选择</string>
     <string name="behavior">行为</string>
     <string name="please_selector_team_behavior">请选择球员行为</string>
+    <string name="update_content_s">更新内容:</string>
+    <string name="update_now">立即更新</string>
+    <string name="updating">正在更新...</string>
 </resources>

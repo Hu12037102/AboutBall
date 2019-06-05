@@ -16,7 +16,7 @@ android {
         minSdkVersion android.minSdkVersion
         targetSdkVersion android.targetSdkVersion
         versionCode 5
-        versionName 'v1.1.1'
+        versionName 'v1.1.2'
         testInstrumentationRunner android.testInstrumentationRunner
         //GrowingIO数据统计
         resValue("string", "growingio_project_id", "924c976f18bd2145")
@@ -98,7 +98,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField("boolean", "IS_DEBUG", "true")
-            buildConfigField("boolean", "IS_UPDATE", "false")
+            buildConfigField("boolean", "IS_UPDATE", "true")
             // buildConfigField("String", "HOST_URL", '"https://iti.bmece.com"')
             //  buildConfigField("String", "HOST_URL", '"https://192.168.1.97"')//随时链接服务器
             buildConfigField("String", "HOST_URL", '"http://47.106.255.172:8088"')

@@ -40,6 +40,7 @@ import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.PayDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
+import com.work.guaishouxingqiu.aboutball.weight.UpdateApkDialog;
 
 import java.lang.ref.SoftReference;
 
@@ -56,11 +57,12 @@ import java.lang.ref.SoftReference;
 public class ViewModel {
 
     private final SoftReference<Activity> mSoftActivity;
-    private HintDialog mUpdateDialog;
+    //  private HintDialog mUpdateDialog;
     private HintDialog mUserNoExitDialog;
     private HintDialog mLoginDialog;
     private HintDialog mNotLoginDialog;
     private HintDialog mCancelOrderDialog;
+    private UpdateApkDialog mUpdateDialog;
 
     static ViewModel createViewModel(Activity activity) {
         return new ViewModel(activity);
@@ -122,7 +124,20 @@ public class ViewModel {
     }
 
     public void showUpdateDialog(Context context, ResultUpdateApkBean updateBean) {
+        String content = UIUtils.getString(R.string.update_content);
         if (mUpdateDialog == null) {
+            mUpdateDialog = new UpdateApkDialog(context, content, false);
+        }
+        if (!mUpdateDialog.isShowing()) {
+            mUpdateDialog.show();
+        }
+        mUpdateDialog.setOnClickUpdateViewListener(new UpdateApkDialog.OnClickUpdateViewListener() {
+            @Override
+            public void clickUpdate(View view) {
+                DownloadApkHelp.loadApk(UIUtils.getContext(), updateBean.updateUrl);
+            }
+        });
+      /*  if (mUpdateDialog == null) {
             mUpdateDialog = new HintDialog.Builder(context)
                     .setTitle(R.string.update_apk)
                     .setBody(R.string.update_content)
@@ -147,7 +162,7 @@ public class ViewModel {
                 view.setEnabled(false);
               //  mUpdateDialog.dismiss();
             }
-        });
+        });*/
         /*mUpdateDialog.setOnItemClickSureAndCancelListener(new BaseDialog.OnItemClickSureAndCancelListener() {
             @Override
             public void onClickSure(@NonNull View view) {
@@ -162,7 +177,6 @@ public class ViewModel {
         });*/
 
     }
-
 
 
     /**
@@ -184,7 +198,7 @@ public class ViewModel {
             mNotLoginDialog.show();
         }
         mNotLoginDialog.setOnItemClickListener(view -> {
-            ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_LOGIN,mSoftActivity.get(), LoginActivity.REQUEST_CODE_LOGIN);
+            ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_LOGIN, mSoftActivity.get(), LoginActivity.REQUEST_CODE_LOGIN);
             mNotLoginDialog.dismiss();
         });
     }

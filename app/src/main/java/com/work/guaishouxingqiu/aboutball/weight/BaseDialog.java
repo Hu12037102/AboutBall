@@ -29,7 +29,7 @@ public abstract class BaseDialog extends AppCompatDialog {
         initView(getContext());
         initData();
         initEvent();
-        initWindows();
+       // initWindows();
     }
 
     @Override

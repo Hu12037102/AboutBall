@@ -134,8 +134,8 @@ public interface ARouterConfig {
         String REFEREE_ID = "refereeId";
         String COUNT = "count";
         String AGREE_ID = "agreeId";
-        String SHARE_ID = "teamId" /*"shareId"*/;
-        String SHARE_TYPE = "typeId"/*shareType*/;
+        String SHARE_ID = "shareId" /*"shareId"*/;
+        String SHARE_TYPE = "shareType"/*shareType*/;
         String SHIRT_COLOR="shirtColor";
     }
 
