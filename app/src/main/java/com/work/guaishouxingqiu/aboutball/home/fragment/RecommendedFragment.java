@@ -237,11 +237,15 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
 
 
     private void initLocation() {
-        Location location = PhoneUtils.getGPSLocation(this);
+      /*  Location location = PhoneUtils.getGPSLocation(this);
         if (location != null) {
             mHeadBean.latitude = String.valueOf(location.getLatitude());
             mHeadBean.longitude = String.valueOf(location.getLongitude());
-        }
+        }*/
+
+        mHeadBean.longitude = String.valueOf(getSPLongitude());
+        mHeadBean.latitude = String.valueOf(getSPLatitude());
+        //113.836712--22.605544--深圳市
         LogUtils.w("initLocation--", mHeadBean.latitude + "--" + mHeadBean.longitude);
         mSrlRecommend.autoRefresh();
     }

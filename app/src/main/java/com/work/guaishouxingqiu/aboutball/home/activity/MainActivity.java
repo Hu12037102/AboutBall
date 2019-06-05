@@ -28,6 +28,8 @@ import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
+import com.work.guaishouxingqiu.aboutball.util.NetWorkUtils;
+import com.work.guaishouxingqiu.aboutball.util.PhoneUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.fragment.VenueFragment;
 import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
@@ -76,7 +78,22 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
 
     @Override
     protected void initData() {
+        initLocation();
+        // mPresenter.loadMainTab();
+    }
+
+    private void initLocation() {
+        if (NetWorkUtils.isNetCanUse()) {
+            requestLocation();
+        } else {
+            mPresenter.loadMainTab();
+        }
+    }
+
+    @Override
+    public void locationResult(double longitude, double latitude, String city) {
         mPresenter.loadMainTab();
+        LogUtils.w("locationResult--", longitude + "--" + latitude + "--" + city);
     }
 
     @Override

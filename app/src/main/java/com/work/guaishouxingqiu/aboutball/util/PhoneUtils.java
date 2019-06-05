@@ -98,6 +98,22 @@ public class PhoneUtils {
         }
     }
 
+    public static boolean openGPS(@NonNull Fragment fragment) {
+        boolean isOpen = isOpenGPS(DataUtils.checkData(fragment.getContext()));
+        if (!isOpen) {
+            openGPSDialog(fragment);
+        }
+        return isOpen;
+    }
+
+    public static boolean openGPS(@NonNull Activity activity) {
+        boolean isOpen = isOpenGPS(DataUtils.checkData(activity));
+        if (!isOpen) {
+            openGPSDialog(activity);
+        }
+        return isOpen;
+    }
+
     public static Location getGPSLocation(@NonNull Fragment fragment) {
         PhoneUtils.checkoutGPS(fragment);
         Context context = fragment.getContext();

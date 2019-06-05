@@ -55,10 +55,14 @@ public interface Contast {
     String OFFER_ID = "offerId";
     String TRADE_TYPE = "tradeType";
     String FLAG = "flag";
-    String REFEREE_ID="refereeId";
-    String AGREE_ID="agreeId";
-    String SHARE_ID="shareId";
-    String SHARE_TYPE="shareType";
+    String REFEREE_ID = "refereeId";
+    String AGREE_ID = "agreeId";
+    String SHARE_ID = "shareId";
+    String SHARE_TYPE = "shareType";
+    //默认经度
+    double DEFAULT_LONGITUDE = 115.770000;
+    //默认纬度
+    double DEFAULT_LATITUDE = 23.912030;
 
     //比赛未开始
     int GAME_STATUS_NO_START = 1;

@@ -42,13 +42,13 @@ import utils.task.CompressImageTask;
  * 更新时间: 2019/3/4 13:08
  * 描述: Activity基类
  */
-public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatActivity implements IBaseView {
+public abstract class BaseActivity<P extends BasePresenter> extends LocationActivity implements IBaseView {
     protected P mPresenter;
     protected SystemBarTintManager mStatusBarManger;
     private Unbinder mBinder;
     private LoadingView mLoadingView;
     protected Intent mIntent;
-    protected ViewModel mViewModel;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
         setContentView(getLayoutId());
         mIntent = getIntent();
         mBinder = ButterKnife.bind(this);
-        mViewModel = ViewModel.createViewModel(this);
+
         initStatusColor();
         initPermission();
         ActivityManger.get().addActivity(this);

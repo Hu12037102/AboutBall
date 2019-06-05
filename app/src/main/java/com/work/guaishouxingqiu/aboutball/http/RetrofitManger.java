@@ -46,7 +46,8 @@ public class RetrofitManger {
         mRetrofit = mRetrofit.newBuilder().baseUrl(url).build();
         return this;
     }
-    public RetrofitManger resetBaseUrl(){
+
+    public RetrofitManger resetBaseUrl() {
         mRetrofit = mRetrofit.newBuilder().baseUrl(BuildConfig.HOST_URL).build();
         return this;
     }
@@ -139,6 +140,7 @@ public class RetrofitManger {
             } else {
                 response = response.newBuilder().removeHeader("Pragma")
                         .header("Cache-Control", "public,only-if-cached,max-stale=" + 7 * 24 * 60 * 60).build();
+                // .header("Cache-Control", "public, only-if-cached").build();
             }
             return response;
         }

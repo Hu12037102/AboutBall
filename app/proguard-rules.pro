@@ -256,6 +256,17 @@ rx.internal.util.atomic.LinkedQueueNode consumerNode;
 -keep class androidx.viewpager.widget.ViewPager$**{
   *;
 }
+#腾讯地图代码混淆
+-keepclassmembers class ** {
+    public void on*Event(...);
+}
+-keep class c.t.**{*;}
+-keep class com.tencent.map.geolocation.**{*;}
+-keep class com.tencent.tencentmap.lbssdk.service.**{*;}
+
+
+-dontwarn  org.eclipse.jdt.annotation.**
+-dontwarn  c.t.**
 
 
 

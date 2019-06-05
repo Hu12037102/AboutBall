@@ -21,6 +21,7 @@ public class SharedPreferencesHelp {
     public static final String KEY_REFEREE_CACHE_LIST = "key_referee_cache_list";
     //退款原因key
     public static final String KEY_REFUND_CAUSE_LIST = "key_refund_cause_list";
+
     private SharedPreferences mSharedPreferences;
 
     public SharedPreferencesHelp() {
@@ -106,5 +107,12 @@ public class SharedPreferencesHelp {
         return mSharedPreferences.getBoolean(key, defaultValues);
     }
 
-
+   public interface KEY {
+        //经度key
+        String LOCATION_LONGITUDE = "location_longitude";
+        //纬度
+        String LOCATION_LATITUDE = "location_latitude";
+        //定位城市
+        String LOCATION_CITY = "location_city";
+    }
 }

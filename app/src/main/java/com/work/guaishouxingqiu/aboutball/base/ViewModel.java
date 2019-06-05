@@ -38,6 +38,7 @@ import com.work.guaishouxingqiu.aboutball.venue.activity.WaitPayOrderDetailsActi
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultRefereeBean;
 import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
+import com.work.guaishouxingqiu.aboutball.weight.LoadingView;
 import com.work.guaishouxingqiu.aboutball.weight.PayDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 import com.work.guaishouxingqiu.aboutball.weight.UpdateApkDialog;
@@ -56,6 +57,7 @@ import java.lang.ref.SoftReference;
  */
 public class ViewModel {
 
+    private LoadingView mLoadingView;
     private final SoftReference<Activity> mSoftActivity;
     //  private HintDialog mUpdateDialog;
     private HintDialog mUserNoExitDialog;
@@ -72,6 +74,20 @@ public class ViewModel {
         mSoftActivity = new SoftReference<>(activity);
 
     }
+
+    public void showLoadingView() {
+        if (mLoadingView == null) {
+            mLoadingView = new LoadingView(mSoftActivity.get());
+        }
+        mLoadingView.showLoadingView();
+    }
+
+    public void dismissLoadingView() {
+        if (mLoadingView != null) {
+            mLoadingView.dismissLoadingView();
+        }
+    }
+
 
     public void resultBaseData(@NonNull BaseBean baseBean) {
         Activity activity = mSoftActivity.get();

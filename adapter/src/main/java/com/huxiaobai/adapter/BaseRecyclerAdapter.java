@@ -131,6 +131,8 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
 
     }
 
+
+
     @Override
     public int getItemViewType(int position) {
         if (mData == null || mData.size() == 0) {

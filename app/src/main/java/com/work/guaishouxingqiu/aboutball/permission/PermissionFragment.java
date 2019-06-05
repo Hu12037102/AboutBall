@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.Button;
 
 
+import com.work.guaishouxingqiu.aboutball.base.LocationActivity;
+import com.work.guaishouxingqiu.aboutball.base.LocationFragment;
 import com.work.guaishouxingqiu.aboutball.permission.imp.OnPermissionsResult;
 
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ import java.util.List;
  * @Description:
  */
 
-public class PermissionFragment extends Fragment {
+public class PermissionFragment extends LocationFragment {
     private static final int REQUEST_CODE = 200;
     private static List<String> mAllowList = new ArrayList<>();
     private static List<String> mNoAllowList = new ArrayList<>();

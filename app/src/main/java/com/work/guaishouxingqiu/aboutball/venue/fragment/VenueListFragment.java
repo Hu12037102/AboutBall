@@ -102,12 +102,14 @@ public class VenueListFragment extends BaseFragment<VenueListPresenter> implemen
     }
 
     private void initLocation() {
-        Location location = PhoneUtils.getGPSLocation(this);
+       /* Location location = PhoneUtils.getGPSLocation(this);
         if (location != null) {
             LogUtils.w("location--", mRequestBean.latitude + "--" + mRequestBean.longitude);
             mRequestBean.latitude = String.valueOf(location.getLatitude());
             mRequestBean.longitude = String.valueOf(location.getLongitude());
-        }
+        }*/
+        mRequestBean.longitude = String.valueOf(getSPLongitude());
+        mRequestBean.latitude = String.valueOf(getSPLatitude());
         mSrlRefresh.autoRefresh();
     }
 
