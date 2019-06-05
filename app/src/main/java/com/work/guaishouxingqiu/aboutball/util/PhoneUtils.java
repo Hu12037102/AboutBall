@@ -17,6 +17,7 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
@@ -208,13 +209,15 @@ public class PhoneUtils {
                     context.startActivity(task.getTaskInfo().baseIntent);
                 }
             }
-        } else {
+        } /*else {
+
             List<ActivityManager.RunningTaskInfo> taskData = am.getRunningTasks(100);
             for (ActivityManager.RunningTaskInfo taskInfo : taskData) {
-                if (taskInfo.baseActivity.getPackageName().equals(packageName)) {
-                    context.startActivity(new Intent(context, taskInfo.baseActivity.getClass()));
+                if (taskInfo != null && taskInfo.baseActivity != null && taskInfo.baseActivity.getPackageName().equals(packageName)) {
+                    Log.w("RunningTaskInfo--", taskInfo.baseActivity.getClassName());
+                  //  context.startActivity(new Intent(context, taskInfo.baseActivity.getClass()));
                 }
             }
-        }
+        }*/
     }
 }
