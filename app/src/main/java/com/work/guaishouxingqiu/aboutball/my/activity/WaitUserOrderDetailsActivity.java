@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -67,6 +68,8 @@ public class WaitUserOrderDetailsActivity extends BaseOrderActivity<WaitUserOrde
     TextView mTvOrderStatus;
     @BindView(R.id.tv_phone)
     TextView mTvPhoneNumber;
+    @BindView(R.id.iv_address)
+    ImageView mIvAddress;
     private long mOrderId;
     private HintDialog mCancelOrderDialog;
     private ResultOrderDetailsBean mResultBean;
@@ -132,6 +135,7 @@ public class WaitUserOrderDetailsActivity extends BaseOrderActivity<WaitUserOrde
             case R.id.tv_bottom_right:
                 break;
             case R.id.iv_address:
+                mViewModel.startActivityToMap(mResultBean.longitude, mResultBean.latitude, mResultBean.address);
                 break;
         }
     }

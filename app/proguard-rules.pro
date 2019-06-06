@@ -263,10 +263,22 @@ rx.internal.util.atomic.LinkedQueueNode consumerNode;
 -keep class c.t.**{*;}
 -keep class com.tencent.map.geolocation.**{*;}
 -keep class com.tencent.tencentmap.lbssdk.service.**{*;}
-
-
 -dontwarn  org.eclipse.jdt.annotation.**
 -dontwarn  c.t.**
+#腾讯地图 2D sdk
+-keep class com.tencent.mapsdk.**{*;}
+-keep class com.tencent.tencentmap.**{*;}
+#腾讯地图 3D sdk
+-keep class com.tencent.tencentmap.**{*;}
+-keep class com.tencent.map.**{*;}
+-keep class com.tencent.beacontmap.**{*;}
+-keep class navsns.**{*;}
+-dontwarn com.qq.**
+-dontwarn com.tencent.beacon.**
+#腾讯地图检索sdk
+-keep class com.tencent.lbssearch.**{*;}
+-keepattributes Signature
+-dontwarn com.tencent.lbssearch.**
 
 
 

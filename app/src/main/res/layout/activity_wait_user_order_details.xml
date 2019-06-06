@@ -108,7 +108,8 @@
             android:src="@mipmap/icon_address"
             app:layout_constraintBottom_toBottomOf="@id/tv_address"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_address" />
+            app:layout_constraintTop_toTopOf="@id/tv_address"
+            android:visibility="invisible"/>
 
         <View
             android:id="@+id/line_title"

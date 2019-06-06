@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.home.adapter;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,6 +31,7 @@ import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
+import com.work.guaishouxingqiu.aboutball.venue.activity.AboutBallDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import org.greenrobot.eventbus.EventBus;
@@ -59,6 +61,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
     private int mPosition;
     private List<ResultRecommendDataBean.Stadium> mStadiumData;
     private List<ResultRecommendDataBean.AgreeBallMatch> mBallData;
+    private Fragment mFragment;
 
     public RecommendedAdapter(@NonNull List<ResultNewsBean> data) {
         super(data);
@@ -82,7 +85,8 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
         return super.getItemViewType(position);
     }
 
-    public void notifyData(List<ResultRecommendDataBean.Stadium> stadiumData, List<ResultRecommendDataBean.AgreeBallMatch> ballData) {
+    public void notifyData(@NonNull Fragment fragment, List<ResultRecommendDataBean.Stadium> stadiumData, List<ResultRecommendDataBean.AgreeBallMatch> ballData) {
+        mFragment = fragment;
         this.mStadiumData = stadiumData;
         this.mBallData = ballData;
     }
@@ -101,7 +105,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             viewHolder = new HomeVenueViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_venues_home_view, viewGroup, false), mStadiumData);
         } else if (mPosition == RecommendedAdapter.POSITION_BALL_ITEM && mData.get(mPosition) == null) {
             //约球ViewHolder 记得删除item_test_view
-            viewHolder = new HomeBallHolder(LayoutInflater.from(mContext).inflate(R.layout.item_home_ball_view, viewGroup, false), mBallData);
+            viewHolder = new HomeBallHolder(LayoutInflater.from(mContext).inflate(R.layout.item_home_ball_view, viewGroup, false), mBallData, mFragment);
         } else {
             if (mData.get(mPosition).typeId.equals(Contast.VIDEO_RECOMMENDED_TYPE)) {
                 viewHolder = new VideoHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_recommend_video_view, viewGroup, false));
@@ -170,7 +174,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             SingViewHolder singViewHolder = (SingViewHolder) viewHolder;
             //singViewHolder.mTvData.setText(mData.get(i).title);
             addTop(bean, singViewHolder.mTvData);
-            singViewHolder.mTvFrom.setText(UIUtils.getString(R.string.from_data, mData.get(i).source, mData.get(i).releaseTime));
+            singViewHolder.mTvFrom.setText(UIUtils.getString(R.string.from_data, mData.get(i).source == null ? "" : mData.get(i).source, mData.get(i).releaseTime));
             if (!DataUtils.isEmpty(mData.get(i).coverUrl)) {
                 String imagePath;
                 if (DataUtils.splitImagePathCount(mData.get(i).coverUrl) > 0) {
@@ -436,16 +440,24 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
 
         private RelativeLayout mRlMore;
         private RecyclerView mRvBallData;
-        private HomeBallAdapter mAdapter;
+        private HomeBallAdapter mHomeBallAdapter;
+        private List<ResultRecommendDataBean.AgreeBallMatch> mAgreeBallMatchData;
 
-        public HomeBallHolder(@NonNull View itemView, List<ResultRecommendDataBean.AgreeBallMatch> data) {
+        public HomeBallHolder(@NonNull View itemView, List<ResultRecommendDataBean.AgreeBallMatch> data, Fragment fragment) {
             super(itemView);
             initChildView(itemView);
-            if (mAdapter == null) {
-                mAdapter = new HomeBallAdapter(data);
-                mRvBallData.setAdapter(mAdapter);
+            if (mAgreeBallMatchData == null) {
+                mAgreeBallMatchData = new ArrayList<>();
+            }
+            mAgreeBallMatchData.clear();
+            if (data != null) {
+                mAgreeBallMatchData.addAll(data);
+            }
+            if (mHomeBallAdapter == null) {
+                mHomeBallAdapter = new HomeBallAdapter(mAgreeBallMatchData, fragment);
+                mRvBallData.setAdapter(mHomeBallAdapter);
             } else {
-                mAdapter.notifyDataSetChanged();
+                mHomeBallAdapter.notifyDataSetChanged();
             }
 
             mRlMore.setOnClickListener(v -> EventBus.getDefault().post(new HomeFragment.Message(TYPE_BALL, 2)));
@@ -457,13 +469,17 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             mRvBallData.setLayoutManager(new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         }
+
+
     }
 
     static class HomeBallAdapter extends RecyclerView.Adapter<HomeBallAdapter.ViewHolder> {
         private List<ResultRecommendDataBean.AgreeBallMatch> mData;
+        private Fragment mFragment;
 
-        public HomeBallAdapter(List<ResultRecommendDataBean.AgreeBallMatch> data) {
+        public HomeBallAdapter(List<ResultRecommendDataBean.AgreeBallMatch> data, Fragment fragment) {
             this.mData = data;
+            mFragment = fragment;
         }
 
         @NonNull
@@ -496,7 +512,9 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
                     Bundle bundle = new Bundle();
                     bundle.putLong(ARouterConfig.Key.OFFER_ID, bean.agreeId);
                     bundle.putInt(ARouterConfig.Key.ABOUT_BALL_FLAG, 0);
-                    ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ABOUT_BALL_DETAILS, bundle);
+                    bundle.putInt(ARouterConfig.Key.REFEREE_STATUS, bean.hasReferee);
+                    bundle.putInt(ARouterConfig.Key.TEAM_STATUS, bean.hasOpponent);
+                    ARouterIntent.startActivityForResult(mFragment, AboutBallDetailsActivity.class, bundle, AboutBallDetailsActivity.REQUEST_CODE);
                 }
             });
         }

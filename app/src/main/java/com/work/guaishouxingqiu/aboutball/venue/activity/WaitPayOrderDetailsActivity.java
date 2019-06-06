@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.InputType;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -11,9 +12,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.commonality.activity.BasePayActivity;
-import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
@@ -73,6 +72,8 @@ public class WaitPayOrderDetailsActivity extends BasePayActivity<WaitPayOrderDet
     TextView mTvTopHint;
     @BindView(R.id.title_view)
     TitleView mTitleView;
+    @BindView(R.id.iv_address)
+    ImageView mIvAddress;
     private ResultOrderDetailsBean mResultBean;
     private boolean mIsCheckAgreement;
     private long mOrderId;
@@ -147,6 +148,7 @@ public class WaitPayOrderDetailsActivity extends BasePayActivity<WaitPayOrderDet
     @Override
     public void resultOrderDetails(ResultOrderDetailsBean bean) {
         mTvPay.setVisibility(View.VISIBLE);
+        mIvAddress.setVisibility(View.VISIBLE);
         this.mResultBean = bean;
         mTvTitle.setText(bean.stadiumName);
         mTvAddress.setText(bean.address);
@@ -206,6 +208,7 @@ public class WaitPayOrderDetailsActivity extends BasePayActivity<WaitPayOrderDet
                 clickContentPhone();
                 break;
             case R.id.iv_address:
+                mViewModel.startActivityToMap(mResultBean.longitude, mResultBean.latitude, mResultBean.address);
                 break;
         }
     }

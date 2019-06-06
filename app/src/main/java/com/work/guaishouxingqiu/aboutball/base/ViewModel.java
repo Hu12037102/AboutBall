@@ -456,4 +456,12 @@ public class ViewModel {
             sp.putObject(key, true);
         }
     }
+
+    public void startActivityToMap(double longitude, double latitude, String positionName) {
+        Bundle bundle = new Bundle();
+        bundle.putDouble(ARouterConfig.Key.LONGITUDE, longitude);
+        bundle.putDouble(ARouterConfig.Key.LATITUDE, latitude);
+        bundle.putString(ARouterConfig.Key.POSITION_NAME, positionName);
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MAP, bundle);
+    }
 }

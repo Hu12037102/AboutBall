@@ -58,9 +58,9 @@ public interface ARouterConfig {
         String ACTIVITY_POST_EVALUATION = "/activity/post/evaluation";
         String ACTIVITY_REFEREE_DETAILS = "/activity/referee/details";
         String ACTIVITY_VENUE_EVALUATE = "/activity/venue/evaluate";
-        String ACTIVITY_MATCH_REFEREE_RESULT="/activity/match/referee/result";
-        String ACTIVITY_ADD_BALL_PEOPLE_RECORD="/activity/add/ball/people/record";
-        String ACTIVITY_MAP="/activity/map";
+        String ACTIVITY_MATCH_REFEREE_RESULT = "/activity/match/referee/result";
+        String ACTIVITY_ADD_BALL_PEOPLE_RECORD = "/activity/add/ball/people/record";
+        String ACTIVITY_MAP = "/activity/map";
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";
@@ -137,7 +137,10 @@ public interface ARouterConfig {
         String AGREE_ID = "agreeId";
         String SHARE_ID = "shareId" /*"shareId"*/;
         String SHARE_TYPE = "shareType"/*shareType*/;
-        String SHIRT_COLOR="shirtColor";
+        String SHIRT_COLOR = "shirtColor";
+        String LONGITUDE = "longitude";
+        String LATITUDE = "latitude";
+        String POSITION_NAME = "positionName";
     }
 
 }

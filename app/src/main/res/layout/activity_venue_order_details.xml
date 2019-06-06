@@ -155,7 +155,8 @@
                     android:paddingBottom="@dimen/size_10dp"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingTop="@dimen/size_10dp"
-                    android:src="@mipmap/icon_address" />
+                    android:src="@mipmap/icon_address"
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/tv_address"

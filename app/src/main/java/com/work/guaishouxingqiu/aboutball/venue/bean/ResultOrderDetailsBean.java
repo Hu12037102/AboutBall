@@ -26,6 +26,8 @@ public class ResultOrderDetailsBean implements Parcelable{
     public float realPrice;
     public List<OrderPeopleCountBean> orderDetailForOrders;
     public float grade;
+    public double longitude;
+    public double latitude;
 
     protected ResultOrderDetailsBean(Parcel in) {
         orderId = in.readLong();
@@ -41,6 +43,8 @@ public class ResultOrderDetailsBean implements Parcelable{
         totalPrice = in.readFloat();
         realPrice = in.readFloat();
         grade = in.readFloat();
+        longitude = in.readDouble();
+        latitude = in.readDouble();
         orderDetailForOrders = in.createTypedArrayList(OrderPeopleCountBean.CREATOR);
     }
 
@@ -77,6 +81,8 @@ public class ResultOrderDetailsBean implements Parcelable{
         dest.writeFloat(realPrice);
         dest.writeFloat(grade);
         dest.writeTypedList(orderDetailForOrders);
+        dest.writeDouble(longitude);
+        dest.writeDouble(latitude);
     }
 
     public static class OrderPeopleCountBean implements Parcelable{

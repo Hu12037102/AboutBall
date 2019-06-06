@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.home.fragment;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -49,6 +50,7 @@ import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.NetWorkUtils;
 import com.work.guaishouxingqiu.aboutball.util.PhoneUtils;
+import com.work.guaishouxingqiu.aboutball.venue.activity.AboutBallDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.weight.CarouselViewPager;
 
 import org.greenrobot.eventbus.EventBus;
@@ -263,6 +265,15 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
             //  PhoneUtils.checkoutGPS(this);
             initLocation();
         }
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case AboutBallDetailsActivity.REQUEST_CODE:
+                    mPresenter.loadHead(mHeadBean);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     @Override
@@ -326,10 +337,11 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
             }
             if (mResultHeadBean != null /*&& mResultHeadBean.stadium != null && mResultHeadBean.stadium.size() > 0 &&
                     mResultHeadBean.agreeBallMatch != null && mResultHeadBean.agreeBallMatch.size() > 0*/) {
-                mRecommendAdapter.notifyData(mResultHeadBean.stadium, mResultHeadBean.agreeBallMatch);
-            } else {
+                mRecommendAdapter.notifyData(this, mResultHeadBean.stadium, mResultHeadBean.agreeBallMatch);
+            } /*else {
                 mRecommendAdapter.notifyDataSetChanged();
-            }
+            }*/
+            mRecommendAdapter.notifyDataSetChanged();
         }
     }
 
