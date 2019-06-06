@@ -1,5 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.home.bean;
 
+import java.util.List;
+
 /**
  * 作者: 胡庆岭
  * 创建时间: 2019/3/14 17:29
@@ -13,4 +15,10 @@ public class ResultHomeTabBean {
 
     public int labelId;
     public String labelName;
+    public List<ResultHomeTabBean.LabBean> homeLabelList;
+
+    public static class LabBean {
+        public int labelId;
+        public String labelName;
+    }
 }
