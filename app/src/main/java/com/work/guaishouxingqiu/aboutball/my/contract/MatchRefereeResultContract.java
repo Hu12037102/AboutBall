@@ -2,6 +2,9 @@ package com.work.guaishouxingqiu.aboutball.my.contract;
 
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultMatchRefereeResultBean;
+
+import java.util.List;
 
 /**
  * 作者: 胡庆岭
@@ -11,8 +14,10 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
  */
 public interface MatchRefereeResultContract {
     interface View extends IBaseView {
+        void resultMatchRecord(List<ResultMatchRefereeResultBean> data);
     }
 
     interface Presenter extends IBasePresenter {
+        void loadMatchRecord(long agreeId);
     }
 }

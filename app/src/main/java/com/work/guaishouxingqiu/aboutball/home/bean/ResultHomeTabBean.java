@@ -9,12 +9,12 @@ import java.util.List;
  * 描述: 首页tab
  */
 public class ResultHomeTabBean {
-    public ResultHomeTabBean(String labelName) {
-        this.labelName = labelName;
+    public ResultHomeTabBean(String parentLabelName) {
+        this.parentLabelName = parentLabelName;
     }
 
-    public int labelId;
-    public String labelName;
+    public int parentLabelId;
+    public String parentLabelName;
     public List<ResultHomeTabBean.LabBean> homeLabelList;
 
     public static class LabBean {

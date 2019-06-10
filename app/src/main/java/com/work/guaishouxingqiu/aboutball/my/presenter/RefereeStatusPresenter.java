@@ -3,11 +3,14 @@ package com.work.guaishouxingqiu.aboutball.my.presenter;
 import android.support.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
+import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.my.contract.RefereeStatusContract;
 import com.work.guaishouxingqiu.aboutball.my.model.RefereeStatusModel;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 
 /**
  * 作者: 胡庆岭
@@ -28,10 +31,12 @@ public class RefereeStatusPresenter extends BasePresenter<RefereeStatusContract.
 
     @Override
     public void start() {
-        mModel.sureRefereeStatus(new BaseObserver<>(true, this, new BaseObserver.Observer<String>() {
+        mModel.sureRefereeStatus(new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
+
+
             @Override
-            public void onNext(BaseBean<String> t) {
-                if (t.code == IApi.Code.SUCCEED) {
+            public void onNext(BaseBean<BaseDataBean<String>> t) {
+                if (DataUtils.baseDataBeanIsSucceed(t)) {
                     mView.resultSureRefereeStatus();
                 }
             }

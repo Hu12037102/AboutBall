@@ -2,9 +2,15 @@ package com.work.guaishouxingqiu.aboutball.my.presenter;
 
 import android.support.annotation.NonNull;
 
+import com.work.guaishouxingqiu.aboutball.base.BaseBean;
+import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultMatchRefereeResultBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.MatchRefereeResultContract;
 import com.work.guaishouxingqiu.aboutball.my.model.MatchRefereeResultModel;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+
+import java.util.List;
 
 /**
  * 作者: 胡庆岭
@@ -26,5 +32,22 @@ public class MatchRefereeResultPresenter extends BasePresenter<MatchRefereeResul
     @Override
     public void start() {
 
+    }
+
+    @Override
+    public void loadMatchRecord(long agreeId) {
+        mModel.loadMatchRecord(agreeId, new BaseObserver<>(this, new BaseObserver.Observer<List<ResultMatchRefereeResultBean>>() {
+            @Override
+            public void onNext(BaseBean<List<ResultMatchRefereeResultBean>> t) {
+                if (DataUtils.isResultSure(t)) {
+                    mView.resultMatchRecord(t.result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
     }
 }

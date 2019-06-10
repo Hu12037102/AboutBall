@@ -96,4 +96,10 @@
         <item>执法记录</item>
         <item>执法评价</item>
     </string-array>
+    <string-array name="present_situation_array">
+        <item>准时到场</item>
+        <item>缺席</item>
+        <item>迟到</item>
+        <item>其它</item>
+    </string-array>
 </resources>

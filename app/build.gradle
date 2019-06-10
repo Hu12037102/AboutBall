@@ -88,7 +88,8 @@ android {
             buildConfigField("boolean", "IS_DEBUG", "true")
             buildConfigField("boolean", "IS_UPDATE", "false")
             // buildConfigField("String", "HOST_URL", '"https://ifi.bmece.com"')
-            buildConfigField("String", "HOST_URL", '"http://47.106.255.172:8088"')
+            //buildConfigField("String", "HOST_URL", '"https://www.ifeell.com.cn"')
+             buildConfigField("String", "HOST_URL", '"http://47.106.255.172:8088"')
             shrinkResources false
             zipAlignEnabled false
             pseudoLocalesEnabled false
@@ -100,8 +101,9 @@ android {
             buildConfigField("boolean", "IS_DEBUG", "true")
             buildConfigField("boolean", "IS_UPDATE", "true")
             //buildConfigField("String", "HOST_URL", '"https://iti.bmece.com"')
-            //  buildConfigField("String", "HOST_URL", '"https://192.168.1.97"')//随时链接服务器
-            buildConfigField("String", "HOST_URL", '"http://47.106.255.172:8088"')
+           // buildConfigField("String", "HOST_URL", '"https://www.test.ifeell.com"')
+            buildConfigField("String", "HOST_URL", '"https://test.ifeell.com.cn"')
+           //  buildConfigField("String", "HOST_URL", '"http://47.106.255.172:8088"')
             shrinkResources false
             zipAlignEnabled false
             pseudoLocalesEnabled false
@@ -181,6 +183,6 @@ dependencies {
     implementation project(':refresh-layout')
     implementation files('libs/TencentLocationSdk_v7.1.7_r02c4bb5a_20190523_115148.jar')
     /*腾讯地图显示*/
-     //implementation 'com.tencent.map:tencent-map-vector-sdk:latest.release'
+    //implementation 'com.tencent.map:tencent-map-vector-sdk:latest.release'
     implementation 'com.tencent.map:tencent-map-vector-sdk:4.2.3.1'
 }

@@ -43,6 +43,11 @@ public class AddBallPeopleRecordActivity extends BaseActivity<AddBallPeopleRecor
     }
 
     @Override
+    public void initPermission() {
+        super.initPermission();
+    }
+
+    @Override
     protected void initView() {
         mItemPlayer.mTvRight.setHintTextColor(ContextCompat.getColor(this,R.color.colorFFA6A6A6));
         mItemPlayer.mTvRight.setHint(R.string.please_select_team_members);

@@ -510,4 +510,8 @@
     <string name="unknown">未知</string>
     <string name="not_find_longitude_and_latitude">没有获取到经纬度</string>
     <string name="position_details">位置详情</string>
+    <string name="not_find_this_match_result">没有找到这场比赛赛况记录</string>
+    <string name="please_selector_score">请选择比分</string>
+    <string name="present_situation">到场情况</string>
+    <string name="score_situation">比分情况</string>
 </resources>

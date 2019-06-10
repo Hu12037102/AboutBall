@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.IApiService;
@@ -358,5 +359,9 @@ public class DataUtils {
         if (!sp.isContainsKey(key)) {
             sp.putObject(key, true);
         }
+    }
+
+    public static String getTextViewContent(@NonNull TextView textView) {
+        return DataUtils.isEmpty(textView.getText()) ? "" : textView.getText().toString().trim();
     }
 }

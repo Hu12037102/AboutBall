@@ -71,18 +71,18 @@ public class HomeFragment extends CameraFragment<HomePresenter> implements HomeC
             return;
         }
         RecommendedFragment mRecommendedFragment = ARouterIntent
-                .getFragment(ARouterConfig.Path.FRAGMENT_RECOMMENDED, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(0).labelId);
+                .getFragment(ARouterConfig.Path.FRAGMENT_RECOMMENDED, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(0).parentLabelId);
         HotFragment mHotFragment = ARouterIntent
-                .getFragment(ARouterConfig.Path.FRAGMENT_HOT, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(1).labelId);
+                .getFragment(ARouterConfig.Path.FRAGMENT_HOT, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(1).parentLabelId);
         HighlightsFragment mHighlightsFragment = ARouterIntent
-                .getFragment(ARouterConfig.Path.FRAGMENT_HIGHLIGHTS, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(2).labelId);
+                .getFragment(ARouterConfig.Path.FRAGMENT_HIGHLIGHTS, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(2).parentLabelId);
 
         VideoFragment mVideoFragment = ARouterIntent
-                .getFragment(ARouterConfig.Path.FRAGMENT_VIDEO, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(3).labelId);
+                .getFragment(ARouterConfig.Path.FRAGMENT_VIDEO, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(3).parentLabelId);
         DrillFragment drillFragment = ARouterIntent
-                .getFragment(ARouterConfig.Path.FRAGMENT_DRILL, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(4).labelId);
+                .getFragment(ARouterConfig.Path.FRAGMENT_DRILL, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(4).parentLabelId);
         SpecialFragment mSpecialFragment = ARouterIntent
-                .getFragment(ARouterConfig.Path.FRAGMENT_SPECIAL, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(5).labelId);
+                .getFragment(ARouterConfig.Path.FRAGMENT_SPECIAL, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(5).parentLabelId);
         Fragment[] fragments = new Fragment[]{mRecommendedFragment, mHotFragment,
                 mHighlightsFragment, mVideoFragment, drillFragment, mSpecialFragment};
 
@@ -161,11 +161,11 @@ public class HomeFragment extends CameraFragment<HomePresenter> implements HomeC
         if (DataUtils.isResultSure(data) && data.result.size() > 0) {
             data.result.add(0, new ResultHomeTabBean(getString(R.string.recommend)));
             for (int i = 0; i < data.result.size(); i++) {
-               /* mTabTitle.addTab(mTabTitle.newTab().setText(data.result.get(i).labelName));
+               /* mTabTitle.addTab(mTabTitle.newTab().setText(data.result.get(i).parentLabelName));
                 if (i == 0) {
                     DataUtils.checkData(mTabTitle.getTabAt(0)).select();
                 }*/
-                UIUtils.setBaseCustomTabLayout(mTabTitle, data.result.get(i).labelName, i == 0, 45, 18);
+                UIUtils.setBaseCustomTabLayout(mTabTitle, data.result.get(i).parentLabelName, i == 0, 45, 18);
             }
             initPager(data.result);
         }

@@ -134,6 +134,7 @@
             app:layout_constraintLeft_toRightOf="@id/tv_content" />
 
         <TextView
+            android:id="@+id/tv_add_record"
             android:layout_width="@dimen/size_80dp"
             android:layout_height="@dimen/size_25dp"
             android:background="@drawable/shape_black_line_view"

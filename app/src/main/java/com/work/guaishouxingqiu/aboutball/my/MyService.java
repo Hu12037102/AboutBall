@@ -25,6 +25,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateSexBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateWeightBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultInputEvaluationBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultMatchRefereeResultBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyAddress;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyBallBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyOrderBean;
@@ -142,7 +143,7 @@ public interface MyService {
     Observable<BaseBean<Integer>> judgeRefereeStatus();
 
     @GET(IApiService.GET_SURE_REFEREE_STATUS)
-    Observable<BaseBean<String>> sureRefereeStatus();
+    Observable<BaseBean<BaseDataBean<String>>> sureRefereeStatus();
 
     //我的裁判记录
     @GET(IApiService.GET_MY_REFEREE_RECORD)
@@ -200,4 +201,6 @@ public interface MyService {
     @GET(IApiService.GET_JOIN_TEAM)
     Observable<BaseBean<BaseDataBean<String>>> joinTeam(@Query(Contast.TEAM_ID) long teamId);
 
+    @GET(IApiService.GET_REFEREE_MATCH_RECORD)
+    Observable<BaseBean<List<ResultMatchRefereeResultBean>>> getRefereeMatchRecordData(@Query(Contast.AGREE_ID) long agreeId);
 }

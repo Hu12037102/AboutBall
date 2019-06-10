@@ -1,5 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.my.model;
 
+import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseModel;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.my.MyService;
@@ -15,7 +16,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class RefereeStatusModel extends BaseModel{
 
-    public void sureRefereeStatus(BaseObserver<String> observer) {
+    public void sureRefereeStatus(BaseObserver<BaseDataBean<String>> observer) {
         mRetrofitManger.create(MyService.class)
                 .sureRefereeStatus()
                 .subscribeOn(Schedulers.io())
