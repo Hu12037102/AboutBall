@@ -64,7 +64,7 @@ public class MatchRefereeResultActivity extends BaseActivity<MatchRefereeResultP
     private MatchRefereeResultAdapter mAdapter;
     private List<ResultMatchRefereeResultBean> mData;
     private ResultRefereeRecordBean mIntentBean;
-    public static final String NOT_DATA_VIEW_CONTENT = "缺席";
+    private static final String NOT_DATA_VIEW_CONTENT = "缺席";
     private ItemView mHeadItemHostCase;
     private ItemView mHeadItemGuestCase;
     private List<String> mScoreData;
