@@ -279,7 +279,18 @@ rx.internal.util.atomic.LinkedQueueNode consumerNode;
 -keep class com.tencent.lbssearch.**{*;}
 -keepattributes Signature
 -dontwarn com.tencent.lbssearch.**
-
+#友盟统计代码混淆
+-keep class com.umeng.** {*;}
+-keepclassmembers class * {
+   public <init> (org.json.JSONObject);
+}
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+-keep public class com.work.guaishouxingqiu.aboutball.R$*{
+public static final int *;
+}
 
 
 

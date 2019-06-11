@@ -16,6 +16,20 @@
         app:center_data="@string/add_team_records"
         app:center_text_color="@color/color_4"
         app:center_text_size="@dimen/size_18sp" />
+    <com.example.item.weight.ItemView
+        android:id="@+id/item_team"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        app:bottom_line_margin_left="@dimen/default_margin"
+        app:bottom_line_margin_right="@dimen/default_margin"
+        app:content_drawable_padding="@dimen/size_10dp"
+        app:content_right_icon="@mipmap/icon_item_right"
+        app:show_bottom_line="true"
+        app:show_top_line="true"
+        app:title_data="@string/players_team"
+        app:title_text_color="@color/color_4"
+        app:title_text_size="@dimen/size_14sp" />
+
 
     <com.example.item.weight.ItemView
         android:id="@+id/item_player"
@@ -26,10 +40,10 @@
         app:content_drawable_padding="@dimen/size_10dp"
         app:content_right_icon="@mipmap/icon_item_right"
         app:show_bottom_line="true"
-        app:show_top_line="true"
         app:title_data="@string/players_choose"
         app:title_text_color="@color/color_4"
-        app:title_text_size="@dimen/size_14sp" />
+        app:title_text_size="@dimen/size_14sp"
+        android:visibility="gone"/>
 
     <com.example.item.weight.ItemView
         android:id="@+id/item_time"

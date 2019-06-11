@@ -2,6 +2,10 @@ package com.work.guaishouxingqiu.aboutball.my.contract;
 
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestAddRecordBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultTeamDetailsMemberBean;
+
+import java.util.List;
 
 /**
  * 作者: 胡庆岭
@@ -10,6 +14,15 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
  * 描述:添加球员记录契约
  */
 public interface AddBallPeopleRecordContract {
-    interface View extends IBaseView{}
-    interface Presenter extends IBasePresenter{}
+    interface View extends IBaseView {
+        void resultMemberDetails(List<ResultTeamDetailsMemberBean> data);
+
+        void resultSaveRecord();
+    }
+
+    interface Presenter extends IBasePresenter {
+        void loadMemberDetails(long mHostTeamId);
+
+        void saveRefereePlayerRecord(RequestAddRecordBean mRequestBean);
+    }
 }

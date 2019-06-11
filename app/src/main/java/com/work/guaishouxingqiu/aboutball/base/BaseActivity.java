@@ -11,6 +11,7 @@ import com.bugtags.library.Bugtags;
 import com.example.item.util.ScreenUtils;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.umeng.analytics.MobclickAgent;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
@@ -67,18 +68,20 @@ public abstract class BaseActivity<P extends BasePresenter> extends LocationActi
     @Override
     protected void onResume() {
         super.onResume();
-        Bugtags.onResume(this);
+        //Bugtags.onResume(this);
+        MobclickAgent.onResume(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Bugtags.onResume(this);
+        //Bugtags.onResume(this);
+        MobclickAgent.onPause(this);
     }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        Bugtags.onDispatchTouchEvent(this, ev);
+        //Bugtags.onDispatchTouchEvent(this, ev);
         return super.dispatchTouchEvent(ev);
     }
 
@@ -232,4 +235,5 @@ public abstract class BaseActivity<P extends BasePresenter> extends LocationActi
     public void resultJoinTeamSucceed() {
 
     }
+
 }

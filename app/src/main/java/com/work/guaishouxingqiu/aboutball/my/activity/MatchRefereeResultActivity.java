@@ -1,5 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.my.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -19,6 +21,7 @@ import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.my.adapter.MatchRefereeResultAdapter;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestActionRecordsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMatchRefereeResultBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeRecordBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.MatchRefereeResultContract;
@@ -26,6 +29,7 @@ import com.work.guaishouxingqiu.aboutball.my.presenter.MatchRefereeResultPresent
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.SingWheelDialog;
 
@@ -68,6 +72,10 @@ public class MatchRefereeResultActivity extends BaseActivity<MatchRefereeResultP
     private ItemView mHeadItemHostCase;
     private ItemView mHeadItemGuestCase;
     private List<String> mScoreData;
+    private RequestActionRecordsBean mRequestBean;
+    private ItemView mHeadItemHostScore;
+    private ItemView mHeadItemGuestScore;
+    private boolean isAbsent;//是不是缺席
 
     @Override
     protected int getLayoutId() {
@@ -87,7 +95,10 @@ public class MatchRefereeResultActivity extends BaseActivity<MatchRefereeResultP
 
     @Override
     protected void initView() {
+        mTvCommit.setText(R.string.complete);
         mRvData.setLayoutManager(new LinearLayoutManager(this));
+        mRequestBean = new RequestActionRecordsBean();
+        mRequestBean.agreeId = mIntentBean.agreeId;
         initHeadView();
         initAdapter();
     }
@@ -130,25 +141,25 @@ public class MatchRefereeResultActivity extends BaseActivity<MatchRefereeResultP
             }
         });
 
-        ItemView mItemHostScore = mHeadView.findViewById(R.id.item_host_score);
-        mItemHostScore.mTvRight.setHintTextColor(ContextCompat.getColor(this, R.color.colorFFA6A6A6));
-        mItemHostScore.mTvRight.setHint(R.string.please_selector_score);
-        UIUtils.setText(mItemHostScore.mTvLeft, mIntentBean.hostTeamName);
-        mItemHostScore.setOnItemClickListener(new ItemView.OnItemClickListener() {
+        mHeadItemHostScore = mHeadView.findViewById(R.id.item_host_score);
+        mHeadItemHostScore.mTvRight.setHintTextColor(ContextCompat.getColor(this, R.color.colorFFA6A6A6));
+        mHeadItemHostScore.mTvRight.setHint(R.string.please_selector_score);
+        UIUtils.setText(mHeadItemHostScore.mTvLeft, mIntentBean.hostTeamName);
+        mHeadItemHostScore.setOnItemClickListener(new ItemView.OnItemClickListener() {
             @Override
             public void onClickItem(View view) {
-                clickScoreDialog(mItemHostScore);
+                clickScoreDialog(mHeadItemHostScore);
             }
         });
 
-        ItemView mItemGuestScore = mHeadView.findViewById(R.id.item_guest_score);
-        mItemGuestScore.mTvRight.setHintTextColor(ContextCompat.getColor(this, R.color.colorFFA6A6A6));
-        mItemGuestScore.mTvRight.setHint(R.string.please_selector_score);
-        UIUtils.setText(mItemGuestScore.mTvLeft, mIntentBean.guestTeamName);
-        mItemGuestScore.setOnItemClickListener(new ItemView.OnItemClickListener() {
+        mHeadItemGuestScore = mHeadView.findViewById(R.id.item_guest_score);
+        mHeadItemGuestScore.mTvRight.setHintTextColor(ContextCompat.getColor(this, R.color.colorFFA6A6A6));
+        mHeadItemGuestScore.mTvRight.setHint(R.string.please_selector_score);
+        UIUtils.setText(mHeadItemGuestScore.mTvLeft, mIntentBean.guestTeamName);
+        mHeadItemGuestScore.setOnItemClickListener(new ItemView.OnItemClickListener() {
             @Override
             public void onClickItem(View view) {
-                clickScoreDialog(mItemGuestScore);
+                clickScoreDialog(mHeadItemGuestScore);
             }
         });
 
@@ -156,14 +167,19 @@ public class MatchRefereeResultActivity extends BaseActivity<MatchRefereeResultP
         mTvRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivityToAddRecordForResult(true, null);
             }
         });
     }
 
-    private void startActivityToAddRecordForResult() {
+    private void startActivityToAddRecordForResult(boolean isAdd, ResultMatchRefereeResultBean.ChildBean bean) {
         Bundle bundle = new Bundle();
-        bundle.putParcelable(ARouterConfig.Key.PARCELABLE, mIntentBean);
+        bundle.putBoolean(ARouterConfig.Key.IS_ADD, isAdd);
+        if (isAdd) {
+            bundle.putParcelable(ARouterConfig.Key.PARCELABLE, mIntentBean);
+        } else {
+            bundle.putParcelable(ARouterConfig.Key.PARCELABLE, bean);
+        }
         ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_ADD_BALL_PEOPLE_RECORD, this, bundle);
     }
 
@@ -174,6 +190,17 @@ public class MatchRefereeResultActivity extends BaseActivity<MatchRefereeResultP
             @Override
             public void onClickItem(@NonNull View view, int position) {
                 UIUtils.setText(itemView.mTvRight, mScoreData.get(position));
+                LogUtils.w("clickScoreDialog--", itemView.getId() + "--" + R.id.item_host_case);
+                switch (itemView.getId()) {
+                    case R.id.item_host_score:
+                        mRequestBean.hostScore = Integer.valueOf(mScoreData.get(position));
+                        break;
+                    case R.id.item_guest_score:
+                        mRequestBean.guestScore = Integer.valueOf(mScoreData.get(position));
+                        break;
+                    default:
+                        break;
+                }
             }
         });
         singWheelDialog.show();
@@ -189,10 +216,12 @@ public class MatchRefereeResultActivity extends BaseActivity<MatchRefereeResultP
                 case R.id.item_host_case:
                     UIUtils.setText(mItemHostCase.mTvRight, situationArray[position]);
                     UIUtils.setText(mHeadItemHostCase.mTvRight, situationArray[position]);
+                    mRequestBean.hostArrived = situationArray[position];
                     break;
                 case R.id.item_guest_case:
                     UIUtils.setText(mItemGuestCase.mTvRight, situationArray[position]);
                     UIUtils.setText(mHeadItemGuestCase.mTvRight, situationArray[position]);
+                    mRequestBean.guestArrived = situationArray[position];
                     break;
                 default:
                     break;
@@ -200,14 +229,18 @@ public class MatchRefereeResultActivity extends BaseActivity<MatchRefereeResultP
             if (DataUtils.getTextViewContent(mItemHostCase.mTvRight).equals(NOT_DATA_VIEW_CONTENT)
                     || DataUtils.getTextViewContent(mItemGuestCase.mTvRight).equals(NOT_DATA_VIEW_CONTENT)) {
                 mLlNotJoin.setVisibility(View.VISIBLE);
+                isAbsent = true;
             } else {
                 mLlNotJoin.setVisibility(View.GONE);
+                isAbsent = false;
             }
             if (DataUtils.getTextViewContent(mHeadItemHostCase.mTvRight).equals(NOT_DATA_VIEW_CONTENT)
                     || DataUtils.getTextViewContent(mHeadItemGuestCase.mTvRight).equals(NOT_DATA_VIEW_CONTENT)) {
                 mLlNotJoin.setVisibility(View.VISIBLE);
+                isAbsent = true;
             } else {
                 mLlNotJoin.setVisibility(View.GONE);
+                isAbsent = false;
             }
         });
         singWheelDialog.show();
@@ -245,6 +278,12 @@ public class MatchRefereeResultActivity extends BaseActivity<MatchRefereeResultP
 
             }
         });
+        mAdapter.setOnEditClickListener(new MatchRefereeResultAdapter.OnEditClickListener() {
+            @Override
+            public void clickEdit(View view, ResultMatchRefereeResultBean.ChildBean bean) {
+                startActivityToAddRecordForResult(false, bean);
+            }
+        });
     }
 
     @Override
@@ -255,6 +294,15 @@ public class MatchRefereeResultActivity extends BaseActivity<MatchRefereeResultP
 
     @OnClick(R.id.tv_commit)
     public void onViewClicked() {
+        if (isAbsent) {
+            if (isSelectorSituation()) {
+                mPresenter.goActionRecord(mRequestBean);
+            }
+        } else {
+            if (isSelectorSituation() && isSelectorScore()) {
+                mPresenter.goActionRecord(mRequestBean);
+            }
+        }
 
     }
 
@@ -263,5 +311,41 @@ public class MatchRefereeResultActivity extends BaseActivity<MatchRefereeResultP
         mData.clear();
         mData.addAll(data);
         mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void resultActionRecord() {
+        finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case ARouterIntent.REQUEST_CODE:
+                    mSrlRefresh.autoRefresh();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private boolean isSelectorSituation() {
+        if (DataUtils.isEmpty(mRequestBean.hostArrived) || DataUtils.isEmpty(mRequestBean.guestArrived)) {
+            UIUtils.showToast(R.string.please_select_your_presence);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isSelectorScore() {
+        if (DataUtils.isEmpty(DataUtils.getTextViewContent(mHeadItemHostScore.mTvRight))
+                || DataUtils.isEmpty(DataUtils.getTextViewContent(mHeadItemGuestScore.mTvRight))) {
+            UIUtils.showToast(R.string.please_selector_score);
+            return false;
+        }
+        return true;
     }
 }

@@ -130,7 +130,9 @@ public interface IApiService {
     String GET_MY_REFEREE_EVALUATION = "/api/referee/myRefereeComment";
     String GET_JOIN_TEAM = "/api/myTeam/confirmJoin";
     String GET_VENUE_EVALUATE = "/api/stadium/getCommentForArea";
-    String GET_REFEREE_MATCH_RECORD="/api/referee/getAgreeSituation";
+    String GET_REFEREE_MATCH_RECORD = "/api/referee/getAgreeSituation";
+    String POST_SAVE_REFEREE_RECORD = "/api/referee/insertSituation";
+    String POST_NOTE_SITUATION = "/api/referee/noteSituation";
 
     interface H5 {
         String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";

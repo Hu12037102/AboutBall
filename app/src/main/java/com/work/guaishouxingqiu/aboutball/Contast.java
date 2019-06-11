@@ -124,6 +124,7 @@ public interface Contast {
         String WEICHAT_APP_SECRET = "40a967eb50ce478246b63d8d78525893";
         String WEI_CHAT_BUSINESS_ID = "1524077161";//微信支付商户ID
         String Bugtag_ID = "96481d2c6099fa3e827b8c04d036d566";
+        String UMENG_ID="5c773884b465f59b44000a29";
 
     }
 

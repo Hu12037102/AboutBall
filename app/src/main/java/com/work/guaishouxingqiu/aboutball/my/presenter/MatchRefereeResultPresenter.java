@@ -3,8 +3,10 @@ package com.work.guaishouxingqiu.aboutball.my.presenter;
 import android.support.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
+import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestActionRecordsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMatchRefereeResultBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.MatchRefereeResultContract;
 import com.work.guaishouxingqiu.aboutball.my.model.MatchRefereeResultModel;
@@ -41,6 +43,23 @@ public class MatchRefereeResultPresenter extends BasePresenter<MatchRefereeResul
             public void onNext(BaseBean<List<ResultMatchRefereeResultBean>> t) {
                 if (DataUtils.isResultSure(t)) {
                     mView.resultMatchRecord(t.result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+
+    @Override
+    public void goActionRecord(RequestActionRecordsBean requestBean) {
+        mModel.goActionRecord(requestBean,new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
+            @Override
+            public void onNext(BaseBean<BaseDataBean<String>> t) {
+                if (DataUtils.baseDataBeanIsSucceed(t)){
+                    mView.resultActionRecord();
                 }
             }
 

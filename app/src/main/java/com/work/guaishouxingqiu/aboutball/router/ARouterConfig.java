@@ -61,6 +61,7 @@ public interface ARouterConfig {
         String ACTIVITY_MATCH_REFEREE_RESULT = "/activity/match/referee/result";
         String ACTIVITY_ADD_BALL_PEOPLE_RECORD = "/activity/add/ball/people/record";
         String ACTIVITY_MAP = "/activity/map";
+        String ACTIVITY_SCHEDULE = "/activity/schedule";
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";
@@ -141,6 +142,11 @@ public interface ARouterConfig {
         String LONGITUDE = "longitude";
         String LATITUDE = "latitude";
         String POSITION_NAME = "positionName";
+        String HOST_TEAM_ID = "hostTeamId";
+        String GUEST_TEAM_ID = "guestTeamId";
+        String HOST_TEAM_NAME = "hostTeamName";
+        String GUEST_TEAM_NAME = "guestTeamName";
+        String IS_ADD = "isAdd";
     }
 
 }

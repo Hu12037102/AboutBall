@@ -187,6 +187,7 @@
     <string name="login_out">退出登录</string>
     <string name="m">%s&#160;M</string>
     <string name="clear_cache_complete">清理缓存完成</string>
+    <string name="complete">完成</string>
     <string name="from_data">来源：%s&#160;&#160;%s</string>
     <string name="not_message">暂无评论</string>
     <string name="your_sure_login_out">您确定退出登录？</string>
@@ -499,6 +500,7 @@
     <string name="add_record">添加记录</string>
     <string name="add_team_records">添加球队记录</string>
     <string name="players_choose">球员选择</string>
+    <string name="players_team">球队选择</string>
     <string name="please_select_team_members">请选择队员</string>
     <string name="please_select_the_time">请选择时间</string>
     <string name="time_selection">时间选择</string>
@@ -518,4 +520,6 @@
     <string name="play_back">回放</string>
     <string name="data">数据</string>
     <string name="the_ticket">购票</string>
+    <string name="how_match_player">%s号球员：</string>
+    <string name="behavior_selector">行为选择</string>
 </resources>

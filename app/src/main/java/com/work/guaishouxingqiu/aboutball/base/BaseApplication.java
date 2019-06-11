@@ -11,6 +11,8 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.commonsdk.UMConfigure;
 import com.uuzuche.lib_zxing.ZApplication;
 import com.work.guaishouxingqiu.aboutball.BuildConfig;
 import com.work.guaishouxingqiu.aboutball.Contast;
@@ -57,7 +59,18 @@ public class BaseApplication extends ZApplication {
         initALi();
         initWeiChat();
         initGrowing();
+        initUMeng();
+    }
 
+    /**
+     * 初始化友盟
+     */
+    private void initUMeng() {
+        //UMConfigure.init(this,UMConfigure.DEVICE_TYPE_PHONE,Contast.SecretKey.UMENG_ID);
+        UMConfigure.init(this,Contast.SecretKey.UMENG_ID,"Umeng",UMConfigure.DEVICE_TYPE_PHONE,null);
+        // 选用AUTO页面采集模式
+        MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
+        UMConfigure.setLogEnabled(BuildConfig.DEBUG);
     }
 
     private void initGrowing() {

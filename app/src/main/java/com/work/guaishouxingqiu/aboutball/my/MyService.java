@@ -6,6 +6,8 @@ import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
 import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestActionRecordsBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestAddRecordBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestApplyRefereeBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestEditAddressBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestFeedbackBean;
@@ -203,4 +205,15 @@ public interface MyService {
 
     @GET(IApiService.GET_REFEREE_MATCH_RECORD)
     Observable<BaseBean<List<ResultMatchRefereeResultBean>>> getRefereeMatchRecordData(@Query(Contast.AGREE_ID) long agreeId);
+
+    @POST(IApiService.POST_SAVE_REFEREE_RECORD)
+    Observable<BaseBean<BaseDataBean<String>>> saveRefereePlayerRecord(@Body RequestAddRecordBean bean);
+
+    /**
+     * 赛况记录
+     * @param bean
+     * @return
+     */
+    @POST(IApiService.POST_NOTE_SITUATION)
+    Observable<BaseBean<BaseDataBean<String>>> goActionRecord(@Body RequestActionRecordsBean bean);
 }

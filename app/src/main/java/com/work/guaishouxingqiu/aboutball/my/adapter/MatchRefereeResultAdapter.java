@@ -26,7 +26,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class MatchRefereeResultAdapter extends BaseRecyclerAdapter<MatchRefereeResultAdapter.ViewHolder, List<ResultMatchRefereeResultBean>> {
 
+    public void setOnEditClickListener(OnEditClickListener onEditClickListener) {
+        this.onEditClickListener = onEditClickListener;
+    }
 
+    private OnEditClickListener onEditClickListener;
     public MatchRefereeResultAdapter(@NonNull List<ResultMatchRefereeResultBean> data) {
         super(data);
     }
@@ -47,6 +51,14 @@ public class MatchRefereeResultAdapter extends BaseRecyclerAdapter<MatchRefereeR
                 GlideManger.get().loadHeadImage(mContext, childBean.headerImg, civHead);
                 UIUtils.setText(tvName, childBean.playerName);
                 UIUtils.setText(tvTime, childBean.duration + "'");
+                tvModification.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onEditClickListener!= null){
+                            onEditClickListener.clickEdit(tvModification,childBean);
+                        }
+                    }
+                });
             }
         }
 
@@ -75,10 +87,14 @@ public class MatchRefereeResultAdapter extends BaseRecyclerAdapter<MatchRefereeR
         private void initView(View itemView) {
             mTvStatus = itemView.findViewById(R.id.tv_status);
             mLlContent = itemView.findViewById(R.id.item_ll);
-           ViewGroup.LayoutParams layoutParams = mLlContent.getLayoutParams();
+            ViewGroup.LayoutParams layoutParams = mLlContent.getLayoutParams();
             layoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT;
             layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
             mLlContent.setLayoutParams(layoutParams);
         }
+    }
+
+    public interface OnEditClickListener {
+        void clickEdit(View view, ResultMatchRefereeResultBean.ChildBean bean);
     }
 }

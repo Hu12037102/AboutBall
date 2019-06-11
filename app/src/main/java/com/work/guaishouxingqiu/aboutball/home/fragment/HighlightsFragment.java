@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
@@ -14,7 +16,6 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
-import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
 import com.work.guaishouxingqiu.aboutball.home.adapter.RecommendedAdapter;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsBean;
@@ -28,6 +29,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * 作者: 胡庆岭
@@ -37,22 +41,26 @@ import butterknife.BindView;
  */
 @Route(path = ARouterConfig.Path.FRAGMENT_HIGHLIGHTS)
 public class HighlightsFragment extends DelayedFragment<HighlightsPresenter>
-implements HighlightsContract.View{
+        implements HighlightsContract.View {
     @BindView(R.id.rv_list)
     RecyclerView mRvList;
     @BindView(R.id.srl_layout)
     SmartRefreshLayout mSrLayout;
+    Unbinder unbinder;
     private List<ResultNewsBean> mData;
     private RecommendedAdapter mAdapter;
     private int mTypId;
+
     public static HighlightsFragment newInstance() {
         return new HighlightsFragment();
     }
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_highlights;
 
     }
+
     @Override
     protected void initPermission() {
         Bundle bundle = getArguments();
@@ -132,6 +140,22 @@ implements HighlightsContract.View{
             mSrLayout.setNoMoreData(bean.result.size() < Contast.DEFAULT_PAGE_SIZE);
             mData.addAll(bean.result);
             mAdapter.notifyDataSetChanged();
+        }
+    }
+
+
+    @OnClick({R.id.tv_schedule, R.id.tv_playback, R.id.tv_data, R.id.tv_ticket})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tv_schedule:
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_SCHEDULE);
+                break;
+            case R.id.tv_playback:
+                break;
+            case R.id.tv_data:
+                break;
+            case R.id.tv_ticket:
+                break;
         }
     }
 }
