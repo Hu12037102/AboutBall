@@ -104,7 +104,7 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
         mItemBall.setOnItemClickListener(new ItemView.OnItemClickListener() {
             @Override
             public void onClickItem(View view) {
-            ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_ABOUT_BALL);
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_ABOUT_BALL);
             }
         });
         mItemOrder.setOnItemClickListener(new ItemView.OnItemClickListener() {
@@ -189,7 +189,7 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
             TextView mTvFocusFans = view.findViewById(R.id.tv_focus_fans);
             mTvName.setText(DataUtils.isEmpty(userBean.nickName) ? userBean.phone : userBean.nickName);
             mTvFocusFans.setText(getString(R.string.focus_and_fans, "0", "0"));
-            mPresenter.judgeRefereeStatus();
+            //
         } else {
             view = LayoutInflater.from(getContext()).inflate(R.layout.item_no_login_my_head_view, null);
             mItemAsReferee.setVisibility(View.VISIBLE);
@@ -199,6 +199,13 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
         mLlHeadGroup.addView(view);
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && mContext != null && UserManger.get().isLogin()) {
+            mPresenter.judgeRefereeStatus();
+        }
+    }
 
     @Override
     protected void initEvent() {

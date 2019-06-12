@@ -16,7 +16,7 @@ android {
         minSdkVersion android.minSdkVersion
         targetSdkVersion android.targetSdkVersion
         versionCode 5
-        versionName 'v1.1.2'
+        versionName '1.1.1'
         testInstrumentationRunner android.testInstrumentationRunner
         //GrowingIO数据统计
         resValue("string", "growingio_project_id", "924c976f18bd2145")

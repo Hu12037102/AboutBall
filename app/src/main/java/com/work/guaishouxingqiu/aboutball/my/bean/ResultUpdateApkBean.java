@@ -15,7 +15,7 @@ public class ResultUpdateApkBean implements Parcelable {
     public String content;
     public String updateUrl;
     public String version;
-    public String isForce;
+    public int isForce;
 
     protected ResultUpdateApkBean(Parcel in) {
         versionId = in.readInt();
@@ -23,7 +23,7 @@ public class ResultUpdateApkBean implements Parcelable {
         content = in.readString();
         updateUrl = in.readString();
         version = in.readString();
-        isForce = in.readString();
+        isForce = in.readInt();
     }
 
     @Override
@@ -33,7 +33,7 @@ public class ResultUpdateApkBean implements Parcelable {
         dest.writeString(content);
         dest.writeString(updateUrl);
         dest.writeString(version);
-        dest.writeString(isForce);
+        dest.writeInt(isForce);
     }
 
     @Override

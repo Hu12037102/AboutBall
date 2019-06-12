@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.text.HtmlCompat;
+import android.text.Html;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -140,9 +142,9 @@ public class ViewModel {
     }
 
     public void showUpdateDialog(Context context, ResultUpdateApkBean updateBean) {
-        String content = UIUtils.getString(R.string.update_content);
+        // String content = UIUtils.getString(R.string.update_content);
         if (mUpdateDialog == null) {
-            mUpdateDialog = new UpdateApkDialog(context, content, false);
+            mUpdateDialog = new UpdateApkDialog(context, HtmlCompat.fromHtml(updateBean.content,HtmlCompat.FROM_HTML_MODE_COMPACT).toString(), updateBean.isForce == 1 );
         }
         if (!mUpdateDialog.isShowing()) {
             mUpdateDialog.show();
@@ -468,13 +470,13 @@ public class ViewModel {
     /**
      * 绑定或者更新手机号
      *
-     * @param signCode 可为空唯一标识第三方
+     * @param signCode        可为空唯一标识第三方
      * @param bandPhoneStatus 绑定手机号的类型：第三方登录，换绑手机号
      */
     public void startActivityToUpdatePhone(String signCode, int bandPhoneStatus) {
         Bundle bundle = new Bundle();
-        bundle.putInt(ARouterConfig.Key.BAND_PHONE_STATUS,bandPhoneStatus);
-        bundle.putString(ARouterConfig.Key.SIGN_CODE,signCode);
-        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_UPDATE_PHONE,bundle);
+        bundle.putInt(ARouterConfig.Key.BAND_PHONE_STATUS, bandPhoneStatus);
+        bundle.putString(ARouterConfig.Key.SIGN_CODE, signCode);
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_UPDATE_PHONE, bundle);
     }
 }
