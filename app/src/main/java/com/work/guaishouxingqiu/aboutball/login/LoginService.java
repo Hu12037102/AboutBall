@@ -29,8 +29,8 @@ public interface LoginService {
     @GET(IApiService.VERIFICATION_CODE)
     Observable<BaseBean> sendMessageCode(@Query(Contast.PHONE) String phone, @Query(Contast.TYPE) int type);
 
-    @GET(IApiService.USER_ACCOUNT)
-    Observable<BaseBean<UserBean>> userAccount();
+   /* @GET(IApiService.USER_ACCOUNT)
+    Observable<BaseBean<UserBean>> userAccount();*/
 
     @GET(IApiService.USER_ACCOUNT_INFO)
     Observable<BaseBean<UserBean>> userAccountInfo();

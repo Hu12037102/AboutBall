@@ -43,8 +43,6 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 
 import java.util.List;
 
-import javax.xml.transform.Result;
-
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -99,8 +97,8 @@ public interface MyService {
     @GET(IApiService.GET_HAS_ADDRESS)
     Observable<BaseBean<String>> hasAddress();
 
-    @POST(IApiService.POST_UPDATE_PHONE_NUMBER)
-    Observable<BaseBean<String>> updatePhoneNumber(@Body RequestUpdatePhoneBean bean);
+    @POST(IApiService.POST_BAND_PHONE_NUMBER)
+    Observable<BaseBean<LoginResultBean>> bindPhoneNumber(@Body RequestUpdatePhoneBean bean);
 
     @POST(IApiService.POST_UPDATE_PASSWORD)
     Observable<BaseBean<BaseDataBean<LoginResultBean>>> updatePassword(@Body RequestUpdatePasswordBean bean);
@@ -216,4 +214,6 @@ public interface MyService {
      */
     @POST(IApiService.POST_NOTE_SITUATION)
     Observable<BaseBean<BaseDataBean<String>>> goActionRecord(@Body RequestActionRecordsBean bean);
+    @POST(IApiService.POST_UPDATE_PHONE_NUMBER)
+    Observable<BaseBean<String>> updatePhoneNumber(@Body RequestUpdatePhoneBean bean);
 }

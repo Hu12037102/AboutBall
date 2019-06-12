@@ -464,4 +464,17 @@ public class ViewModel {
         bundle.putString(ARouterConfig.Key.POSITION_NAME, positionName);
         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MAP, bundle);
     }
+
+    /**
+     * 绑定或者更新手机号
+     *
+     * @param signCode 可为空唯一标识第三方
+     * @param bandPhoneStatus 绑定手机号的类型：第三方登录，换绑手机号
+     */
+    public void startActivityToUpdatePhone(String signCode, int bandPhoneStatus) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(ARouterConfig.Key.BAND_PHONE_STATUS,bandPhoneStatus);
+        bundle.putString(ARouterConfig.Key.SIGN_CODE,signCode);
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_UPDATE_PHONE,bundle);
+    }
 }

@@ -89,7 +89,7 @@ public interface IApiService {
     String GET_MY_ADDRESS = "/api/prize/getMyPrizeAddress";
     String GET_HAS_ADDRESS = "/api/prize/hasAddress";
     //更绑定手机号码
-    String POST_UPDATE_PHONE_NUMBER = "/api/accountManagement/bandingPhone";
+    String POST_BAND_PHONE_NUMBER = "/api/accountManagement/bandingPhone";
     String POST_UPDATE_PASSWORD = "/api/account/modifyPassword";
     String GET_MY_BALL_TEAM = "/api/myTeam/getMyTeam";
     String POST_LAUNCHER_BALL = "/api/agreeBall/initiateAgreeBall";
@@ -133,6 +133,7 @@ public interface IApiService {
     String GET_REFEREE_MATCH_RECORD = "/api/referee/getAgreeSituation";
     String POST_SAVE_REFEREE_RECORD = "/api/referee/insertSituation";
     String POST_NOTE_SITUATION = "/api/referee/noteSituation";
+    String POST_UPDATE_PHONE_NUMBER = "/api/accountManagement/changePhone";
 
     interface H5 {
         String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";

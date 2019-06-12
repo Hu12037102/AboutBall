@@ -28,6 +28,9 @@ public class UserManger {
     private static final String KEY_PASSWORD_STATUS = "passwordStatus";
     private static final String KEY_WECHAT_USER_NAME = "wechatUserName";
     private static final String KEY_WECHAT_OPEN_ID = "weChatOpenId";
+    private static final String KEY_FOLLOW_COUNT = "followCount";
+    private static final String KEY_FANS_COUNT = "fansCount";
+    private static final String KEY_IS_REFEREE = "isReferee";
     private static SharedPreferencesHelp mSP;
 
     private UserManger() {
@@ -121,6 +124,9 @@ public class UserManger {
         if (userBean.weChatOpenId != null) {
             mSP.putObject(UserManger.KEY_WECHAT_OPEN_ID, userBean.weChatOpenId);
         }
+        mSP.putObject(UserManger.KEY_FOLLOW_COUNT, userBean.followCount);
+        mSP.putObject(UserManger.KEY_FANS_COUNT, userBean.fansCount);
+        mSP.putObject(UserManger.KEY_IS_REFEREE, userBean.isReferee);
 
     }
 
@@ -140,6 +146,9 @@ public class UserManger {
         userBean.passwordStatus = mSP.getString(UserManger.KEY_PASSWORD_STATUS);
         userBean.wechatUserName = mSP.getString(UserManger.KEY_WECHAT_USER_NAME);
         userBean.weChatOpenId = mSP.getString(UserManger.KEY_WECHAT_OPEN_ID);
+        userBean.followCount = mSP.getInt(UserManger.KEY_FOLLOW_COUNT);
+        userBean.fansCount = mSP.getInt(UserManger.KEY_FANS_COUNT);
+        userBean.isReferee = mSP.getInt(UserManger.KEY_IS_REFEREE);
         return userBean;
     }
 

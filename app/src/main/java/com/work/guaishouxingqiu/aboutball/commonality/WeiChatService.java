@@ -7,6 +7,7 @@ import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.RequestOtherLoginBean;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.ResultWeiChatInfo;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.ResultWeiChatTokenBean;
+import com.work.guaishouxingqiu.aboutball.login.bean.ResultThreeLoginBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -35,6 +36,6 @@ public interface WeiChatService {
                                                  @Query(Contast.OPENID) String openId);
 
     @POST(IApiService.OTHER_WEICHAT_LOGIN)
-    Observable<BaseBean<LoginResultBean>> weiChatLogin(@Body RequestOtherLoginBean bean);
+    Observable<BaseBean<ResultThreeLoginBean>> weiChatLogin(@Body RequestOtherLoginBean bean);
 
 }

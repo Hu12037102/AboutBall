@@ -11,6 +11,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.work.guaishouxingqiu.aboutball.BuildConfig;
 import com.work.guaishouxingqiu.aboutball.base.BaseApplication;
+import com.work.guaishouxingqiu.aboutball.commonality.bean.BaseRespBean;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 
 import org.greenrobot.eventbus.EventBus;

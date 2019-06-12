@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.commonality.model;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
+import com.work.guaishouxingqiu.aboutball.login.bean.ResultThreeLoginBean;
 import com.work.guaishouxingqiu.aboutball.login.model.MessageModel;
 import com.work.guaishouxingqiu.aboutball.commonality.WeiChatService;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.RequestOtherLoginBean;
@@ -41,7 +42,7 @@ public class LoginOrShareModel extends MessageModel {
         this.resetBaseUrl();
     }
 
-    public void loginOtherWeiChat(RequestOtherLoginBean bean, BaseObserver<LoginResultBean> observer) {
+    public void loginOtherWeiChat(RequestOtherLoginBean bean, BaseObserver<ResultThreeLoginBean> observer) {
         mRetrofitManger.create(WeiChatService.class)
                 .weiChatLogin(bean)
                 .subscribeOn(Schedulers.io())

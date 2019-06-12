@@ -17,6 +17,7 @@ import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
+import com.work.guaishouxingqiu.aboutball.login.bean.ResultThreeLoginBean;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
@@ -88,8 +89,9 @@ public abstract class LoginOrShareActivity<P extends LoginOrSharePresenter> exte
     }
 
     @Subscribe
-    public void resultWeiChatData(BaseResp baseResp) {
+    public void resultWeiChatDataToActivity(BaseResp baseResp) {
         LogUtils.w("resultWeiChatData--", baseResp.errCode + "--");
+
         if (baseResp.getType() == LoginOrSharePresenter.WEICHAT_LOGIN_TYPE) {
             switch (baseResp.errCode) {
                 case BaseResp.ErrCode.ERR_OK:
@@ -113,7 +115,7 @@ public abstract class LoginOrShareActivity<P extends LoginOrSharePresenter> exte
     }
 
     @Override
-    public void resultOtherLogin(LoginResultBean bean) {
+    public void resultOtherLogin(ResultThreeLoginBean bean,String signCode) {
 
     }
 
@@ -149,7 +151,7 @@ public abstract class LoginOrShareActivity<P extends LoginOrSharePresenter> exte
             mShareDialog.dismiss();
         });
         mShareDialog.setWeichatFriendClickListener(v -> {
-            bean.scene =  SendMessageToWX.Req.WXSceneTimeline;
+            bean.scene = SendMessageToWX.Req.WXSceneTimeline;
             shareWebToWeiChat(bean);
             mShareDialog.dismiss();
         });

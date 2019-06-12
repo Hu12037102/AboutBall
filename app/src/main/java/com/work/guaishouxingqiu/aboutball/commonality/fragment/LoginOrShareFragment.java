@@ -24,6 +24,7 @@ import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
 import com.work.guaishouxingqiu.aboutball.commonality.contract.LoginOrShareContract;
 import com.work.guaishouxingqiu.aboutball.commonality.presenter.LoginOrSharePresenter;
 import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
+import com.work.guaishouxingqiu.aboutball.login.bean.ResultThreeLoginBean;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionFragment;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
@@ -41,7 +42,7 @@ import org.greenrobot.eventbus.Subscribe;
  */
 public abstract class LoginOrShareFragment<P extends LoginOrSharePresenter> extends DelayedFragment<P> implements
         LoginOrShareContract.View {
-private ShareDialog mShareDialog;
+    private ShareDialog mShareDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,13 +89,14 @@ private ShareDialog mShareDialog;
     }
 
     @Subscribe
-    public void resultWeiChatData(BaseResp baseResp) {
-        LogUtils.w("resultWeiChatData--", baseResp.errCode + "--");
+    public void resultWeiChatDataToFragment(BaseResp baseResp) {
+     /*   LogUtils.w("resultWeiChatData---", baseResp.errCode + "--");
+
         if (baseResp.getType() == LoginOrSharePresenter.WEICHAT_LOGIN_TYPE) {
             switch (baseResp.errCode) {
                 case BaseResp.ErrCode.ERR_OK:
                     RequestWeiChatTokenBean bean = new RequestWeiChatTokenBean();
-                    SendAuth.Resp req = (SendAuth.Resp) baseResp;
+                    SendAuth.Resp req = (SendAuth.Resp)  baseResp;
                     bean.code = req.code;
                     mPresenter.getWeiChatToken(bean);
                     break;
@@ -108,12 +110,12 @@ private ShareDialog mShareDialog;
             }
         } else if (baseResp.getType() == LoginOrSharePresenter.WEICHAT_SHARE_TYPE) {
 
-        }
+        }*/
 
     }
 
     @Override
-    public void resultOtherLogin(LoginResultBean bean) {
+    public void resultOtherLogin(ResultThreeLoginBean bean,String signCode) {
 
     }
 
@@ -136,6 +138,7 @@ private ShareDialog mShareDialog;
     public void resultMessageCode() {
 
     }
+
     public void showShareDialog(ShareWebBean bean) {
         if (mShareDialog == null) {
             mShareDialog = new ShareDialog(getContext());
@@ -148,7 +151,7 @@ private ShareDialog mShareDialog;
             mShareDialog.dismiss();
         });
         mShareDialog.setWeichatFriendClickListener(v -> {
-            bean.scene =  SendMessageToWX.Req.WXSceneTimeline;
+            bean.scene = SendMessageToWX.Req.WXSceneTimeline;
             shareWebToWeiChat(bean);
             mShareDialog.dismiss();
         });

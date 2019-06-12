@@ -522,4 +522,7 @@
     <string name="the_ticket">购票</string>
     <string name="how_match_player">%s号球员：</string>
     <string name="behavior_selector">行为选择</string>
+    <string name="bing_three_phone_number">绑定手机号</string>
+    <string name="you_not_band_phone_number_please_band">请绑定手机号，否则无法登陆</string>
+    <string name="go_band">去绑定</string>
 </resources>

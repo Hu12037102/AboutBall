@@ -14,9 +14,13 @@ import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdatePhoneBean;
 public interface UpdatePhoneContract {
     interface View extends MessageContract.View {
         void updatePhoneSucceed(String phoneNumber);
+
+        void bandThreePhoneSucceed(String token);
     }
 
     interface Presenter extends MessageContract.Presenter {
+        void bandThreePhone(RequestUpdatePhoneBean bean);
+
         void updatePhone(RequestUpdatePhoneBean bean);
     }
 }

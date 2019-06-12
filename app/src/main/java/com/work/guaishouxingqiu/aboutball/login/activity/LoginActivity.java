@@ -22,6 +22,7 @@ import com.work.guaishouxingqiu.aboutball.commonality.activity.LoginOrShareActiv
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.RequestLoginBean;
+import com.work.guaishouxingqiu.aboutball.login.bean.ResultThreeLoginBean;
 import com.work.guaishouxingqiu.aboutball.login.contract.LoginContract;
 import com.work.guaishouxingqiu.aboutball.login.presenter.LoginPresenter;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
@@ -29,6 +30,8 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
+import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
+import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import butterknife.BindView;
@@ -66,6 +69,7 @@ public class LoginActivity extends LoginOrShareActivity<LoginPresenter> implemen
     @BindView(R.id.tv_login)
     TextView mTvLogin;
     public static final int REQUEST_CODE_LOGIN = 88;
+    private HintDialog mBandDialog;
 
     @Override
     protected int getLayoutId() {
@@ -213,8 +217,8 @@ public class LoginActivity extends LoginOrShareActivity<LoginPresenter> implemen
         if (bean.code == IApi.Code.SUCCEED) {
             if (bean.result != null) {
                 UserManger.get().putToken(bean.result.id_token);
-                mPresenter.loadUserAccount();
-                //  mPresenter.loadUserAccountInfo();
+                // mPresenter.loadUserAccount();
+                mPresenter.loadUserAccountInfo();
             }
         } else if (bean.code == IApi.Code.USER_NO_EXIST) {
 
@@ -248,9 +252,43 @@ public class LoginActivity extends LoginOrShareActivity<LoginPresenter> implemen
     }
 
     @Override
-    public void resultOtherLogin(LoginResultBean bean) {
+    public void resultOtherLogin(ResultThreeLoginBean bean, String signCode) {
         UserManger.get().putToken(bean.id_token);
-        mPresenter.loadUserAccount();
-        //   mPresenter.loadUserAccountInfo();
+        if (bean.bingPhone == Contast.LoginStatus.LOGIN_BING_PHONE) {
+            // mPresenter.loadUserAccount();
+            mPresenter.loadUserAccountInfo();
+        } else if (bean.bingPhone == Contast.LoginStatus.LOGIN_UNBING_PHONE) {
+            showBandPhoneDialog(signCode);
+        }
+
+    }
+
+    public void showBandPhoneDialog(String signCode) {
+        if (mBandDialog == null) {
+            mBandDialog = new HintDialog.Builder(this)
+                    .setTitle(R.string.hint)
+                    .setBody(R.string.you_not_band_phone_number_please_band)
+                    .setShowSingButton(false)
+                    .setSures(R.string.go_band)
+                    .builder();
+            mBandDialog.setCancelable(false);
+            mBandDialog.setCanceledOnTouchOutside(false);
+        }
+        if (!mBandDialog.isShowing()) {
+            mBandDialog.show();
+        }
+        mBandDialog.setOnItemClickSureAndCancelListener(new BaseDialog.OnItemClickSureAndCancelListener() {
+            @Override
+            public void onClickSure(@NonNull View view) {
+                mViewModel.startActivityToUpdatePhone(signCode, Contast.LoginStatus.BAND_PHONE);
+                mBandDialog.dismiss();
+                finish();
+            }
+
+            @Override
+            public void onClickCancel(@NonNull View view) {
+                mBandDialog.dismiss();
+            }
+        });
     }
 }

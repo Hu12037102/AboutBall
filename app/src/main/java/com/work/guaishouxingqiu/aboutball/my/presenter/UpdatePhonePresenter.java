@@ -4,8 +4,8 @@ import android.support.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
-import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
+import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
 import com.work.guaishouxingqiu.aboutball.login.presenter.MessagePresenter;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdatePhoneBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.UpdatePhoneContract;
@@ -34,12 +34,29 @@ public class UpdatePhonePresenter extends MessagePresenter<UpdatePhoneContract.V
     }
 
     @Override
+    public void bandThreePhone(RequestUpdatePhoneBean bean) {
+        mModel.bandPhoneNumber(bean, new BaseObserver<>(true, this, new BaseObserver.Observer<LoginResultBean>() {
+            @Override
+            public void onNext(BaseBean<LoginResultBean> t) {
+                if (t.code == IApi.Code.SUCCEED) {
+                    mView.bandThreePhoneSucceed(t.result.id_token);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+
+    @Override
     public void updatePhone(RequestUpdatePhoneBean bean) {
         mModel.updatePhoneNumber(bean, new BaseObserver<>(true, this, new BaseObserver.Observer<String>() {
             @Override
             public void onNext(BaseBean<String> t) {
                 if (t.code == IApi.Code.SUCCEED) {
-                    mView.updatePhoneSucceed(bean.phone);
+                    mView.updatePhoneSucceed(t.result);
                 }
             }
 

@@ -140,7 +140,7 @@ public class MyDetailsActivity extends CameraActivity<MyDetailsPresenter> implem
 
     private void clickUpdatePhone() {
         if (UserManger.get().isLogin()) {
-            ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_UPDATE_PHONE);
+            mViewModel.startActivityToUpdatePhone(null, Contast.LoginStatus.UPDATE_PHONE);
         } else {
             mViewModel.showLoginDialog();
         }
@@ -278,7 +278,7 @@ public class MyDetailsActivity extends CameraActivity<MyDetailsPresenter> implem
 
     @Override
     protected void resultAlbumResult(List<MediaSelectorFile> data) {
-         uploadingImage2OSS(data.get(0).filePath);
+        uploadingImage2OSS(data.get(0).filePath);
         LogUtils.w("resultAlbumResult--", data.size() + "--");
     }
 

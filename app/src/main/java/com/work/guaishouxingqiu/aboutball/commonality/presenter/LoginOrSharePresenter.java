@@ -7,6 +7,7 @@ import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
+import com.work.guaishouxingqiu.aboutball.login.bean.ResultThreeLoginBean;
 import com.work.guaishouxingqiu.aboutball.login.presenter.MessagePresenter;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
@@ -92,11 +93,11 @@ public abstract class LoginOrSharePresenter<V extends LoginOrShareContract.View,
                     bean.nickName = resultWeiChatInfo.nickname;
                     bean.signCode = resultWeiChatInfo.unionid;
                     bean.type = 1;
-                    mModel.loginOtherWeiChat(bean, new BaseObserver<>(true, LoginOrSharePresenter.this, new BaseObserver.Observer<LoginResultBean>() {
+                    mModel.loginOtherWeiChat(bean, new BaseObserver<>(true, LoginOrSharePresenter.this, new BaseObserver.Observer<ResultThreeLoginBean>() {
                         @Override
-                        public void onNext(BaseBean<LoginResultBean> t) {
+                        public void onNext(BaseBean<ResultThreeLoginBean> t) {
                             if (t.code == IApi.Code.SUCCEED) {
-                                mView.resultOtherLogin(t.result);
+                                mView.resultOtherLogin(t.result, bean.signCode);
                             }
                         }
 

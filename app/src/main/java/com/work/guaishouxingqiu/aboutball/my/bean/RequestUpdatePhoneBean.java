@@ -9,4 +9,11 @@ package com.work.guaishouxingqiu.aboutball.my.bean;
 public class RequestUpdatePhoneBean {
     public String phone;
     public String verificationCode;
+    public String signCode;
+    /**
+     * 1.微信
+     * 2.qq
+     * 3.微博
+     */
+    public int type;
 }

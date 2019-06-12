@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
-import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ImageView;
@@ -25,7 +24,6 @@ import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -48,12 +46,42 @@ public class UpdatePhoneActivity extends BaseActivity<UpdatePhonePresenter> impl
     TextView mTvGainMessageCode;
     @BindView(R.id.tv_sures)
     TextView mTvSure;
+    @BindView(R.id.tv_title)
+    TextView mTvTitle;
 
     private boolean isCanLogin;
+    private int mBandPhoneStatus;
+    private String mSignCode;
 
     @Override
     protected int getLayoutId() {
         return R.layout.activity_update_phone;
+    }
+
+    @Override
+    public void initPermission() {
+        Bundle bundle = mIntent.getExtras();
+        if (bundle == null) {
+            finish();
+            return;
+        }
+        mBandPhoneStatus = bundle.getInt(ARouterConfig.Key.BAND_PHONE_STATUS, -1);
+        mSignCode = bundle.getString(ARouterConfig.Key.SIGN_CODE);
+        if (mBandPhoneStatus == -1) {
+            finish();
+            return;
+        }
+        switch (mBandPhoneStatus) {
+            case Contast.LoginStatus.BAND_PHONE:
+                mTvTitle.setText(R.string.bing_three_phone_number);
+                break;
+            case Contast.LoginStatus.UPDATE_PHONE:
+                mTvTitle.setText(R.string.update_phone_number_title);
+                break;
+            default:
+                break;
+        }
+        super.initPermission();
     }
 
     @Override
@@ -152,7 +180,18 @@ public class UpdatePhoneActivity extends BaseActivity<UpdatePhonePresenter> impl
             RequestUpdatePhoneBean bean = new RequestUpdatePhoneBean();
             bean.phone = DataUtils.getEditDetails(mAcetPhone);
             bean.verificationCode = DataUtils.getEditDetails(mAcetCode);
-            mPresenter.updatePhone(bean);
+
+            //绑定第三方账号
+            if (mBandPhoneStatus == Contast.LoginStatus.BAND_PHONE) {
+                bean.type = 1;
+                bean.signCode = mSignCode;
+                mPresenter.bandThreePhone(bean);
+                //更换绑手机号
+            } else if (mBandPhoneStatus == Contast.LoginStatus.UPDATE_PHONE) {
+                mPresenter.updatePhone(bean);
+            }
+
+
         }
     }
 
@@ -196,9 +235,14 @@ public class UpdatePhoneActivity extends BaseActivity<UpdatePhonePresenter> impl
     @Override
     public void updatePhoneSucceed(String phoneNumber) {
         UserManger.get().putPhone(phoneNumber);
+        finish();
     }
 
-
+    @Override
+    public void bandThreePhoneSucceed(String token) {
+        UserManger.get().putToken(token);
+        finish();
+    }
 
 
 }

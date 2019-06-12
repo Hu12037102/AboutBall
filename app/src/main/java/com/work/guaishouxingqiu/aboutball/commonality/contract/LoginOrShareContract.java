@@ -1,6 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.commonality.contract;
 
 import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
+import com.work.guaishouxingqiu.aboutball.login.bean.ResultThreeLoginBean;
 import com.work.guaishouxingqiu.aboutball.login.contract.MessageContract;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.RequestWeiChatTokenBean;
 
@@ -12,7 +13,7 @@ import com.work.guaishouxingqiu.aboutball.commonality.bean.RequestWeiChatTokenBe
  */
 public interface LoginOrShareContract {
     interface View extends MessageContract.View {
-        void resultOtherLogin(LoginResultBean bean);
+        void resultOtherLogin(ResultThreeLoginBean bean,String signCode);
     }
 
     interface Presenter extends MessageContract.Presenter {

@@ -27,14 +27,14 @@ public class LoginModel extends LoginOrShareModel {
                 .subscribe(baseObserver);
     }
 
-    public void loadUserAccount(BaseObserver<UserBean> observer) {
+/*    public void loadUserAccount(BaseObserver<UserBean> observer) {
         mRetrofitManger.create(LoginService.class)
                 .userAccount()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
 
-    }
+    }*/
 
     public void loadUserAccountInfo(BaseObserver<UserBean> observer) {
         mRetrofitManger.create(LoginService.class)

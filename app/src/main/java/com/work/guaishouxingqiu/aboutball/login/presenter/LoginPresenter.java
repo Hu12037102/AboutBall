@@ -61,7 +61,7 @@ public class LoginPresenter extends LoginOrSharePresenter<LoginContract.View, Lo
 
     @Override
     public void loadUserAccount() {
-        mModel.loadUserAccount(new BaseObserver<>(true, this, new BaseObserver.Observer<UserBean>() {
+     /*   mModel.loadUserAccount(new BaseObserver<>(true, this, new BaseObserver.Observer<UserBean>() {
 
             @Override
             public void onNext(BaseBean<UserBean> bean) {
@@ -77,7 +77,7 @@ public class LoginPresenter extends LoginOrSharePresenter<LoginContract.View, Lo
             }
 
 
-        }));
+        }));*/
 
     }
 

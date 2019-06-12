@@ -124,13 +124,17 @@ public interface Contast {
         String WEICHAT_APP_SECRET = "40a967eb50ce478246b63d8d78525893";
         String WEI_CHAT_BUSINESS_ID = "1524077161";//微信支付商户ID
         String Bugtag_ID = "96481d2c6099fa3e827b8c04d036d566";
-        String UMENG_ID="5c773884b465f59b44000a29";
+        String UMENG_ID = "5c773884b465f59b44000a29";
 
     }
 
     interface LoginStatus {
         int REGISTER = 1;
         int FORGET_PASSWORD = 2;
+        int LOGIN_BING_PHONE = 1;
+        int LOGIN_UNBING_PHONE = 0;
+        int BAND_PHONE = 1;//绑定手机号
+        int UPDATE_PHONE = 2;//更换手机号
     }
 
     //订单状态

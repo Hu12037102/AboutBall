@@ -147,6 +147,9 @@ public interface ARouterConfig {
         String HOST_TEAM_NAME = "hostTeamName";
         String GUEST_TEAM_NAME = "guestTeamName";
         String IS_ADD = "isAdd";
+        String BAND_PHONE_STATUS = "bandPhoneStatus";
+        String SIGN_CODE = "signCode";
+
     }
 
 }

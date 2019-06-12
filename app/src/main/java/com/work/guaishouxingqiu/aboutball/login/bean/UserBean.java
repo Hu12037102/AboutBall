@@ -21,4 +21,7 @@ public class UserBean {
     public String passwordStatus;
     public String wechatUserName;
     public String weChatOpenId;
+    public int followCount;
+    public int fansCount;
+    public int isReferee;
 }
