@@ -329,8 +329,8 @@ public class MatchRefereeResultActivity extends BaseActivity<MatchRefereeResultP
         UIUtils.setText(mItemGuestCase.mTvRight, bean.guestArrived);
         UIUtils.setText(mHeadItemHostCase.mTvRight, bean.hostArrived);
         UIUtils.setText(mHeadItemGuestCase.mTvRight, bean.guestArrived);
-        UIUtils.setText(mHeadItemHostScore.mTvRight, bean.hostScore + "'");
-        UIUtils.setText(mHeadItemGuestScore.mTvRight, bean.guestScore + "'");
+        UIUtils.setText(mHeadItemHostScore.mTvRight, bean.hostScore + "");
+        UIUtils.setText(mHeadItemGuestScore.mTvRight, bean.guestScore + "");
         setContentViewVisibility();
         mRequestBean.hostArrived = bean.hostArrived;
         mRequestBean.guestArrived = bean.guestArrived;

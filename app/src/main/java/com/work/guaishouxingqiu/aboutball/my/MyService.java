@@ -206,8 +206,10 @@ public interface MyService {
     Observable<BaseBean<List<ResultMatchRefereeResultBean>>> getRefereeMatchRecordData(@Query(Contast.AGREE_ID) long agreeId);
 
     @POST(IApiService.POST_SAVE_REFEREE_RECORD)
-    Observable<BaseBean<BaseDataBean<String>>> saveRefereePlayerRecord(@Body RequestAddRecordBean bean);
+    Observable<BaseBean<BaseDataBean<String>>> addRefereePlayerRecord(@Body RequestAddRecordBean bean);
 
+    @POST(IApiService.POST_EDIT_REFEREE_RECORD)
+    Observable<BaseBean<BaseDataBean<String>>> editRefereePlayerRecord(@Body RequestAddRecordBean bean);
     @GET(IApiService.GET_REFEREE_RECORD_DETAILS)
     Observable<BaseBean<ResultRefereeRecordDetailsBean>> getRefereeRecordDetails(@Query(Contast.AGREE_ID) long agreeId);
 
@@ -222,4 +224,6 @@ public interface MyService {
 
     @POST(IApiService.POST_UPDATE_PHONE_NUMBER)
     Observable<BaseBean<String>> updatePhoneNumber(@Body RequestUpdatePhoneBean bean);
+    @GET(IApiService.GET_DELETE_REFEREE_MATCH_RECORD)
+    Observable<BaseBean<BaseDataBean<String>>> deleteRefereeMathRecord(@Query(Contast.OUTS_ID) long outsId);
 }

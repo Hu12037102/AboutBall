@@ -71,11 +71,40 @@
         app:title_text_color="@color/color_4"
         app:title_text_size="@dimen/size_14sp" />
 
-    <TextView
+    <!--<TextView
         android:id="@+id/tv_save"
         style="@style/ButtonCenterText"
         android:layout_marginTop="@dimen/size_40dp"
-        android:text="@string/save" />
+        android:text="@string/save" />-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_40dp">
 
+        <TextView
+            android:id="@+id/tv_bottom_left"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="@dimen/size_40dp"
+            android:layout_marginLeft="@dimen/size_20dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_stroke_blue_view"
+            android:gravity="center"
+            android:text="@string/make_a_block_booking"
+            android:textColor="@color/color_2"
+            android:visibility="gone"
+           />
+
+        <TextView
+            android:id="@+id/tv_save"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="@dimen/size_40dp"
+            android:layout_marginRight="@dimen/size_20dp"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_weight="1"
+            android:background="@drawable/shape_click_button"
+            android:gravity="center"
+            android:text="@string/post_about_ball"
+            android:textColor="@color/colorWhite" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -132,9 +132,11 @@ public interface IApiService {
     String GET_VENUE_EVALUATE = "/api/stadium/getCommentForArea";
     String GET_REFEREE_MATCH_RECORD = "/api/referee/getAgreeSituation";
     String POST_SAVE_REFEREE_RECORD = "/api/referee/insertSituation";
+    String POST_EDIT_REFEREE_RECORD = "/api/referee/editSituation";
     String POST_NOTE_SITUATION = "/api/referee/noteSituation";
     String POST_UPDATE_PHONE_NUMBER = "/api/accountManagement/changePhone";
     String GET_REFEREE_RECORD_DETAILS = "/api/referee/getAgreeOuts";
+    String GET_DELETE_REFEREE_MATCH_RECORD="/api/referee/removeAgreeOuts";
 
     interface H5 {
         String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";

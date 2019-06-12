@@ -54,8 +54,42 @@ public class AddBallPeopleRecordPresenter extends BasePresenter<AddBallPeopleRec
     }
 
     @Override
-    public void saveRefereePlayerRecord(RequestAddRecordBean requestBean) {
-        mModel.saveRefereePlayerRecord(requestBean, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
+    public void addRefereePlayerRecord(RequestAddRecordBean requestBean) {
+        mModel.addRefereePlayerRecord(requestBean, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
+            @Override
+            public void onNext(BaseBean<BaseDataBean<String>> t) {
+                if (DataUtils.baseDataBeanIsSucceed(t)) {
+                    mView.resultSaveRecord();
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+
+    @Override
+    public void refereeDeleteRecord(long outsId) {
+        mModel.deleteRefereeRecord(outsId,new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
+            @Override
+            public void onNext(BaseBean<BaseDataBean<String>> t) {
+                if (DataUtils.baseDataBeanIsSucceed(t)){
+                    mView.resultDeleteRecordSucceed();
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+
+    @Override
+    public void editRefereePlayerRecord(RequestAddRecordBean requestBean) {
+        mModel.editRefereePlayerRecord(requestBean, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
             @Override
             public void onNext(BaseBean<BaseDataBean<String>> t) {
                 if (DataUtils.baseDataBeanIsSucceed(t)) {

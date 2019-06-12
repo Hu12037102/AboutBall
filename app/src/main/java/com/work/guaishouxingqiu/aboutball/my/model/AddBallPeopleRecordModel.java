@@ -28,9 +28,25 @@ public class AddBallPeopleRecordModel extends BaseModel {
 
     }
 
-    public void saveRefereePlayerRecord(RequestAddRecordBean requestBean, BaseObserver<BaseDataBean<String>> observer) {
+    public void addRefereePlayerRecord(RequestAddRecordBean requestBean, BaseObserver<BaseDataBean<String>> observer) {
         mRetrofitManger.create(MyService.class)
-                .saveRefereePlayerRecord(requestBean)
+                .addRefereePlayerRecord(requestBean)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    public void deleteRefereeRecord(long outsId,BaseObserver< BaseDataBean<String>> observer) {
+        mRetrofitManger.create(MyService.class)
+                .deleteRefereeMathRecord(outsId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    public void editRefereePlayerRecord(RequestAddRecordBean requestBean, BaseObserver<BaseDataBean<String>> observer) {
+        mRetrofitManger.create(MyService.class)
+                .editRefereePlayerRecord(requestBean)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

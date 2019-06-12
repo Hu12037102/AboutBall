@@ -1,6 +1,5 @@
 package com.work.guaishouxingqiu.aboutball.my.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -29,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -53,6 +51,8 @@ public class AddBallPeopleRecordActivity extends BaseActivity<AddBallPeopleRecor
     TextView mTvSave;
     @BindView(R.id.item_team)
     ItemView mItemTeam;
+    @BindView(R.id.tv_bottom_left)
+    TextView mTvLeft;
     private ResultRefereeRecordBean mIntentBean;
     private List<String> mTeamData;
     private SingWheelDialog mTeamWheelDialog;
@@ -100,7 +100,8 @@ public class AddBallPeopleRecordActivity extends BaseActivity<AddBallPeopleRecor
         mItemTime.mTvRight.setHint(R.string.please_select_the_time);
         mItemBehavior.mTvRight.setHintTextColor(ContextCompat.getColor(this, R.color.colorFFA6A6A6));
         mItemBehavior.mTvRight.setHint(R.string.please_selector_team_behavior);
-
+        UIUtils.setText(mTvLeft, R.string.delete);
+        UIUtils.setText(mTvSave, R.string.save);
     }
 
     @Override
@@ -115,7 +116,7 @@ public class AddBallPeopleRecordActivity extends BaseActivity<AddBallPeopleRecor
         }
         mBehaviorData = new ArrayList<>();
         mBehaviorData.add("进球");
-        mBehaviorData.add("行为");
+        mBehaviorData.add("黄牌");
         if (mIntentBean.hostTeamName != null) {
             mTeamData.add(mIntentBean.hostTeamName);
         }
@@ -132,6 +133,7 @@ public class AddBallPeopleRecordActivity extends BaseActivity<AddBallPeopleRecor
             mRequestBean.playerId = mEditIntentBean.playerId;
             mRequestBean.duration = mEditIntentBean.duration;
             mRequestBean.action = mEditIntentBean.action;
+            mTvLeft.setVisibility(View.VISIBLE);
         }
         // mPresenter.loadMemberDetails(mHostTeamId);
     }
@@ -256,11 +258,25 @@ public class AddBallPeopleRecordActivity extends BaseActivity<AddBallPeopleRecor
         return isSelectorTeam() && isSelectorPlayer() && isSelectorTime() && isSelectorTime() && isSelectorBehavior();
     }
 
-    @OnClick(R.id.tv_save)
-    public void onViewClicked() {
-        if (isSelectorAll()) {
-            mPresenter.saveRefereePlayerRecord(mRequestBean);
+    @OnClick({R.id.tv_save, R.id.tv_bottom_left})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tv_save:
+                if (isSelectorAll()) {
+                    if (mEditIntentBean == null) {
+                        mPresenter.addRefereePlayerRecord(mRequestBean);
+                    }else {
+                        mPresenter.editRefereePlayerRecord(mRequestBean);
+                    }
+                }
+                break;
+            case R.id.tv_bottom_left:
+                mPresenter.refereeDeleteRecord(mEditIntentBean.outsId);
+                break;
+            default:
+                break;
         }
+
     }
 
     @Override
@@ -286,7 +302,12 @@ public class AddBallPeopleRecordActivity extends BaseActivity<AddBallPeopleRecor
 
     @Override
     public void resultSaveRecord() {
-        setResult(Activity.RESULT_OK);
-        finish();
+
+        mViewModel.clickBackForResult();
+    }
+
+    @Override
+    public void resultDeleteRecordSucceed() {
+        mViewModel.clickBackForResult();
     }
 }

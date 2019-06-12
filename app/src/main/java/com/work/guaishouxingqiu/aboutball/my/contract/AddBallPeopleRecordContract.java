@@ -18,11 +18,17 @@ public interface AddBallPeopleRecordContract {
         void resultMemberDetails(List<ResultTeamDetailsMemberBean> data);
 
         void resultSaveRecord();
+
+        void resultDeleteRecordSucceed();
     }
 
     interface Presenter extends IBasePresenter {
         void loadMemberDetails(long mHostTeamId);
 
-        void saveRefereePlayerRecord(RequestAddRecordBean mRequestBean);
+        void addRefereePlayerRecord(RequestAddRecordBean mRequestBean);
+
+        void refereeDeleteRecord(long outsId);
+
+        void editRefereePlayerRecord(RequestAddRecordBean mRequestBean);
     }
 }
