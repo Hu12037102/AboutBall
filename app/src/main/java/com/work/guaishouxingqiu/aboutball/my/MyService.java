@@ -35,6 +35,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultPrizeBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeRecordBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeRecordDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundCauseBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultTeamDetailsMemberBean;
@@ -207,13 +208,18 @@ public interface MyService {
     @POST(IApiService.POST_SAVE_REFEREE_RECORD)
     Observable<BaseBean<BaseDataBean<String>>> saveRefereePlayerRecord(@Body RequestAddRecordBean bean);
 
+    @GET(IApiService.GET_REFEREE_RECORD_DETAILS)
+    Observable<BaseBean<ResultRefereeRecordDetailsBean>> getRefereeRecordDetails(@Query(Contast.AGREE_ID) long agreeId);
+
     /**
      * 赛况记录
+     *
      * @param bean
      * @return
      */
     @POST(IApiService.POST_NOTE_SITUATION)
     Observable<BaseBean<BaseDataBean<String>>> goActionRecord(@Body RequestActionRecordsBean bean);
+
     @POST(IApiService.POST_UPDATE_PHONE_NUMBER)
     Observable<BaseBean<String>> updatePhoneNumber(@Body RequestUpdatePhoneBean bean);
 }

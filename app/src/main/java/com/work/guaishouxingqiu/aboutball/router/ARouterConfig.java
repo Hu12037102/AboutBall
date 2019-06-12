@@ -113,6 +113,7 @@ public interface ARouterConfig {
         String KEY_STATUS = "status";
         String TYPE_ID = "typeId";
         String PARCELABLE = "parcelable";
+        String PARCELABLE_EDIT = "parcelable_edit";
         String ARRAY_LIST_PARCELABLE = "array_list_parcelable";
         String POSITION = "position";
         String AREA_ID = "areaId";

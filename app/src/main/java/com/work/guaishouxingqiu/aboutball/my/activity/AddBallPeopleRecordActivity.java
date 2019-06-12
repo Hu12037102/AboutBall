@@ -21,6 +21,7 @@ import com.work.guaishouxingqiu.aboutball.my.contract.AddBallPeopleRecordContrac
 import com.work.guaishouxingqiu.aboutball.my.presenter.AddBallPeopleRecordPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.SingWheelDialog;
 
@@ -63,7 +64,6 @@ public class AddBallPeopleRecordActivity extends BaseActivity<AddBallPeopleRecor
     private SingWheelDialog mBehaviorDialog;
     private ResultMatchRefereeResultBean.ChildBean mEditIntentBean;
 
-    private boolean mIsAddStatus;//是不是添加
 
     @Override
     protected int getLayoutId() {
@@ -78,12 +78,9 @@ public class AddBallPeopleRecordActivity extends BaseActivity<AddBallPeopleRecor
             finish();
             return;
         }
-        mIsAddStatus = bundle.getBoolean(ARouterConfig.Key.IS_ADD, true);
-        if (mIsAddStatus) {
-            mIntentBean = bundle.getParcelable(ARouterConfig.Key.PARCELABLE);
-        } else {
-            mEditIntentBean = bundle.getParcelable(ARouterConfig.Key.PARCELABLE);
-        }
+        mIntentBean = bundle.getParcelable(ARouterConfig.Key.PARCELABLE);
+        mEditIntentBean = bundle.getParcelable(ARouterConfig.Key.PARCELABLE_EDIT);
+        LogUtils.w("mEditIntentBean--", mEditIntentBean + "");
         if (mIntentBean == null) {
             UIUtils.showToast(R.string.please_selector_ball_team);
             finish();
@@ -124,6 +121,17 @@ public class AddBallPeopleRecordActivity extends BaseActivity<AddBallPeopleRecor
         }
         if (mIntentBean.guestTeamName != null) {
             mTeamData.add(mIntentBean.guestTeamName);
+        }
+        if (mEditIntentBean != null) {
+            UIUtils.setText(mItemTeam.mTvRight, mEditIntentBean.teamName);
+            UIUtils.setText(mItemPlayer.mTvRight, mEditIntentBean.playerName);
+            UIUtils.setText(mItemTime.mTvRight, mEditIntentBean.duration + "'");
+            mItemPlayer.setVisibility(View.VISIBLE);
+            UIUtils.setText(mItemBehavior.mTvRight, mEditIntentBean.action);
+            mRequestBean.teamId = mEditIntentBean.teamId;
+            mRequestBean.playerId = mEditIntentBean.playerId;
+            mRequestBean.duration = mEditIntentBean.duration;
+            mRequestBean.action = mEditIntentBean.action;
         }
         // mPresenter.loadMemberDetails(mHostTeamId);
     }

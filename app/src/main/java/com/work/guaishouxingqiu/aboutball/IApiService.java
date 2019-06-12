@@ -134,6 +134,7 @@ public interface IApiService {
     String POST_SAVE_REFEREE_RECORD = "/api/referee/insertSituation";
     String POST_NOTE_SITUATION = "/api/referee/noteSituation";
     String POST_UPDATE_PHONE_NUMBER = "/api/accountManagement/changePhone";
+    String GET_REFEREE_RECORD_DETAILS = "/api/referee/getAgreeOuts";
 
     interface H5 {
         String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";

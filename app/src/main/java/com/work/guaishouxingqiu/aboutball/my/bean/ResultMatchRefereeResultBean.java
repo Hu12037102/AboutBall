@@ -11,7 +11,7 @@ import java.util.List;
  * 更新时间: 2019/6/10 10:26
  * 描述:赛况记录列表bean
  */
-public class ResultMatchRefereeResultBean implements Parcelable{
+public class ResultMatchRefereeResultBean implements Parcelable {
     public String teamAndAction;
     public List<ChildBean> agreeOutsForSimpleList;
 
@@ -48,12 +48,22 @@ public class ResultMatchRefereeResultBean implements Parcelable{
         public String playerName;
         public int number;
         public int duration;
+        public long outsId;
+        public long teamId;
+        public String teamName;
+        public long playerId;
+        public String action;
 
         protected ChildBean(Parcel in) {
             headerImg = in.readString();
             playerName = in.readString();
             number = in.readInt();
             duration = in.readInt();
+            outsId = in.readLong();
+            teamId = in.readLong();
+            teamName = in.readString();
+            playerId = in.readLong();
+            action = in.readString();
         }
 
         public static final Creator<ChildBean> CREATOR = new Creator<ChildBean>() {
@@ -79,6 +89,11 @@ public class ResultMatchRefereeResultBean implements Parcelable{
             dest.writeString(playerName);
             dest.writeInt(number);
             dest.writeInt(duration);
+            dest.writeLong(outsId);
+            dest.writeLong(teamId);
+            dest.writeString(teamName);
+            dest.writeLong(playerId);
+            dest.writeString(action);
         }
     }
 }

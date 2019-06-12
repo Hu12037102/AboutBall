@@ -7,6 +7,7 @@ import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.my.MyService;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestActionRecordsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMatchRefereeResultBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeRecordDetailsBean;
 
 import java.util.List;
 
@@ -31,6 +32,14 @@ public class MatchRefereeResultModel extends BaseModel {
     public void goActionRecord(RequestActionRecordsBean requestBean, BaseObserver<BaseDataBean<String>> observer) {
         mRetrofitManger.create(MyService.class)
                 .goActionRecord(requestBean)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    public void loadRecordDetails(long agreeId,BaseObserver<ResultRefereeRecordDetailsBean>observer) {
+        mRetrofitManger.create(MyService.class)
+                .getRefereeRecordDetails(agreeId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

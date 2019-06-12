@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -24,6 +25,7 @@ import com.work.guaishouxingqiu.aboutball.my.adapter.MatchRefereeResultAdapter;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestActionRecordsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMatchRefereeResultBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeRecordBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeRecordDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.MatchRefereeResultContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.MatchRefereeResultPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
@@ -115,7 +117,7 @@ public class MatchRefereeResultActivity extends BaseActivity<MatchRefereeResultP
         for (int i = 0; i < 100; i++) {
             mScoreData.add(i + "");
         }
-        mHeadView = getLayoutInflater().inflate(R.layout.item_head_match_referee_result_view, mRvData, false);
+        mHeadView = getLayoutInflater().inflate(R.layout.item_head_match_referee_result_view, (ViewGroup) getWindow().getDecorView(), false);
 
         mHeadItemHostCase = mHeadView.findViewById(R.id.item_host_case);
         mHeadItemHostCase.mTvRight.setHintTextColor(ContextCompat.getColor(this, R.color.colorFFA6A6A6));
@@ -167,19 +169,16 @@ public class MatchRefereeResultActivity extends BaseActivity<MatchRefereeResultP
         mTvRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityToAddRecordForResult(true, null);
+                startActivityToAddRecordForResult( null);
             }
         });
     }
 
-    private void startActivityToAddRecordForResult(boolean isAdd, ResultMatchRefereeResultBean.ChildBean bean) {
+    private void startActivityToAddRecordForResult( ResultMatchRefereeResultBean.ChildBean bean) {
         Bundle bundle = new Bundle();
-        bundle.putBoolean(ARouterConfig.Key.IS_ADD, isAdd);
-        if (isAdd) {
-            bundle.putParcelable(ARouterConfig.Key.PARCELABLE, mIntentBean);
-        } else {
-            bundle.putParcelable(ARouterConfig.Key.PARCELABLE, bean);
-        }
+
+        bundle.putParcelable(ARouterConfig.Key.PARCELABLE, mIntentBean);
+        bundle.putParcelable(ARouterConfig.Key.PARCELABLE_EDIT, bean);
         ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_ADD_BALL_PEOPLE_RECORD, this, bundle);
     }
 
@@ -226,28 +225,34 @@ public class MatchRefereeResultActivity extends BaseActivity<MatchRefereeResultP
                 default:
                     break;
             }
-            if (DataUtils.getTextViewContent(mItemHostCase.mTvRight).equals(NOT_DATA_VIEW_CONTENT)
-                    || DataUtils.getTextViewContent(mItemGuestCase.mTvRight).equals(NOT_DATA_VIEW_CONTENT)) {
-                mLlNotJoin.setVisibility(View.VISIBLE);
-                isAbsent = true;
-            } else {
-                mLlNotJoin.setVisibility(View.GONE);
-                isAbsent = false;
-            }
-            if (DataUtils.getTextViewContent(mHeadItemHostCase.mTvRight).equals(NOT_DATA_VIEW_CONTENT)
-                    || DataUtils.getTextViewContent(mHeadItemGuestCase.mTvRight).equals(NOT_DATA_VIEW_CONTENT)) {
-                mLlNotJoin.setVisibility(View.VISIBLE);
-                isAbsent = true;
-            } else {
-                mLlNotJoin.setVisibility(View.GONE);
-                isAbsent = false;
-            }
+            setContentViewVisibility();
         });
         singWheelDialog.show();
     }
 
+
+    private void setContentViewVisibility() {
+        if (DataUtils.getTextViewContent(mItemHostCase.mTvRight).equals(NOT_DATA_VIEW_CONTENT)
+                || DataUtils.getTextViewContent(mItemGuestCase.mTvRight).equals(NOT_DATA_VIEW_CONTENT)) {
+            mLlNotJoin.setVisibility(View.VISIBLE);
+            isAbsent = true;
+        } else {
+            mLlNotJoin.setVisibility(View.GONE);
+            isAbsent = false;
+        }
+        if (DataUtils.getTextViewContent(mHeadItemHostCase.mTvRight).equals(NOT_DATA_VIEW_CONTENT)
+                || DataUtils.getTextViewContent(mHeadItemGuestCase.mTvRight).equals(NOT_DATA_VIEW_CONTENT)) {
+            mLlNotJoin.setVisibility(View.VISIBLE);
+            isAbsent = true;
+        } else {
+            mLlNotJoin.setVisibility(View.GONE);
+            isAbsent = false;
+        }
+    }
+
     @Override
     protected void initData() {
+        mPresenter.loadRecordDetails(mIntentBean.agreeId);
         mSrlRefresh.autoRefresh();
         mItemHostCase.mTvRight.setHintTextColor(ContextCompat.getColor(this, R.color.colorFFA6A6A6));
         mItemHostCase.mTvRight.setHint(R.string.please_select_your_presence);
@@ -281,7 +286,7 @@ public class MatchRefereeResultActivity extends BaseActivity<MatchRefereeResultP
         mAdapter.setOnEditClickListener(new MatchRefereeResultAdapter.OnEditClickListener() {
             @Override
             public void clickEdit(View view, ResultMatchRefereeResultBean.ChildBean bean) {
-                startActivityToAddRecordForResult(false, bean);
+                startActivityToAddRecordForResult( bean);
             }
         });
     }
@@ -316,6 +321,21 @@ public class MatchRefereeResultActivity extends BaseActivity<MatchRefereeResultP
     @Override
     public void resultActionRecord() {
         finish();
+    }
+
+    @Override
+    public void resultRecordDetails(ResultRefereeRecordDetailsBean bean) {
+        UIUtils.setText(mItemHostCase.mTvRight, bean.hostArrived);
+        UIUtils.setText(mItemGuestCase.mTvRight, bean.guestArrived);
+        UIUtils.setText(mHeadItemHostCase.mTvRight, bean.hostArrived);
+        UIUtils.setText(mHeadItemGuestCase.mTvRight, bean.guestArrived);
+        UIUtils.setText(mHeadItemHostScore.mTvRight, bean.hostScore + "'");
+        UIUtils.setText(mHeadItemGuestScore.mTvRight, bean.guestScore + "'");
+        setContentViewVisibility();
+        mRequestBean.hostArrived = bean.hostArrived;
+        mRequestBean.guestArrived = bean.guestArrived;
+        mRequestBean.hostScore = bean.hostScore;
+        mRequestBean.guestScore = bean.guestScore;
     }
 
     @Override

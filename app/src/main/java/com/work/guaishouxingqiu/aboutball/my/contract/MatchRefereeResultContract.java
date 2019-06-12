@@ -4,6 +4,7 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestActionRecordsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMatchRefereeResultBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeRecordDetailsBean;
 
 import java.util.List;
 
@@ -17,11 +18,15 @@ public interface MatchRefereeResultContract {
     interface View extends IBaseView {
         void resultMatchRecord(List<ResultMatchRefereeResultBean> data);
         void resultActionRecord();
+        void resultRecordDetails(ResultRefereeRecordDetailsBean bean);
     }
 
     interface Presenter extends IBasePresenter {
         void loadMatchRecord(long agreeId);
 
         void goActionRecord(RequestActionRecordsBean mRequestBean);
+
+        void loadRecordDetails(long agreeId);
+
     }
 }

@@ -31,6 +31,7 @@ public class MatchRefereeResultAdapter extends BaseRecyclerAdapter<MatchRefereeR
     }
 
     private OnEditClickListener onEditClickListener;
+
     public MatchRefereeResultAdapter(@NonNull List<ResultMatchRefereeResultBean> data) {
         super(data);
     }
@@ -39,8 +40,15 @@ public class MatchRefereeResultAdapter extends BaseRecyclerAdapter<MatchRefereeR
     protected void onBindViewDataHolder(@NonNull ViewHolder viewHolder, int i) {
         ResultMatchRefereeResultBean bean = mData.get(i);
         UIUtils.setText(viewHolder.mTvStatus, bean.teamAndAction);
-        viewHolder.mLlContent.removeAllViews();
+        if (viewHolder.mLlContent.getChildCount() > 0) {
+            viewHolder.mLlContent.removeAllViews();
+        }
+        /*View textInflateView = LayoutInflater.from(mContext).inflate(R.layout.item_text_view, viewHolder.mLlContent, false);
+        TextView tvStatus =textInflateView.findViewById(R.id.tv_status);
+        tvStatus.setText( bean.teamAndAction);
+        viewHolder.mLlContent.addView(textInflateView);*/
         if (bean.agreeOutsForSimpleList != null && bean.agreeOutsForSimpleList.size() > 0) {
+
             for (ResultMatchRefereeResultBean.ChildBean childBean : bean.agreeOutsForSimpleList) {
                 View contentInflateView = LayoutInflater.from(mContext).inflate(R.layout.item_match_referee_body_result_view, viewHolder.mLlContent, false);
                 CircleImageView civHead = contentInflateView.findViewById(R.id.civ_head);
@@ -54,8 +62,8 @@ public class MatchRefereeResultAdapter extends BaseRecyclerAdapter<MatchRefereeR
                 tvModification.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (onEditClickListener!= null){
-                            onEditClickListener.clickEdit(tvModification,childBean);
+                        if (onEditClickListener != null) {
+                            onEditClickListener.clickEdit(tvModification, childBean);
                         }
                     }
                 });
@@ -66,7 +74,7 @@ public class MatchRefereeResultAdapter extends BaseRecyclerAdapter<MatchRefereeR
 
     @Override
     protected ViewHolder onCreateDataViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_match_referee_result_view, viewGroup, false));
+        return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_match_referee_result_view,viewGroup,false));
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -87,10 +95,11 @@ public class MatchRefereeResultAdapter extends BaseRecyclerAdapter<MatchRefereeR
         private void initView(View itemView) {
             mTvStatus = itemView.findViewById(R.id.tv_status);
             mLlContent = itemView.findViewById(R.id.item_ll);
-            ViewGroup.LayoutParams layoutParams = mLlContent.getLayoutParams();
+
+           /* ViewGroup.LayoutParams layoutParams = mLlContent.getLayoutParams();
             layoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT;
             layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
-            mLlContent.setLayoutParams(layoutParams);
+            mLlContent.setLayoutParams(layoutParams);*/
         }
     }
 

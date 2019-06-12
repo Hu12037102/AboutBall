@@ -8,6 +8,7 @@ import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestActionRecordsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMatchRefereeResultBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeRecordDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.MatchRefereeResultContract;
 import com.work.guaishouxingqiu.aboutball.my.model.MatchRefereeResultModel;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
@@ -55,11 +56,28 @@ public class MatchRefereeResultPresenter extends BasePresenter<MatchRefereeResul
 
     @Override
     public void goActionRecord(RequestActionRecordsBean requestBean) {
-        mModel.goActionRecord(requestBean,new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
+        mModel.goActionRecord(requestBean, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
             @Override
             public void onNext(BaseBean<BaseDataBean<String>> t) {
-                if (DataUtils.baseDataBeanIsSucceed(t)){
+                if (DataUtils.baseDataBeanIsSucceed(t)) {
                     mView.resultActionRecord();
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+
+    @Override
+    public void loadRecordDetails(long agreeId) {
+        mModel.loadRecordDetails(agreeId, new BaseObserver<>(true, this, new BaseObserver.Observer<ResultRefereeRecordDetailsBean>() {
+            @Override
+            public void onNext(BaseBean<ResultRefereeRecordDetailsBean> t) {
+                if (DataUtils.isResultSure(t)) {
+                mView.resultRecordDetails(t.result);
                 }
             }
 
