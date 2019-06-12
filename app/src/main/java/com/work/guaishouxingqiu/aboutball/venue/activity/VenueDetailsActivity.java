@@ -102,6 +102,7 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
     private LinearLayout mLlHeadCommentGroup, mLlHeadImageTextGroup, mLlHeadSiteGroup, mLlHeadSiteDetailsGroup,
             mLlHeadAboutBallGroup, mLlHeadGroup;
     private int mSelectorTabPosition;
+    private LinearLayout mLlNotDate;
 
     @Override
     protected int getLayoutId() {
@@ -127,6 +128,7 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
         mHeadView.requestFocus();
         mHeadView.setFocusable(true);
         mHeadView.setFocusableInTouchMode(true);
+        mLlNotDate = mHeadView.findViewById(R.id.ll_not_date);
         mRvDate = mHeadView.findViewById(R.id.rv_date);
         mRvDate.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mDateData = new ArrayList<>();
@@ -159,7 +161,7 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
 
     private void initLocation() {
         mRequestVenueBean = new RequestVenueListBean();
-      //  Location location = PhoneUtils.getGPSLocation(this);
+        //  Location location = PhoneUtils.getGPSLocation(this);
         mRequestVenueBean.stadiumId = mStadiumId;
       /*  if (location != null) {
             mRequestVenueBean.latitude = String.valueOf(location.getLatitude());
@@ -316,11 +318,13 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
         if (areaBean.calendarListForAreaList != null && areaBean.calendarListForAreaList.size() > 0) {
             mRvDate.setVisibility(View.VISIBLE);
             mLlBottom.setVisibility(View.VISIBLE);
+            mLlNotDate.setVisibility(View.GONE);
             mRvDate.setPadding(0, ScreenUtils.dp2px(this, 8), 0, ScreenUtils.dp2px(this, 8));
             mDateData.addAll(areaBean.calendarListForAreaList);
         } else {
             mLlBottom.setVisibility(View.GONE);
             mRvDate.setVisibility(View.GONE);
+            mLlNotDate.setVisibility(View.VISIBLE);
             mRvDate.setPadding(0, 0, 0, 0);
         }
         if (mDateAdapter == null) {

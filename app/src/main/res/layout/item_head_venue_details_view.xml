@@ -22,6 +22,27 @@
             android:focusableInTouchMode="true" />
 
         <LinearLayout
+            android:id="@+id/ll_not_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorFFFBFAFA"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/size_25dp"
+                android:layout_marginTop="@dimen/size_25dp"
+                android:drawableLeft="@mipmap/icon_not_venue"
+                android:drawableStart="@mipmap/icon_not_venue"
+                android:gravity="center_vertical"
+                android:text="@string/site_maintenance"
+                android:textColor="@color/colorFFA6A6A6"
+                android:textSize="@dimen/size_14sp" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/ll_image_text_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
