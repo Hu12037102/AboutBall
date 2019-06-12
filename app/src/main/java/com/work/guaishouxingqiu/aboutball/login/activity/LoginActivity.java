@@ -253,7 +253,8 @@ public class LoginActivity extends LoginOrShareActivity<LoginPresenter> implemen
 
     @Override
     public void resultOtherLogin(ResultThreeLoginBean bean, String signCode) {
-        UserManger.get().putToken(bean.id_token);
+       // UserManger.get().putToken(bean.id_token);
+        UserManger.get().putTemporaryToken(bean.id_token);
         if (bean.bingPhone == Contast.LoginStatus.LOGIN_BING_PHONE) {
             // mPresenter.loadUserAccount();
             mPresenter.loadUserAccountInfo();

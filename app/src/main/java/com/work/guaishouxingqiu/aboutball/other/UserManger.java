@@ -31,6 +31,7 @@ public class UserManger {
     private static final String KEY_FOLLOW_COUNT = "followCount";
     private static final String KEY_FANS_COUNT = "fansCount";
     private static final String KEY_IS_REFEREE = "isReferee";
+    private static final String KEY_TOKEN_TEMPORARY = "tokenTemporary";//临时token
     private static SharedPreferencesHelp mSP;
 
     private UserManger() {
@@ -48,6 +49,14 @@ public class UserManger {
             }
         }
         return mUserManger;
+    }
+
+    public void putTemporaryToken(String tokenTemporary) {
+        mSP.putObject(UserManger.KEY_TOKEN_TEMPORARY, tokenTemporary);
+    }
+
+    public String getTemporaryToken() {
+        return mSP.getString(UserManger.KEY_TOKEN_TEMPORARY);
     }
 
     public void putToken(@NonNull String values) {

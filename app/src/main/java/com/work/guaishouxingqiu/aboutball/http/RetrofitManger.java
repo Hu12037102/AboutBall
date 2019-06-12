@@ -3,6 +3,7 @@ package com.work.guaishouxingqiu.aboutball.http;
 import android.support.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.BuildConfig;
+import com.work.guaishouxingqiu.aboutball.other.DownloadApkHelp;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
@@ -104,8 +105,9 @@ public class RetrofitManger {
         @Override
         public Response intercept(@NonNull Chain chain) throws IOException {
             Request request = chain.request();
-            request = request.newBuilder().header("Authorization", TOKEN_HOST.concat(UserManger.get().getToken()))
-                    .header("Version", "1.0.0")//版本号
+            request = request.newBuilder().header("Authorization", UserManger.get().isLogin() ?
+                    TOKEN_HOST.concat(UserManger.get().getToken()) : TOKEN_HOST + UserManger.get().getTemporaryToken())
+                    .header("Version", DownloadApkHelp.getVersionName(UIUtils.getContext()))//版本号
                     .header("Accept-Language", PhoneUtils.getPhoneLoca(UIUtils.getContext()).getCountry())
                     .build();
 
