@@ -7,15 +7,19 @@ package com.work.guaishouxingqiu.aboutball.community.bean;
  * 描述:
  */
 public class ResultCommunityDataBean {
-    public int tweetId;
+    public long tweetId;
     public String tweetContent;
     public String imageUrl;
     public long userId;
     public String releaseTime;
     public String nickName;
     public String topicTitle;
-    public String praiseCount;
-    public String commentCount;
-    public String shareCount;
+    public int praiseCount;
+    public int commentCount;
+    public int shareCount;
+    public String headImg;
+    public int hasPraise; //自己有沒有点赞
+    public int myTweet; //自己的话题
+    public int hasFollow;//有没有关注
 
 }

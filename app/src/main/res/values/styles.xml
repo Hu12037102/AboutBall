@@ -213,4 +213,10 @@
         <item name="android:layout_marginRight">@dimen/default_margin</item>
         <item name="android:layout_marginTop">@dimen/size_15dp</item>
     </style>
+    <style name="CommunityChildImage">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:scaleType">centerCrop</item>
+
+    </style>
 </resources>

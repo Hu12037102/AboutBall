@@ -36,7 +36,7 @@ import butterknife.BindView;
  * 作者: 胡庆岭
  * 创建时间: 2019/3/12 17:46
  * 更新时间: 2019/3/12 17:46
- * 描述: 资讯Fragment
+ * 描述: 热点Fragment
  */
 @Route(path = ARouterConfig.Path.FRAGMENT_HOT)
 public class HotFragment extends DelayedFragment<HotPresenter> implements HotContract.View {

@@ -12,11 +12,14 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.work.guaishouxingqiu.aboutball.Contast;
+import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
+import com.work.guaishouxingqiu.aboutball.home.adapter.DrillTabAdapter;
 import com.work.guaishouxingqiu.aboutball.home.adapter.RecommendedAdapter;
+import com.work.guaishouxingqiu.aboutball.home.bean.ResultHomeTabBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsBean;
 import com.work.guaishouxingqiu.aboutball.home.contract.DrillContract;
 import com.work.guaishouxingqiu.aboutball.home.presenter.DrillPresenter;
@@ -42,19 +45,25 @@ public class DrillFragment extends DelayedFragment<DrillPresenter> implements Dr
     RecyclerView mRvList;
     @BindView(R.id.srl_layout)
     SmartRefreshLayout mSrLayout;
+    @BindView(R.id.rv_tab)
+    RecyclerView mRvTab;
     private List<ResultNewsBean> mData;
     private RecommendedAdapter mAdapter;
+    private ResultHomeTabBean mHomeTabBean;
     private int mTypId;
+    private DrillTabAdapter mTabAdapter;
 
 
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_drill;
     }
+
     @Override
     protected DrillPresenter createPresenter() {
         return new DrillPresenter(this);
     }
+
     public static SpecialFragment newInstance() {
         return new SpecialFragment();
     }
@@ -77,17 +86,32 @@ public class DrillFragment extends DelayedFragment<DrillPresenter> implements Dr
         if (bundle == null) {
             return;
         }
-        mTypId = bundle.getInt(ARouterConfig.Key.TAB_TYPE_ID);
+        mHomeTabBean = bundle.getParcelable(ARouterConfig.Key.TAB_TYPE_ID);
+        if (mHomeTabBean == null) {
+            getActivity().finish();
+            return;
+        }
+
         super.initPermission();
     }
 
     @Override
     protected void initDelayedView() {
         mRvList.setLayoutManager(new LinearLayoutManager(DataUtils.checkData(getContext())));
+        mRvTab.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
     }
 
     @Override
     protected void initDelayedData() {
+        if (mHomeTabBean.homeLabelList.size() > 0) {
+            mHomeTabBean.homeLabelList.get(0).isCheck = true;
+            mTypId = mHomeTabBean.homeLabelList.get(0).labelId;
+        } else {
+            mTypId = mHomeTabBean.parentLabelId;
+        }
+        mTabAdapter = new DrillTabAdapter(mContext, mHomeTabBean.homeLabelList);
+        mRvTab.setAdapter(mTabAdapter);
+
         mData = new ArrayList<>();
         mAdapter = new RecommendedAdapter(mData);
         mRvList.setAdapter(mAdapter);
@@ -96,6 +120,13 @@ public class DrillFragment extends DelayedFragment<DrillPresenter> implements Dr
 
     @Override
     protected void initDelayedEvent() {
+        mTabAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onClickItem(@NonNull View view, int position) {
+                mTypId = mTabAdapter.getSelectorTabId();
+                mSrLayout.autoRefresh();
+            }
+        });
         mSrLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(RefreshLayout refreshLayout) {

@@ -14,6 +14,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.work.guaishouxingqiu.aboutball.BuildConfig;
 import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.community.fragment.CommunityFragment;
 import com.work.guaishouxingqiu.aboutball.game.fragment.GameFragment;
 import com.work.guaishouxingqiu.aboutball.home.adapter.MainTabAdapter;
 import com.work.guaishouxingqiu.aboutball.home.bean.EventOpenTypeBean;
@@ -108,9 +109,9 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
         HomeFragment homeFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_HOME);
         GameFragment gameFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME);
         VenueFragment venueFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_VENUE);
-        //CommunityFragment communityFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_COMMUNITY);
+        CommunityFragment communityFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_COMMUNITY);
         MyFragment myFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_MY);
-        Fragment[] fragments = {homeFragment, gameFragment, venueFragment,/* communityFragment,*/ myFragment};
+        Fragment[] fragments = {homeFragment, gameFragment, venueFragment, communityFragment, myFragment};
         FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int i) {

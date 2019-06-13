@@ -12,6 +12,7 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
+import com.work.guaishouxingqiu.aboutball.community.adapter.CommunityDataAdapter;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.other.SharedPreferencesHelp;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
@@ -363,5 +364,10 @@ public class DataUtils {
 
     public static String getTextViewContent(@NonNull TextView textView) {
         return DataUtils.isEmpty(textView.getText()) ? "" : textView.getText().toString().trim();
+    }
+
+    public static void setCommunityCount(TextView textView, int count) {
+        UIUtils.setText(textView, count > CommunityDataAdapter.MAX_COMMUNITY_COUNT ? CommunityDataAdapter.MAX_COMMUNITY_CONTENT :
+                count > 0 ? String.valueOf(count) : "");
     }
 }
