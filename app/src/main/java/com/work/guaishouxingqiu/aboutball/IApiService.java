@@ -70,7 +70,10 @@ public interface IApiService {
     String GET_REFEREE_LIST = "/api/referee/getRefereeList";
 
     //获取社区我关注的动态
-    String COMMUNITY_ATTENTION_DATA = "/api/tweet/getLastestTweet";
+    String COMMUNITY_NEW_DATA = "/api/tweet/getLastestTweet";
+    String COMMUNITY_ATTENTION_DATA="/api/tweet/MyConcernTweet";
+    String COMMUNITY_HOT_TOPIC="/api/topic/getHotTopic";
+    String COMMUNITY_RECOMMEND_DATA="/api/tweet/getRecommendTweet";
 
     //获取微信登录token
     String GET_WEICHAT_TOKEN = "/sns/oauth2/access_token";

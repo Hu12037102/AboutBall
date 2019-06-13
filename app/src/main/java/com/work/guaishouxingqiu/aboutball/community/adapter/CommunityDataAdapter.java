@@ -67,149 +67,153 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
         } else {
             viewHolder.mTvLikeNum.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_no_like, 0, 0, 0);
         }
-        // viewHolder.mTvLikeNum.setText(bean.praiseCount > MAX_COMMUNITY_COUNT ? MAX_COMMUNITY_CONTENT);
-        // viewHolder.mTvComment.setText(bean.commentCount);
-        //viewHolder.mTvShare.setText(bean.shareCount);
+        if (bean.hasFollow == 1) {
+            viewHolder.mTvAttention.setVisibility(View.GONE);
+        } else {
+            viewHolder.mTvAttention.setVisibility(View.VISIBLE);
+        }
         viewHolder.mGroupImageData.setVisibility(View.VISIBLE);
-        int imageCount = DataUtils.splitImagePathCount(bean.imageUrl);
-        String[] imagePathArray = bean.imageUrl.split(",");
+
         if (viewHolder.mGroupImageData.getChildCount() > 0) {
             viewHolder.mGroupImageData.removeAllViews();
         }
-        switch (imageCount) {
-            case 0:
-                viewHolder.mGroupImageData.setVisibility(View.GONE);
-                break;
-            case 1:
-                View oneImageInflate = LayoutInflater.from(mContext).inflate(R.layout.item_community_child_image_1, viewHolder.mGroupImageData, false);
-                RoundedImageView civ_1_1 = oneImageInflate.findViewById(R.id.riv_child_1);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[0], civ_1_1);
-                viewHolder.mGroupImageData.addView(oneImageInflate);
-                break;
-            case 2:
-                View twoImageInflate = LayoutInflater.from(mContext).inflate(R.layout.item_community_child_image_2, viewHolder.mGroupImageData, false);
-                RoundedImageView civ_2_1 = twoImageInflate.findViewById(R.id.riv_child_1);
-                RoundedImageView civ_2_2 = twoImageInflate.findViewById(R.id.riv_child_2);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[0], civ_2_1);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[1], civ_2_2);
-                viewHolder.mGroupImageData.addView(twoImageInflate);
-                break;
-            case 3:
-                View threeImageInflate = LayoutInflater.from(mContext).inflate(R.layout.item_community_child_image_3, viewHolder.mGroupImageData, false);
-                RoundedImageView civ_3_1 = threeImageInflate.findViewById(R.id.riv_child_1);
-                RoundedImageView civ_3_2 = threeImageInflate.findViewById(R.id.riv_child_2);
-                RoundedImageView civ_3_3 = threeImageInflate.findViewById(R.id.riv_child_3);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[0], civ_3_1);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[1], civ_3_2);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[2], civ_3_3);
-                viewHolder.mGroupImageData.addView(threeImageInflate);
-                break;
-            case 4:
-                View fourImageInflate = LayoutInflater.from(mContext).inflate(R.layout.item_community_child_image_4, viewHolder.mGroupImageData, false);
-                RoundedImageView civ_4_1 = fourImageInflate.findViewById(R.id.riv_child_1);
-                RoundedImageView civ_4_2 = fourImageInflate.findViewById(R.id.riv_child_2);
-                RoundedImageView civ_4_3 = fourImageInflate.findViewById(R.id.riv_child_3);
-                RoundedImageView civ_4_4 = fourImageInflate.findViewById(R.id.riv_child_4);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[0], civ_4_1);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[1], civ_4_2);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[2], civ_4_3);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[3], civ_4_4);
-                viewHolder.mGroupImageData.addView(fourImageInflate);
-                break;
-            case 5:
-                View fiveImageInflate = LayoutInflater.from(mContext).inflate(R.layout.item_community_child_image_5, viewHolder.mGroupImageData, false);
-                RoundedImageView civ_5_1 = fiveImageInflate.findViewById(R.id.riv_child_1);
-                RoundedImageView civ_5_2 = fiveImageInflate.findViewById(R.id.riv_child_2);
-                RoundedImageView civ_5_3 = fiveImageInflate.findViewById(R.id.riv_child_3);
-                RoundedImageView civ_5_4 = fiveImageInflate.findViewById(R.id.riv_child_4);
-                RoundedImageView civ_5_5 = fiveImageInflate.findViewById(R.id.riv_child_5);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[0], civ_5_1);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[1], civ_5_2);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[2], civ_5_3);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[3], civ_5_4);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[4], civ_5_5);
-                viewHolder.mGroupImageData.addView(fiveImageInflate);
-                break;
-            case 6:
-                View sixImageInflate = LayoutInflater.from(mContext).inflate(R.layout.item_community_child_image_6, viewHolder.mGroupImageData, false);
-                RoundedImageView civ_6_1 = sixImageInflate.findViewById(R.id.riv_child_1);
-                RoundedImageView civ_6_2 = sixImageInflate.findViewById(R.id.riv_child_2);
-                RoundedImageView civ_6_3 = sixImageInflate.findViewById(R.id.riv_child_3);
-                RoundedImageView civ_6_4 = sixImageInflate.findViewById(R.id.riv_child_4);
-                RoundedImageView civ_6_5 = sixImageInflate.findViewById(R.id.riv_child_5);
-                RoundedImageView civ_6_6 = sixImageInflate.findViewById(R.id.riv_child_6);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[0], civ_6_1);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[1], civ_6_2);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[2], civ_6_3);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[3], civ_6_4);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[4], civ_6_5);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[5], civ_6_6);
-                viewHolder.mGroupImageData.addView(sixImageInflate);
-                break;
-            case 7:
-                View sevenImageInflate = LayoutInflater.from(mContext).inflate(R.layout.item_community_child_image_7, viewHolder.mGroupImageData, false);
-                RoundedImageView civ_7_1 = sevenImageInflate.findViewById(R.id.riv_child_1);
-                RoundedImageView civ_7_2 = sevenImageInflate.findViewById(R.id.riv_child_2);
-                RoundedImageView civ_7_3 = sevenImageInflate.findViewById(R.id.riv_child_3);
-                RoundedImageView civ_7_4 = sevenImageInflate.findViewById(R.id.riv_child_4);
-                RoundedImageView civ_7_5 = sevenImageInflate.findViewById(R.id.riv_child_5);
-                RoundedImageView civ_7_6 = sevenImageInflate.findViewById(R.id.riv_child_6);
-                RoundedImageView civ_7_7 = sevenImageInflate.findViewById(R.id.riv_child_7);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[0], civ_7_1);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[1], civ_7_2);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[2], civ_7_3);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[3], civ_7_4);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[4], civ_7_5);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[5], civ_7_6);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[6], civ_7_7);
-                viewHolder.mGroupImageData.addView(sevenImageInflate);
-                break;
-            case 8:
-                View eightImageInflate = LayoutInflater.from(mContext).inflate(R.layout.item_community_child_image_8, viewHolder.mGroupImageData, false);
-                RoundedImageView civ_8_1 = eightImageInflate.findViewById(R.id.riv_child_1);
-                RoundedImageView civ_8_2 = eightImageInflate.findViewById(R.id.riv_child_2);
-                RoundedImageView civ_8_3 = eightImageInflate.findViewById(R.id.riv_child_3);
-                RoundedImageView civ_8_4 = eightImageInflate.findViewById(R.id.riv_child_4);
-                RoundedImageView civ_8_5 = eightImageInflate.findViewById(R.id.riv_child_5);
-                RoundedImageView civ_8_6 = eightImageInflate.findViewById(R.id.riv_child_6);
-                RoundedImageView civ_8_7 = eightImageInflate.findViewById(R.id.riv_child_7);
-                RoundedImageView civ_8_8 = eightImageInflate.findViewById(R.id.riv_child_8);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[0], civ_8_1);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[1], civ_8_2);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[2], civ_8_3);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[3], civ_8_4);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[4], civ_8_5);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[5], civ_8_6);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[6], civ_8_7);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[7], civ_8_8);
-                viewHolder.mGroupImageData.addView(eightImageInflate);
-                break;
-            case 9:
-                View nineImageInflate = LayoutInflater.from(mContext).inflate(R.layout.item_community_child_image_8, viewHolder.mGroupImageData, false);
-                RoundedImageView civ_9_1 = nineImageInflate.findViewById(R.id.riv_child_1);
-                RoundedImageView civ_9_2 = nineImageInflate.findViewById(R.id.riv_child_2);
-                RoundedImageView civ_9_3 = nineImageInflate.findViewById(R.id.riv_child_3);
-                RoundedImageView civ_9_4 = nineImageInflate.findViewById(R.id.riv_child_4);
-                RoundedImageView civ_9_5 = nineImageInflate.findViewById(R.id.riv_child_5);
-                RoundedImageView civ_9_6 = nineImageInflate.findViewById(R.id.riv_child_6);
-                RoundedImageView civ_9_7 = nineImageInflate.findViewById(R.id.riv_child_7);
-                RoundedImageView civ_9_8 = nineImageInflate.findViewById(R.id.riv_child_8);
-                RoundedImageView civ_9_9 = nineImageInflate.findViewById(R.id.riv_child_9);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[0], civ_9_1);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[1], civ_9_2);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[2], civ_9_3);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[3], civ_9_4);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[4], civ_9_5);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[5], civ_9_6);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[6], civ_9_7);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[7], civ_9_8);
-                GlideManger.get().loadBannerImage(mContext, imagePathArray[8], civ_9_9);
-                viewHolder.mGroupImageData.addView(nineImageInflate);
-                break;
-            default:
-                break;
+        if (bean.imageUrl != null) {
+            String[] imagePathArray = bean.imageUrl.split(",");
+            int imageCount = DataUtils.splitImagePathCount(bean.imageUrl);
+            switch (imageCount) {
+                case 0:
+                    viewHolder.mGroupImageData.setVisibility(View.GONE);
+                    break;
+                case 1:
+                    View oneImageInflate = LayoutInflater.from(mContext).inflate(R.layout.item_community_child_image_1, viewHolder.mGroupImageData, false);
+                    RoundedImageView civ_1_1 = oneImageInflate.findViewById(R.id.riv_child_1);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[0], civ_1_1);
+                    viewHolder.mGroupImageData.addView(oneImageInflate);
+                    break;
+                case 2:
+                    View twoImageInflate = LayoutInflater.from(mContext).inflate(R.layout.item_community_child_image_2, viewHolder.mGroupImageData, false);
+                    RoundedImageView civ_2_1 = twoImageInflate.findViewById(R.id.riv_child_1);
+                    RoundedImageView civ_2_2 = twoImageInflate.findViewById(R.id.riv_child_2);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[0], civ_2_1);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[1], civ_2_2);
+                    viewHolder.mGroupImageData.addView(twoImageInflate);
+                    break;
+                case 3:
+                    View threeImageInflate = LayoutInflater.from(mContext).inflate(R.layout.item_community_child_image_3, viewHolder.mGroupImageData, false);
+                    RoundedImageView civ_3_1 = threeImageInflate.findViewById(R.id.riv_child_1);
+                    RoundedImageView civ_3_2 = threeImageInflate.findViewById(R.id.riv_child_2);
+                    RoundedImageView civ_3_3 = threeImageInflate.findViewById(R.id.riv_child_3);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[0], civ_3_1);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[1], civ_3_2);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[2], civ_3_3);
+                    viewHolder.mGroupImageData.addView(threeImageInflate);
+                    break;
+                case 4:
+                    View fourImageInflate = LayoutInflater.from(mContext).inflate(R.layout.item_community_child_image_4, viewHolder.mGroupImageData, false);
+                    RoundedImageView civ_4_1 = fourImageInflate.findViewById(R.id.riv_child_1);
+                    RoundedImageView civ_4_2 = fourImageInflate.findViewById(R.id.riv_child_2);
+                    RoundedImageView civ_4_3 = fourImageInflate.findViewById(R.id.riv_child_3);
+                    RoundedImageView civ_4_4 = fourImageInflate.findViewById(R.id.riv_child_4);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[0], civ_4_1);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[1], civ_4_2);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[2], civ_4_3);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[3], civ_4_4);
+                    viewHolder.mGroupImageData.addView(fourImageInflate);
+                    break;
+                case 5:
+                    View fiveImageInflate = LayoutInflater.from(mContext).inflate(R.layout.item_community_child_image_5, viewHolder.mGroupImageData, false);
+                    RoundedImageView civ_5_1 = fiveImageInflate.findViewById(R.id.riv_child_1);
+                    RoundedImageView civ_5_2 = fiveImageInflate.findViewById(R.id.riv_child_2);
+                    RoundedImageView civ_5_3 = fiveImageInflate.findViewById(R.id.riv_child_3);
+                    RoundedImageView civ_5_4 = fiveImageInflate.findViewById(R.id.riv_child_4);
+                    RoundedImageView civ_5_5 = fiveImageInflate.findViewById(R.id.riv_child_5);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[0], civ_5_1);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[1], civ_5_2);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[2], civ_5_3);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[3], civ_5_4);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[4], civ_5_5);
+                    viewHolder.mGroupImageData.addView(fiveImageInflate);
+                    break;
+                case 6:
+                    View sixImageInflate = LayoutInflater.from(mContext).inflate(R.layout.item_community_child_image_6, viewHolder.mGroupImageData, false);
+                    RoundedImageView civ_6_1 = sixImageInflate.findViewById(R.id.riv_child_1);
+                    RoundedImageView civ_6_2 = sixImageInflate.findViewById(R.id.riv_child_2);
+                    RoundedImageView civ_6_3 = sixImageInflate.findViewById(R.id.riv_child_3);
+                    RoundedImageView civ_6_4 = sixImageInflate.findViewById(R.id.riv_child_4);
+                    RoundedImageView civ_6_5 = sixImageInflate.findViewById(R.id.riv_child_5);
+                    RoundedImageView civ_6_6 = sixImageInflate.findViewById(R.id.riv_child_6);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[0], civ_6_1);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[1], civ_6_2);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[2], civ_6_3);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[3], civ_6_4);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[4], civ_6_5);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[5], civ_6_6);
+                    viewHolder.mGroupImageData.addView(sixImageInflate);
+                    break;
+                case 7:
+                    View sevenImageInflate = LayoutInflater.from(mContext).inflate(R.layout.item_community_child_image_7, viewHolder.mGroupImageData, false);
+                    RoundedImageView civ_7_1 = sevenImageInflate.findViewById(R.id.riv_child_1);
+                    RoundedImageView civ_7_2 = sevenImageInflate.findViewById(R.id.riv_child_2);
+                    RoundedImageView civ_7_3 = sevenImageInflate.findViewById(R.id.riv_child_3);
+                    RoundedImageView civ_7_4 = sevenImageInflate.findViewById(R.id.riv_child_4);
+                    RoundedImageView civ_7_5 = sevenImageInflate.findViewById(R.id.riv_child_5);
+                    RoundedImageView civ_7_6 = sevenImageInflate.findViewById(R.id.riv_child_6);
+                    RoundedImageView civ_7_7 = sevenImageInflate.findViewById(R.id.riv_child_7);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[0], civ_7_1);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[1], civ_7_2);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[2], civ_7_3);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[3], civ_7_4);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[4], civ_7_5);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[5], civ_7_6);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[6], civ_7_7);
+                    viewHolder.mGroupImageData.addView(sevenImageInflate);
+                    break;
+                case 8:
+                    View eightImageInflate = LayoutInflater.from(mContext).inflate(R.layout.item_community_child_image_8, viewHolder.mGroupImageData, false);
+                    RoundedImageView civ_8_1 = eightImageInflate.findViewById(R.id.riv_child_1);
+                    RoundedImageView civ_8_2 = eightImageInflate.findViewById(R.id.riv_child_2);
+                    RoundedImageView civ_8_3 = eightImageInflate.findViewById(R.id.riv_child_3);
+                    RoundedImageView civ_8_4 = eightImageInflate.findViewById(R.id.riv_child_4);
+                    RoundedImageView civ_8_5 = eightImageInflate.findViewById(R.id.riv_child_5);
+                    RoundedImageView civ_8_6 = eightImageInflate.findViewById(R.id.riv_child_6);
+                    RoundedImageView civ_8_7 = eightImageInflate.findViewById(R.id.riv_child_7);
+                    RoundedImageView civ_8_8 = eightImageInflate.findViewById(R.id.riv_child_8);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[0], civ_8_1);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[1], civ_8_2);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[2], civ_8_3);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[3], civ_8_4);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[4], civ_8_5);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[5], civ_8_6);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[6], civ_8_7);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[7], civ_8_8);
+                    viewHolder.mGroupImageData.addView(eightImageInflate);
+                    break;
+                case 9:
+                    View nineImageInflate = LayoutInflater.from(mContext).inflate(R.layout.item_community_child_image_8, viewHolder.mGroupImageData, false);
+                    RoundedImageView civ_9_1 = nineImageInflate.findViewById(R.id.riv_child_1);
+                    RoundedImageView civ_9_2 = nineImageInflate.findViewById(R.id.riv_child_2);
+                    RoundedImageView civ_9_3 = nineImageInflate.findViewById(R.id.riv_child_3);
+                    RoundedImageView civ_9_4 = nineImageInflate.findViewById(R.id.riv_child_4);
+                    RoundedImageView civ_9_5 = nineImageInflate.findViewById(R.id.riv_child_5);
+                    RoundedImageView civ_9_6 = nineImageInflate.findViewById(R.id.riv_child_6);
+                    RoundedImageView civ_9_7 = nineImageInflate.findViewById(R.id.riv_child_7);
+                    RoundedImageView civ_9_8 = nineImageInflate.findViewById(R.id.riv_child_8);
+                    RoundedImageView civ_9_9 = nineImageInflate.findViewById(R.id.riv_child_9);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[0], civ_9_1);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[1], civ_9_2);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[2], civ_9_3);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[3], civ_9_4);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[4], civ_9_5);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[5], civ_9_6);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[6], civ_9_7);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[7], civ_9_8);
+                    GlideManger.get().loadBannerImage(mContext, imagePathArray[8], civ_9_9);
+                    viewHolder.mGroupImageData.addView(nineImageInflate);
+                    break;
+                default:
+                    break;
+            }
         }
-
 
     }
 

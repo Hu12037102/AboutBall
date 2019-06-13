@@ -220,6 +220,26 @@ public class ViewModel {
             mNotLoginDialog.dismiss();
         });
     }
+    public void showLoginDialog(Fragment fragment) {
+        Activity activity = mSoftActivity.get();
+        if (activity == null || activity.isFinishing()) {
+            return;
+        }
+        if (mNotLoginDialog == null) {
+            mNotLoginDialog = new HintDialog.Builder(activity)
+                    .setTitle(R.string.hint)
+                    .setBody(R.string.is_go_to_login)
+                    .setSure(R.string.login_immediately)
+                    .builder();
+        }
+        if (!mNotLoginDialog.isShowing()) {
+            mNotLoginDialog.show();
+        }
+        mNotLoginDialog.setOnItemClickListener(view -> {
+            ARouterIntent.startActivityForResult(fragment,LoginActivity.class,LoginActivity.REQUEST_CODE_LOGIN);
+            mNotLoginDialog.dismiss();
+        });
+    }
 
     public void startActivityToOrderPay(long orderId, int flag) {
         Bundle bundle = new Bundle();

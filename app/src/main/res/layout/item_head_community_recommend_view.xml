@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:orientation="vertical"
+    android:background="@color/colorWhite">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:text="@string/hot_topic"
+        android:textColor="@color/color_4"
+        android:textSize="@dimen/size_17sp"
+        android:textStyle="bold" />
+
+    <com.work.guaishouxingqiu.aboutball.weight.BaseViewPager
+        android:id="@+id/bvp_content"
+        android:layout_width="@dimen/size_335dp"
+        android:layout_height="@dimen/size_140dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/size_20dp"
+        android:clipChildren="false"
+        app:is_scroll="true" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_5dp"
+        android:background="@color/colorFFFBFAFA" />
+
+    <com.example.item.weight.ItemView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        app:show_bottom_line="true"
+        app:title_data="@string/plaza"
+        app:title_text_color="@color/color_4"
+        app:title_text_size="@dimen/size_17sp" />
+
+
+</LinearLayout>

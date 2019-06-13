@@ -2,6 +2,10 @@ package com.work.guaishouxingqiu.aboutball.community.contract;
 
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
+import com.work.guaishouxingqiu.aboutball.community.bean.ResultRecommendHotBean;
+
+import java.util.List;
 
 /**
  * 作者: 胡庆岭
@@ -11,8 +15,14 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
  */
 public interface CommunityRecommendContract {
     interface View extends IBaseView {
+        void resultHeadData(List<ResultRecommendHotBean> data);
+
+        void resultData(List<ResultCommunityDataBean> data);
     }
 
     interface Presenter extends IBasePresenter {
+        void loadData();
+
+        void loadHeadData();
     }
 }

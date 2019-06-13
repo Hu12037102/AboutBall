@@ -1,5 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.my.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
 import com.work.guaishouxingqiu.aboutball.commonality.fragment.LoginOrShareFragment;
+import com.work.guaishouxingqiu.aboutball.login.activity.LoginActivity;
 import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.MyContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.MyPresenter;
@@ -145,7 +148,7 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
                         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_REFEREE_STATUS, ARouterConfig.Key.REFEREE_STATUS, mMyRefereeStatus.intValue());
                     }
                 } else {
-                    mViewModel.showLoginDialog();
+                    mViewModel.showLoginDialog(MyFragment.this);
                 }
             }
         });
@@ -269,6 +272,20 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
             mItemAsReferee.setTitleText(R.string.my_referee_record);
         } else {
             mItemAsReferee.setTitleText(R.string.my_as_the_referee);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case LoginActivity.REQUEST_CODE_LOGIN:
+                    if (UserManger.get().isLogin()) {
+                        mPresenter.judgeRefereeStatus();
+                    }
+                    break;
+            }
         }
     }
 }

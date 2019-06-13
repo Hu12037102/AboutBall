@@ -19,7 +19,7 @@ import io.reactivex.schedulers.Schedulers;
 public class CommunityAttentionModel extends BaseModel {
     public void loadData(int pageNum, int pageSize, BaseObserver<List<ResultCommunityDataBean>> observer) {
         mRetrofitManger.create(CommunityService.class)
-                .loadAttentionData(pageNum, pageSize)
+                .loadCommunityAttentionData(pageNum,pageSize)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

@@ -103,7 +103,7 @@ public class CommunityFragment extends DelayedFragment<CommunityPresenter> imple
     private void initTabView() {
         String[] tabArray = getResources().getStringArray(R.array.community_tab_array);
         for (int i = 0; i < tabArray.length; i++) {
-            UIUtils.setBaseCustomTabLayout(mTabTitle, tabArray[i], i == 0, 45);
+            UIUtils.setBaseCustomTabLayout(mTabTitle, tabArray[i], i == 0, 45,18);
             // mTabTitle.addTab(mTabTitle.newTab().setText(tabArray[i]), i == 0);
         }
     }
@@ -124,6 +124,7 @@ public class CommunityFragment extends DelayedFragment<CommunityPresenter> imple
                 return fragments.length;
             }
         };
+        mBvpContent.setOffscreenPageLimit(fragments.length);
         mBvpContent.setAdapter(pagerAdapter);
     }
 

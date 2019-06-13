@@ -2,6 +2,9 @@ package com.work.guaishouxingqiu.aboutball.community.contract;
 
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
+
+import java.util.List;
 
 /**
  * 作者: 胡庆岭
@@ -11,6 +14,7 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
  */
 public interface CommunityNewsContract {
     interface View extends IBaseView {
+        void resultData(List<ResultCommunityDataBean> data);
     }
 
     interface Presenter extends IBasePresenter {
