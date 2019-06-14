@@ -71,9 +71,10 @@ public interface IApiService {
 
     //获取社区我关注的动态
     String COMMUNITY_NEW_DATA = "/api/tweet/getLastestTweet";
-    String COMMUNITY_ATTENTION_DATA="/api/tweet/MyConcernTweet";
-    String COMMUNITY_HOT_TOPIC="/api/topic/getHotTopic";
-    String COMMUNITY_RECOMMEND_DATA="/api/tweet/getRecommendTweet";
+    String COMMUNITY_ATTENTION_DATA = "/api/tweet/MyConcernTweet";
+    String COMMUNITY_HOT_TOPIC = "/api/topic/getHotTopic";
+    String COMMUNITY_RECOMMEND_DATA = "/api/tweet/getRecommendTweet";
+    String COMMUNITY_COMMENT_DATA = "/api/tweet/getTweetComment";
 
     //获取微信登录token
     String GET_WEICHAT_TOKEN = "/sns/oauth2/access_token";
@@ -139,7 +140,7 @@ public interface IApiService {
     String POST_NOTE_SITUATION = "/api/referee/noteSituation";
     String POST_UPDATE_PHONE_NUMBER = "/api/accountManagement/changePhone";
     String GET_REFEREE_RECORD_DETAILS = "/api/referee/getAgreeOuts";
-    String GET_DELETE_REFEREE_MATCH_RECORD="/api/referee/removeAgreeOuts";
+    String GET_DELETE_REFEREE_MATCH_RECORD = "/api/referee/removeAgreeOuts";
 
     interface H5 {
         String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";

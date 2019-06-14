@@ -1,6 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.login.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -25,6 +26,7 @@ import com.work.guaishouxingqiu.aboutball.login.bean.RequestLoginBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.ResultThreeLoginBean;
 import com.work.guaishouxingqiu.aboutball.login.contract.LoginContract;
 import com.work.guaishouxingqiu.aboutball.login.presenter.LoginPresenter;
+import com.work.guaishouxingqiu.aboutball.my.activity.UpdatePhoneActivity;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
@@ -251,14 +253,22 @@ public class LoginActivity extends LoginOrShareActivity<LoginPresenter> implemen
         mTvGainMessageCode.setTextColor(ContextCompat.getColor(this, R.color.color_3));
     }
 
+    /**
+     * 第三方登录如果绑定了手机号，就用返回的token，如果没有绑定就要去拿绑定手机号的token
+     *
+     * @param bean
+     * @param signCode
+     */
     @Override
     public void resultOtherLogin(ResultThreeLoginBean bean, String signCode) {
-       // UserManger.get().putToken(bean.id_token);
-        UserManger.get().putTemporaryToken(bean.id_token);
+        // UserManger.get().putToken(bean.id_token);
+
         if (bean.bingPhone == Contast.LoginStatus.LOGIN_BING_PHONE) {
             // mPresenter.loadUserAccount();
+            UserManger.get().putToken(bean.id_token);
             mPresenter.loadUserAccountInfo();
         } else if (bean.bingPhone == Contast.LoginStatus.LOGIN_UNBING_PHONE) {
+            UserManger.get().putTemporaryToken(bean.id_token);
             showBandPhoneDialog(signCode);
         }
 
@@ -281,9 +291,8 @@ public class LoginActivity extends LoginOrShareActivity<LoginPresenter> implemen
         mBandDialog.setOnItemClickSureAndCancelListener(new BaseDialog.OnItemClickSureAndCancelListener() {
             @Override
             public void onClickSure(@NonNull View view) {
-                mViewModel.startActivityToUpdatePhone(signCode, Contast.LoginStatus.BAND_PHONE);
+                mViewModel.startActivityToUpdatePhoneForResult(signCode, Contast.LoginStatus.BAND_PHONE);
                 mBandDialog.dismiss();
-                finish();
             }
 
             @Override
@@ -291,5 +300,20 @@ public class LoginActivity extends LoginOrShareActivity<LoginPresenter> implemen
                 mBandDialog.dismiss();
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case UpdatePhoneActivity.REQUEST_CODE_BAND_PHONE:
+                    mPresenter.loadUserAccountInfo();
+                    break;
+                default:
+                    break;
+            }
+        }
+
     }
 }

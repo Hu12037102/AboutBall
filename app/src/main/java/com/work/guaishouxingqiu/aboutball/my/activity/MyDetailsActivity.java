@@ -1,6 +1,5 @@
 package com.work.guaishouxingqiu.aboutball.my.activity;
 
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
@@ -25,14 +24,12 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
-import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BirthdayDialog;
 import com.work.guaishouxingqiu.aboutball.weight.HeightDialog;
 import com.work.guaishouxingqiu.aboutball.weight.SexDialog;
 import com.work.guaishouxingqiu.aboutball.weight.WeightDialog;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -140,7 +137,7 @@ public class MyDetailsActivity extends CameraActivity<MyDetailsPresenter> implem
 
     private void clickUpdatePhone() {
         if (UserManger.get().isLogin()) {
-            mViewModel.startActivityToUpdatePhone(null, Contast.LoginStatus.UPDATE_PHONE);
+            mViewModel.startActivityToUpdatePhoneForResult(null, Contast.LoginStatus.UPDATE_PHONE);
         } else {
             mViewModel.showLoginDialog();
         }

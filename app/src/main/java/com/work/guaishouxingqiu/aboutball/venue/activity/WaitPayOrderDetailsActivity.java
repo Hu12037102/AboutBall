@@ -123,7 +123,7 @@ public class WaitPayOrderDetailsActivity extends BasePayActivity<WaitPayOrderDet
     @Override
     protected void initData() {
         String agreement = mTvAgreement.getText().toString();
-        mTvAgreement.setText(SpanUtils.getClickText(mTvAgreement, R.color.color_2, 5, agreement.length(), view -> {
+        mTvAgreement.setText(SpanUtils.getClickText(mTvAgreement, agreement,R.color.color_2, 5, agreement.length(), view -> {
             view.setEnabled(false);
             ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_USER_AGREEMENT);
             view.setEnabled(true);

@@ -5,6 +5,7 @@ import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultRecommendHotBean;
+import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsMessageBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 
 import java.util.List;
@@ -23,12 +24,20 @@ public interface CommunityService {
     @GET(IApiService.COMMUNITY_NEW_DATA)
     Observable<BaseBean<List<ResultCommunityDataBean>>> loadCommunityNewData(@Query(Contast.PAGE_NUM) int pageNum,
                                                                              @Query(Contast.PAGE_SIZE) int pageSize);
+
     @GET(IApiService.COMMUNITY_ATTENTION_DATA)
     Observable<BaseBean<List<ResultCommunityDataBean>>> loadCommunityAttentionData(@Query(Contast.PAGE_NUM) int pageNum,
                                                                                    @Query(Contast.PAGE_SIZE) int pageSize);
+
     @GET(IApiService.COMMUNITY_HOT_TOPIC)
     Observable<BaseBean<List<ResultRecommendHotBean>>> loadHotTopic();
+
     @GET(IApiService.COMMUNITY_RECOMMEND_DATA)
     Observable<BaseBean<List<ResultCommunityDataBean>>> loadRecommendData(@Query(Contast.PAGE_NUM) int pageNum,
                                                                           @Query(Contast.PAGE_SIZE) int pageSize);
+
+    @GET(IApiService.COMMUNITY_COMMENT_DATA)
+    Observable<BaseBean<List<ResultNewsMessageBean>>> loadCommunityCommentData(@Query(Contast.PAGE_NUM) int pageNum,
+                                                                               @Query(Contast.PAGE_SIZE) int pageSize,
+                                                                               @Query(Contast.TWEET_ID) long tweetId);
 }

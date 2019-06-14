@@ -32,6 +32,7 @@ import com.example.item.util.ScreenUtils;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
+import com.work.guaishouxingqiu.aboutball.community.adapter.CommunityDataAdapter;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.my.activity.AboutWeActivity;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
@@ -415,5 +416,9 @@ public class UIUtils {
 
         }
         return inflateView;
+    }
+    public static void setCommunityCount(TextView textView, int count) {
+        UIUtils.setText(textView, count > CommunityDataAdapter.MAX_COMMUNITY_COUNT ? CommunityDataAdapter.MAX_COMMUNITY_CONTENT :
+                count > 0 ? String.valueOf(count) : "");
     }
 }

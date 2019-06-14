@@ -366,8 +366,5 @@ public class DataUtils {
         return DataUtils.isEmpty(textView.getText()) ? "" : textView.getText().toString().trim();
     }
 
-    public static void setCommunityCount(TextView textView, int count) {
-        UIUtils.setText(textView, count > CommunityDataAdapter.MAX_COMMUNITY_COUNT ? CommunityDataAdapter.MAX_COMMUNITY_CONTENT :
-                count > 0 ? String.valueOf(count) : "");
-    }
+
 }

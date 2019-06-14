@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@color/colorWhite">
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,8 +23,7 @@
                 android:id="@+id/civ_head"
                 android:layout_width="@dimen/size_40dp"
                 android:layout_height="@dimen/size_40dp"
-                android:layout_centerVertical="true"
-               />
+                android:layout_centerVertical="true" />
 
             <ImageView
                 android:id="@+id/iv_more"
@@ -46,8 +45,8 @@
                 android:paddingLeft="@dimen/size_15dp"
                 android:paddingRight="@dimen/size_15dp"
                 android:paddingTop="@dimen/size_5dp"
-                android:visibility="gone"
                 android:text="@string/attention"
+                android:visibility="gone"
                 tools:text="已关注" />
 
             <LinearLayout
@@ -87,7 +86,7 @@
             android:maxLines="3"
             android:textColor="@color/color_4"
             android:textSize="@dimen/size_17sp"
-            tools:text="天青色等烟雨，而我在等你天青色等烟雨，而我在等你天青色等烟雨，而我在等你天青色等烟雨，而我在等你天青色等烟雨，而我在等你" />
+            tools:text="天青色等烟雨，而我在等你天青色等烟雨，而我在等你天青色等烟雨，而我在等你天青色等烟雨，而我在等你天青色等烟雨，而我在等你，而我在等你" />
 
         <LinearLayout
             android:id="@+id/ll_iv_data"
@@ -164,8 +163,34 @@
         </LinearLayout>
 
     </LinearLayout>
+
     <View
-        style="@style/HorizontalLine"
-    />
+        android:id="@+id/line_bottom"
+        style="@style/HorizontalLine" />
+
+    <LinearLayout
+        android:id="@+id/ll_comment_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_5dp"
+            android:background="@color/colorFFFBFAFA" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_45dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/default_margin"
+            android:paddingRight="@dimen/default_margin"
+            android:text="@string/comment"
+            android:textSize="@dimen/size_17sp"
+            android:textStyle="bold" />
+
+        <View style="@style/HorizontalLine" />
+    </LinearLayout>
 
 </LinearLayout>

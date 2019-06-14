@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.util.ScreenUtils;
+import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
@@ -120,6 +121,33 @@ public class CommunityRecommendFragment extends DelayedFragment<CommunityRecomme
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
                 loadData(true, refreshLayout);
+            }
+        });
+        mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onNotNetClick(View view) {
+                mSrlRefresh.autoRefresh();
+            }
+
+            @Override
+            public void onNotDataClick(View view) {
+                mSrlRefresh.autoRefresh();
+            }
+
+            @Override
+            public void onItemClick(View view, int position) {
+                mViewModel.startActivityToCommunityRecommendDetailsForResult(mData.get(position), CommunityRecommendFragment.this);
+            }
+        });
+        mAdapter.setOnTextContentClickListener(new CommunityDataAdapter.OnTextContentClickListener() {
+            @Override
+            public void onClickContent(View view, int position) {
+                mViewModel.startActivityToCommunityRecommendDetailsForResult(mData.get(position), CommunityRecommendFragment.this);
+            }
+
+            @Override
+            public void onClickTopic(View view, int position) {
+
             }
         });
     }

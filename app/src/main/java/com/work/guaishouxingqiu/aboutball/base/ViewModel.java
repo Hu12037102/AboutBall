@@ -22,10 +22,13 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.community.activity.CommunityDetailsActivity;
+import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.login.activity.LoginActivity;
 import com.work.guaishouxingqiu.aboutball.my.activity.OrderEvaluateActivity;
 import com.work.guaishouxingqiu.aboutball.my.activity.RefundActivity;
+import com.work.guaishouxingqiu.aboutball.my.activity.UpdatePhoneActivity;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 import com.work.guaishouxingqiu.aboutball.my.fragment.PostEvaluationFragment;
@@ -144,7 +147,7 @@ public class ViewModel {
     public void showUpdateDialog(Context context, ResultUpdateApkBean updateBean) {
         // String content = UIUtils.getString(R.string.update_content);
         if (mUpdateDialog == null) {
-            mUpdateDialog = new UpdateApkDialog(context, HtmlCompat.fromHtml(updateBean.content,HtmlCompat.FROM_HTML_MODE_COMPACT).toString(), updateBean.isForce == 1 );
+            mUpdateDialog = new UpdateApkDialog(context, HtmlCompat.fromHtml(updateBean.content, HtmlCompat.FROM_HTML_MODE_COMPACT).toString(), updateBean.isForce == 1);
         }
         if (!mUpdateDialog.isShowing()) {
             mUpdateDialog.show();
@@ -220,6 +223,7 @@ public class ViewModel {
             mNotLoginDialog.dismiss();
         });
     }
+
     public void showLoginDialog(Fragment fragment) {
         Activity activity = mSoftActivity.get();
         if (activity == null || activity.isFinishing()) {
@@ -236,7 +240,7 @@ public class ViewModel {
             mNotLoginDialog.show();
         }
         mNotLoginDialog.setOnItemClickListener(view -> {
-            ARouterIntent.startActivityForResult(fragment,LoginActivity.class,LoginActivity.REQUEST_CODE_LOGIN);
+            ARouterIntent.startActivityForResult(fragment, LoginActivity.class, LoginActivity.REQUEST_CODE_LOGIN);
             mNotLoginDialog.dismiss();
         });
     }
@@ -493,10 +497,23 @@ public class ViewModel {
      * @param signCode        可为空唯一标识第三方
      * @param bandPhoneStatus 绑定手机号的类型：第三方登录，换绑手机号
      */
-    public void startActivityToUpdatePhone(String signCode, int bandPhoneStatus) {
+    public void startActivityToUpdatePhoneForResult(String signCode, int bandPhoneStatus) {
         Bundle bundle = new Bundle();
         bundle.putInt(ARouterConfig.Key.BAND_PHONE_STATUS, bandPhoneStatus);
         bundle.putString(ARouterConfig.Key.SIGN_CODE, signCode);
-        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_UPDATE_PHONE, bundle);
+        ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_UPDATE_PHONE, mSoftActivity.get(), bundle, UpdatePhoneActivity.REQUEST_CODE_BAND_PHONE);
+    }
+
+    /**
+     * 跳转到社区详情
+     *
+     * @param bean
+     */
+    public void startActivityToCommunityRecommendDetailsForResult(ResultCommunityDataBean bean, Fragment fragment) {
+        if (fragment == null) {
+            ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_COMMUNITY_DETAILS, mSoftActivity.get(), ARouterConfig.Key.PARCELABLE, bean);
+        } else {
+            ARouterIntent.startActivityForResult(fragment, CommunityDetailsActivity.class, ARouterConfig.Key.PARCELABLE, bean);
+        }
     }
 }

@@ -3,9 +3,11 @@ package com.work.guaishouxingqiu.aboutball.community.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,6 +19,7 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
@@ -38,6 +41,12 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
     public static final int MAX_COMMUNITY_COUNT = 99;
     public static final String MAX_COMMUNITY_CONTENT = "99+";
 
+    public void setOnTextContentClickListener(OnTextContentClickListener onTextContentClickListener) {
+        this.onTextContentClickListener = onTextContentClickListener;
+    }
+
+    private OnTextContentClickListener onTextContentClickListener;
+
     @Override
     protected void onBindViewDataHolder(@NonNull ViewHolder viewHolder, int i) {
         Context context = viewHolder.itemView.getContext();
@@ -47,21 +56,44 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
         GlideManger.get().loadHeadImage(mContext, bean.headImg, viewHolder.mCliHead);
         if (!DataUtils.isEmpty(bean.topicTitle)) {
             String content = bean.topicTitle.concat(bean.tweetContent);
-            //SpanUtils.getTextColor(R.color.color_4,0,bean.topicTitle.length(),content);
-            UIUtils.setText(viewHolder.mTvData, content);
-            viewHolder.mTvData.setText(SpanUtils.getClickText(viewHolder.mTvData, R.color.color_2, 0, bean.topicTitle.length(), new SpanUtils.OnClickTextListener() {
+            viewHolder.mTvData.setText(SpanUtils.getClickText(viewHolder.mTvData, content, R.color.color_2, 0, bean.topicTitle.length(), new SpanUtils.OnClickTextListener() {
                 @Override
                 public void onClick(View view) {
-
+                    view.setEnabled(false);
+                    if (onTextContentClickListener!= null){
+                        onTextContentClickListener.onClickTopic(view,i);
+                    }
+                    view.setEnabled(true);
                 }
             }));
+            viewHolder.mTvData.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onTextContentClickListener!= null){
+                        onTextContentClickListener.onClickContent( viewHolder.mTvData,i);
+                    }
+                }
+            });
 
         } else {
             viewHolder.mTvData.setText(bean.tweetContent);
         }
-        DataUtils.setCommunityCount(viewHolder.mTvLikeNum, bean.praiseCount);
-        DataUtils.setCommunityCount(viewHolder.mTvComment, bean.commentCount);
-        DataUtils.setCommunityCount(viewHolder.mTvShare, bean.shareCount);
+        /*viewHolder.mTvData.post(new Runnable() {
+            @Override
+            public void run() {
+                if (viewHolder.mTvData.getLineCount() > 3) {
+                    int length = viewHolder.mTvData.getText().length();
+                    int lineEndIndex = viewHolder.mTvData.getLayout().getLineEnd(3); //设置第六行打省略号
+                    String text = viewHolder.mTvData.getText().toString().subSequence(0, lineEndIndex - 1) + "...";
+                    viewHolder.mTvData.setText(text);
+                    LogUtils.w("getClickText--", viewHolder.mTvData.getLineCount() + "--" + viewHolder.mTvData.length() + "--" + viewHolder.mTvData.getText()+"--"+lineEndIndex);
+                }
+            }
+        });*/
+
+        UIUtils.setCommunityCount(viewHolder.mTvLikeNum, bean.praiseCount);
+        UIUtils.setCommunityCount(viewHolder.mTvComment, bean.commentCount);
+        UIUtils.setCommunityCount(viewHolder.mTvShare, bean.shareCount);
         if (bean.hasPraise == 1) {
             viewHolder.mTvLikeNum.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_like, 0, 0, 0);
         } else {
@@ -247,6 +279,8 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
             mTvName = itemView.findViewById(R.id.tv_name);
             mTvTime = itemView.findViewById(R.id.tv_time);
             mTvData = itemView.findViewById(R.id.tv_data);
+            mTvData.setEllipsize(TextUtils.TruncateAt.END);
+            mTvData.setMaxLines(3);
             mGroupImageData = itemView.findViewById(R.id.ll_iv_data);
             mLlLike = itemView.findViewById(R.id.ll_like);
             mTvLikeNum = itemView.findViewById(R.id.tv_like_num);
@@ -255,5 +289,11 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
             mLlShare = itemView.findViewById(R.id.ll_share);
             mTvShare = itemView.findViewById(R.id.tv_share);
         }
+    }
+
+    public interface OnTextContentClickListener {
+        void onClickContent(View view, int position);
+
+        void onClickTopic(View view, int position);
     }
 }

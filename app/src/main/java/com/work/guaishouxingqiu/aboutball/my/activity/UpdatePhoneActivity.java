@@ -48,6 +48,7 @@ public class UpdatePhoneActivity extends BaseActivity<UpdatePhonePresenter> impl
     TextView mTvSure;
     @BindView(R.id.tv_title)
     TextView mTvTitle;
+    public static final int REQUEST_CODE_BAND_PHONE = 155;
 
     private boolean isCanLogin;
     private int mBandPhoneStatus;
@@ -241,7 +242,7 @@ public class UpdatePhoneActivity extends BaseActivity<UpdatePhonePresenter> impl
     @Override
     public void bandThreePhoneSucceed(String token) {
         UserManger.get().putToken(token);
-        finish();
+        mViewModel.clickBackForResult();
     }
 
 

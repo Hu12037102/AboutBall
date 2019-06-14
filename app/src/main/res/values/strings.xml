@@ -529,4 +529,7 @@
     <string name="attention">关注</string>
     <string name="hot_topic">热门话题</string>
     <string name="plaza">广场</string>
+    <string name="dynamic_details">动态详情</string>
+    <string name="comment">评论</string>
+    <string name="no_dynamic_details_were_obtained">没有获取到动态详情</string>
 </resources>
