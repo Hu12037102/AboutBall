@@ -9,6 +9,8 @@ import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseModelCallback;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.community.bean.RequestDynamicCommentsBean;
+import com.work.guaishouxingqiu.aboutball.home.bean.RequestSendMessageBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
@@ -216,6 +218,27 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
             public void onNext(BaseBean<BaseDataBean<String>> t) {
                 if (DataUtils.baseDataBeanIsSucceed(t)) {
                     mView.resultJoinTeamSucceed();
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+
+    /**
+     * 动态评论
+     *
+     * @param bean 请求动态评论bean
+     */
+    public void postDynamicComments(RequestDynamicCommentsBean bean) {
+        mModel.postDynamicComments(bean, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
+            @Override
+            public void onNext(BaseBean<BaseDataBean<String>> t) {
+                if (DataUtils.baseDataBeanIsSucceed(t)) {
+                    mView.resultDynamicCommentsSucceed();
                 }
             }
 

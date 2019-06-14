@@ -1,7 +1,9 @@
 package com.work.guaishouxingqiu.aboutball.base;
 
+import com.work.guaishouxingqiu.aboutball.BaseService;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
+import com.work.guaishouxingqiu.aboutball.community.bean.RequestDynamicCommentsBean;
 import com.work.guaishouxingqiu.aboutball.http.RetrofitManger;
 import com.work.guaishouxingqiu.aboutball.my.MyService;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
@@ -67,9 +69,9 @@ public class BaseModel {
 
     }
 
-    public void payWeiChatSing(long orderId,BaseObserver<BaseDataBean<ResultWeiChatSingBean>>observer) {
+    public void payWeiChatSing(long orderId, BaseObserver<BaseDataBean<ResultWeiChatSingBean>> observer) {
         mRetrofitManger.create(MyService.class)
-                .payWeiChatSing(orderId,"APP")
+                .payWeiChatSing(orderId, "APP")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
@@ -83,6 +85,7 @@ public class BaseModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
+
     public void loadTeamDetails(long teamId, BaseObserver<ResultBallDetailsBean> observer) {
         mRetrofitManger.create(MyService.class)
                 .loadBallTeamDetails(teamId)
@@ -91,9 +94,17 @@ public class BaseModel {
                 .subscribe(observer);
     }
 
-    public void joinTeam(long teamId,BaseObserver<BaseDataBean<String>> observer) {
+    public void joinTeam(long teamId, BaseObserver<BaseDataBean<String>> observer) {
         mRetrofitManger.create(MyService.class)
                 .joinTeam(teamId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    public void postDynamicComments(RequestDynamicCommentsBean bean, BaseObserver<BaseDataBean<String>> observer) {
+        mRetrofitManger.create(BaseService.class)
+                .postDynamicComments(bean)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

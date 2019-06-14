@@ -1,5 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.community.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,17 +15,20 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
+import com.work.guaishouxingqiu.aboutball.community.activity.DynamicEditActivity;
 import com.work.guaishouxingqiu.aboutball.community.adapter.CommunityDataAdapter;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.community.contract.CommunityAttentionContract;
 import com.work.guaishouxingqiu.aboutball.community.presenter.CommunityAttentionPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -41,6 +46,7 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
     SmartRefreshLayout mSrlLayout;
     private CommunityDataAdapter mAdapter;
     private List<ResultCommunityDataBean> mData;
+    private static final int REQUEST_CODE_PUBLISH_DYNAMIC = 122;
 
     @Override
     protected int getLayoutId() {
@@ -75,12 +81,12 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
         mSrlLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(RefreshLayout refreshLayout) {
-                loadData(false,refreshLayout);
+                loadData(false, refreshLayout);
             }
 
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
-                loadData(true,refreshLayout);
+                loadData(true, refreshLayout);
             }
         });
     }
@@ -90,6 +96,20 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
         return new CommunityAttentionPresenter(this);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case CommunityAttentionFragment.REQUEST_CODE_PUBLISH_DYNAMIC:
+                    mSrlLayout.autoRefresh();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    }
 
     @Override
     public void resultData(List<ResultCommunityDataBean> data) {
@@ -99,5 +119,16 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
         mData.addAll(data);
         mSrlLayout.setNoMoreData(data.size() < mPresenter.mPageSize);
         mAdapter.notifyDataSetChanged();
+    }
+
+    @OnClick(R.id.iv_add_community)
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_add_community:
+                ARouterIntent.startActivityForResult(this, DynamicEditActivity.class, CommunityAttentionFragment.REQUEST_CODE_PUBLISH_DYNAMIC);
+                break;
+            default:
+                break;
+        }
     }
 }

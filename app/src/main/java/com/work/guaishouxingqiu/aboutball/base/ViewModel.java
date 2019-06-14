@@ -320,6 +320,13 @@ public class ViewModel {
             mSoftActivity.get().finish();
         }
     }
+    public void clickBackForResult(Intent intent) {
+        Activity activity = mSoftActivity.get();
+        activity.setResult(Activity.RESULT_OK,intent);
+        if (!activity.isFinishing()) {
+            mSoftActivity.get().finish();
+        }
+    }
 
     public void setNoDataView(@NonNull SmartRefreshLayout refreshLayout, boolean hasData) {
         //refreshLayout.resetNoMoreData();

@@ -188,7 +188,8 @@
             android:paddingRight="@dimen/default_margin"
             android:text="@string/comment"
             android:textSize="@dimen/size_17sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textColor="@color/color_4"/>
 
         <View style="@style/HorizontalLine" />
     </LinearLayout>

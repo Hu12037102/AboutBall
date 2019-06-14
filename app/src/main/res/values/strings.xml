@@ -530,6 +530,11 @@
     <string name="hot_topic">热门话题</string>
     <string name="plaza">广场</string>
     <string name="dynamic_details">动态详情</string>
+    <string name="dynamic_edit">动态编辑</string>
     <string name="comment">评论</string>
     <string name="no_dynamic_details_were_obtained">没有获取到动态详情</string>
+    <string name="say_something">说点什么吧~</string>
+    <string name="publish">发布</string>
+    <string name="selector_topic">选择话题</string>
+    <string name="you_are_not_going_to_say_anything">您不打算说点什么</string>
 </resources>

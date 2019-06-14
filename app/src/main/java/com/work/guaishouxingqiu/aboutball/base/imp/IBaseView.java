@@ -40,4 +40,5 @@ public interface IBaseView {
     void resultRefundCauseData(List<ResultRefundCauseBean> data);
     void resultTeamDetails(ResultBallDetailsBean bean);
     void resultJoinTeamSucceed();
+    void resultDynamicCommentsSucceed();
 }

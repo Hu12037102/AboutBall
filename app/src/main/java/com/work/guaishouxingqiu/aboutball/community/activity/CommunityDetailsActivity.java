@@ -20,10 +20,12 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
+import com.work.guaishouxingqiu.aboutball.community.bean.RequestDynamicCommentsBean;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.community.contract.CommunityDetailsContract;
 import com.work.guaishouxingqiu.aboutball.community.presenter.CommunityDetailsPresenter;
 import com.work.guaishouxingqiu.aboutball.home.adapter.NewsMessageAdapter;
+import com.work.guaishouxingqiu.aboutball.home.bean.RequestSendMessageBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsMessageBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
@@ -32,6 +34,7 @@ import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.util.NetWorkUtils;
 import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
+import com.work.guaishouxingqiu.aboutball.weight.InputMessageDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +67,7 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
     private NewsMessageAdapter mCommentAdapter;
     private List<ResultNewsMessageBean> mCommentData;
     private View mHeadInflateView;
+    private InputMessageDialog mSendMessageDialog;
 
     @Override
     protected int getLayoutId() {
@@ -287,6 +291,8 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
         mCommentData = new ArrayList<>();
         mCommentAdapter = new NewsMessageAdapter(mCommentData);
         mCommentAdapter.addHeadView(mHeadInflateView);
+        mCommentAdapter.setNotDataView(R.mipmap.icon_not_data_message);
+        mCommentAdapter.setNotDataContentRes(R.string.not_message);
         mRvData.setAdapter(mCommentAdapter);
         mSrlRefresh.autoRefresh();
     }
@@ -329,6 +335,18 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
             case R.id.iv_send_message:
                 break;
             case R.id.tv_input_message:
+                if (mSendMessageDialog == null) {
+                    mSendMessageDialog = new InputMessageDialog(this);
+                    mSendMessageDialog.setOnInputMessageListener(text -> {
+                        RequestDynamicCommentsBean bean = new RequestDynamicCommentsBean();
+                        bean.tweetId = mIntentBean.tweetId;
+                        bean.commentContent = text;
+                        mPresenter.postDynamicComments(bean);
+                    });
+                }
+                if (!mSendMessageDialog.isShowing()) {
+                    mSendMessageDialog.show();
+                }
                 break;
         }
     }
@@ -343,5 +361,10 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
         }
         mSrlRefresh.setNoMoreData(data.size() < mPresenter.mPageSize);
         mCommentAdapter.notifyData(NetWorkUtils.isNetCanUse());
+    }
+
+    @Override
+    public void resultDynamicCommentsSucceed() {
+        mSrlRefresh.autoRefresh();
     }
 }

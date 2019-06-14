@@ -172,4 +172,9 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
     public void resultJoinTeamSucceed() {
 
     }
+
+    @Override
+    public void resultDynamicCommentsSucceed() {
+
+    }
 }

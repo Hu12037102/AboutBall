@@ -75,6 +75,9 @@ public interface IApiService {
     String COMMUNITY_HOT_TOPIC = "/api/topic/getHotTopic";
     String COMMUNITY_RECOMMEND_DATA = "/api/tweet/getRecommendTweet";
     String COMMUNITY_COMMENT_DATA = "/api/tweet/getTweetComment";
+    String COMMUNITY_DYNAMIC_COMMENT="/api/tweet/tweetComment";
+    String GET_COMMUNITY_DYNAMIC_TOPIC="/api/topic/getTopicList";
+    String POST_PUBLISH_DYNAMIC="/api/tweet/releaseTweet";
 
     //获取微信登录token
     String GET_WEICHAT_TOKEN = "/sns/oauth2/access_token";

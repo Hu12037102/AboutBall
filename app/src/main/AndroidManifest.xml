@@ -323,6 +323,12 @@
         <activity
             android:name=".community.activity.CommunityDetailsActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.DynamicEditActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.SelectorTopicActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

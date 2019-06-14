@@ -162,7 +162,7 @@ public class HomeFragment extends CameraFragment<HomePresenter> implements HomeC
         mBvpContent.setVisibility(View.VISIBLE);
         mInflateDataView.setVisibility(View.GONE);
         if (DataUtils.isResultSure(data) && data.result.size() > 0) {
-           // data.result.add(0, new ResultHomeTabBean(getString(R.string.recommend)));
+            data.result.add(0, new ResultHomeTabBean(getString(R.string.recommend)));
             for (int i = 0; i < data.result.size(); i++) {
                /* mTabTitle.addTab(mTabTitle.newTab().setText(data.result.get(i).parentLabelName));
                 if (i == 0) {
