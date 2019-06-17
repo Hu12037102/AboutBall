@@ -177,4 +177,8 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
     public void resultDynamicCommentsSucceed() {
 
     }
+    @Override
+    public void resultAttentionTweet(int position) {
+
+    }
 }

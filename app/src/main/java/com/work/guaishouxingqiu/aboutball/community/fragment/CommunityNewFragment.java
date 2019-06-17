@@ -1,7 +1,10 @@
 package com.work.guaishouxingqiu.aboutball.community.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -9,16 +12,19 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
+import com.work.guaishouxingqiu.aboutball.community.activity.DynamicEditActivity;
 import com.work.guaishouxingqiu.aboutball.community.adapter.CommunityDataAdapter;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.community.contract.CommunityNewsContract;
 import com.work.guaishouxingqiu.aboutball.community.presenter.CommunityNewsPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * 作者: 胡庆岭
@@ -35,6 +41,8 @@ public class CommunityNewFragment extends DelayedFragment<CommunityNewsPresenter
     SmartRefreshLayout mSrlLayout;
     private CommunityDataAdapter mAdapter;
     private List<ResultCommunityDataBean> mData;
+    private static final int REQUEST_CODE_PUBLISH_DYNAMIC=145;
+
     @Override
     protected void initDelayedView() {
         mRvData.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -47,6 +55,7 @@ public class CommunityNewFragment extends DelayedFragment<CommunityNewsPresenter
         mRvData.setAdapter(mAdapter);
         mSrlLayout.autoRefresh();
     }
+
     private void loadData(boolean isRefresh, RefreshLayout refreshLayout) {
         mPresenter.isRefresh = isRefresh;
         mPresenter.start();
@@ -56,19 +65,29 @@ public class CommunityNewFragment extends DelayedFragment<CommunityNewsPresenter
             refreshLayout.finishLoadMore();
         }
     }
+
     @Override
     protected void initDelayedEvent() {
         mSrlLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(RefreshLayout refreshLayout) {
-                loadData(false,refreshLayout);
+                loadData(false, refreshLayout);
             }
 
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
-                loadData(true,refreshLayout);
+                loadData(true, refreshLayout);
             }
         });
+    }
+
+    @OnClick(R.id.iv_add_community)
+    public void onClickView(View view) {
+        switch (view.getId()) {
+            case R.id.iv_add_community:
+                ARouterIntent.startActivityForResult(this, DynamicEditActivity.class, CommunityNewFragment.REQUEST_CODE_PUBLISH_DYNAMIC);
+                break;
+        }
     }
 
     @Override
@@ -80,6 +99,7 @@ public class CommunityNewFragment extends DelayedFragment<CommunityNewsPresenter
     protected CommunityNewsPresenter createPresenter() {
         return new CommunityNewsPresenter(this);
     }
+
     @Override
     public void resultData(List<ResultCommunityDataBean> data) {
         if (mPresenter.isRefresh) {
@@ -88,5 +108,19 @@ public class CommunityNewFragment extends DelayedFragment<CommunityNewsPresenter
         mData.addAll(data);
         mSrlLayout.setNoMoreData(data.size() < mPresenter.mPageSize);
         mAdapter.notifyDataSetChanged();
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case CommunityNewFragment.REQUEST_CODE_PUBLISH_DYNAMIC:
+                    mSrlLayout.autoRefresh();
+                    break;
+                default:
+                    break;
+            }
+        }
+
     }
 }

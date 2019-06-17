@@ -109,4 +109,12 @@ public class BaseModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
+
+    public void getAttentionTweet(long concernId,BaseObserver<BaseDataBean<String>> observer) {
+        mRetrofitManger.create(BaseService.class)
+                .getAttentionTweet(concernId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
 }

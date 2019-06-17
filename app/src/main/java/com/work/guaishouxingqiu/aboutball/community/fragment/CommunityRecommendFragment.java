@@ -149,7 +149,28 @@ public class CommunityRecommendFragment extends DelayedFragment<CommunityRecomme
             public void onClickTopic(View view, int position) {
 
             }
+
+            @Override
+            public void onClickReport(View view, int position) {
+
+            }
+
+            @Override
+            public void onClickAttention(View view, int position) {
+                mPresenter.getAttentionTweet(position, mData.get(position).userId);
+            }
+
+            @Override
+            public void onClickDelete(View view, int position) {
+
+            }
         });
+    }
+
+    @Override
+    public void resultAttentionTweet(int position) {
+        mData.get(position).hasFollow = 1;
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

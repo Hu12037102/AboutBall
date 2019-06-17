@@ -38,7 +38,12 @@ public interface IBaseView {
     void resultWeiChatSing(ResultWeiChatSingBean bean);
 
     void resultRefundCauseData(List<ResultRefundCauseBean> data);
+
     void resultTeamDetails(ResultBallDetailsBean bean);
+
     void resultJoinTeamSucceed();
+
     void resultDynamicCommentsSucceed();
+
+    void resultAttentionTweet(int position);
 }

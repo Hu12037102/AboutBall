@@ -33,7 +33,7 @@ public abstract class LocationActivity extends RxAppCompatActivity implements Te
     private TencentLocationRequest mRequestLocation;
     private TencentLocationManager mManager;
     private HintDialog mOpenGPSDialog;
-    protected ViewModel mViewModel;
+    public ViewModel mViewModel;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

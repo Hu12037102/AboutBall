@@ -329,6 +329,12 @@
         <activity
             android:name=".community.activity.SelectorTopicActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.CommunityReportActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".base.PreviewImageActivity"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>

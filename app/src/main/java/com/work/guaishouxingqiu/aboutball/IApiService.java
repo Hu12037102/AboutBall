@@ -78,6 +78,7 @@ public interface IApiService {
     String COMMUNITY_DYNAMIC_COMMENT="/api/tweet/tweetComment";
     String GET_COMMUNITY_DYNAMIC_TOPIC="/api/topic/getTopicList";
     String POST_PUBLISH_DYNAMIC="/api/tweet/releaseTweet";
+    String GET_ATTENTION_TWEET="/api/tweet/concernAt";
 
     //获取微信登录token
     String GET_WEICHAT_TOKEN = "/sns/oauth2/access_token";

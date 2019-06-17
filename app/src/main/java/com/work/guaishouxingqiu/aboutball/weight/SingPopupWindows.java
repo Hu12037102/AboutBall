@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -68,6 +69,14 @@ public class SingPopupWindows {
         mPopupWindow.setWidth(ScreenUtils.dp2px(mContext, 110));
         mPopupWindow.setHeight(ScreenUtils.dp2px(mContext, 40));
         mPopupWindow.setOutsideTouchable(true);
+        mPopupWindow.setFocusable(true);
+       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            mPopupWindow.setAttachedInDecor(true);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mPopupWindow.setOverlapAnchor(true);
+        }
+        mPopupWindow.setClippingEnabled(true);*/
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mPopupWindow.setElevation(ScreenUtils.dp2px(mContext, 6));
         }
@@ -79,6 +88,13 @@ public class SingPopupWindows {
 
     public void showAsDropDown(View view, int offX, int offY) {
         mPopupWindow.showAsDropDown(view, offX, offY);
+
+    }
+    public void showAsDropDown(View view, int offX, int offY,int gravity ) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            mPopupWindow.showAsDropDown(view, offX, offY,gravity);
+        }
+
     }
 
     public void dismiss() {

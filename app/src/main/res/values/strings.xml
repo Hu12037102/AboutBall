@@ -348,6 +348,7 @@
     <string name="crop_image_error">裁剪图片异常</string>
     <string name="delete">删除</string>
     <string name="delete_team_member">删除队员</string>
+    <string name="report">举报</string>
     <string name="exit_ball_team">退出球队</string>
     <string name="you_sure_exit_s_team">您确定退出&#160;%s&#160;球队</string>
     <string name="you_sure_exit">您确定退出&#160;</string>
@@ -537,4 +538,8 @@
     <string name="publish">发布</string>
     <string name="selector_topic">选择话题</string>
     <string name="you_are_not_going_to_say_anything">您不打算说点什么</string>
+    <string name="report_reasons">举报原因</string>
+    <string name="attentionning">已关注</string>
+    <string name="image_preview">图片预览</string>
+    <string name="there_are_no_previews">没有可以预览的图片</string>
 </resources>

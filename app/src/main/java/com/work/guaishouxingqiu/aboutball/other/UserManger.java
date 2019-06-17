@@ -87,6 +87,13 @@ public class UserManger {
         return !DataUtils.isEmpty(mSP.getString(KEY_TOKEN));
     }
 
+    public void putFollowCount(int count) {
+        mSP.putObject(KEY_FOLLOW_COUNT, count);
+    }
+    public int  getFollowCount(){
+        return mSP.getInt(KEY_FOLLOW_COUNT);
+    }
+
     public void putUser(UserBean userBean) {
         if (userBean == null) {
             return;

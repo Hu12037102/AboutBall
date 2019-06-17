@@ -49,6 +49,8 @@ import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 import com.work.guaishouxingqiu.aboutball.weight.UpdateApkDialog;
 
 import java.lang.ref.SoftReference;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 项  目 :  AboutBall
@@ -320,9 +322,10 @@ public class ViewModel {
             mSoftActivity.get().finish();
         }
     }
+
     public void clickBackForResult(Intent intent) {
         Activity activity = mSoftActivity.get();
-        activity.setResult(Activity.RESULT_OK,intent);
+        activity.setResult(Activity.RESULT_OK, intent);
         if (!activity.isFinishing()) {
             mSoftActivity.get().finish();
         }
@@ -522,5 +525,12 @@ public class ViewModel {
         } else {
             ARouterIntent.startActivityForResult(fragment, CommunityDetailsActivity.class, ARouterConfig.Key.PARCELABLE, bean);
         }
+    }
+
+    public void startActivityToPreview(int position, ArrayList<String> pathData) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(ARouterConfig.Key.POSITION, position);
+        bundle.putStringArrayList(ARouterConfig.Key.ARRAY_LIST_STRING, pathData);
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_IMAGE_PREVIEW, bundle);
     }
 }

@@ -240,4 +240,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends LocationActi
     public void resultDynamicCommentsSucceed() {
 
     }
+
+    @Override
+    public void resultAttentionTweet(int position) {
+
+    }
 }

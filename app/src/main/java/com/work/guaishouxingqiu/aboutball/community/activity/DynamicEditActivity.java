@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.ItemView;
 import com.example.item.weight.TitleView;
+import com.work.guaishouxingqiu.aboutball.DelayedClickListener;
 import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
@@ -34,6 +35,7 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
+import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import java.io.File;
@@ -69,6 +71,7 @@ public class DynamicEditActivity extends CameraActivity<DynamicEditPresenter> im
     private AddImageAdapter mImageAdapter;
     private List<String> mRequestOSSPathData;
     private RequestPublishDynamicBean mRequestBean;
+    private ResultTopicBean mResultTopicBean;
 
     @Override
     protected int getLayoutId() {
@@ -145,6 +148,39 @@ public class DynamicEditActivity extends CameraActivity<DynamicEditPresenter> im
 
             }
         });
+        mTvCommit.setOnClickListener(new DelayedClickListener() {
+            @Override
+            public void onDelayedClick(View view) {
+                if (isCanPublish()) {
+                    mRequestBean.tweetContent = DataUtils.getEditDetails(mAcetContent);
+                    if (mRequestOSSPathData.size() > 0) {
+                        OSSRequestHelp.get().uploadingFiles(mRequestOSSPathData, new OSSRequestHelp.OnOSSDataResultListener() {
+                            @Override
+                            public void onStart() {
+
+                            }
+
+                            @Override
+                            public void onSucceed(List<String> pathData) {
+                                StringBuffer sb = new StringBuffer();
+                                for (int i = 0; i < pathData.size(); i++) {
+                                    sb = sb.append(pathData.get(i)).append(i == pathData.size() - 1 ? "" : ",");
+                                }
+                                mRequestBean.imageUrl = sb.toString();
+                                mPresenter.publishDynamic(mRequestBean);
+                            }
+
+                            @Override
+                            public void onFailure(String errorCode) {
+
+                            }
+                        });
+                    } else {
+                        mPresenter.publishDynamic(mRequestBean);
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -157,9 +193,17 @@ public class DynamicEditActivity extends CameraActivity<DynamicEditPresenter> im
                     if (data == null) {
                         return;
                     }
-                    ResultTopicBean bean = data.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
-                    UIUtils.setText(mItemTopic.mTvLeft, bean.topicTitle);
-                    mRequestBean.topicId = bean.topicId;
+                    if (mResultTopicBean != null) {
+                        mAcetContent.setText(DataUtils.getEditDetails(mAcetContent).replace(mResultTopicBean.topicTitle, ""));
+                    }
+                    mResultTopicBean = data.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
+                    if (mResultTopicBean == null) {
+                        return;
+                    }
+                    UIUtils.setText(mItemTopic.mTvLeft, mResultTopicBean.topicTitle);
+                    mAcetContent.setText(SpanUtils.getTextColor(R.color.color_2, 0, mResultTopicBean.topicTitle.length(), mResultTopicBean.topicTitle.concat(DataUtils.getEditDetails(mAcetContent))));
+                    mAcetContent.setSelection(mAcetContent.getText() == null ? 0 : DataUtils.getTextTrimLength(DataUtils.getEditDetails(mAcetContent)));
+                    mRequestBean.topicId = mResultTopicBean.topicId;
                     break;
                 default:
                     break;
@@ -173,37 +217,10 @@ public class DynamicEditActivity extends CameraActivity<DynamicEditPresenter> im
     }
 
 
-    @OnClick(R.id.tv_commit)
+    /*@OnClick(R.id.tv_commit)
     public void onViewClicked() {
-        if (isCanPublish()) {
-            mRequestBean.tweetContent = DataUtils.getEditDetails(mAcetContent);
-            if (mRequestOSSPathData.size() > 0) {
-                OSSRequestHelp.get().uploadingFiles(mRequestOSSPathData, new OSSRequestHelp.OnOSSDataResultListener() {
-                    @Override
-                    public void onStart() {
 
-                    }
-
-                    @Override
-                    public void onSucceed(List<String> pathData) {
-                        StringBuffer sb = new StringBuffer();
-                        for (int i = 0; i < pathData.size(); i++) {
-                            sb = sb.append(pathData.get(i)).append(i == pathData.size() - 1 ? "" : ",");
-                        }
-                        mRequestBean.imageUrl = sb.toString();
-                        mPresenter.publishDynamic(mRequestBean);
-                    }
-
-                    @Override
-                    public void onFailure(String errorCode) {
-
-                    }
-                });
-            } else {
-                mPresenter.publishDynamic(mRequestBean);
-            }
-        }
-    }
+    }*/
 
     private boolean isCanPublish() {
         if (mRequestBean.imageUrl == null && DataUtils.isEmpty(DataUtils.getEditDetails(mAcetContent))) {
