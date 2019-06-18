@@ -65,8 +65,8 @@ public interface ARouterConfig {
         String ACTIVITY_COMMUNITY_DETAILS = "/activity/community/details";
         String ACTIVITY_DYNAMIC_EDIT = "/activity/dynamic/edit";
         String ACTIVITY_SELECTOR_TOPIC = "/activity/selector/topic";
-        String ACTIVITY_COMMUNITY_REPORT="/activity/community/report";
-        String ACTIVITY_IMAGE_PREVIEW="/activity/preview/image";
+        String ACTIVITY_COMMUNITY_REPORT = "/activity/community/report";
+        String ACTIVITY_IMAGE_PREVIEW = "/activity/preview/image";
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";
@@ -120,7 +120,7 @@ public interface ARouterConfig {
         String PARCELABLE = "parcelable";
         String PARCELABLE_EDIT = "parcelable_edit";
         String ARRAY_LIST_PARCELABLE = "array_list_parcelable";
-        String ARRAY_LIST_STRING="array_list_string";
+        String ARRAY_LIST_STRING = "array_list_string";
         String POSITION = "position";
         String AREA_ID = "areaId";
         String ORDER_ID = "orderId";
@@ -156,7 +156,8 @@ public interface ARouterConfig {
         String IS_ADD = "isAdd";
         String BAND_PHONE_STATUS = "bandPhoneStatus";
         String SIGN_CODE = "signCode";
-        String TWEET_ID="tweetId";
+        String TWEET_ID = "tweetId";
+        String DELETE = "delete";
 
     }
 

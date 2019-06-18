@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.example.item.util.ScreenUtils;
 import com.example.item.weight.TitleView;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -30,12 +31,15 @@ import com.work.guaishouxingqiu.aboutball.home.bean.RequestSendMessageBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsMessageBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.util.NetWorkUtils;
 import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
+import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
 import com.work.guaishouxingqiu.aboutball.weight.InputMessageDialog;
+import com.work.guaishouxingqiu.aboutball.weight.SingPopupWindows;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +76,10 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
     private TextView mTvHeadLikeNum;
     private TextView mTvHeadAttention;
     private TextView mTvHeadCommentNum;
+    private LinearLayout mLlHeadLike;
+    private LinearLayout mLlHeadComment;
+    private ImageView mIvHeadMore;
+    private SingPopupWindows mDeleteWindows;
 
     @Override
     protected int getLayoutId() {
@@ -121,29 +129,12 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
         } else {
             UIUtils.setText(mTvHeadContent, mIntentBean.tweetContent);
         }
-        LinearLayout mLlHeadLike = mHeadInflateView.findViewById(R.id.ll_like);
-        //点赞
-        mLlHeadLike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        mLlHeadLike = mHeadInflateView.findViewById(R.id.ll_like);
 
-                if (mIntentBean.hasPraise == 1) {
-                    mPresenter.dynamicsCancelDianZan(mIntentBean.tweetId, -1);
-                } else if (mIntentBean.hasPraise == 0) {
-                    mPresenter.dynamicsDianZan(mIntentBean.tweetId, -1);
-                }
-
-            }
-        });
         mTvHeadLikeNum = mHeadInflateView.findViewById(R.id.tv_like_num);
 
-        LinearLayout mLlHeadComment = mHeadInflateView.findViewById(R.id.ll_comment);
-        mLlHeadComment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showSendMessageDialog();
-            }
-        });
+        mLlHeadComment = mHeadInflateView.findViewById(R.id.ll_comment);
+
         mTvHeadCommentNum = mHeadInflateView.findViewById(R.id.tv_comment);
         UIUtils.setCommunityCount(mTvHeadCommentNum, mIntentBean.commentCount);
         LinearLayout mLlHeadShare = mHeadInflateView.findViewById(R.id.ll_share);
@@ -153,18 +144,9 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
         mLlHeadCommentBottom.setVisibility(View.VISIBLE);
         View mLineHeadBottom = mHeadInflateView.findViewById(R.id.line_bottom);
         mLineHeadBottom.setVisibility(View.GONE);
-        ImageView mIvHeadMore = mHeadInflateView.findViewById(R.id.iv_more);
+        mIvHeadMore = mHeadInflateView.findViewById(R.id.iv_more);
         mTvHeadAttention = mHeadInflateView.findViewById(R.id.tv_attention);
-        mTvHeadAttention.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mIntentBean.hasFollow == 0) {
-                    mPresenter.getAttentionTweet(-1, mIntentBean.userId);
-                } else if (mIntentBean.hasFollow == 1) {
-                    mPresenter.getCancelAttentionTweet(-1, mIntentBean.userId);
-                }
-            }
-        });
+
         notifyLike();
         notifyFollow();
 
@@ -385,19 +367,94 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
         mTitleView.setOnBackViewClickListener(new TitleView.OnBackViewClickListener() {
             @Override
             public void onBackClick(@NonNull View view) {
-                onBack();
+                onBack(false);
+            }
+        });
+        //点赞
+        mLlHeadLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (mIntentBean.hasPraise == 1) {
+                    mPresenter.dynamicsCancelDianZan(mIntentBean.tweetId, -1);
+                } else if (mIntentBean.hasPraise == 0) {
+                    mPresenter.dynamicsDianZan(mIntentBean.tweetId, -1);
+                }
+
+            }
+        });
+        //评论
+        mLlHeadComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSendMessageDialog();
+            }
+        });
+        //关注
+        mTvHeadAttention.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mIntentBean.hasFollow == 0) {
+                    mPresenter.getAttentionTweet(-1, mIntentBean.userId);
+                } else if (mIntentBean.hasFollow == 1) {
+                    mPresenter.getCancelAttentionTweet(-1, mIntentBean.userId);
+                }
+            }
+        });
+        //更多
+        mIvHeadMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mDeleteWindows == null) {
+                    mDeleteWindows = new SingPopupWindows(CommunityDetailsActivity.this);
+                }
+                if (mIntentBean.myTweet == 1) {
+                    mDeleteWindows.setContent(R.string.delete);
+                    mDeleteWindows.setContentDrawableRes(R.mipmap.icon_delete, 0, 0, 0);
+                } else {
+                    mDeleteWindows.setContent(R.string.report);
+                    mDeleteWindows.setContentDrawableRes(R.mipmap.icon_report, 0, 0, 0);
+                }
+                mDeleteWindows.setPopupWindowsItemClickListener(view -> {
+                    if (mIntentBean.myTweet == 1) {
+                        mViewModel.showDeleteCommunityDialog(new BaseDialog.OnItemClickSureAndCancelListener() {
+                            @Override
+                            public void onClickSure(@NonNull View view) {
+                                mPresenter.deleteDynamics(mIntentBean.tweetId, -1);
+                            }
+
+                            @Override
+                            public void onClickCancel(@NonNull View view) {
+                            }
+                        });
+                    } else {
+                        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_COMMUNITY_REPORT, ARouterConfig.Key.TWEET_ID, mIntentBean.tweetId);
+                    }
+
+                    mDeleteWindows.dismiss();
+                });
+                if (mDeleteWindows != null && !mDeleteWindows.isShowing()) {
+                    mDeleteWindows.showAsDropDown(v, -(mDeleteWindows.getWindow().getWidth() - ScreenUtils.dp2px(CommunityDetailsActivity.this, 40)), 0);
+                }
             }
         });
     }
 
-    private void onBack(){
+    private void onBack(boolean isDelete) {
         Intent intent = new Intent();
-        intent.putExtra(ARouterConfig.Key.PARCELABLE,mIntentBean);
+        intent.putExtra(ARouterConfig.Key.PARCELABLE, mIntentBean);
+        intent.putExtra(ARouterConfig.Key.DELETE, isDelete);
         mViewModel.clickBackForResult(intent);
     }
+
     @Override
     public void onBackPressed() {
-        onBack();
+        onBack(false);
+    }
+
+    @Override
+    public void resultDeleteDynamicSucceed(int position) {
+        onBack(true);
     }
 
     private void loadData(boolean isRefresh) {

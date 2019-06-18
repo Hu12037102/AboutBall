@@ -564,13 +564,15 @@ public class ViewModel {
         adapter.notifyDataSetChanged();
     }
 
-    public void resultCommunityData(@NonNull RecyclerView.Adapter adapter, ResultCommunityDataBean resultBean, @NonNull List<ResultCommunityDataBean> data) {
+    public void resultCommunityData(@NonNull RecyclerView.Adapter adapter, ResultCommunityDataBean resultBean, @NonNull List<ResultCommunityDataBean> data, boolean isDelete) {
         for (int i = 0; i < data.size(); i++) {
             ResultCommunityDataBean bean = data.get(i);
             if (resultBean.tweetId == bean.tweetId) {
                 int index = data.indexOf(bean);
                 data.remove(index);
-                data.add(index, resultBean);
+                if (!isDelete) {
+                    data.add(index, resultBean);
+                }
             }
             if (resultBean.userId == bean.userId) {
                 bean.hasFollow = resultBean.hasFollow;

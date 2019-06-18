@@ -203,7 +203,8 @@ public class CommunityNewFragment extends DelayedFragment<CommunityNewsPresenter
                         return;
                     }
                     ResultCommunityDataBean bean = data.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
-                    mViewModel.resultCommunityData(mAdapter, bean, mData);
+                    boolean isDelete = data.getBooleanExtra(ARouterConfig.Key.DELETE, false);
+                    mViewModel.resultCommunityData(mAdapter, bean, mData,isDelete);
                     break;
                 default:
                     break;
