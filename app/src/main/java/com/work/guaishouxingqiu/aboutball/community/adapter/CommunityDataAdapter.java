@@ -537,7 +537,7 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
                     viewHolder.mGroupImageData.addView(eightImageInflate);
                     break;
                 case 9:
-                    View nineImageInflate = LayoutInflater.from(mContext).inflate(R.layout.item_community_child_image_8, viewHolder.mGroupImageData, false);
+                    View nineImageInflate = LayoutInflater.from(mContext).inflate(R.layout.item_community_child_image_9, viewHolder.mGroupImageData, false);
                     RoundedImageView civ_9_1 = nineImageInflate.findViewById(R.id.riv_child_1);
                     civ_9_1.setOnClickListener(new View.OnClickListener() {
                         @Override

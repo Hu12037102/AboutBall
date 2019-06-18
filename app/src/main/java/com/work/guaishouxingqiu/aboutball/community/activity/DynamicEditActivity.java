@@ -152,7 +152,14 @@ public class DynamicEditActivity extends CameraActivity<DynamicEditPresenter> im
             @Override
             public void onDelayedClick(View view) {
                 if (isCanPublish()) {
-                    mRequestBean.tweetContent = DataUtils.getEditDetails(mAcetContent);
+                    String content = DataUtils.getEditDetails(mAcetContent);
+
+                    if (mResultTopicBean != null) {
+                        if (content.contains(mResultTopicBean.topicTitle)) {
+                            content = content.replace(mResultTopicBean.topicTitle, "");
+                        }
+                    }
+                    mRequestBean.tweetContent = content;
                     if (mRequestOSSPathData.size() > 0) {
                         OSSRequestHelp.get().uploadingFiles(mRequestOSSPathData, new OSSRequestHelp.OnOSSDataResultListener() {
                             @Override

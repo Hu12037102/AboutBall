@@ -42,6 +42,7 @@ import com.work.guaishouxingqiu.aboutball.weight.InputMessageDialog;
 import com.work.guaishouxingqiu.aboutball.weight.SingPopupWindows;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -80,6 +81,7 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
     private LinearLayout mLlHeadComment;
     private ImageView mIvHeadMore;
     private SingPopupWindows mDeleteWindows;
+    private List<String> mPreviewData;
 
     @Override
     protected int getLayoutId() {
@@ -100,6 +102,7 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
     @Override
     protected void initView() {
         mRvData.setLayoutManager(new LinearLayoutManager(this));
+        mPreviewData = new ArrayList<>();
         initHeadView();
     }
 
@@ -165,13 +168,31 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
                 case 1:
                     View oneImageInflate = LayoutInflater.from(this).inflate(R.layout.item_community_child_image_1, mGroupImageData, false);
                     RoundedImageView civ_1_1 = oneImageInflate.findViewById(R.id.riv_child_1);
+                    civ_1_1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(0);
+                        }
+                    });
                     GlideManger.get().loadBannerImage(this, imagePathArray[0], civ_1_1);
                     mGroupImageData.addView(oneImageInflate);
                     break;
                 case 2:
                     View twoImageInflate = LayoutInflater.from(this).inflate(R.layout.item_community_child_image_2, mGroupImageData, false);
                     RoundedImageView civ_2_1 = twoImageInflate.findViewById(R.id.riv_child_1);
+                    civ_2_1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(0);
+                        }
+                    });
                     RoundedImageView civ_2_2 = twoImageInflate.findViewById(R.id.riv_child_2);
+                    civ_2_2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(1);
+                        }
+                    });
                     GlideManger.get().loadBannerImage(this, imagePathArray[0], civ_2_1);
                     GlideManger.get().loadBannerImage(this, imagePathArray[1], civ_2_2);
                     mGroupImageData.addView(twoImageInflate);
@@ -179,8 +200,26 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
                 case 3:
                     View threeImageInflate = LayoutInflater.from(this).inflate(R.layout.item_community_child_image_3, mGroupImageData, false);
                     RoundedImageView civ_3_1 = threeImageInflate.findViewById(R.id.riv_child_1);
+                    civ_3_1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(0);
+                        }
+                    });
                     RoundedImageView civ_3_2 = threeImageInflate.findViewById(R.id.riv_child_2);
+                    civ_3_2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(1);
+                        }
+                    });
                     RoundedImageView civ_3_3 = threeImageInflate.findViewById(R.id.riv_child_3);
+                    civ_3_3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(2);
+                        }
+                    });
                     GlideManger.get().loadBannerImage(this, imagePathArray[0], civ_3_1);
                     GlideManger.get().loadBannerImage(this, imagePathArray[1], civ_3_2);
                     GlideManger.get().loadBannerImage(this, imagePathArray[2], civ_3_3);
@@ -189,9 +228,33 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
                 case 4:
                     View fourImageInflate = LayoutInflater.from(this).inflate(R.layout.item_community_child_image_4, mGroupImageData, false);
                     RoundedImageView civ_4_1 = fourImageInflate.findViewById(R.id.riv_child_1);
+                    civ_4_1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(0);
+                        }
+                    });
                     RoundedImageView civ_4_2 = fourImageInflate.findViewById(R.id.riv_child_2);
+                    civ_4_2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(1);
+                        }
+                    });
                     RoundedImageView civ_4_3 = fourImageInflate.findViewById(R.id.riv_child_3);
+                    civ_4_3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(2);
+                        }
+                    });
                     RoundedImageView civ_4_4 = fourImageInflate.findViewById(R.id.riv_child_4);
+                    civ_4_4.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(3);
+                        }
+                    });
                     GlideManger.get().loadBannerImage(this, imagePathArray[0], civ_4_1);
                     GlideManger.get().loadBannerImage(this, imagePathArray[1], civ_4_2);
                     GlideManger.get().loadBannerImage(this, imagePathArray[2], civ_4_3);
@@ -201,10 +264,40 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
                 case 5:
                     View fiveImageInflate = LayoutInflater.from(this).inflate(R.layout.item_community_child_image_5, mGroupImageData, false);
                     RoundedImageView civ_5_1 = fiveImageInflate.findViewById(R.id.riv_child_1);
+                    civ_5_1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(0);
+                        }
+                    });
                     RoundedImageView civ_5_2 = fiveImageInflate.findViewById(R.id.riv_child_2);
+                    civ_5_2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(1);
+                        }
+                    });
                     RoundedImageView civ_5_3 = fiveImageInflate.findViewById(R.id.riv_child_3);
+                    civ_5_3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(2);
+                        }
+                    });
                     RoundedImageView civ_5_4 = fiveImageInflate.findViewById(R.id.riv_child_4);
+                    civ_5_4.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(3);
+                        }
+                    });
                     RoundedImageView civ_5_5 = fiveImageInflate.findViewById(R.id.riv_child_5);
+                    civ_5_5.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(4);
+                        }
+                    });
                     GlideManger.get().loadBannerImage(this, imagePathArray[0], civ_5_1);
                     GlideManger.get().loadBannerImage(this, imagePathArray[1], civ_5_2);
                     GlideManger.get().loadBannerImage(this, imagePathArray[2], civ_5_3);
@@ -215,11 +308,47 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
                 case 6:
                     View sixImageInflate = LayoutInflater.from(this).inflate(R.layout.item_community_child_image_6, mGroupImageData, false);
                     RoundedImageView civ_6_1 = sixImageInflate.findViewById(R.id.riv_child_1);
+                    civ_6_1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(0);
+                        }
+                    });
                     RoundedImageView civ_6_2 = sixImageInflate.findViewById(R.id.riv_child_2);
+                    civ_6_2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(1);
+                        }
+                    });
                     RoundedImageView civ_6_3 = sixImageInflate.findViewById(R.id.riv_child_3);
+                    civ_6_3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(2);
+                        }
+                    });
                     RoundedImageView civ_6_4 = sixImageInflate.findViewById(R.id.riv_child_4);
+                    civ_6_4.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(3);
+                        }
+                    });
                     RoundedImageView civ_6_5 = sixImageInflate.findViewById(R.id.riv_child_5);
+                    civ_6_5.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(4);
+                        }
+                    });
                     RoundedImageView civ_6_6 = sixImageInflate.findViewById(R.id.riv_child_6);
+                    civ_6_6.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(5);
+                        }
+                    });
                     GlideManger.get().loadBannerImage(this, imagePathArray[0], civ_6_1);
                     GlideManger.get().loadBannerImage(this, imagePathArray[1], civ_6_2);
                     GlideManger.get().loadBannerImage(this, imagePathArray[2], civ_6_3);
@@ -231,12 +360,54 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
                 case 7:
                     View sevenImageInflate = LayoutInflater.from(this).inflate(R.layout.item_community_child_image_7, mGroupImageData, false);
                     RoundedImageView civ_7_1 = sevenImageInflate.findViewById(R.id.riv_child_1);
+                    civ_7_1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(0);
+                        }
+                    });
                     RoundedImageView civ_7_2 = sevenImageInflate.findViewById(R.id.riv_child_2);
+                    civ_7_2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(1);
+                        }
+                    });
                     RoundedImageView civ_7_3 = sevenImageInflate.findViewById(R.id.riv_child_3);
+                    civ_7_3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(2);
+                        }
+                    });
                     RoundedImageView civ_7_4 = sevenImageInflate.findViewById(R.id.riv_child_4);
+                    civ_7_4.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(3);
+                        }
+                    });
                     RoundedImageView civ_7_5 = sevenImageInflate.findViewById(R.id.riv_child_5);
+                    civ_7_5.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(4);
+                        }
+                    });
                     RoundedImageView civ_7_6 = sevenImageInflate.findViewById(R.id.riv_child_6);
+                    civ_7_6.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(5);
+                        }
+                    });
                     RoundedImageView civ_7_7 = sevenImageInflate.findViewById(R.id.riv_child_7);
+                    civ_7_7.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(6);
+                        }
+                    });
                     GlideManger.get().loadBannerImage(this, imagePathArray[0], civ_7_1);
                     GlideManger.get().loadBannerImage(this, imagePathArray[1], civ_7_2);
                     GlideManger.get().loadBannerImage(this, imagePathArray[2], civ_7_3);
@@ -249,13 +420,61 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
                 case 8:
                     View eightImageInflate = LayoutInflater.from(this).inflate(R.layout.item_community_child_image_8, mGroupImageData, false);
                     RoundedImageView civ_8_1 = eightImageInflate.findViewById(R.id.riv_child_1);
+                    civ_8_1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(0);
+                        }
+                    });
                     RoundedImageView civ_8_2 = eightImageInflate.findViewById(R.id.riv_child_2);
+                    civ_8_2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(1);
+                        }
+                    });
                     RoundedImageView civ_8_3 = eightImageInflate.findViewById(R.id.riv_child_3);
+                    civ_8_3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(2);
+                        }
+                    });
                     RoundedImageView civ_8_4 = eightImageInflate.findViewById(R.id.riv_child_4);
+                    civ_8_4.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(3);
+                        }
+                    });
                     RoundedImageView civ_8_5 = eightImageInflate.findViewById(R.id.riv_child_5);
+                    civ_8_5.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(4);
+                        }
+                    });
                     RoundedImageView civ_8_6 = eightImageInflate.findViewById(R.id.riv_child_6);
+                    civ_8_6.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(5);
+                        }
+                    });
                     RoundedImageView civ_8_7 = eightImageInflate.findViewById(R.id.riv_child_7);
+                    civ_8_7.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(6);
+                        }
+                    });
                     RoundedImageView civ_8_8 = eightImageInflate.findViewById(R.id.riv_child_8);
+                    civ_8_8.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(7);
+                        }
+                    });
                     GlideManger.get().loadBannerImage(this, imagePathArray[0], civ_8_1);
                     GlideManger.get().loadBannerImage(this, imagePathArray[1], civ_8_2);
                     GlideManger.get().loadBannerImage(this, imagePathArray[2], civ_8_3);
@@ -267,16 +486,70 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
                     mGroupImageData.addView(eightImageInflate);
                     break;
                 case 9:
-                    View nineImageInflate = LayoutInflater.from(this).inflate(R.layout.item_community_child_image_8, mGroupImageData, false);
+                    View nineImageInflate = LayoutInflater.from(this).inflate(R.layout.item_community_child_image_9, mGroupImageData, false);
                     RoundedImageView civ_9_1 = nineImageInflate.findViewById(R.id.riv_child_1);
+                    civ_9_1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(0);
+                        }
+                    });
                     RoundedImageView civ_9_2 = nineImageInflate.findViewById(R.id.riv_child_2);
+                    civ_9_2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(1);
+                        }
+                    });
                     RoundedImageView civ_9_3 = nineImageInflate.findViewById(R.id.riv_child_3);
+                    civ_9_3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(2);
+                        }
+                    });
                     RoundedImageView civ_9_4 = nineImageInflate.findViewById(R.id.riv_child_4);
+                    civ_9_4.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(3);
+                        }
+                    });
                     RoundedImageView civ_9_5 = nineImageInflate.findViewById(R.id.riv_child_5);
+                    civ_9_5.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(4);
+                        }
+                    });
                     RoundedImageView civ_9_6 = nineImageInflate.findViewById(R.id.riv_child_6);
+                    civ_9_6.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(5);
+                        }
+                    });
                     RoundedImageView civ_9_7 = nineImageInflate.findViewById(R.id.riv_child_7);
+                    civ_9_7.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(6);
+                        }
+                    });
                     RoundedImageView civ_9_8 = nineImageInflate.findViewById(R.id.riv_child_8);
+                    civ_9_8.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(7);
+                        }
+                    });
                     RoundedImageView civ_9_9 = nineImageInflate.findViewById(R.id.riv_child_9);
+                    civ_9_9.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startPreview(8);
+                        }
+                    });
                     GlideManger.get().loadBannerImage(this, imagePathArray[0], civ_9_1);
                     GlideManger.get().loadBannerImage(this, imagePathArray[1], civ_9_2);
                     GlideManger.get().loadBannerImage(this, imagePathArray[2], civ_9_3);
@@ -301,6 +574,13 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
         } else {
             mTvHeadLikeNum.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_no_like, 0, 0, 0);
         }
+    }
+
+    private void startPreview(int imagePosition) {
+        mPreviewData.clear();
+        String[] imagePathArray = mIntentBean.imageUrl.split(",");
+        mPreviewData.addAll(Arrays.asList(imagePathArray));
+        mViewModel.startActivityToPreview(imagePosition, (ArrayList<String>) mPreviewData);
     }
 
     private void notifyFollow() {
