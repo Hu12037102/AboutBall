@@ -1,6 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.community.fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -259,5 +260,24 @@ public class CommunityRecommendFragment extends DelayedFragment<CommunityRecomme
         mData.addAll(data);
         mSrlRefresh.setNoMoreData(data.size() < mPresenter.mPageSize);
         mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case ARouterIntent.REQUEST_CODE:
+                    if (data == null) {
+                        return;
+                    }
+                    ResultCommunityDataBean bean = data.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
+                    mViewModel.resultCommunityData(mAdapter, bean, mData);
+                    break;
+                default:
+                    break;
+            }
+        }
+
     }
 }

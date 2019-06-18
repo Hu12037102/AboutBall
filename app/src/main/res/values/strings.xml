@@ -534,6 +534,7 @@
     <string name="dynamic_edit">动态编辑</string>
     <string name="comment">评论</string>
     <string name="no_dynamic_details_were_obtained">没有获取到动态详情</string>
+    <string name="no_dynamic_were_obtained">没有获取到动态Id</string>
     <string name="say_something">说点什么吧~</string>
     <string name="publish">发布</string>
     <string name="selector_topic">选择话题</string>
@@ -542,4 +543,5 @@
     <string name="attentionning">已关注</string>
     <string name="image_preview">图片预览</string>
     <string name="there_are_no_previews">没有可以预览的图片</string>
+    <string name="please_selector_report_case">请选择举报原因</string>
 </resources>

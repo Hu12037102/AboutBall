@@ -45,8 +45,12 @@ public interface CommunityService {
     Observable<BaseBean<List<ResultNewsMessageBean>>> loadCommunityCommentData(@Query(Contast.PAGE_NUM) int pageNum,
                                                                                @Query(Contast.PAGE_SIZE) int pageSize,
                                                                                @Query(Contast.TWEET_ID) long tweetId);
+
     @GET(IApiService.GET_COMMUNITY_DYNAMIC_TOPIC)
     Observable<BaseBean<List<ResultTopicBean>>> loadTopicData();
+
     @POST(IApiService.POST_PUBLISH_DYNAMIC)
     Observable<BaseBean<BaseDataBean<String>>> publishCommunityDynamic(@Body RequestPublishDynamicBean bean);
+    @GET(IApiService.GET_REPORT_COMMUNITY)
+    Observable<BaseBean<BaseDataBean<String>>> getReportCommunity(@Query(Contast.TWEET_ID) long tweetId, @Query(Contast.TIPS_REASON) String tipsReason);
 }

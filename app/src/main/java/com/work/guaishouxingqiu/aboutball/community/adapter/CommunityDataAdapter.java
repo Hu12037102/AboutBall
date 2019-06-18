@@ -19,6 +19,8 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
+import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
@@ -39,10 +41,17 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapter.ViewHolder, List<ResultCommunityDataBean>> {
 
     private final List<String> mPreviewData;
+    private boolean mIsShowAttentionBtn = true;
 
     public CommunityDataAdapter(@NonNull List<ResultCommunityDataBean> data) {
         super(data);
         mPreviewData = new ArrayList<>();
+    }
+
+    public CommunityDataAdapter(@NonNull List<ResultCommunityDataBean> data, boolean isShowAttentionBtn) {
+        super(data);
+        mPreviewData = new ArrayList<>();
+        this.mIsShowAttentionBtn = isShowAttentionBtn;
     }
 
     public SingPopupWindows mDeleteWindows;
@@ -114,6 +123,11 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
                     mDeleteWindows.setContentDrawableRes(R.mipmap.icon_report, 0, 0, 0);
                 }
                 mDeleteWindows.setPopupWindowsItemClickListener(view -> {
+                    if (bean.myTweet == 1) {
+
+                    } else {
+                        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_COMMUNITY_REPORT, ARouterConfig.Key.TWEET_ID, bean.tweetId);
+                    }
                     if (onTextContentClickListener != null) {
                         onTextContentClickListener.onClickReport(view, i);
                     }
@@ -147,16 +161,21 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
             }
         });
 
-        viewHolder.mTvAttention.setVisibility(View.VISIBLE);
-        if (bean.hasFollow == 1) {
-            viewHolder.mTvAttention.setText(R.string.attentionning);
-        } else {
-            viewHolder.mTvAttention.setText(R.string.attention);
-            if (bean.myTweet == 1) {
-                viewHolder.mTvAttention.setVisibility(View.GONE);
+
+        if (mIsShowAttentionBtn) {
+            viewHolder.mTvAttention.setVisibility(View.VISIBLE);
+            if (bean.hasFollow == 1) {
+                viewHolder.mTvAttention.setText(R.string.attentionning);
             } else {
-                viewHolder.mTvAttention.setVisibility(View.VISIBLE);
+                viewHolder.mTvAttention.setText(R.string.attention);
+                if (bean.myTweet == 1) {
+                    viewHolder.mTvAttention.setVisibility(View.GONE);
+                } else {
+                    viewHolder.mTvAttention.setVisibility(View.VISIBLE);
+                }
             }
+        } else {
+            viewHolder.mTvAttention.setVisibility(View.GONE);
         }
         viewHolder.mTvAttention.setOnClickListener(new View.OnClickListener() {
             @Override

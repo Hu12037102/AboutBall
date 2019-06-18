@@ -156,6 +156,7 @@ public interface ARouterConfig {
         String IS_ADD = "isAdd";
         String BAND_PHONE_STATUS = "bandPhoneStatus";
         String SIGN_CODE = "signCode";
+        String TWEET_ID="tweetId";
 
     }
 

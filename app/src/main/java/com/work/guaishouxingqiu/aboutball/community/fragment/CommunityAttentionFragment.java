@@ -62,7 +62,7 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
     @Override
     protected void initData() {
         mData = new ArrayList<>();
-        mAdapter = new CommunityDataAdapter(mData);
+        mAdapter = new CommunityDataAdapter(mData, false);
         mRvData.setAdapter(mAdapter);
         mSrlLayout.autoRefresh();
     }
@@ -76,6 +76,7 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
             refreshLayout.finishLoadMore();
         }
     }
+
 
     @Override
     protected void initEvent() {
@@ -167,6 +168,13 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
                 case CommunityAttentionFragment.REQUEST_CODE_PUBLISH_DYNAMIC:
                     mSrlLayout.autoRefresh();
                     break;
+                case ARouterIntent.REQUEST_CODE:
+                    if (data == null) {
+                        return;
+                    }
+                    ResultCommunityDataBean bean = data.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
+                    mViewModel.resultCommunityData(mAdapter, bean, mData);
+                    break;
                 default:
                     break;
             }
@@ -183,6 +191,7 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
     public void resultAttentionTweetStatus(int position) {
         mViewModel.updateAttention(mAdapter, mData, position);
     }
+
     @Override
     public void resultData(List<ResultCommunityDataBean> data) {
         if (mPresenter.isRefresh) {

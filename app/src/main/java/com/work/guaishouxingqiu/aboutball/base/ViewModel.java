@@ -535,7 +535,7 @@ public class ViewModel {
         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_IMAGE_PREVIEW, bundle);
     }
 
-    public void updateDianZan(@NonNull RecyclerView.Adapter adapter, List<ResultCommunityDataBean> data, int position) {
+    public void updateDianZan(@NonNull RecyclerView.Adapter adapter, @NonNull List<ResultCommunityDataBean> data, int position) {
         ResultCommunityDataBean bean = data.get(position);
         if (bean.hasPraise == 1) {
             bean.hasPraise = 0;
@@ -547,12 +547,34 @@ public class ViewModel {
         adapter.notifyDataSetChanged();
     }
 
-    public void updateAttention(@NonNull RecyclerView.Adapter adapter, List<ResultCommunityDataBean> data, int position) {
+    public void updateAttention(@NonNull RecyclerView.Adapter adapter, @NonNull List<ResultCommunityDataBean> data, int position) {
         ResultCommunityDataBean bean = data.get(position);
+        int hasFollow;
         if (bean.hasFollow == 1) {
-            bean.hasFollow = 0;
-        } else if (bean.hasFollow == 0) {
-            bean.hasFollow = 1;
+            hasFollow = 0;
+        } else {
+            hasFollow = 1;
+        }
+        for (int i = 0; i < data.size(); i++) {
+            if (bean.userId == data.get(i).userId) {
+                data.get(i).hasFollow = hasFollow;
+            }
+        }
+
+        adapter.notifyDataSetChanged();
+    }
+
+    public void resultCommunityData(@NonNull RecyclerView.Adapter adapter, ResultCommunityDataBean resultBean, @NonNull List<ResultCommunityDataBean> data) {
+        for (int i = 0; i < data.size(); i++) {
+            ResultCommunityDataBean bean = data.get(i);
+            if (resultBean.tweetId == bean.tweetId) {
+                int index = data.indexOf(bean);
+                data.remove(index);
+                data.add(index, resultBean);
+            }
+            if (resultBean.userId == bean.userId) {
+                bean.hasFollow = resultBean.hasFollow;
+            }
         }
         adapter.notifyDataSetChanged();
     }

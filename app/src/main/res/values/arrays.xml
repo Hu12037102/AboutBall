@@ -102,4 +102,11 @@
         <item>迟到</item>
         <item>其它</item>
     </string-array>
+    <string-array name="dynamic_report_array">
+        <item>内容抄袭</item>
+        <item>色情淫秽</item>
+        <item>讽刺谩骂</item>
+        <item>广告骚扰</item>
+        <item>其它</item>
+    </string-array>
 </resources>

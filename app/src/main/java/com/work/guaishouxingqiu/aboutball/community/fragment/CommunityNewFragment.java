@@ -42,7 +42,7 @@ public class CommunityNewFragment extends DelayedFragment<CommunityNewsPresenter
     SmartRefreshLayout mSrlLayout;
     private CommunityDataAdapter mAdapter;
     private List<ResultCommunityDataBean> mData;
-    private static final int REQUEST_CODE_PUBLISH_DYNAMIC=145;
+    private static final int REQUEST_CODE_PUBLISH_DYNAMIC = 145;
 
     @Override
     protected void initDelayedView() {
@@ -143,6 +143,7 @@ public class CommunityNewFragment extends DelayedFragment<CommunityNewsPresenter
             }
         });
     }
+
     @Override
     public void resultDianZanStatus(int position) {
         mViewModel.updateDianZan(mAdapter, mData, position);
@@ -152,6 +153,7 @@ public class CommunityNewFragment extends DelayedFragment<CommunityNewsPresenter
     public void resultAttentionTweetStatus(int position) {
         mViewModel.updateAttention(mAdapter, mData, position);
     }
+
     @OnClick(R.id.iv_add_community)
     public void onClickView(View view) {
         switch (view.getId()) {
@@ -180,6 +182,7 @@ public class CommunityNewFragment extends DelayedFragment<CommunityNewsPresenter
         mSrlLayout.setNoMoreData(data.size() < mPresenter.mPageSize);
         mAdapter.notifyDataSetChanged();
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -187,6 +190,13 @@ public class CommunityNewFragment extends DelayedFragment<CommunityNewsPresenter
             switch (requestCode) {
                 case CommunityNewFragment.REQUEST_CODE_PUBLISH_DYNAMIC:
                     mSrlLayout.autoRefresh();
+                    break;
+                case ARouterIntent.REQUEST_CODE:
+                    if (data == null) {
+                        return;
+                    }
+                    ResultCommunityDataBean bean = data.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
+                    mViewModel.resultCommunityData(mAdapter, bean, mData);
                     break;
                 default:
                     break;

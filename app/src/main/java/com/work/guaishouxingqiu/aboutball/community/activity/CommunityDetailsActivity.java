@@ -1,5 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.community.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -68,6 +69,9 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
     private List<ResultNewsMessageBean> mCommentData;
     private View mHeadInflateView;
     private InputMessageDialog mSendMessageDialog;
+    private TextView mTvHeadLikeNum;
+    private TextView mTvHeadAttention;
+    private TextView mTvHeadCommentNum;
 
     @Override
     protected int getLayoutId() {
@@ -118,10 +122,29 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
             UIUtils.setText(mTvHeadContent, mIntentBean.tweetContent);
         }
         LinearLayout mLlHeadLike = mHeadInflateView.findViewById(R.id.ll_like);
-        TextView mTvHeadLikeNum = mHeadInflateView.findViewById(R.id.tv_like_num);
-        UIUtils.setCommunityCount(mTvHeadLikeNum, mIntentBean.praiseCount);
+        //点赞
+        mLlHeadLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (mIntentBean.hasPraise == 1) {
+                    mPresenter.dynamicsCancelDianZan(mIntentBean.tweetId, -1);
+                } else if (mIntentBean.hasPraise == 0) {
+                    mPresenter.dynamicsDianZan(mIntentBean.tweetId, -1);
+                }
+
+            }
+        });
+        mTvHeadLikeNum = mHeadInflateView.findViewById(R.id.tv_like_num);
+
         LinearLayout mLlHeadComment = mHeadInflateView.findViewById(R.id.ll_comment);
-        TextView mTvHeadCommentNum = mHeadInflateView.findViewById(R.id.tv_comment);
+        mLlHeadComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSendMessageDialog();
+            }
+        });
+        mTvHeadCommentNum = mHeadInflateView.findViewById(R.id.tv_comment);
         UIUtils.setCommunityCount(mTvHeadCommentNum, mIntentBean.commentCount);
         LinearLayout mLlHeadShare = mHeadInflateView.findViewById(R.id.ll_share);
         TextView mTvHeadShareNum = mHeadInflateView.findViewById(R.id.tv_share);
@@ -131,17 +154,20 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
         View mLineHeadBottom = mHeadInflateView.findViewById(R.id.line_bottom);
         mLineHeadBottom.setVisibility(View.GONE);
         ImageView mIvHeadMore = mHeadInflateView.findViewById(R.id.iv_more);
-        TextView mTvHeadAttention = mHeadInflateView.findViewById(R.id.tv_attention);
-        if (mIntentBean.hasPraise == 1) {
-            mTvHeadLikeNum.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_like, 0, 0, 0);
-        } else {
-            mTvHeadLikeNum.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_no_like, 0, 0, 0);
-        }
-        if (mIntentBean.hasFollow == 1) {
-            mTvHeadAttention.setVisibility(View.GONE);
-        } else {
-            mTvHeadAttention.setVisibility(View.VISIBLE);
-        }
+        mTvHeadAttention = mHeadInflateView.findViewById(R.id.tv_attention);
+        mTvHeadAttention.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mIntentBean.hasFollow == 0) {
+                    mPresenter.getAttentionTweet(-1, mIntentBean.userId);
+                } else if (mIntentBean.hasFollow == 1) {
+                    mPresenter.getCancelAttentionTweet(-1, mIntentBean.userId);
+                }
+            }
+        });
+        notifyLike();
+        notifyFollow();
+
 
         LinearLayout mGroupImageData = mHeadInflateView.findViewById(R.id.ll_iv_data);
         if (mGroupImageData.getChildCount() > 0) {
@@ -286,6 +312,29 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
         }
     }
 
+    private void notifyLike() {
+        UIUtils.setCommunityCount(mTvHeadLikeNum, mIntentBean.praiseCount);
+        if (mIntentBean.hasPraise == 1) {
+            mTvHeadLikeNum.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_like, 0, 0, 0);
+        } else {
+            mTvHeadLikeNum.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_no_like, 0, 0, 0);
+        }
+    }
+
+    private void notifyFollow() {
+        mTvHeadAttention.setVisibility(View.VISIBLE);
+        if (mIntentBean.hasFollow == 1) {
+            mTvHeadAttention.setText(R.string.attentionning);
+        } else {
+            mTvHeadAttention.setText(R.string.attention);
+            if (mIntentBean.myTweet == 1) {
+                mTvHeadAttention.setVisibility(View.GONE);
+            } else {
+                mTvHeadAttention.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
     @Override
     protected void initData() {
         mCommentData = new ArrayList<>();
@@ -295,6 +344,29 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
         mCommentAdapter.setNotDataContentRes(R.string.not_message);
         mRvData.setAdapter(mCommentAdapter);
         mSrlRefresh.autoRefresh();
+    }
+
+    @Override
+    public void resultDianZanStatus(int position) {
+        if (mIntentBean.hasPraise == 1) {
+            mIntentBean.hasPraise = 0;
+            mIntentBean.praiseCount = mIntentBean.praiseCount > 0 ? mIntentBean.praiseCount -= 1 : 0;
+        } else if (mIntentBean.hasPraise == 0) {
+            mIntentBean.hasPraise = 1;
+            mIntentBean.praiseCount++;
+        }
+        notifyLike();
+    }
+
+
+    @Override
+    public void resultAttentionTweetStatus(int position) {
+        if (mIntentBean.hasFollow == 1) {
+            mIntentBean.hasFollow = 0;
+        } else if (mIntentBean.hasFollow == 0) {
+            mIntentBean.hasFollow = 1;
+        }
+        notifyFollow();
     }
 
     @Override
@@ -310,6 +382,22 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
                 loadData(true);
             }
         });
+        mTitleView.setOnBackViewClickListener(new TitleView.OnBackViewClickListener() {
+            @Override
+            public void onBackClick(@NonNull View view) {
+                onBack();
+            }
+        });
+    }
+
+    private void onBack(){
+        Intent intent = new Intent();
+        intent.putExtra(ARouterConfig.Key.PARCELABLE,mIntentBean);
+        mViewModel.clickBackForResult(intent);
+    }
+    @Override
+    public void onBackPressed() {
+        onBack();
     }
 
     private void loadData(boolean isRefresh) {
@@ -335,19 +423,24 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
             case R.id.iv_send_message:
                 break;
             case R.id.tv_input_message:
-                if (mSendMessageDialog == null) {
-                    mSendMessageDialog = new InputMessageDialog(this);
-                    mSendMessageDialog.setOnInputMessageListener(text -> {
-                        RequestDynamicCommentsBean bean = new RequestDynamicCommentsBean();
-                        bean.tweetId = mIntentBean.tweetId;
-                        bean.commentContent = text;
-                        mPresenter.postDynamicComments(bean);
-                    });
-                }
-                if (!mSendMessageDialog.isShowing()) {
-                    mSendMessageDialog.show();
-                }
+                showSendMessageDialog();
+
                 break;
+        }
+    }
+
+    private void showSendMessageDialog() {
+        if (mSendMessageDialog == null) {
+            mSendMessageDialog = new InputMessageDialog(this);
+            mSendMessageDialog.setOnInputMessageListener(text -> {
+                RequestDynamicCommentsBean bean = new RequestDynamicCommentsBean();
+                bean.tweetId = mIntentBean.tweetId;
+                bean.commentContent = text;
+                mPresenter.postDynamicComments(bean);
+            });
+        }
+        if (!mSendMessageDialog.isShowing()) {
+            mSendMessageDialog.show();
         }
     }
 
@@ -365,6 +458,11 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
 
     @Override
     public void resultDynamicCommentsSucceed() {
+        if (mSendMessageDialog != null) {
+            mSendMessageDialog.clearEditData();
+        }
+        mIntentBean.commentCount++;
+        UIUtils.setCommunityCount(mTvHeadCommentNum, mIntentBean.commentCount);
         mSrlRefresh.autoRefresh();
     }
 }

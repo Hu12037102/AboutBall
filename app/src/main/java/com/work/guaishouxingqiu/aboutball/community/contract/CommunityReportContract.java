@@ -10,6 +10,10 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
  * 描述:动态举报契约
  */
 public interface CommunityReportContract {
-    interface View extends IBaseView{}
-    interface Presenter extends IBasePresenter{}
+    interface View extends IBaseView{
+        void reportCommunitySucceed();
+    }
+    interface Presenter extends IBasePresenter{
+        void reportCommunity(long tweetId, String reportCase);
+    }
 }
