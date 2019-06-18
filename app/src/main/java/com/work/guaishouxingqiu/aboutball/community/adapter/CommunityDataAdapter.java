@@ -138,6 +138,15 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
         } else {
             viewHolder.mTvLikeNum.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_no_like, 0, 0, 0);
         }
+        viewHolder.mLlLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onTextContentClickListener != null) {
+                    onTextContentClickListener.onClickDianZan(v, i);
+                }
+            }
+        });
+
         viewHolder.mTvAttention.setVisibility(View.VISIBLE);
         if (bean.hasFollow == 1) {
             viewHolder.mTvAttention.setText(R.string.attentionning);
@@ -175,7 +184,7 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
                     civ_1_1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(0,i);
+                            startPreview(0, i);
                         }
                     });
                     GlideManger.get().loadBannerImage(mContext, imagePathArray[0], civ_1_1);
@@ -188,14 +197,14 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
                     civ_2_1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(0,i);
+                            startPreview(0, i);
                         }
                     });
                     RoundedImageView civ_2_2 = twoImageInflate.findViewById(R.id.riv_child_2);
                     civ_2_2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(1,i);
+                            startPreview(1, i);
                         }
                     });
                     GlideManger.get().loadBannerImage(mContext, imagePathArray[0], civ_2_1);
@@ -209,21 +218,21 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
                     civ_3_1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(0,i);
+                            startPreview(0, i);
                         }
                     });
                     RoundedImageView civ_3_2 = threeImageInflate.findViewById(R.id.riv_child_2);
                     civ_3_2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(1,i);
+                            startPreview(1, i);
                         }
                     });
                     RoundedImageView civ_3_3 = threeImageInflate.findViewById(R.id.riv_child_3);
                     civ_3_3.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(2,i);
+                            startPreview(2, i);
                         }
                     });
                     GlideManger.get().loadBannerImage(mContext, imagePathArray[0], civ_3_1);
@@ -237,28 +246,28 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
                     civ_4_1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(0,i);
+                            startPreview(0, i);
                         }
                     });
                     RoundedImageView civ_4_2 = fourImageInflate.findViewById(R.id.riv_child_2);
                     civ_4_2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(1,i);
+                            startPreview(1, i);
                         }
                     });
                     RoundedImageView civ_4_3 = fourImageInflate.findViewById(R.id.riv_child_3);
                     civ_4_3.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(2,i);
+                            startPreview(2, i);
                         }
                     });
                     RoundedImageView civ_4_4 = fourImageInflate.findViewById(R.id.riv_child_4);
                     civ_4_4.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(3,i);
+                            startPreview(3, i);
                         }
                     });
                     GlideManger.get().loadBannerImage(mContext, imagePathArray[0], civ_4_1);
@@ -273,35 +282,35 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
                     civ_5_1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(0,i);
+                            startPreview(0, i);
                         }
                     });
                     RoundedImageView civ_5_2 = fiveImageInflate.findViewById(R.id.riv_child_2);
                     civ_5_2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(1,i);
+                            startPreview(1, i);
                         }
                     });
                     RoundedImageView civ_5_3 = fiveImageInflate.findViewById(R.id.riv_child_3);
                     civ_5_3.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(2,i);
+                            startPreview(2, i);
                         }
                     });
                     RoundedImageView civ_5_4 = fiveImageInflate.findViewById(R.id.riv_child_4);
                     civ_5_4.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(3,i);
+                            startPreview(3, i);
                         }
                     });
                     RoundedImageView civ_5_5 = fiveImageInflate.findViewById(R.id.riv_child_5);
                     civ_5_5.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(4,i);
+                            startPreview(4, i);
                         }
                     });
                     GlideManger.get().loadBannerImage(mContext, imagePathArray[0], civ_5_1);
@@ -317,42 +326,42 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
                     civ_6_1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(0,i);
+                            startPreview(0, i);
                         }
                     });
                     RoundedImageView civ_6_2 = sixImageInflate.findViewById(R.id.riv_child_2);
                     civ_6_2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(1,i);
+                            startPreview(1, i);
                         }
                     });
                     RoundedImageView civ_6_3 = sixImageInflate.findViewById(R.id.riv_child_3);
                     civ_6_3.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(2,i);
+                            startPreview(2, i);
                         }
                     });
                     RoundedImageView civ_6_4 = sixImageInflate.findViewById(R.id.riv_child_4);
                     civ_6_4.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(3,i);
+                            startPreview(3, i);
                         }
                     });
                     RoundedImageView civ_6_5 = sixImageInflate.findViewById(R.id.riv_child_5);
                     civ_6_5.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(4,i);
+                            startPreview(4, i);
                         }
                     });
                     RoundedImageView civ_6_6 = sixImageInflate.findViewById(R.id.riv_child_6);
                     civ_6_6.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(5,i);
+                            startPreview(5, i);
                         }
                     });
                     GlideManger.get().loadBannerImage(mContext, imagePathArray[0], civ_6_1);
@@ -369,49 +378,49 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
                     civ_7_1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(0,i);
+                            startPreview(0, i);
                         }
                     });
                     RoundedImageView civ_7_2 = sevenImageInflate.findViewById(R.id.riv_child_2);
                     civ_7_2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(1,i);
+                            startPreview(1, i);
                         }
                     });
                     RoundedImageView civ_7_3 = sevenImageInflate.findViewById(R.id.riv_child_3);
                     civ_7_3.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(2,i);
+                            startPreview(2, i);
                         }
                     });
                     RoundedImageView civ_7_4 = sevenImageInflate.findViewById(R.id.riv_child_4);
                     civ_7_4.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(3,i);
+                            startPreview(3, i);
                         }
                     });
                     RoundedImageView civ_7_5 = sevenImageInflate.findViewById(R.id.riv_child_5);
                     civ_7_5.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(4,i);
+                            startPreview(4, i);
                         }
                     });
                     RoundedImageView civ_7_6 = sevenImageInflate.findViewById(R.id.riv_child_6);
                     civ_7_6.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(5,i);
+                            startPreview(5, i);
                         }
                     });
                     RoundedImageView civ_7_7 = sevenImageInflate.findViewById(R.id.riv_child_7);
                     civ_7_7.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(6,i);
+                            startPreview(6, i);
                         }
                     });
                     GlideManger.get().loadBannerImage(mContext, imagePathArray[0], civ_7_1);
@@ -429,56 +438,56 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
                     civ_8_1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(0,i);
+                            startPreview(0, i);
                         }
                     });
                     RoundedImageView civ_8_2 = eightImageInflate.findViewById(R.id.riv_child_2);
                     civ_8_2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(1,i);
+                            startPreview(1, i);
                         }
                     });
                     RoundedImageView civ_8_3 = eightImageInflate.findViewById(R.id.riv_child_3);
                     civ_8_3.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(2,i);
+                            startPreview(2, i);
                         }
                     });
                     RoundedImageView civ_8_4 = eightImageInflate.findViewById(R.id.riv_child_4);
                     civ_8_4.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(3,i);
+                            startPreview(3, i);
                         }
                     });
                     RoundedImageView civ_8_5 = eightImageInflate.findViewById(R.id.riv_child_5);
                     civ_8_5.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(4,i);
+                            startPreview(4, i);
                         }
                     });
                     RoundedImageView civ_8_6 = eightImageInflate.findViewById(R.id.riv_child_6);
                     civ_8_6.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(5,i);
+                            startPreview(5, i);
                         }
                     });
                     RoundedImageView civ_8_7 = eightImageInflate.findViewById(R.id.riv_child_7);
                     civ_8_7.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(6,i);
+                            startPreview(6, i);
                         }
                     });
                     RoundedImageView civ_8_8 = eightImageInflate.findViewById(R.id.riv_child_8);
                     civ_8_8.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(7,i);
+                            startPreview(7, i);
                         }
                     });
                     GlideManger.get().loadBannerImage(mContext, imagePathArray[0], civ_8_1);
@@ -497,63 +506,63 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
                     civ_9_1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(0,i);
+                            startPreview(0, i);
                         }
                     });
                     RoundedImageView civ_9_2 = nineImageInflate.findViewById(R.id.riv_child_2);
                     civ_9_2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(1,i);
+                            startPreview(1, i);
                         }
                     });
                     RoundedImageView civ_9_3 = nineImageInflate.findViewById(R.id.riv_child_3);
                     civ_9_3.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(2,i);
+                            startPreview(2, i);
                         }
                     });
                     RoundedImageView civ_9_4 = nineImageInflate.findViewById(R.id.riv_child_4);
                     civ_9_4.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(3,i);
+                            startPreview(3, i);
                         }
                     });
                     RoundedImageView civ_9_5 = nineImageInflate.findViewById(R.id.riv_child_5);
                     civ_9_5.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(4,i);
+                            startPreview(4, i);
                         }
                     });
                     RoundedImageView civ_9_6 = nineImageInflate.findViewById(R.id.riv_child_6);
                     civ_9_6.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(5,i);
+                            startPreview(5, i);
                         }
                     });
                     RoundedImageView civ_9_7 = nineImageInflate.findViewById(R.id.riv_child_7);
                     civ_9_7.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(6,i);
+                            startPreview(6, i);
                         }
                     });
                     RoundedImageView civ_9_8 = nineImageInflate.findViewById(R.id.riv_child_8);
                     civ_9_8.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(7,i);
+                            startPreview(7, i);
                         }
                     });
                     RoundedImageView civ_9_9 = nineImageInflate.findViewById(R.id.riv_child_9);
                     civ_9_9.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startPreview(8,i);
+                            startPreview(8, i);
                         }
                     });
                     GlideManger.get().loadBannerImage(mContext, imagePathArray[0], civ_9_1);
@@ -580,7 +589,7 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
     }
 
 
-    private void startPreview(int imagePosition,int itemPosition) {
+    private void startPreview(int imagePosition, int itemPosition) {
         mPreviewData.clear();
         String imageUrls = mData.get(itemPosition).imageUrl;
         String[] imagePathArray = imageUrls.split(",");
@@ -641,6 +650,10 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
         void onClickAttention(View view, int position);//关注or取消关注
 
         void onClickDelete(View view, int position);//删除
+
+        void onClickDianZan(View view, int position);//点赞
+
+        void onClickShare(View view, int position);//分享
     }
 
 

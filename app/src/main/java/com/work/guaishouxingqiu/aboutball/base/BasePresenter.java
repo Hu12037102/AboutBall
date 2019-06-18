@@ -10,7 +10,6 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseModelCallback;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.community.bean.RequestDynamicCommentsBean;
-import com.work.guaishouxingqiu.aboutball.home.bean.RequestSendMessageBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
@@ -20,7 +19,6 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 import com.work.guaishouxingqiu.aboutball.other.SharedPreferencesHelp;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
-import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 
@@ -255,8 +253,63 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
             @Override
             public void onNext(BaseBean<BaseDataBean<String>> t) {
                 if (DataUtils.baseDataBeanIsSucceed(t)) {
-                    mView.resultAttentionTweet(position);
+                    mView.resultAttentionTweetStatus(position);
                     UserManger.get().putFollowCount(UserManger.get().getFollowCount() + 1);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+
+    public void getCancelAttentionTweet(int position, long concernId) {
+        mModel.getCancelAttentionTweet(concernId, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
+            @Override
+            public void onNext(BaseBean<BaseDataBean<String>> t) {
+                if (DataUtils.baseDataBeanIsSucceed(t)) {
+                    mView.resultAttentionTweetStatus(position);
+                    int followCount = UserManger.get().getFollowCount();
+                    if (followCount > 0) {
+                        followCount -= 1;
+                        UserManger.get().putFollowCount(followCount);
+                    } else {
+                        UserManger.get().putFollowCount(0);
+                    }
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+
+    public void dynamicsDianZan(long tweetId, int position) {
+        mModel.dynamicsDianZan(tweetId, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
+            @Override
+            public void onNext(BaseBean<BaseDataBean<String>> t) {
+                if (DataUtils.baseDataBeanIsSucceed(t)) {
+                    mView.resultDianZanStatus(position);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+
+    public void dynamicsCancelDianZan(long tweetId, int position) {
+        mModel.dynamicsCancelDianZan(tweetId, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
+            @Override
+            public void onNext(BaseBean<BaseDataBean<String>> t) {
+                if (DataUtils.baseDataBeanIsSucceed(t)) {
+                    mView.resultDianZanStatus(position);
                 }
             }
 

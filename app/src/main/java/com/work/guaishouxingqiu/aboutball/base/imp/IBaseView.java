@@ -45,5 +45,8 @@ public interface IBaseView {
 
     void resultDynamicCommentsSucceed();
 
-    void resultAttentionTweet(int position);
+    void resultAttentionTweetStatus(int position);
+
+    void resultDianZanStatus(int position);
+
 }

@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.text.HtmlCompat;
+import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -532,5 +533,27 @@ public class ViewModel {
         bundle.putInt(ARouterConfig.Key.POSITION, position);
         bundle.putStringArrayList(ARouterConfig.Key.ARRAY_LIST_STRING, pathData);
         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_IMAGE_PREVIEW, bundle);
+    }
+
+    public void updateDianZan(@NonNull RecyclerView.Adapter adapter, List<ResultCommunityDataBean> data, int position) {
+        ResultCommunityDataBean bean = data.get(position);
+        if (bean.hasPraise == 1) {
+            bean.hasPraise = 0;
+            bean.praiseCount = bean.praiseCount > 0 ? bean.praiseCount -= 1 : 0;
+        } else if (bean.hasPraise == 0) {
+            bean.hasPraise = 1;
+            bean.praiseCount++;
+        }
+        adapter.notifyDataSetChanged();
+    }
+
+    public void updateAttention(@NonNull RecyclerView.Adapter adapter, List<ResultCommunityDataBean> data, int position) {
+        ResultCommunityDataBean bean = data.get(position);
+        if (bean.hasFollow == 1) {
+            bean.hasFollow = 0;
+        } else if (bean.hasFollow == 0) {
+            bean.hasFollow = 1;
+        }
+        adapter.notifyDataSetChanged();
     }
 }
