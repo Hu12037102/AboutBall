@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
@@ -89,6 +90,68 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
                 loadData(true, refreshLayout);
             }
         });
+        mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onNotNetClick(View view) {
+                mSrlLayout.autoRefresh();
+            }
+
+            @Override
+            public void onNotDataClick(View view) {
+                mSrlLayout.autoRefresh();
+            }
+
+            @Override
+            public void onItemClick(View view, int position) {
+                mViewModel.startActivityToCommunityRecommendDetailsForResult(mData.get(position), CommunityAttentionFragment.this);
+            }
+        });
+        mAdapter.setOnTextContentClickListener(new CommunityDataAdapter.OnTextContentClickListener() {
+            @Override
+            public void onClickContent(View view, int position) {
+                mViewModel.startActivityToCommunityRecommendDetailsForResult(mData.get(position), CommunityAttentionFragment.this);
+            }
+
+            @Override
+            public void onClickTopic(View view, int position) {
+
+            }
+
+            @Override
+            public void onClickReport(View view, int position) {
+
+            }
+
+            @Override
+            public void onClickAttention(View view, int position) {
+                ResultCommunityDataBean bean = mData.get(position);
+                if (bean.hasFollow == 0) {
+                    mPresenter.getAttentionTweet(position, mData.get(position).userId);
+                } else if (bean.hasFollow == 1) {
+                    mPresenter.getCancelAttentionTweet(position, mData.get(position).userId);
+                }
+            }
+
+            @Override
+            public void onClickDelete(View view, int position) {
+
+            }
+
+            @Override
+            public void onClickDianZan(View view, int position) {
+                ResultCommunityDataBean bean = mData.get(position);
+                if (bean.hasPraise == 1) {
+                    mPresenter.dynamicsCancelDianZan(bean.tweetId, position);
+                } else if (bean.hasPraise == 0) {
+                    mPresenter.dynamicsDianZan(bean.tweetId, position);
+                }
+            }
+
+            @Override
+            public void onClickShare(View view, int position) {
+
+            }
+        });
     }
 
     @Override
@@ -111,6 +174,15 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
 
     }
 
+    @Override
+    public void resultDianZanStatus(int position) {
+        mViewModel.updateDianZan(mAdapter, mData, position);
+    }
+
+    @Override
+    public void resultAttentionTweetStatus(int position) {
+        mViewModel.updateAttention(mAdapter, mData, position);
+    }
     @Override
     public void resultData(List<ResultCommunityDataBean> data) {
         if (mPresenter.isRefresh) {

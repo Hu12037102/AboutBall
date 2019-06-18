@@ -1,5 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.community.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -25,6 +26,7 @@ import com.work.guaishouxingqiu.aboutball.community.bean.ResultRecommendHotBean;
 import com.work.guaishouxingqiu.aboutball.community.contract.CommunityRecommendContract;
 import com.work.guaishouxingqiu.aboutball.community.presenter.CommunityRecommendPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
 
@@ -147,7 +149,6 @@ public class CommunityRecommendFragment extends DelayedFragment<CommunityRecomme
 
             @Override
             public void onClickTopic(View view, int position) {
-
             }
 
             @Override
