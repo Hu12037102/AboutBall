@@ -169,7 +169,8 @@ public class CommunityRecommendFragment extends DelayedFragment<CommunityRecomme
 
             @Override
             public void onClickDelete(View view, int position) {
-
+                ResultCommunityDataBean bean = mData.get(position);
+                mPresenter.deleteDynamics(bean.tweetId, position);
             }
 
             @Override
@@ -218,6 +219,12 @@ public class CommunityRecommendFragment extends DelayedFragment<CommunityRecomme
         if (mIsSendMessage) {
             this.removeMessage();
         }
+    }
+
+    @Override
+    public void resultDeleteDynamicSucceed(int position) {
+        mData.remove(position);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

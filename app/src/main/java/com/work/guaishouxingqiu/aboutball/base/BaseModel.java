@@ -141,4 +141,11 @@ public class BaseModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
+    public void deleteDynamics(long tweetId,BaseObserver<BaseDataBean<String>> observer){
+        mRetrofitManger.create(BaseService.class)
+                .deleteDynamics(tweetId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
 }

@@ -22,6 +22,7 @@ public interface BaseService {
 
     @GET(IApiService.GET_ATTENTION_TWEET)
     Observable<BaseBean<BaseDataBean<String>>> getAttentionTweet(@Query(Contast.CONCERN_ID) long concernId);
+
     @GET(IApiService.GET_CANCEL_ATTENTION_TWEET)
     Observable<BaseBean<BaseDataBean<String>>> getCancelAttentionTweet(@Query(Contast.CONCERN_ID) long concernId);
 
@@ -30,4 +31,7 @@ public interface BaseService {
 
     @GET(IApiService.GET_CANCEL_DYNAMIC_DIAN_ZAN)
     Observable<BaseBean<BaseDataBean<String>>> dynamicsCancelDianZan(@Query(Contast.TWEET_ID) long tweetId);
+
+    @GET(IApiService.GET_DELETE_DYNAMIC)
+    Observable<BaseBean<BaseDataBean<String>>> deleteDynamics(@Query(Contast.TWEET_ID) long tweetId);
 }

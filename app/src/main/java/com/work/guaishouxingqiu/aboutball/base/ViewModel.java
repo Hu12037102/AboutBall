@@ -578,4 +578,14 @@ public class ViewModel {
         }
         adapter.notifyDataSetChanged();
     }
+
+    public void showDeleteCommunityDialog(BaseDialog.OnItemClickSureAndCancelListener listener) {
+        HintDialog deleteDialog = new HintDialog.Builder(mSoftActivity.get())
+                .setShowSingButton(false)
+                .setTitle(R.string.hint)
+                .setBody(R.string.you_sure_delete_community)
+                .builder();
+        deleteDialog.setOnItemClickSureAndCancelListener(listener);
+        deleteDialog.show();
+    }
 }

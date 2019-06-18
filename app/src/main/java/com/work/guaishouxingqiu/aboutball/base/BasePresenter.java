@@ -319,4 +319,19 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
             }
         }));
     }
+    public void deleteDynamics(long tweetId,int position){
+        mModel.deleteDynamics(tweetId,new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
+            @Override
+            public void onNext(BaseBean<BaseDataBean<String>> t) {
+                if (DataUtils.baseDataBeanIsSucceed(t)) {
+                    mView.resultDeleteDynamicSucceed(position);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
 }

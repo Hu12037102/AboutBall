@@ -135,7 +135,8 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
 
             @Override
             public void onClickDelete(View view, int position) {
-
+                ResultCommunityDataBean bean = mData.get(position);
+                mPresenter.deleteDynamics(bean.tweetId, position);
             }
 
             @Override
@@ -154,7 +155,11 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
             }
         });
     }
-
+    @Override
+    public void resultDeleteDynamicSucceed(int position) {
+        mData.remove(position);
+        mAdapter.notifyDataSetChanged();
+    }
     @Override
     protected CommunityAttentionPresenter createPresenter() {
         return new CommunityAttentionPresenter(this);

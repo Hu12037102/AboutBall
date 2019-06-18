@@ -24,6 +24,7 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
+import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
 import com.work.guaishouxingqiu.aboutball.weight.SingPopupWindows;
 
 import java.util.ArrayList;
@@ -124,13 +125,29 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
                 }
                 mDeleteWindows.setPopupWindowsItemClickListener(view -> {
                     if (bean.myTweet == 1) {
+                        if (mContext instanceof BaseActivity) {
+                            BaseActivity activity = (BaseActivity) mContext;
+                            activity.mViewModel.showDeleteCommunityDialog(new BaseDialog.OnItemClickSureAndCancelListener() {
+                                @Override
+                                public void onClickSure(@NonNull View view) {
+                                    if (onTextContentClickListener != null) {
+                                        onTextContentClickListener.onClickDelete(view, i);
+                                    }
+                                }
 
+                                @Override
+                                public void onClickCancel(@NonNull View view) {
+
+                                }
+                            });
+                        }
                     } else {
                         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_COMMUNITY_REPORT, ARouterConfig.Key.TWEET_ID, bean.tweetId);
+                        if (onTextContentClickListener != null) {
+                            onTextContentClickListener.onClickReport(view, i);
+                        }
                     }
-                    if (onTextContentClickListener != null) {
-                        onTextContentClickListener.onClickReport(view, i);
-                    }
+
                     mDeleteWindows.dismiss();
                 });
                 if (mDeleteWindows != null && !mDeleteWindows.isShowing()) {

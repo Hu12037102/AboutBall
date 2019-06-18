@@ -48,5 +48,6 @@ public interface IBaseView {
     void resultAttentionTweetStatus(int position);
 
     void resultDianZanStatus(int position);
+    void resultDeleteDynamicSucceed(int position);
 
 }

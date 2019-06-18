@@ -251,5 +251,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends LocationActi
 
     }
 
+    @Override
+    public void resultDeleteDynamicSucceed(int position) {
 
+    }
 }

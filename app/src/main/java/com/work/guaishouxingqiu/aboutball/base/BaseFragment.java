@@ -185,6 +185,9 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
     public void resultDianZanStatus(int position) {
 
     }
+    @Override
+    public void resultDeleteDynamicSucceed(int position) {
 
+    }
 
 }
