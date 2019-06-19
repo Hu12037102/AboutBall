@@ -545,4 +545,12 @@
     <string name="there_are_no_previews">没有可以预览的图片</string>
     <string name="please_selector_report_case">请选择举报原因</string>
     <string name="you_sure_delete_community">你确定删除该动态</string>
+    <string name="attention_s">%s\n关注</string>
+    <string name="fans_s">%s\n粉丝</string>
+
+
+
+
+
+
 </resources>

@@ -51,6 +51,10 @@ public interface CommunityService {
 
     @POST(IApiService.POST_PUBLISH_DYNAMIC)
     Observable<BaseBean<BaseDataBean<String>>> publishCommunityDynamic(@Body RequestPublishDynamicBean bean);
+
     @GET(IApiService.GET_REPORT_COMMUNITY)
     Observable<BaseBean<BaseDataBean<String>>> getReportCommunity(@Query(Contast.TWEET_ID) long tweetId, @Query(Contast.TIPS_REASON) String tipsReason);
+
+    @GET(IApiService.GET_MY_DYNAMIC)
+    Observable<BaseBean<List<ResultCommunityDataBean>>> getMyDynamicData(@Query(Contast.PAGE_NUM) int pageNum, @Query(Contast.PAGE_SIZE) int pageSize);
 }

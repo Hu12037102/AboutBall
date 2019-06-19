@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -366,5 +367,10 @@ public class DataUtils {
         return DataUtils.isEmpty(textView.getText()) ? "" : textView.getText().toString().trim();
     }
 
+    public static ArrayList<String> getOnePreviewData(@NonNull String imagePath) {
+        ArrayList<String> data = new ArrayList<>();
+        data.add(imagePath);
+        return data;
+    }
 
 }

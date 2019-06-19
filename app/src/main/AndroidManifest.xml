@@ -335,6 +335,9 @@
         <activity android:name=".base.PreviewImageActivity"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".community.activity.MyDynamicActivity"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>

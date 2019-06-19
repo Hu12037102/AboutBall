@@ -133,7 +133,8 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
         mItemDynamic.setOnItemClickListener(new ItemView.OnItemClickListener() {
             @Override
             public void onClickItem(View view) {
-                Toasts.with().showToast(R.string.pleases_next_open);
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_DYNAMIC);
+               // Toasts.with().showToast(R.string.pleases_next_open);
             }
         });
         mItemAsReferee.setOnItemClickListener(new ItemView.OnItemClickListener() {

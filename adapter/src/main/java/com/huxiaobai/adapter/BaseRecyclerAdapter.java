@@ -116,6 +116,17 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
         }
     }
 
+    public void showFootView() {
+        if (isHaveFootView && mFootLinearLayout != null) {
+            mFootLinearLayout.setVisibility(View.VISIBLE);
+        }
+    }
+    public void hideFootView(){
+        if (isHaveFootView && mFootLinearLayout != null) {
+            mFootLinearLayout.setVisibility(View.GONE);
+        }
+    }
+
     public BaseRecyclerAdapter(@NonNull D data) {
         this(data, true);
     }
@@ -130,7 +141,6 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
         this.notifyDataSetChanged();
 
     }
-
 
 
     @Override
