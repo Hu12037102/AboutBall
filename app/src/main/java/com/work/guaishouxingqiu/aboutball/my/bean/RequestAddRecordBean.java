@@ -12,4 +12,5 @@ public class RequestAddRecordBean {
     public int duration;
     public long playerId;
     public long teamId;
+    public long outsId;
 }

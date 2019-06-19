@@ -93,6 +93,9 @@ public class UserManger {
     public int  getFollowCount(){
         return mSP.getInt(KEY_FOLLOW_COUNT);
     }
+    public int getRefereeStatus(){
+        return mSP.getInt(KEY_IS_REFEREE);
+    }
 
     public void putUser(UserBean userBean) {
         if (userBean == null) {

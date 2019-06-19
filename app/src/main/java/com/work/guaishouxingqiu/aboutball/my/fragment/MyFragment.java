@@ -134,7 +134,7 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
             @Override
             public void onClickItem(View view) {
                 ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_DYNAMIC);
-               // Toasts.with().showToast(R.string.pleases_next_open);
+                // Toasts.with().showToast(R.string.pleases_next_open);
             }
         });
         mItemAsReferee.setOnItemClickListener(new ItemView.OnItemClickListener() {
@@ -178,6 +178,7 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
         super.onStart();
         initLoginView();
 
+
     }
 
 
@@ -201,12 +202,22 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
         }
         GlideManger.get().loadHeadImage(mContext, userBean.headerImg, mCivMyHead);
         mLlHeadGroup.addView(view);
+
+        if (UserManger.get().getRefereeStatus() == 1) {
+            mItemAsReferee.setTitleText(R.string.my_referee_record);
+        } else {
+            mItemAsReferee.setTitleText(R.string.my_as_the_referee);
+        }
+        mMyRefereeStatus = UserManger.get().getRefereeStatus() == 0 ? null : UserManger.get().getRefereeStatus();
+
+
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && mContext != null && UserManger.get().isLogin()) {
+
             mPresenter.judgeRefereeStatus();
         }
     }

@@ -55,7 +55,7 @@ public class MainModel extends BaseModel {
                     data.add(communityTabBean);
                     break;
                 case 4:
-                    MainTabBean myTabBean = new MainTabBean(tabNameArray[3]);
+                    MainTabBean myTabBean = new MainTabBean(tabNameArray[4]);
                     myTabBean.mCheckResIcon = R.mipmap.icon_main_tab_my_check;
                     myTabBean.mDefaultResIcon = R.mipmap.icon_main_tab_my_default;
                     data.add(myTabBean);

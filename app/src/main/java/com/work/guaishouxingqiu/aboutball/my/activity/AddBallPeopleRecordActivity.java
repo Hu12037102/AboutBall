@@ -108,6 +108,7 @@ public class AddBallPeopleRecordActivity extends BaseActivity<AddBallPeopleRecor
     protected void initData() {
         mRequestBean = new RequestAddRecordBean();
         mRequestBean.agreeId = mIntentBean.agreeId;
+        mRequestBean.outsId = mEditIntentBean.outsId;
         mPlayerData = new ArrayList<>();
         mTeamData = new ArrayList<>();
         mTimeData = new ArrayList<>();
@@ -265,7 +266,7 @@ public class AddBallPeopleRecordActivity extends BaseActivity<AddBallPeopleRecor
                 if (isSelectorAll()) {
                     if (mEditIntentBean == null) {
                         mPresenter.addRefereePlayerRecord(mRequestBean);
-                    }else {
+                    } else {
                         mPresenter.editRefereePlayerRecord(mRequestBean);
                     }
                 }
