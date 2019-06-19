@@ -152,7 +152,7 @@ public class MyDynamicActivity extends BaseActivity<MyDynamicPresenter> implemen
 
     private void initAdapter() {
         mData = new ArrayList<>();
-        mAdapter = new CommunityDataAdapter(mData);
+        mAdapter = new CommunityDataAdapter(mData,false);
        // mAdapter.addFootView(UIUtils.loadNotMoreView(mRvData));
         mRvData.setAdapter(mAdapter);
         mSrlRefresh.autoRefresh();
