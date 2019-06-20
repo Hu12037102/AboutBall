@@ -64,6 +64,7 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
     protected void initData() {
         mData = new ArrayList<>();
         mAdapter = new CommunityDataAdapter(mData, false);
+        mAdapter.setNotDataContentRes(R.string.not_follow_content);
         mRvData.setAdapter(mAdapter);
         mSrlLayout.autoRefresh();
     }

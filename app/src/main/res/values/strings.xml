@@ -27,6 +27,7 @@
     <string name="please_invite_the_referee">请邀请裁判</string>
     <string name="not_find_this_order">没有找到该订单</string>
     <string name="not_find_this_topic">没有找到该话题</string>
+    <string name="not_follow_content">暂无关注内容</string>
 
     <string name="not_find_this_referee">没有找到该裁判</string>
     <string name="not_find_this_venue_evaluate">没有找到该场馆评价</string>

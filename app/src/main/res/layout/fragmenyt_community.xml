@@ -20,6 +20,7 @@
             android:paddingRight="@dimen/default_margin"
             android:paddingTop="@dimen/size_10dp"
             android:src="@mipmap/icon_search"
+            android:visibility="invisible"
             app:layout_constraintRight_toRightOf="parent" />
 
         <android.support.design.widget.TabLayout
