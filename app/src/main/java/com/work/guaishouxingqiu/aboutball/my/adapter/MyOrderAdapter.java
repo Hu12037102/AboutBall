@@ -60,9 +60,13 @@ public class MyOrderAdapter extends BaseRecyclerAdapter<MyOrderAdapter.ViewHolde
         //项目地址
         String addressHost = UIUtils.getString(R.string.order_item_address_host);
         String addressContent = "";
+
         List<ResultMyOrderBean.DetailsOrder> orderDetailsData = mData.get(i).orderDetailForOrders;
         if (orderDetailsData != null && orderDetailsData.size() > 0) {
             for (ResultMyOrderBean.DetailsOrder details : orderDetailsData) {
+                if (details == null){
+                    continue;
+                }
                 addressContent = addressContent.concat(DataUtils.getNotNullData(details.areaName)).concat(" ").concat(DataUtils.getNotNullData(details.calendar));
             }
         }

@@ -82,6 +82,7 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
     private ImageView mIvHeadMore;
     private SingPopupWindows mDeleteWindows;
     private List<String> mPreviewData;
+    private CircleImageView mCivHead;
 
     @Override
     protected int getLayoutId() {
@@ -108,8 +109,8 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
 
     private void initHeadView() {
         mHeadInflateView = LayoutInflater.from(this).inflate(R.layout.item_community_data_view, mRvData, false);
-        CircleImageView civHead = mHeadInflateView.findViewById(R.id.civ_head);
-        GlideManger.get().loadHeadImage(this, mIntentBean.headImg, civHead);
+        mCivHead = mHeadInflateView.findViewById(R.id.civ_head);
+        GlideManger.get().loadHeadImage(this, mIntentBean.headImg, mCivHead);
         TextView tvHeadName = mHeadInflateView.findViewById(R.id.tv_name);
         UIUtils.setText(tvHeadName, mIntentBean.nickName);
         TextView mTvHeadTime = mHeadInflateView.findViewById(R.id.tv_time);
@@ -716,6 +717,12 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
                 if (mDeleteWindows != null && !mDeleteWindows.isShowing()) {
                     mDeleteWindows.showAsDropDown(v, -(mDeleteWindows.getWindow().getWidth() - ScreenUtils.dp2px(CommunityDetailsActivity.this, 40)), 0);
                 }
+            }
+        });
+        mCivHead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewModel.startActivityToPreview(0, DataUtils.getOnePreviewData(mIntentBean.headImg));
             }
         });
     }

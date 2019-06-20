@@ -59,10 +59,11 @@ public interface Contast {
     String AGREE_ID = "agreeId";
     String SHARE_ID = "shareId";
     String SHARE_TYPE = "shareType";
-    String OUTS_ID="outsId";
-    String TWEET_ID="tweetId";
-    String CONCERN_ID="concernId";
-    String TIPS_REASON ="tipsReason";
+    String OUTS_ID = "outsId";
+    String TWEET_ID = "tweetId";
+    String CONCERN_ID = "concernId";
+    String TIPS_REASON = "tipsReason";
+    String TOPIC_ID="topicId";
     //默认经度
     double DEFAULT_LONGITUDE = 115.770000;
     //默认纬度
@@ -122,6 +123,11 @@ public interface Contast {
     String ALL_FILE = "全部文件";
     String ALL_VIDEO = "全部视频";
     int REQUEST_CAMERA_CODE = 2000;
+
+    interface Topic {
+        int RECOMMENDED = 0;//话题推荐
+        int NEW = 1;//话题最新
+    }
 
     interface SecretKey {
         String WEICHAT_APP_ID = "wx41e9ee2ffa7b327e";

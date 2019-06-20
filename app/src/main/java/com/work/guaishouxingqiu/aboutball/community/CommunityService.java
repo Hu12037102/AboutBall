@@ -57,4 +57,11 @@ public interface CommunityService {
 
     @GET(IApiService.GET_MY_DYNAMIC)
     Observable<BaseBean<List<ResultCommunityDataBean>>> getMyDynamicData(@Query(Contast.PAGE_NUM) int pageNum, @Query(Contast.PAGE_SIZE) int pageSize);
+
+    @GET(IApiService.GET_RECOMMEND_TOPIC)
+    Observable<BaseBean<List<ResultCommunityDataBean>>> loadRecommendedTopic(@Query(Contast.TOPIC_ID) long topicId, @Query(Contast.PAGE_NUM) int pageNum,
+                                                                             @Query(Contast.PAGE_SIZE) int pageSize);
+    @GET(IApiService.GET_NEW_TOPIC)
+    Observable<BaseBean<List<ResultCommunityDataBean>>> loadNewTopic(@Query(Contast.TOPIC_ID) long topicId, @Query(Contast.PAGE_NUM) int pageNum,
+                                                                             @Query(Contast.PAGE_SIZE) int pageSize);
 }

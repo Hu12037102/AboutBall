@@ -110,6 +110,15 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
                 }
             }
         });*/
+        viewHolder.mCliHead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mContext instanceof BaseActivity) {
+                    BaseActivity baseActivity = (BaseActivity) mContext;
+                    baseActivity.mViewModel.startActivityToPreview(0, DataUtils.getOnePreviewData(bean.headImg));
+                }
+            }
+        });
         viewHolder.mIvMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

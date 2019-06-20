@@ -1,6 +1,10 @@
 package com.work.guaishouxingqiu.aboutball.community.contract;
 
+import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
+
+import java.util.List;
 
 /**
  * 作者: 胡庆岭
@@ -9,5 +13,13 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
  * 描述:话题动态契约
  */
 public interface TopicDynamicsContract {
-    interface View extends IBaseView{}
+    interface View extends IBaseView {
+        void resultTopicData(List<ResultCommunityDataBean> data);
+    }
+
+    interface Presenter extends IBasePresenter {
+        void loadRecommendedTopic(long topicId);
+
+        void loadNewTopic(long topicId);
+    }
 }

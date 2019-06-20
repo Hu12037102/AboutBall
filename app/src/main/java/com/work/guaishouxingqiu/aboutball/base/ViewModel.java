@@ -590,4 +590,12 @@ public class ViewModel {
         deleteDialog.setOnItemClickSureAndCancelListener(listener);
         deleteDialog.show();
     }
+
+    public Fragment getTopicFragment(int flag, long topicId) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(ARouterConfig.Key.TOPIC_STATUS, flag);
+        bundle.putLong(ARouterConfig.Key.TOPIC_ID, topicId);
+        return ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_TOPIC_DYNAMICS, bundle);
+    }
+
 }

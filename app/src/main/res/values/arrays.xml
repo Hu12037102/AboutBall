@@ -109,4 +109,8 @@
         <item>广告骚扰</item>
         <item>其它</item>
     </string-array>
+    <string-array name="topic_dynamics_tab_array">
+        <item>推荐</item>
+        <item>最新</item>
+    </string-array>
 </resources>

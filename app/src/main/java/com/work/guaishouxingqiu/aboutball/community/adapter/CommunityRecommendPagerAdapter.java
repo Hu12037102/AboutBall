@@ -11,6 +11,8 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultRecommendHotBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
+import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 
 import java.util.List;
 
@@ -38,6 +40,12 @@ public class CommunityRecommendPagerAdapter extends PagerAdapter {
         int selectorPosition = position % mData.size();
         GlideManger.get().loadBannerImage(mContext, mData.get(selectorPosition).imageUrl, rivContent);
         container.addView(inflateView);
+        inflateView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_TOPIC_DYNAMICS, ARouterConfig.Key.PARCELABLE, mData.get(selectorPosition));
+            }
+        });
         return inflateView;
     }
 
@@ -63,6 +71,7 @@ public class CommunityRecommendPagerAdapter extends PagerAdapter {
         }
         return super.getItemPosition(object);
     }
+
     @Override
     public void notifyDataSetChanged() {
         mChildCount = getCount();

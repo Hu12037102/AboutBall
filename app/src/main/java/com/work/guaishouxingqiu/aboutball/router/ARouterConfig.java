@@ -67,6 +67,8 @@ public interface ARouterConfig {
         String ACTIVITY_SELECTOR_TOPIC = "/activity/selector/topic";
         String ACTIVITY_COMMUNITY_REPORT = "/activity/community/report";
         String ACTIVITY_IMAGE_PREVIEW = "/activity/preview/image";
+        String ACTIVITY_TOPIC_DYNAMICS = "/activity/topic/dynamics";
+        String ACTIVITY_MY_DYNAMIC = "/activity/my/dynamic";
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";
@@ -102,7 +104,7 @@ public interface ARouterConfig {
         String FRAGMENT_MY_ORDER = "/fragment/my/order";
         String FRAGMENT_MY_ABOUT_BALL = "/fragment/my/about/ball";
         String FRAGMENT_POST_EVALUATION = "/fragment/post/evaluation";
-        String ACTIVITY_MY_DYNAMIC="/activity/my/dynamic";
+        String FRAGMENT_TOPIC_DYNAMICS = "/fragment/topic/dynamics";
 
 
     }
@@ -159,6 +161,8 @@ public interface ARouterConfig {
         String SIGN_CODE = "signCode";
         String TWEET_ID = "tweetId";
         String DELETE = "delete";
+        String TOPIC_STATUS="topicStatus";
+        String TOPIC_ID="topicId";
 
     }
 
