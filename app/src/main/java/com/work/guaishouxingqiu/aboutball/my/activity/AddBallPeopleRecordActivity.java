@@ -108,7 +108,6 @@ public class AddBallPeopleRecordActivity extends BaseActivity<AddBallPeopleRecor
     protected void initData() {
         mRequestBean = new RequestAddRecordBean();
         mRequestBean.agreeId = mIntentBean.agreeId;
-        mRequestBean.outsId = mEditIntentBean.outsId;
         mPlayerData = new ArrayList<>();
         mTeamData = new ArrayList<>();
         mTimeData = new ArrayList<>();
@@ -134,6 +133,7 @@ public class AddBallPeopleRecordActivity extends BaseActivity<AddBallPeopleRecor
             mRequestBean.playerId = mEditIntentBean.playerId;
             mRequestBean.duration = mEditIntentBean.duration;
             mRequestBean.action = mEditIntentBean.action;
+            mRequestBean.outsId = mEditIntentBean.outsId;
             mTvLeft.setVisibility(View.VISIBLE);
         }
         // mPresenter.loadMemberDetails(mHostTeamId);
