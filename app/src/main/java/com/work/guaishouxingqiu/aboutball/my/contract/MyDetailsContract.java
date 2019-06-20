@@ -4,6 +4,7 @@ import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.commonality.contract.LoginOrShareContract;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateBirthdayBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateHeadPhotoBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateHeightBean;
@@ -16,7 +17,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateWeightBean;
  * 描述:我的详情契约
  */
 public interface MyDetailsContract {
-    interface View extends IBaseView {
+    interface View extends LoginOrShareContract.View {
         void resultUpdateSex();
 
         void resultUpdateWeight();
@@ -28,7 +29,7 @@ public interface MyDetailsContract {
         void resultUpdateHeadPhoto(String photoUrl);
     }
 
-    interface Presenter extends IBasePresenter {
+    interface Presenter extends LoginOrShareContract.Presenter {
         void updateSex(int sexType);
 
         void updateWeight(RequestUpdateWeightBean bean);

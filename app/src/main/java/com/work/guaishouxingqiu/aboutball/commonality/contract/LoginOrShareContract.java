@@ -4,6 +4,7 @@ import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.ResultThreeLoginBean;
 import com.work.guaishouxingqiu.aboutball.login.contract.MessageContract;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.RequestWeiChatTokenBean;
+import com.work.guaishouxingqiu.aboutball.wxapi.WXEntryActivity;
 
 /**
  * 作者: 胡庆岭
@@ -14,10 +15,10 @@ import com.work.guaishouxingqiu.aboutball.commonality.bean.RequestWeiChatTokenBe
 public interface LoginOrShareContract {
     interface View extends MessageContract.View {
         void resultOtherLogin(ResultThreeLoginBean bean,String signCode);
+        void resultBandOtherAccount(String signCode);
     }
 
     interface Presenter extends MessageContract.Presenter {
         void getWeiChatToken(RequestWeiChatTokenBean bean);
-
     }
 }

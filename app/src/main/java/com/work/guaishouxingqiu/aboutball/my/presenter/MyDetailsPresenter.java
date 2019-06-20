@@ -6,6 +6,7 @@ import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.commonality.presenter.LoginOrSharePresenter;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateBirthdayBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateHeadPhotoBean;
@@ -21,7 +22,7 @@ import com.work.guaishouxingqiu.aboutball.my.model.MyDetailsModel;
  * 更新时间: 2019/3/20 9:21
  * 描述:我的详情P
  */
-public class MyDetailsPresenter extends BasePresenter<MyDetailsContract.View, MyDetailsModel>
+public class MyDetailsPresenter extends LoginOrSharePresenter<MyDetailsContract.View, MyDetailsModel>
         implements MyDetailsContract.Presenter {
     public MyDetailsPresenter(@NonNull MyDetailsContract.View view) {
         super(view);

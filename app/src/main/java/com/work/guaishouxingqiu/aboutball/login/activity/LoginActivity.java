@@ -35,6 +35,7 @@ import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
+import com.work.guaishouxingqiu.aboutball.wxapi.WXEntryActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -171,7 +172,7 @@ public class LoginActivity extends LoginOrShareActivity<LoginPresenter> implemen
                 clickRegister();
                 break;
             case R.id.tv_weichat:
-                loginWeiChat();
+                loginWeiChat(WXEntryActivity.WeiChatStatus.LOGIN);
                 break;
         }
     }

@@ -13,6 +13,7 @@
     <string name="invite_friend">邀请好友</string>
     <string name="invite_referee">邀请裁判</string>
     <string name="audit_result">审核结果</string>
+    <string name="banding">已绑定</string>
     <string name="audit_result_error">审核结果异常</string>
     <string name="get_approved">通过审核</string>
     <string name="audit_failure">审核失败</string>
@@ -547,6 +548,7 @@
     <string name="you_sure_delete_community">你确定删除该动态</string>
     <string name="attention_s">%s\n关注</string>
     <string name="fans_s">%s\n粉丝</string>
+    <string name="your_are_banding_weichat_code">您已经绑定了微信号</string>
 
 
 

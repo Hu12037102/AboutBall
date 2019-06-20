@@ -1,5 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.commonality.model;
 
+import com.work.guaishouxingqiu.aboutball.BaseService;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.ResultThreeLoginBean;
@@ -9,6 +10,7 @@ import com.work.guaishouxingqiu.aboutball.commonality.bean.RequestOtherLoginBean
 import com.work.guaishouxingqiu.aboutball.commonality.bean.ResultWeiChatInfo;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.ResultWeiChatTokenBean;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.RequestWeiChatTokenBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestBandOtherAccountBean;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -50,6 +52,13 @@ public class LoginOrShareModel extends MessageModel {
                 .subscribe(observer);
     }
 
+    public void bandOtherAccount(RequestBandOtherAccountBean bean, BaseObserver<String> observer) {
+        mRetrofitManger.create(BaseService.class)
+                .bandOtherAccount(bean)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
 
     public void resetBaseUrl() {
         mRetrofitManger.resetBaseUrl();

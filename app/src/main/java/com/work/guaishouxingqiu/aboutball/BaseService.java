@@ -3,6 +3,7 @@ package com.work.guaishouxingqiu.aboutball;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.community.bean.RequestDynamicCommentsBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestBandOtherAccountBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -34,4 +35,6 @@ public interface BaseService {
 
     @GET(IApiService.GET_DELETE_DYNAMIC)
     Observable<BaseBean<BaseDataBean<String>>> deleteDynamics(@Query(Contast.TWEET_ID) long tweetId);
+    @POST(IApiService.GET_BAND_THREE_ACCOUNT)
+    Observable<BaseBean<String>> bandOtherAccount(@Body RequestBandOtherAccountBean bean);
 }

@@ -141,8 +141,8 @@ public abstract class CameraActivity<P extends BasePresenter> extends Permission
     }
 
 
-    protected abstract void resultAlbumResult(List<MediaSelectorFile> data);
+    protected  void resultAlbumResult(List<MediaSelectorFile> data){}
 
-    protected abstract void resultCameraResult(File cameraFile);
+    protected  void resultCameraResult(File cameraFile){}
 
 }

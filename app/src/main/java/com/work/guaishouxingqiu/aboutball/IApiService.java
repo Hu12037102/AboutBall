@@ -85,6 +85,7 @@ public interface IApiService {
     String GET_REPORT_COMMUNITY="/api/tweet/tweetTips";
     String GET_DELETE_DYNAMIC="/api/tweet/removeTweet";
     String GET_MY_DYNAMIC ="/api/tweet/getMyTweetList";
+    String GET_BAND_THREE_ACCOUNT="/api/accountManagement/bandingThreeAccount";
 
     //获取微信登录token
     String GET_WEICHAT_TOKEN = "/sns/oauth2/access_token";

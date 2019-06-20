@@ -15,7 +15,9 @@ import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.base.CameraActivity;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
+import com.work.guaishouxingqiu.aboutball.login.activity.LoginActivity;
 import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.ResultThreeLoginBean;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
@@ -25,9 +27,11 @@ import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.RequestWeiChatTokenBean;
 import com.work.guaishouxingqiu.aboutball.commonality.contract.LoginOrShareContract;
 import com.work.guaishouxingqiu.aboutball.commonality.presenter.LoginOrSharePresenter;
+import com.work.guaishouxingqiu.aboutball.util.PhoneUtils;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.ShareDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
+import com.work.guaishouxingqiu.aboutball.wxapi.WXEntryActivity;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -39,7 +43,7 @@ import static com.tencent.mm.opensdk.modelmsg.SendMessageToWX.Req.WXSceneSession
  * 更新时间: 2019/4/4 9:33
  * 描述: 登录或者分享Activity
  */
-public abstract class LoginOrShareActivity<P extends LoginOrSharePresenter> extends PermissionActivity<P> implements
+public abstract class LoginOrShareActivity<P extends LoginOrSharePresenter> extends CameraActivity<P> implements
         LoginOrShareContract.View {
 
 
@@ -58,7 +62,8 @@ public abstract class LoginOrShareActivity<P extends LoginOrSharePresenter> exte
         unRegisterEventBus();
     }
 
-    public void loginWeiChat() {
+    public void loginWeiChat(WXEntryActivity.WeiChatStatus status) {
+        mPresenter.setWeiChatStatus(status);
         if (this.getBaseApplication().getWeiChatApi().isWXAppInstalled()) {
             SendAuth.Req req = new SendAuth.Req();
             req.scope = "snsapi_userinfo";
@@ -90,32 +95,32 @@ public abstract class LoginOrShareActivity<P extends LoginOrSharePresenter> exte
 
     @Subscribe
     public void resultWeiChatDataToActivity(BaseResp baseResp) {
-        LogUtils.w("resultWeiChatData--", baseResp.errCode + "--");
+      //  if (PhoneUtils.isTopActivity(this, LoginOrShareActivity.class.getName())) {
+            if (baseResp.getType() == LoginOrSharePresenter.WEICHAT_LOGIN_TYPE) {
+                switch (baseResp.errCode) {
+                    case BaseResp.ErrCode.ERR_OK:
+                        RequestWeiChatTokenBean bean = new RequestWeiChatTokenBean();
+                        SendAuth.Resp req = (SendAuth.Resp) baseResp;
+                        bean.code = req.code;
+                        mPresenter.getWeiChatToken(bean);
+                        break;
+                    case BaseResp.ErrCode.ERR_USER_CANCEL:
+                        Toasts.with().showToast(R.string.cancel_weichat_login);
+                        break;
+                    case BaseResp.ErrCode.ERR_UNSUPPORT:
+                        break;
+                    default:
+                        break;
+                }
+            } else if (baseResp.getType() == LoginOrSharePresenter.WEICHAT_SHARE_TYPE) {
 
-        if (baseResp.getType() == LoginOrSharePresenter.WEICHAT_LOGIN_TYPE) {
-            switch (baseResp.errCode) {
-                case BaseResp.ErrCode.ERR_OK:
-                    RequestWeiChatTokenBean bean = new RequestWeiChatTokenBean();
-                    SendAuth.Resp req = (SendAuth.Resp) baseResp;
-                    bean.code = req.code;
-                    mPresenter.getWeiChatToken(bean);
-                    break;
-                case BaseResp.ErrCode.ERR_USER_CANCEL:
-                    Toasts.with().showToast(R.string.cancel_weichat_login);
-                    break;
-                case BaseResp.ErrCode.ERR_UNSUPPORT:
-                    break;
-                default:
-                    break;
             }
-        } else if (baseResp.getType() == LoginOrSharePresenter.WEICHAT_SHARE_TYPE) {
-
-        }
+      //  }
 
     }
 
     @Override
-    public void resultOtherLogin(ResultThreeLoginBean bean,String signCode) {
+    public void resultOtherLogin(ResultThreeLoginBean bean, String signCode) {
 
     }
 
@@ -155,6 +160,10 @@ public abstract class LoginOrShareActivity<P extends LoginOrSharePresenter> exte
             shareWebToWeiChat(bean);
             mShareDialog.dismiss();
         });
+    }
+    @Override
+    public void resultBandOtherAccount(String signCode) {
+        UserManger.get().putWeiChatOpenId(signCode);
     }
 
 }

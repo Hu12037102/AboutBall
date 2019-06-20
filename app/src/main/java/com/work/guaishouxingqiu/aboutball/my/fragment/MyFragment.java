@@ -133,7 +133,11 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
         mItemDynamic.setOnItemClickListener(new ItemView.OnItemClickListener() {
             @Override
             public void onClickItem(View view) {
-                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_DYNAMIC);
+                if (UserManger.get().isLogin()) {
+                    ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_DYNAMIC);
+                } else {
+                    mViewModel.showLoginDialog();
+                }
                 // Toasts.with().showToast(R.string.pleases_next_open);
             }
         });

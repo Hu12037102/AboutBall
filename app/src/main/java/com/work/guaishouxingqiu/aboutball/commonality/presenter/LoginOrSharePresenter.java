@@ -9,6 +9,8 @@ import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.ResultThreeLoginBean;
 import com.work.guaishouxingqiu.aboutball.login.presenter.MessagePresenter;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestBandOtherAccountBean;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.RequestOtherLoginBean;
@@ -17,6 +19,7 @@ import com.work.guaishouxingqiu.aboutball.commonality.bean.ResultWeiChatTokenBea
 import com.work.guaishouxingqiu.aboutball.commonality.bean.RequestWeiChatTokenBean;
 import com.work.guaishouxingqiu.aboutball.commonality.contract.LoginOrShareContract;
 import com.work.guaishouxingqiu.aboutball.commonality.model.LoginOrShareModel;
+import com.work.guaishouxingqiu.aboutball.wxapi.WXEntryActivity;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -34,6 +37,7 @@ public abstract class LoginOrSharePresenter<V extends LoginOrShareContract.View,
     public static final int WEICHAT_LOGIN_TYPE = 1;
     //微信分享
     public static final int WEICHAT_SHARE_TYPE = 2;
+    private WXEntryActivity.WeiChatStatus mStatus = WXEntryActivity.WeiChatStatus.LOGIN;
 
     public LoginOrSharePresenter(@NonNull V view) {
         super(view);
@@ -44,9 +48,14 @@ public abstract class LoginOrSharePresenter<V extends LoginOrShareContract.View,
 
     }
 
+    public void setWeiChatStatus(WXEntryActivity.WeiChatStatus status) {
+        this.mStatus = status;
+    }
+
     @Override
     public void getWeiChatToken(RequestWeiChatTokenBean bean) {
-       mView.showLoadingView();
+
+        mView.showLoadingView();
         mModel.getWeiChatToken(bean, new Observer<ResultWeiChatTokenBean>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -93,19 +102,28 @@ public abstract class LoginOrSharePresenter<V extends LoginOrShareContract.View,
                     bean.nickName = resultWeiChatInfo.nickname;
                     bean.signCode = resultWeiChatInfo.unionid;
                     bean.type = 1;
-                    mModel.loginOtherWeiChat(bean, new BaseObserver<>(true, LoginOrSharePresenter.this, new BaseObserver.Observer<ResultThreeLoginBean>() {
-                        @Override
-                        public void onNext(BaseBean<ResultThreeLoginBean> t) {
-                            if (t.code == IApi.Code.SUCCEED) {
-                                mView.resultOtherLogin(t.result, bean.signCode);
+                    if (mStatus == WXEntryActivity.WeiChatStatus.LOGIN) {
+                        mModel.loginOtherWeiChat(bean, new BaseObserver<>(true, LoginOrSharePresenter.this, new BaseObserver.Observer<ResultThreeLoginBean>() {
+                            @Override
+                            public void onNext(BaseBean<ResultThreeLoginBean> t) {
+                                if (t.code == IApi.Code.SUCCEED) {
+                                    mView.resultOtherLogin(t.result, bean.signCode);
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            mView.dismissLoadingView();
-                        }
-                    }));
+                            @Override
+                            public void onError(Throwable e) {
+                                mView.dismissLoadingView();
+                            }
+                        }));
+                    } else if (mStatus == WXEntryActivity.WeiChatStatus.BAND) {
+                        RequestBandOtherAccountBean bandBean = new RequestBandOtherAccountBean();
+                        bandBean.imageUrl = bean.imageUrl;
+                        bandBean.nickName = bean.nickName;
+                        bandBean.type = 1;
+                        bandBean.signCode = bean.signCode;
+                        bandOtherAccount(bandBean);
+                    }
                     //   mView.resultWeiChatInfo(resultWeiChatInfo);
                 } else {
                     mView.showToast(UIUtils.getString(R.string.weichat_login_failed));
@@ -123,6 +141,22 @@ public abstract class LoginOrSharePresenter<V extends LoginOrShareContract.View,
             }
         });
 
+    }
+
+    public void bandOtherAccount(RequestBandOtherAccountBean bean) {
+        mModel.bandOtherAccount(bean, new BaseObserver<>(true, this, new BaseObserver.Observer<String>() {
+            @Override
+            public void onNext(BaseBean<String> t) {
+                if (t.code == IApi.Code.SUCCEED) {
+                    mView.resultBandOtherAccount(bean.signCode);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
     }
 
     @Override

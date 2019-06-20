@@ -21,6 +21,7 @@ import android.util.Log;
 
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.login.activity.LoginActivity;
 import com.work.guaishouxingqiu.aboutball.other.ActivityManger;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
@@ -219,5 +220,30 @@ public class PhoneUtils {
                 }
             }
         }*/
+    }
+
+    public static boolean isTopActivity(@NonNull Context context, String className) {
+        LogUtils.w("isTopActivity--", className + "--");
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        if (am == null) {
+            return false;
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            List<ActivityManager.AppTask> taskData = am.getAppTasks();
+            for (ActivityManager.AppTask task : taskData) {
+                ActivityManager.RecentTaskInfo taskInfo = task.getTaskInfo();
+                if (taskInfo != null && taskInfo.topActivity != null && taskInfo.topActivity.getClassName().equals(className)) {
+                    return true;
+                }
+            }
+        } else {
+            List<ActivityManager.RunningTaskInfo> taskData = am.getRunningTasks(100);
+            for (ActivityManager.RunningTaskInfo taskInfo : taskData) {
+                if (taskInfo != null && taskInfo.topActivity != null && taskInfo.topActivity.getClassName().equals(className)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

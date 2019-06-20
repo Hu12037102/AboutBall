@@ -90,11 +90,21 @@ public class UserManger {
     public void putFollowCount(int count) {
         mSP.putObject(KEY_FOLLOW_COUNT, count);
     }
-    public int  getFollowCount(){
+
+    public int getFollowCount() {
         return mSP.getInt(KEY_FOLLOW_COUNT);
     }
-    public int getRefereeStatus(){
+
+    public int getRefereeStatus() {
         return mSP.getInt(KEY_IS_REFEREE);
+    }
+
+    public void putWeiChatOpenId(String signCode) {
+        mSP.putObject(KEY_WECHAT_OPEN_ID, signCode);
+    }
+
+    public String getWeiChatOpenId() {
+        return mSP.getString(KEY_WECHAT_OPEN_ID);
     }
 
     public void putUser(UserBean userBean) {

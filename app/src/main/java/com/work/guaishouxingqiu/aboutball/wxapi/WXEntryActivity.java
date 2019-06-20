@@ -24,6 +24,10 @@ import org.greenrobot.eventbus.EventBus;
  */
 public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
+    public  enum WeiChatStatus{
+        LOGIN,
+        BAND
+    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
