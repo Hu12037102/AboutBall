@@ -3,6 +3,7 @@ package com.work.guaishouxingqiu.aboutball.community.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -151,6 +152,12 @@ public class TopicDynamicsActivity extends BaseActivity {
 
             }
         });
+        mTitleView.setOnBackViewClickListener(new TitleView.OnBackViewClickListener() {
+            @Override
+            public void onBackClick(@NonNull View view) {
+                mViewModel.clickBackForResult();
+            }
+        });
     }
 
     @Override
@@ -185,5 +192,10 @@ public class TopicDynamicsActivity extends BaseActivity {
             }
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        mViewModel.clickBackForResult();
     }
 }

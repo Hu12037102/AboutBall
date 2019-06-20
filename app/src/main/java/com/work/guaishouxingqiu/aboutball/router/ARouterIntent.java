@@ -138,6 +138,11 @@ public class ARouterIntent {
         intent.putExtra(key,parcelable);
         fragment.startActivityForResult(intent, REQUEST_CODE);
     }
+    public static void startActivityForResult(@NonNull Fragment fragment, Class clazz,String key,Parcelable parcelable,int requestCode) {
+        Intent intent = new Intent(fragment.getContext(), clazz);
+        intent.putExtra(key,parcelable);
+        fragment.startActivityForResult(intent, requestCode);
+    }
 
     public static void startActivityForResult(@NonNull Fragment fragment, Class clazz, Bundle bundle) {
         Intent intent = new Intent(fragment.getContext(), clazz);

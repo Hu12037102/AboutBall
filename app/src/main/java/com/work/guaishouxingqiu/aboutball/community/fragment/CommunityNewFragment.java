@@ -43,6 +43,7 @@ public class CommunityNewFragment extends DelayedFragment<CommunityNewsPresenter
     private CommunityDataAdapter mAdapter;
     private List<ResultCommunityDataBean> mData;
     private static final int REQUEST_CODE_PUBLISH_DYNAMIC = 145;
+    private static final int REQUEST_CODE_TOPIC = 321;
 
     @Override
     protected void initDelayedView() {
@@ -104,7 +105,10 @@ public class CommunityNewFragment extends DelayedFragment<CommunityNewsPresenter
 
             @Override
             public void onClickTopic(View view, int position) {
-
+                ResultCommunityDataBean bean = mData.get(position);
+                if (bean != null) {
+                    mViewModel.startActivityToTopicForResult(bean.topic, REQUEST_CODE_TOPIC, CommunityNewFragment.this);
+                }
             }
 
             @Override
@@ -207,6 +211,8 @@ public class CommunityNewFragment extends DelayedFragment<CommunityNewsPresenter
                     boolean isDelete = data.getBooleanExtra(ARouterConfig.Key.DELETE, false);
                     mViewModel.resultCommunityData(mAdapter, bean, mData,isDelete);
                     break;
+                case REQUEST_CODE_TOPIC:
+                    mSrlLayout.autoRefresh();
                 default:
                     break;
             }

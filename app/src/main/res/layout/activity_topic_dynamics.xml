@@ -50,7 +50,8 @@
                         android:id="@+id/iv_banner"
                         android:layout_width="match_parent"
                         android:layout_height="158dp"
-                        android:contentDescription="@null" />
+                        android:contentDescription="@null"
+                        android:scaleType="centerCrop"/>
 
                     <com.work.guaishouxingqiu.aboutball.weight.FocusableTextView
                         android:id="@+id/tv_content"

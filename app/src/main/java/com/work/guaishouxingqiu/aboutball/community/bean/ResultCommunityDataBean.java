@@ -24,6 +24,8 @@ public class ResultCommunityDataBean implements Parcelable{
     public int hasPraise; //自己有沒有点赞
     public int myTweet; //自己的话题
     public int hasFollow;//有没有关注
+    public ResultRecommendHotBean topic;
+
 
     protected ResultCommunityDataBean(Parcel in) {
         tweetId = in.readLong();
@@ -40,6 +42,7 @@ public class ResultCommunityDataBean implements Parcelable{
         hasPraise = in.readInt();
         myTweet = in.readInt();
         hasFollow = in.readInt();
+        topic = in.readParcelable(ResultRecommendHotBean.class.getClassLoader());
     }
 
     public static final Creator<ResultCommunityDataBean> CREATOR = new Creator<ResultCommunityDataBean>() {
@@ -75,5 +78,6 @@ public class ResultCommunityDataBean implements Parcelable{
         dest.writeInt(hasPraise);
         dest.writeInt(myTweet);
         dest.writeInt(hasFollow);
+        dest.writeParcelable(topic, flags);
     }
 }

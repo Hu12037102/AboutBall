@@ -73,6 +73,7 @@ public class CommunityRecommendFragment extends DelayedFragment<CommunityRecomme
     private List<ResultRecommendHotBean> mHeadData;
     private CommunityRecommendPagerAdapter mHeadAdapter;
     private BaseViewPager mBvpContent;
+    private static final int REQUEST_CODE_TOPIC = 321;
 
     @Override
     protected int getLayoutId() {
@@ -150,6 +151,10 @@ public class CommunityRecommendFragment extends DelayedFragment<CommunityRecomme
 
             @Override
             public void onClickTopic(View view, int position) {
+                ResultCommunityDataBean bean = mData.get(position);
+                if (bean != null) {
+                    mViewModel.startActivityToTopicForResult(bean.topic, REQUEST_CODE_TOPIC, CommunityRecommendFragment.this);
+                }
             }
 
             @Override
@@ -280,8 +285,10 @@ public class CommunityRecommendFragment extends DelayedFragment<CommunityRecomme
                     }
                     ResultCommunityDataBean bean = data.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
                     boolean isDelete = data.getBooleanExtra(ARouterConfig.Key.DELETE, false);
-                    mViewModel.resultCommunityData(mAdapter, bean, mData,isDelete);
+                    mViewModel.resultCommunityData(mAdapter, bean, mData, isDelete);
                     break;
+                case REQUEST_CODE_TOPIC:
+                    mSrlRefresh.autoRefresh();
                 default:
                     break;
             }

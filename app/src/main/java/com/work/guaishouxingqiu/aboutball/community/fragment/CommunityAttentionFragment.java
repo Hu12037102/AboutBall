@@ -48,6 +48,7 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
     private CommunityDataAdapter mAdapter;
     private List<ResultCommunityDataBean> mData;
     private static final int REQUEST_CODE_PUBLISH_DYNAMIC = 122;
+    private static final int REQUEST_CODE_TOPIC = 321;
 
     @Override
     protected int getLayoutId() {
@@ -115,7 +116,10 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
 
             @Override
             public void onClickTopic(View view, int position) {
-
+                ResultCommunityDataBean bean = mData.get(position);
+                if (bean != null) {
+                    mViewModel.startActivityToTopicForResult(bean.topic, REQUEST_CODE_TOPIC, CommunityAttentionFragment.this);
+                }
             }
 
             @Override
@@ -183,6 +187,8 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
                     boolean isDelete = data.getBooleanExtra(ARouterConfig.Key.DELETE, false);
                     mViewModel.resultCommunityData(mAdapter, bean, mData, isDelete);
                     break;
+                case REQUEST_CODE_TOPIC:
+                    mSrlLayout.autoRefresh();
                 default:
                     break;
             }
@@ -216,6 +222,7 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
             case R.id.iv_add_community:
                 ARouterIntent.startActivityForResult(this, DynamicEditActivity.class, CommunityAttentionFragment.REQUEST_CODE_PUBLISH_DYNAMIC);
                 break;
+
             default:
                 break;
         }

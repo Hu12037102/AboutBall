@@ -24,7 +24,9 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.community.activity.CommunityDetailsActivity;
+import com.work.guaishouxingqiu.aboutball.community.activity.TopicDynamicsActivity;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
+import com.work.guaishouxingqiu.aboutball.community.bean.ResultRecommendHotBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.login.activity.LoginActivity;
 import com.work.guaishouxingqiu.aboutball.my.activity.OrderEvaluateActivity;
@@ -596,6 +598,14 @@ public class ViewModel {
         bundle.putInt(ARouterConfig.Key.TOPIC_STATUS, flag);
         bundle.putLong(ARouterConfig.Key.TOPIC_ID, topicId);
         return ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_TOPIC_DYNAMICS, bundle);
+    }
+
+    public void startActivityToTopicForResult(ResultRecommendHotBean bean, int requestCode, Fragment fragment) {
+        if (fragment == null) {
+            ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_TOPIC_DYNAMICS, mSoftActivity.get(), ARouterConfig.Key.PARCELABLE, bean,requestCode);
+        } else {
+            ARouterIntent.startActivityForResult(fragment, TopicDynamicsActivity.class, ARouterConfig.Key.PARCELABLE, bean,requestCode);
+        }
     }
 
 }
