@@ -119,8 +119,10 @@ public class CommunityRecommendFragment extends DelayedFragment<CommunityRecomme
             refreshLayout.finishLoadMore();
         }
         mPresenter.loadData();
-    } public void autoRefresh(){
-        mSrlRefresh.autoRefresh();
+    }
+
+    public void autoRefresh(ResultCommunityDataBean bean) {
+        mViewModel.resultCommunityData(mAdapter, bean, mData);
     }
 
     @Override
@@ -207,11 +209,13 @@ public class CommunityRecommendFragment extends DelayedFragment<CommunityRecomme
     @Override
     public void resultDianZanStatus(int position) {
         mViewModel.updateDianZan(mAdapter, mData, position);
+        onEventUpdate(mData.get(position));
     }
 
     @Override
     public void resultAttentionTweetStatus(int position) {
         mViewModel.updateAttention(mAdapter, mData, position);
+        onEventUpdate(mData.get(position));
     }
 
     @Override
@@ -237,6 +241,9 @@ public class CommunityRecommendFragment extends DelayedFragment<CommunityRecomme
 
     @Override
     public void resultDeleteDynamicSucceed(int position) {
+        ResultCommunityDataBean bean = mData.get(position);
+        bean.isDelete = true;
+        onEventUpdate(bean);
         mData.remove(position);
         mAdapter.notifyDataSetChanged();
     }
@@ -293,12 +300,9 @@ public class CommunityRecommendFragment extends DelayedFragment<CommunityRecomme
                         return;
                     }
                     ResultCommunityDataBean bean = data.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
-                    boolean isDelete = data.getBooleanExtra(ARouterConfig.Key.DELETE, false);
-                    mViewModel.resultCommunityData(mAdapter, bean, mData, isDelete);
-                    if (onUpdateCommunity != null) {
-                        onUpdateCommunity.updateAttention();
-                        onUpdateCommunity.updateNew();
-                    }
+                    //  boolean isDelete = data.getBooleanExtra(ARouterConfig.Key.DELETE, false);
+                    mViewModel.resultCommunityData(mAdapter, bean, mData);
+                    onEventUpdate(bean);
                     break;
                 case REQUEST_CODE_TOPIC:
                     mSrlRefresh.autoRefresh();
@@ -309,9 +313,17 @@ public class CommunityRecommendFragment extends DelayedFragment<CommunityRecomme
 
     }
 
-    public interface OnUpdateCommunity {
-        void updateAttention();
 
-        void updateNew();
+    private void onEventUpdate(ResultCommunityDataBean bean) {
+        if (onUpdateCommunity != null) {
+            onUpdateCommunity.updateNew(bean);
+            onUpdateCommunity.updateAttention(bean);
+        }
+    }
+
+    public interface OnUpdateCommunity {
+        void updateAttention(ResultCommunityDataBean bean);
+
+        void updateNew(ResultCommunityDataBean bean);
     }
 }

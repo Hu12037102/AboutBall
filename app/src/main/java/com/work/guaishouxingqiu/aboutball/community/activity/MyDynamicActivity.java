@@ -319,8 +319,8 @@ public class MyDynamicActivity extends BaseActivity<MyDynamicPresenter> implemen
                         return;
                     }
                     ResultCommunityDataBean bean = data.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
-                    boolean isDelete = data.getBooleanExtra(ARouterConfig.Key.DELETE, false);
-                    mViewModel.resultCommunityData(mAdapter, bean, mData,isDelete);
+                    //boolean isDelete = data.getBooleanExtra(ARouterConfig.Key.DELETE, false);
+                    mViewModel.resultCommunityData(mAdapter, bean, mData);
                     break;
                 default:
                     break;

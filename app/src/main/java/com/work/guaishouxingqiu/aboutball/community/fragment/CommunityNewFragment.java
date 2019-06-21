@@ -49,7 +49,7 @@ public class CommunityNewFragment extends DelayedFragment<CommunityNewsPresenter
         this.onUpdateCommunity = onUpdateCommunity;
     }
 
-    private  OnUpdateCommunity onUpdateCommunity;
+    private OnUpdateCommunity onUpdateCommunity;
 
     @Override
     protected void initDelayedView() {
@@ -73,9 +73,11 @@ public class CommunityNewFragment extends DelayedFragment<CommunityNewsPresenter
             refreshLayout.finishLoadMore();
         }
     }
-    public void autoRefresh(){
-        mSrlLayout.autoRefresh();
+
+    public void autoRefresh(ResultCommunityDataBean bean) {
+        mViewModel.resultCommunityData(mAdapter, bean, mData);
     }
+
     @Override
     protected void initDelayedEvent() {
         mSrlLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
@@ -159,6 +161,9 @@ public class CommunityNewFragment extends DelayedFragment<CommunityNewsPresenter
 
     @Override
     public void resultDeleteDynamicSucceed(int position) {
+        ResultCommunityDataBean bean = mData.get(position);
+        bean.isDelete = true;
+        onEventUpdate(bean);
         mData.remove(position);
         mAdapter.notifyDataSetChanged();
     }
@@ -166,11 +171,13 @@ public class CommunityNewFragment extends DelayedFragment<CommunityNewsPresenter
     @Override
     public void resultDianZanStatus(int position) {
         mViewModel.updateDianZan(mAdapter, mData, position);
+        onEventUpdate(mData.get(position));
     }
 
     @Override
     public void resultAttentionTweetStatus(int position) {
         mViewModel.updateAttention(mAdapter, mData, position);
+        onEventUpdate(mData.get(position));
     }
 
     @OnClick(R.id.iv_add_community)
@@ -216,12 +223,9 @@ public class CommunityNewFragment extends DelayedFragment<CommunityNewsPresenter
                         return;
                     }
                     ResultCommunityDataBean bean = data.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
-                    boolean isDelete = data.getBooleanExtra(ARouterConfig.Key.DELETE, false);
-                    mViewModel.resultCommunityData(mAdapter, bean, mData,isDelete);
-                    if (onUpdateCommunity!= null){
-                        onUpdateCommunity.updateAttention();
-                        onUpdateCommunity.updateRecommend();
-                    }
+                    //boolean isDelete = data.getBooleanExtra(ARouterConfig.Key.DELETE, false);
+                    mViewModel.resultCommunityData(mAdapter, bean, mData);
+                    onEventUpdate(bean);
                     break;
                 case REQUEST_CODE_TOPIC:
                     mSrlLayout.autoRefresh();
@@ -229,10 +233,18 @@ public class CommunityNewFragment extends DelayedFragment<CommunityNewsPresenter
                     break;
             }
         }
-
     }
-    public interface OnUpdateCommunity{
-        void updateAttention();
-        void updateRecommend();
+
+    private void onEventUpdate(ResultCommunityDataBean bean) {
+        if (onUpdateCommunity != null) {
+            onUpdateCommunity.updateRecommend(bean);
+            onUpdateCommunity.updateAttention(bean);
+        }
+    }
+
+    public interface OnUpdateCommunity {
+        void updateAttention(ResultCommunityDataBean bean);
+
+        void updateRecommend(ResultCommunityDataBean bean);
     }
 }

@@ -85,8 +85,8 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
         }
     }
 
-    public void autoRefresh(){
-        mSrlLayout.autoRefresh();
+    public void autoRefresh(ResultCommunityDataBean bean) {
+        mViewModel.resultCommunityData(mAdapter, bean, mData);
     }
 
     @Override
@@ -145,6 +145,7 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
                 } else if (bean.hasFollow == 1) {
                     mPresenter.getCancelAttentionTweet(position, mData.get(position).userId);
                 }
+
             }
 
             @Override
@@ -172,6 +173,9 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
 
     @Override
     public void resultDeleteDynamicSucceed(int position) {
+        ResultCommunityDataBean bean = mData.get(position);
+        bean.isDelete = true;
+        onEventUpdate(bean);
         mData.remove(position);
         mAdapter.notifyDataSetChanged();
     }
@@ -194,12 +198,9 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
                         return;
                     }
                     ResultCommunityDataBean bean = data.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
-                    boolean isDelete = data.getBooleanExtra(ARouterConfig.Key.DELETE, false);
-                    mViewModel.resultCommunityData(mAdapter, bean, mData, isDelete);
-                    if (onUpdateCommunity != null) {
-                        onUpdateCommunity.updateNew();
-                        onUpdateCommunity.updateRecommended();
-                    }
+                    // boolean isDelete = data.getBooleanExtra(ARouterConfig.Key.DELETE, false);
+                    mViewModel.resultCommunityData(mAdapter, bean, mData);
+                    onEventUpdate(bean);
                     break;
                 case REQUEST_CODE_TOPIC:
                     mSrlLayout.autoRefresh();
@@ -210,14 +211,23 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
 
     }
 
+    private void onEventUpdate(ResultCommunityDataBean bean) {
+        if (onUpdateCommunity != null) {
+            onUpdateCommunity.updateNew(bean);
+            onUpdateCommunity.updateRecommended(bean);
+        }
+    }
+
     @Override
     public void resultDianZanStatus(int position) {
         mViewModel.updateDianZan(mAdapter, mData, position);
+        onEventUpdate(mData.get(position));
     }
 
     @Override
     public void resultAttentionTweetStatus(int position) {
         mViewModel.updateAttention(mAdapter, mData, position);
+        onEventUpdate(mData.get(position));
     }
 
     @Override
@@ -243,8 +253,8 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
     }
 
     public interface OnUpdateCommunity {
-        void updateRecommended();
+        void updateRecommended(ResultCommunityDataBean bean);
 
-        void updateNew();
+        void updateNew(ResultCommunityDataBean bean);
     }
 }

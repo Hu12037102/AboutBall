@@ -7,20 +7,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.text.HtmlCompat;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TextView;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.tencent.mm.opensdk.modelpay.PayReq;
-import com.tencent.mm.opensdk.modelpay.PayResp;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.community.activity.CommunityDetailsActivity;
@@ -39,9 +32,7 @@ import com.work.guaishouxingqiu.aboutball.other.DownloadApkHelp;
 import com.work.guaishouxingqiu.aboutball.other.SharedPreferencesHelp;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
-import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
-import com.work.guaishouxingqiu.aboutball.venue.activity.AboutBallDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.venue.activity.WaitPayOrderDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultRefereeBean;
 import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
@@ -566,13 +557,16 @@ public class ViewModel {
         adapter.notifyDataSetChanged();
     }
 
-    public void resultCommunityData(@NonNull RecyclerView.Adapter adapter, ResultCommunityDataBean resultBean, @NonNull List<ResultCommunityDataBean> data, boolean isDelete) {
+    public void resultCommunityData(RecyclerView.Adapter adapter, ResultCommunityDataBean resultBean, List<ResultCommunityDataBean> data) {
+        if (adapter == null || data == null) {
+            return;
+        }
         for (int i = 0; i < data.size(); i++) {
             ResultCommunityDataBean bean = data.get(i);
             if (resultBean.tweetId == bean.tweetId) {
                 int index = data.indexOf(bean);
                 data.remove(index);
-                if (!isDelete) {
+                if (!resultBean.isDelete) {
                     data.add(index, resultBean);
                 }
             }
@@ -593,7 +587,7 @@ public class ViewModel {
         deleteDialog.show();
     }
 
-    public Fragment getTopicFragment(int flag, long topicId) {
+    public <T extends Fragment> T getTopicFragment(int flag, long topicId) {
         Bundle bundle = new Bundle();
         bundle.putInt(ARouterConfig.Key.TOPIC_STATUS, flag);
         bundle.putLong(ARouterConfig.Key.TOPIC_ID, topicId);
@@ -602,9 +596,9 @@ public class ViewModel {
 
     public void startActivityToTopicForResult(ResultRecommendHotBean bean, int requestCode, Fragment fragment) {
         if (fragment == null) {
-            ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_TOPIC_DYNAMICS, mSoftActivity.get(), ARouterConfig.Key.PARCELABLE, bean,requestCode);
+            ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_TOPIC_DYNAMICS, mSoftActivity.get(), ARouterConfig.Key.PARCELABLE, bean, requestCode);
         } else {
-            ARouterIntent.startActivityForResult(fragment, TopicDynamicsActivity.class, ARouterConfig.Key.PARCELABLE, bean,requestCode);
+            ARouterIntent.startActivityForResult(fragment, TopicDynamicsActivity.class, ARouterConfig.Key.PARCELABLE, bean, requestCode);
         }
     }
 

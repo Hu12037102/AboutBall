@@ -9,7 +9,7 @@ import android.os.Parcelable;
  * 更新时间: 2019/3/19 15:07
  * 描述:
  */
-public class ResultCommunityDataBean implements Parcelable{
+public class ResultCommunityDataBean implements Parcelable {
     public long tweetId;
     public String tweetContent;
     public String imageUrl;
@@ -25,6 +25,7 @@ public class ResultCommunityDataBean implements Parcelable{
     public int myTweet; //自己的话题
     public int hasFollow;//有没有关注
     public ResultRecommendHotBean topic;
+    public boolean isDelete;
 
 
     protected ResultCommunityDataBean(Parcel in) {
@@ -43,23 +44,7 @@ public class ResultCommunityDataBean implements Parcelable{
         myTweet = in.readInt();
         hasFollow = in.readInt();
         topic = in.readParcelable(ResultRecommendHotBean.class.getClassLoader());
-    }
-
-    public static final Creator<ResultCommunityDataBean> CREATOR = new Creator<ResultCommunityDataBean>() {
-        @Override
-        public ResultCommunityDataBean createFromParcel(Parcel in) {
-            return new ResultCommunityDataBean(in);
-        }
-
-        @Override
-        public ResultCommunityDataBean[] newArray(int size) {
-            return new ResultCommunityDataBean[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
+        isDelete = in.readByte() != 0;
     }
 
     @Override
@@ -79,5 +64,23 @@ public class ResultCommunityDataBean implements Parcelable{
         dest.writeInt(myTweet);
         dest.writeInt(hasFollow);
         dest.writeParcelable(topic, flags);
+        dest.writeByte((byte) (isDelete ? 1 : 0));
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<ResultCommunityDataBean> CREATOR = new Creator<ResultCommunityDataBean>() {
+        @Override
+        public ResultCommunityDataBean createFromParcel(Parcel in) {
+            return new ResultCommunityDataBean(in);
+        }
+
+        @Override
+        public ResultCommunityDataBean[] newArray(int size) {
+            return new ResultCommunityDataBean[size];
+        }
+    };
 }

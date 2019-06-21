@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
+import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.community.contract.CommunityContract;
 import com.work.guaishouxingqiu.aboutball.community.presenter.CommunityPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
@@ -81,7 +82,7 @@ public class CommunityFragment extends DelayedFragment<CommunityPresenter> imple
             @Override
             public void onPageSelected(int i) {
                 mTabTitle.getTabAt(i).select();
-                switch (i) {
+             /*   switch (i) {
                     case 0:
                         mAttentionFragment.autoRefresh();
                         break;
@@ -91,7 +92,7 @@ public class CommunityFragment extends DelayedFragment<CommunityPresenter> imple
                     case 2:
                         mNewFragment.autoRefresh();
                         break;
-                }
+                }*/
             }
 
             @Override
@@ -99,39 +100,44 @@ public class CommunityFragment extends DelayedFragment<CommunityPresenter> imple
 
             }
         });
-       /* mAttentionFragment.setOnUpdateCommunity(new CommunityAttentionFragment.OnUpdateCommunity() {
+        mAttentionFragment.setOnUpdateCommunity(new CommunityAttentionFragment.OnUpdateCommunity() {
             @Override
-            public void updateRecommended() {
-                mRecommendFragment.autoRefresh();
+            public void updateRecommended(ResultCommunityDataBean bean) {
+                mRecommendFragment.autoRefresh(bean);
             }
 
             @Override
-            public void updateNew() {
-                mNewFragment.autoRefresh();
+            public void updateNew(ResultCommunityDataBean bean) {
+                mNewFragment.autoRefresh(bean);
             }
+
+
         });
         mRecommendFragment.setOnUpdateCommunity(new CommunityRecommendFragment.OnUpdateCommunity() {
             @Override
-            public void updateAttention() {
-                mAttentionFragment.autoRefresh();
+            public void updateAttention(ResultCommunityDataBean bean) {
+                mAttentionFragment.autoRefresh(bean);
             }
 
             @Override
-            public void updateNew() {
-                mNewFragment.autoRefresh();
+            public void updateNew(ResultCommunityDataBean bean) {
+                mNewFragment.autoRefresh(bean);
             }
+
         });
         mNewFragment.setOnUpdateCommunity(new CommunityNewFragment.OnUpdateCommunity() {
             @Override
-            public void updateAttention() {
-                mAttentionFragment.autoRefresh();
+            public void updateAttention(ResultCommunityDataBean bean) {
+                mAttentionFragment.autoRefresh(bean);
             }
 
             @Override
-            public void updateRecommend() {
-                mRecommendFragment.autoRefresh();
+            public void updateRecommend(ResultCommunityDataBean bean) {
+                mRecommendFragment.autoRefresh(bean);
             }
-        });*/
+
+
+        });
     }
 
     @Override

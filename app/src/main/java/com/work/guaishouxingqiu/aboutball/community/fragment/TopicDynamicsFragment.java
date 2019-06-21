@@ -50,6 +50,12 @@ public class TopicDynamicsFragment extends DelayedFragment<TopicDynamicsPresente
     private List<ResultCommunityDataBean> mData;
     private CommunityDataAdapter mAdapter;
 
+    public void setOnUpdateDataChangListener(OnUpdateDataChangListener onUpdateDataChangListener) {
+        this.onUpdateDataChangListener = onUpdateDataChangListener;
+    }
+
+    private OnUpdateDataChangListener onUpdateDataChangListener;
+
     @Override
     protected void initPermission() {
         mTopicStatus = mBundle.getInt(ARouterConfig.Key.TOPIC_STATUS, -1);
@@ -81,6 +87,10 @@ public class TopicDynamicsFragment extends DelayedFragment<TopicDynamicsPresente
     @Override
     protected void initDelayedEvent() {
 
+    }
+
+    public void autoRefresh(ResultCommunityDataBean bean) {
+        mViewModel.resultCommunityData(mAdapter, bean, mData);
     }
 
     @Override
@@ -189,8 +199,12 @@ public class TopicDynamicsFragment extends DelayedFragment<TopicDynamicsPresente
             }
         });
     }
+
     @Override
     public void resultDeleteDynamicSucceed(int position) {
+        ResultCommunityDataBean bean = mData.get(position);
+        bean.isDelete = true;
+        onEventUpdate(bean);
         mData.remove(position);
         mAdapter.notifyDataSetChanged();
     }
@@ -198,11 +212,13 @@ public class TopicDynamicsFragment extends DelayedFragment<TopicDynamicsPresente
     @Override
     public void resultDianZanStatus(int position) {
         mViewModel.updateDianZan(mAdapter, mData, position);
+        onEventUpdate(mData.get(position));
     }
 
     @Override
     public void resultAttentionTweetStatus(int position) {
         mViewModel.updateAttention(mAdapter, mData, position);
+        onEventUpdate(mData.get(position));
     }
 
     @Override
@@ -233,12 +249,22 @@ public class TopicDynamicsFragment extends DelayedFragment<TopicDynamicsPresente
                         return;
                     }
                     ResultCommunityDataBean bean = data.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
-                    boolean isDelete = data.getBooleanExtra(ARouterConfig.Key.DELETE, false);
-                    mViewModel.resultCommunityData(mAdapter, bean, mData,isDelete);
+                    mViewModel.resultCommunityData(mAdapter, bean, mData);
+                    onEventUpdate(bean);
                     break;
                 default:
                     break;
             }
         }
+    }
+
+    private void onEventUpdate(ResultCommunityDataBean bean) {
+        if (onUpdateDataChangListener != null) {
+            onUpdateDataChangListener.onDataChang(bean);
+        }
+    }
+
+    public interface OnUpdateDataChangListener {
+        void onDataChang(ResultCommunityDataBean bean);
     }
 }

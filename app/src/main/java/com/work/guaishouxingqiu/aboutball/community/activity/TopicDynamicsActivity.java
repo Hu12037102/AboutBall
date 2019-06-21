@@ -60,6 +60,8 @@ public class TopicDynamicsActivity extends BaseActivity {
     private ResultRecommendHotBean mIntentBean;
     private static final int REQUEST_CODE_PUBLISH_DYNAMIC = 155;
     private Fragment[] mFragments;
+    private TopicDynamicsFragment mDynamicsFragment;
+    private TopicDynamicsFragment mNewFragment;
 
     @Override
     protected int getLayoutId() {
@@ -97,8 +99,9 @@ public class TopicDynamicsActivity extends BaseActivity {
     }
 
     private void initPager() {
-        mFragments = new Fragment[]{mViewModel.getTopicFragment(Contast.Topic.RECOMMENDED, mIntentBean.topicId),
-                mViewModel.getTopicFragment(Contast.Topic.NEW, mIntentBean.topicId)};
+        mDynamicsFragment = mViewModel.getTopicFragment(Contast.Topic.RECOMMENDED, mIntentBean.topicId);
+        mNewFragment = mViewModel.getTopicFragment(Contast.Topic.NEW, mIntentBean.topicId);
+        mFragments = new Fragment[]{mDynamicsFragment, mNewFragment};
         FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int i) {
@@ -145,6 +148,7 @@ public class TopicDynamicsActivity extends BaseActivity {
             @Override
             public void onPageSelected(int i) {
                 DataUtils.checkData(mTabContent.getTabAt(i)).select();
+
             }
 
             @Override
@@ -156,6 +160,18 @@ public class TopicDynamicsActivity extends BaseActivity {
             @Override
             public void onBackClick(@NonNull View view) {
                 mViewModel.clickBackForResult();
+            }
+        });
+        mNewFragment.setOnUpdateDataChangListener(new TopicDynamicsFragment.OnUpdateDataChangListener() {
+            @Override
+            public void onDataChang(ResultCommunityDataBean bean) {
+                mDynamicsFragment.autoRefresh(bean);
+            }
+        });
+        mDynamicsFragment.setOnUpdateDataChangListener(new TopicDynamicsFragment.OnUpdateDataChangListener() {
+            @Override
+            public void onDataChang(ResultCommunityDataBean bean) {
+                mNewFragment.autoRefresh(bean);
             }
         });
     }

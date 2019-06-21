@@ -86,7 +86,7 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
     private SingPopupWindows mDeleteWindows;
     private List<String> mPreviewData;
     private CircleImageView mCivHead;
-    private static final int REQUEST_CODE_TOPIC =155;
+    private static final int REQUEST_CODE_TOPIC = 155;
 
     @Override
     protected int getLayoutId() {
@@ -653,7 +653,7 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
         mTitleView.setOnBackViewClickListener(new TitleView.OnBackViewClickListener() {
             @Override
             public void onBackClick(@NonNull View view) {
-                onBack(false);
+                onBack();
             }
         });
         //点赞
@@ -732,21 +732,22 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
         });
     }
 
-    private void onBack(boolean isDelete) {
+    private void onBack() {
         Intent intent = new Intent();
         intent.putExtra(ARouterConfig.Key.PARCELABLE, mIntentBean);
-        intent.putExtra(ARouterConfig.Key.DELETE, isDelete);
+        // intent.putExtra(ARouterConfig.Key.DELETE, isDelete);
         mViewModel.clickBackForResult(intent);
     }
 
     @Override
     public void onBackPressed() {
-        onBack(false);
+        onBack();
     }
 
     @Override
     public void resultDeleteDynamicSucceed(int position) {
-        onBack(true);
+        mIntentBean.isDelete = true;
+        onBack();
     }
 
     private void loadData(boolean isRefresh) {
