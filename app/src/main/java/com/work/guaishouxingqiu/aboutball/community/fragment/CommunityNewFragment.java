@@ -45,6 +45,12 @@ public class CommunityNewFragment extends DelayedFragment<CommunityNewsPresenter
     private static final int REQUEST_CODE_PUBLISH_DYNAMIC = 145;
     private static final int REQUEST_CODE_TOPIC = 321;
 
+    public void setOnUpdateCommunity(OnUpdateCommunity onUpdateCommunity) {
+        this.onUpdateCommunity = onUpdateCommunity;
+    }
+
+    private  OnUpdateCommunity onUpdateCommunity;
+
     @Override
     protected void initDelayedView() {
         mRvData.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -67,7 +73,9 @@ public class CommunityNewFragment extends DelayedFragment<CommunityNewsPresenter
             refreshLayout.finishLoadMore();
         }
     }
-
+    public void autoRefresh(){
+        mSrlLayout.autoRefresh();
+    }
     @Override
     protected void initDelayedEvent() {
         mSrlLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
@@ -210,6 +218,10 @@ public class CommunityNewFragment extends DelayedFragment<CommunityNewsPresenter
                     ResultCommunityDataBean bean = data.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
                     boolean isDelete = data.getBooleanExtra(ARouterConfig.Key.DELETE, false);
                     mViewModel.resultCommunityData(mAdapter, bean, mData,isDelete);
+                    if (onUpdateCommunity!= null){
+                        onUpdateCommunity.updateAttention();
+                        onUpdateCommunity.updateRecommend();
+                    }
                     break;
                 case REQUEST_CODE_TOPIC:
                     mSrlLayout.autoRefresh();
@@ -218,5 +230,9 @@ public class CommunityNewFragment extends DelayedFragment<CommunityNewsPresenter
             }
         }
 
+    }
+    public interface OnUpdateCommunity{
+        void updateAttention();
+        void updateRecommend();
     }
 }

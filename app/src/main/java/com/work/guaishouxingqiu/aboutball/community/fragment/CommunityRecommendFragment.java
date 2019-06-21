@@ -57,6 +57,13 @@ public class CommunityRecommendFragment extends DelayedFragment<CommunityRecomme
     private View mHeadView;
     private static final int WHAT = 100;
     private boolean mIsSendMessage;
+
+    public void setOnUpdateCommunity(OnUpdateCommunity onUpdateCommunity) {
+        this.onUpdateCommunity = onUpdateCommunity;
+    }
+
+    private OnUpdateCommunity onUpdateCommunity;
+
     private Handler mPagerHandler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
@@ -112,6 +119,8 @@ public class CommunityRecommendFragment extends DelayedFragment<CommunityRecomme
             refreshLayout.finishLoadMore();
         }
         mPresenter.loadData();
+    } public void autoRefresh(){
+        mSrlRefresh.autoRefresh();
     }
 
     @Override
@@ -286,6 +295,10 @@ public class CommunityRecommendFragment extends DelayedFragment<CommunityRecomme
                     ResultCommunityDataBean bean = data.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
                     boolean isDelete = data.getBooleanExtra(ARouterConfig.Key.DELETE, false);
                     mViewModel.resultCommunityData(mAdapter, bean, mData, isDelete);
+                    if (onUpdateCommunity != null) {
+                        onUpdateCommunity.updateAttention();
+                        onUpdateCommunity.updateNew();
+                    }
                     break;
                 case REQUEST_CODE_TOPIC:
                     mSrlRefresh.autoRefresh();
@@ -294,5 +307,11 @@ public class CommunityRecommendFragment extends DelayedFragment<CommunityRecomme
             }
         }
 
+    }
+
+    public interface OnUpdateCommunity {
+        void updateAttention();
+
+        void updateNew();
     }
 }

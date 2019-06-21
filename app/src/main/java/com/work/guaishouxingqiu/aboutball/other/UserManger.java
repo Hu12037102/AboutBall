@@ -32,6 +32,7 @@ public class UserManger {
     private static final String KEY_FANS_COUNT = "fansCount";
     private static final String KEY_IS_REFEREE = "isReferee";
     private static final String KEY_TOKEN_TEMPORARY = "tokenTemporary";//临时token
+
     private static SharedPreferencesHelp mSP;
 
     private UserManger() {
@@ -188,5 +189,8 @@ public class UserManger {
 
     public boolean isWeiChatId() {
         return !DataUtils.isEmpty(mSP.getString(UserManger.KEY_WECHAT_OPEN_ID));
+    }
+    public String getWeiChatName(){
+        return mSP.getString(UserManger.KEY_WECHAT_USER_NAME);
     }
 }

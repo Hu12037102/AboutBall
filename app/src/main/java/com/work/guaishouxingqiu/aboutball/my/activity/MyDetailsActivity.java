@@ -105,7 +105,7 @@ public class MyDetailsActivity extends LoginOrShareActivity<MyDetailsPresenter> 
         mItemStature.mTvRight.setText(mUserBean.height == 0 ? NO_SETTING : String.valueOf(mUserBean.height).concat(" ").concat("cm"));
         mItemWeight.mTvRight.setText(mUserBean.weight == 0 ? NO_SETTING : String.valueOf(mUserBean.weight).concat(" ").concat("kg"));
         mItemPhone.mTvRight.setText(DataUtils.isEmpty(mUserBean.phone) ? NO_SETTING : mUserBean.phone);
-        mTvWechatRight.setText(UserManger.get().isWeiChatId() ? R.string.banding : R.string.unbind);
+        mTvWechatRight.setText(DataUtils.isEmpty(UserManger.get().getWeiChatName()) ? UIUtils.getString(R.string.unbind) : UserManger.get().getWeiChatName());
     }
 
     private void setGender(int sexType) {
@@ -215,11 +215,11 @@ public class MyDetailsActivity extends LoginOrShareActivity<MyDetailsPresenter> 
             case R.id.item_phone:
                 break;
             case R.id.cl_wechat:
-                if (!UserManger.get().isWeiChatId()) {
+               /* if (!UserManger.get().isWeiChatId()) {
                     this.loginWeiChat(WXEntryActivity.WeiChatStatus.BAND);
                 } else {
                     UIUtils.showToast(R.string.your_are_banding_weichat_code);
-                }
+                }*/
                 break;
             case R.id.item_alter_password:
                 break;

@@ -1,17 +1,12 @@
 package com.work.guaishouxingqiu.aboutball.community.fragment;
 
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
 import com.work.guaishouxingqiu.aboutball.community.contract.CommunityContract;
 import com.work.guaishouxingqiu.aboutball.community.presenter.CommunityPresenter;
@@ -21,9 +16,7 @@ import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * 作者: 胡庆岭
@@ -37,6 +30,9 @@ public class CommunityFragment extends DelayedFragment<CommunityPresenter> imple
     TabLayout mTabTitle;
     @BindView(R.id.bvp_content)
     BaseViewPager mBvpContent;
+    private CommunityAttentionFragment mAttentionFragment;
+    private CommunityRecommendFragment mRecommendFragment;
+    private CommunityNewFragment mNewFragment;
 
     public static CommunityFragment newInstance() {
         return new CommunityFragment();
@@ -85,6 +81,17 @@ public class CommunityFragment extends DelayedFragment<CommunityPresenter> imple
             @Override
             public void onPageSelected(int i) {
                 mTabTitle.getTabAt(i).select();
+                switch (i) {
+                    case 0:
+                        mAttentionFragment.autoRefresh();
+                        break;
+                    case 1:
+                        mRecommendFragment.autoRefresh();
+                        break;
+                    case 2:
+                        mNewFragment.autoRefresh();
+                        break;
+                }
             }
 
             @Override
@@ -92,6 +99,39 @@ public class CommunityFragment extends DelayedFragment<CommunityPresenter> imple
 
             }
         });
+       /* mAttentionFragment.setOnUpdateCommunity(new CommunityAttentionFragment.OnUpdateCommunity() {
+            @Override
+            public void updateRecommended() {
+                mRecommendFragment.autoRefresh();
+            }
+
+            @Override
+            public void updateNew() {
+                mNewFragment.autoRefresh();
+            }
+        });
+        mRecommendFragment.setOnUpdateCommunity(new CommunityRecommendFragment.OnUpdateCommunity() {
+            @Override
+            public void updateAttention() {
+                mAttentionFragment.autoRefresh();
+            }
+
+            @Override
+            public void updateNew() {
+                mNewFragment.autoRefresh();
+            }
+        });
+        mNewFragment.setOnUpdateCommunity(new CommunityNewFragment.OnUpdateCommunity() {
+            @Override
+            public void updateAttention() {
+                mAttentionFragment.autoRefresh();
+            }
+
+            @Override
+            public void updateRecommend() {
+                mRecommendFragment.autoRefresh();
+            }
+        });*/
     }
 
     @Override
@@ -103,16 +143,16 @@ public class CommunityFragment extends DelayedFragment<CommunityPresenter> imple
     private void initTabView() {
         String[] tabArray = getResources().getStringArray(R.array.community_tab_array);
         for (int i = 0; i < tabArray.length; i++) {
-            UIUtils.setBaseCustomTabLayout(mTabTitle, tabArray[i], i == 0, 45,18);
+            UIUtils.setBaseCustomTabLayout(mTabTitle, tabArray[i], i == 0, 45, 18);
             // mTabTitle.addTab(mTabTitle.newTab().setText(tabArray[i]), i == 0);
         }
     }
 
     private void initPagerView() {
-        CommunityAttentionFragment attentionFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_COMMUNITY_ATTENTION);
-        CommunityRecommendFragment recommendFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_COMMUNITY_RECOMMEND);
-        CommunityNewFragment newFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_COMMUNITY_NEWS);
-        Fragment[] fragments = {attentionFragment, recommendFragment, newFragment};
+        mAttentionFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_COMMUNITY_ATTENTION);
+        mRecommendFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_COMMUNITY_RECOMMEND);
+        mNewFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_COMMUNITY_NEWS);
+        Fragment[] fragments = {mAttentionFragment, mRecommendFragment, mNewFragment};
         FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int i) {

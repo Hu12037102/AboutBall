@@ -50,6 +50,12 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
     private static final int REQUEST_CODE_PUBLISH_DYNAMIC = 122;
     private static final int REQUEST_CODE_TOPIC = 321;
 
+    public void setOnUpdateCommunity(OnUpdateCommunity onUpdateCommunity) {
+        this.onUpdateCommunity = onUpdateCommunity;
+    }
+
+    private OnUpdateCommunity onUpdateCommunity;
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_community_attention;
@@ -79,6 +85,9 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
         }
     }
 
+    public void autoRefresh(){
+        mSrlLayout.autoRefresh();
+    }
 
     @Override
     protected void initEvent() {
@@ -187,6 +196,10 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
                     ResultCommunityDataBean bean = data.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
                     boolean isDelete = data.getBooleanExtra(ARouterConfig.Key.DELETE, false);
                     mViewModel.resultCommunityData(mAdapter, bean, mData, isDelete);
+                    if (onUpdateCommunity != null) {
+                        onUpdateCommunity.updateNew();
+                        onUpdateCommunity.updateRecommended();
+                    }
                     break;
                 case REQUEST_CODE_TOPIC:
                     mSrlLayout.autoRefresh();
@@ -227,5 +240,11 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
             default:
                 break;
         }
+    }
+
+    public interface OnUpdateCommunity {
+        void updateRecommended();
+
+        void updateNew();
     }
 }

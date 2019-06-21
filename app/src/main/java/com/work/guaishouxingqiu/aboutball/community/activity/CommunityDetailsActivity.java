@@ -1,5 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.community.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -25,6 +26,8 @@ import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.community.bean.RequestDynamicCommentsBean;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.community.contract.CommunityDetailsContract;
+import com.work.guaishouxingqiu.aboutball.community.fragment.CommunityNewFragment;
+import com.work.guaishouxingqiu.aboutball.community.fragment.CommunityRecommendFragment;
 import com.work.guaishouxingqiu.aboutball.community.presenter.CommunityDetailsPresenter;
 import com.work.guaishouxingqiu.aboutball.home.adapter.NewsMessageAdapter;
 import com.work.guaishouxingqiu.aboutball.home.bean.RequestSendMessageBean;
@@ -83,6 +86,7 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
     private SingPopupWindows mDeleteWindows;
     private List<String> mPreviewData;
     private CircleImageView mCivHead;
+    private static final int REQUEST_CODE_TOPIC =155;
 
     @Override
     protected int getLayoutId() {
@@ -125,8 +129,9 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
             mTvHeadContent.setText(SpanUtils.getClickText(mTvHeadContent, content, R.color.color_2, 0, mIntentBean.topicTitle.length(), new SpanUtils.OnClickTextListener() {
                 @Override
                 public void onClick(View view) {
-                    mTvHeadContent.setClickable(false);
-
+                    if (mIntentBean != null) {
+                        mViewModel.startActivityToTopicForResult(mIntentBean.topic, REQUEST_CODE_TOPIC, null);
+                    }
                 }
             }));
 
@@ -808,5 +813,18 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
         mIntentBean.commentCount++;
         UIUtils.setCommunityCount(mTvHeadCommentNum, mIntentBean.commentCount);
         mSrlRefresh.autoRefresh();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case REQUEST_CODE_TOPIC:
+                    mSrlRefresh.autoRefresh();
+                default:
+                    break;
+            }
+        }
     }
 }
