@@ -70,7 +70,7 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
     protected void onBindViewDataHolder(@NonNull ViewHolder viewHolder, int i) {
         Context context = viewHolder.itemView.getContext();
         ResultCommunityDataBean bean = mData.get(i);
-
+        viewHolder.itemView.setBackgroundResource(R.drawable.selector_item);
         viewHolder.mTvName.setText(bean.nickName);
         viewHolder.mTvTime.setText(bean.releaseTime);
         GlideManger.get().loadHeadImage(mContext, bean.headImg, viewHolder.mCliHead);
@@ -89,7 +89,7 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
             viewHolder.mTvData.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (onTextContentClickListener != null) {
+                    if (onTextContentClickListener != null && !DataUtils.isEmpty(bean.topicTitle)) {
                         onTextContentClickListener.onClickContent(viewHolder.mTvData, i);
                     }
                 }

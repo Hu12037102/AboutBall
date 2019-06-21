@@ -86,7 +86,7 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
     }
 
     public void autoRefresh(ResultCommunityDataBean bean) {
-        mViewModel.resultCommunityData(mAdapter, bean, mData);
+        mViewModel.resultCommunityData(mAdapter, bean, mData,true);
     }
 
     @Override
@@ -199,7 +199,7 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
                     }
                     ResultCommunityDataBean bean = data.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
                     // boolean isDelete = data.getBooleanExtra(ARouterConfig.Key.DELETE, false);
-                    mViewModel.resultCommunityData(mAdapter, bean, mData);
+                    mViewModel.resultCommunityData(mAdapter, bean, mData,true);
                     onEventUpdate(bean);
                     break;
                 case REQUEST_CODE_TOPIC:

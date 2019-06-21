@@ -20,6 +20,7 @@ import com.work.guaishouxingqiu.aboutball.community.contract.CommunityNewsContra
 import com.work.guaishouxingqiu.aboutball.community.presenter.CommunityNewsPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,12 +105,14 @@ public class CommunityNewFragment extends DelayedFragment<CommunityNewsPresenter
 
             @Override
             public void onItemClick(View view, int position) {
+                LogUtils.w("onItemClick--",position+"--");
                 mViewModel.startActivityToCommunityRecommendDetailsForResult(mData.get(position), CommunityNewFragment.this);
             }
         });
         mAdapter.setOnTextContentClickListener(new CommunityDataAdapter.OnTextContentClickListener() {
             @Override
             public void onClickContent(View view, int position) {
+                LogUtils.w("onItemClick--",position+"--");
                 mViewModel.startActivityToCommunityRecommendDetailsForResult(mData.get(position), CommunityNewFragment.this);
             }
 

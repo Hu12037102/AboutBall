@@ -44,6 +44,7 @@ import com.work.guaishouxingqiu.aboutball.weight.UpdateApkDialog;
 
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -574,6 +575,40 @@ public class ViewModel {
                 bean.hasFollow = resultBean.hasFollow;
             }
         }
+        adapter.notifyDataSetChanged();
+    }
+
+    /**
+     * @param adapter
+     * @param resultBean
+     * @param data
+     * @param isAttentionPage 是不是关注pager
+     */
+    public void resultCommunityData(RecyclerView.Adapter adapter, ResultCommunityDataBean resultBean, List<ResultCommunityDataBean> data, boolean isAttentionPage) {
+        if (adapter == null || data == null) {
+            return;
+        }
+        for (int i = 0; i < data.size(); i++) {
+            ResultCommunityDataBean bean = data.get(i);
+            if (resultBean.tweetId == bean.tweetId) {
+                int index = data.indexOf(bean);
+                data.remove(index);
+                if (!resultBean.isDelete) {
+                    data.add(index, resultBean);
+                }
+            }
+            if (resultBean.userId == bean.userId) {
+                bean.hasFollow = resultBean.hasFollow;
+            }
+        }
+        Iterator<ResultCommunityDataBean> iterator = data.iterator();
+        while (iterator.hasNext()) {
+            ResultCommunityDataBean bean = iterator.next();
+            if (bean.userId == resultBean.userId && isAttentionPage) {
+                iterator.remove();
+            }
+        }
+
         adapter.notifyDataSetChanged();
     }
 
