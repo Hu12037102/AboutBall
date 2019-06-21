@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
+import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
 import com.work.guaishouxingqiu.aboutball.community.adapter.CommunityDataAdapter;
@@ -204,6 +206,7 @@ public class CommunityRecommendFragment extends DelayedFragment<CommunityRecomme
 
             }
         });
+
     }
 
     @Override
@@ -264,6 +267,12 @@ public class CommunityRecommendFragment extends DelayedFragment<CommunityRecomme
         } else {
             mHeadAdapter.notifyDataSetChanged();
         }
+        mHeadAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onClickItem(@NonNull View view, int position) {
+                mViewModel.startActivityToTopicForResult(mHeadData.get(position), REQUEST_CODE_TOPIC, CommunityRecommendFragment.this);
+            }
+        });
     }
 
     private void sendMessage() {

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultRecommendHotBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
@@ -27,6 +28,12 @@ public class CommunityRecommendPagerAdapter extends PagerAdapter {
     private List<ResultRecommendHotBean> mData;
     private int mChildCount;
 
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    private OnItemClickListener onItemClickListener;
+
     public CommunityRecommendPagerAdapter(@NonNull Context context, @NonNull List<ResultRecommendHotBean> data) {
         this.mContext = context;
         this.mData = data;
@@ -43,7 +50,10 @@ public class CommunityRecommendPagerAdapter extends PagerAdapter {
         inflateView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_TOPIC_DYNAMICS, ARouterConfig.Key.PARCELABLE, mData.get(selectorPosition));
+                if (onItemClickListener!= null){
+                    onItemClickListener.onClickItem(inflateView,selectorPosition);
+                }
+              //  ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_TOPIC_DYNAMICS, ARouterConfig.Key.PARCELABLE, mData.get(selectorPosition));
             }
         });
         return inflateView;
@@ -77,4 +87,5 @@ public class CommunityRecommendPagerAdapter extends PagerAdapter {
         mChildCount = getCount();
         super.notifyDataSetChanged();
     }
+
 }
