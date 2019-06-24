@@ -75,19 +75,19 @@ public interface IApiService {
     String COMMUNITY_HOT_TOPIC = "/api/topic/getHotTopic";
     String COMMUNITY_RECOMMEND_DATA = "/api/tweet/getRecommendTweet";
     String COMMUNITY_COMMENT_DATA = "/api/tweet/getTweetComment";
-    String COMMUNITY_DYNAMIC_COMMENT="/api/tweet/tweetComment";
-    String GET_COMMUNITY_DYNAMIC_TOPIC="/api/topic/getTopicList";
-    String POST_PUBLISH_DYNAMIC="/api/tweet/releaseTweet";
-    String GET_ATTENTION_TWEET="/api/tweet/concernAt";
-    String GET_CANCEL_ATTENTION_TWEET="/api/tweet/cancelConcern";
-    String GET_DYNAMIC_DIAN_ZAN="/api/tweet/tweetPraise";
-    String GET_CANCEL_DYNAMIC_DIAN_ZAN="/api/tweet/cancelPraise";
-    String GET_REPORT_COMMUNITY="/api/tweet/tweetTips";
-    String GET_DELETE_DYNAMIC="/api/tweet/removeTweet";
-    String GET_MY_DYNAMIC ="/api/tweet/getMyTweetList";
-    String GET_BAND_THREE_ACCOUNT="/api/accountManagement/bandingThreeAccount";
-    String GET_RECOMMEND_TOPIC="/api/topic/getRecommendTweetForTopic";
-    String GET_NEW_TOPIC="/api/topic/getTweetForTopic";
+    String COMMUNITY_DYNAMIC_COMMENT = "/api/tweet/tweetComment";
+    String GET_COMMUNITY_DYNAMIC_TOPIC = "/api/topic/getTopicList";
+    String POST_PUBLISH_DYNAMIC = "/api/tweet/releaseTweet";
+    String GET_ATTENTION_TWEET = "/api/tweet/concernAt";
+    String GET_CANCEL_ATTENTION_TWEET = "/api/tweet/cancelConcern";
+    String GET_DYNAMIC_DIAN_ZAN = "/api/tweet/tweetPraise";
+    String GET_CANCEL_DYNAMIC_DIAN_ZAN = "/api/tweet/cancelPraise";
+    String GET_REPORT_COMMUNITY = "/api/tweet/tweetTips";
+    String GET_DELETE_DYNAMIC = "/api/tweet/removeTweet";
+    String GET_MY_DYNAMIC = "/api/tweet/getMyTweetList";
+    String GET_BAND_THREE_ACCOUNT = "/api/accountManagement/bandingThreeAccount";
+    String GET_RECOMMEND_TOPIC = "/api/topic/getRecommendTweetForTopic";
+    String GET_NEW_TOPIC = "/api/topic/getTweetForTopic";
 
     //获取微信登录token
     String GET_WEICHAT_TOKEN = "/sns/oauth2/access_token";
@@ -161,9 +161,9 @@ public interface IApiService {
         String SHARE_NEWS_DETAILS = "http://ifeell.com.cn/share/index.html?id=";
         //分享球队链接，后面跟上teamId
         //https://ifi.bmece.com/download?teamId=1&typeId=1
-        String SHARE_BALL_TEAM = "https://ifi.bmece.com/download";
+        String SHARE_BALL_TEAM = "https://test.ifeell.com.cn/download";
         //APK下载路径
-        String DOWNLOAD_APK = "https://ifi.bmece.com/download";
+        String DOWNLOAD_APK = "https://test.ifeell.com.cn/download";
     }
 
     interface TypeId {
@@ -171,6 +171,8 @@ public interface IApiService {
         int OPEN_BALL_INVITE = 1;
         //视频分享
         int OPEN_GAME_DETAILS_VIDEO = 3;
+        //动态详情
+        int DYNAMIC_DETAILS = 4;
     }
 
 }

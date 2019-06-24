@@ -5,6 +5,7 @@ import android.widget.ProgressBar;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.TitleView;
+import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.BaseWebActivity;
@@ -20,7 +21,7 @@ import butterknife.BindView;
  */
 @Route(path = ARouterConfig.Path.ACTIVITY_SHARE_FRIEND)
 public class ShareFriendActivity extends BaseWebActivity {
-    private static final String PATH = "https://ifi.bmece.com/download";
+    private static final String PATH = IApiService.H5.DOWNLOAD_APK;
     @BindView(R.id.title_view)
     TitleView mTitleView;
     @BindView(R.id.pb_loading)

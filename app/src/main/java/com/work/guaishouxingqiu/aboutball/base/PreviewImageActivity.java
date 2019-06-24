@@ -4,26 +4,27 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.example.item.weight.TitleView;
+import com.example.item.util.ScreenUtils;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.media.adapter.PreviewAdapter;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
-import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 作者: 胡庆岭
@@ -35,6 +36,8 @@ import butterknife.ButterKnife;
 public class PreviewImageActivity extends BaseActivity {
     @BindView(R.id.bvp_image)
     BaseViewPager mBvpImage;
+    @BindView(R.id.rg_count)
+    RadioGroup mRgCount;
     private int mPosition;
     private List<String> mPathData;
 
@@ -67,8 +70,10 @@ public class PreviewImageActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        initRadioButton();
         PreviewPagerAdapter pagerAdapter = new PreviewPagerAdapter(this, mPathData);
         mBvpImage.setAdapter(pagerAdapter);
+        mBvpImage.setPageTransformer(true, new PreviewAdapter.PreviewPageTransformer());
         pagerAdapter.setOnPreviewClickListener(new OnItemClickListener() {
             @Override
             public void onClickItem(@NonNull View view, int position) {
@@ -78,6 +83,25 @@ public class PreviewImageActivity extends BaseActivity {
         mBvpImage.setCurrentItem(mPosition, true);
     }
 
+    private void initRadioButton() {
+        if (mPathData.size() <= 1) {
+            mRgCount.setVisibility(View.GONE);
+        } else {
+            mRgCount.setVisibility(View.VISIBLE);
+            for (int i = 0; i < mPathData.size(); i++) {
+                RadioButton radioButton = new RadioButton(this);
+                mRgCount.addView(radioButton);
+                radioButton.setButtonDrawable(null);
+                radioButton.setBackgroundResource(R.drawable.selector_image_radio_button);
+                RadioGroup.LayoutParams layoutParams = (RadioGroup.LayoutParams) radioButton.getLayoutParams();
+                layoutParams.width = ScreenUtils.dp2px(this, 8);
+                layoutParams.height = ScreenUtils.dp2px(this, 8);
+                layoutParams.rightMargin = ScreenUtils.dp2px(this, 20);
+                radioButton.setChecked(i == mPosition);
+            }
+        }
+    }
+
     @Override
     protected void initData() {
 
@@ -85,7 +109,23 @@ public class PreviewImageActivity extends BaseActivity {
 
     @Override
     protected void initEvent() {
+        mBvpImage.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
 
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                RadioButton radioButton = (RadioButton) mRgCount.getChildAt(i);
+                radioButton.setChecked(true);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
     }
 
     @Override
@@ -118,7 +158,7 @@ public class PreviewImageActivity extends BaseActivity {
             layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
             layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
             photoView.setLayoutParams(layoutParams);
-            GlideManger.get().loadMediaImage(container.getContext(),mData.get(position),photoView,false);
+            GlideManger.get().loadMediaImage(container.getContext(), mData.get(position), photoView, false);
             photoView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
