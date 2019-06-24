@@ -105,6 +105,7 @@ public interface ARouterConfig {
         String FRAGMENT_MY_ABOUT_BALL = "/fragment/my/about/ball";
         String FRAGMENT_POST_EVALUATION = "/fragment/post/evaluation";
         String FRAGMENT_TOPIC_DYNAMICS = "/fragment/topic/dynamics";
+        String FRAGMENT_GAME_LOOK_BACK = "/fragment/game/look/back";
 
 
     }
@@ -161,8 +162,8 @@ public interface ARouterConfig {
         String SIGN_CODE = "signCode";
         String TWEET_ID = "tweetId";
         String DELETE = "delete";
-        String TOPIC_STATUS="topicStatus";
-        String TOPIC_ID="topicId";
+        String TOPIC_STATUS = "topicStatus";
+        String TOPIC_ID = "topicId";
 
     }
 

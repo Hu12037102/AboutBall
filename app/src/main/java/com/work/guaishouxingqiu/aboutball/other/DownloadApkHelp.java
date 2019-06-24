@@ -35,7 +35,7 @@ import utils.UiUtils;
  */
 public class DownloadApkHelp {
 
-    public static void loadApk(@NonNull Context context, @NonNull String apkUrl) {
+    public static  void loadApk(@NonNull Context context, @NonNull String apkUrl) {
         DownloadManager loadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
         if (loadManager == null) {
             return;

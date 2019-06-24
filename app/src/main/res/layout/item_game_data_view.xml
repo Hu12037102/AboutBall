@@ -1,72 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingLeft="@dimen/default_margin"
-    android:paddingRight="@dimen/default_margin"
-    android:paddingBottom="@dimen/size_15dp">
+    android:layout_height="wrap_content">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="@dimen/size_25dp"
+        android:layout_height="@dimen/size_25dp"
+        android:background="@drawable/shape_circle_blue_fill_view"
+        android:gravity="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/size_10sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="40'"
 
-        <TextView
-            android:id="@+id/tv_left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorFF261C1B"
-            android:textSize="@dimen/size_12sp"
-            tools:text="68.5%" />
+        />
 
-        <TextView
-            android:id="@+id/tv_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:textColor="@color/colorFF261C1B"
-            android:textSize="@dimen/size_12sp"
-            tools:text="68.5%" />
-
-        <TextView
-            android:id="@+id/tv_center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:textColor="@color/colorFFA6A6A6"
-            android:textSize="@dimen/size_12sp"
-            tools:text="控球率" />
-    </RelativeLayout>
+    <View
+        android:layout_width="@dimen/size_1dp"
+        android:layout_height="@dimen/size_40dp"
+        android:background="@color/colorFFE1E1E1"
+        app:layout_constraintLeft_toLeftOf="@id/tv_time"
+        app:layout_constraintRight_toRightOf="@id/tv_time"
+        app:layout_constraintTop_toBottomOf="@id/tv_time" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/ll_host"
+        android:layout_width="@dimen/size_0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/size_2dp"
-        android:orientation="horizontal">
-
-        <com.work.guaishouxingqiu.aboutball.weight.GameDataBar
-            android:id="@+id/gdb_left"
-            android:layout_width="@dimen/size_0dp"
-            android:layout_height="8dp"
-            android:layout_weight="1"
-            app:gab_draw_proportion="0.5"
-            app:gdb_draw_left="false" />
-
-        <View
-            android:layout_width="0.5dp"
-            android:layout_height="@dimen/size_8dp"
-            android:background="@color/colorWhite" />
-
-        <com.work.guaishouxingqiu.aboutball.weight.GameDataBar
-            android:id="@+id/gdb_right"
-            android:layout_width="@dimen/size_0dp"
-            android:layout_height="8dp"
-            android:layout_weight="1"
-            app:gab_draw_proportion="0.5"
-            app:gdb_draw_left="true" />
-    </LinearLayout>
-
-</LinearLayout>
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/tv_time"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/tv_time"
+        app:layout_constraintTop_toTopOf="@id/tv_time"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"/>
+    <LinearLayout
+        android:id="@+id/ll_guest"
+        android:layout_width="@dimen/size_0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/tv_time"
+        app:layout_constraintLeft_toRightOf="@id/tv_time"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_time"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"/>
+</android.support.constraint.ConstraintLayout>

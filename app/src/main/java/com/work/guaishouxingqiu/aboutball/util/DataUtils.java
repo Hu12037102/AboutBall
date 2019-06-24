@@ -289,6 +289,19 @@ public class DataUtils {
         return numberFormat.format(number);
     }
 
+    public static float getPercent2Float(String numberParse) {
+        NumberFormat numberFormat = NumberFormat.getPercentInstance();
+        numberFormat.setMaximumFractionDigits(2);
+        numberFormat.setMinimumFractionDigits(2);
+        try {
+            Number number = numberFormat.parse(numberParse);
+            return number.floatValue();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0f;
+    }
+
     public static String getMoneyFormat(Number number) {
 
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.CHINA);

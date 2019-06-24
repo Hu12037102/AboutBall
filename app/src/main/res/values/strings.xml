@@ -552,7 +552,20 @@
     <string name="attention_s">%s\n关注</string>
     <string name="fans_s">%s\n粉丝</string>
     <string name="your_are_banding_weichat_code">您已经绑定了微信号</string>
-
+    <string name="attack">进攻</string>
+    <string name="ball_possession">控球率</string>
+    <string name="corner_kick">角球</string>
+    <string name="danger_attack">危险进攻</string>
+    <string name="foul">犯规</string>
+    <string name="free_kick">任意球</string>
+    <string name="offside">越位</string>
+    <string name="passing_completion">传球成功率</string>
+    <string name="shoot">射门次数</string>
+    <string name="shoot_on_target">射正次数</string>
+    <string name="all_end">全场结束</string>
+    <string name="goal">进球</string>
+    <string name="point_sphere">点球</string>
+    <string name="assist">助攻</string>
 
 
 

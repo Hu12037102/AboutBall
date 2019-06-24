@@ -37,7 +37,10 @@ import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameSimpleBean;
 import com.work.guaishouxingqiu.aboutball.game.contract.GameDetailsContract;
 import com.work.guaishouxingqiu.aboutball.game.fragment.GameCollectionFragment;
+import com.work.guaishouxingqiu.aboutball.game.fragment.GameCommentFragment;
 import com.work.guaishouxingqiu.aboutball.game.fragment.GameDataFragment;
+import com.work.guaishouxingqiu.aboutball.game.fragment.GameLookBackFragment;
+import com.work.guaishouxingqiu.aboutball.game.fragment.GameResultFragment;
 import com.work.guaishouxingqiu.aboutball.game.presenter.GameDetailsPresenter;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
@@ -118,7 +121,7 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
     private ConstraintLayout mClSchedule;
     private boolean isLockVideos;
     private TextView mTvHasVideoStatus;
-    private GameCollectionFragment mCollectionFragment;
+   // private GameCollectionFragment mCollectionFragment;
     // String mLivePath = "http://player.alicdn.com/video/aliyunmedia.mp4";
 
     @Override
@@ -174,7 +177,7 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
             String[] tabArray = getResources().getStringArray(R.array.game_details_tab_array);
             for (int i = 0; i < tabArray.length; i++) {
                 //  mTbData.addTab(mTbData.newTab().setText(tabArray[i]), i == 0);
-                UIUtils.setBaseCustomTabLayout(mTbData, tabArray[i], i == 1, 45);
+                UIUtils.setBaseCustomTabLayout(mTbData, tabArray[i], i == 0, 45);
 
 
             }
@@ -272,10 +275,11 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
     }
 
     private void initPagerData(ResultGameSimpleBean bean) {
-        // GameResultFragment resultFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_RESULT, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
+        GameLookBackFragment gameLookBackFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_LOOK_BACK);
+        GameCommentFragment commentFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_COMMENT, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
+        GameResultFragment resultFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_RESULT, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
         GameDataFragment dataFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_DATA, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
-        // GameCommentFragment commentFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_COMMENT, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
-        mCollectionFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_COLLECTION, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
+        /*mCollectionFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_COLLECTION, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
         mCollectionFragment.setOnCollectionClickListener(new GameCollectionFragment.OnCollectionClickListener() {
             @Override
             public void clickCollection(String videoUrl) {
@@ -301,8 +305,8 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
                 }
 
             }
-        });
-        mFragments = new Fragment[]{/*resultFragment, */dataFragment, /*commentFragment, */mCollectionFragment};
+        });*/
+        mFragments = new Fragment[]{gameLookBackFragment,commentFragment, resultFragment,dataFragment};
         mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int i) {
@@ -317,7 +321,7 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
         mBvData.setOffscreenPageLimit(mFragments.length);
         // mBvData.setCurrentItem(1,true);
         mBvData.setAdapter(mPagerAdapter);
-        mBvData.setCurrentItem(1, true);
+       // mBvData.setCurrentItem(1, true);
         mBvData.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -400,7 +404,7 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
                         initLiveVideoView(bean);
                     } else {
                         //  mBvData.setCurrentItem(mFragments.length - 1);
-                        mCollectionFragment.playCollectionVideo();
+                     //   mCollectionFragment.playCollectionVideo();
                     }
 
                 });
@@ -517,7 +521,7 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
             mIvShare.setPadding(ScreenUtils.dp2px(this, 20), ScreenUtils.dp2px(this, 20) + ScreenUtils.getStatuWindowsHeight(this),
                     ScreenUtils.dp2px(this, 20), ScreenUtils.dp2px(this, 20));
             mIvShare.setOnClickListener(v -> {
-                ShareWebBean webBean = DataUtils.resultShareGameVideo(bean.matchId,bean.hostName,bean.guestName);
+                ShareWebBean webBean = DataUtils.resultShareGameVideo(bean.matchId, bean.hostName, bean.guestName);
                 showShareDialog(webBean);
             });
 

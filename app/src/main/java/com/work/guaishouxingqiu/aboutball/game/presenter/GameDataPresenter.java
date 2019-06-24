@@ -5,11 +5,12 @@ import android.support.annotation.NonNull;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
-import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDetailsBean;
+import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataInfoBean;
+import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataResultBean;
 import com.work.guaishouxingqiu.aboutball.game.contract.GameDataContract;
-import com.work.guaishouxingqiu.aboutball.game.contract.GameDetailsContract;
 import com.work.guaishouxingqiu.aboutball.game.model.GameDataModel;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 
 import java.util.List;
 
@@ -36,12 +37,29 @@ public class GameDataPresenter extends BasePresenter<GameDataContract.View, Game
     }
 
     @Override
-    public void loadGameDetails(int gameId) {
-        mModel.loadGameDetails(gameId, new BaseObserver<>(this, new BaseObserver.Observer<ResultGameDetailsBean>() {
+    public void loadGameHeadDetails(int gameId) {
+        mModel.loadGameHeadDetails(gameId, new BaseObserver<>(this, new BaseObserver.Observer<ResultGameDataInfoBean>() {
             @Override
-            public void onNext(BaseBean<ResultGameDetailsBean> t) {
+            public void onNext(BaseBean<ResultGameDataInfoBean> t) {
                 if (t.code == IApi.Code.SUCCEED && t.result != null) {
-                    mView.resultGameDetails(t.result.matchData);
+                    mView.resultHeadGameDetails(t.result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+
+    @Override
+    public void loadGameResultDetails(int gameId) {
+        mModel.loadGameResultDetails(gameId, new BaseObserver<>(true, this, new BaseObserver.Observer<List<ResultGameDataResultBean>>() {
+            @Override
+            public void onNext(BaseBean<List<ResultGameDataResultBean>> t) {
+                if (DataUtils.isResultSure(t)) {
+                    mView.resultGameResultDetails(t.result);
                 }
             }
 

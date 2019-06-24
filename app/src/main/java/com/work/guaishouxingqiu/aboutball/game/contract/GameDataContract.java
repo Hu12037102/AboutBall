@@ -2,6 +2,8 @@ package com.work.guaishouxingqiu.aboutball.game.contract;
 
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataInfoBean;
+import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataResultBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDetailsBean;
 
 import java.util.List;
@@ -13,10 +15,15 @@ import java.util.List;
  * 描述:比赛数据契约
  */
 public interface GameDataContract {
-    interface View extends IBaseView{
-        void resultGameDetails(List<ResultGameDetailsBean.Bean> data);
+    interface View extends IBaseView {
+        void resultHeadGameDetails(ResultGameDataInfoBean bean);
+
+        void resultGameResultDetails(List<ResultGameDataResultBean> data);
     }
-    interface Presenter extends IBasePresenter{
-        void loadGameDetails(int gameId);
+
+    interface Presenter extends IBasePresenter {
+        void loadGameHeadDetails(int gameId);
+
+        void loadGameResultDetails(int gameId);
     }
 }

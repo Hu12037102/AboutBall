@@ -15,6 +15,6 @@ public class ResultGameDetailsBean {
         public String statsName;
         public float hostValue;
         public float guestValue;
-        public int dataType;// 0是小数，1是正整数
+        public int dataType = 1;// 0是小数，1是正整数
     }
 }

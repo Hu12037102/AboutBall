@@ -9,6 +9,8 @@ import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameCollectionBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameCommentBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataBean;
+import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataInfoBean;
+import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataResultBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDetailsBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameSimpleBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.RequestSendMessageBean;
@@ -56,8 +58,10 @@ public interface GameService {
     Observable<BaseBean<BaseDataBean>> sendCommentMessage(@Body RequestGameCommentBean bean);
 
     @GET(IApiService.GET_MATCH_DETAILS)
-    Observable<BaseBean<ResultGameDetailsBean>> loadGameDetails(@Query(Contast.MATCH_ID) int gameId);
+    Observable<BaseBean<ResultGameDataInfoBean>> loadGameHeadDetails(@Query(Contast.MATCH_ID) int gameId);
 
     @GET(IApiService.GET_COLLECTION_VIDEO_LIST)
     Observable<BaseBean<List<ResultGameCollectionBean>>> loadCollectionList(@Query(Contast.MATCH_ID) int gameId);
+    @GET(IApiService.GET_MATCH_RESULT_DETAILS)
+    Observable<BaseBean<List<ResultGameDataResultBean>>> loadGameDataResult(@Query(Contast.MATCH_ID) long gameId);
 }
