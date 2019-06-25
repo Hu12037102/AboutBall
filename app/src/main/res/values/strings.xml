@@ -566,7 +566,16 @@
     <string name="goal">进球</string>
     <string name="point_sphere">点球</string>
     <string name="assist">助攻</string>
-
+    <string name="outs">赛况</string>
+    <string name="start">开始</string>
+    <string name="event_filter">赛事筛选</string>
+    <string name="ranking">排名</string>
+    <string name="chang">场</string>
+    <string name="flat">胜/平/负</string>
+    <string name="into_the_loss">进/失</string>
+    <string name="integral">积分</string>
+    <string name="troops">队伍</string>
+    <string name="match_filtrate">赛事筛选</string>
 
 
 

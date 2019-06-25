@@ -59,6 +59,9 @@ public class GameDataPresenter extends BasePresenter<GameDataContract.View, Game
             @Override
             public void onNext(BaseBean<List<ResultGameDataResultBean>> t) {
                 if (DataUtils.isResultSure(t)) {
+                    if (t.result.size() > 0) {
+                        t.result.add(0,new ResultGameDataResultBean(true));
+                    }
                     mView.resultGameResultDetails(t.result);
                 }
             }

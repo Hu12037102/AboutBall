@@ -63,7 +63,9 @@ public interface Contast {
     String TWEET_ID = "tweetId";
     String CONCERN_ID = "concernId";
     String TIPS_REASON = "tipsReason";
-    String TOPIC_ID="topicId";
+    String TOPIC_ID = "topicId";
+    String GAME_ID = "gameId";
+    String GROUP_ID="groupId";
     //默认经度
     double DEFAULT_LONGITUDE = 115.770000;
     //默认纬度

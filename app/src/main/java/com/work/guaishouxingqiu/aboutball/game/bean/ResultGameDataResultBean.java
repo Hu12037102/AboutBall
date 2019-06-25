@@ -9,10 +9,15 @@ import java.util.List;
  * 描述: 比赛详情数据赛况
  */
 public class ResultGameDataResultBean {
-    public long ids;
+    public ResultGameDataResultBean(){}
+    public ResultGameDataResultBean(boolean isStart){
+        this.isStart = isStart;
+    }
+    public String ids;
     public int time;
     public int teamType;
     public List<MatchSituation> matchSituationList;
+    public boolean isStart;
     public static class MatchSituation{
         public long id;
         public int actionId;//1、进球；2、助攻；3、上场；4、下场；5、黄牌；6、红牌

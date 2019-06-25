@@ -48,7 +48,7 @@ public class GameDataFragment extends DelayedFragment<GameDataPresenter> impleme
     private List<ResultGameDetailsBean.Bean> mHeadData;
     private GameHeadDataAdapter mHeadAdapter;
     private View mHeadView;
-    private RecyclerView mRvData;
+    private RecyclerView mHeadRvData;
     private List<ResultGameDataResultBean> mData;
     private GameDataAdapter mResultAdapter;
 
@@ -66,9 +66,9 @@ public class GameDataFragment extends DelayedFragment<GameDataPresenter> impleme
         GlideManger.get().loadImage(DataUtils.checkData(getContext()), mBean.hostLogoUrl, cIvLeft);
         CircleImageView cIvRight = mHeadView.findViewById(R.id.civ_right);
         GlideManger.get().loadImage(getContext(), mBean.guestLogoUrl, cIvRight);
-        mHeadView.setVisibility(View.GONE);
-        mRvData = mHeadView.findViewById(R.id.rv_data);
-        mRvData.setLayoutManager(new LinearLayoutManager(mContext));
+        mHeadView.setVisibility(View.VISIBLE);
+        mHeadRvData = mHeadView.findViewById(R.id.rv_data);
+        mHeadRvData.setLayoutManager(new LinearLayoutManager(mContext));
     }
 
     @Override
@@ -129,15 +129,15 @@ public class GameDataFragment extends DelayedFragment<GameDataPresenter> impleme
     private void initHeadAdapter() {
         mHeadData = new ArrayList<>();
         mHeadAdapter = new GameHeadDataAdapter(mContext,mHeadData);
-        //mHeadAdapter.setHasStableIds(true);
-        mRvData.setAdapter(mHeadAdapter);
+        mHeadAdapter.setHasStableIds(true);
+        mHeadRvData.setAdapter(mHeadAdapter);
     }
 
     private void initDataAdapter() {
         mData = new ArrayList<>();
         mResultAdapter = new GameDataAdapter(mData);
         mResultAdapter.addHeadView(mHeadView);
-        //mResultAdapter.addFootView(LayoutInflater.from(mContext).inflate(R.layout.item_game_data_foot_view, mRvResult,false));
+       // mResultAdapter.addFootView(LayoutInflater.from(mContext).inflate(R.layout.item_game_data_foot_view, mRvResult,false));
         mRvResult.setAdapter(mResultAdapter);
     }
 
@@ -213,7 +213,7 @@ public class GameDataFragment extends DelayedFragment<GameDataPresenter> impleme
         mHeadData.add(detailsFoulBean);
 
         ResultGameDetailsBean.Bean detailsFreeKickBean = new ResultGameDetailsBean.Bean();
-        detailsFoulBean.statsName = UIUtils.getString(R.string.free_kick);
+        detailsFreeKickBean.statsName = UIUtils.getString(R.string.free_kick);
         detailsFreeKickBean.hostValue = bean.host.freeKick;
         detailsFreeKickBean.guestValue = bean.guest.freeKick;
         mHeadData.add(detailsFreeKickBean);
@@ -242,6 +242,7 @@ public class GameDataFragment extends DelayedFragment<GameDataPresenter> impleme
         detailsShootOnTargetBean.hostValue = bean.host.shootOnTarget;
         detailsShootOnTargetBean.guestValue = bean.guest.shootOnTarget;
         mHeadData.add(detailsShootOnTargetBean);
+        mHeadAdapter.notifyDataSetChanged();
         mPresenter.loadGameResultDetails(1);
     }
 
@@ -249,7 +250,6 @@ public class GameDataFragment extends DelayedFragment<GameDataPresenter> impleme
     public void resultGameResultDetails(List<ResultGameDataResultBean> data) {
         mData.clear();
         mData.addAll(data);
-        mHeadAdapter.notifyDataSetChanged();
         mResultAdapter.notifyDataSetChanged();
     }
 }

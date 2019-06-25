@@ -69,6 +69,7 @@ public interface ARouterConfig {
         String ACTIVITY_IMAGE_PREVIEW = "/activity/preview/image";
         String ACTIVITY_TOPIC_DYNAMICS = "/activity/topic/dynamics";
         String ACTIVITY_MY_DYNAMIC = "/activity/my/dynamic";
+        String ACTIVITY_GAME_INFO = "/activity/game/info";
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";
