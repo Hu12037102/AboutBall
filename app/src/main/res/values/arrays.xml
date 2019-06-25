@@ -113,4 +113,9 @@
         <item>推荐</item>
         <item>最新</item>
     </string-array>
+    <string-array name="game_info_tab_array">
+        <item>积分榜</item>
+        <item>射手榜</item>
+        <item>助攻榜</item>
+    </string-array>
 </resources>

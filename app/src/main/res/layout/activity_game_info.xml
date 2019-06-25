@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <com.example.item.weight.TitleView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        app:back_left_drawable="@mipmap/icon_back"
+        app:back_text_padding_left="@dimen/default_margin"
+        app:back_text_padding_right="@dimen/default_margin"
+        app:center_data="@string/data"
+        app:center_text_color="@color/color_4"
+        app:center_text_size="@dimen/size_18sp"
+         />
+
+    <com.example.item.weight.ItemView
+        android:id="@+id/item_match"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_45dp"
+        app:content_right_icon="@mipmap/icon_item_bottom"
+        app:content_text_color="@color/colorFFA6A6A6"
+        app:title_data="@string/event_filter"
+        app:title_text_color="@color/color_4"
+        app:title_text_size="@dimen/size_14sp"
+        app:content_drawable_padding="@dimen/size_10dp"/>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_45dp"
+        app:tabIndicatorHeight="@dimen/size_0dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_grouping"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_55dp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@color/colorFFFBFAFA"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="@string/ranking"
+            android:textColor="@color/colorFFA6A6A6"
+            android:textSize="@dimen/size_12sp" />
+
+        <TextView
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="left|center_vertical"
+            android:text="@string/troops"
+            android:textColor="@color/colorFFA6A6A6"
+            android:textSize="@dimen/size_12sp" />
+
+        <TextView
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="@string/chang"
+            android:textColor="@color/colorFFA6A6A6"
+            android:textSize="@dimen/size_12sp" />
+
+        <TextView
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:text="@string/flat"
+            android:textColor="@color/colorFFA6A6A6"
+            android:textSize="@dimen/size_12sp" />
+
+        <TextView
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:text="@string/into_the_loss"
+            android:textColor="@color/colorFFA6A6A6"
+            android:textSize="@dimen/size_12sp" />
+
+        <TextView
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="@string/integral"
+            android:textColor="@color/colorFFA6A6A6"
+            android:textSize="@dimen/size_12sp" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_other_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+
+</LinearLayout>
