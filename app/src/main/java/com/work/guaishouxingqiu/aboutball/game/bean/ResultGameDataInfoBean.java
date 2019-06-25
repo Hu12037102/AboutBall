@@ -7,9 +7,8 @@ package com.work.guaishouxingqiu.aboutball.game.bean;
  * 描述:比赛-数据-球队统计
  */
 public class ResultGameDataInfoBean {
-    public ResultGameDataInfoBean.Bean guest;
     public ResultGameDataInfoBean.Bean host;
-
+    public ResultGameDataInfoBean.Bean guest;
     public static class Bean{
         public long id;
         public long matchId;
