@@ -30,6 +30,11 @@ public class GameHeadDataAdapter extends RecyclerView.Adapter<GameHeadDataAdapte
     private Context mContext;
     List<ResultGameDetailsBean.Bean> mData;
 
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
     public GameHeadDataAdapter(@NonNull Context context, @NonNull List<ResultGameDetailsBean.Bean> data) {
         this.mContext = context;
         this.mData = data;

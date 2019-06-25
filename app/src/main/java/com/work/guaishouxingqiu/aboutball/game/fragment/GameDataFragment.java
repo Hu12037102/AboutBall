@@ -129,7 +129,7 @@ public class GameDataFragment extends DelayedFragment<GameDataPresenter> impleme
     private void initHeadAdapter() {
         mHeadData = new ArrayList<>();
         mHeadAdapter = new GameHeadDataAdapter(mContext,mHeadData);
-        //mHeadAdapter.setHasStableIds(true);
+        mHeadAdapter.setHasStableIds(true);
         mHeadRvData.setAdapter(mHeadAdapter);
     }
 
@@ -213,7 +213,7 @@ public class GameDataFragment extends DelayedFragment<GameDataPresenter> impleme
         mHeadData.add(detailsFoulBean);
 
         ResultGameDetailsBean.Bean detailsFreeKickBean = new ResultGameDetailsBean.Bean();
-        detailsFoulBean.statsName = UIUtils.getString(R.string.free_kick);
+        detailsFreeKickBean.statsName = UIUtils.getString(R.string.free_kick);
         detailsFreeKickBean.hostValue = bean.host.freeKick;
         detailsFreeKickBean.guestValue = bean.guest.freeKick;
         mHeadData.add(detailsFreeKickBean);
