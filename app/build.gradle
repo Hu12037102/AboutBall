@@ -8,6 +8,10 @@ android {
     def android = rootProject.ext.android
     compileSdkVersion android.compileSdkVersion
     buildToolsVersion android.buildToolsVersion
+   /* lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }*/
     defaultConfig {
 
         multiDexEnabled true
@@ -50,7 +54,8 @@ android {
             }
             keyAlias 'AboutBall'
             keyPassword 'guaishouxingqiu888'
-            storeFile file('E:/AndroidWork/AboutBall/app_key_store.jks')
+            storeFile file('../app_key_store.jks')
+            //storeFile file('E:/AndroidWork/AboutBall/app_key_store.jks')
             storePassword 'guaishouxingqiu888'
         }
         debug {
@@ -60,7 +65,8 @@ android {
             }
             keyAlias 'AboutBall'
             keyPassword 'guaishouxingqiu888'
-            storeFile file('E:/AndroidWork/AboutBall/app_key_store.jks')
+            storeFile file('../app_key_store.jks')
+           // storeFile file('E:/AndroidWork/AboutBall/app_key_store.jks')
             storePassword 'guaishouxingqiu888'
         }
     }
