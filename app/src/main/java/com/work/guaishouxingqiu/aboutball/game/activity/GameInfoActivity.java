@@ -1,5 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.game.activity;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -23,7 +24,9 @@ import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameInfoScoreboardBean
 import com.work.guaishouxingqiu.aboutball.game.contract.GameInfoContract;
 import com.work.guaishouxingqiu.aboutball.game.presenter.GameInfoPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
+import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
 import com.work.guaishouxingqiu.aboutball.weight.SingWheelDialog;
 
 import java.util.ArrayList;
@@ -112,7 +115,7 @@ public class GameInfoActivity extends BaseActivity<GameInfoPresenter> implements
         mItemMatch.setOnItemClickListener(new ItemView.OnItemClickListener() {
             @Override
             public void onClickItem(View view) {
-                mItemMatch.mTvRight.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.icon_item_top, 0);
+
                 if (mFiltrateData.size() > 0) {
                     if (mDialogData == null) {
                         mDialogData = new ArrayList<>();
@@ -124,13 +127,13 @@ public class GameInfoActivity extends BaseActivity<GameInfoPresenter> implements
                     }
                     SingWheelDialog filtrateDialog = new SingWheelDialog(GameInfoActivity.this, mDialogData);
                     filtrateDialog.setTitle(R.string.match_filtrate);
-                    filtrateDialog.show();
+
                     filtrateDialog.setOnItemClickListener(new OnItemClickListener() {
                         @Override
                         public void onClickItem(@NonNull View view, int position) {
                             mRequestGameId = mFiltrateData.get(position).gameId;
                             mItemMatch.setContentText(mFiltrateData.get(position).gameName);
-                            mItemMatch.mTvRight.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.icon_item_bottom, 0);
+
                             if (mTabContent.getSelectedTabPosition() == 0) {
                                 mPresenter.loadMatchGroupData(mRequestGameId);
                             } else {
@@ -139,7 +142,18 @@ public class GameInfoActivity extends BaseActivity<GameInfoPresenter> implements
                             filtrateDialog.dismiss();
                         }
                     });
+                    filtrateDialog.setOnDialogShowOrDismissListener(new BaseDialog.OnDialogShowOrDismissListener() {
+                        @Override
+                        public void onShow(Dialog dialog) {
+                            mItemMatch.mTvRight.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.icon_item_top, 0);
+                        }
 
+                        @Override
+                        public void onDismiss(Dialog dialog) {
+                            mItemMatch.mTvRight.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.icon_item_bottom, 0);
+                        }
+                    });
+                    filtrateDialog.show();
                 }
             }
         });

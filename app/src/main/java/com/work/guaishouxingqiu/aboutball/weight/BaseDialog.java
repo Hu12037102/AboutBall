@@ -1,5 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.weight;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,6 +20,12 @@ import com.work.guaishouxingqiu.aboutball.R;
  * 描述:
  */
 public abstract class BaseDialog extends AppCompatDialog {
+    public void setOnDialogShowOrDismissListener(OnDialogShowOrDismissListener onDialogShowOrDismissListener) {
+        this.onDialogShowOrDismissListener = onDialogShowOrDismissListener;
+    }
+
+    protected OnDialogShowOrDismissListener onDialogShowOrDismissListener;
+
     public BaseDialog(Context context) {
         this(context, R.style.DefaultDialogStyle);
     }
@@ -29,7 +36,7 @@ public abstract class BaseDialog extends AppCompatDialog {
         initView(getContext());
         initData();
         initEvent();
-       // initWindows();
+        // initWindows();
     }
 
     @Override
@@ -56,6 +63,24 @@ public abstract class BaseDialog extends AppCompatDialog {
         window.setWindowAnimations(R.style.DefaultDialogAnimation);
     }
 
+    @Override
+    public void show() {
+        if (onDialogShowOrDismissListener != null) {
+            onDialogShowOrDismissListener.onShow(this);
+        }
+        super.show();
+
+    }
+
+    @Override
+    public void dismiss() {
+        if (onDialogShowOrDismissListener != null) {
+            onDialogShowOrDismissListener.onDismiss(this);
+        }
+        super.dismiss();
+
+    }
+
     protected abstract void initEvent();
 
     protected abstract void initData();
@@ -66,5 +91,11 @@ public abstract class BaseDialog extends AppCompatDialog {
         void onClickSure(@NonNull View view);
 
         void onClickCancel(@NonNull View view);
+    }
+
+    public interface OnDialogShowOrDismissListener {
+        void onShow(Dialog dialog);
+
+        void onDismiss(Dialog dialog);
     }
 }
