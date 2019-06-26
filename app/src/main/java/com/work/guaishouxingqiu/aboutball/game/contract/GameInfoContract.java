@@ -4,6 +4,7 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameFiltrateBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameGroupBean;
+import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameInfoOtherBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameInfoScoreboardBean;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public interface GameInfoContract {
         void resultMatchGroupData(List<ResultGameGroupBean> data);
 
         void resultMatchScoreboardDat(List<ResultGameInfoScoreboardBean> data);
+        void resultMatchOtherData(List<ResultGameInfoOtherBean> data);
     }
 
     interface Presenter extends IBasePresenter {
@@ -29,5 +31,7 @@ public interface GameInfoContract {
         void loadMatchGroupData(long gameId);
 
         void loadMatchScoreboardData(long requestGameId, long requestGroupId);
+
+        void loadOtherData(long mRequestGameId, int mRequestAction);
     }
 }

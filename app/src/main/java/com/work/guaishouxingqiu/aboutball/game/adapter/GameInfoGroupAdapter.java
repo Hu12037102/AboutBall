@@ -51,10 +51,10 @@ public class GameInfoGroupAdapter extends RecyclerView.Adapter<GameInfoGroupAdap
         ResultGameGroupBean bean = mData.get(i);
         viewHolder.mTvGroup.setText(bean.groupName);
         if (bean.isCheck) {
-            viewHolder.mTvGroup.setBackgroundResource(R.drawable.shape_item_ball_type);
+            viewHolder.mTvGroup.setBackgroundResource(R.drawable.shape_venue_count_click_view);
             viewHolder.mTvGroup.setTextColor(ContextCompat.getColor(viewHolder.itemView.getContext(), R.color.colorTheme));
         } else {
-            viewHolder.mTvGroup.setBackgroundResource(0);
+            viewHolder.mTvGroup.setBackgroundResource(R.drawable.shape_venue_count_default_view);
             viewHolder.mTvGroup.setTextColor(ContextCompat.getColor(viewHolder.itemView.getContext(), R.color.color_4));
         }
 

@@ -6,6 +6,7 @@ import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.game.GameService;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameFiltrateBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameGroupBean;
+import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameInfoOtherBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameInfoScoreboardBean;
 
 import java.util.List;
@@ -40,6 +41,14 @@ public class GameInfoModel extends BaseModel {
     public void loadMatchScoreboardData(long requestGameId, long requestGroupId, BaseObserver<List<ResultGameInfoScoreboardBean>>observer) {
         mRetrofitManger.create(GameService.class)
                 .loadMatchScoreboardData(requestGameId,requestGroupId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    public void loadOtherData(long requestGameId, int requestAction, BaseObserver<List<ResultGameInfoOtherBean>> observer) {
+        mRetrofitManger.create(GameService.class)
+                .loadGameInfoOtherData(requestGameId,requestAction)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

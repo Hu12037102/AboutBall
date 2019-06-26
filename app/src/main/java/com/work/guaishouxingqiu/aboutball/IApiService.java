@@ -49,6 +49,7 @@ public interface IApiService {
     String GET_MATCH_INTO_FILTRATE="/api/matchStatistic/getMatchGameList";
     String GET_MATCH_INFO_GROUP="/api/matchStatistic/getMatchGameGroupList";
     String GET_MATCH_INFO_SCOREBOARD="/api/matchStatistic/getMatchScoreboard";
+    String GET_MATCH_INFO_OTHER_LIST="/api/matchStatistic/getMatchGoalScoreboard";
     //场馆球类类别
     String VENUE_TYPE_LIST = "/api/stadium/getType";
     //分页获取场馆列表

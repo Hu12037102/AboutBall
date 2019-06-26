@@ -14,6 +14,7 @@ import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataResultBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDetailsBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameFiltrateBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameGroupBean;
+import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameInfoOtherBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameInfoScoreboardBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameSimpleBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.RequestSendMessageBean;
@@ -77,5 +78,7 @@ public interface GameService {
     @GET(IApiService.GET_MATCH_INFO_SCOREBOARD)
     Observable<BaseBean<List<ResultGameInfoScoreboardBean>>> loadMatchScoreboardData(@Query(Contast.GAME_ID) long gameId,
                                                                                      @Query(Contast.GROUP_ID) long groupId);
-
+    @GET(IApiService.GET_MATCH_INFO_OTHER_LIST)
+    Observable<BaseBean<List<ResultGameInfoOtherBean>>> loadGameInfoOtherData(@Query(Contast.GAME_ID) long gameId,
+                                                                              @Query(Contast.ACTION_ID) int actionId);
 }

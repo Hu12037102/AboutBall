@@ -7,6 +7,7 @@ import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameFiltrateBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameGroupBean;
+import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameInfoOtherBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameInfoScoreboardBean;
 import com.work.guaishouxingqiu.aboutball.game.contract.GameInfoContract;
 import com.work.guaishouxingqiu.aboutball.game.model.GameInfoModel;
@@ -77,6 +78,23 @@ public class GameInfoPresenter extends BasePresenter<GameInfoContract.View, Game
             public void onNext(BaseBean<List<ResultGameInfoScoreboardBean>> t) {
                 if (DataUtils.isResultSure(t)) {
                     mView.resultMatchScoreboardDat(t.result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+
+    @Override
+    public void loadOtherData(long requestGameId, int requestAction) {
+        mModel.loadOtherData(requestGameId, requestAction, new BaseObserver<>(true, this, new BaseObserver.Observer<List<ResultGameInfoOtherBean>>() {
+            @Override
+            public void onNext(BaseBean<List<ResultGameInfoOtherBean>> t) {
+                if (DataUtils.isResultSure(t)) {
+                    mView.resultMatchOtherData(t.result);
                 }
             }
 

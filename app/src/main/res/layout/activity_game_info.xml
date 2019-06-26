@@ -42,6 +42,7 @@
         android:visibility="gone" />
 
     <LinearLayout
+        android:id="@+id/ll_scoreboard"
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:background="@color/colorFFFBFAFA"
@@ -100,6 +101,47 @@
             android:text="@string/integral"
             android:textColor="@color/colorFFA6A6A6"
             android:textSize="@dimen/size_12sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_other"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_35dp"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:background="@color/colorFFFBFAFA">
+        <TextView
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="@string/ranking"
+            android:textColor="@color/colorFFA6A6A6"
+            android:textSize="@dimen/size_12sp" />
+        <TextView
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="left|center_vertical"
+            android:text="@string/player"
+            android:textColor="@color/colorFFA6A6A6"
+            android:textSize="@dimen/size_12sp" />
+        <TextView
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:text="@string/troops"
+            android:textColor="@color/colorFFA6A6A6"
+            android:textSize="@dimen/size_12sp" />
+        <TextView
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="@string/goals_scored"
+            android:textColor="@color/colorFFA6A6A6"
+            android:textSize="@dimen/size_12sp" />
+
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

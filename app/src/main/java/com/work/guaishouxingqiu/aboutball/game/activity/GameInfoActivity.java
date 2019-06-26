@@ -6,6 +6,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.ItemView;
@@ -13,9 +14,11 @@ import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.game.adapter.GameInfoGroupAdapter;
+import com.work.guaishouxingqiu.aboutball.game.adapter.GameInfoOtherAdapter;
 import com.work.guaishouxingqiu.aboutball.game.adapter.GameInfoScoreboardAdapter;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameFiltrateBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameGroupBean;
+import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameInfoOtherBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameInfoScoreboardBean;
 import com.work.guaishouxingqiu.aboutball.game.contract.GameInfoContract;
 import com.work.guaishouxingqiu.aboutball.game.presenter.GameInfoPresenter;
@@ -47,15 +50,24 @@ public class GameInfoActivity extends BaseActivity<GameInfoPresenter> implements
     RecyclerView mRvData;
     @BindView(R.id.rv_other_data)
     RecyclerView mRvOtherData;
-    private long mRequestGameId;
-    private long mRequestGroupId;
+    @BindView(R.id.ll_other)
+    LinearLayout mLlOther;
+    @BindView(R.id.ll_scoreboard)
+    LinearLayout mLlScoreboard;
+    private long mRequestGameId = -1;
+    private long mRequestGroupId = -1;
+    private int mRequestAction = GameInfoActivity.ACTION_SHOT;
     private List<String> mDialogData;
     private List<ResultGameFiltrateBean> mFiltrateData;
     private List<ResultGameGroupBean> mGroupData;
     private GameInfoGroupAdapter mGroupAdapter;
     private GameInfoScoreboardAdapter mScoreboardAdapter;
     private List<ResultGameInfoScoreboardBean> mScoreboardData;
-    private boolean isOpenItemMatch;//是否已经打开赛事筛选
+    public static final int ACTION_SHOT = 1;
+    public static final int ACTION_ASSIST = 2;
+    private List<ResultGameInfoOtherBean> mOtherData;
+    private GameInfoOtherAdapter mOtherAdapter;
+
 
     @Override
     protected int getLayoutId() {
@@ -73,11 +85,19 @@ public class GameInfoActivity extends BaseActivity<GameInfoPresenter> implements
     @Override
     protected void initData() {
         initTab();
+        mGroupData = new ArrayList<>();
+        mGroupAdapter = new GameInfoGroupAdapter(this, mGroupData);
+        mRvGrouping.setAdapter(mGroupAdapter);
+
         mScoreboardData = new ArrayList<>();
         mScoreboardAdapter = new GameInfoScoreboardAdapter(mScoreboardData);
         mRvData.setAdapter(mScoreboardAdapter);
         mFiltrateData = new ArrayList<>();
         mPresenter.loadMatchFiltrateData();
+
+        mOtherData = new ArrayList<>();
+        mOtherAdapter = new GameInfoOtherAdapter(mOtherData);
+        mRvOtherData.setAdapter(mOtherAdapter);
     }
 
     private void initTab() {
@@ -110,8 +130,12 @@ public class GameInfoActivity extends BaseActivity<GameInfoPresenter> implements
                         public void onClickItem(@NonNull View view, int position) {
                             mRequestGameId = mFiltrateData.get(position).gameId;
                             mItemMatch.setContentText(mFiltrateData.get(position).gameName);
-                            mPresenter.loadMatchGroupData(mRequestGameId);
                             mItemMatch.mTvRight.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.icon_item_bottom, 0);
+                            if (mTabContent.getSelectedTabPosition() == 0) {
+                                mPresenter.loadMatchGroupData(mRequestGameId);
+                            } else {
+                                mPresenter.loadOtherData(mRequestGameId, mRequestAction);
+                            }
                             filtrateDialog.dismiss();
                         }
                     });
@@ -122,12 +146,30 @@ public class GameInfoActivity extends BaseActivity<GameInfoPresenter> implements
         mTabContent.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                if (tab.getPosition() == 0) {
+                int tabPosition = tab.getPosition();
+                if (tabPosition == 0) {
                     mRvData.setVisibility(View.VISIBLE);
                     mRvOtherData.setVisibility(View.GONE);
+                    mRvGrouping.setVisibility(View.VISIBLE);
+                    mLlOther.setVisibility(View.GONE);
+                    mLlScoreboard.setVisibility(View.VISIBLE);
+                    if (mRequestGameId != -1) {
+                        mPresenter.loadMatchGroupData(mRequestGameId);
+                    }
                 } else {
                     mRvData.setVisibility(View.GONE);
                     mRvOtherData.setVisibility(View.VISIBLE);
+                    mRvGrouping.setVisibility(View.GONE);
+                    mLlOther.setVisibility(View.VISIBLE);
+                    mLlScoreboard.setVisibility(View.GONE);
+                    if (tabPosition == 1) {
+                        mRequestAction = ACTION_SHOT;
+                    } else if (tabPosition == 2) {
+                        mRequestAction = ACTION_ASSIST;
+                    }
+                    if (mRequestGameId != -1) {
+                        mPresenter.loadOtherData(mRequestGameId, mRequestAction);
+                    }
                 }
             }
 
@@ -139,6 +181,13 @@ public class GameInfoActivity extends BaseActivity<GameInfoPresenter> implements
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
+            }
+        });
+        mGroupAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onClickItem(@NonNull View view, int position) {
+                mRequestGroupId = mGroupData.get(position).id;
+                mPresenter.loadMatchScoreboardData(mRequestGameId, mRequestGroupId);
             }
         });
     }
@@ -165,27 +214,19 @@ public class GameInfoActivity extends BaseActivity<GameInfoPresenter> implements
 
     @Override
     public void resultMatchGroupData(List<ResultGameGroupBean> data) {
-        if (data != null && data.size() > 0) {
-            mRvGrouping.setVisibility(View.VISIBLE);
-            if (mGroupAdapter == null) {
-                mGroupData = new ArrayList<>();
-                mGroupData.addAll(data);
-                mGroupAdapter = new GameInfoGroupAdapter(this, mGroupData);
-                mRvGrouping.setAdapter(mGroupAdapter);
-            } else {
-                if (mGroupData.size() > 0) {
-                    mGroupData.clear();
-                }
-                mGroupData.addAll(data);
-                mGroupAdapter.notifyDataSetChanged();
-            }
-            if (mGroupData.size() > 0) {
-                mRequestGroupId = mGroupData.get(0).id;
-            }
-        } else {
-            mRequestGroupId = 0;
-            mRvGrouping.setVisibility(View.GONE);
+        if (mGroupData.size() > 0) {
+            mGroupData.clear();
         }
+        if (data.size() > 0) {
+            data.get(0).isCheck = true;
+            mRequestGroupId = data.get(0).id;
+            mGroupData.addAll(data);
+            mRvGrouping.setVisibility(View.VISIBLE);
+        } else {
+            mRvGrouping.setVisibility(View.GONE);
+            mRequestGroupId = 0;
+        }
+        mGroupAdapter.notifyDataSetChanged();
         mPresenter.loadMatchScoreboardData(mRequestGameId, mRequestGroupId);
     }
 
@@ -198,5 +239,16 @@ public class GameInfoActivity extends BaseActivity<GameInfoPresenter> implements
             mScoreboardData.addAll(data);
         }
         mScoreboardAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void resultMatchOtherData(List<ResultGameInfoOtherBean> data) {
+        if (mOtherData.size() > 0) {
+            mOtherData.clear();
+        }
+        if (data.size() > 0) {
+            mOtherData.addAll(data);
+        }
+        mOtherAdapter.notifyDataSetChanged();
     }
 }
