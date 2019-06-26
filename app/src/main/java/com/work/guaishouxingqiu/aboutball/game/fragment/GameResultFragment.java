@@ -49,6 +49,7 @@ public class GameResultFragment extends DelayedFragment<MatchResultPresenter> im
     private List<ResultGameDataBean.Bean> mData;
     private View mHeadView;
     private ResultGameSimpleBean mBean;
+    private TextView mTvGrade;
 
     @Override
     protected int getLayoutId() {
@@ -67,7 +68,7 @@ public class GameResultFragment extends DelayedFragment<MatchResultPresenter> im
         mAdapter = new GameResultAdapter(mData);
         mHeadView = LayoutInflater.from(mRvData.getContext()).inflate(R.layout.item_game_result_head_view, mRvData, false);
         mHeadView.setVisibility(View.GONE);
-        TextView mTvGrade = mHeadView.findViewById(R.id.tv_grade);
+        mTvGrade = mHeadView.findViewById(R.id.tv_grade);
         mTvGrade.setText(mBean.hostScore.concat(" - ").concat(mBean.guestScore));
         mAdapter.addHeadView(mHeadView);
         mRvData.setAdapter(mAdapter);
@@ -140,6 +141,7 @@ public class GameResultFragment extends DelayedFragment<MatchResultPresenter> im
 
     @Override
     public void resultData(ResultGameDataBean bean) {
+        mTvGrade.setText(bean.hostScore + " - " + bean.guestScore);
         if (mPresenter.isRefresh) {
             mData.clear();
         }

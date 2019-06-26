@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -49,11 +50,14 @@ public class BallTeamMemberFragment extends LoginOrShareFragment<BallTeamMemberP
     RecyclerView mRvData;
     @BindView(R.id.srl_refresh)
     SmartRefreshLayout mSrlRefresh;
+    @BindView(R.id.tv_bottom_left)
+    TextView mTvBottomLeft;
     private BallTeamMemberAdapter mAdapter;
     private List<ResultTeamDetailsMemberBean> mData;
     private ResultMyBallBean mBallBean;
     private SingPopupWindows mDeleteWindows;
     private long mPlayerId = -1;
+    private ResultTeamDetailsMemberBean mMyMemberBean;
 
     public void setOnPlayIdResult(BallTeamMemberFragment.onPlayIdResult onPlayIdResult) {
         this.onPlayIdResult = onPlayIdResult;
@@ -84,6 +88,7 @@ public class BallTeamMemberFragment extends LoginOrShareFragment<BallTeamMemberP
 
     @Override
     protected void initView() {
+        mTvBottomLeft.setEnabled(false);
         mBallBean = mBundle.getParcelable(ARouterConfig.Key.PARCELABLE);
         mRvData.setLayoutManager(new LinearLayoutManager(mContext));
     }
@@ -177,7 +182,7 @@ public class BallTeamMemberFragment extends LoginOrShareFragment<BallTeamMemberP
     }
 
     private void clickEditMyDetails() {
-        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_BALL_TEAM_MY_DETAILS, ARouterConfig.Key.PLAYER_ID, mPlayerId);
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_BALL_TEAM_MY_DETAILS, ARouterConfig.Key.PARCELABLE, mMyMemberBean);
     }
 
     private void clickShareFriend() {
@@ -211,11 +216,13 @@ public class BallTeamMemberFragment extends LoginOrShareFragment<BallTeamMemberP
         for (ResultTeamDetailsMemberBean bean : data) {
             if (bean != null && bean.isMe == 1) {
                 mPlayerId = bean.playerId;
+                mMyMemberBean = bean;
                 if (onPlayIdResult != null) {
                     onPlayIdResult.resultMyPlayId(bean.playerId);
                 }
             }
         }
+        mTvBottomLeft.setEnabled(true);
     }
 
     public interface onPlayIdResult {

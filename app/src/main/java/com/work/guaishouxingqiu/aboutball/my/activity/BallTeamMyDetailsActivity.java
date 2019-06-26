@@ -16,6 +16,7 @@ import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestTeamMyDetailsBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultTeamDetailsMemberBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.BallTeamMyDetailsContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.BallTeamMyDetailsPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
@@ -100,7 +101,7 @@ public class BallTeamMyDetailsActivity extends BaseActivity<BallTeamMyDetailsPre
     private List<CheckBox> mMainCheckData;
     private List<CheckBox> mSubstitutionCheckData;
     private static final int SUBSTITUTION_CHECK_MAX_COUNT = 3;
-    private long mPlayerId;
+    private ResultTeamDetailsMemberBean mMyMemberBean;
 
 
     @Override
@@ -110,8 +111,8 @@ public class BallTeamMyDetailsActivity extends BaseActivity<BallTeamMyDetailsPre
 
     @Override
     protected void initView() {
-        mPlayerId = mIntent.getLongExtra(ARouterConfig.Key.PLAYER_ID, -1);
-        if (mPlayerId == -1) {
+        mMyMemberBean = mIntent.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
+        if (mMyMemberBean.playerId == -1) {
             UIUtils.showToast(R.string.not_find_ball_team_id);
             finish();
             return;
@@ -429,7 +430,7 @@ public class BallTeamMyDetailsActivity extends BaseActivity<BallTeamMyDetailsPre
             RequestTeamMyDetailsBean bean = new RequestTeamMyDetailsBean();
             bean.number = DataUtils.getEditDetails(mAetNumber);
             bean.alternate = getLocationArray(mSubstitutionCheckData);
-            bean.playerId = mPlayerId;
+            bean.playerId = mMyMemberBean.playerId;
             bean.position = getCheckContent(mMainCheckData);
             mPresenter.saveMyDetails(bean);
         }
@@ -458,7 +459,7 @@ public class BallTeamMyDetailsActivity extends BaseActivity<BallTeamMyDetailsPre
                     mMainCheckData.get(0).setTextColor(ContextCompat.getColorStateList(this, R.color.selector_text_blue_white_color));
                     for (int h = 0; h < mSubstitutionData.size(); h++) {
                         ViewGroup viewGroup = mSubstitutionData.get(h);
-                        setUnCheckViewGroup(viewGroup, mMainCheckData.get(0).getId(),  mMainCheckData.get(0).isChecked());
+                        setUnCheckViewGroup(viewGroup, mMainCheckData.get(0).getId(), mMainCheckData.get(0).isChecked());
                     }
                     mMainCheckData.clear();
                     mMainCheckData.add(checkBox);

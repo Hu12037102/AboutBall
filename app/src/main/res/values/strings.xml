@@ -376,8 +376,8 @@
     <string name="left_defender">左后卫</string>
     <string name="center_defender">中后卫</string>
     <string name="right_defender">右后卫</string>
-    <string name="left_wing">左翼位</string>
-    <string name="right_wing">右翼位</string>
+    <string name="left_wing">左翼卫</string>
+    <string name="right_wing">右翼卫</string>
     <string name="center_midfield">中场</string>
     <string name="short_loin">前腰</string>
     <string name="later_loin">后腰</string>
