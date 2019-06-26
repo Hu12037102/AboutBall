@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/size_6dp"
+    app:cardElevation="@dimen/size_6dp"
+    app:cardUseCompatPadding="true"
+    android:foreground="?android:selectableItemBackground">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="160dp"
+        android:layout_height="145dp">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/riv_content"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_90dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/icon_default_banner"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/size_10dp"
+            android:background="@drawable/shape_white_2_view"
+            android:padding="@dimen/size_2dp"
+            android:text="@string/collection"
+            android:textColor="@color/color_4"
+            android:textSize="@dimen/size_12sp"
+            app:layout_constraintBottom_toBottomOf="@id/riv_content"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="2"
+            android:paddingLeft="@dimen/size_10dp"
+            android:paddingRight="@dimen/size_10dp"
+            android:textColor="@color/color_4"
+            android:textSize="@dimen/size_14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/riv_content"
+            tools:text="我的一生最美好的场景就是遇见你，在人海芒种开发时间傲娇法搜" />
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>

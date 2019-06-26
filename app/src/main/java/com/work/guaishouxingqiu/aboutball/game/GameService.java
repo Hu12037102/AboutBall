@@ -16,6 +16,7 @@ import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameFiltrateBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameGroupBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameInfoOtherBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameInfoScoreboardBean;
+import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameLiveDetailsBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameSimpleBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.RequestSendMessageBean;
 
@@ -49,7 +50,7 @@ public interface GameService {
     Observable<BaseBean<ResultGameSimpleBean>> loadGameSimple(@Query(Contast.MATCH_ID) int gameId);
 
     @GET(IApiService.GET_MATCH_RESULT_DATA)
-    Observable<BaseBean<List<ResultGameDataBean>>> loadGameResultData(@Query(Contast.MATCH_ID) int gameId,
+    Observable<BaseBean<ResultGameDataBean>> loadGameResultData(@Query(Contast.MATCH_ID) int gameId,
                                                                       @Query(Contast.PAGE_NUM) int pageNum,
                                                                       @Query(Contast.PAGE_SIZE) int pageSize);
 
@@ -75,10 +76,15 @@ public interface GameService {
 
     @GET(IApiService.GET_MATCH_INFO_GROUP)
     Observable<BaseBean<List<ResultGameGroupBean>>> loadMatchGroupData(@Query(Contast.GAME_ID) long gameId);
+
     @GET(IApiService.GET_MATCH_INFO_SCOREBOARD)
     Observable<BaseBean<List<ResultGameInfoScoreboardBean>>> loadMatchScoreboardData(@Query(Contast.GAME_ID) long gameId,
                                                                                      @Query(Contast.GROUP_ID) long groupId);
+
     @GET(IApiService.GET_MATCH_INFO_OTHER_LIST)
     Observable<BaseBean<List<ResultGameInfoOtherBean>>> loadGameInfoOtherData(@Query(Contast.GAME_ID) long gameId,
                                                                               @Query(Contast.ACTION_ID) int actionId);
+
+    @GET(IApiService.GET_MATCH_LOOK_BACK_DETAILS)
+    Observable<BaseBean<ResultGameLiveDetailsBean>> loadLookBackDetails(@Query(Contast.MATCH_ID) long matchId);
 }

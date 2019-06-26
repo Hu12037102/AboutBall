@@ -16,6 +16,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
+import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
 import com.work.guaishouxingqiu.aboutball.game.adapter.GameResultAdapter;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameSimpleBean;
@@ -39,13 +40,13 @@ import butterknife.BindView;
  * 描述: 赛况Fragment
  */
 @Route(path = ARouterConfig.Path.FRAGMENT_GAME_RESULT)
-public class GameResultFragment extends BaseFragment<MatchResultPresenter> implements MatchResultContract.View {
+public class GameResultFragment extends DelayedFragment<MatchResultPresenter> implements MatchResultContract.View {
     @BindView(R.id.rv_data)
     RecyclerView mRvData;
     @BindView(R.id.srl_refresh)
     SmartRefreshLayout mSrlRefresh;
     private GameResultAdapter mAdapter;
-    private List<ResultGameDataBean> mData;
+    private List<ResultGameDataBean.Bean> mData;
     private View mHeadView;
     private ResultGameSimpleBean mBean;
 
@@ -55,19 +56,18 @@ public class GameResultFragment extends BaseFragment<MatchResultPresenter> imple
     }
 
     @Override
-    protected void initView() {
+    protected void initDelayedView() {
         mBean = mBundle.getParcelable(ARouterConfig.Key.GAME_DETAILS_BEAN);
         mRvData.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
-
     @Override
-    protected void initData() {
+    protected void initDelayedData() {
         mData = new ArrayList<>();
         mAdapter = new GameResultAdapter(mData);
         mHeadView = LayoutInflater.from(mRvData.getContext()).inflate(R.layout.item_game_result_head_view, mRvData, false);
         mHeadView.setVisibility(View.GONE);
-        TextView mTvGrade =mHeadView.findViewById(R.id.tv_grade);
+        TextView mTvGrade = mHeadView.findViewById(R.id.tv_grade);
         mTvGrade.setText(mBean.hostScore.concat(" - ").concat(mBean.guestScore));
         mAdapter.addHeadView(mHeadView);
         mRvData.setAdapter(mAdapter);
@@ -75,7 +75,7 @@ public class GameResultFragment extends BaseFragment<MatchResultPresenter> imple
     }
 
     @Override
-    protected void initEvent() {
+    protected void initDelayedEvent() {
         mSrlRefresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(RefreshLayout refreshLayout) {
@@ -87,6 +87,41 @@ public class GameResultFragment extends BaseFragment<MatchResultPresenter> imple
                 loadData(true, refreshLayout);
             }
         });
+    }
+
+    @Override
+    protected void initView() {
+      /*  mBean = mBundle.getParcelable(ARouterConfig.Key.GAME_DETAILS_BEAN);
+        mRvData.setLayoutManager(new LinearLayoutManager(getContext()));*/
+    }
+
+
+    @Override
+    protected void initData() {
+      /*  mData = new ArrayList<>();
+        mAdapter = new GameResultAdapter(mData);
+        mHeadView = LayoutInflater.from(mRvData.getContext()).inflate(R.layout.item_game_result_head_view, mRvData, false);
+        mHeadView.setVisibility(View.GONE);
+        TextView mTvGrade =mHeadView.findViewById(R.id.tv_grade);
+        mTvGrade.setText(mBean.hostScore.concat(" - ").concat(mBean.guestScore));
+        mAdapter.addHeadView(mHeadView);
+        mRvData.setAdapter(mAdapter);
+        mSrlRefresh.autoRefresh();*/
+    }
+
+    @Override
+    protected void initEvent() {
+       /* mSrlRefresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshLayout) {
+                loadData(false, refreshLayout);
+            }
+
+            @Override
+            public void onRefresh(RefreshLayout refreshLayout) {
+                loadData(true, refreshLayout);
+            }
+        });*/
     }
 
     private void loadData(boolean isRefresh, RefreshLayout refreshLayout) {
@@ -104,16 +139,20 @@ public class GameResultFragment extends BaseFragment<MatchResultPresenter> imple
     }
 
     @Override
-    public void resultData(List<ResultGameDataBean> data) {
+    public void resultData(ResultGameDataBean bean) {
         if (mPresenter.isRefresh) {
             mData.clear();
         }
-        mData.addAll(data);
-     if (mData.size()>0){
-         mHeadView.setVisibility(View.VISIBLE);
-     }else {
-         mHeadView.setVisibility(View.GONE);
-     }
+        if (bean.matchBroadcastList != null) {
+            mData.addAll(bean.matchBroadcastList);
+            mSrlRefresh.setNoMoreData(bean.matchBroadcastList.size() < mPresenter.mPageSize);
+        }
+
+        if (mData.size() > 0) {
+            mHeadView.setVisibility(View.VISIBLE);
+        } else {
+            mHeadView.setVisibility(View.GONE);
+        }
         mAdapter.notifyDataSetChanged();
     }
 

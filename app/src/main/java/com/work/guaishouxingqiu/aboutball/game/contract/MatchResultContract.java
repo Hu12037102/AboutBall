@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface MatchResultContract {
     interface View extends IBaseView {
-        void resultData(List<ResultGameDataBean> data);
+        void resultData(ResultGameDataBean bean);
     }
 
     interface Presenter extends IBasePresenter {

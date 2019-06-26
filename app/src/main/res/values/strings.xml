@@ -164,6 +164,7 @@
     <string name="please_input_message">请输入评论！</string>
     <string name="watch_live">观看直播</string>
     <string name="watch_collection">观看集锦</string>
+    <string name="collection">集锦</string>
     <string name="vs">VS</string>
     <string name="net_error">网络异常！</string>
     <string name="live_no_start">直播尚未开始</string>
@@ -578,7 +579,8 @@
     <string name="match_filtrate">赛事筛选</string>
     <string name="player">球员</string>
     <string name="goals_scored">进球数</string>
-
+    <string name="related_report">相关报道</string>
+    <string name="not_find_this_match">没有找到该比赛</string>
 
 
 </resources>

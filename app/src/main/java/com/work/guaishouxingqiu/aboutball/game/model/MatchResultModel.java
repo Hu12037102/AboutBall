@@ -17,7 +17,7 @@ import io.reactivex.schedulers.Schedulers;
  * 描述:赛况model
  */
 public class MatchResultModel extends BaseModel {
-    public void loadData(int gameId, int pageNum, int pageSize, BaseObserver<List<ResultGameDataBean>> observer){
+    public void loadData(int gameId, int pageNum, int pageSize, BaseObserver<ResultGameDataBean> observer){
         mRetrofitManger.create(GameService.class)
                 .loadGameResultData(gameId,pageNum,pageSize)
                 .subscribeOn(Schedulers.io())

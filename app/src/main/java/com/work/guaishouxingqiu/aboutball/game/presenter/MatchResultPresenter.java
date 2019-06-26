@@ -10,6 +10,7 @@ import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataBean;
 import com.work.guaishouxingqiu.aboutball.game.contract.MatchResultContract;
 import com.work.guaishouxingqiu.aboutball.game.model.MatchResultModel;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 
 import java.util.List;
 
@@ -40,11 +41,11 @@ public class MatchResultPresenter extends BasePresenter<MatchResultContract.View
         if (isRefresh) {
             mPageNum = Contast.DEFAULT_PAGE_NUM;
         }
-        mModel.loadData(gameId, mPageNum, mPageSize, new BaseObserver<>(this, new BaseObserver.Observer<List<ResultGameDataBean>>() {
+        mModel.loadData(gameId, mPageNum, mPageSize, new BaseObserver<>(this, new BaseObserver.Observer<ResultGameDataBean>() {
             @Override
-            public void onNext(BaseBean<List<ResultGameDataBean>> bean) {
+            public void onNext(BaseBean<ResultGameDataBean> bean) {
                 mPageNum++;
-                if (bean.code == IApi.Code.SUCCEED) {
+                if (DataUtils.isResultSure(bean)) {
                     mView.resultData(bean.result);
                 }
             }

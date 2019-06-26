@@ -22,15 +22,15 @@ import java.util.List;
  * 更新时间: 2019/3/26 9:51
  * 描述:比赛赛况Adapter
  */
-public class GameResultAdapter extends BaseRecyclerAdapter<GameResultAdapter.ViewHolder, List<ResultGameDataBean>> {
-    public GameResultAdapter(@NonNull List<ResultGameDataBean> data) {
+public class GameResultAdapter extends BaseRecyclerAdapter<GameResultAdapter.ViewHolder, List<ResultGameDataBean.Bean>> {
+    public GameResultAdapter(@NonNull List<ResultGameDataBean.Bean> data) {
         super(data);
     }
 
     @Override
     protected void onBindViewDataHolder(@NonNull ViewHolder viewHolder, int i) {
         viewHolder.mTvName.setText(mData.get(i).nickName);
-        UIUtils.setText(viewHolder.mTvName, mData.get(i).nickName + "（" + mData.get(i).anchorName + "）");
+        UIUtils.setText(viewHolder.mTvName, mData.get(i).nickName /*+ "（" + mData.get(i).anchorName + "）"*/);
         viewHolder.mTvContent.setText(mData.get(i).content);
         viewHolder.mTvName.setCompoundDrawablesWithIntrinsicBounds(i == 0 ? R.drawable.shape_game_result_check_view
                 : R.drawable.shape_game_result_default_view, 0, 0, 0);
