@@ -110,19 +110,28 @@ public class BallTeamMyDetailsActivity extends BaseActivity<BallTeamMyDetailsPre
     }
 
     @Override
-    protected void initView() {
+    public void initPermission() {
         mMyMemberBean = mIntent.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
         if (mMyMemberBean.playerId == -1) {
             UIUtils.showToast(R.string.not_find_ball_team_id);
             finish();
             return;
         }
+        super.initPermission();
+    }
+
+    @Override
+    protected void initView() {
+
         mItemMain.mTvRight.setTextColor(ContextCompat.getColor(this, R.color.color_4));
         mItemMain.mTvRight.setHintTextColor(ContextCompat.getColor(this, R.color.colorFFA6A6A6));
         mItemMain.mTvRight.setHint(R.string.please_selector_location);
         mItemSubstitution.mTvRight.setTextColor(ContextCompat.getColor(this, R.color.color_4));
         mItemSubstitution.mTvRight.setHintTextColor(ContextCompat.getColor(this, R.color.colorFFA6A6A6));
         mItemSubstitution.mTvRight.setHint(R.string.please_selector_the_backup);
+        mAetNumber.setText(mMyMemberBean.number + "");
+        mAetNumber.setSelection(DataUtils.checkData(mAetNumber.getText() == null ? 0 : mAetNumber.getText().length()));
+        UIUtils.setText(mItemMain.mTvRight, mMyMemberBean.position);
     }
 
     @Override
@@ -140,6 +149,29 @@ public class BallTeamMyDetailsActivity extends BaseActivity<BallTeamMyDetailsPre
 
         initMainSubView();
         initSubstitutionSubView();
+        initMainCheckStatus();
+    }
+
+    private void initMainCheckStatus() {
+        if (!DataUtils.isEmpty(mMyMemberBean.position)) {
+
+            for (int i = 0; i < mMainData.size(); i++) {
+                ChipGroup cg = (ChipGroup) mMainData.get(i);
+                for (int j = 0; j < cg.getChildCount(); j++) {
+                    CheckBox checkBox = (CheckBox) cg.getChildAt(j);
+                    if (checkBox.getText().toString().equals(mMyMemberBean.position)) {
+                        checkBox.setChecked(true);
+                        for (int h = 0; h < mMainCheckSparse.size(); h++) {
+                            if (mMainCheckSparse.keyAt(h) == checkBox.getId()) {
+                                mMainCheckSparse.put(mMainCheckSparse.keyAt(h), checkBox.isChecked());
+                                mTag = 1;
+                                judgeCheckStatus(checkBox, checkBox.isChecked());
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private void initMainSubView() {
