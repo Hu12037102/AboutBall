@@ -318,7 +318,7 @@
             android:name=".map.activity.MapActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".home.activity.ScheduleActivity"
+            android:name=".game.activity.GameScheduleActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".community.activity.CommunityDetailsActivity"

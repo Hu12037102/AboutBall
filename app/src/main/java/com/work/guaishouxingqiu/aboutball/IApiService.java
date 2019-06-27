@@ -54,6 +54,7 @@ public interface IApiService {
     String GET_MATCH_INFO_OTHER_LIST="/api/matchStatistic/getMatchGoalScoreboard";
     String GET_MATCH_LOOK_BACK_DETAILS="/api/match/getMatchReview";
     String GET_MATCH_REVIEW_DATA ="/api/match/getMatchReviewList";
+    String GET_MATCH_SCHEDULE_DATA ="/api/match/getMatchSchedule";
     //场馆球类类别
     String VENUE_TYPE_LIST = "/api/stadium/getType";
     //分页获取场馆列表

@@ -67,6 +67,19 @@ public class DateUtils {
         return resultWeek;
     }
 
+    /**
+     * 根据时间戳显示年-月-日
+     *
+     * @param timestamp
+     * @return
+     */
+    public static String yearToDate(long timestamp) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(new Date(timestamp));
+    }
+
+
+
     private static String getMonthDayToWeek(int day) {
         String resultWeek = "";
         switch (day) {

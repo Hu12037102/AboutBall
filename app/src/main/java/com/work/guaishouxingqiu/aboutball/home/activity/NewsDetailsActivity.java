@@ -1,31 +1,27 @@
 package com.work.guaishouxingqiu.aboutball.home.activity;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.LinearInterpolator;
-import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.example.item.util.ScreenUtils;
 import com.example.item.weight.TitleView;
+import com.github.ybq.android.spinkit.SpinKitView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseWebActivity;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
@@ -35,7 +31,6 @@ import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsMessageBean;
 import com.work.guaishouxingqiu.aboutball.home.contract.NewsDetailsContract;
 import com.work.guaishouxingqiu.aboutball.home.presenter.NewDetailsPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
-import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseWebView;
@@ -64,6 +59,24 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
     ProgressBar mPbLoading;
     @BindView(R.id.srl_layout)
     SmartRefreshLayout mSrlLayout;
+    @BindView(R.id.sv_video)
+    SurfaceView mSvVideo;
+    @BindView(R.id.iv_video_status)
+    ImageView mIvVideoStatus;
+    @BindView(R.id.skv_loading)
+    SpinKitView mSkvLoading;
+    @BindView(R.id.tv_play_time)
+    TextView mTvPlayTime;
+    @BindView(R.id.tv_length_time)
+    TextView mTvLengthTime;
+    @BindView(R.id.sb_seek)
+    SeekBar mSbSeek;
+    @BindView(R.id.pb_play_length)
+    ProgressBar mPbPlayLength;
+    @BindView(R.id.cl_schedule)
+    ConstraintLayout mClSchedule;
+    @BindView(R.id.cl_video)
+    ConstraintLayout mClVideo;
 
     private long mNewsId;
     private NewsMessageAdapter mAdapter;
@@ -220,4 +233,6 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
     protected ProgressBar getProgressBar() {
         return mPbLoading;
     }
+
+
 }
