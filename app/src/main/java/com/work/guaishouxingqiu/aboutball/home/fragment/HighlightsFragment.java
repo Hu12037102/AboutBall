@@ -151,6 +151,7 @@ public class HighlightsFragment extends DelayedFragment<HighlightsPresenter>
                 ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_SCHEDULE);
                 break;
             case R.id.tv_playback:
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MATCH_REVIEW);
                 break;
             case R.id.tv_data:
                 ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_GAME_INFO);

@@ -18,6 +18,7 @@ import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameInfoOtherBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameInfoScoreboardBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameLiveDetailsBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameSimpleBean;
+import com.work.guaishouxingqiu.aboutball.game.bean.ResultReviewBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.RequestSendMessageBean;
 
 import java.util.List;
@@ -87,4 +88,7 @@ public interface GameService {
 
     @GET(IApiService.GET_MATCH_LOOK_BACK_DETAILS)
     Observable<BaseBean<ResultGameLiveDetailsBean>> loadLookBackDetails(@Query(Contast.MATCH_ID) long matchId);
+
+    @GET(IApiService.GET_MATCH_REVIEW_DATA)
+    Observable<BaseBean<List<ResultReviewBean>>>loadMatchReviewData();
 }
