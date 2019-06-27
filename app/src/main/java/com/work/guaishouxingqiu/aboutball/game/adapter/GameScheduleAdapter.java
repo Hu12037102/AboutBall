@@ -13,6 +13,7 @@ import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameScheduleBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
+import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public class GameScheduleAdapter extends BaseRecyclerAdapter<GameScheduleAdapter
         } else {
             viewHolder.mTvTime.setVisibility(View.GONE);
         }*/
-        UIUtils.setText(viewHolder.mTvTime, bean.date);
+        UIUtils.setText(viewHolder.mTvTime, DateUtils.getDate(bean.date));
         List<ResultGameScheduleBean.MatchList> matchData = bean.matchList;
         if (matchData != null && matchData.size() > 0) {
             viewHolder.mLlTeam.removeAllViews();
@@ -79,6 +80,7 @@ public class GameScheduleAdapter extends BaseRecyclerAdapter<GameScheduleAdapter
                         UIUtils.setText(tvGuestScore, matchScheduleBean.guestScore + "");
                         TextView tvStatus = inflateContentView.findViewById(R.id.tv_status);
                         UIUtils.setText(tvStatus, matchScheduleBean.state);
+                        UIUtils.setGameIconStatus(matchScheduleBean.stateId,tvStatus);
                     }
                 }
             }

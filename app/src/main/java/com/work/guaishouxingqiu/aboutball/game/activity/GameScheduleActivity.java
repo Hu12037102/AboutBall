@@ -3,6 +3,8 @@ package com.work.guaishouxingqiu.aboutball.game.activity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.TitleView;
@@ -17,6 +19,7 @@ import com.work.guaishouxingqiu.aboutball.game.contract.GameScheduleContract;
 import com.work.guaishouxingqiu.aboutball.game.presenter.GameSchedulePresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
+import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +40,12 @@ public class GameScheduleActivity extends BaseActivity<GameSchedulePresenter> im
     RecyclerView mRvData;
     @BindView(R.id.srl_refresh)
     SmartRefreshLayout mSrlRefresh;
+    @BindView(R.id.tv_time)
+    TextView mTvTime;
     private String mRequestTime = DateUtils.yearToDate(System.currentTimeMillis());
     private List<ResultGameScheduleBean> mData;
     private GameScheduleAdapter mAdapter;
+    private LinearLayoutManager mLayoutManager;
 
     @Override
     protected int getLayoutId() {
@@ -48,7 +54,8 @@ public class GameScheduleActivity extends BaseActivity<GameSchedulePresenter> im
 
     @Override
     protected void initView() {
-        mRvData.setLayoutManager(new LinearLayoutManager(this));
+        mLayoutManager = new LinearLayoutManager(this);
+        mRvData.setLayoutManager(mLayoutManager);
     }
 
     @Override
@@ -72,14 +79,34 @@ public class GameScheduleActivity extends BaseActivity<GameSchedulePresenter> im
                 loadData(true);
             }
         });
+        mRvData.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (mData.size() > mLayoutManager.findFirstVisibleItemPosition()) {
+                    UIUtils.setText(mTvTime, DateUtils.getDate(mData.get(mLayoutManager.findFirstVisibleItemPosition()).date));
+                }
+            }
+        });
     }
 
     private void loadData(boolean isRefresh) {
         mPresenter.isRefresh = isRefresh;
         if (isRefresh) {
+            if (mData.size() > 0) {
+                mRequestTime = mData.get(0).date;
+            }
             mRequestTime = DateUtils.getNextCountData(mRequestTime, -1);
             mSrlRefresh.finishRefresh();
         } else {
+            if (mData.size() > 0) {
+                mRequestTime = mData.get(mData.size() - 1).date;
+            }
             mRequestTime = DateUtils.getNextCountData(mRequestTime, 1);
             mSrlRefresh.finishLoadMore();
         }
@@ -102,6 +129,6 @@ public class GameScheduleActivity extends BaseActivity<GameSchedulePresenter> im
             }
         }
         mAdapter.notifyDataSetChanged();
-
+        UIUtils.setText(mTvTime, DateUtils.getDate(mData.get(mLayoutManager.findFirstVisibleItemPosition()).date));
     }
 }

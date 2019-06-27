@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <com.example.item.weight.TitleView
         android:id="@+id/title_view"
@@ -15,12 +14,17 @@
         app:back_text_padding_right="@dimen/default_margin"
         app:center_data="@string/schedule"
         app:center_text_color="@color/color_4"
-        app:center_text_size="@dimen/size_18sp" />
+        app:center_text_size="@dimen/size_18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/srl_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="@dimen/size_0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_view">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_data"
@@ -28,4 +32,14 @@
             android:layout_height="match_parent" />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_30dp"
+        android:background="@color/colorFFF0F0F0"
+        android:gravity="center"
+        android:textColor="@color/color_4"
+        app:layout_constraintTop_toBottomOf="@id/title_view"
+        tools:text="古月哥欠" />
+
+</android.support.constraint.ConstraintLayout>

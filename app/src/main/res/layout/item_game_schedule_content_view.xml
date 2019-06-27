@@ -93,17 +93,22 @@
             app:layout_constraintLeft_toLeftOf="parent"
             tools:text="20" />
     </android.support.constraint.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/tv_status"
+    <LinearLayout
         android:layout_width="@dimen/size_0dp"
         android:layout_height="match_parent"
         android:layout_weight="2"
+        android:orientation="horizontal"
+        android:gravity="center">
+    <TextView
+        android:id="@+id/tv_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:gravity="center"
         android:singleLine="true"
         android:textSize="@dimen/size_12sp"
-        tools:text="比赛已经结束" />
+        tools:text="比赛已经结束"
+        android:drawablePadding="@dimen/size_10dp"/>
+    </LinearLayout>
 </LinearLayout>
     <View
        style="@style/HorizontalLine"

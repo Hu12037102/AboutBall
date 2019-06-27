@@ -176,7 +176,8 @@ public class DateUtils {
      * @return
      */
     public static String getDate(String time) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+      //  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String dateTime = "";
         try {
             Date date = sdf.parse(time);

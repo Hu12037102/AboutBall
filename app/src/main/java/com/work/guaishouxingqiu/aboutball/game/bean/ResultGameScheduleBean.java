@@ -27,5 +27,6 @@ public class ResultGameScheduleBean {
         public int hostScore;
         public int guestScore;
         public String state;
+        public int stateId;
     }
 }
