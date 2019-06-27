@@ -6,6 +6,7 @@ import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.commonality.presenter.LoginOrSharePresenter;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultRecommendHotBean;
 import com.work.guaishouxingqiu.aboutball.community.contract.CommunityRecommendContract;
@@ -20,7 +21,7 @@ import java.util.List;
  * 更新时间: 2019/3/19 13:56
  * 描述:社区-推荐P
  */
-public class CommunityRecommendPresenter extends BasePresenter<CommunityRecommendContract.View,
+public class CommunityRecommendPresenter extends LoginOrSharePresenter<CommunityRecommendContract.View,
         CommunityRecommendModel> implements CommunityRecommendContract.Presenter {
     public CommunityRecommendPresenter(@NonNull CommunityRecommendContract.View view) {
         super(view);

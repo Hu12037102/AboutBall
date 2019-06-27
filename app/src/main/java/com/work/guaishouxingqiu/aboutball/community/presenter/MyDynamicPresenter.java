@@ -6,6 +6,7 @@ import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.commonality.presenter.LoginOrSharePresenter;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.community.contract.MyDynamicContract;
 import com.work.guaishouxingqiu.aboutball.community.model.MyDynamicModel;
@@ -19,7 +20,7 @@ import java.util.List;
  * 更新时间: 2019/6/19 9:09
  * 描述:我的动态P
  */
-public class MyDynamicPresenter extends BasePresenter<MyDynamicContract.View, MyDynamicModel>
+public class MyDynamicPresenter extends LoginOrSharePresenter<MyDynamicContract.View, MyDynamicModel>
         implements MyDynamicContract.Presenter {
     public MyDynamicPresenter(@NonNull MyDynamicContract.View view) {
         super(view);

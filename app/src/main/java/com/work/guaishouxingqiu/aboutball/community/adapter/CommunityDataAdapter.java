@@ -216,6 +216,14 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
         if (viewHolder.mGroupImageData.getChildCount() > 0) {
             viewHolder.mGroupImageData.removeAllViews();
         }
+        viewHolder.mLlShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onTextContentClickListener != null) {
+                    onTextContentClickListener.onClickShare(v, i);
+                }
+            }
+        });
         if (bean.imageUrl != null) {
             String[] imagePathArray = bean.imageUrl.split(",");
             int imageCount = DataUtils.splitImagePathCount(bean.imageUrl);

@@ -1,5 +1,7 @@
 package com.work.guaishouxingqiu.aboutball;
 
+import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+
 /**
  * 作者: 胡庆岭
  * 创建时间: 2019/3/8 13:54
@@ -170,6 +172,7 @@ public interface IApiService {
         //APK下载路径
         String DOWNLOAD_APK = "https://test.ifeell.com.cn/download";
     }
+
 
     interface TypeId {
         //球队邀请

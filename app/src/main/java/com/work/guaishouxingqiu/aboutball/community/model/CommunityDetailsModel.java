@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.community.model;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseModel;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
+import com.work.guaishouxingqiu.aboutball.commonality.model.LoginOrShareModel;
 import com.work.guaishouxingqiu.aboutball.community.CommunityService;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsMessageBean;
 
@@ -16,7 +17,7 @@ import io.reactivex.schedulers.Schedulers;
  * 更新时间: 2019/6/13 18:34
  * 描述:动态详情契约
  */
-public class CommunityDetailsModel extends BaseModel{
+public class CommunityDetailsModel extends LoginOrShareModel{
     public void loadCommentData(int pageNum, int pageSize, long tweetId, BaseObserver<List<ResultNewsMessageBean>> observer) {
         mRetrofitManger.create(CommunityService.class)
                 .loadCommunityCommentData(pageNum,pageSize,tweetId)

@@ -6,6 +6,7 @@ import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.commonality.presenter.LoginOrSharePresenter;
 import com.work.guaishouxingqiu.aboutball.community.contract.CommunityDetailsContract;
 import com.work.guaishouxingqiu.aboutball.community.model.CommunityDetailsModel;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsMessageBean;
@@ -19,7 +20,7 @@ import java.util.List;
  * 更新时间: 2019/6/13 18:34
  * 描述:动态详情P
  */
-public class CommunityDetailsPresenter extends BasePresenter<CommunityDetailsContract.View,
+public class CommunityDetailsPresenter extends LoginOrSharePresenter<CommunityDetailsContract.View,
         CommunityDetailsModel> implements CommunityDetailsContract.Presenter {
     public CommunityDetailsPresenter(@NonNull CommunityDetailsContract.View view) {
         super(view);

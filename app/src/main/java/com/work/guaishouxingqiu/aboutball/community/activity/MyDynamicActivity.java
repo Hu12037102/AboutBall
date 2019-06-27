@@ -28,6 +28,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
+import com.work.guaishouxingqiu.aboutball.commonality.activity.LoginOrShareActivity;
 import com.work.guaishouxingqiu.aboutball.community.adapter.CommunityDataAdapter;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.community.contract.MyDynamicContract;
@@ -57,7 +58,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * 描述:我的动态Activity
  */
 @Route(path = ARouterConfig.Path.ACTIVITY_MY_DYNAMIC)
-public class MyDynamicActivity extends BaseActivity<MyDynamicPresenter> implements MyDynamicContract.View {
+public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> implements MyDynamicContract.View {
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.title_view)
@@ -248,7 +249,7 @@ public class MyDynamicActivity extends BaseActivity<MyDynamicPresenter> implemen
 
             @Override
             public void onClickShare(View view, int position) {
-
+                mViewModel.getCommunityShare(mData.get(position));
             }
         });
 
@@ -310,7 +311,7 @@ public class MyDynamicActivity extends BaseActivity<MyDynamicPresenter> implemen
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {

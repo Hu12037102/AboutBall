@@ -23,6 +23,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
+import com.work.guaishouxingqiu.aboutball.commonality.activity.LoginOrShareActivity;
 import com.work.guaishouxingqiu.aboutball.community.bean.RequestDynamicCommentsBean;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.community.contract.CommunityDetailsContract;
@@ -60,7 +61,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * 描述:动态详情Activity
  */
 @Route(path = ARouterConfig.Path.ACTIVITY_COMMUNITY_DETAILS)
-public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPresenter> implements
+public class CommunityDetailsActivity extends LoginOrShareActivity<CommunityDetailsPresenter> implements
         CommunityDetailsContract.View {
     @BindView(R.id.title_view)
     TitleView mTitleView;
@@ -158,7 +159,12 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
 
         notifyLike();
         notifyFollow();
-
+        mLlHeadShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showShareDialog(mViewModel.getCommunityShare(mIntentBean));
+            }
+        });
 
         LinearLayout mGroupImageData = mHeadInflateView.findViewById(R.id.ll_iv_data);
         if (mGroupImageData.getChildCount() > 0) {
@@ -817,7 +823,7 @@ public class CommunityDetailsActivity extends BaseActivity<CommunityDetailsPrese
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {

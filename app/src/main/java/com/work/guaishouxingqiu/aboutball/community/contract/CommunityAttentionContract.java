@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.community.contract;
 
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.commonality.contract.LoginOrShareContract;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 
 import java.util.List;
@@ -13,10 +14,10 @@ import java.util.List;
  * 描述:社区关注契约
  */
 public interface CommunityAttentionContract {
-    interface View extends IBaseView {
+    interface View extends LoginOrShareContract.View {
         void resultData(List<ResultCommunityDataBean> data);
     }
 
-    interface Presenter extends IBasePresenter {
+    interface Presenter extends LoginOrShareContract.Presenter {
     }
 }

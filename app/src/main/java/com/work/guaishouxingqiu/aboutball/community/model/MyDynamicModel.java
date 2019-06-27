@@ -3,6 +3,7 @@ package com.work.guaishouxingqiu.aboutball.community.model;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseModel;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
+import com.work.guaishouxingqiu.aboutball.commonality.model.LoginOrShareModel;
 import com.work.guaishouxingqiu.aboutball.community.CommunityService;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 
@@ -17,7 +18,7 @@ import io.reactivex.schedulers.Schedulers;
  * 更新时间: 2019/6/19 9:08
  * 描述:我的动态model
  */
-public class MyDynamicModel extends BaseModel {
+public class MyDynamicModel extends LoginOrShareModel {
     public void loadMyDynamic(int pageNum, int pageSize, BaseObserver<List<ResultCommunityDataBean>> observer) {
         mRetrofitManger.create(CommunityService.class)
                 .getMyDynamicData(pageNum, pageSize)

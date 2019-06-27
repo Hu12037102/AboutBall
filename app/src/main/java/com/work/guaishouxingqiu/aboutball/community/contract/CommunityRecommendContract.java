@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.community.contract;
 
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.commonality.contract.LoginOrShareContract;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultRecommendHotBean;
 
@@ -14,13 +15,13 @@ import java.util.List;
  * 描述: 社区-推荐契约
  */
 public interface CommunityRecommendContract {
-    interface View extends IBaseView {
+    interface View extends LoginOrShareContract.View {
         void resultHeadData(List<ResultRecommendHotBean> data);
 
         void resultData(List<ResultCommunityDataBean> data);
     }
 
-    interface Presenter extends IBasePresenter {
+    interface Presenter extends LoginOrShareContract.Presenter {
         void loadData();
 
         void loadHeadData();

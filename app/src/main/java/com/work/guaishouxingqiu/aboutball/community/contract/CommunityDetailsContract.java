@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.community.contract;
 
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.commonality.contract.LoginOrShareContract;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsMessageBean;
 
 import java.util.List;
@@ -13,11 +14,11 @@ import java.util.List;
  * 描述:动态详情契约
  */
 public interface CommunityDetailsContract {
-    interface View extends IBaseView {
+    interface View extends LoginOrShareContract.View {
         void resultCommentData(List<ResultNewsMessageBean> data);
     }
 
-    interface Presenter extends IBasePresenter {
+    interface Presenter extends LoginOrShareContract.Presenter {
         void loadCommentData(long tweetId);
     }
 }

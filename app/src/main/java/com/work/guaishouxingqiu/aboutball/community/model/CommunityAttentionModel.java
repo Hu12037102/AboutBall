@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.community.model;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseModel;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
+import com.work.guaishouxingqiu.aboutball.commonality.model.LoginOrShareModel;
 import com.work.guaishouxingqiu.aboutball.community.CommunityService;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 
@@ -16,7 +17,7 @@ import io.reactivex.schedulers.Schedulers;
  * 更新时间: 2019/3/19 13:48
  * 描述:社区-关注model
  */
-public class CommunityAttentionModel extends BaseModel {
+public class CommunityAttentionModel extends LoginOrShareModel {
     public void loadData(int pageNum, int pageSize, BaseObserver<List<ResultCommunityDataBean>> observer) {
         mRetrofitManger.create(CommunityService.class)
                 .loadCommunityAttentionData(pageNum,pageSize)

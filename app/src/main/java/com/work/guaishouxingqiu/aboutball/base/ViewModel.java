@@ -15,7 +15,9 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.work.guaishouxingqiu.aboutball.Contast;
+import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
 import com.work.guaishouxingqiu.aboutball.community.activity.CommunityDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.community.activity.TopicDynamicsActivity;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
@@ -292,6 +294,18 @@ public class ViewModel {
         }
     }
 
+    public ShareWebBean getShareBean(@NonNull String title, @NonNull String content, @NonNull String url) {
+        ShareWebBean webBean = new ShareWebBean();
+        webBean.title = title;
+        webBean.description = content;
+        webBean.webUrl = url;
+        return webBean;
+    }
+
+    public ShareWebBean getCommunityShare(ResultCommunityDataBean bean) {
+        String shareUrl = IApiService.H5.DOWNLOAD_APK + "?" + ARouterConfig.Key.SHARE_ID + "=" + bean.tweetId + "&" + ARouterConfig.Key.SHARE_TYPE + "=" + IApiService.TypeId.DYNAMIC_DETAILS;
+        return getShareBean(UIUtils.getString(R.string.community_title), bean.tweetContent, shareUrl);
+    }
 
     /**
      * 取消订单

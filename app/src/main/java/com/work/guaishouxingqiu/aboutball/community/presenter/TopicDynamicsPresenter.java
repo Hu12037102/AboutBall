@@ -6,6 +6,8 @@ import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.commonality.fragment.LoginOrShareFragment;
+import com.work.guaishouxingqiu.aboutball.commonality.presenter.LoginOrSharePresenter;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.community.contract.TopicDynamicsContract;
 import com.work.guaishouxingqiu.aboutball.community.model.TopicDynamicsModel;
@@ -19,7 +21,7 @@ import java.util.List;
  * 更新时间: 2019/6/20 13:45
  * 描述:话题动态P
  */
-public class TopicDynamicsPresenter extends BasePresenter<TopicDynamicsContract.View, TopicDynamicsModel>
+public class TopicDynamicsPresenter extends LoginOrSharePresenter<TopicDynamicsContract.View, TopicDynamicsModel>
         implements TopicDynamicsContract.Presenter {
     public TopicDynamicsPresenter(@NonNull TopicDynamicsContract.View view) {
         super(view);

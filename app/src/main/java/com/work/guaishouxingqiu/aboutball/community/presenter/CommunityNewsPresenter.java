@@ -6,6 +6,7 @@ import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.commonality.presenter.LoginOrSharePresenter;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.community.contract.CommunityNewsContract;
 import com.work.guaishouxingqiu.aboutball.community.model.CommunityNewsModel;
@@ -19,7 +20,7 @@ import java.util.List;
  * 更新时间: 2019/3/19 14:04
  * 描述:社区-最新P
  */
-public class CommunityNewsPresenter extends BasePresenter<CommunityNewsContract.View,CommunityNewsModel>
+public class CommunityNewsPresenter extends LoginOrSharePresenter<CommunityNewsContract.View,CommunityNewsModel>
 implements CommunityNewsContract.Presenter{
     public CommunityNewsPresenter(@NonNull CommunityNewsContract.View view) {
         super(view);

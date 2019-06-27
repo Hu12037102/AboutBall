@@ -6,6 +6,7 @@ import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.commonality.presenter.LoginOrSharePresenter;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.community.contract.CommunityAttentionContract;
 import com.work.guaishouxingqiu.aboutball.community.contract.CommunityContract;
@@ -20,7 +21,7 @@ import java.util.List;
  * 更新时间: 2019/3/19 13:49
  * 描述:社区-关注P
  */
-public class CommunityAttentionPresenter extends BasePresenter<CommunityAttentionContract.View,
+public class CommunityAttentionPresenter extends LoginOrSharePresenter<CommunityAttentionContract.View,
         CommunityAttentionModel> implements CommunityContract.Presenter {
     public CommunityAttentionPresenter(@NonNull CommunityAttentionContract.View view) {
         super(view);

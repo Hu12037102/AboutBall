@@ -19,9 +19,11 @@ import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
+import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
+import com.work.guaishouxingqiu.aboutball.commonality.fragment.LoginOrShareFragment;
 import com.work.guaishouxingqiu.aboutball.community.adapter.CommunityDataAdapter;
 import com.work.guaishouxingqiu.aboutball.community.adapter.CommunityRecommendPagerAdapter;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
@@ -31,6 +33,7 @@ import com.work.guaishouxingqiu.aboutball.community.presenter.CommunityRecommend
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
 
 import java.util.ArrayList;
@@ -47,7 +50,7 @@ import butterknife.Unbinder;
  * 描述:社区-推荐Fragment
  */
 @Route(path = ARouterConfig.Path.FRAGMENT_COMMUNITY_RECOMMEND)
-public class CommunityRecommendFragment extends DelayedFragment<CommunityRecommendPresenter>
+public class CommunityRecommendFragment extends LoginOrShareFragment<CommunityRecommendPresenter>
         implements CommunityRecommendContract.View {
 
     @BindView(R.id.rv_data)
@@ -203,7 +206,7 @@ public class CommunityRecommendFragment extends DelayedFragment<CommunityRecomme
 
             @Override
             public void onClickShare(View view, int position) {
-
+                showShareDialog(mViewModel.getCommunityShare(mData.get(position)));
             }
         });
 

@@ -16,6 +16,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
+import com.work.guaishouxingqiu.aboutball.commonality.fragment.LoginOrShareFragment;
 import com.work.guaishouxingqiu.aboutball.community.activity.DynamicEditActivity;
 import com.work.guaishouxingqiu.aboutball.community.adapter.CommunityDataAdapter;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
@@ -39,7 +40,7 @@ import butterknife.Unbinder;
  * 描述:社区-关注Fragment
  */
 @Route(path = ARouterConfig.Path.FRAGMENT_COMMUNITY_ATTENTION)
-public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionPresenter> implements
+public class CommunityAttentionFragment extends LoginOrShareFragment<CommunityAttentionPresenter> implements
         CommunityAttentionContract.View {
     @BindView(R.id.rv_data)
     RecyclerView mRvData;
@@ -59,6 +60,21 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_community_attention;
+    }
+
+    @Override
+    protected void initDelayedView() {
+
+    }
+
+    @Override
+    protected void initDelayedData() {
+
+    }
+
+    @Override
+    protected void initDelayedEvent() {
+
     }
 
     @Override
@@ -166,7 +182,7 @@ public class CommunityAttentionFragment extends BaseFragment<CommunityAttentionP
 
             @Override
             public void onClickShare(View view, int position) {
-
+                showShareDialog(mViewModel.getCommunityShare(mData.get(position)));
             }
         });
     }

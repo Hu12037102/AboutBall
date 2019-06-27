@@ -19,6 +19,7 @@ import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
+import com.work.guaishouxingqiu.aboutball.commonality.fragment.LoginOrShareFragment;
 import com.work.guaishouxingqiu.aboutball.community.adapter.CommunityDataAdapter;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.community.contract.TopicDynamicsContract;
@@ -40,7 +41,7 @@ import butterknife.Unbinder;
  * 描述:话题动态fragment
  */
 @Route(path = ARouterConfig.Path.FRAGMENT_TOPIC_DYNAMICS)
-public class TopicDynamicsFragment extends DelayedFragment<TopicDynamicsPresenter> implements TopicDynamicsContract.View {
+public class TopicDynamicsFragment extends LoginOrShareFragment<TopicDynamicsPresenter> implements TopicDynamicsContract.View {
     @BindView(R.id.rv_data)
     RecyclerView mRvData;
     @BindView(R.id.srl_refresh)
@@ -195,7 +196,7 @@ public class TopicDynamicsFragment extends DelayedFragment<TopicDynamicsPresente
 
             @Override
             public void onClickShare(View view, int position) {
-
+                showShareDialog(mViewModel.getCommunityShare(mData.get(position)));
             }
         });
     }

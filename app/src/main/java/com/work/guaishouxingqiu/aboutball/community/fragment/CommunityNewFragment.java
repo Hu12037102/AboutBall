@@ -13,6 +13,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
+import com.work.guaishouxingqiu.aboutball.commonality.fragment.LoginOrShareFragment;
 import com.work.guaishouxingqiu.aboutball.community.activity.DynamicEditActivity;
 import com.work.guaishouxingqiu.aboutball.community.adapter.CommunityDataAdapter;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
@@ -35,7 +36,7 @@ import butterknife.OnClick;
  * 描述:社区-最新fragment
  */
 @Route(path = ARouterConfig.Path.FRAGMENT_COMMUNITY_NEWS)
-public class CommunityNewFragment extends DelayedFragment<CommunityNewsPresenter>
+public class CommunityNewFragment extends LoginOrShareFragment<CommunityNewsPresenter>
         implements CommunityNewsContract.View {
     @BindView(R.id.rv_data)
     RecyclerView mRvData;
@@ -157,7 +158,7 @@ public class CommunityNewFragment extends DelayedFragment<CommunityNewsPresenter
 
             @Override
             public void onClickShare(View view, int position) {
-
+                showShareDialog(mViewModel.getCommunityShare(mData.get(position)));
             }
         });
     }
