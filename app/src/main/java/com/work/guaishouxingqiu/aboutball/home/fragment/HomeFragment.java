@@ -72,21 +72,20 @@ public class HomeFragment extends CameraFragment<HomePresenter> implements HomeC
         }
         RecommendedFragment mRecommendedFragment = ARouterIntent
                 .getFragment(ARouterConfig.Path.FRAGMENT_RECOMMENDED, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(0).parentLabelId);
+        HotFragment mHotFragment = ARouterIntent
+                .getFragment(ARouterConfig.Path.FRAGMENT_HOT, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(1).parentLabelId);
         HighlightsFragment mHighlightsFragment = ARouterIntent
-                .getFragment(ARouterConfig.Path.FRAGMENT_HIGHLIGHTS, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(1).parentLabelId);
-      /*  HotFragment mHotFragment = ARouterIntent
-                .getFragment(ARouterConfig.Path.FRAGMENT_HOT, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(1).parentLabelId);*/
+                .getFragment(ARouterConfig.Path.FRAGMENT_HIGHLIGHTS, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(2).parentLabelId);
+
         VideoFragment mVideoFragment = ARouterIntent
-                .getFragment(ARouterConfig.Path.FRAGMENT_VIDEO, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(2).parentLabelId);
+                .getFragment(ARouterConfig.Path.FRAGMENT_VIDEO, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(3).parentLabelId);
         DrillFragment drillFragment = ARouterIntent
-                .getFragment(ARouterConfig.Path.FRAGMENT_DRILL, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(3));
-
-
+                .getFragment(ARouterConfig.Path.FRAGMENT_DRILL, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(4));
 
 
         SpecialFragment mSpecialFragment = ARouterIntent
-                .getFragment(ARouterConfig.Path.FRAGMENT_SPECIAL, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(4).parentLabelId);
-        Fragment[] fragments = new Fragment[]{mRecommendedFragment, /*mHotFragment,*/
+                .getFragment(ARouterConfig.Path.FRAGMENT_SPECIAL, ARouterConfig.Key.TAB_TYPE_ID, tabData.get(5).parentLabelId);
+        Fragment[] fragments = new Fragment[]{mRecommendedFragment, mHotFragment,
                 mHighlightsFragment, mVideoFragment, drillFragment, mSpecialFragment};
 
         FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdapter(getChildFragmentManager()) {

@@ -13,6 +13,8 @@ import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameScheduleBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
+import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
@@ -27,6 +29,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * 描述:比赛赛程Adapter
  */
 public class GameScheduleAdapter extends BaseRecyclerAdapter<GameScheduleAdapter.ViewHolder, List<ResultGameScheduleBean>> {
+    public void setOnClickGameViewListener(OnClickGameViewListener onClickGameViewListener) {
+        this.onClickGameViewListener = onClickGameViewListener;
+    }
+
+    private OnClickGameViewListener onClickGameViewListener;
+
     public GameScheduleAdapter(@NonNull List<ResultGameScheduleBean> data) {
         super(data);
     }
@@ -81,6 +89,15 @@ public class GameScheduleAdapter extends BaseRecyclerAdapter<GameScheduleAdapter
                         TextView tvStatus = inflateContentView.findViewById(R.id.tv_status);
                         UIUtils.setText(tvStatus, matchScheduleBean.state);
                         UIUtils.setGameIconStatus(matchScheduleBean.stateId,tvStatus);
+                        inflateContentView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                               /* if (onClickGameViewListener!= null){
+                                    onClickGameViewListener.onClickGameView(v, (int) matchScheduleBean.matchId);
+                                }*/
+                                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_GAME_DETAILS,ARouterConfig.Key.GAME_ID,(int) matchScheduleBean.matchId);
+                            }
+                        });
                     }
                 }
             }
@@ -108,5 +125,8 @@ public class GameScheduleAdapter extends BaseRecyclerAdapter<GameScheduleAdapter
             mLlTeam = itemView.findViewById(R.id.ll_team);
 
         }
+    }
+    public interface OnClickGameViewListener{
+        void onClickGameView(View view,int gameId);
     }
 }
