@@ -8,6 +8,7 @@ import android.widget.ProgressBar;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.TitleView;
+import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseWebActivity;
 import com.work.guaishouxingqiu.aboutball.commonality.contract.WebDataContract;
@@ -37,7 +38,6 @@ public class WebDataActivity extends BaseWebActivity<WebDataPresenter> implement
     WebView mWebView;
     // private String mWebUrl;
     private String mActionId;
-    private static final String H5_HOST = "https://ifi.bmece.com/prizeAction";
 
     @Override
     protected int getLayoutId() {
@@ -58,7 +58,7 @@ public class WebDataActivity extends BaseWebActivity<WebDataPresenter> implement
         // mWebUrl = bundle.getString(ARouterConfig.Key.URL);
         mActionId = bundle.getString(ARouterConfig.Key.ACTION_ID);
         if (UserManger.get().isLogin()) {
-            String sb = H5_HOST +
+            String sb = IApiService.H5.PRIZE +
                     "?token=" +
                     UserManger.get().getToken() +
                     "&" +

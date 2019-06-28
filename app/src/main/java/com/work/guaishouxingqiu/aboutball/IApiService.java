@@ -166,14 +166,20 @@ public interface IApiService {
     String GET_DELETE_REFEREE_MATCH_RECORD = "/api/referee/removeAgreeOuts";
 
     interface H5 {
-        String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";
+       // String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";
+        //用户协议
+        String USER_AGREEMENT = "https://www.ifeell.com.cn/protocol";
         //资讯详情分享，后缀加上id;
         String SHARE_NEWS_DETAILS = "http://ifeell.com.cn/share/index.html?id=";
         //分享球队链接，后面跟上teamId
         //https://ifi.bmece.com/download?teamId=1&typeId=1
-        String SHARE_BALL_TEAM = "https://test.ifeell.com.cn/download";
+        String SHARE_BALL_TEAM = "https://www.ifeell.com.cn/download";
         //APK下载路径
-        String DOWNLOAD_APK = "https://test.ifeell.com.cn/download";
+        String DOWNLOAD_APK = "https://www.ifeell.com.cn/download";
+        //动态详情
+        String DYNAMIC_DETAILS="https://www.ifeell.com.cn/community";
+        //抽奖
+        String PRIZE="https://www.ifeell.com.cn/prize";
     }
 
 

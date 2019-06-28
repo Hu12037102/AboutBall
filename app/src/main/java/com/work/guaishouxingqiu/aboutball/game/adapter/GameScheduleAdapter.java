@@ -32,6 +32,7 @@ public class GameScheduleAdapter extends BaseRecyclerAdapter<GameScheduleAdapter
     public void setOnClickGameViewListener(OnClickGameViewListener onClickGameViewListener) {
         this.onClickGameViewListener = onClickGameViewListener;
     }
+
     private boolean isShowFootView;
 
     private OnClickGameViewListener onClickGameViewListener;
@@ -39,7 +40,8 @@ public class GameScheduleAdapter extends BaseRecyclerAdapter<GameScheduleAdapter
     public GameScheduleAdapter(@NonNull List<ResultGameScheduleBean> data) {
         super(data);
     }
-    public void notifyData(boolean isShowFootView){
+
+    public void notifyData(boolean isShowFootView) {
         this.isShowFootView = isShowFootView;
         notifyDataSetChanged();
     }
@@ -88,9 +90,9 @@ public class GameScheduleAdapter extends BaseRecyclerAdapter<GameScheduleAdapter
                         TextView tvGuestName = inflateContentView.findViewById(R.id.tv_guest_name);
                         UIUtils.setText(tvGuestName, matchScheduleBean.guestTeamName);
                         TextView tvHostScore = inflateContentView.findViewById(R.id.host_score);
-                        UIUtils.setText(tvHostScore, matchScheduleBean.hostScore + "");
+                        UIUtils.setText(tvHostScore, matchScheduleBean.stateId == 1 ? "-" : matchScheduleBean.hostScore + "");
                         TextView tvGuestScore = inflateContentView.findViewById(R.id.guest_score);
-                        UIUtils.setText(tvGuestScore, matchScheduleBean.guestScore + "");
+                        UIUtils.setText(tvGuestScore, matchScheduleBean.stateId == 1 ? "-" : matchScheduleBean.guestScore + "");
                         TextView tvStatus = inflateContentView.findViewById(R.id.tv_status);
                         UIUtils.setText(tvStatus, matchScheduleBean.state);
                         UIUtils.setGameIconStatus(matchScheduleBean.stateId, tvStatus);
@@ -107,9 +109,9 @@ public class GameScheduleAdapter extends BaseRecyclerAdapter<GameScheduleAdapter
                 }
             }
         }
-        if (i == mData.size()-1 && isShowFootView){
+        if (i == mData.size() - 1 && isShowFootView) {
             viewHolder.mIncludeFoot.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             viewHolder.mIncludeFoot.setVisibility(View.GONE);
         }
     }

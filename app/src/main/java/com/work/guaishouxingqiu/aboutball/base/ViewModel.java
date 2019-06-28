@@ -303,7 +303,7 @@ public class ViewModel {
     }
 
     public ShareWebBean getCommunityShare(ResultCommunityDataBean bean) {
-        String shareUrl = IApiService.H5.DOWNLOAD_APK + "?" + ARouterConfig.Key.SHARE_ID + "=" + bean.tweetId + "&" + ARouterConfig.Key.SHARE_TYPE + "=" + IApiService.TypeId.DYNAMIC_DETAILS;
+        String shareUrl = IApiService.H5.DYNAMIC_DETAILS+ "?" + ARouterConfig.Key.SHARE_ID + "=" + bean.tweetId + "&" + ARouterConfig.Key.SHARE_TYPE + "=" + IApiService.TypeId.DYNAMIC_DETAILS;
         return getShareBean(UIUtils.getString(R.string.community_title), bean.tweetContent, shareUrl);
     }
 
