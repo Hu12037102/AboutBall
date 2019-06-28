@@ -42,7 +42,11 @@ public class CommunityRecommendPagerAdapter extends PagerAdapter {
     @NonNull
     @Override
     public View instantiateItem(@NonNull ViewGroup container, int position) {
+
         View inflateView = LayoutInflater.from(mContext).inflate(R.layout.item_community_recommend_hot_view, container, false);
+        if (mData.size() == 0) {
+            return inflateView;
+        }
         RoundedImageView rivContent = inflateView.findViewById(R.id.riv_content);
         int selectorPosition = position % mData.size();
         GlideManger.get().loadBannerImage(mContext, mData.get(selectorPosition).imageUrl, rivContent);
@@ -50,10 +54,10 @@ public class CommunityRecommendPagerAdapter extends PagerAdapter {
         inflateView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onItemClickListener!= null){
-                    onItemClickListener.onClickItem(inflateView,selectorPosition);
+                if (onItemClickListener != null) {
+                    onItemClickListener.onClickItem(inflateView, selectorPosition);
                 }
-              //  ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_TOPIC_DYNAMICS, ARouterConfig.Key.PARCELABLE, mData.get(selectorPosition));
+                //  ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_TOPIC_DYNAMICS, ARouterConfig.Key.PARCELABLE, mData.get(selectorPosition));
             }
         });
         return inflateView;
