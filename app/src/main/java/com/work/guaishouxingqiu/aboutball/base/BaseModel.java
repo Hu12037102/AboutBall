@@ -9,6 +9,7 @@ import com.work.guaishouxingqiu.aboutball.community.bean.RequestDynamicCommentsB
 import com.work.guaishouxingqiu.aboutball.http.RetrofitManger;
 import com.work.guaishouxingqiu.aboutball.my.MyService;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultFansFocusBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundCauseBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
@@ -147,5 +148,14 @@ public class BaseModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
+    }
+
+    public void loadFansAndFocus(BaseObserver<ResultFansFocusBean> observer) {
+        mRetrofitManger.create(BaseService.class)
+                .loadFanFocus()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+
     }
 }

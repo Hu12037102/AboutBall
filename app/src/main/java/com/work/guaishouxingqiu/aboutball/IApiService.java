@@ -97,6 +97,7 @@ public interface IApiService {
     String GET_BAND_THREE_ACCOUNT = "/api/accountManagement/bandingThreeAccount";
     String GET_RECOMMEND_TOPIC = "/api/topic/getRecommendTweetForTopic";
     String GET_NEW_TOPIC = "/api/topic/getTweetForTopic";
+    String GET_FANS_AND_FOCUS="/api/tweet/getMyFansAndFollow";
 
     //获取微信登录token
     String GET_WEICHAT_TOKEN = "/sns/oauth2/access_token";

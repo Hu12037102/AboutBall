@@ -81,9 +81,7 @@ public class GameDataFragment extends DelayedFragment<GameDataPresenter> impleme
     @Override
     protected void initDelayedEvent() {
         mSrlRefresh.setOnRefreshListener(refreshLayout -> {
-            // mPresenter.loadGameHeadDetails(mBean.matchId);
-            mPresenter.loadGameHeadDetails(1);
-
+             mPresenter.loadGameHeadDetails(mBean.matchId);
             refreshLayout.finishRefresh();
         });
         mResultAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {

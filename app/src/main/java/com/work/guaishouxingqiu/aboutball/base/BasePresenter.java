@@ -12,6 +12,7 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.community.bean.RequestDynamicCommentsBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultFansFocusBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundCauseBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
@@ -319,8 +320,9 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
             }
         }));
     }
-    public void deleteDynamics(long tweetId,int position){
-        mModel.deleteDynamics(tweetId,new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
+
+    public void deleteDynamics(long tweetId, int position) {
+        mModel.deleteDynamics(tweetId, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
             @Override
             public void onNext(BaseBean<BaseDataBean<String>> t) {
                 if (DataUtils.baseDataBeanIsSucceed(t)) {
@@ -335,4 +337,21 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
         }));
     }
 
+    public void loadFansAndFocus() {
+        mModel.loadFansAndFocus(new BaseObserver<>(true, this, new BaseObserver.Observer<ResultFansFocusBean>() {
+            @Override
+            public void onNext(BaseBean<ResultFansFocusBean> t) {
+                if (DataUtils.isResultSure(t)) {
+                    UserManger.get().putFollowCount(t.result.followCount);
+                    UserManger.get().putFansCount(t.result.fansCount);
+                    mView.resultFansFocus(t.result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
 }

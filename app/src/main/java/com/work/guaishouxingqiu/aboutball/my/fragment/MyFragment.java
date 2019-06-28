@@ -18,6 +18,7 @@ import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
 import com.work.guaishouxingqiu.aboutball.commonality.fragment.LoginOrShareFragment;
 import com.work.guaishouxingqiu.aboutball.login.activity.LoginActivity;
 import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultFansFocusBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.MyContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.MyPresenter;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
@@ -64,6 +65,7 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
     ItemView mItemAsReferee;
     private View view;
     private Integer mMyRefereeStatus;
+    private TextView mHeadTvFocusFans;
 
     public static MyFragment newInstance() {
         return new MyFragment();
@@ -195,9 +197,9 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
         if (UserManger.get().isLogin()) {
             view = LayoutInflater.from(getContext()).inflate(R.layout.item_login_my_head_view, null);
             TextView mTvName = view.findViewById(R.id.tv_name);
-            TextView mTvFocusFans = view.findViewById(R.id.tv_focus_fans);
+            mHeadTvFocusFans = view.findViewById(R.id.tv_focus_fans);
             mTvName.setText(DataUtils.isEmpty(userBean.nickName) ? userBean.phone : userBean.nickName);
-            mTvFocusFans.setText(getString(R.string.focus_and_fans, UserManger.get().getFollowCount() + "", "0"));
+            mHeadTvFocusFans.setText(getString(R.string.focus_and_fans, UserManger.get().getFollowCount() + "", "0"));
             //
         } else {
             view = LayoutInflater.from(getContext()).inflate(R.layout.item_no_login_my_head_view, null);
@@ -223,12 +225,19 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
         if (isVisibleToUser && mContext != null && UserManger.get().isLogin()) {
 
             mPresenter.judgeRefereeStatus();
+            mPresenter.loadFansAndFocus();
         }
     }
 
     @Override
     protected void initEvent() {
+    }
 
+    @Override
+    public void resultFansFocus(ResultFansFocusBean bean) {
+        if (mHeadTvFocusFans != null) {
+            mHeadTvFocusFans.setText(getString(R.string.focus_and_fans, bean.followCount + "", bean.fansCount + ""));
+        }
     }
 
     @Override
