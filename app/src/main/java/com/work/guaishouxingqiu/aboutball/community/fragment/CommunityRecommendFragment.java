@@ -285,6 +285,11 @@ public class CommunityRecommendFragment extends LoginOrShareFragment<CommunityRe
         } else {
             mHeadAdapter.notifyDataSetChanged();
         }
+        if (mHeadData.size() ==0){
+            mHeadView.setVisibility(View.GONE);
+        }else {
+            mHeadView.setVisibility(View.VISIBLE);
+        }
         mHeadAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onClickItem(@NonNull View view, int position) {

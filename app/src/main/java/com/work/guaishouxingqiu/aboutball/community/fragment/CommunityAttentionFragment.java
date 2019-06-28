@@ -50,7 +50,7 @@ public class CommunityAttentionFragment extends LoginOrShareFragment<CommunityAt
     private List<ResultCommunityDataBean> mData;
     private static final int REQUEST_CODE_PUBLISH_DYNAMIC = 122;
     private static final int REQUEST_CODE_TOPIC = 321;
-
+    private int mSharePosition;
     public void setOnUpdateCommunity(OnUpdateCommunity onUpdateCommunity) {
         this.onUpdateCommunity = onUpdateCommunity;
     }
@@ -182,11 +182,22 @@ public class CommunityAttentionFragment extends LoginOrShareFragment<CommunityAt
 
             @Override
             public void onClickShare(View view, int position) {
+                mSharePosition = position;
                 showShareDialog(mViewModel.getCommunityShare(mData.get(position)));
             }
         });
     }
-
+    @Override
+    public void resultShareWeiChat() {
+        super.resultShareWeiChat();
+        mPresenter.shareCommunityDynamic(mData.get(mSharePosition).tweetId);
+    }
+    @Override
+    public void resultShareCommunityDynamic() {
+        mData.get(mSharePosition).shareCount += 1;
+        onEventUpdate(mData.get(mSharePosition));
+        mAdapter.notifyDataSetChanged();
+    }
     @Override
     public void resultDeleteDynamicSucceed(int position) {
         ResultCommunityDataBean bean = mData.get(position);

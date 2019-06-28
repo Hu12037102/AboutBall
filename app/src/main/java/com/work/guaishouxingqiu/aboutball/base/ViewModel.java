@@ -303,7 +303,7 @@ public class ViewModel {
     }
 
     public ShareWebBean getCommunityShare(ResultCommunityDataBean bean) {
-        String shareUrl = IApiService.H5.DYNAMIC_DETAILS+ "?" + ARouterConfig.Key.SHARE_ID + "=" + bean.tweetId + "&" + ARouterConfig.Key.SHARE_TYPE + "=" + IApiService.TypeId.DYNAMIC_DETAILS;
+        String shareUrl = IApiService.H5.DYNAMIC_DETAILS + "?" + ARouterConfig.Key.SHARE_ID + "=" + bean.tweetId + "&" + ARouterConfig.Key.SHARE_TYPE + "=" + IApiService.TypeId.DYNAMIC_DETAILS;
         return getShareBean(UIUtils.getString(R.string.community_title), bean.tweetContent, shareUrl);
     }
 
@@ -573,7 +573,7 @@ public class ViewModel {
     }
 
     public void resultCommunityData(RecyclerView.Adapter adapter, ResultCommunityDataBean resultBean, List<ResultCommunityDataBean> data) {
-        if (adapter == null || data == null) {
+        if (adapter == null || data == null || data.size() == 0) {
             return;
         }
         for (int i = 0; i < data.size(); i++) {
