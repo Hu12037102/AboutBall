@@ -99,15 +99,13 @@ public class GameScheduleActivity extends BaseActivity<GameSchedulePresenter> im
         mPresenter.isRefresh = isRefresh;
         if (isRefresh) {
             if (mData.size() > 0) {
-                mRequestTime = mData.get(0).date;
+                mRequestTime = mData.get(0).previousDate;
             }
-            mRequestTime = DateUtils.getNextCountData(mRequestTime, -1);
             mSrlRefresh.finishRefresh();
         } else {
             if (mData.size() > 0) {
-                mRequestTime = mData.get(mData.size() - 1).date;
+                mRequestTime = mData.get(mData.size() - 1).nextDate;
             }
-            mRequestTime = DateUtils.getNextCountData(mRequestTime, 1);
             mSrlRefresh.finishLoadMore();
         }
         mPresenter.loadScheduleData(mRequestTime);
@@ -129,6 +127,7 @@ public class GameScheduleActivity extends BaseActivity<GameSchedulePresenter> im
             }
         }
         mAdapter.notifyDataSetChanged();
+        mSrlRefresh.setNoMoreData(data.size() == 0);
         UIUtils.setText(mTvTime, DateUtils.getDate(mData.get(mLayoutManager.findFirstVisibleItemPosition()).date));
     }
 }

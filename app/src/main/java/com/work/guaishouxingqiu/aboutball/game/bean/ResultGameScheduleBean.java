@@ -2,6 +2,8 @@ package com.work.guaishouxingqiu.aboutball.game.bean;
 
 import java.util.List;
 
+import io.reactivex.internal.operators.parallel.ParallelFromPublisher;
+
 /**
  * 作者: 胡庆岭
  * 创建时间: 2019/6/27 16:07
@@ -10,6 +12,8 @@ import java.util.List;
  */
 public class ResultGameScheduleBean {
     public String date;
+    public String previousDate;
+    public String nextDate;
     public List<MatchList> matchList;
 
     public static class MatchList {

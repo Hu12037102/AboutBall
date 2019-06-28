@@ -73,7 +73,7 @@ public class GameScheduleAdapter extends BaseRecyclerAdapter<GameScheduleAdapter
                         CircleImageView civGustLogo = inflateContentView.findViewById(R.id.civ_guest_logo);
                         GlideManger.get().loadLogoImage(mContext, matchScheduleBean.guestTeamLogo, civGustLogo);
                         TextView tvGuestName = inflateContentView.findViewById(R.id.tv_guest_name);
-                        UIUtils.setText(tvGameName, matchScheduleBean.guestTeamName);
+                        UIUtils.setText(tvGuestName, matchScheduleBean.guestTeamName);
                         TextView tvHostScore = inflateContentView.findViewById(R.id.host_score);
                         UIUtils.setText(tvHostScore, matchScheduleBean.hostScore + "");
                         TextView tvGuestScore = inflateContentView.findViewById(R.id.guest_score);
