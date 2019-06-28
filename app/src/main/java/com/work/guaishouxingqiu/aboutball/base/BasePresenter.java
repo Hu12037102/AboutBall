@@ -354,4 +354,20 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
             }
         }));
     }
+
+    public void shareCommunityDynamic(long tweetId) {
+        mModel.shareCommunityDynamic(tweetId, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
+            @Override
+            public void onNext(BaseBean<BaseDataBean<String>> t) {
+                if (DataUtils.isResultSure(t)) {
+                    mView.resultShareCommunityDynamic();
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
 }

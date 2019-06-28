@@ -95,7 +95,8 @@ public abstract class LoginOrShareActivity<P extends LoginOrSharePresenter> exte
 
     @Subscribe
     public void resultWeiChatDataToActivity(BaseResp baseResp) {
-      //  if (PhoneUtils.isTopActivity(this, LoginOrShareActivity.class.getName())) {
+        if (PhoneUtils.isTopActivity(this, this.getClass().getName())) {
+            LogUtils.w("resultWeiChatDataToActivity--", "我是顶部的Activity--" + this.getClass().getName());
             if (baseResp.getType() == LoginOrSharePresenter.WEICHAT_LOGIN_TYPE) {
                 switch (baseResp.errCode) {
                     case BaseResp.ErrCode.ERR_OK:
@@ -113,10 +114,13 @@ public abstract class LoginOrShareActivity<P extends LoginOrSharePresenter> exte
                         break;
                 }
             } else if (baseResp.getType() == LoginOrSharePresenter.WEICHAT_SHARE_TYPE) {
-
+                resultShareWeiChat();
             }
-      //  }
+        }
 
+    }
+
+    public void resultShareWeiChat() {
     }
 
     @Override
@@ -161,6 +165,7 @@ public abstract class LoginOrShareActivity<P extends LoginOrSharePresenter> exte
             mShareDialog.dismiss();
         });
     }
+
     @Override
     public void resultBandOtherAccount(String signCode) {
         UserManger.get().putWeiChatOpenId(signCode);

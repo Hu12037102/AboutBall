@@ -36,8 +36,13 @@ public interface BaseService {
 
     @GET(IApiService.GET_DELETE_DYNAMIC)
     Observable<BaseBean<BaseDataBean<String>>> deleteDynamics(@Query(Contast.TWEET_ID) long tweetId);
+
     @POST(IApiService.GET_BAND_THREE_ACCOUNT)
     Observable<BaseBean<String>> bandOtherAccount(@Body RequestBandOtherAccountBean bean);
+
     @GET(IApiService.GET_FANS_AND_FOCUS)
     Observable<BaseBean<ResultFansFocusBean>> loadFanFocus();
+
+    @GET(IApiService.GET_SHARE_COMMUNITY_DYNAMIC)
+    Observable<BaseBean<BaseDataBean<String>>> shareCommunityDynamic(@Query(Contast.TWEET_ID) long tweetId);
 }

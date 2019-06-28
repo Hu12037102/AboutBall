@@ -62,6 +62,7 @@ public class CommunityRecommendFragment extends LoginOrShareFragment<CommunityRe
     private View mHeadView;
     private static final int WHAT = 100;
     private boolean mIsSendMessage;
+    private int mSharePosition;
 
     public void setOnUpdateCommunity(OnUpdateCommunity onUpdateCommunity) {
         this.onUpdateCommunity = onUpdateCommunity;
@@ -206,10 +207,17 @@ public class CommunityRecommendFragment extends LoginOrShareFragment<CommunityRe
 
             @Override
             public void onClickShare(View view, int position) {
+                mSharePosition = position;
                 showShareDialog(mViewModel.getCommunityShare(mData.get(position)));
             }
         });
 
+    }
+
+    @Override
+    public void resultShareWeiChat() {
+        super.resultShareWeiChat();
+        mPresenter.shareCommunityDynamic(mData.get(mSharePosition).tweetId);
     }
 
     @Override
@@ -243,6 +251,13 @@ public class CommunityRecommendFragment extends LoginOrShareFragment<CommunityRe
         if (mIsSendMessage) {
             this.removeMessage();
         }
+    }
+
+    @Override
+    public void resultShareCommunityDynamic() {
+        mData.get(mSharePosition).shareCount += 1;
+        onEventUpdate(mData.get(mSharePosition));
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

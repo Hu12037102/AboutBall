@@ -158,4 +158,12 @@ public class BaseModel {
                 .subscribe(observer);
 
     }
+
+    public void shareCommunityDynamic(long tweetId,BaseObserver<BaseDataBean<String>> observer) {
+        mRetrofitManger.create(BaseService.class)
+                .shareCommunityDynamic(tweetId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
 }

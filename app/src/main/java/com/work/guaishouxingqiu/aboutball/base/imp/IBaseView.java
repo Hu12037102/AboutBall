@@ -51,5 +51,6 @@ public interface IBaseView {
     void resultDianZanStatus(int position);
     void resultDeleteDynamicSucceed(int position);
     void resultFansFocus(ResultFansFocusBean bean);
+    void resultShareCommunityDynamic();
 
 }

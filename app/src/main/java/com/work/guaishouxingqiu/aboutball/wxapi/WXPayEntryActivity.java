@@ -35,7 +35,6 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mApi = ((BaseApplication) getApplication()).getWeiChatApi();
-
         mApi.handleIntent(getIntent(), this);
     }
 
@@ -43,7 +42,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
-        mApi.handleIntent(intent,this);
+        mApi.handleIntent(intent, this);
     }
 
     @Override
@@ -54,5 +53,10 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     public void onResp(BaseResp baseResp) {
         EventBus.getDefault().post(baseResp);
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

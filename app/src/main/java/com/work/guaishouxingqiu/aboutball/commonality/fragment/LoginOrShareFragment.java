@@ -94,7 +94,9 @@ public abstract class LoginOrShareFragment<P extends LoginOrSharePresenter> exte
 
     @Subscribe
     public void resultWeiChatDataToFragment(BaseResp baseResp) {
+        LogUtils.w("resultWeiChatDataToFragment--", baseResp.getType() + "--" + baseResp.errCode);
         if (PhoneUtils.isTopActivity(mContext, DataUtils.checkData(getActivity()).getClass().getName())) {
+            LogUtils.w("resultWeiChatDataToActivity---", "我是顶部的Fragment--" + DataUtils.checkData(getActivity()).getClass().getName());
             if (baseResp.getType() == LoginOrSharePresenter.WEICHAT_LOGIN_TYPE) {
                 switch (baseResp.errCode) {
                     case BaseResp.ErrCode.ERR_OK:
@@ -112,10 +114,13 @@ public abstract class LoginOrShareFragment<P extends LoginOrSharePresenter> exte
                         break;
                 }
             } else if (baseResp.getType() == LoginOrSharePresenter.WEICHAT_SHARE_TYPE) {
-
+                resultShareWeiChat();
             }
         }
 
+    }
+
+    public void resultShareWeiChat() {
     }
 
     @Override

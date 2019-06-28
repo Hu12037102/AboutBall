@@ -261,4 +261,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends LocationActi
     public void resultFansFocus(ResultFansFocusBean bean) {
 
     }
+
+    @Override
+    public void resultShareCommunityDynamic() {
+
+    }
 }
