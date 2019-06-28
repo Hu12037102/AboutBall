@@ -1,10 +1,10 @@
 package com.work.guaishouxingqiu.aboutball.home.activity;
 
-import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebResourceError;
@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.TitleView;
@@ -31,6 +32,8 @@ import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsMessageBean;
 import com.work.guaishouxingqiu.aboutball.home.contract.NewsDetailsContract;
 import com.work.guaishouxingqiu.aboutball.home.presenter.NewDetailsPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseWebView;
@@ -40,7 +43,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -59,8 +61,6 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
     ProgressBar mPbLoading;
     @BindView(R.id.srl_layout)
     SmartRefreshLayout mSrlLayout;
-    @BindView(R.id.sv_video)
-    SurfaceView mSvVideo;
     @BindView(R.id.iv_video_status)
     ImageView mIvVideoStatus;
     @BindView(R.id.skv_loading)
@@ -77,6 +77,9 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
     ConstraintLayout mClSchedule;
     @BindView(R.id.cl_video)
     ConstraintLayout mClVideo;
+    @BindView(R.id.vv_video)
+    VideoView mVideoView;
+    private static final int VIDEO_WHAT = 100;
 
     private long mNewsId;
     private NewsMessageAdapter mAdapter;
@@ -87,7 +90,9 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
     private TextView mTvTitle;
     private TextView mTvFrom;
     private BaseDataBean<String> mContentBean;
-
+    private boolean mIsVideoViewFocus;
+    private Handler mVideoHandler;
+    private boolean mVideoPrepared;//是否准备就绪
 
     @Override
     protected int getLayoutId() {
@@ -192,13 +197,167 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
         }
     }
 
+    private boolean isVideo(String content) {
+        return !DataUtils.isEmpty(content) && content.endsWith(".mp4");
+    }
+
     @Override
     public void resultNewsContent(BaseDataBean<String> dataBean) {
+        if (isVideo(dataBean.content)) {
+            mClVideo.setVisibility(View.VISIBLE);
+            mWebView.setVisibility(View.GONE);
+            initVideo(dataBean.content);
+        } else {
+            mClVideo.setVisibility(View.GONE);
+            mWebView.setVisibility(View.VISIBLE);
+        }
         loadEditData(dataBean.content);
         mContentBean = dataBean;
         mTvTitle.setText(dataBean.title);
         mTvFrom.setText(UIUtils.getString(R.string.from_data, dataBean.source, dataBean.releaseTime));
         // mTitleView.mTvCenter.setText(dataBean.title);
+
+    }
+
+    private void setScheduleStatus() {
+        if (mIsVideoViewFocus) {
+            mClSchedule.setVisibility(View.VISIBLE);
+            mPbPlayLength.setVisibility(View.GONE);
+        } else {
+            mClSchedule.setVisibility(View.GONE);
+            mPbPlayLength.setVisibility(View.VISIBLE);
+
+        }
+    }
+
+    private void setVideoStatus(boolean isPlay, boolean isShow) {
+        if (isPlay) {
+            mIvVideoStatus.setImageResource(R.mipmap.icon_video_pause);
+        } else {
+            mIvVideoStatus.setImageResource(R.mipmap.icon_video_play);
+        }
+        if (isShow) {
+            mIvVideoStatus.setVisibility(View.VISIBLE);
+        } else {
+            mIvVideoStatus.setVisibility(View.GONE);
+        }
+    }
+
+    private void setLoadingViewStatus(boolean isPlay) {
+        if (isPlay) {
+            mSkvLoading.setVisibility(View.GONE);
+        } else {
+            mSkvLoading.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void sendVideoMessage() {
+        mVideoHandler.sendEmptyMessageDelayed(VIDEO_WHAT, 200);
+    }
+
+    private void removeVideoMessage() {
+        if (mVideoHandler != null) {
+            mVideoHandler.removeMessages(VIDEO_WHAT);
+        }
+    }
+
+    private void initVideo(String videoPath) {
+        mVideoHandler = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(Message msg) {
+                switch (msg.what) {
+                    case VIDEO_WHAT:
+                        mSbSeek.setProgress(mVideoView.getCurrentPosition());
+                        mPbPlayLength.setProgress(mVideoView.getCurrentPosition());
+                        mSbSeek.setSecondaryProgress(mVideoView.getBufferPercentage());
+                        mPbPlayLength.setSecondaryProgress(mVideoView.getBufferPercentage());
+                        UIUtils.setText(mTvPlayTime, DateUtils.getHourMinuteSecond(mVideoView.getCurrentPosition()));
+                        UIUtils.setText(mTvLengthTime, DateUtils.getHourMinuteSecond(mVideoView.getDuration()));
+                        LogUtils.w("handleMessage--", "--" + mVideoView.getCurrentPosition() + "--" + mVideoView.getDuration());
+                        if (mSbSeek.getProgress() < mVideoView.getDuration() &&
+                                mPbPlayLength.getProgress() < mVideoView.getDuration()) {
+                            sendVideoMessage();
+                        }
+                        break;
+                }
+                return true;
+            }
+        });
+        mVideoView.setVideoPath(videoPath);
+        mVideoView.setOnPreparedListener(new android.media.MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(android.media.MediaPlayer mp) {
+                mVideoPrepared = true;
+                if (!mVideoView.isPlaying()) {
+                    mVideoView.start();
+                }
+                setVideoStatus(mp.isPlaying(), false);
+                setLoadingViewStatus(mp.isPlaying());
+                mSbSeek.setMax(mp.getDuration());
+                mPbPlayLength.setMax(mp.getDuration());
+                UIUtils.setText(mTvPlayTime, "00:00");
+                UIUtils.setText(mTvLengthTime, DateUtils.getHourMinuteSecond(mp.getDuration()));
+                mVideoHandler.sendEmptyMessageDelayed(VIDEO_WHAT, 200);
+                LogUtils.w("mVideoView--", "准备完成" + mp.getDuration());
+            }
+        });
+        mIvVideoStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setVideoStatus(mVideoView.isPlaying(), true);
+                if (mVideoView.isPlaying()) {
+                    mVideoView.pause();
+                    removeVideoMessage();
+                } else {
+                    mVideoView.resume();
+                    sendVideoMessage();
+                }
+            }
+        });
+        mVideoView.setOnCompletionListener(new android.media.MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(android.media.MediaPlayer mp) {
+                mVideoView.stopPlayback();
+                setVideoStatus(false, true);
+                LogUtils.w("mVideoView--", "完成");
+            }
+        });
+        mVideoView.setOnErrorListener(new android.media.MediaPlayer.OnErrorListener() {
+            @Override
+            public boolean onError(android.media.MediaPlayer mp, int what, int extra) {
+                LogUtils.w("mVideoView--", extra + "");
+                return true;
+            }
+        });
+        mVideoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!mVideoPrepared) {
+                    return;
+                }
+                mIsVideoViewFocus = !mIsVideoViewFocus;
+                setScheduleStatus();
+                setVideoStatus(mVideoView.isPlaying(), mIsVideoViewFocus);
+            }
+        });
+        mSbSeek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                //  mVideoView.pause();
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                mVideoView.seekTo(seekBar.getProgress());
+                //  mVideoView.resume();
+            }
+        });
 
     }
 
@@ -235,4 +394,32 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
     }
 
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mVideoView != null) {
+            mVideoView.pause();
+            mIvVideoStatus.setImageResource(R.mipmap.icon_video_play);
+        }
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mVideoView != null) {
+            mVideoView.resume();
+
+        }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mVideoView != null) {
+            mVideoView.stopPlayback();
+        }
+        removeVideoMessage();
+        super.onDestroy();
+    }
 }
