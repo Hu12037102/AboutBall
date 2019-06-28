@@ -2,12 +2,14 @@ package com.work.guaishouxingqiu.aboutball.game.presenter;
 
 import android.support.annotation.NonNull;
 
+import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameScheduleBean;
 import com.work.guaishouxingqiu.aboutball.game.contract.GameScheduleContract;
 import com.work.guaishouxingqiu.aboutball.game.model.GameScheduleModel;
+import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 
@@ -40,8 +42,12 @@ public class GameSchedulePresenter extends BasePresenter<GameScheduleContract.Vi
         mModel.loadScheduleData(requestTime, new BaseObserver<>(true, this, new BaseObserver.Observer<List<ResultGameScheduleBean>>() {
             @Override
             public void onNext(BaseBean<List<ResultGameScheduleBean>> t) {
-                if (DataUtils.isResultSure(t)) {
-                    mView.resultScheduleData(t.result);
+                if (t.code == IApi.Code.SUCCEED) {
+                    if (t.result != null) {
+                        mView.resultScheduleData(t.result);
+                    } else {
+                        mView.resultNotData();
+                    }
                 }
             }
 

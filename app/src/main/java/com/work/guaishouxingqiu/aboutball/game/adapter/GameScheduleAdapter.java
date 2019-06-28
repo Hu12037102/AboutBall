@@ -32,11 +32,16 @@ public class GameScheduleAdapter extends BaseRecyclerAdapter<GameScheduleAdapter
     public void setOnClickGameViewListener(OnClickGameViewListener onClickGameViewListener) {
         this.onClickGameViewListener = onClickGameViewListener;
     }
+    private boolean isShowFootView;
 
     private OnClickGameViewListener onClickGameViewListener;
 
     public GameScheduleAdapter(@NonNull List<ResultGameScheduleBean> data) {
         super(data);
+    }
+    public void notifyData(boolean isShowFootView){
+        this.isShowFootView = isShowFootView;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -88,19 +93,24 @@ public class GameScheduleAdapter extends BaseRecyclerAdapter<GameScheduleAdapter
                         UIUtils.setText(tvGuestScore, matchScheduleBean.guestScore + "");
                         TextView tvStatus = inflateContentView.findViewById(R.id.tv_status);
                         UIUtils.setText(tvStatus, matchScheduleBean.state);
-                        UIUtils.setGameIconStatus(matchScheduleBean.stateId,tvStatus);
+                        UIUtils.setGameIconStatus(matchScheduleBean.stateId, tvStatus);
                         inflateContentView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                /* if (onClickGameViewListener!= null){
                                     onClickGameViewListener.onClickGameView(v, (int) matchScheduleBean.matchId);
                                 }*/
-                                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_GAME_DETAILS,ARouterConfig.Key.GAME_ID,(int) matchScheduleBean.matchId);
+                                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_GAME_DETAILS, ARouterConfig.Key.GAME_ID, (int) matchScheduleBean.matchId);
                             }
                         });
                     }
                 }
             }
+        }
+        if (i == mData.size()-1 && isShowFootView){
+            viewHolder.mIncludeFoot.setVisibility(View.VISIBLE);
+        }else {
+            viewHolder.mIncludeFoot.setVisibility(View.GONE);
         }
     }
 
@@ -114,6 +124,7 @@ public class GameScheduleAdapter extends BaseRecyclerAdapter<GameScheduleAdapter
         private TextView mTvTime;
 
         private LinearLayout mLlTeam;
+        private View mIncludeFoot;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -123,10 +134,14 @@ public class GameScheduleAdapter extends BaseRecyclerAdapter<GameScheduleAdapter
         private void iniView(View itemView) {
             mTvTime = itemView.findViewById(R.id.tv_time);
             mLlTeam = itemView.findViewById(R.id.ll_team);
+            mIncludeFoot = itemView.findViewById(R.id.include_foot);
+            TextView tvContent = itemView.findViewById(R.id.tv_content);
+            tvContent.setText("到底了,没有更多赛程");
 
         }
     }
-    public interface OnClickGameViewListener{
-        void onClickGameView(View view,int gameId);
+
+    public interface OnClickGameViewListener {
+        void onClickGameView(View view, int gameId);
     }
 }

@@ -3,7 +3,6 @@ package com.work.guaishouxingqiu.aboutball.game.activity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -46,6 +45,7 @@ public class GameScheduleActivity extends BaseActivity<GameSchedulePresenter> im
     private List<ResultGameScheduleBean> mData;
     private GameScheduleAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
+    private boolean mIsHasMore = true;
 
     @Override
     protected int getLayoutId() {
@@ -62,6 +62,7 @@ public class GameScheduleActivity extends BaseActivity<GameSchedulePresenter> im
     protected void initData() {
         mData = new ArrayList<>();
         mAdapter = new GameScheduleAdapter(mData);
+
         mRvData.setAdapter(mAdapter);
         mPresenter.loadScheduleData(mRequestTime);
     }
@@ -108,6 +109,7 @@ public class GameScheduleActivity extends BaseActivity<GameSchedulePresenter> im
             }
             mSrlRefresh.finishLoadMore();
         }
+
         mPresenter.loadScheduleData(mRequestTime);
     }
 
@@ -126,8 +128,16 @@ public class GameScheduleActivity extends BaseActivity<GameSchedulePresenter> im
                 mData.addAll(data);
             }
         }
-        mAdapter.notifyDataSetChanged();
-        mSrlRefresh.setNoMoreData(data.size() == 0);
+
+        mSrlRefresh.setEnableLoadMore(mIsHasMore);
+        mAdapter.notifyData(!mIsHasMore);
         UIUtils.setText(mTvTime, DateUtils.getDate(mData.get(mLayoutManager.findFirstVisibleItemPosition()).date));
+    }
+
+    @Override
+    public void resultNotData() {
+        this.mIsHasMore = false;
+        mSrlRefresh.setEnableLoadMore(false);
+        mAdapter.notifyData(true);
     }
 }

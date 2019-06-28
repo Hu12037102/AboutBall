@@ -14,7 +14,8 @@ import java.util.List;
  */
 public interface GameScheduleContract {
     interface View extends IBaseView {
-        void resultScheduleData(List<ResultGameScheduleBean> daata);
+        void resultScheduleData(List<ResultGameScheduleBean> data);
+        void resultNotData();
     }
 
     interface Presenter extends IBasePresenter {
