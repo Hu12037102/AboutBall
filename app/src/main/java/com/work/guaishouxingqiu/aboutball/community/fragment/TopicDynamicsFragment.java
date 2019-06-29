@@ -26,6 +26,7 @@ import com.work.guaishouxingqiu.aboutball.community.contract.TopicDynamicsContra
 import com.work.guaishouxingqiu.aboutball.community.presenter.TopicDynamicsPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,8 @@ public class TopicDynamicsFragment extends LoginOrShareFragment<TopicDynamicsPre
     private long mTopicId;
     private List<ResultCommunityDataBean> mData;
     private CommunityDataAdapter mAdapter;
+    private int mSharePosition;
+    private boolean mIsShare;
 
     public void setOnUpdateDataChangListener(OnUpdateDataChangListener onUpdateDataChangListener) {
         this.onUpdateDataChangListener = onUpdateDataChangListener;
@@ -196,9 +199,28 @@ public class TopicDynamicsFragment extends LoginOrShareFragment<TopicDynamicsPre
 
             @Override
             public void onClickShare(View view, int position) {
+                mIsShare = true;
+                mSharePosition = position;
                 showShareDialog(mViewModel.getCommunityShare(mData.get(position)));
+                LogUtils.w("onClickShare--", "我点击了--");
             }
         });
+    }
+
+    @Override
+    public void resultShareWeiChat() {
+        super.resultShareWeiChat();
+        if (mIsShare) {
+            mPresenter.shareCommunityDynamic(mData.get(mSharePosition).tweetId);
+        }
+    }
+
+    @Override
+    public void resultShareCommunityDynamic() {
+        mData.get(mSharePosition).shareCount += 1;
+        onEventUpdate(mData.get(mSharePosition));
+        mAdapter.notifyDataSetChanged();
+        mIsShare = false;
     }
 
     @Override

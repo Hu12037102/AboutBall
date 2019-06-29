@@ -88,6 +88,7 @@ public class CommunityDetailsActivity extends LoginOrShareActivity<CommunityDeta
     private List<String> mPreviewData;
     private CircleImageView mCivHead;
     private static final int REQUEST_CODE_TOPIC = 155;
+    private TextView mTvHeadShareNum;
 
     @Override
     protected int getLayoutId() {
@@ -148,7 +149,7 @@ public class CommunityDetailsActivity extends LoginOrShareActivity<CommunityDeta
         mTvHeadCommentNum = mHeadInflateView.findViewById(R.id.tv_comment);
         UIUtils.setCommunityCount(mTvHeadCommentNum, mIntentBean.commentCount);
         LinearLayout mLlHeadShare = mHeadInflateView.findViewById(R.id.ll_share);
-        TextView mTvHeadShareNum = mHeadInflateView.findViewById(R.id.tv_share);
+        mTvHeadShareNum = mHeadInflateView.findViewById(R.id.tv_share);
         UIUtils.setCommunityCount(mTvHeadShareNum, mIntentBean.shareCount);
         LinearLayout mLlHeadCommentBottom = mHeadInflateView.findViewById(R.id.ll_comment_bottom);
         mLlHeadCommentBottom.setVisibility(View.VISIBLE);
@@ -736,6 +737,18 @@ public class CommunityDetailsActivity extends LoginOrShareActivity<CommunityDeta
                 mViewModel.startActivityToPreview(0, DataUtils.getOnePreviewData(mIntentBean.headImg));
             }
         });
+    }
+
+    @Override
+    public void resultShareWeiChat() {
+        super.resultShareWeiChat();
+        mPresenter.shareCommunityDynamic(mIntentBean.tweetId);
+    }
+
+    @Override
+    public void resultShareCommunityDynamic() {
+        mIntentBean.shareCount += 1;
+        UIUtils.setCommunityCount(mTvHeadShareNum, mIntentBean.shareCount);
     }
 
     private void onBack() {

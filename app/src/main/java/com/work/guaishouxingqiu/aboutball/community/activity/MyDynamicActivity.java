@@ -40,6 +40,7 @@ import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
@@ -85,6 +86,7 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
     SmartRefreshLayout mSrlRefresh;
     private List<ResultCommunityDataBean> mData;
     private CommunityDataAdapter mAdapter;
+    private int mSharePosition;
 
     @Override
     protected int getLayoutId() {
@@ -153,8 +155,8 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
 
     private void initAdapter() {
         mData = new ArrayList<>();
-        mAdapter = new CommunityDataAdapter(mData,false);
-       // mAdapter.addFootView(UIUtils.loadNotMoreView(mRvData));
+        mAdapter = new CommunityDataAdapter(mData, false);
+        // mAdapter.addFootView(UIUtils.loadNotMoreView(mRvData));
         mRvData.setAdapter(mAdapter);
         mSrlRefresh.autoRefresh();
     }
@@ -249,10 +251,24 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
 
             @Override
             public void onClickShare(View view, int position) {
-                mViewModel.getCommunityShare(mData.get(position));
+                mSharePosition = position;
+                showShareDialog(mViewModel.getCommunityShare(mData.get(position)));
+
             }
         });
 
+    }
+
+    @Override
+    public void resultShareWeiChat() {
+        super.resultShareWeiChat();
+        mPresenter.shareCommunityDynamic(mData.get(mSharePosition).tweetId);
+    }
+
+    @Override
+    public void resultShareCommunityDynamic() {
+        mData.get(mSharePosition).shareCount += 1;
+        mAdapter.notifyDataSetChanged();
     }
 
     private void loadData(boolean isRefresh) {
