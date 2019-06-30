@@ -72,7 +72,7 @@ public class TeamBallInviteDialog extends AppCompatDialog {
         UIUtils.setText(mTvName, mBean.teamName);
         GlideManger.get().loadLogoImage(getContext(), mBean.teamLogo, mCivHead);
         mTvTeamType.setText(mBean.teamType);
-        //UIUtils.setText(mItemCaptain.mTvRight);
+        UIUtils.setText(mItemCaptain.mTvRight,mBean.leaderName);
         UIUtils.setText(mItemMember.mTvRight, mBean.playerCount);
     }
 

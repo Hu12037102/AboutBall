@@ -19,8 +19,8 @@ public class ResultBallDetailsBean implements Parcelable {
     public String playerCount;
     public String shirtColor;
     public int teamTypeId;
+    public String leaderName;
     public List<MatchBean> matchForRecnetList;
-
 
 
     public static class MatchBean implements Parcelable {
@@ -99,6 +99,7 @@ public class ResultBallDetailsBean implements Parcelable {
         shirtColor = in.readString();
         teamTypeId = in.readInt();
         matchForRecnetList = in.createTypedArrayList(MatchBean.CREATOR);
+        leaderName = in.readString();
     }
 
     @Override
@@ -111,6 +112,7 @@ public class ResultBallDetailsBean implements Parcelable {
         dest.writeString(shirtColor);
         dest.writeInt(teamTypeId);
         dest.writeTypedList(matchForRecnetList);
+        dest.writeString(leaderName);
     }
 
     @Override
