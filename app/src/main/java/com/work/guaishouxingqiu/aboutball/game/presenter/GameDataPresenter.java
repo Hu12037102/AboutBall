@@ -53,23 +53,5 @@ public class GameDataPresenter extends BasePresenter<GameDataContract.View, Game
         }));
     }
 
-    @Override
-    public void loadGameResultDetails(int gameId) {
-        mModel.loadGameResultDetails(gameId, new BaseObserver<>(true, this, new BaseObserver.Observer<List<ResultGameDataResultBean>>() {
-            @Override
-            public void onNext(BaseBean<List<ResultGameDataResultBean>> t) {
-                if (DataUtils.isResultSure(t)) {
-                    if (t.result.size() > 0) {
-                        t.result.add(0,new ResultGameDataResultBean(true));
-                    }
-                    mView.resultGameResultDetails(t.result);
-                }
-            }
 
-            @Override
-            public void onError(Throwable e) {
-
-            }
-        }));
-    }
 }

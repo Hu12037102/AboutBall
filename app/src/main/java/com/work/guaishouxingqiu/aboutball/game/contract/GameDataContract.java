@@ -18,12 +18,11 @@ public interface GameDataContract {
     interface View extends IBaseView {
         void resultHeadGameDetails(ResultGameDataInfoBean bean);
 
-        void resultGameResultDetails(List<ResultGameDataResultBean> data);
+
     }
 
     interface Presenter extends IBasePresenter {
         void loadGameHeadDetails(int gameId);
 
-        void loadGameResultDetails(int gameId);
     }
 }

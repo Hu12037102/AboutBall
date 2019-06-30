@@ -346,6 +346,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".game.activity.MatchReviewActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".my.activity.TeamMatchResultActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
+import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataResultBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultFansFocusBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
@@ -52,5 +53,7 @@ public interface IBaseView {
     void resultDeleteDynamicSucceed(int position);
     void resultFansFocus(ResultFansFocusBean bean);
     void resultShareCommunityDynamic();
+
+    void resultGameResultDetails(List<ResultGameDataResultBean> data);
 
 }

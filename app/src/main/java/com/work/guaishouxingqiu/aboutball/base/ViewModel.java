@@ -27,6 +27,7 @@ import com.work.guaishouxingqiu.aboutball.login.activity.LoginActivity;
 import com.work.guaishouxingqiu.aboutball.my.activity.OrderEvaluateActivity;
 import com.work.guaishouxingqiu.aboutball.my.activity.RefundActivity;
 import com.work.guaishouxingqiu.aboutball.my.activity.UpdatePhoneActivity;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 import com.work.guaishouxingqiu.aboutball.my.fragment.PostEvaluationFragment;
@@ -431,13 +432,17 @@ public class ViewModel {
      *
      * @param hostTeamId 自己队Id，对手Id,比赛Id,裁判Id
      */
-    public void startActivityToPostEvaluation(long hostTeamId, long guestTeamId , long agreeId,long refereeId) {
+    public void startActivityToPostEvaluation(long hostTeamId, long guestTeamId, long agreeId, long refereeId) {
         Bundle bundle = new Bundle();
         bundle.putLong(ARouterConfig.Key.REFEREE_ID, refereeId);
         bundle.putLong(ARouterConfig.Key.TEAM_ID, hostTeamId);
         bundle.putLong(ARouterConfig.Key.OPPONENT_ID, guestTeamId);
         bundle.putLong(ARouterConfig.Key.AGREE_ID, agreeId);
         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_POST_EVALUATION, bundle);
+    }
+
+    public void startActivityToTeamMatchResult(ResultBallDetailsBean.MatchBean bean) {
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_TEAM_MATCH_RESULT, ARouterConfig.Key.PARCELABLE, bean);
     }
 
     /**
@@ -465,7 +470,6 @@ public class ViewModel {
         bundle.putLong(ARouterConfig.Key.AGREE_ID, agreeId);
         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_POST_EVALUATION, bundle);
     }*/
-
     public void startActivityToRefereeDetailsForResult(ResultRefereeBean bean, int chooseRefereeCount, int requestCode) {
         Bundle bundle = new Bundle();
         bundle.putParcelable(ARouterConfig.Key.PARCELABLE, bean);

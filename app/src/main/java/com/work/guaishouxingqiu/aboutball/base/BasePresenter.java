@@ -10,6 +10,7 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseModelCallback;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.community.bean.RequestDynamicCommentsBean;
+import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataResultBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultFansFocusBean;
@@ -361,6 +362,25 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
             public void onNext(BaseBean<BaseDataBean<String>> t) {
                 if (DataUtils.isResultSure(t)) {
                     mView.resultShareCommunityDynamic();
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+
+    public void loadGameResultDetails(long gameId) {
+        mModel.loadGameResultDetails(gameId, new BaseObserver<>(true, this, new BaseObserver.Observer<List<ResultGameDataResultBean>>() {
+            @Override
+            public void onNext(BaseBean<List<ResultGameDataResultBean>> t) {
+                if (DataUtils.isResultSure(t)) {
+                    if (t.result.size() > 0) {
+                        t.result.add(0,new ResultGameDataResultBean(true));
+                    }
+                    mView.resultGameResultDetails(t.result);
                 }
             }
 

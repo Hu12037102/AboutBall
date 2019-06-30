@@ -27,11 +27,5 @@ public class GameDataModel extends BaseModel{
                 .subscribe(observer);
     }
 
-    public void loadGameResultDetails(int gameId, BaseObserver<List<ResultGameDataResultBean>> observer) {
-        mRetrofitManger.create(GameService.class)
-                .loadGameDataResult(gameId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
-    }
+
 }

@@ -15,6 +15,7 @@ import com.umeng.analytics.MobclickAgent;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataResultBean;
 import com.work.guaishouxingqiu.aboutball.media.bean.MediaSelectorFile;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultFansFocusBean;
@@ -265,5 +266,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends LocationActi
     @Override
     public void resultShareCommunityDynamic() {
 
+    }
+
+    @Override
+    public void resultGameResultDetails(List<ResultGameDataResultBean> data) {
     }
 }

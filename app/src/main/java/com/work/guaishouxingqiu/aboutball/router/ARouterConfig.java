@@ -71,6 +71,7 @@ public interface ARouterConfig {
         String ACTIVITY_MY_DYNAMIC = "/activity/my/dynamic";
         String ACTIVITY_GAME_INFO = "/activity/game/info";
         String ACTIVITY_MATCH_REVIEW = "/activity/match/review";
+        String ACTIVITY_TEAM_MATCH_RESULT = "/activity/team/match/result";
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";
@@ -133,7 +134,7 @@ public interface ARouterConfig {
         String ORDER_ID = "orderId";
         String CALENDAR_ID = "calendarId";
         String TEAM_ID = "teamId";
-        String OPPONENT_ID="opponentId";
+        String OPPONENT_ID = "opponentId";
         String PLAYER_ID = "playerId";
         String REFEREE_STATUS = "refereeStatus";
         String ORDER_STATUS = "orderStatus";

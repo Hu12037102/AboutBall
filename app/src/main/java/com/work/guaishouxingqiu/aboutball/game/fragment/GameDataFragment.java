@@ -241,7 +241,7 @@ public class GameDataFragment extends DelayedFragment<GameDataPresenter> impleme
         detailsShootOnTargetBean.guestValue = bean.guest.shootOnTarget;
         mHeadData.add(detailsShootOnTargetBean);
         mHeadAdapter.notifyDataSetChanged();
-        mPresenter.loadGameResultDetails(1);
+        mPresenter.loadGameResultDetails(mBean.matchId);
     }
 
     @Override

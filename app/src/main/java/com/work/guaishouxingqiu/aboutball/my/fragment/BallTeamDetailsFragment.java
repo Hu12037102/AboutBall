@@ -109,7 +109,7 @@ public class BallTeamDetailsFragment extends BaseFragment<BallTeamDetailsChildPr
 
             @Override
             public void onClickRecord(View view, int position) {
-
+                mViewModel.startActivityToTeamMatchResult(mData.get(position));
             }
 
         });
