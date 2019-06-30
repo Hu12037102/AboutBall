@@ -49,6 +49,7 @@ public class GameLookBackFragment extends BaseFragment<GameLookBackPresenter> im
     private GameLookBackHeadAdapter mHeadAdapter;
     private List<ResultGameLiveDetailsBean.MatchVideoBean> mHeadData;
     private List<ResultNewsBean> mData;
+    private String mVideoPath;
 
     public void setOnClickLookBackListener(OnClickLookBackListener onClickLookBackListener) {
         this.onClickLookBackListener = onClickLookBackListener;
@@ -66,6 +67,11 @@ public class GameLookBackFragment extends BaseFragment<GameLookBackPresenter> im
     protected void initView() {
         mRvData.setLayoutManager(new LinearLayoutManager(mContext));
         initHeadView();
+    }
+    public void playCollectionVideo(){
+        if (onClickLookBackListener!=null && mVideoPath!=null){
+            onClickLookBackListener.playCollectionVideo(mVideoPath);
+        }
     }
 
     private void initHeadView() {
@@ -99,8 +105,8 @@ public class GameLookBackFragment extends BaseFragment<GameLookBackPresenter> im
 
     private void loadData() {
         mSrlRefresh.finishRefresh();
-         mPresenter.loadLiveDetails(mBean.matchId);
-      //  mPresenter.loadLiveDetails(131);
+        mPresenter.loadLiveDetails(mBean.matchId);
+        //  mPresenter.loadLiveDetails(131);
     }
 
     @Override
@@ -157,6 +163,10 @@ public class GameLookBackFragment extends BaseFragment<GameLookBackPresenter> im
         if (bean.matchVideoList != null && bean.matchVideoList.size() > 0) {
             mHeadData.addAll(bean.matchVideoList);
         }
+        if (mHeadData.size() > 0 && onClickLookBackListener != null) {
+            onClickLookBackListener.resultCollectionCount(mHeadData.size());
+            onClickLookBackListener.playCollectionVideo(mHeadData.get(0).videoUrl);
+        }
         if (mData.size() > 0) {
             mData.clear();
         }
@@ -170,5 +180,9 @@ public class GameLookBackFragment extends BaseFragment<GameLookBackPresenter> im
 
     public interface OnClickLookBackListener {
         void clickCollection(String videoUrl);
+
+        void resultCollectionCount(int count);
+
+        void playCollectionVideo(String videoPath);
     }
 }

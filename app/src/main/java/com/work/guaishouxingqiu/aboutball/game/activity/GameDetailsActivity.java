@@ -121,7 +121,8 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
     private ConstraintLayout mClSchedule;
     private boolean isLockVideos;
     private TextView mTvHasVideoStatus;
-   //private GameCollectionFragment mCollectionFragment;
+    private GameLookBackFragment mGameLookBackFragment;
+    //private GameCollectionFragment mCollectionFragment;
     // String mLivePath = "http://player.alicdn.com/video/aliyunmedia.mp4";
 
     @Override
@@ -275,11 +276,30 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
     }
 
     private void initPagerData(ResultGameSimpleBean bean) {
-        GameLookBackFragment gameLookBackFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_LOOK_BACK,ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
-        gameLookBackFragment.setOnClickLookBackListener(new GameLookBackFragment.OnClickLookBackListener() {
+        mGameLookBackFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_LOOK_BACK,ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
+        mGameLookBackFragment.setOnClickLookBackListener(new GameLookBackFragment.OnClickLookBackListener() {
             @Override
             public void clickCollection(String videoUrl) {
                 initCollectionVideo(bean, videoUrl);
+            }
+
+            @Override
+            public void resultCollectionCount(int count) {
+                if (mTvHasVideoStatus != null && !isLive) {
+                    mTvHasVideoStatus.setVisibility(View.VISIBLE);
+                    if (count > 0) {
+                        mTvHasVideoStatus.setBackgroundResource(R.drawable.shape_watch_live_tv);
+                    } else {
+                        mTvHasVideoStatus.setBackground(null);
+                    }
+                }
+            }
+
+            @Override
+            public void playCollectionVideo(String videoUrl) {
+                if (videoUrl != null) {
+                    initCollectionVideo(bean, videoUrl);
+                }
             }
         });
         GameCommentFragment commentFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_COMMENT, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
@@ -312,7 +332,7 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
 
             }
         });*/
-        mFragments = new Fragment[]{gameLookBackFragment,commentFragment, resultFragment,dataFragment};
+        mFragments = new Fragment[]{mGameLookBackFragment,commentFragment, resultFragment,dataFragment};
         mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int i) {
@@ -411,6 +431,9 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
                     } else {
                         //  mBvData.setCurrentItem(mFragments.length - 1);
                      //   mCollectionFragment.playCollectionVideo();
+                        if (mGameLookBackFragment!=null){
+                            mGameLookBackFragment.playCollectionVideo();
+                        }
                     }
 
                 });
