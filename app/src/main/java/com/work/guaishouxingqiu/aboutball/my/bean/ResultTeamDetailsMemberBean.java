@@ -17,6 +17,7 @@ public class ResultTeamDetailsMemberBean implements Parcelable{
     public String position;
     public int number = -1;
     public int isMe;//1、是自己 0、代表不是
+    public String secondPosition;
 
     protected ResultTeamDetailsMemberBean(Parcel in) {
         playerId = in.readLong();
@@ -26,6 +27,7 @@ public class ResultTeamDetailsMemberBean implements Parcelable{
         position = in.readString();
         number = in.readInt();
         isMe = in.readInt();
+        secondPosition =in.readString();
     }
 
     public static final Creator<ResultTeamDetailsMemberBean> CREATOR = new Creator<ResultTeamDetailsMemberBean>() {
@@ -54,5 +56,6 @@ public class ResultTeamDetailsMemberBean implements Parcelable{
         dest.writeString(position);
         dest.writeInt(number);
         dest.writeInt(isMe);
+        dest.writeString(secondPosition);
     }
 }

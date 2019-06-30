@@ -154,7 +154,6 @@ public class BallTeamMyDetailsActivity extends BaseActivity<BallTeamMyDetailsPre
 
     private void initMainCheckStatus() {
         if (!DataUtils.isEmpty(mMyMemberBean.position)) {
-
             for (int i = 0; i < mMainData.size(); i++) {
                 ChipGroup cg = (ChipGroup) mMainData.get(i);
                 for (int j = 0; j < cg.getChildCount(); j++) {
@@ -166,6 +165,27 @@ public class BallTeamMyDetailsActivity extends BaseActivity<BallTeamMyDetailsPre
                                 mMainCheckSparse.put(mMainCheckSparse.keyAt(h), checkBox.isChecked());
                                 mTag = 1;
                                 judgeCheckStatus(checkBox, checkBox.isChecked());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (!DataUtils.isEmpty(mMyMemberBean.secondPosition)) {
+            String[] secondPositionArray = mMyMemberBean.secondPosition.split(",");
+            for (String secondPosition : secondPositionArray) {
+                for (int j = 0; j < mSubstitutionData.size(); j++) {
+                    ChipGroup cg = (ChipGroup) mSubstitutionData.get(j);
+                    for (int h = 0; h < cg.getChildCount(); h++) {
+                        CheckBox checkBox = (CheckBox) cg.getChildAt(h);
+                        if (checkBox.getText().toString().equals(secondPosition)) {
+                            checkBox.setChecked(true);
+                            for (int k = 0; k < mSubstitutionCheckSparse.size(); k++) {
+                                if (mSubstitutionCheckSparse.keyAt(k) == checkBox.getId()) {
+                                    mSubstitutionCheckSparse.put(mSubstitutionCheckSparse.keyAt(k), checkBox.isChecked());
+                                    mTag = 2;
+                                    judgeCheckStatus(checkBox, checkBox.isChecked());
+                                }
                             }
                         }
                     }
