@@ -429,12 +429,14 @@ public class ViewModel {
     /**
      * 查看队友评论
      *
-     * @param teamId
+     * @param hostTeamId 自己队Id，对手Id,比赛Id,裁判Id
      */
-    public void startActivityToPostEvaluationForTeam(long teamId) {
+    public void startActivityToPostEvaluation(long hostTeamId, long guestTeamId , long agreeId,long refereeId) {
         Bundle bundle = new Bundle();
-        bundle.putInt(ARouterConfig.Key.INPUT_EVALUATION_FLAG, Contast.InputEvaluationType.TEAMMATE);
-        bundle.putLong(ARouterConfig.Key.TEAM_ID, teamId);
+        bundle.putLong(ARouterConfig.Key.REFEREE_ID, refereeId);
+        bundle.putLong(ARouterConfig.Key.TEAM_ID, hostTeamId);
+        bundle.putLong(ARouterConfig.Key.OPPONENT_ID, guestTeamId);
+        bundle.putLong(ARouterConfig.Key.AGREE_ID, agreeId);
         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_POST_EVALUATION, bundle);
     }
 
@@ -456,13 +458,13 @@ public class ViewModel {
      *
      * @param refereeId
      */
-    public void startActivityToPostEvaluationForReferee(long refereeId, long agreeId) {
+   /* public void startActivityToPostEvaluationForReferee(long refereeId, long agreeId) {
         Bundle bundle = new Bundle();
         bundle.putInt(ARouterConfig.Key.INPUT_EVALUATION_FLAG, Contast.InputEvaluationType.REFEREE);
         bundle.putLong(ARouterConfig.Key.REFEREE_ID, refereeId);
         bundle.putLong(ARouterConfig.Key.AGREE_ID, agreeId);
         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_POST_EVALUATION, bundle);
-    }
+    }*/
 
     public void startActivityToRefereeDetailsForResult(ResultRefereeBean bean, int chooseRefereeCount, int requestCode) {
         Bundle bundle = new Bundle();

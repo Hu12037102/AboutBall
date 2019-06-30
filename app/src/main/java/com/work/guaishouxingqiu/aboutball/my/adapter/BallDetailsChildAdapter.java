@@ -59,33 +59,26 @@ public class BallDetailsChildAdapter extends BaseRecyclerAdapter<BallDetailsChil
         GlideManger.get().loadLogoImage(mContext, bean.guestTeamLogo, viewHolder.mCivRightLogo);
         viewHolder.mTvRightName.setText(bean.guestTeamName);
         if (mIsInputEvaluate) {
-            viewHolder.mTvJudgeReferee.setVisibility(View.VISIBLE);
-            viewHolder.mTvJudgeOpponent.setVisibility(View.VISIBLE);
+            viewHolder.mTvMatchRecords.setVisibility(View.VISIBLE);
+            viewHolder.mTvMatchEvaluate.setVisibility(View.VISIBLE);
         } else {
-            viewHolder.mTvJudgeReferee.setVisibility(View.GONE);
-            viewHolder.mTvJudgeOpponent.setVisibility(View.GONE);
+            viewHolder.mTvMatchRecords.setVisibility(View.GONE);
+            viewHolder.mTvMatchEvaluate.setVisibility(View.GONE);
         }
-        viewHolder.mTvJudgeReferee.setOnClickListener(v -> {
+        viewHolder.mTvMatchRecords.setOnClickListener(v -> {
             if (onBallDetailsClickListener != null) {
-                onBallDetailsClickListener.onClickJudgeReferee(v, i);
+                onBallDetailsClickListener.onClickRecord(v, i);
             }
         });
-        viewHolder.mTvJudgeOpponent.setOnClickListener(new View.OnClickListener() {
+        viewHolder.mTvMatchEvaluate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onBallDetailsClickListener != null) {
-                    onBallDetailsClickListener.onClickJudgeOpponent(v, i);
+                    onBallDetailsClickListener.onClickEvaluate(v, i);
                 }
             }
         });
-        viewHolder.mTvJudgeTeam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onBallDetailsClickListener != null) {
-                    onBallDetailsClickListener.onClickJudgeTeam(v, i);
-                }
-            }
-        });
+
     }
 
     @Override
@@ -101,9 +94,8 @@ public class BallDetailsChildAdapter extends BaseRecyclerAdapter<BallDetailsChil
         private TextView mTvGradle;
         private CircleImageView mCivRightLogo;
         private TextView mTvRightName;
-        private TextView mTvJudgeReferee;
-        private TextView mTvJudgeOpponent;
-        private TextView mTvJudgeTeam;
+        private TextView mTvMatchRecords;
+        private TextView mTvMatchEvaluate;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -117,17 +109,18 @@ public class BallDetailsChildAdapter extends BaseRecyclerAdapter<BallDetailsChil
             mTvGradle = itemView.findViewById(R.id.tv_gradle);
             mCivRightLogo = itemView.findViewById(R.id.civ_right_logo);
             mTvRightName = itemView.findViewById(R.id.tv_right_name);
-            mTvJudgeReferee = itemView.findViewById(R.id.tv_judge_referee);
-            mTvJudgeOpponent = itemView.findViewById(R.id.tv_judge_opponent);
-            mTvJudgeTeam = itemView.findViewById(R.id.tv_judge_team);
+            mTvMatchRecords = itemView.findViewById(R.id.tv_match_records);
+            mTvMatchEvaluate = itemView.findViewById(R.id.tv_match_evaluate);
         }
     }
 
     public interface OnBallDetailsClickListener {
-        void onClickJudgeReferee(View view, int position);
+        void onClickEvaluate(View view, int position);
+        void onClickRecord(View view, int position);
+       /* void onClickJudgeReferee(View view, int position);
 
-        void onClickJudgeOpponent(View view, int position);
 
-        void onClickJudgeTeam(View view, int position);
+
+        void onClickJudgeTeam(View view, int position);*/
     }
 }

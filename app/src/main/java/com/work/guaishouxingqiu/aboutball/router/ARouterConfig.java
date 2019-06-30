@@ -108,6 +108,7 @@ public interface ARouterConfig {
         String FRAGMENT_POST_EVALUATION = "/fragment/post/evaluation";
         String FRAGMENT_TOPIC_DYNAMICS = "/fragment/topic/dynamics";
         String FRAGMENT_GAME_LOOK_BACK = "/fragment/game/look/back";
+        String FRAGMENT_POST_ALL_EVALUATION = "/fragment/post/all/evaluation";
 
 
     }
@@ -132,6 +133,7 @@ public interface ARouterConfig {
         String ORDER_ID = "orderId";
         String CALENDAR_ID = "calendarId";
         String TEAM_ID = "teamId";
+        String OPPONENT_ID="opponentId";
         String PLAYER_ID = "playerId";
         String REFEREE_STATUS = "refereeStatus";
         String ORDER_STATUS = "orderStatus";
@@ -147,6 +149,7 @@ public interface ARouterConfig {
         String LOGIN_STATUS = "loginStatus";
         String INPUT_EVALUATION_FLAG = "inputEvaluationFlag";
         String REFEREE_ID = "refereeId";
+        String ID = "id";
         String COUNT = "count";
         String AGREE_ID = "agreeId";
         String SHARE_ID = "shareId" /*"shareId"*/;

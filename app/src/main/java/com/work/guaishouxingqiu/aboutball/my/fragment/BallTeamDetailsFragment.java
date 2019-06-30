@@ -90,7 +90,7 @@ public class BallTeamDetailsFragment extends BaseFragment<BallTeamDetailsChildPr
 
     private void loadRefreshData(RefreshLayout refreshLayout) {
         refreshLayout.finishRefresh();
-       mPresenter.loadDetails(mBallBean.teamId);
+        mPresenter.loadDetails(mBallBean.teamId);
     }
 
     @Override
@@ -98,29 +98,20 @@ public class BallTeamDetailsFragment extends BaseFragment<BallTeamDetailsChildPr
         mSrlRefresh.setOnRefreshListener(this::loadRefreshData);
         mAdapter.setOnBallDetailsClickListener(new BallDetailsChildAdapter.OnBallDetailsClickListener() {
             @Override
-            public void onClickJudgeReferee(View view, int position) {
-                mViewModel.startActivityToPostEvaluationForReferee(mData.get(position).refereeId,mData.get(position).agreeId);
-            }
-
-            @Override
-            public void onClickJudgeOpponent(View view, int position) {
+            public void onClickEvaluate(View view, int position) {
                 ResultBallDetailsBean.MatchBean bean = mData.get(position);
                 if (bean.hostTeamId == mBallBean.teamId) {
-                    mViewModel.startActivityToPostEvaluationForOpponent(bean.guestTeamId,bean.agreeId);
+                    mViewModel.startActivityToPostEvaluation(bean.hostTeamId, bean.guestTeamId, bean.agreeId, bean.refereeId);
                 } else {
-                    mViewModel.startActivityToPostEvaluationForOpponent(bean.hostTeamId,bean.agreeId);
+                    mViewModel.startActivityToPostEvaluation(bean.guestTeamId, bean.hostTeamId, bean.agreeId, bean.refereeId);
                 }
             }
 
             @Override
-            public void onClickJudgeTeam(View view, int position) {
-                ResultBallDetailsBean.MatchBean bean = mData.get(position);
-                if (bean.hostTeamId == mBallBean.teamId) {
-                    mViewModel.startActivityToPostEvaluationForTeam(bean.hostTeamId);
-                } else {
-                    mViewModel.startActivityToPostEvaluationForTeam(bean.guestTeamId);
-                }
+            public void onClickRecord(View view, int position) {
+
             }
+
         });
     }
 

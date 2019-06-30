@@ -118,4 +118,9 @@
         <item>射手榜</item>
         <item>助攻榜</item>
     </string-array>
+    <string-array name="evaluate_tab_array">
+        <item>我的球队</item>
+        <item>给对手</item>
+        <item>给裁判</item>
+    </string-array>
 </resources>

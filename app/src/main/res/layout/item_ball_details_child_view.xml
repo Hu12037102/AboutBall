@@ -93,8 +93,10 @@
             android:layout_height="@dimen/size_50dp"
             android:orientation="horizontal"
             android:gravity="center_vertical|right">
+
+
             <TextView
-                android:id="@+id/tv_judge_team"
+                android:id="@+id/tv_match_evaluate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/size_10dp"
@@ -103,22 +105,10 @@
                 android:paddingLeft="@dimen/size_10dp"
                 android:paddingRight="@dimen/size_10dp"
                 android:paddingTop="@dimen/size_5dp"
-                android:text="@string/give_ball_team_judge" />
+                android:text="@string/match_evaluate" />
 
             <TextView
-                android:id="@+id/tv_judge_opponent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/size_10dp"
-                android:background="@drawable/shape_black_line_view"
-                android:paddingBottom="@dimen/size_5dp"
-                android:paddingLeft="@dimen/size_10dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:paddingTop="@dimen/size_5dp"
-                android:text="@string/give_opponent_judge" />
-
-            <TextView
-                android:id="@+id/tv_judge_referee"
+                android:id="@+id/tv_match_records"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/default_margin"
@@ -127,7 +117,7 @@
                 android:paddingLeft="@dimen/size_10dp"
                 android:paddingRight="@dimen/size_10dp"
                 android:paddingTop="@dimen/size_5dp"
-                android:text="@string/give_referee_judge" />
+                android:text="@string/match_result" />
 
 
 

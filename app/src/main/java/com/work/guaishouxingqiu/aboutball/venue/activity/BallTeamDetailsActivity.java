@@ -1,6 +1,5 @@
 package com.work.guaishouxingqiu.aboutball.venue.activity;
 
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -10,16 +9,12 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.ItemView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.my.adapter.BallDetailsChildAdapter;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
-import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyBallBean;
-import com.work.guaishouxingqiu.aboutball.my.contract.BallTeamMyDetailsContract;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
-import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.contract.BallTeamDetailsContract;
@@ -113,24 +108,20 @@ public class BallTeamDetailsActivity extends BaseActivity<BallTeamDetailsPresent
         mSrlRefresh.setOnRefreshListener(this::loadRefreshData);
         mAdapter.setOnBallDetailsClickListener(new BallDetailsChildAdapter.OnBallDetailsClickListener() {
             @Override
-            public void onClickJudgeReferee(View view, int position) {
-
-            }
-
-            @Override
-            public void onClickJudgeOpponent(View view, int position) {
-
-            }
-
-            @Override
-            public void onClickJudgeTeam(View view, int position) {
+            public void onClickEvaluate(View view, int position) {
                 ResultBallDetailsBean.MatchBean bean = mData.get(position);
                 if (bean.hostTeamId == mTeamId) {
-                    mViewModel.startActivityToPostEvaluationForTeam(bean.hostTeamId);
+                    mViewModel.startActivityToPostEvaluation(bean.hostTeamId, bean.guestTeamId, bean.agreeId, bean.refereeId);
                 } else {
-                    mViewModel.startActivityToPostEvaluationForTeam(bean.guestTeamId);
+                    mViewModel.startActivityToPostEvaluation(bean.guestTeamId, bean.guestTeamId, bean.agreeId, bean.refereeId);
                 }
             }
+
+            @Override
+            public void onClickRecord(View view, int position) {
+
+            }
+
         });
     }
 
