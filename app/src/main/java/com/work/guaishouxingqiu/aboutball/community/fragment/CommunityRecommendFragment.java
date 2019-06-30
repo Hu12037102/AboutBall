@@ -95,8 +95,8 @@ public class CommunityRecommendFragment extends LoginOrShareFragment<CommunityRe
 
     @Override
     protected void initDelayedView() {
-        mRvData.setLayoutManager(new LinearLayoutManager(mContext));
-        initHeadView();
+        /*mRvData.setLayoutManager(new LinearLayoutManager(mContext));
+        initHeadView();*/
     }
 
     private void initHeadView() {
@@ -105,10 +105,16 @@ public class CommunityRecommendFragment extends LoginOrShareFragment<CommunityRe
     }
 
     @Override
-    protected void initDelayedData() {
+    protected void initView() {
+        super.initView();
+        mRvData.setLayoutManager(new LinearLayoutManager(mContext));
+        initHeadView();
+    }
+
+    @Override
+    protected void initData() {
+        super.initData();
         mHeadData = new ArrayList<>();
-
-
         mData = new ArrayList<>();
         mAdapter = new CommunityDataAdapter(mData);
         mAdapter.addHeadView(mHeadView);
@@ -116,23 +122,9 @@ public class CommunityRecommendFragment extends LoginOrShareFragment<CommunityRe
         mSrlRefresh.autoRefresh();
     }
 
-    private void loadData(boolean isRefresh, RefreshLayout refreshLayout) {
-        mPresenter.isRefresh = isRefresh;
-        if (isRefresh) {
-            mPresenter.loadHeadData();
-            refreshLayout.finishRefresh();
-        } else {
-            refreshLayout.finishLoadMore();
-        }
-        mPresenter.loadData();
-    }
-
-    public void autoRefresh(ResultCommunityDataBean bean) {
-        mViewModel.resultCommunityData(mAdapter, bean, mData);
-    }
-
     @Override
-    protected void initDelayedEvent() {
+    protected void initEvent() {
+        super.initEvent();
         mSrlRefresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(RefreshLayout refreshLayout) {
@@ -211,6 +203,113 @@ public class CommunityRecommendFragment extends LoginOrShareFragment<CommunityRe
                 showShareDialog(mViewModel.getCommunityShare(mData.get(position)));
             }
         });
+    }
+
+    @Override
+    protected void initDelayedData() {
+        /*mHeadData = new ArrayList<>();
+        mData = new ArrayList<>();
+        mAdapter = new CommunityDataAdapter(mData);
+        mAdapter.addHeadView(mHeadView);
+        mRvData.setAdapter(mAdapter);
+        mSrlRefresh.autoRefresh();*/
+    }
+
+    private void loadData(boolean isRefresh, RefreshLayout refreshLayout) {
+        mPresenter.isRefresh = isRefresh;
+        if (isRefresh) {
+            mPresenter.loadHeadData();
+            refreshLayout.finishRefresh();
+        } else {
+            refreshLayout.finishLoadMore();
+        }
+        mPresenter.loadData();
+    }
+
+    public void autoRefresh(ResultCommunityDataBean bean) {
+        mViewModel.resultCommunityData(mAdapter, bean, mData);
+    }
+
+    @Override
+    protected void initDelayedEvent() {
+        /*mSrlRefresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshLayout) {
+                loadData(false, refreshLayout);
+            }
+
+            @Override
+            public void onRefresh(RefreshLayout refreshLayout) {
+                loadData(true, refreshLayout);
+            }
+        });
+        mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onNotNetClick(View view) {
+                mSrlRefresh.autoRefresh();
+            }
+
+            @Override
+            public void onNotDataClick(View view) {
+                mSrlRefresh.autoRefresh();
+            }
+
+            @Override
+            public void onItemClick(View view, int position) {
+                mViewModel.startActivityToCommunityRecommendDetailsForResult(mData.get(position), CommunityRecommendFragment.this);
+            }
+        });
+        mAdapter.setOnTextContentClickListener(new CommunityDataAdapter.OnTextContentClickListener() {
+            @Override
+            public void onClickContent(View view, int position) {
+                mViewModel.startActivityToCommunityRecommendDetailsForResult(mData.get(position), CommunityRecommendFragment.this);
+            }
+
+            @Override
+            public void onClickTopic(View view, int position) {
+                ResultCommunityDataBean bean = mData.get(position);
+                if (bean != null) {
+                    mViewModel.startActivityToTopicForResult(bean.topic, REQUEST_CODE_TOPIC, CommunityRecommendFragment.this);
+                }
+            }
+
+            @Override
+            public void onClickReport(View view, int position) {
+
+            }
+
+            @Override
+            public void onClickAttention(View view, int position) {
+                ResultCommunityDataBean bean = mData.get(position);
+                if (bean.hasFollow == 0) {
+                    mPresenter.getAttentionTweet(position, mData.get(position).userId);
+                } else if (bean.hasFollow == 1) {
+                    mPresenter.getCancelAttentionTweet(position, mData.get(position).userId);
+                }
+            }
+
+            @Override
+            public void onClickDelete(View view, int position) {
+                ResultCommunityDataBean bean = mData.get(position);
+                mPresenter.deleteDynamics(bean.tweetId, position);
+            }
+
+            @Override
+            public void onClickDianZan(View view, int position) {
+                ResultCommunityDataBean bean = mData.get(position);
+                if (bean.hasPraise == 1) {
+                    mPresenter.dynamicsCancelDianZan(bean.tweetId, position);
+                } else if (bean.hasPraise == 0) {
+                    mPresenter.dynamicsDianZan(bean.tweetId, position);
+                }
+            }
+
+            @Override
+            public void onClickShare(View view, int position) {
+                mSharePosition = position;
+                showShareDialog(mViewModel.getCommunityShare(mData.get(position)));
+            }
+        });*/
 
     }
 

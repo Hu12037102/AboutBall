@@ -64,26 +64,11 @@ public class CommunityAttentionFragment extends LoginOrShareFragment<CommunityAt
 
     @Override
     protected void initDelayedView() {
-
-    }
-
-    @Override
-    protected void initDelayedData() {
-
-    }
-
-    @Override
-    protected void initDelayedEvent() {
-
-    }
-
-    @Override
-    protected void initView() {
         mRvData.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     @Override
-    protected void initData() {
+    protected void initDelayedData() {
         mData = new ArrayList<>();
         mAdapter = new CommunityDataAdapter(mData, false);
         mAdapter.setNotDataContentRes(R.string.not_follow_content);
@@ -91,22 +76,8 @@ public class CommunityAttentionFragment extends LoginOrShareFragment<CommunityAt
         mSrlLayout.autoRefresh();
     }
 
-    private void loadData(boolean isRefresh, RefreshLayout refreshLayout) {
-        mPresenter.isRefresh = isRefresh;
-        mPresenter.start();
-        if (isRefresh) {
-            refreshLayout.finishRefresh();
-        } else {
-            refreshLayout.finishLoadMore();
-        }
-    }
-
-    public void autoRefresh(ResultCommunityDataBean bean) {
-        mViewModel.resultCommunityData(mAdapter, bean, mData,true);
-    }
-
     @Override
-    protected void initEvent() {
+    protected void initDelayedEvent() {
         mSrlLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(RefreshLayout refreshLayout) {
@@ -186,6 +157,117 @@ public class CommunityAttentionFragment extends LoginOrShareFragment<CommunityAt
                 showShareDialog(mViewModel.getCommunityShare(mData.get(position)));
             }
         });
+    }
+
+    @Override
+    protected void initView() {
+        /*mRvData.setLayoutManager(new LinearLayoutManager(getContext()));*/
+    }
+
+    @Override
+    protected void initData() {
+       /* mData = new ArrayList<>();
+        mAdapter = new CommunityDataAdapter(mData, false);
+        mAdapter.setNotDataContentRes(R.string.not_follow_content);
+        mRvData.setAdapter(mAdapter);
+        mSrlLayout.autoRefresh();*/
+    }
+
+    private void loadData(boolean isRefresh, RefreshLayout refreshLayout) {
+        mPresenter.isRefresh = isRefresh;
+        mPresenter.start();
+        if (isRefresh) {
+            refreshLayout.finishRefresh();
+        } else {
+            refreshLayout.finishLoadMore();
+        }
+    }
+
+    public void autoRefresh(ResultCommunityDataBean bean) {
+        mViewModel.resultCommunityData(mAdapter, bean, mData,true);
+    }
+
+    @Override
+    protected void initEvent() {
+       /* mSrlLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshLayout) {
+                loadData(false, refreshLayout);
+            }
+
+            @Override
+            public void onRefresh(RefreshLayout refreshLayout) {
+                loadData(true, refreshLayout);
+            }
+        });
+        mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onNotNetClick(View view) {
+                mSrlLayout.autoRefresh();
+            }
+
+            @Override
+            public void onNotDataClick(View view) {
+                mSrlLayout.autoRefresh();
+            }
+
+            @Override
+            public void onItemClick(View view, int position) {
+                mViewModel.startActivityToCommunityRecommendDetailsForResult(mData.get(position), CommunityAttentionFragment.this);
+            }
+        });
+        mAdapter.setOnTextContentClickListener(new CommunityDataAdapter.OnTextContentClickListener() {
+            @Override
+            public void onClickContent(View view, int position) {
+                mViewModel.startActivityToCommunityRecommendDetailsForResult(mData.get(position), CommunityAttentionFragment.this);
+            }
+
+            @Override
+            public void onClickTopic(View view, int position) {
+                ResultCommunityDataBean bean = mData.get(position);
+                if (bean != null) {
+                    mViewModel.startActivityToTopicForResult(bean.topic, REQUEST_CODE_TOPIC, CommunityAttentionFragment.this);
+                }
+            }
+
+            @Override
+            public void onClickReport(View view, int position) {
+
+            }
+
+            @Override
+            public void onClickAttention(View view, int position) {
+                ResultCommunityDataBean bean = mData.get(position);
+                if (bean.hasFollow == 0) {
+                    mPresenter.getAttentionTweet(position, mData.get(position).userId);
+                } else if (bean.hasFollow == 1) {
+                    mPresenter.getCancelAttentionTweet(position, mData.get(position).userId);
+                }
+
+            }
+
+            @Override
+            public void onClickDelete(View view, int position) {
+                ResultCommunityDataBean bean = mData.get(position);
+                mPresenter.deleteDynamics(bean.tweetId, position);
+            }
+
+            @Override
+            public void onClickDianZan(View view, int position) {
+                ResultCommunityDataBean bean = mData.get(position);
+                if (bean.hasPraise == 1) {
+                    mPresenter.dynamicsCancelDianZan(bean.tweetId, position);
+                } else if (bean.hasPraise == 0) {
+                    mPresenter.dynamicsDianZan(bean.tweetId, position);
+                }
+            }
+
+            @Override
+            public void onClickShare(View view, int position) {
+                mSharePosition = position;
+                showShareDialog(mViewModel.getCommunityShare(mData.get(position)));
+            }
+        });*/
     }
     @Override
     public void resultShareWeiChat() {
