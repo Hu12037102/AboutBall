@@ -95,6 +95,7 @@ public class UserManger {
     public void putFansCount(int count) {
         mSP.putObject(KEY_FANS_COUNT, count);
     }
+    public int getFansCount(){ return mSP.getInt(KEY_FANS_COUNT);}
     public int getFollowCount() {
         return mSP.getInt(KEY_FOLLOW_COUNT);
     }

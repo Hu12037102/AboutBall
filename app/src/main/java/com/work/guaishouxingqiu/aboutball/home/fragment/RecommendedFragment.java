@@ -218,18 +218,18 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
 
             @Override
             public void onItemClick(View view, int position) {
-                if (position != RecommendedAdapter.POSITION_VENUE_ITEM
-                        && position != RecommendedAdapter.POSITION_BALL_ITEM) {
 
-                    ResultNewsBean bean = mRecommendData.get(position);
-                    if (!bean.isRead) {
-                        DataUtils.putNewsKey(bean.newsId);
-                        mRecommendAdapter.notifyDataSetChanged();
-                    }
-
-                    ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_NEW_DETAILS,
-                            ARouterConfig.Key.NEW_DETAILS_ID, mRecommendData.get(position).newsId);
+                ResultNewsBean bean = mRecommendData.get(position);
+                if (bean == null) {
+                    return;
                 }
+                if (!bean.isRead) {
+                    DataUtils.putNewsKey(bean.newsId);
+                    mRecommendAdapter.notifyDataSetChanged();
+                }
+
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_NEW_DETAILS,
+                        ARouterConfig.Key.NEW_DETAILS_ID, mRecommendData.get(position).newsId);
 
 
             }
