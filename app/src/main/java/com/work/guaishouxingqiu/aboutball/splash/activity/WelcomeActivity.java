@@ -27,6 +27,7 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.splash.contract.WelcomeContract;
 import com.work.guaishouxingqiu.aboutball.splash.presenter.WelcomePresenter;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.PhoneUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
@@ -130,10 +131,13 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
         Uri uri = mIntent.getData();
         if (uri != null) {
             LogUtils.w("initOpenAgreement--", uri.toString());
+            String data = uri.toString();
+            if (DataUtils.isEmpty(data) || !DataUtils.hasDigit(data)) {
+                return;
+            }
             String typeId = uri.getQueryParameter(ARouterConfig.Key.SHARE_TYPE);
             String shareId = uri.getQueryParameter(ARouterConfig.Key.SHARE_ID);
             if (typeId != null && shareId != null) {
-
                 switch (Integer.valueOf(typeId)) {
                     case IApiService.TypeId.OPEN_BALL_INVITE:
                         mSkipHandler.removeMessages(WHAT, null);

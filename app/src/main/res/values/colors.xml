@@ -41,6 +41,8 @@
     <color name="colorFFFF5B4F">#FFFF5B4F</color>
     <color name="colorFFFE4E41">#FFFE4E41</color>
     <color name="color99000000">#99000000</color>
+    <color name="colorFFBABCBF">#FFBABCBF</color>
+    <color name="colorFFEBF0FF">#FFEBF0FF</color>
 
     <color name="color_1">@color/colorWhite</color>
     <color name="color_2">@color/colorFF3586FF</color>
@@ -48,6 +50,7 @@
     <color name="color_4">@color/colorFF1D1D1D</color>
     <color name="color_5">@color/colorFF777777</color>
     <color name="color_6">@color/colorFFFBFAFA</color>
+    <color name="color_7">@color/colorFFBABCBF</color>
 
 
 

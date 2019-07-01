@@ -386,4 +386,16 @@ public class DataUtils {
         return data;
     }
 
+    public static boolean hasDigit(String content) {
+        if (DataUtils.isEmpty(content)) {
+            return false;
+        }
+        for (int i = 0; i < content.length(); i++) {
+            char childChar = content.charAt(i);
+            if (Character.isDigit(childChar)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

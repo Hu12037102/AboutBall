@@ -584,7 +584,13 @@
     <string name="community_title">踢球么社区，十万球友日常分享新鲜事</string>
     <string name="match_evaluate">比赛评价</string>
     <string name="please_send_evaluation">请发表评价</string>
-
+    <string name="about_ball_rule_1">球队队长进入场馆模块，选择场地和时间进行 发起约球</string>
+    <string name="about_ball_rule_2">球队队长进入约球模块，选择其他球队发起的 约球进行应邀约球</string>
+    <string name="about_ball_rule_3">双方球队正常完成约球，约球完成，双方可互 相评价</string>
+    <string name="about_ball_rule_4">比赛前24小时依旧无人应邀报名参加您发起的约球，我们将给您退回全款</string>
+    <string name="about_ball_rule_5">如果您选择了约球，但是在比赛当天违约没有到场进行比赛，我们将不会给您退款</string>
+    <string name="about_ball_rule_6">发起约球或参加约球如有特殊情况可以在比赛前24小时进行取消，我们将给您退全款</string>
+    <string name="situation">特殊情况</string>
 
 
 </resources>

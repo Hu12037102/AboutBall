@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -41,6 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -67,6 +70,10 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
     View mIncludeRuleView;
     @BindView(R.id.ll_bottom)
     View mLlBottom;
+    @BindView(R.id.iv_close)
+    ImageView mIvClose;
+    @BindView(R.id.tv_rule)
+    TextView mTvRule;
     private int mTabPosition;
     private long mAreaId, mStadiumId;
     private String mDate;
@@ -91,6 +98,9 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
             finish();
             return;
         }
+        mIncludeRuleView.setBackgroundResource(R.color.colorFFEBF0FF);
+        mIvClose.setImageResource(R.mipmap.icon_item_right);
+        mTvRule.setTextColor(ContextCompat.getColor(this,R.color.color_2));
         mTabPosition = bundle.getInt(ARouterConfig.Key.POSITION, 0);
         mAreaId = bundle.getLong(ARouterConfig.Key.AREA_ID, 0);
         mStadiumId = bundle.getLong(ARouterConfig.Key.STADIUM_ID, 0);
@@ -236,12 +246,10 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
     }
 
 
-    @OnClick({R.id.iv_close, R.id.tv_rule, R.id.tv_bottom_left, R.id.tv_bottom_right})
+    @OnClick({ R.id.tv_rule, R.id.tv_bottom_left, R.id.tv_bottom_right})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_close:
-                mIncludeRuleView.setVisibility(View.GONE);
-                break;
+
             case R.id.tv_rule:
                 ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ABOUT_RULE);
                 break;
@@ -307,6 +315,8 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
             mBookAdapter.notifyDataSetChanged();
         }*/
     }
+
+
 
     class BookPagerAdapter extends PagerAdapter {
 

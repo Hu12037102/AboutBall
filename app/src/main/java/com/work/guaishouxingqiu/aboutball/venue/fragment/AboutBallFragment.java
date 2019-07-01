@@ -3,6 +3,7 @@ package com.work.guaishouxingqiu.aboutball.venue.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -69,12 +70,15 @@ public class AboutBallFragment extends DelayedFragment<AboutBallPresenter> imple
         boolean ruleStatus = sph.getBoolean(KEY_RULE_STATUS, true);
         if (mInflateRuleView == null) {
             mInflateRuleView = mVsRule.inflate();
+            mInflateRuleView.setBackgroundResource(R.color.colorFFEBF0FF);
             ImageView mIvClose = mInflateRuleView.findViewById(R.id.iv_close);
             TextView mTvRule = mInflateRuleView.findViewById(R.id.tv_rule);
-            mIvClose.setOnClickListener(v -> {
+            mTvRule.setTextColor(ContextCompat.getColor(mContext,R.color.color_2));
+            mIvClose.setImageResource(R.mipmap.icon_item_right);
+            /*mIvClose.setOnClickListener(v -> {
                 sph.putObject(KEY_RULE_STATUS, false);
                 mInflateRuleView.setVisibility(View.GONE);
-            });
+            });*/
             mTvRule.setOnClickListener(v -> ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ABOUT_RULE));
         }
         if (ruleStatus) {
