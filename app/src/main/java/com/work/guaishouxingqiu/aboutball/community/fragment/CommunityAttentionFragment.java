@@ -183,8 +183,11 @@ public class CommunityAttentionFragment extends LoginOrShareFragment<CommunityAt
         }
     }
 
-    public void autoRefresh(ResultCommunityDataBean bean) {
+    public void notifyData(ResultCommunityDataBean bean) {
         mViewModel.resultCommunityData(mAdapter, bean, mData,true);
+    }
+    public void autoRefresh(){
+        mSrlLayout.autoRefresh();
     }
 
     @Override

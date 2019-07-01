@@ -47,6 +47,7 @@ public class CommunityNewFragment extends LoginOrShareFragment<CommunityNewsPres
     private static final int REQUEST_CODE_PUBLISH_DYNAMIC = 145;
     private static final int REQUEST_CODE_TOPIC = 321;
     private int mSharePosition;
+
     public void setOnUpdateCommunity(OnUpdateCommunity onUpdateCommunity) {
         this.onUpdateCommunity = onUpdateCommunity;
     }
@@ -76,8 +77,14 @@ public class CommunityNewFragment extends LoginOrShareFragment<CommunityNewsPres
         }
     }
 
-    public void autoRefresh(ResultCommunityDataBean bean) {
+    public void notifyData(ResultCommunityDataBean bean) {
         mViewModel.resultCommunityData(mAdapter, bean, mData);
+    }
+
+    public void autoRefresh() {
+        if (mSrlLayout != null) {
+            mSrlLayout.autoRefresh();
+        }
     }
 
     @Override
@@ -106,14 +113,14 @@ public class CommunityNewFragment extends LoginOrShareFragment<CommunityNewsPres
 
             @Override
             public void onItemClick(View view, int position) {
-                LogUtils.w("onItemClick--",position+"--");
+                LogUtils.w("onItemClick--", position + "--");
                 mViewModel.startActivityToCommunityRecommendDetailsForResult(mData.get(position), CommunityNewFragment.this);
             }
         });
         mAdapter.setOnTextContentClickListener(new CommunityDataAdapter.OnTextContentClickListener() {
             @Override
             public void onClickContent(View view, int position) {
-                LogUtils.w("onItemClick--",position+"--");
+                LogUtils.w("onItemClick--", position + "--");
                 mViewModel.startActivityToCommunityRecommendDetailsForResult(mData.get(position), CommunityNewFragment.this);
             }
 
@@ -163,17 +170,20 @@ public class CommunityNewFragment extends LoginOrShareFragment<CommunityNewsPres
             }
         });
     }
+
     @Override
     public void resultShareWeiChat() {
         super.resultShareWeiChat();
         mPresenter.shareCommunityDynamic(mData.get(mSharePosition).tweetId);
     }
+
     @Override
     public void resultShareCommunityDynamic() {
         mData.get(mSharePosition).shareCount += 1;
         onEventUpdate(mData.get(mSharePosition));
         mAdapter.notifyDataSetChanged();
     }
+
     @Override
     public void resultDeleteDynamicSucceed(int position) {
         ResultCommunityDataBean bean = mData.get(position);

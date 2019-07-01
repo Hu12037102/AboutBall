@@ -226,8 +226,11 @@ public class CommunityRecommendFragment extends LoginOrShareFragment<CommunityRe
         mPresenter.loadData();
     }
 
-    public void autoRefresh(ResultCommunityDataBean bean) {
+    public void notifyData(ResultCommunityDataBean bean) {
         mViewModel.resultCommunityData(mAdapter, bean, mData);
+    }
+    public void autoRefresh(){
+        mSrlRefresh.autoRefresh();
     }
 
     @Override

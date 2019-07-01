@@ -133,9 +133,10 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
             String typeId = uri.getQueryParameter(ARouterConfig.Key.SHARE_TYPE);
             String shareId = uri.getQueryParameter(ARouterConfig.Key.SHARE_ID);
             if (typeId != null && shareId != null) {
-                mSkipHandler.removeMessages(WHAT, null);
+
                 switch (Integer.valueOf(typeId)) {
                     case IApiService.TypeId.OPEN_BALL_INVITE:
+                        mSkipHandler.removeMessages(WHAT, null);
                         mTeamId = Long.valueOf(shareId);
                         if (UserManger.get().isLogin()) {
                             mPresenter.loadTeamDetails(mTeamId);
@@ -144,6 +145,7 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
                         }
                         break;
                     case IApiService.TypeId.OPEN_GAME_DETAILS_VIDEO:
+                        mSkipHandler.removeMessages(WHAT, null);
                         int matchId = Integer.valueOf(shareId);
                         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_GAME_DETAILS, ARouterConfig.Key.GAME_ID, matchId);
                         finish();

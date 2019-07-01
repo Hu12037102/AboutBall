@@ -11,6 +11,7 @@ import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.community.contract.CommunityContract;
 import com.work.guaishouxingqiu.aboutball.community.presenter.CommunityPresenter;
+import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
@@ -34,6 +35,7 @@ public class CommunityFragment extends DelayedFragment<CommunityPresenter> imple
     private CommunityAttentionFragment mAttentionFragment;
     private CommunityRecommendFragment mRecommendFragment;
     private CommunityNewFragment mNewFragment;
+    private Fragment[] mFragments;
 
     public static CommunityFragment newInstance() {
         return new CommunityFragment();
@@ -82,17 +84,9 @@ public class CommunityFragment extends DelayedFragment<CommunityPresenter> imple
             @Override
             public void onPageSelected(int i) {
                 mTabTitle.getTabAt(i).select();
-             /*   switch (i) {
-                    case 0:
-                        mAttentionFragment.autoRefresh();
-                        break;
-                    case 1:
-                        mRecommendFragment.autoRefresh();
-                        break;
-                    case 2:
-                        mNewFragment.autoRefresh();
-                        break;
-                }*/
+                if ((mFragments[i].equals(mAttentionFragment) && !UserManger.get().isLogin())) {
+                    mAttentionFragment.autoRefresh();
+                }
             }
 
             @Override
@@ -103,12 +97,12 @@ public class CommunityFragment extends DelayedFragment<CommunityPresenter> imple
         mAttentionFragment.setOnUpdateCommunity(new CommunityAttentionFragment.OnUpdateCommunity() {
             @Override
             public void updateRecommended(ResultCommunityDataBean bean) {
-                mRecommendFragment.autoRefresh(bean);
+                mRecommendFragment.notifyData(bean);
             }
 
             @Override
             public void updateNew(ResultCommunityDataBean bean) {
-                mNewFragment.autoRefresh(bean);
+                mNewFragment.notifyData(bean);
             }
 
 
@@ -116,24 +110,24 @@ public class CommunityFragment extends DelayedFragment<CommunityPresenter> imple
         mRecommendFragment.setOnUpdateCommunity(new CommunityRecommendFragment.OnUpdateCommunity() {
             @Override
             public void updateAttention(ResultCommunityDataBean bean) {
-                mAttentionFragment.autoRefresh(bean);
+                mAttentionFragment.notifyData(bean);
             }
 
             @Override
             public void updateNew(ResultCommunityDataBean bean) {
-                mNewFragment.autoRefresh(bean);
+                mNewFragment.notifyData(bean);
             }
 
         });
         mNewFragment.setOnUpdateCommunity(new CommunityNewFragment.OnUpdateCommunity() {
             @Override
             public void updateAttention(ResultCommunityDataBean bean) {
-                mAttentionFragment.autoRefresh(bean);
+                mAttentionFragment.notifyData(bean);
             }
 
             @Override
             public void updateRecommend(ResultCommunityDataBean bean) {
-                mRecommendFragment.autoRefresh(bean);
+                mRecommendFragment.notifyData(bean);
             }
 
 
@@ -158,19 +152,19 @@ public class CommunityFragment extends DelayedFragment<CommunityPresenter> imple
         mAttentionFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_COMMUNITY_ATTENTION);
         mRecommendFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_COMMUNITY_RECOMMEND);
         mNewFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_COMMUNITY_NEWS);
-        Fragment[] fragments = {mAttentionFragment, mRecommendFragment, mNewFragment};
+        mFragments = new Fragment[]{mAttentionFragment, mRecommendFragment, mNewFragment};
         FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int i) {
-                return fragments[i];
+                return mFragments[i];
             }
 
             @Override
             public int getCount() {
-                return fragments.length;
+                return mFragments.length;
             }
         };
-        mBvpContent.setOffscreenPageLimit(fragments.length);
+        mBvpContent.setOffscreenPageLimit(mFragments.length);
         mBvpContent.setAdapter(pagerAdapter);
         mBvpContent.setCurrentItem(1, true);
     }
