@@ -104,7 +104,11 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
             }
         });
         mItemPrize.setOnItemClickListener(view -> {
-            ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_PRIZE);
+            if (UserManger.get().isLogin()) {
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_PRIZE);
+            } else {
+                mViewModel.showLoginDialog();
+            }
         });
         mItemBall.setOnItemClickListener(new ItemView.OnItemClickListener() {
             @Override

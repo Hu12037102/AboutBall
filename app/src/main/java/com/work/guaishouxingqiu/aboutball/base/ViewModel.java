@@ -33,8 +33,10 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 import com.work.guaishouxingqiu.aboutball.my.fragment.PostEvaluationFragment;
 import com.work.guaishouxingqiu.aboutball.other.DownloadApkHelp;
 import com.work.guaishouxingqiu.aboutball.other.SharedPreferencesHelp;
+import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.activity.WaitPayOrderDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultRefereeBean;
@@ -204,6 +206,9 @@ public class ViewModel {
      * 显示用户登陆dialog
      */
     public void showLoginDialog() {
+        if (!DataUtils.isEmpty(UserManger.get().getToken())){
+            UserManger.get().loginOut();
+        }
         Activity activity = mSoftActivity.get();
         if (activity == null || activity.isFinishing()) {
             return;
