@@ -63,4 +63,10 @@
         style="@style/HorizontalLine"
         android:layout_marginLeft="@dimen/default_margin"
         android:layout_marginRight="@dimen/default_margin" />
+    <include
+        android:id="@+id/include_foot"
+        layout="@layout/item_not_more"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        android:visibility="gone"/>
 </LinearLayout>

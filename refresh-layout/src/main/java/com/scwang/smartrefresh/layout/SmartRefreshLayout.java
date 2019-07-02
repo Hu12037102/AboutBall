@@ -684,11 +684,7 @@ public class SmartRefreshLayout extends ViewGroup implements RefreshLayout, Nest
                     top = top + mHeaderHeight;
                     bottom = bottom + mHeaderHeight;
                 }
-                try {
-                    contentView.layout(left, top, right, bottom);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+                contentView.layout(left, top, right, bottom);
 
             }
             if (mRefreshHeader != null && mRefreshHeader.getView() == child) {

@@ -84,5 +84,11 @@
         android:id="@+id/line"
         style="@style/HorizontalLine"
         android:layout_marginTop="@dimen/size_20dp" />
+    <include
+        android:id="@+id/include_foot"
+        layout="@layout/item_not_more"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        android:visibility="gone"/>
 
 </LinearLayout>

@@ -8,6 +8,7 @@
     android:clickable="true">
 
     <LinearLayout
+        android:id="@+id/ll_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -61,5 +62,15 @@
         style="@style/HorizontalLine"
         android:layout_marginLeft="@dimen/default_margin"
         android:layout_marginRight="@dimen/default_margin"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@id/ll_title" />
+    <include
+        android:id="@+id/include_foot"
+        layout="@layout/item_not_more"
+        app:layout_constraintTop_toBottomOf="@id/line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:visibility="gone"
+        />
 </android.support.constraint.ConstraintLayout>

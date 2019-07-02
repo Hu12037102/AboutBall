@@ -62,10 +62,17 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
     private List<ResultRecommendDataBean.Stadium> mStadiumData;
     private List<ResultRecommendDataBean.AgreeBallMatch> mBallData;
     private Fragment mFragment;
+    private boolean mIsShowFootView;//要不要显示footView
 
     public RecommendedAdapter(@NonNull List<ResultNewsBean> data) {
         super(data);
         init();
+    }
+
+    public RecommendedAdapter(@NonNull List<ResultNewsBean> data, boolean isShowFootView) {
+        super(data);
+        init();
+        this.mIsShowFootView = isShowFootView;
     }
 
     private void init() {
@@ -170,7 +177,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             textViewHolder.mTvFrom.setText(UIUtils.getString(R.string.from_data, mData.get(i).source, mData.get(i).releaseTime));
             setViewLine(textViewHolder.mLine, i);
             this.showHotView(bean, textViewHolder.mTvFrom);
-
+            setFootViewStatus(textViewHolder.includeFoot, i);
         } else if (viewHolder instanceof SingViewHolder) {
             SingViewHolder singViewHolder = (SingViewHolder) viewHolder;
             //singViewHolder.mTvData.setText(mData.get(i).title);
@@ -189,6 +196,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             }
             setViewLine(singViewHolder.mLine, i);
             this.showHotView(bean, singViewHolder.mTvFrom);
+            setFootViewStatus(singViewHolder.includeFoot, i);
         } else if (viewHolder instanceof ThreeViewHolder) {
             ThreeViewHolder threeViewHolder = (ThreeViewHolder) viewHolder;
             //threeViewHolder.mFtvData.setText(mData.get(i).title);
@@ -216,7 +224,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
 
             setViewLine(threeViewHolder.mLine, i);
             this.showHotView(bean, threeViewHolder.mTvFrom);
-
+            setFootViewStatus(threeViewHolder.includeFoot, i);
         } else if (viewHolder instanceof VideoHolder) {
             VideoHolder videoHolder = (VideoHolder) viewHolder;
             // videoHolder.mTvContent.setText(mData.get(i).title);
@@ -238,6 +246,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
                     R.mipmap.icon_default_banner, videoHolder.mTvVideo);
             this.showHotView(bean, videoHolder.mTvFrom);
             setViewLine(videoHolder.mLine, i);
+            setFootViewStatus(videoHolder.includeFoot, i);
         }
 
     }
@@ -254,11 +263,22 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
         }
     }
 
+    private void setFootViewStatus(View footView, int position) {
+        if (mIsShowFootView) {
+            if (position == mData.size() - 1) {
+                footView.setVisibility(View.VISIBLE);
+            } else {
+                footView.setVisibility(View.GONE);
+            }
+        }
+    }
+
 
     static class TextViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTvData, mTvFrom;
         private View mLine;
+        private View includeFoot;
 
         public TextViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -269,6 +289,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             mTvData = itemView.findViewById(R.id.tv_data);
             mTvFrom = itemView.findViewById(R.id.tv_from);
             mLine = itemView.findViewById(R.id.line);
+            includeFoot = itemView.findViewById(R.id.include_foot);
         }
     }
 
@@ -278,6 +299,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
         private TextView mTvData;
         private TextView mTvFrom;
         private View mLine;
+        private View includeFoot;
 
         public SingViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -289,6 +311,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             mTvData = itemView.findViewById(R.id.tv_data);
             mTvFrom = itemView.findViewById(R.id.tv_from);
             mLine = itemView.findViewById(R.id.line);
+            includeFoot = itemView.findViewById(R.id.include_foot);
         }
     }
 
@@ -300,6 +323,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
         private TextView mTvFrom;
         private View mLine;
         private TextView mTvData;
+        private View includeFoot;
 
         public ThreeViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -313,6 +337,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             mTvFrom = itemView.findViewById(R.id.tv_from);
             mLine = itemView.findViewById(R.id.line);
             mTvData = itemView.findViewById(R.id.tv_content);
+            includeFoot = itemView.findViewById(R.id.include_foot);
         }
     }
 
@@ -323,6 +348,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
         private ImageView mIvPlay;
         private TextView mTvFrom;
         private View mLine;
+        private View includeFoot;
 
         public VideoHolder(@NonNull View itemView) {
             super(itemView);
@@ -335,6 +361,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             mIvPlay = itemView.findViewById(R.id.iv_play);
             mTvFrom = itemView.findViewById(R.id.tv_from);
             mLine = itemView.findViewById(R.id.line);
+            includeFoot = itemView.findViewById(R.id.include_foot);
         }
     }
 

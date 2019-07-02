@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
@@ -51,6 +52,7 @@ public class GameDataFragment extends DelayedFragment<GameDataPresenter> impleme
     private RecyclerView mHeadRvData;
     private List<ResultGameDataResultBean> mData;
     private GameDataAdapter mResultAdapter;
+    private TextView mHeadTvStart;
 
     @Override
     protected int getLayoutId() {
@@ -66,6 +68,7 @@ public class GameDataFragment extends DelayedFragment<GameDataPresenter> impleme
         GlideManger.get().loadImage(DataUtils.checkData(getContext()), mBean.hostLogoUrl, cIvLeft);
         CircleImageView cIvRight = mHeadView.findViewById(R.id.civ_right);
         GlideManger.get().loadImage(getContext(), mBean.guestLogoUrl, cIvRight);
+        mHeadTvStart = mHeadView.findViewById(R.id.tv_start);
         mHeadView.setVisibility(View.VISIBLE);
         mHeadRvData = mHeadView.findViewById(R.id.rv_data);
         mHeadRvData.setLayoutManager(new LinearLayoutManager(mContext));
@@ -135,8 +138,9 @@ public class GameDataFragment extends DelayedFragment<GameDataPresenter> impleme
         mData = new ArrayList<>();
         mResultAdapter = new GameDataAdapter(mData);
         mResultAdapter.addHeadView(mHeadView);
-        // mResultAdapter.addFootView(LayoutInflater.from(mContext).inflate(R.layout.item_game_data_foot_view, mRvResult,false));
+
         mRvResult.setAdapter(mResultAdapter);
+
     }
 
     @Override
@@ -261,6 +265,7 @@ public class GameDataFragment extends DelayedFragment<GameDataPresenter> impleme
     public void resultGameResultDetails(List<ResultGameDataResultBean> data) {
         mData.clear();
         mData.addAll(data);
+        mHeadTvStart.setVisibility(mData.size() == 0 ? View.GONE : View.VISIBLE);
         mHeadAdapter.notifyDataSetChanged();
         mResultAdapter.notifyDataSetChanged();
     }

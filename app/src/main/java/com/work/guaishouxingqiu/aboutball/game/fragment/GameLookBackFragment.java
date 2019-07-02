@@ -3,6 +3,7 @@ package com.work.guaishouxingqiu.aboutball.game.fragment;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -86,7 +87,7 @@ public class GameLookBackFragment extends BaseFragment<GameLookBackPresenter> im
     @Override
     protected void initData() {
         mData = new ArrayList<>();
-        mAdapter = new RecommendedAdapter(mData);
+        mAdapter = new RecommendedAdapter(mData,true);
         mAdapter.addHeadView(mHeadView);
         mRvData.setAdapter(mAdapter);
         mSrlRefresh.autoRefresh();
