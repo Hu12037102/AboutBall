@@ -581,6 +581,7 @@
     <string name="match_filtrate">赛事筛选</string>
     <string name="player">球员</string>
     <string name="goals_scored">进球数</string>
+    <string name="assists_the_number">助攻数</string>
     <string name="related_report">相关报道</string>
     <string name="not_find_this_match">没有找到该比赛</string>
     <string name="community_title">踢球么社区，十万球友日常分享新鲜事</string>

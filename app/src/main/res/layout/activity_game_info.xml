@@ -134,6 +134,7 @@
             android:textColor="@color/colorFFA6A6A6"
             android:textSize="@dimen/size_12sp" />
         <TextView
+            android:id="@+id/tv_goals"
             android:layout_width="@dimen/size_0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"

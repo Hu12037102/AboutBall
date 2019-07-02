@@ -79,7 +79,7 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
     @BindView(R.id.ll_live_details)
     LinearLayout mLlLiveDetails;
     @BindView(R.id.cl_head_details)
-    ConstraintLayout mClHeadDetails;
+    LinearLayout mClHeadDetails;
     @BindView(R.id.tb_data)
     TabLayout mTbData;
     @BindView(R.id.bv_data)
@@ -276,7 +276,7 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
     }
 
     private void initPagerData(ResultGameSimpleBean bean) {
-        mGameLookBackFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_LOOK_BACK,ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
+        mGameLookBackFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_GAME_LOOK_BACK, ARouterConfig.Key.GAME_DETAILS_BEAN, bean);
         mGameLookBackFragment.setOnClickLookBackListener(new GameLookBackFragment.OnClickLookBackListener() {
             @Override
             public void clickCollection(String videoUrl) {
@@ -297,7 +297,7 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
 
             @Override
             public void playCollectionVideo(String videoUrl) {
-                if (videoUrl != null) {
+                if (videoUrl != null && !isLive) {
                     initCollectionVideo(bean, videoUrl);
                 }
             }
@@ -332,7 +332,7 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
 
             }
         });*/
-        mFragments = new Fragment[]{mGameLookBackFragment,commentFragment, resultFragment,dataFragment};
+        mFragments = new Fragment[]{mGameLookBackFragment, commentFragment, resultFragment, dataFragment};
         mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int i) {
@@ -347,7 +347,7 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
         mBvData.setOffscreenPageLimit(mFragments.length);
         // mBvData.setCurrentItem(1,true);
         mBvData.setAdapter(mPagerAdapter);
-       // mBvData.setCurrentItem(1, true);
+        // mBvData.setCurrentItem(1, true);
         mBvData.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -411,7 +411,7 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
                 mLlLiveDetails.addView(startView);
                 FocusableTextView tVTitle = startView.findViewById(R.id.tv_title);
                 mTvHasVideoStatus = startView.findViewById(R.id.tv_status);
-                if (bean.stateId == Contast.GAME_STATUS_STARTING) {
+               /* if (bean.stateId == Contast.GAME_STATUS_STARTING) {
                     mTvHasVideoStatus.setText(R.string.watch_live);
                     isLive = true;
                     mTvHasVideoStatus.setVisibility(View.VISIBLE);
@@ -419,8 +419,27 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
                     //  mTvStatus.setText(R.string.watch_collection);
                     mTvHasVideoStatus.setText(bean.matchState);
                     isLive = false;
-                    mTvHasVideoStatus.setVisibility(View.GONE);
+                    // mTvHasVideoStatus.setVisibility(View.GONE);
+                }*/
+                isLive = false;
+                switch (bean.stateId) {
+                    //直播中
+                    case 2:
+                        mTvHasVideoStatus.setText(R.string.watch_live);
+                        mTvHasVideoStatus.setBackgroundResource(R.drawable.shape_watch_live_tv);
+                        isLive = true;
+                        break;
+                    default:
+                        mTvHasVideoStatus.setText(bean.matchState);
+                        mTvHasVideoStatus.setBackgroundResource(0);
+                        break;
                 }
+                if ("集锦/回放".equals(bean.matchState)){
+                    mTvHasVideoStatus.setText(R.string.watch_collection);
+                    mTvHasVideoStatus.setBackgroundResource(R.drawable.shape_watch_live_tv);
+                }
+
+
                 tVTitle.setText(bean.gameName);
                 TextView tVGrade = startView.findViewById(R.id.tv_grade);
                 tVGrade.setText(bean.hostScore.concat(" - ").concat(bean.guestScore));
@@ -430,8 +449,8 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
                         initLiveVideoView(bean);
                     } else {
                         //  mBvData.setCurrentItem(mFragments.length - 1);
-                     //   mCollectionFragment.playCollectionVideo();
-                        if (mGameLookBackFragment!=null){
+                        //   mCollectionFragment.playCollectionVideo();
+                        if (mGameLookBackFragment != null) {
                             mGameLookBackFragment.playCollectionVideo();
                         }
                     }

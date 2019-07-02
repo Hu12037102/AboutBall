@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.ItemView;
@@ -57,6 +58,8 @@ public class GameInfoActivity extends BaseActivity<GameInfoPresenter> implements
     LinearLayout mLlOther;
     @BindView(R.id.ll_scoreboard)
     LinearLayout mLlScoreboard;
+    @BindView(R.id.tv_goals)
+    TextView mTvGoals;
     private long mRequestGameId = -1;
     private long mRequestGroupId = -1;
     private int mRequestAction = GameInfoActivity.ACTION_SHOT;
@@ -171,6 +174,7 @@ public class GameInfoActivity extends BaseActivity<GameInfoPresenter> implements
                         mPresenter.loadMatchGroupData(mRequestGameId);
                     }
                 } else {
+
                     mRvData.setVisibility(View.GONE);
                     mRvOtherData.setVisibility(View.VISIBLE);
                     mRvGrouping.setVisibility(View.GONE);
@@ -178,8 +182,10 @@ public class GameInfoActivity extends BaseActivity<GameInfoPresenter> implements
                     mLlScoreboard.setVisibility(View.GONE);
                     if (tabPosition == 1) {
                         mRequestAction = ACTION_SHOT;
+                        mTvGoals.setText(R.string.goals_scored);
                     } else if (tabPosition == 2) {
                         mRequestAction = ACTION_ASSIST;
+                        mTvGoals.setText(R.string.assists_the_number);
                     }
                     if (mRequestGameId != -1) {
                         mPresenter.loadOtherData(mRequestGameId, mRequestAction);
