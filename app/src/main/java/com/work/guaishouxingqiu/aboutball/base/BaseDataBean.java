@@ -14,4 +14,5 @@ public class BaseDataBean<T> {
     public String message;
     public T content;
     public T result;
+    public int contentType;//1、视频
 }

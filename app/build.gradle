@@ -8,15 +8,15 @@ android {
     def android = rootProject.ext.android
     compileSdkVersion android.compileSdkVersion
     buildToolsVersion android.buildToolsVersion
-   /* lintOptions {
-        checkReleaseBuilds false
-        abortOnError false
-    }*/
+    /* lintOptions {
+         checkReleaseBuilds false
+         abortOnError false
+     }*/
     defaultConfig {
 
         multiDexEnabled true
         applicationId android.applicationId
-       // applicationId "com.work.guaishouxingqiu.aboutball1"
+        // applicationId "com.work.guaishouxingqiu.aboutball1"
         minSdkVersion android.minSdkVersion
         targetSdkVersion android.targetSdkVersion
         versionCode 6
@@ -66,7 +66,7 @@ android {
             keyAlias 'AboutBall'
             keyPassword 'guaishouxingqiu888'
             storeFile file('../app_key_store.jks')
-           // storeFile file('E:/AndroidWork/AboutBall/app_key_store.jks')
+            // storeFile file('E:/AndroidWork/AboutBall/app_key_store.jks')
             storePassword 'guaishouxingqiu888'
         }
     }
@@ -94,8 +94,8 @@ android {
             buildConfigField("boolean", "IS_DEBUG", "true")
             buildConfigField("boolean", "IS_UPDATE", "false")
             // buildConfigField("String", "HOST_URL", '"https://ifi.bmece.com"')
-            //buildConfigField("String", "HOST_URL", '"https://www.ifeell.com.cn"')
-             buildConfigField("String", "HOST_URL", '"http://47.106.255.172:8088"')
+            buildConfigField("String", "HOST_URL", '"https://www.ifeell.com.cn"')
+            //buildConfigField("String", "HOST_URL", '"http://47.106.255.172:8088"')
             shrinkResources false
             zipAlignEnabled false
             pseudoLocalesEnabled false
@@ -107,9 +107,9 @@ android {
             buildConfigField("boolean", "IS_DEBUG", "true")
             buildConfigField("boolean", "IS_UPDATE", "true")
             //buildConfigField("String", "HOST_URL", '"https://iti.bmece.com"')
-           // buildConfigField("String", "HOST_URL", '"https://www.test.ifeell.com"')
+            // buildConfigField("String", "HOST_URL", '"https://www.test.ifeell.com"')
             buildConfigField("String", "HOST_URL", '"https://test.ifeell.com.cn"')
-           //  buildConfigField("String", "HOST_URL", '"http://47.106.255.172:8088"')
+            //  buildConfigField("String", "HOST_URL", '"http://47.106.255.172:8088"')
             shrinkResources false
             zipAlignEnabled false
             pseudoLocalesEnabled false
@@ -192,7 +192,7 @@ dependencies {
     //implementation 'com.tencent.map:tencent-map-vector-sdk:latest.release'
     implementation 'com.tencent.map:tencent-map-vector-sdk:4.2.3.1'
     /*友盟数据统计*/
-    implementation  'com.umeng.umsdk:analytics:8.0.0'
-    implementation  'com.umeng.umsdk:common:2.0.0'
+    implementation 'com.umeng.umsdk:analytics:8.0.0'
+    implementation 'com.umeng.umsdk:common:2.0.0'
 
 }

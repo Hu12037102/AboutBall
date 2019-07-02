@@ -203,7 +203,7 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
 
     @Override
     public void resultNewsContent(BaseDataBean<String> dataBean) {
-        if (isVideo(dataBean.content)) {
+        if (dataBean.contentType == 1) {
             mClVideo.setVisibility(View.VISIBLE);
             mWebView.setVisibility(View.GONE);
             initVideo(dataBean.content);
