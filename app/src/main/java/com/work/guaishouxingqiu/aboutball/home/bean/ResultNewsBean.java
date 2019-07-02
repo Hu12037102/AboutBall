@@ -19,6 +19,7 @@ public class ResultNewsBean {
     public String source;
     public String typeId;
     public String coverImgType;
-    public  boolean isPlayVideo;
+    public boolean isPlayVideo;
+    public int contentType;//1、是视频
     public boolean isRead;
 }

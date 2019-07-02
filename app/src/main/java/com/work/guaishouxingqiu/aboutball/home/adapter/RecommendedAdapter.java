@@ -107,7 +107,8 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             //约球ViewHolder 记得删除item_test_view
             viewHolder = new HomeBallHolder(LayoutInflater.from(mContext).inflate(R.layout.item_home_ball_view, viewGroup, false), mBallData, mFragment);
         } else {
-            if (mData.get(mPosition).typeId.equals(Contast.VIDEO_RECOMMENDED_TYPE)) {
+            if (mData.get(mPosition).typeId.equals(Contast.VIDEO_RECOMMENDED_TYPE)
+                    || mData.get(mPosition).contentType == 1) {
                 viewHolder = new VideoHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_recommend_video_view, viewGroup, false));
 
             } else {
