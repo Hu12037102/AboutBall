@@ -196,7 +196,9 @@ public class OrderCompleteEvaluateCancelActivity extends BaseOrderActivity<Order
         UIUtils.setOrderDetailsItemSpan(mTvPracticalPrices, UIUtils.getString(R.string.order_practical_prices_host), bean.realPrice > 0 ? "￥" + bean.realPrice : "￥" + bean.totalPrice);
         UIUtils.setOrderDetailsItemSpan(mTvRefundMoney, UIUtils.getString(R.string.refund_money_host), DataUtils.getMoneyFormat(bean.totalPrice));
         UIUtils.setOrderDetailsItemSpan(mTvRefundAccount, UIUtils.getString(R.string.exit_account), "微信零钱");
-        UIUtils.setOrderDetailsItemSpan(mTvRefundTime, UIUtils.getString(R.string.exit_time), UIUtils.getString(R.string.expect_the_most_late, DateUtils.getNextCountData(bean.orderTime, 7)));
+        if (!DataUtils.isEmpty(bean.orderTime)) {
+            UIUtils.setOrderDetailsItemSpan(mTvRefundTime, UIUtils.getString(R.string.exit_time), UIUtils.getString(R.string.expect_the_most_late, DateUtils.getYearToSecondNextCountData(bean.orderTime, 7)));
+        }
         UIUtils.setText(mItemSchedule.mTvRight, DataUtils.getMoneyFormat(bean.totalPrice) + UIUtils.getString(R.string.payment_has_been_received));
         mRbGrade.setRating(bean.grade);
         UIUtils.setText(mTvGrade, UIUtils.getString(R.string.how_long_gradle, bean.grade));

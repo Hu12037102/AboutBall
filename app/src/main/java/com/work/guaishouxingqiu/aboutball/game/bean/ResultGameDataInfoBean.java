@@ -16,8 +16,8 @@ public class ResultGameDataInfoBean {
         public long teamId;
         public String teamName;
         public int  goal;
-        public String ballPossession;
-        public String passingCompletion;
+        public int ballPossession;
+        public int passingCompletion;
         public int shoot;
         public int shootOnTarget;
         public int attack;

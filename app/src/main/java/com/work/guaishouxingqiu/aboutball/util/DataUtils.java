@@ -330,6 +330,9 @@ public class DataUtils {
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < data.size(); i++) {
             ResultOrderDetailsBean.OrderPeopleCountBean bean = data.get(i);
+            if (bean == null) {
+                continue;
+            }
             sb = sb.append(bean.areaName).append("  ").append(bean.calendar).append("  ").append("￥").append(bean.price).append(i == data.size() - 1 ? "" : "\n");
         }
         return sb.toString();

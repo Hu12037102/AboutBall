@@ -15,8 +15,8 @@ android {
     defaultConfig {
 
         multiDexEnabled true
-        //applicationId android.applicationId
-        applicationId "com.work.guaishouxingqiu.aboutball"
+        applicationId android.applicationId
+       // applicationId "com.work.guaishouxingqiu.aboutball1"
         minSdkVersion android.minSdkVersion
         targetSdkVersion android.targetSdkVersion
         versionCode 6

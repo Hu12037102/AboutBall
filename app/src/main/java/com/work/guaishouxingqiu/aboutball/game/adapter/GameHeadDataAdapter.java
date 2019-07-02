@@ -39,6 +39,7 @@ public class GameHeadDataAdapter extends RecyclerView.Adapter<GameHeadDataAdapte
         this.mContext = context;
         this.mData = data;
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -58,10 +59,10 @@ public class GameHeadDataAdapter extends RecyclerView.Adapter<GameHeadDataAdapte
                 viewHolder.mTvRight.setText(String.valueOf(DataUtils.getInt(bean.guestValue + "")));
                 break;
             case TYPE_FLOAT:
-                viewHolder.mGdbLeft.setProportion(bean.hostValue);
-                viewHolder.mGdbRight.setProportion(bean.guestValue);
-                viewHolder.mTvLeft.setText(String.valueOf(DataUtils.getPercent(bean.hostValue)));
-                viewHolder.mTvRight.setText(String.valueOf(DataUtils.getPercent(bean.guestValue)));
+                viewHolder.mGdbLeft.setProportion(bean.hostValue / (bean.hostValue + bean.guestValue));
+                viewHolder.mGdbRight.setProportion(bean.guestValue / (bean.hostValue + bean.guestValue));
+                viewHolder.mTvLeft.setText(bean.hostValue + "%");
+                viewHolder.mTvRight.setText(bean.guestValue + "%");
                 break;
         }
         if (bean.hostValue == bean.guestValue) {

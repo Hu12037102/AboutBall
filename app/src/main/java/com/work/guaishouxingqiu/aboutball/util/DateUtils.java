@@ -147,6 +147,27 @@ public class DateUtils {
 
 
     /**
+     * 根据当前日期返回后几天的年月日
+     *
+     * @param dateFormat yyyy-MM-dd
+     * @return
+     */
+    public static String getYearToSecondNextCountData(String dateFormat, int dayCount) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        try {
+            Date date = sdf.parse(dateFormat);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            calendar.add(Calendar.DAY_OF_MONTH, dayCount);
+            int week = calendar.get(Calendar.DAY_OF_WEEK);
+            return sdf.format(calendar.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    /**
      * 根据年月日时分秒获取下一天的时间
      *
      * @param time yyyy-MM-dd hh:mm:ss

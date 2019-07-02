@@ -557,12 +557,14 @@
     <string name="ball_possession">控球率</string>
     <string name="corner_kick">角球</string>
     <string name="danger_attack">危险进攻</string>
+    <string name="yellow_card">黄牌</string>
+    <string name="red_card">红牌</string>
     <string name="foul">犯规</string>
     <string name="free_kick">任意球</string>
     <string name="offside">越位</string>
     <string name="passing_completion">传球成功率</string>
-    <string name="shoot">射门次数</string>
-    <string name="shoot_on_target">射正次数</string>
+    <string name="shoot">射门</string>
+    <string name="shoot_on_target">射正</string>
     <string name="all_end">全场结束</string>
     <string name="goal">进球</string>
     <string name="point_sphere">点球</string>

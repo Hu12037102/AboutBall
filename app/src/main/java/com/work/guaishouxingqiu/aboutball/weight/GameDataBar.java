@@ -14,6 +14,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 
 /**
  * 作者: 胡庆岭
@@ -31,12 +32,14 @@ public class GameDataBar extends View {
 
     public void setBarColor(@ColorInt int barColorRes) {
         mBarColors = barColorRes;
+        requestLayout();
         invalidate();
     }
 
 
     public void setProportion(float proportion) {
         mDrawProportion = proportion;
+        requestLayout();
         invalidate();
     }
 
@@ -70,26 +73,48 @@ public class GameDataBar extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         setMeasuredDimension(View.MeasureSpec.getSize(widthMeasureSpec), View.MeasureSpec.getSize(heightMeasureSpec));
+        LogUtils.w("GameDataBar--", "onMeasure:");
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        LogUtils.w("GameDataBar--", "onLayout:" + left + "--" + top + "--" + right + "--" + bottom + "--" + changed);
+
+        mBarPaint.setColor(mBarColors);
+        if (isDrawLeftToRight) {
+            if (mBarRectF == null) {
+                mBarRectF = new RectF(0, 0, getWidth() * mDrawProportion, getHeight());
+            } else {
+                mBarRectF.set(0, 0, getWidth() * mDrawProportion, getHeight());
+            }
+        } else {
+            if (mBarRectF == null) {
+                mBarRectF = new RectF(getWidth() - getWidth() * mDrawProportion, 0, getWidth(), getHeight());
+            }else {
+                mBarRectF.set(getWidth() - getWidth() * mDrawProportion, 0, getWidth(), getHeight());
+            }
+        }
+
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-      //  mBarPaint.setStrokeWidth(getHeight());
-        mBarPaint.setColor(mBarColors);
+        //  mBarPaint.setStrokeWidth(getHeight());
+        LogUtils.w("GameDataBar--", "onSizeChanged:" + w + "--" + h + "--" + oldw + "--" + oldh);
+       /* mBarPaint.setColor(mBarColors);
         if (isDrawLeftToRight) {
             mBarRectF = new RectF(0, 0, getWidth() * mDrawProportion, getHeight());
         } else {
             mBarRectF = new RectF(getWidth() - getWidth() * mDrawProportion, 0, getWidth(), getHeight());
-        }
-
-
+        }*/
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
+        LogUtils.w("GameDataBar--", "onDraw:");
         canvas.drawRect(mBarRectF, mBarPaint);
     }
 }

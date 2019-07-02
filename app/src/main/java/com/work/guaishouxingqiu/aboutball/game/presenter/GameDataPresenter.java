@@ -41,9 +41,7 @@ public class GameDataPresenter extends BasePresenter<GameDataContract.View, Game
         mModel.loadGameHeadDetails(gameId, new BaseObserver<>(this, new BaseObserver.Observer<ResultGameDataInfoBean>() {
             @Override
             public void onNext(BaseBean<ResultGameDataInfoBean> t) {
-                if (t.code == IApi.Code.SUCCEED && t.result != null) {
-                    mView.resultHeadGameDetails(t.result);
-                }
+                mView.resultHeadGameDetails(t.result);
             }
 
             @Override
