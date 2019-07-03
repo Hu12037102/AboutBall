@@ -20,6 +20,7 @@ import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
+import com.work.guaishouxingqiu.aboutball.commonality.activity.LoginOrShareActivity;
 import com.work.guaishouxingqiu.aboutball.my.activity.WaitUserOrderDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
@@ -47,7 +48,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * 描述:约球详情Activity
  */
 @Route(path = ARouterConfig.Path.ACTIVITY_ABOUT_BALL_DETAILS)
-public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPresenter> implements AboutBallDetailsContract.View {
+public class AboutBallDetailsActivity extends LoginOrShareActivity<AboutBallDetailsPresenter> implements AboutBallDetailsContract.View {
     @BindView(R.id.civ_logo)
     CircleImageView mCivLogo;
     @BindView(R.id.civ_logo_join)
@@ -104,7 +105,7 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
 
     @Override
     protected void initView() {
-        registerEventBus();
+        mTitleView.mTvSure.setVisibility(View.GONE);
         mClTopTeam.setEnabled(false);
         mClBottomTeam.setEnabled(false);
         mTvBottomLeft.setEnabled(false);
@@ -112,7 +113,6 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
 
     @Override
     protected void onDestroy() {
-        unRegisterEventBus();
         super.onDestroy();
     }
 
@@ -148,6 +148,14 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
                 clickBack();
             }
         });
+        mTitleView.setOnSureViewClickListener(new TitleView.OnSureViewClickListener() {
+            @Override
+            public void onSureClick(@NonNull View view) {
+                if (mResultBean != null) {
+                    showShareDialog(mViewModel.getAboutBallDetailShareBean(mAgreeId, mResultBean.startTime, mResultBean.stadiumName));
+                }
+            }
+        });
     }
 
     @Override
@@ -160,6 +168,7 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
         mClTopTeam.setEnabled(true);
         mClBottomTeam.setEnabled(true);
         mResultBean = bean;
+        mTitleView.mTvSure.setVisibility(View.VISIBLE);
         UIUtils.setText(mTvTopTeamName, bean.hostTeamName);
         GlideManger.get().loadLogoImage(this, bean.hostTeamLogo, mCivLogo);
         GlideManger.get().loadLogoImage(this, bean.guestTeamLogo, mCivLogoJoin);
@@ -169,9 +178,9 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
         UIUtils.setText(mItemTime.mTvRight, DateUtils.getHourMinutes(bean.startTime) + "-" + DateUtils.getHourMinutes(bean.endTime));
         UIUtils.setText(mItemMoney.mTvRight, DataUtils.getMoneyFormat(bean.cost));
         if (mAboutBallFlag == 1) {
-            if (DateUtils.isNewTimeMoreThan(bean.startTime)){
+            if (DateUtils.isNewTimeMoreThan(bean.startTime)) {
                 mRlCancel.setVisibility(View.GONE);
-            }else {
+            } else {
                 mRlCancel.setVisibility(View.VISIBLE);
             }
 
@@ -282,7 +291,7 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
         ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_WAIT_USER_ORDER_DETAILS, this, ARouterConfig.Key.ORDER_ID, orderId, AboutBallDetailsActivity.REQUEST_CODE_ORDER_USER);
     }
 
-    private void startActivityForBallTeamDetails(int teamId,String shirtColor){
+    private void startActivityForBallTeamDetails(int teamId, String shirtColor) {
     }
 
     @OnClick({R.id.tv_bottom_left, R.id.tv_bottom_right, R.id.tv_sing, R.id.cl_bottom_team, R.id.cl_top_team, R.id.tv_cancel})
@@ -293,14 +302,14 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
                 break;
             case R.id.tv_bottom_right:
             case R.id.tv_sing:
-               // ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_INVITATION_BALL, this, ARouterConfig.Key.PARCELABLE, mResultBean, AboutBallDetailsActivity.REQUEST_CODE);
-                mViewModel.startActivityToInvitation(mResultBean.agreeId,mResultBean.calendarId,AboutBallDetailsActivity.REQUEST_CODE);
+                // ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_INVITATION_BALL, this, ARouterConfig.Key.PARCELABLE, mResultBean, AboutBallDetailsActivity.REQUEST_CODE);
+                mViewModel.startActivityToInvitation(mResultBean.agreeId, mResultBean.calendarId, AboutBallDetailsActivity.REQUEST_CODE);
                 break;
             case R.id.cl_bottom_team:
-                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_BALL_TEAM_DETAILS_VENUE, ARouterConfig.Key.TEAM_ID, mResultBean.guestTeamId,ARouterConfig.Key.SHIRT_COLOR,mResultBean.hostShirtColor);
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_BALL_TEAM_DETAILS_VENUE, ARouterConfig.Key.TEAM_ID, mResultBean.guestTeamId, ARouterConfig.Key.SHIRT_COLOR, mResultBean.hostShirtColor);
                 break;
             case R.id.cl_top_team:
-                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_BALL_TEAM_DETAILS_VENUE, ARouterConfig.Key.TEAM_ID, mResultBean.hostTeamId,ARouterConfig.Key.SHIRT_COLOR,mResultBean.guestShirtColor);
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_BALL_TEAM_DETAILS_VENUE, ARouterConfig.Key.TEAM_ID, mResultBean.hostTeamId, ARouterConfig.Key.SHIRT_COLOR, mResultBean.guestShirtColor);
                 break;
             case R.id.tv_cancel:
                 if (mCancelBallDialog == null) {
@@ -419,7 +428,7 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
@@ -455,6 +464,7 @@ public class AboutBallDetailsActivity extends BaseActivity<AboutBallDetailsPrese
         setResult(Activity.RESULT_OK, intent);
         finish();
     }
+
     //取消约球结果返回
     @Subscribe
     public void resultCancelAboutBall(WaitUserOrderDetailsActivity.ResultPayBean bean) {

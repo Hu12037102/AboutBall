@@ -179,6 +179,7 @@ public interface IApiService {
         String DOWNLOAD_APK = "https://www.ifeell.com.cn/download";
         //动态详情
         String DYNAMIC_DETAILS="https://www.ifeell.com.cn/community";
+        String ABOUT_BALL_DETAILS="https://www.ifeell.com.cn/aboutball";
         //抽奖
         String PRIZE="https://www.ifeell.com.cn/prize";
     }
@@ -187,6 +188,8 @@ public interface IApiService {
     interface TypeId {
         //球队邀请
         int OPEN_BALL_INVITE = 1;
+        //约球详情
+        int ABOUT_DETAILS=2;
         //视频分享
         int OPEN_GAME_DETAILS_VIDEO = 3;
         //动态详情

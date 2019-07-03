@@ -6,6 +6,7 @@ import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.commonality.presenter.LoginOrSharePresenter;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultAboutBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.venue.contract.AboutBallDetailsContract;
@@ -17,7 +18,7 @@ import com.work.guaishouxingqiu.aboutball.venue.model.AboutBallDetailsModel;
  * 更新时间: 2019/5/16 15:27
  * 描述:约球详情契约
  */
-public class AboutBallDetailsPresenter extends BasePresenter<AboutBallDetailsContract.View,
+public class AboutBallDetailsPresenter extends LoginOrSharePresenter<AboutBallDetailsContract.View,
         AboutBallDetailsModel> implements AboutBallDetailsContract.Presenter {
     public AboutBallDetailsPresenter(@NonNull AboutBallDetailsContract.View view) {
         super(view);

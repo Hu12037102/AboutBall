@@ -17,7 +17,8 @@
         app:center_text_color="@color/color_4"
         app:center_text_size="@dimen/size_18sp"
         app:sure_text_padding_left="@dimen/default_margin"
-        app:sure_text_padding_right="@dimen/default_margin" />
+        app:sure_text_padding_right="@dimen/default_margin"
+        app:sure_right_drawable="@mipmap/icon_share_view"/>
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/cl_top_team"

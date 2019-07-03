@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.venue.contract;
 
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.commonality.contract.LoginOrShareContract;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultAboutBallDetailsBean;
 
 /**
@@ -11,7 +12,7 @@ import com.work.guaishouxingqiu.aboutball.venue.bean.ResultAboutBallDetailsBean;
  * 描述:约球详情契约
  */
 public interface AboutBallDetailsContract {
-    interface View extends IBaseView {
+    interface View extends LoginOrShareContract.View {
         void resultDetails(ResultAboutBallDetailsBean bean);
 
         void resultPlayReferee();
@@ -19,7 +20,7 @@ public interface AboutBallDetailsContract {
         void resultCancelAboutBall(long orderId);
     }
 
-    interface Presenter extends IBasePresenter {
+    interface Presenter extends LoginOrShareContract.Presenter {
         void loadDetails(long offerId);
 
         void playReferee(long mOfferId);

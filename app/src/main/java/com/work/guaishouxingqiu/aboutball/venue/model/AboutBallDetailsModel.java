@@ -3,6 +3,7 @@ package com.work.guaishouxingqiu.aboutball.venue.model;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseModel;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
+import com.work.guaishouxingqiu.aboutball.commonality.model.LoginOrShareModel;
 import com.work.guaishouxingqiu.aboutball.venue.VenueService;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultAboutBallDetailsBean;
 
@@ -15,7 +16,7 @@ import io.reactivex.schedulers.Schedulers;
  * 更新时间: 2019/5/16 15:26
  * 描述:约球详情model
  */
-public class AboutBallDetailsModel extends BaseModel {
+public class AboutBallDetailsModel extends LoginOrShareModel {
     public void loadDetails(long offerId, BaseObserver<ResultAboutBallDetailsBean> observer) {
         mRetrofitManger.create(VenueService.class)
                 .loadAboutBallDetails(offerId)

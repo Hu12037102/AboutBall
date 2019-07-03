@@ -206,7 +206,7 @@ public class ViewModel {
      * 显示用户登陆dialog
      */
     public void showLoginDialog() {
-        if (!DataUtils.isEmpty(UserManger.get().getToken())){
+        if (!DataUtils.isEmpty(UserManger.get().getToken())) {
             UserManger.get().loginOut();
         }
         Activity activity = mSoftActivity.get();
@@ -466,7 +466,7 @@ public class ViewModel {
     /**
      * 查看裁判
      *
-     * @param refereeId
+     * @param
      */
    /* public void startActivityToPostEvaluationForReferee(long refereeId, long agreeId) {
         Bundle bundle = new Bundle();
@@ -660,6 +660,12 @@ public class ViewModel {
         } else {
             ARouterIntent.startActivityForResult(fragment, TopicDynamicsActivity.class, ARouterConfig.Key.PARCELABLE, bean, requestCode);
         }
+    }
+
+    public ShareWebBean getAboutBallDetailShareBean(long agreeId, String date, String address) {
+        String shareUrl = IApiService.H5.ABOUT_BALL_DETAILS + "?" + ARouterConfig.Key.SHARE_ID + "=" + agreeId + "&" + ARouterConfig.Key.SHARE_TYPE + "=" + IApiService.TypeId.ABOUT_DETAILS;
+        String content = date + " " + address;
+        return getShareBean(UIUtils.getString(R.string.share_about_about_details_title), content, shareUrl);
     }
 
 }
