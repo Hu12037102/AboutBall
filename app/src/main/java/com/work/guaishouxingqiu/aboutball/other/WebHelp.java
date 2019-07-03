@@ -28,9 +28,9 @@ public class WebHelp {
         webSettings.setJavaScriptEnabled(javaScriptEnabled);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         webSettings.setLoadWithOverviewMode(true);
-        webSettings.setSupportZoom(true);
-        webSettings.setBuiltInZoomControls(true);
-        webSettings.setDisplayZoomControls(true);
+        webSettings.setSupportZoom(false);
+        webSettings.setBuiltInZoomControls(false);
+        webSettings.setDisplayZoomControls(false);
         webSettings.setAppCacheEnabled(true);//开启 Application Caches 功能
         webSettings.setAppCachePath(FileUtils.getNetCacheFile().getAbsolutePath());
         if (NetWorkUtils.isNetCanUse()) {
