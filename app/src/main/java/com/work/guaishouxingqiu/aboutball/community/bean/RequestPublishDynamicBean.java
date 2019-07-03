@@ -8,6 +8,6 @@ package com.work.guaishouxingqiu.aboutball.community.bean;
  */
 public class RequestPublishDynamicBean {
     public String imageUrl;
-    public long topicId;
+    public Long topicId;
     public String tweetContent;
 }

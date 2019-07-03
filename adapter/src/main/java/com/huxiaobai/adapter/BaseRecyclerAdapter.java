@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -121,7 +122,8 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
             mFootLinearLayout.setVisibility(View.VISIBLE);
         }
     }
-    public void hideFootView(){
+
+    public void hideFootView() {
         if (isHaveFootView && mFootLinearLayout != null) {
             mFootLinearLayout.setVisibility(View.GONE);
         }
@@ -220,8 +222,9 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
                 }
             });
 
+
         } else if (viewHolder instanceof NotDataViewHolder) {
-            NotDataViewHolder notDataHolder = (NotDataViewHolder) viewHolder;
+            final NotDataViewHolder notDataHolder = (NotDataViewHolder) viewHolder;
             notDataHolder.mIvNotData.setImageResource(mNotDataViewRes);
             notDataHolder.mTvNotData.setText(mNotDataContentRes);
             notDataHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -232,6 +235,28 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
                     }
                 }
             });
+            if (isHaveHeadView) {
+                final DisplayMetrics displayMetrics = mContext.getResources().getDisplayMetrics();
+                notDataHolder.mLlParent.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.w("NotDataViewHolder--", notDataHolder.itemView.getMeasuredHeight() + "--" + notDataHolder.mLlParent.getMeasuredHeight() + "--" +
+                                +mHeadLinearLayout.getMeasuredHeight() + "--"
+                                + (notDataHolder.itemView.getMeasuredHeight() - mHeadLinearLayout.getMeasuredHeight() > notDataHolder.mLlParent.getMeasuredHeight()));
+                        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) notDataHolder.itemView.getLayoutParams();
+                        int lastHeight = displayMetrics.heightPixels - mHeadLinearLayout.getMeasuredHeight();
+                        if (lastHeight > notDataHolder.mLlParent.getMeasuredHeight()){
+                            layoutParams.height = lastHeight;
+                            notDataHolder.mLlParent.setPadding(0, 0, 0, 0);
+                        }else {
+                            layoutParams.height = ViewGroup.MarginLayoutParams.WRAP_CONTENT;
+                            notDataHolder.mLlParent.setPadding(0, dp2px(mContext, 40), 0, dp2px(mContext, 40));
+                        }
+
+                        notDataHolder.itemView.setLayoutParams(layoutParams);
+                    }
+                });
+            }
         } else if (getItemViewType(i) == 0) {
 
 
@@ -251,6 +276,11 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
                 });
             }
         }
+    }
+
+    public int dp2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
     }
 
     protected abstract void onBindViewDataHolder(@NonNull VH viewHolder, int i);
@@ -273,6 +303,7 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
 
         private ImageView mIvNotData;
         private TextView mTvNotData;
+        private LinearLayout mLlParent;
 
         NotDataViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -282,8 +313,9 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
         private void initView(View itemView) {
             mIvNotData = itemView.findViewById(R.id.iv_not_data);
             mTvNotData = itemView.findViewById(R.id.tv_not_data);
+            mLlParent = itemView.findViewById(R.id.ll_parent);
             DisplayMetrics displayMetrics = itemView.getContext().getResources().getDisplayMetrics();
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(displayMetrics.widthPixels, LinearLayout.LayoutParams.MATCH_PARENT);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(displayMetrics.widthPixels, displayMetrics.heightPixels);
             itemView.setLayoutParams(layoutParams);
 
         }
