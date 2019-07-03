@@ -235,7 +235,8 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
     }
 
     public boolean isSelectorReferee() {
-        return mRefereeAdapter != null && mRefereeAdapter.isInviteReferee();
+      /*  return mRefereeAdapter != null && mRefereeAdapter.isInviteReferee();*/
+      return true;
     }
 
     private void setNextStatus() {
