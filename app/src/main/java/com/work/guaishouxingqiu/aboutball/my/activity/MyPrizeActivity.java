@@ -20,7 +20,11 @@ import com.work.guaishouxingqiu.aboutball.my.presenter.MyPrizePresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
+
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -70,9 +74,9 @@ public class MyPrizeActivity extends BaseActivity<MyPrizePresenter> implements M
 
     @Override
     protected void initData() {
-        String[] awardArray = getResources().getStringArray(R.array.award_status_array);
-        for (int i = 0; i < awardArray.length; i++) {
-            mTabTitle.addTab(mTabTitle.newTab().setText(awardArray[i]), i == 0);
+        List<String> tabData = Arrays.asList(getResources().getStringArray(R.array.award_status_array));
+        for (int i = 0; i < tabData.size(); i++) {
+            UIUtils.setBaseCustomTabLayout(mTabTitle,tabData.get(i),i== 0,45);
         }
         BasePrizeFragment waitPrizeFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_BASE_PRIZE, ARouterConfig.Key.KEY_STATUS, Contast.PRIZE_WAIT);
         waitPrizeFragment.setOnHasAddressResult(this::initHeadView);

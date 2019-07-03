@@ -22,6 +22,7 @@ import com.work.guaishouxingqiu.aboutball.community.adapter.CommunityDataAdapter
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.community.contract.CommunityAttentionContract;
 import com.work.guaishouxingqiu.aboutball.community.presenter.CommunityAttentionPresenter;
+import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 
@@ -51,6 +52,7 @@ public class CommunityAttentionFragment extends LoginOrShareFragment<CommunityAt
     private static final int REQUEST_CODE_PUBLISH_DYNAMIC = 122;
     private static final int REQUEST_CODE_TOPIC = 321;
     private int mSharePosition;
+
     public void setOnUpdateCommunity(OnUpdateCommunity onUpdateCommunity) {
         this.onUpdateCommunity = onUpdateCommunity;
     }
@@ -184,9 +186,10 @@ public class CommunityAttentionFragment extends LoginOrShareFragment<CommunityAt
     }
 
     public void notifyData(ResultCommunityDataBean bean) {
-        mViewModel.resultCommunityData(mAdapter, bean, mData,true);
+        mViewModel.resultCommunityData(mAdapter, bean, mData, true);
     }
-    public void autoRefresh(){
+
+    public void autoRefresh() {
         mSrlLayout.autoRefresh();
     }
 
@@ -272,17 +275,20 @@ public class CommunityAttentionFragment extends LoginOrShareFragment<CommunityAt
             }
         });*/
     }
+
     @Override
     public void resultShareWeiChat() {
         super.resultShareWeiChat();
         mPresenter.shareCommunityDynamic(mData.get(mSharePosition).tweetId);
     }
+
     @Override
     public void resultShareCommunityDynamic() {
         mData.get(mSharePosition).shareCount += 1;
         onEventUpdate(mData.get(mSharePosition));
         mAdapter.notifyDataSetChanged();
     }
+
     @Override
     public void resultDeleteDynamicSucceed(int position) {
         ResultCommunityDataBean bean = mData.get(position);
@@ -311,7 +317,7 @@ public class CommunityAttentionFragment extends LoginOrShareFragment<CommunityAt
                     }
                     ResultCommunityDataBean bean = data.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
                     // boolean isDelete = data.getBooleanExtra(ARouterConfig.Key.DELETE, false);
-                    mViewModel.resultCommunityData(mAdapter, bean, mData,true);
+                    mViewModel.resultCommunityData(mAdapter, bean, mData, true);
                     onEventUpdate(bean);
                     break;
                 case REQUEST_CODE_TOPIC:
@@ -356,7 +362,11 @@ public class CommunityAttentionFragment extends LoginOrShareFragment<CommunityAt
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_add_community:
-                ARouterIntent.startActivityForResult(this, DynamicEditActivity.class, CommunityAttentionFragment.REQUEST_CODE_PUBLISH_DYNAMIC);
+                if (UserManger.get().isLogin()) {
+                    ARouterIntent.startActivityForResult(this, DynamicEditActivity.class, CommunityAttentionFragment.REQUEST_CODE_PUBLISH_DYNAMIC);
+                } else {
+                    mViewModel.showLoginDialog();
+                }
                 break;
 
             default:

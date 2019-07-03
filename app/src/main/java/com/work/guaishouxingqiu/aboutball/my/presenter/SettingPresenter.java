@@ -85,7 +85,7 @@ public class SettingPresenter extends BasePresenter<SettingContract.View, Settin
             public void onError(Throwable e) {
 
             }
-        }));
+        },false));
 
 
     }
