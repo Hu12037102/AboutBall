@@ -17,9 +17,9 @@ import io.reactivex.schedulers.Schedulers;
  * 描述:赛事回顾model
  */
 public class MatchReviewModel extends BaseModel {
-    public void loadMatchReviewData(BaseObserver<List<ResultReviewBean>> observer) {
+    public void loadMatchReviewData(int pageNum,int pageSize,BaseObserver<List<ResultReviewBean>> observer) {
         mRetrofitManger.create(GameService.class)
-                .loadMatchReviewData()
+                .loadMatchReviewData(pageNum,pageSize)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

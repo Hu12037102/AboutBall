@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.game.presenter;
 
 import android.support.annotation.NonNull;
 
+import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
@@ -32,10 +33,14 @@ public class MatchReviewPresenter extends BasePresenter<MatchReviewContract.View
 
     @Override
     public void start() {
-        mModel.loadMatchReviewData(new BaseObserver<>(true, this, new BaseObserver.Observer<List<ResultReviewBean>>() {
+        if (isRefresh) {
+            mPageNum = Contast.DEFAULT_PAGE_NUM;
+        }
+        mModel.loadMatchReviewData(mPageNum, mPageSize, new BaseObserver<>(true, this, new BaseObserver.Observer<List<ResultReviewBean>>() {
             @Override
             public void onNext(BaseBean<List<ResultReviewBean>> t) {
                 if (DataUtils.isResultSure(t)) {
+                    mPageNum++;
                     mView.resultReviewData(t.result);
                 }
             }

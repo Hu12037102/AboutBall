@@ -20,6 +20,7 @@ public class ResultGameLiveDetailsBean {
         public String photoUrl;
         public String videoUrl;
         public String ordinal;
+        public boolean isCheck;
     }
 
 }

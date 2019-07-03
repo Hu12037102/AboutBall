@@ -26,8 +26,7 @@
         android:layout_height="@dimen/size_0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title_view"
-        app:srlEnableLoadMore="false">
+        app:layout_constraintTop_toBottomOf="@id/title_view">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_data"

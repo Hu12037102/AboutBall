@@ -53,8 +53,8 @@ public interface GameService {
 
     @GET(IApiService.GET_MATCH_RESULT_DATA)
     Observable<BaseBean<ResultGameDataBean>> loadGameResultData(@Query(Contast.MATCH_ID) int gameId,
-                                                                      @Query(Contast.PAGE_NUM) int pageNum,
-                                                                      @Query(Contast.PAGE_SIZE) int pageSize);
+                                                                @Query(Contast.PAGE_NUM) int pageNum,
+                                                                @Query(Contast.PAGE_SIZE) int pageSize);
 
     @GET(IApiService.GET_MATCH_COMMENT_LIST)
     Observable<BaseBean<List<ResultGameCommentBean>>> loadCommentList(@Query(Contast.MATCH_ID) int gameId,
@@ -91,7 +91,8 @@ public interface GameService {
     Observable<BaseBean<ResultGameLiveDetailsBean>> loadLookBackDetails(@Query(Contast.MATCH_ID) long matchId);
 
     @GET(IApiService.GET_MATCH_REVIEW_DATA)
-    Observable<BaseBean<List<ResultReviewBean>>>loadMatchReviewData();
+    Observable<BaseBean<List<ResultReviewBean>>> loadMatchReviewData(@Query(Contast.PAGE_NUM) int pageNum, @Query(Contast.PAGE_SIZE) int pageSize);
+
     @GET(IApiService.GET_MATCH_SCHEDULE_DATA)
     Observable<BaseBean<List<ResultGameScheduleBean>>> loadGameScheduleData(@Query(Contast.DATE) String date);
 }

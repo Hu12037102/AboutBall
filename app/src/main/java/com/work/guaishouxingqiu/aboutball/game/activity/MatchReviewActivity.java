@@ -11,6 +11,7 @@ import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.game.adapter.MatchReviewAdapter;
@@ -58,17 +59,27 @@ public class MatchReviewActivity extends BaseActivity<MatchReviewPresenter> impl
         mSrlRefresh.autoRefresh();
     }
 
-    private void loadData() {
-        mSrlRefresh.finishRefresh();
+    private void loadData(boolean isRefresh) {
+        mPresenter.isRefresh = isRefresh;
+        if (isRefresh) {
+            mSrlRefresh.finishRefresh();
+        } else {
+            mSrlRefresh.finishLoadMore();
+        }
         mPresenter.start();
     }
 
     @Override
     protected void initEvent() {
-        mSrlRefresh.setOnRefreshListener(new OnRefreshListener() {
+        mSrlRefresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                loadData(false);
+            }
+
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                loadData();
+                loadData(true);
             }
         });
         mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
@@ -97,7 +108,7 @@ public class MatchReviewActivity extends BaseActivity<MatchReviewPresenter> impl
 
     @Override
     public void resultReviewData(List<ResultReviewBean> data) {
-        if (mData.size() > 0) {
+        if (mData.size() > 0 && mPresenter.isRefresh) {
             mData.clear();
         }
         if (data.size() > 0) {

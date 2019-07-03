@@ -69,8 +69,9 @@ public class GameLookBackFragment extends BaseFragment<GameLookBackPresenter> im
         mRvData.setLayoutManager(new LinearLayoutManager(mContext));
         initHeadView();
     }
-    public void playCollectionVideo(){
-        if (onClickLookBackListener!=null && mVideoPath!=null){
+
+    public void playCollectionVideo() {
+        if (onClickLookBackListener != null && mVideoPath != null) {
             onClickLookBackListener.playCollectionVideo(mVideoPath);
         }
     }
@@ -87,7 +88,7 @@ public class GameLookBackFragment extends BaseFragment<GameLookBackPresenter> im
     @Override
     protected void initData() {
         mData = new ArrayList<>();
-        mAdapter = new RecommendedAdapter(mData,true);
+        mAdapter = new RecommendedAdapter(mData, true);
         mAdapter.addHeadView(mHeadView);
         mRvData.setAdapter(mAdapter);
         mSrlRefresh.autoRefresh();
@@ -165,6 +166,7 @@ public class GameLookBackFragment extends BaseFragment<GameLookBackPresenter> im
             mHeadData.addAll(bean.matchVideoList);
         }
         if (mHeadData.size() > 0 && onClickLookBackListener != null) {
+            mHeadData.get(0).isCheck = true;
             onClickLookBackListener.resultCollectionCount(mHeadData.size());
             onClickLookBackListener.playCollectionVideo(mHeadData.get(0).videoUrl);
         }

@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.game.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,10 +58,23 @@ public class GameLookBackHeadAdapter extends RecyclerView.Adapter<GameLookBackHe
         } else {
             marginLayoutParams.rightMargin = ScreenUtils.dp2px(mContext, 0);
         }
+        if (bean.isCheck) {
+            viewHolder.mTvContent.setTextColor(ContextCompat.getColor(mContext, R.color.color_2));
+        } else {
+            viewHolder.mTvContent.setTextColor(ContextCompat.getColor(mContext, R.color.color_4));
+        }
         viewHolder.itemView.setLayoutParams(marginLayoutParams);
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                for (int j = 0; j < mData.size(); j++) {
+                    if (i != j) {
+                        mData.get(j).isCheck = false;
+                    } else {
+                        bean.isCheck = true;
+                    }
+                }
+                notifyDataSetChanged();
                 if (onItemClickListener != null) {
                     onItemClickListener.onClickItem(v, i);
                 }
