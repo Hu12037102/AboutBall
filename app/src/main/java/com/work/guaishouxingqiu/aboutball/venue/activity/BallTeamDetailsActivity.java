@@ -15,6 +15,7 @@ import com.work.guaishouxingqiu.aboutball.my.adapter.BallDetailsChildAdapter;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.contract.BallTeamDetailsContract;
@@ -75,7 +76,7 @@ public class BallTeamDetailsActivity extends BaseActivity<BallTeamDetailsPresent
         initHeadView();
 
         mData = new ArrayList<>();
-        mAdapter = new BallDetailsChildAdapter(mData);
+        mAdapter = new BallDetailsChildAdapter(mData,false);
         mAdapter.addHeadView(mHeadView);
         mRvData.setAdapter(mAdapter);
         mSrlRefresh.autoRefresh();
@@ -109,17 +110,19 @@ public class BallTeamDetailsActivity extends BaseActivity<BallTeamDetailsPresent
         mAdapter.setOnBallDetailsClickListener(new BallDetailsChildAdapter.OnBallDetailsClickListener() {
             @Override
             public void onClickEvaluate(View view, int position) {
-                ResultBallDetailsBean.MatchBean bean = mData.get(position);
+               /* ResultBallDetailsBean.MatchBean bean = mData.get(position);
                 if (bean.hostTeamId == mTeamId) {
                     mViewModel.startActivityToPostEvaluation(bean.hostTeamId, bean.guestTeamId, bean.agreeId, bean.refereeId);
                 } else {
                     mViewModel.startActivityToPostEvaluation(bean.guestTeamId, bean.guestTeamId, bean.agreeId, bean.refereeId);
-                }
+                }*/
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_TEAM_EVALUATE,ARouterConfig.Key.ID,mTeamId);
             }
 
             @Override
             public void onClickRecord(View view, int position) {
-                mViewModel.startActivityToTeamMatchResult(mData.get(position));
+               // mViewModel.startActivityToTeamMatchResult(mData.get(position));
+
             }
 
         });

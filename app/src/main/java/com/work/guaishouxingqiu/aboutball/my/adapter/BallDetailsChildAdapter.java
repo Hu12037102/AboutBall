@@ -1,12 +1,14 @@
 package com.work.guaishouxingqiu.aboutball.my.adapter;
 
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.item.util.ScreenUtils;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
@@ -60,10 +62,10 @@ public class BallDetailsChildAdapter extends BaseRecyclerAdapter<BallDetailsChil
         viewHolder.mTvRightName.setText(bean.guestTeamName);
         if (mIsInputEvaluate) {
             viewHolder.mTvMatchRecords.setVisibility(View.VISIBLE);
-            viewHolder.mTvMatchEvaluate.setVisibility(View.VISIBLE);
+            //viewHolder.mTvMatchEvaluate.setVisibility(View.VISIBLE);
         } else {
             viewHolder.mTvMatchRecords.setVisibility(View.GONE);
-            viewHolder.mTvMatchEvaluate.setVisibility(View.GONE);
+            //viewHolder.mTvMatchEvaluate.setVisibility(View.GONE);
         }
         viewHolder.mTvMatchRecords.setOnClickListener(v -> {
             if (onBallDetailsClickListener != null) {
@@ -78,7 +80,11 @@ public class BallDetailsChildAdapter extends BaseRecyclerAdapter<BallDetailsChil
                 }
             }
         });
-
+        if (i == mData.size() - 1) {
+            viewHolder.mIncludeFoot.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.mIncludeFoot.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -96,6 +102,8 @@ public class BallDetailsChildAdapter extends BaseRecyclerAdapter<BallDetailsChil
         private TextView mTvRightName;
         private TextView mTvMatchRecords;
         private TextView mTvMatchEvaluate;
+        private View mIncludeFoot;
+        private CardView mCvCard;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -111,11 +119,14 @@ public class BallDetailsChildAdapter extends BaseRecyclerAdapter<BallDetailsChil
             mTvRightName = itemView.findViewById(R.id.tv_right_name);
             mTvMatchRecords = itemView.findViewById(R.id.tv_match_records);
             mTvMatchEvaluate = itemView.findViewById(R.id.tv_match_evaluate);
+            mIncludeFoot = itemView.findViewById(R.id.include_foot);
+            mCvCard = itemView.findViewById(R.id.cv_card);
         }
     }
 
     public interface OnBallDetailsClickListener {
         void onClickEvaluate(View view, int position);
+
         void onClickRecord(View view, int position);
        /* void onClickJudgeReferee(View view, int position);
 

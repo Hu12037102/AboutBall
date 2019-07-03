@@ -12,11 +12,11 @@
         app:back_left_drawable="@mipmap/icon_back"
         app:back_text_padding_left="@dimen/default_margin"
         app:back_text_padding_right="@dimen/default_margin"
+        app:center_data="@string/judge"
         app:center_text_color="@color/color_4"
         app:center_text_size="@dimen/size_18sp"
-        app:center_data="@string/judge"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title_show_bottom_line="true"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_content"
         android:layout_width="wrap_content"
@@ -24,19 +24,22 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title_view"
-        app:tabIndicatorHeight="@dimen/size_0dp"
-        />
+        app:tabIndicatorHeight="@dimen/size_0dp" />
 
+    <View
+        android:id="@+id/top_line"
+        style="@style/HorizontalLine"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tab_content" />
 
     <include
         android:id="@+id/include_bottom"
         layout="@layout/include_bottom_click_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:visibility="gone"
-       />
-
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 
     <com.work.guaishouxingqiu.aboutball.weight.BaseViewPager
@@ -44,6 +47,5 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_0dp"
         app:layout_constraintBottom_toTopOf="@id/include_bottom"
-        app:layout_constraintTop_toBottomOf="@id/tab_content"
-        />
+        app:layout_constraintTop_toBottomOf="@id/top_line" />
 </android.support.constraint.ConstraintLayout>

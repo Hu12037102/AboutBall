@@ -72,6 +72,7 @@ public interface ARouterConfig {
         String ACTIVITY_GAME_INFO = "/activity/game/info";
         String ACTIVITY_MATCH_REVIEW = "/activity/match/review";
         String ACTIVITY_TEAM_MATCH_RESULT = "/activity/team/match/result";
+        String ACTIVITY_MY_TEAM_EVALUATE = "/activity/my/team/evaluate";
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";
