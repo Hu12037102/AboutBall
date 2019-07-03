@@ -315,7 +315,7 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
             mTvNotData = itemView.findViewById(R.id.tv_not_data);
             mLlParent = itemView.findViewById(R.id.ll_parent);
             DisplayMetrics displayMetrics = itemView.getContext().getResources().getDisplayMetrics();
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(displayMetrics.widthPixels, displayMetrics.heightPixels);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(displayMetrics.widthPixels, LinearLayout.LayoutParams.MATCH_PARENT);
             itemView.setLayoutParams(layoutParams);
 
         }

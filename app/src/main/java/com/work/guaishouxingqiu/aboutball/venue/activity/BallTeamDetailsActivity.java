@@ -75,7 +75,7 @@ public class BallTeamDetailsActivity extends BaseActivity<BallTeamDetailsPresent
         initHeadView();
 
         mData = new ArrayList<>();
-        mAdapter = new BallDetailsChildAdapter(mData, false);
+        mAdapter = new BallDetailsChildAdapter(mData);
         mAdapter.addHeadView(mHeadView);
         mRvData.setAdapter(mAdapter);
         mSrlRefresh.autoRefresh();
@@ -119,7 +119,7 @@ public class BallTeamDetailsActivity extends BaseActivity<BallTeamDetailsPresent
 
             @Override
             public void onClickRecord(View view, int position) {
-
+                mViewModel.startActivityToTeamMatchResult(mData.get(position));
             }
 
         });
