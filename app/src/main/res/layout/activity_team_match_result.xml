@@ -19,9 +19,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title_show_bottom_line="true"/>
+        app:title_show_bottom_line="true" />
 
-    <android.support.design.widget.NavigationView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -41,37 +41,37 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/size_15dp"
                     android:layout_marginLeft="@dimen/size_20dp"
-                    android:layout_marginRight="@dimen/default_margin">
+                    android:layout_marginRight="@dimen/default_margin"
+                    android:layout_marginTop="@dimen/size_15dp">
 
                     <TextView
                         android:id="@+id/tv_vs"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
+                        android:layout_centerVertical="true"
                         android:text="@string/vs"
                         android:textColor="@color/color_4"
-                        android:textSize="@dimen/size_16sp"
-                        android:layout_centerVertical="true"/>
+                        android:textSize="@dimen/size_16sp" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/civ_left"
                         android:layout_width="@dimen/size_30dp"
                         android:layout_height="@dimen/size_30dp"
-                        android:contentDescription="@null"
-                        android:layout_centerVertical="true"/>
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@null" />
 
                     <TextView
                         android:id="@+id/tv_host"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@id/tv_vs"
-                        android:layout_toRightOf="@id/civ_left"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/size_10dp"
                         android:layout_marginRight="@dimen/size_10dp"
-                        tools:text="胡家刀对"
-                        android:layout_centerVertical="true"/>
+                        android:layout_toLeftOf="@id/tv_vs"
+                        android:layout_toRightOf="@id/civ_left"
+                        tools:text="胡家刀对" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/civ_right"
@@ -79,22 +79,34 @@
                         android:layout_height="@dimen/size_30dp"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
-                        android:contentDescription="@null"
-                        android:layout_centerVertical="true"/>
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@null" />
+
                     <TextView
                         android:id="@+id/tv_guest"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/tv_vs"
-                        android:layout_toLeftOf="@id/civ_right"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/size_10dp"
                         android:layout_marginRight="@dimen/size_10dp"
-                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@id/civ_right"
+                        android:layout_toRightOf="@id/tv_vs"
                         android:gravity="right"
                         tools:text="胡家刀对" />
 
 
                 </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="@dimen/size_10dp"
+                    android:layout_marginTop="@dimen/size_30dp"
+                    android:text="@string/start"
+                    android:textColor="@color/color_4"
+                    android:textSize="@dimen/size_12sp" />
 
 
                 <android.support.v7.widget.RecyclerView
@@ -103,5 +115,5 @@
                     android:layout_height="match_parent" />
             </LinearLayout>
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-    </android.support.design.widget.NavigationView>
+    </android.support.v4.widget.NestedScrollView>
 </android.support.constraint.ConstraintLayout>

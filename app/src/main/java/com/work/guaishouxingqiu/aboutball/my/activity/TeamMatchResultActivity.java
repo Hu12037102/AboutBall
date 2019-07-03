@@ -18,7 +18,9 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.game.adapter.GameDataAdapter;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataResultBean;
+import com.work.guaishouxingqiu.aboutball.my.adapter.MyGameRecordAdapter;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyGameRecordBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.TeamMatchResultContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.TeamMatchResultPresenter;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
@@ -57,9 +59,11 @@ public class TeamMatchResultActivity extends BaseActivity<TeamMatchResultPresent
     CircleImageView mCivRight;
     @BindView(R.id.tv_guest)
     TextView mTvGuest;
+    @BindView(R.id.tv_start)
+    TextView mTvStart;
     private ResultBallDetailsBean.MatchBean mIntentBean;
-    private List<ResultGameDataResultBean> mData;
-    private GameDataAdapter mResultAdapter;
+    private List<ResultMyGameRecordBean> mData;
+    private MyGameRecordAdapter mResultAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -79,6 +83,7 @@ public class TeamMatchResultActivity extends BaseActivity<TeamMatchResultPresent
 
     @Override
     protected void initView() {
+        mTvStart.setVisibility(View.GONE);
         mRvData.setLayoutManager(new LinearLayoutManager(this));
         UIUtils.setText(mTvHost, mIntentBean.hostTeamName);
         UIUtils.setText(mTvGuest, mIntentBean.guestTeamName);
@@ -90,14 +95,16 @@ public class TeamMatchResultActivity extends BaseActivity<TeamMatchResultPresent
     @Override
     protected void initData() {
         mData = new ArrayList<>();
-        mResultAdapter = new GameDataAdapter(mData);
+        //mResultAdapter = new GameDataAdapter(mData);
+        mResultAdapter = new MyGameRecordAdapter(mData);
         mRvData.setAdapter(mResultAdapter);
         mSrlRefresh.autoRefresh();
     }
 
     private void loadData() {
         mSrlRefresh.finishRefresh();
-        mPresenter.loadGameResultDetails(mIntentBean.matchId);
+        //  mPresenter.loadGameResultDetails(mIntentBean.matchId);
+        mPresenter.loadMyGameResultDetails(mIntentBean.agreeId);
     }
 
     @Override
@@ -131,12 +138,20 @@ public class TeamMatchResultActivity extends BaseActivity<TeamMatchResultPresent
         return new TeamMatchResultPresenter(this);
     }
 
+
     @Override
-    public void resultGameResultDetails(List<ResultGameDataResultBean> data) {
+    public void resultMyGameResultDetails(List<ResultMyGameRecordBean> data) {
         mData.clear();
-        mData.addAll(data);
+
+        if (data.size() > 0) {
+            mData.addAll(data);
+        }
+        if (mData.size() > 0) {
+            mTvStart.setVisibility(View.VISIBLE);
+        }else {
+            mTvStart.setVisibility(View.GONE);
+        }
+
         mResultAdapter.notifyDataSetChanged();
     }
-
-
 }

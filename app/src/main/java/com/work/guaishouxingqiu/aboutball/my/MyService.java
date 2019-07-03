@@ -30,6 +30,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultInputEvaluationBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMatchRefereeResultBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyAddress;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyBallBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyGameRecordBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyOrderBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultPrizeBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeDetailsBean;
@@ -210,6 +211,7 @@ public interface MyService {
 
     @POST(IApiService.POST_EDIT_REFEREE_RECORD)
     Observable<BaseBean<BaseDataBean<String>>> editRefereePlayerRecord(@Body RequestAddRecordBean bean);
+
     @GET(IApiService.GET_REFEREE_RECORD_DETAILS)
     Observable<BaseBean<ResultRefereeRecordDetailsBean>> getRefereeRecordDetails(@Query(Contast.AGREE_ID) long agreeId);
 
@@ -224,6 +226,10 @@ public interface MyService {
 
     @POST(IApiService.POST_UPDATE_PHONE_NUMBER)
     Observable<BaseBean<String>> updatePhoneNumber(@Body RequestUpdatePhoneBean bean);
+
     @GET(IApiService.GET_DELETE_REFEREE_MATCH_RECORD)
     Observable<BaseBean<BaseDataBean<String>>> deleteRefereeMathRecord(@Query(Contast.OUTS_ID) long outsId);
+
+    @GET(IApiService.GET_MY_TEAM_MATCH_RECORD)
+    Observable<BaseBean<List<ResultMyGameRecordBean>>> getMyGameRecordDetails(@Query(Contast.AGREE_ID) long agreeId);
 }
