@@ -18,6 +18,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.util.ScreenUtils;
 import com.example.item.weight.ItemView;
 import com.example.item.weight.TitleView;
+import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.CameraActivity;
@@ -29,6 +30,7 @@ import com.work.guaishouxingqiu.aboutball.my.contract.ApplyBecomeRefereeContract
 import com.work.guaishouxingqiu.aboutball.my.presenter.ApplyBecomeRefereePresenter;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.other.OSSRequestHelp;
+import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
@@ -344,6 +346,7 @@ public class ApplyBecomeRefereeActivity extends CameraActivity<ApplyBecomeRefere
     public void resultCommitRefereeCredential() {
         mBvpContent.setCurrentItem(MAX_PAGER_COUNT - 1, true);
         mTvNext.setVisibility(View.GONE);
+        UserManger.get().putRefereeStatus(Contast.RefereeStatus.REFEREE_0);
     }
 
     class RefereeAdapter extends PagerAdapter {

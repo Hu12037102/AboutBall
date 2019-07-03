@@ -23,5 +23,5 @@ public class UserBean {
     public String weChatOpenId;
     public int followCount;
     public int fansCount;
-    public int isReferee;
+    public Integer isReferee;
 }

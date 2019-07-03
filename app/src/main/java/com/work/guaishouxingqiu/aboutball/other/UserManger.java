@@ -95,13 +95,17 @@ public class UserManger {
     public void putFansCount(int count) {
         mSP.putObject(KEY_FANS_COUNT, count);
     }
-    public int getFansCount(){ return mSP.getInt(KEY_FANS_COUNT);}
+
+    public int getFansCount() {
+        return mSP.getInt(KEY_FANS_COUNT);
+    }
+
     public int getFollowCount() {
         return mSP.getInt(KEY_FOLLOW_COUNT);
     }
 
     public int getRefereeStatus() {
-        return mSP.getInt(KEY_IS_REFEREE);
+        return mSP.getInt(KEY_IS_REFEREE, -1);
     }
 
     public void putWeiChatOpenId(String signCode) {
@@ -160,7 +164,9 @@ public class UserManger {
         }
         mSP.putObject(UserManger.KEY_FOLLOW_COUNT, userBean.followCount);
         mSP.putObject(UserManger.KEY_FANS_COUNT, userBean.fansCount);
-        mSP.putObject(UserManger.KEY_IS_REFEREE, userBean.isReferee);
+        if (userBean.isReferee != null) {
+            mSP.putObject(UserManger.KEY_IS_REFEREE, userBean.isReferee);
+        }
 
     }
 
@@ -194,7 +200,12 @@ public class UserManger {
     public boolean isWeiChatId() {
         return !DataUtils.isEmpty(mSP.getString(UserManger.KEY_WECHAT_OPEN_ID));
     }
-    public String getWeiChatName(){
+
+    public String getWeiChatName() {
         return mSP.getString(UserManger.KEY_WECHAT_USER_NAME);
+    }
+
+    public void putRefereeStatus(int refereeStatus) {
+        mSP.putObject(UserManger.KEY_IS_REFEREE, refereeStatus);
     }
 }

@@ -65,7 +65,7 @@ public interface Contast {
     String TIPS_REASON = "tipsReason";
     String TOPIC_ID = "topicId";
     String GAME_ID = "gameId";
-    String GROUP_ID="groupId";
+    String GROUP_ID = "groupId";
     //默认经度
     double DEFAULT_LONGITUDE = 115.770000;
     //默认纬度
@@ -200,4 +200,6 @@ public interface Contast {
         int TEAMMATE = 3;//队友评论
         int MY_REFEREE = 0;//我的裁判评论
     }
+
+
 }

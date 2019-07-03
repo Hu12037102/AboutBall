@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.ItemView;
 import com.example.item.weight.TitleView;
+import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
@@ -218,7 +219,7 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
         } else {
             mItemAsReferee.setTitleText(R.string.my_as_the_referee);
         }
-        mMyRefereeStatus = UserManger.get().getRefereeStatus() == 0 ? null : UserManger.get().getRefereeStatus();
+        mMyRefereeStatus = UserManger.get().getRefereeStatus() == -1 ? null : UserManger.get().getRefereeStatus();
 
 
     }
@@ -297,7 +298,7 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
     public void resultRefereeStatus(Integer status) {
         mMyRefereeStatus = status;
         mItemAsReferee.setVisibility(View.VISIBLE);
-        if (status != null && status == 1) {
+        if (status != null && status == Contast.RefereeStatus.REFEREE_1) {
             mItemAsReferee.setTitleText(R.string.my_referee_record);
         } else {
             mItemAsReferee.setTitleText(R.string.my_as_the_referee);
