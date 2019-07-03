@@ -19,6 +19,7 @@ import com.work.guaishouxingqiu.aboutball.community.adapter.CommunityDataAdapter
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.community.contract.CommunityNewsContract;
 import com.work.guaishouxingqiu.aboutball.community.presenter.CommunityNewsPresenter;
+import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
@@ -209,7 +210,11 @@ public class CommunityNewFragment extends LoginOrShareFragment<CommunityNewsPres
     public void onClickView(View view) {
         switch (view.getId()) {
             case R.id.iv_add_community:
-                ARouterIntent.startActivityForResult(this, DynamicEditActivity.class, CommunityNewFragment.REQUEST_CODE_PUBLISH_DYNAMIC);
+                if (UserManger.get().isLogin()) {
+                    ARouterIntent.startActivityForResult(this, DynamicEditActivity.class, CommunityNewFragment.REQUEST_CODE_PUBLISH_DYNAMIC);
+                } else {
+                    mViewModel.showLoginDialog();
+                }
                 break;
         }
     }

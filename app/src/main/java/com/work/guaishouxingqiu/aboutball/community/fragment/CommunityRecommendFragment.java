@@ -19,21 +19,20 @@ import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
-import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
 import com.work.guaishouxingqiu.aboutball.commonality.fragment.LoginOrShareFragment;
+import com.work.guaishouxingqiu.aboutball.community.activity.DynamicEditActivity;
 import com.work.guaishouxingqiu.aboutball.community.adapter.CommunityDataAdapter;
 import com.work.guaishouxingqiu.aboutball.community.adapter.CommunityRecommendPagerAdapter;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultRecommendHotBean;
 import com.work.guaishouxingqiu.aboutball.community.contract.CommunityRecommendContract;
 import com.work.guaishouxingqiu.aboutball.community.presenter.CommunityRecommendPresenter;
+import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
-import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
 
 import java.util.ArrayList;
@@ -41,6 +40,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -57,12 +57,14 @@ public class CommunityRecommendFragment extends LoginOrShareFragment<CommunityRe
     RecyclerView mRvData;
     @BindView(R.id.srl_refresh)
     SmartRefreshLayout mSrlRefresh;
+    Unbinder unbinder;
     private CommunityDataAdapter mAdapter;
     private List<ResultCommunityDataBean> mData;
     private View mHeadView;
     private static final int WHAT = 100;
     private boolean mIsSendMessage;
     private int mSharePosition;
+    private static final int REQUEST_CODE_PUBLISH_DYNAMIC =178;
 
     public void setOnUpdateCommunity(OnUpdateCommunity onUpdateCommunity) {
         this.onUpdateCommunity = onUpdateCommunity;
@@ -229,7 +231,8 @@ public class CommunityRecommendFragment extends LoginOrShareFragment<CommunityRe
     public void notifyData(ResultCommunityDataBean bean) {
         mViewModel.resultCommunityData(mAdapter, bean, mData);
     }
-    public void autoRefresh(){
+
+    public void autoRefresh() {
         mSrlRefresh.autoRefresh();
     }
 
@@ -387,9 +390,9 @@ public class CommunityRecommendFragment extends LoginOrShareFragment<CommunityRe
         } else {
             mHeadAdapter.notifyDataSetChanged();
         }
-        if (mHeadData.size() ==0){
+        if (mHeadData.size() == 0) {
             mHeadView.setVisibility(View.GONE);
-        }else {
+        } else {
             mHeadView.setVisibility(View.VISIBLE);
         }
         mHeadAdapter.setOnItemClickListener(new OnItemClickListener() {
@@ -439,7 +442,9 @@ public class CommunityRecommendFragment extends LoginOrShareFragment<CommunityRe
                     onEventUpdate(bean);
                     break;
                 case REQUEST_CODE_TOPIC:
+                case CommunityRecommendFragment.REQUEST_CODE_PUBLISH_DYNAMIC:
                     mSrlRefresh.autoRefresh();
+                    break;
                 default:
                     break;
             }
@@ -452,6 +457,23 @@ public class CommunityRecommendFragment extends LoginOrShareFragment<CommunityRe
         if (onUpdateCommunity != null) {
             onUpdateCommunity.updateNew(bean);
             onUpdateCommunity.updateAttention(bean);
+        }
+    }
+
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @OnClick(R.id.iv_add_community)
+    public void onViewClicked() {
+        if (UserManger.get().isLogin()) {
+            ARouterIntent.startActivityForResult(this, DynamicEditActivity.class, CommunityRecommendFragment.REQUEST_CODE_PUBLISH_DYNAMIC);
+        } else {
+            mViewModel.showLoginDialog();
         }
     }
 
