@@ -59,9 +59,9 @@ public class MyGameRecordAdapter  extends BaseRecyclerAdapter<MyGameRecordAdapte
         } else {
             viewHolder.mLineTop.setVisibility(View.GONE);
             if (bean.isHostTeam == TYPE_HOST) {
-                addTimeStatusView(viewHolder.mLlHost, bean.isHostTeam, bean);
+                addTimeStatusView(viewHolder.mLlHost, TYPE_HOST, bean);
             } else if (bean.isHostTeam == TYPE_GUEST) {
-                addTimeStatusView(viewHolder.mLlGuest, bean.isHostTeam, bean);
+                addTimeStatusView(viewHolder.mLlGuest, TYPE_GUEST, bean);
             }
         }
 
