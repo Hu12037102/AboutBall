@@ -25,6 +25,7 @@ import java.io.InputStreamReader;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -400,5 +401,15 @@ public class DataUtils {
             }
         }
         return false;
+    }
+
+    public static List<String> getImageUrlData(String imageUrl) {
+        List<String> imageUrlData = new ArrayList<>();
+        if (!DataUtils.isEmpty(imageUrl)) {
+            String[] urlArray = imageUrl.split(",");
+            imageUrlData.addAll(Arrays.asList(urlArray));
+            return imageUrlData;
+        }
+        return imageUrlData;
     }
 }

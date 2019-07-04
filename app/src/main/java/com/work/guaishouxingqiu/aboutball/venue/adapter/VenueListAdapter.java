@@ -12,6 +12,7 @@ import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueData;
 
 import java.util.List;
@@ -37,9 +38,11 @@ public class VenueListAdapter extends BaseRecyclerAdapter<VenueListAdapter.ViewH
     protected void onBindViewDataHolder(@NonNull ViewHolder viewHolder, int i) {
         ResultVenueData bean = mData.get(i);
         viewHolder.mTvName.setText(bean.stadiumName);
-        GlideManger.get().loadImage(viewHolder.itemView.getContext(), bean.photoUrl,
-                R.drawable.shape_item_recommend_preview_item, R.drawable.shape_item_recommend_preview_item,
-                viewHolder.mRivData);
+        if (DataUtils.getImageUrlData(bean.photoUrl).size() > 0) {
+            GlideManger.get().loadBannerImage(mContext, DataUtils.getImageUrlData(bean.photoUrl).get(0), viewHolder.mRivData);
+        } else {
+            GlideManger.get().loadBannerImage(mContext, bean.photoUrl, viewHolder.mRivData);
+        }
         viewHolder.mTvGrade.setText(String.valueOf(bean.grade).concat("分"));
         viewHolder.mRbGrade.setRating(bean.grade);
         if (bean.location != null && bean.distance != null) {

@@ -170,12 +170,12 @@ public class VenueListFragment extends BaseFragment<VenueListPresenter> implemen
             mListAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
                 @Override
                 public void onNotNetClick(View view) {
-
+                    mSrlRefresh.autoRefresh();
                 }
 
                 @Override
                 public void onNotDataClick(View view) {
-
+                    mSrlRefresh.autoRefresh();
                 }
 
                 @Override
