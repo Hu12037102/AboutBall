@@ -72,6 +72,7 @@ public class ViewModel {
     private HintDialog mNotLoginDialog;
     private HintDialog mCancelOrderDialog;
     private UpdateApkDialog mUpdateDialog;
+    private HintDialog mCreateDialog;
 
     static ViewModel createViewModel(Activity activity) {
         return new ViewModel(activity);
@@ -666,6 +667,31 @@ public class ViewModel {
         String shareUrl = IApiService.H5.ABOUT_BALL_DETAILS + "?" + ARouterConfig.Key.SHARE_ID + "=" + agreeId + "&" + ARouterConfig.Key.SHARE_TYPE + "=" + IApiService.TypeId.ABOUT_DETAILS;
         String content = date + " " + address;
         return getShareBean(UIUtils.getString(R.string.share_about_about_details_title), content, shareUrl);
+    }
+
+    public void showCreateTeamDialog() {
+        if (mCreateDialog == null) {
+            mCreateDialog = new HintDialog.Builder(mSoftActivity.get())
+                    .setTitle(R.string.hint)
+                    .setBody(R.string.you_are_not_captain_to_create_team)
+                    .setShowSingButton(false)
+                    .builder();
+        }
+        if (!mCreateDialog.isShowing()) {
+            mCreateDialog.show();
+        }
+        mCreateDialog.setOnItemClickSureAndCancelListener(new BaseDialog.OnItemClickSureAndCancelListener() {
+            @Override
+            public void onClickSure(@NonNull View view) {
+                ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_MANAGE_BALL_TEAM, mSoftActivity.get());
+                mCreateDialog.dismiss();
+            }
+
+            @Override
+            public void onClickCancel(@NonNull View view) {
+                mCreateDialog.dismiss();
+            }
+        });
     }
 
 }

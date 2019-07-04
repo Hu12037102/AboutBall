@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">踢球么</string>
-    <!-- <string name="app_name">踢球么测试版</string>-->
+    <!--<string name="app_name">踢球么</string>-->
+     <string name="app_name">踢球么测试版</string>
     <string name="me">我</string>
     <string name="my_about_ball">我的约球</string>
     <string name="my_order">我的订单</string>
@@ -286,6 +286,7 @@
     <string name="make_a_block_booking_rule">包场为支付全场费用,不支持广场约球</string>
     <string name="money_make_booking">¥%s&#160;&#160;包场</string>
     <string name="post_about_ball">发起约球</string>
+    <string name="s_post_about_ball">¥%s&#160;&#160;发起约球</string>
     <string name="post_ball_hint">约球功能会将您的约球信息自动发布至广场，开球前一天没有球队应邀，则退款并关闭此约球。</string>
     <string name="one_post_about_ball">1发起约球</string>
     <string name="two_sure_order">2确认订单</string>
@@ -596,6 +597,6 @@
     <string name="about_ball_rule_5">如果您选择了约球，但是在比赛当天违约没有到场进行比赛，我们将不会给您退款</string>
     <string name="about_ball_rule_6">发起约球或参加约球如有特殊情况可以在比赛前24小时进行取消，我们将给您退全款</string>
     <string name="situation">特殊情况</string>
-
+    <string name="you_are_not_captain_to_create_team">您不是球队队长，是否前往创建球队</string>
 
 </resources>

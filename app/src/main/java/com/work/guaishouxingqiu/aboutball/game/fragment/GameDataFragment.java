@@ -232,7 +232,7 @@ public class GameDataFragment extends DelayedFragment<GameDataPresenter> impleme
         ResultGameDetailsBean.Bean detailsOffsideBean = new ResultGameDetailsBean.Bean();
         detailsOffsideBean.statsName = UIUtils.getString(R.string.offside);
         detailsOffsideBean.hostValue = bean == null ? 0 : bean.host.offside;
-        detailsOffsideBean.guestValue = bean == null ? 0 : bean.host.offside;
+        detailsOffsideBean.guestValue = bean == null ? 0 : bean.guest.offside;
         mHeadData.add(detailsOffsideBean);
 
         ResultGameDetailsBean.Bean detailsFoulBean = new ResultGameDetailsBean.Bean();

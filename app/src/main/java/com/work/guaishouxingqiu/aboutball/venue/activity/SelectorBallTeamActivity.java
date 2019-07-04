@@ -81,12 +81,12 @@ public class SelectorBallTeamActivity extends BaseActivity<SelectorBallTeamPrese
         mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onNotNetClick(View view) {
-
+                mPresenter.start();
             }
 
             @Override
             public void onNotDataClick(View view) {
-
+                mPresenter.start();
             }
 
             @Override
@@ -118,7 +118,10 @@ public class SelectorBallTeamActivity extends BaseActivity<SelectorBallTeamPrese
                 bean.isCheck = true;
             }
         }
-        mAdapter.notifyItemRangeChanged(0, mData.size());
+        mAdapter.notifyDataSetChanged();
+        if (mData.size() == 0) {
+            mViewModel.showCreateTeamDialog();
+        }
 
     }
 

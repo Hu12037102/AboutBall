@@ -100,7 +100,7 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
         }
         mIncludeRuleView.setBackgroundResource(R.color.colorFFEBF0FF);
         mIvClose.setImageResource(R.mipmap.icon_item_right);
-        mTvRule.setTextColor(ContextCompat.getColor(this,R.color.color_2));
+        mTvRule.setTextColor(ContextCompat.getColor(this, R.color.color_2));
         mTabPosition = bundle.getInt(ARouterConfig.Key.POSITION, 0);
         mAreaId = bundle.getLong(ARouterConfig.Key.AREA_ID, 0);
         mStadiumId = bundle.getLong(ARouterConfig.Key.STADIUM_ID, 0);
@@ -246,7 +246,7 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
     }
 
 
-    @OnClick({ R.id.tv_rule, R.id.tv_bottom_left, R.id.tv_bottom_right})
+    @OnClick({R.id.tv_rule, R.id.tv_bottom_left, R.id.tv_bottom_right})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -317,7 +317,6 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
     }
 
 
-
     class BookPagerAdapter extends PagerAdapter {
 
         private int mChildCount;
@@ -358,10 +357,11 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
 
                             @Override
                             public void onItemClick(View view, int position) {
+                                ResultVenueBookBean bean = mBookData.get(position);
                                 if (mBookAdapter.getCheckData().size() > 0) {
                                     mTvBottomLeft.setText(UIUtils.getString(R.string.money_make_booking, (DataUtils.getMoneyFormats(mBookData.get(position).price) * mBookAdapter.getCheckData().size())));
                                     mLlBottom.setVisibility(View.VISIBLE);
-                                    mTvBottomRight.setText(R.string.post_about_ball);
+                                    mTvBottomRight.setText(UIUtils.getString(R.string.s_post_about_ball, DataUtils.getMoneyFormats(mBookData.get(position).price / 2f)));
                                     if (mBookAdapter.getCheckData().size() > 1) {
                                         mTvBottomRight.setEnabled(false);
                                         mTvBottomRight.setBackgroundResource(R.drawable.shape_default_button);
