@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.community.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -175,8 +176,10 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
         UIUtils.setCommunityCount(viewHolder.mTvShare, bean.shareCount);
         if (bean.hasPraise == 1) {
             viewHolder.mTvLikeNum.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_like, 0, 0, 0);
+            viewHolder.mTvLikeNum.setTextColor(ContextCompat.getColor(mContext,R.color.color_2));
         } else {
             viewHolder.mTvLikeNum.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_no_like, 0, 0, 0);
+            viewHolder.mTvLikeNum.setTextColor(ContextCompat.getColor(mContext,R.color.color_3));
         }
         viewHolder.mLlLike.setOnClickListener(new View.OnClickListener() {
             @Override

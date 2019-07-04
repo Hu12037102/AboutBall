@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -584,8 +585,10 @@ public class CommunityDetailsActivity extends LoginOrShareActivity<CommunityDeta
         UIUtils.setCommunityCount(mTvHeadLikeNum, mIntentBean.praiseCount);
         if (mIntentBean.hasPraise == 1) {
             mTvHeadLikeNum.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_like, 0, 0, 0);
+            mTvHeadLikeNum.setTextColor(ContextCompat.getColor(this,R.color.color_2));
         } else {
             mTvHeadLikeNum.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_no_like, 0, 0, 0);
+            mTvHeadLikeNum.setTextColor(ContextCompat.getColor(this,R.color.color_3));
         }
     }
 
