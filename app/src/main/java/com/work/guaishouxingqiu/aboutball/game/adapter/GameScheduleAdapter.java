@@ -64,7 +64,7 @@ public class GameScheduleAdapter extends BaseRecyclerAdapter<GameScheduleAdapter
                 View inflateTeamView = LayoutInflater.from(mContext).inflate(R.layout.item_game_schedule_team_view, viewHolder.mLlTeam, false);
                 viewHolder.mLlTeam.addView(inflateTeamView);
                 ImageView ivLogo = inflateTeamView.findViewById(R.id.iv_logo);
-                ivLogo.setImageResource(R.mipmap.icon_default_logo);
+                ivLogo.setImageResource(R.mipmap.icon_venue_ball_rule);
                 TextView tvGameName = inflateTeamView.findViewById(R.id.tv_game_name);
                 UIUtils.setText(tvGameName, matchBean.gameName);
                 LinearLayout llContent = inflateTeamView.findViewById(R.id.ll_content);
