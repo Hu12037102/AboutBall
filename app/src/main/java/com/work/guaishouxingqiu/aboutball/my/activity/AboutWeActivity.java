@@ -14,6 +14,7 @@ import com.work.guaishouxingqiu.aboutball.my.contract.AboutWeContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.AboutWePresenter;
 import com.work.guaishouxingqiu.aboutball.other.DownloadApkHelp;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.PhoneUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
@@ -73,8 +74,14 @@ public class AboutWeActivity extends BaseActivity<AboutWePresenter> implements A
             if (mUpdateBean == null) {
                 mPresenter.updateApkInfo(DownloadApkHelp.getVersionName(this));
             } else {
-              //  showUpdateDialog(mUpdateBean);
-                mViewModel.showUpdateDialog(this,mUpdateBean);
+                //  showUpdateDialog(mUpdateBean);
+                mViewModel.showUpdateDialog(this, mUpdateBean);
+            }
+        });
+        mItemVersions.setOnItemClickListener(new ItemView.OnItemClickListener() {
+            @Override
+            public void onClickItem(View view) {
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VERSION_HISTORY);
             }
         });
     }
@@ -101,7 +108,7 @@ public class AboutWeActivity extends BaseActivity<AboutWePresenter> implements A
 
     @Override
     public void resultApkInfo(ResultUpdateApkBean bean) {
-       // showUpdateDialog(bean);
-        mViewModel.showUpdateDialog(this,bean);
+        // showUpdateDialog(bean);
+        mViewModel.showUpdateDialog(this, bean);
     }
 }

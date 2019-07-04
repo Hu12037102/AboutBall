@@ -41,6 +41,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundCauseBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultTeamDetailsMemberBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultVersionHistoryBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 
 import java.util.List;
@@ -232,4 +233,9 @@ public interface MyService {
 
     @GET(IApiService.GET_MY_TEAM_MATCH_RECORD)
     Observable<BaseBean<List<ResultMyGameRecordBean>>> getMyGameRecordDetails(@Query(Contast.AGREE_ID) long agreeId);
+
+    @GET(IApiService.GET_VERSION_HISTORY_DETAILS)
+    Observable<BaseBean<List<ResultVersionHistoryBean>>> getVersionHistoryData(@Query(Contast.PAGE_NUM) int pageNum,
+                                                                               @Query(Contast.PAGE_SIZE) int pageSize,
+                                                                               @Query(Contast.PHONE_MODEL) String phoneModel);
 }

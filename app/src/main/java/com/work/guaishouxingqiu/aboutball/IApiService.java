@@ -166,6 +166,7 @@ public interface IApiService {
     String GET_REFEREE_RECORD_DETAILS = "/api/referee/getAgreeOuts";
     String GET_DELETE_REFEREE_MATCH_RECORD = "/api/referee/removeAgreeOuts";
     String GET_MY_TEAM_MATCH_RECORD="/api/myTeam/getMyAgreeOuts";
+    String GET_VERSION_HISTORY_DETAILS="/api/commons/getVersionExplain";
 
     interface H5 {
        // String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";

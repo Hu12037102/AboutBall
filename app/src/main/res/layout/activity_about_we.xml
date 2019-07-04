@@ -4,78 +4,79 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/colorTheme">
+    android:background="@color/colorTheme"
+    android:orientation="vertical">
 
 
-        <com.example.item.weight.TitleView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/size_50dp"
-            app:back_left_drawable="@mipmap/icon_back"
-            app:back_text_padding_left="@dimen/default_margin"
-            app:back_text_padding_right="@dimen/default_margin"
-            app:center_data="@string/about_we"
-            app:center_text_color="@color/color_4"
-            app:center_text_size="@dimen/size_18sp" />
+    <com.example.item.weight.TitleView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        app:back_left_drawable="@mipmap/icon_back"
+        app:back_text_padding_left="@dimen/default_margin"
+        app:back_text_padding_right="@dimen/default_margin"
+        app:center_data="@string/about_we"
+        app:center_text_color="@color/color_4"
+        app:center_text_size="@dimen/size_18sp" />
 
-        <View style="@style/HorizontalLine" />
+    <View style="@style/HorizontalLine" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/size_48dp"
-            android:layout_marginBottom="@dimen/size_48dp"
-            android:contentDescription="@null"
-            android:scaleType="center"
-            android:src="@mipmap/icon_about_we" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/size_48dp"
+        android:layout_marginTop="@dimen/size_48dp"
+        android:contentDescription="@null"
+        android:scaleType="center"
+        android:src="@mipmap/icon_about_we" />
 
-        <com.example.item.weight.ItemView
-            android:id="@+id/item_versions"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/item_height"
-            app:bottom_line_margin_left="@dimen/default_margin"
-            app:bottom_line_margin_right="@dimen/default_margin"
-            app:content_text_color="@color/color_4"
-            app:content_text_size="@dimen/size_14sp"
-            app:show_bottom_line="true"
-            app:title_data="@string/versions"
-            app:title_text_color="@color/color_4"
-            app:title_text_size="@dimen/size_14sp"
-            app:top_line_margin_left="@dimen/default_margin"
-            app:top_line_margin_right="@dimen/default_margin" />
+    <com.example.item.weight.ItemView
+        android:id="@+id/item_versions"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        app:bottom_line_margin_left="@dimen/default_margin"
+        app:bottom_line_margin_right="@dimen/default_margin"
+        app:content_right_icon="@mipmap/icon_item_right"
+        app:content_text_color="@color/color_4"
+        app:content_text_size="@dimen/size_14sp"
+        app:show_bottom_line="true"
+        app:title_data="@string/versions"
+        app:title_text_color="@color/color_4"
+        app:title_text_size="@dimen/size_14sp"
+        app:top_line_margin_left="@dimen/default_margin"
+        app:top_line_margin_right="@dimen/default_margin" />
 
-        <com.example.item.weight.ItemView
-            android:id="@+id/item_grade"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/item_height"
-            app:bottom_line_margin_left="@dimen/default_margin"
-            app:bottom_line_margin_right="@dimen/default_margin"
-            app:content_right_icon="@mipmap/icon_item_right"
-            app:content_text_color="@color/color_4"
-            app:content_text_size="@dimen/size_14sp"
-            app:show_bottom_line="true"
-            app:title_data="@string/go_grade"
-            app:title_text_color="@color/color_4"
-            app:title_text_size="@dimen/size_14sp"
-            app:top_line_margin_left="@dimen/default_margin"
-            app:top_line_margin_right="@dimen/default_margin" />
+    <com.example.item.weight.ItemView
+        android:id="@+id/item_grade"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        app:bottom_line_margin_left="@dimen/default_margin"
+        app:bottom_line_margin_right="@dimen/default_margin"
+        app:content_right_icon="@mipmap/icon_item_right"
+        app:content_text_color="@color/color_4"
+        app:content_text_size="@dimen/size_14sp"
+        app:show_bottom_line="true"
+        app:title_data="@string/go_grade"
+        app:title_text_color="@color/color_4"
+        app:title_text_size="@dimen/size_14sp"
+        app:top_line_margin_left="@dimen/default_margin"
+        app:top_line_margin_right="@dimen/default_margin" />
 
-        <com.example.item.weight.ItemView
-            android:id="@+id/item_check_updates"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/item_height"
-            app:bottom_line_margin_left="@dimen/default_margin"
-            app:bottom_line_margin_right="@dimen/default_margin"
-            app:content_right_icon="@mipmap/icon_item_right"
-            app:content_text_color="@color/color_4"
-            app:content_text_size="@dimen/size_14sp"
-            app:show_bottom_line="true"
-            app:title_data="@string/check_for_updates"
-            app:title_text_color="@color/color_4"
-            app:title_text_size="@dimen/size_14sp"
-            app:top_line_margin_left="@dimen/default_margin"
-            app:top_line_margin_right="@dimen/default_margin" />
+    <com.example.item.weight.ItemView
+        android:id="@+id/item_check_updates"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        app:bottom_line_margin_left="@dimen/default_margin"
+        app:bottom_line_margin_right="@dimen/default_margin"
+        app:content_right_icon="@mipmap/icon_item_right"
+        app:content_text_color="@color/color_4"
+        app:content_text_size="@dimen/size_14sp"
+        app:show_bottom_line="true"
+        app:title_data="@string/check_for_updates"
+        app:title_text_color="@color/color_4"
+        app:title_text_size="@dimen/size_14sp"
+        app:top_line_margin_left="@dimen/default_margin"
+        app:top_line_margin_right="@dimen/default_margin" />
 
 
     <RelativeLayout
@@ -87,8 +88,8 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/size_50dp"
             android:gravity="center_horizontal"
+            android:text="@string/all_right_reserved"
             android:textColor="@color/colorFFA6A6A6"
-            android:textSize="@dimen/size_12sp"
-            android:text="@string/all_right_reserved" />
+            android:textSize="@dimen/size_12sp" />
     </RelativeLayout>
 </LinearLayout>

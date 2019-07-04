@@ -187,6 +187,7 @@
     <string name="feedback">意见反馈</string>
     <string name="about_we">关于我们</string>
     <string name="versions">版本</string>
+    <string name="versions_explain">版本说明</string>
     <string name="go_grade">去评分</string>
     <string name="clear_cache">清理缓存</string>
     <string name="user_agreement">用户协议</string>
