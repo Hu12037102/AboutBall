@@ -176,4 +176,13 @@ public class BaseModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
+
+    public void sureUserOrder(long orderId,BaseObserver<BaseDataBean<String>>observer) {
+        mRetrofitManger.create(BaseService.class)
+                .sureUserOrder(orderId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+
+    }
 }

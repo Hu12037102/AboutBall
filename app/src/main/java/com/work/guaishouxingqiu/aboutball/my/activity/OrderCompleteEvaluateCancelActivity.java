@@ -3,6 +3,7 @@ package com.work.guaishouxingqiu.aboutball.my.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.util.ScreenUtils;
 import com.example.item.weight.ItemView;
+import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.my.contract.OrderCompleteEvaluateCancelContract;
@@ -89,6 +91,8 @@ public class OrderCompleteEvaluateCancelActivity extends BaseOrderActivity<Order
     TextView mTvCommit;
     @BindView(R.id.iv_address)
     ImageView mIvAddress;
+    @BindView(R.id.title_view)
+    TitleView mTitleView;
     private long mOrderId;
 
     @Override
@@ -162,6 +166,12 @@ public class OrderCompleteEvaluateCancelActivity extends BaseOrderActivity<Order
                 ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ORDER_REFUND_DETAILS, ARouterConfig.Key.ORDER_ID, mOrderId);
             }
         });
+        mTitleView.setOnBackViewClickListener(new TitleView.OnBackViewClickListener() {
+            @Override
+            public void onBackClick(@NonNull View view) {
+                clickBackForResult();
+            }
+        });
     }
 
     @Override
@@ -228,6 +238,11 @@ public class OrderCompleteEvaluateCancelActivity extends BaseOrderActivity<Order
         if (mOrderDetailsBean != null) {
             mViewModel.startActivityToMap(mOrderDetailsBean.longitude, mOrderDetailsBean.latitude, mOrderDetailsBean.address);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        mViewModel.clickBackForResult();
     }
 
     /**

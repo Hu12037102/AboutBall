@@ -141,9 +141,9 @@ public class MyOrderFragment extends BasePayFragment<MyOrderFragmentPresenter> i
                         break;
                     //待使用
                     case Contast.OrderStatus.WAIT_USER:
-                        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_WAIT_USER_ORDER_DETAILS, ARouterConfig.Key.ORDER_ID, bean.orderId);
-                       /* ARouterIntent.startActivityForResult(MyOrderFragment.this, WaitUserOrderDetailsActivity.class,
-                                ARouterConfig.Key.ORDER_ID, bean.orderId, Contast.OrderStatus.WAIT_USER);*/
+                        // ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_WAIT_USER_ORDER_DETAILS, ARouterConfig.Key.ORDER_ID, bean.orderId);
+                        ARouterIntent.startActivityForResult(MyOrderFragment.this, WaitUserOrderDetailsActivity.class,
+                                ARouterConfig.Key.ORDER_ID, bean.orderId, Contast.OrderStatus.WAIT_USER);
                         break;
                     //待评价
                     case Contast.OrderStatus.WAIT_EVALUATE:
@@ -181,7 +181,7 @@ public class MyOrderFragment extends BasePayFragment<MyOrderFragmentPresenter> i
                         break;
                     //待使用
                     case Contast.OrderStatus.WAIT_USER:
-
+                        mPresenter.sureUserOrder(bean.orderId);
                         break;
                     //待评价
                     case Contast.OrderStatus.WAIT_EVALUATE:
@@ -194,7 +194,7 @@ public class MyOrderFragment extends BasePayFragment<MyOrderFragmentPresenter> i
                         break;
                     //退款中
                     case Contast.OrderStatus.REFUNDING:
-                        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ORDER_REFUND_DETAILS,ARouterConfig.Key.ORDER_ID,bean.orderId);
+                        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ORDER_REFUND_DETAILS, ARouterConfig.Key.ORDER_ID, bean.orderId);
                         break;
                     //已退款
                     case Contast.OrderStatus.REFUNDED:
@@ -210,6 +210,11 @@ public class MyOrderFragment extends BasePayFragment<MyOrderFragmentPresenter> i
                 clickCancelOrder(bean);
             }
         });
+    }
+
+    @Override
+    public void resultSureUseOrder(long orderId) {
+        mViewModel.startActivityToOrderEvaluate(orderId, Contast.OrderStatus.WAIT_EVALUATE, this);
     }
 
     private void clickPay(double money, long orderId) {
@@ -232,7 +237,7 @@ public class MyOrderFragment extends BasePayFragment<MyOrderFragmentPresenter> i
     private void clickCancelOrder(ResultMyOrderBean bean) {
         mViewModel.toRefundActivityToResult(bean.stadiumName,
                 DataUtils.getNotNullData(bean.orderTime).concat("（").concat(DateUtils.getWeek(bean.orderTime)).concat("）"),
-                getOrderSiteContent(bean.orderDetailForOrders), bean.orderId, DataUtils.getMoneyFormat(bean.totalPrice),this);
+                getOrderSiteContent(bean.orderDetailForOrders), bean.orderId, DataUtils.getMoneyFormat(bean.totalPrice), this);
 
     }
 
@@ -306,6 +311,7 @@ public class MyOrderFragment extends BasePayFragment<MyOrderFragmentPresenter> i
                 case Contast.OrderStatus.WAIT_EVALUATE:
                 case Contast.OrderStatus.WAIT_PAY:
                 case ARouterIntent.REQUEST_CODE:
+                case Contast.OrderStatus.WAIT_USER:
                     mSrlRefresh.autoRefresh();
                     break;
                 default:

@@ -56,4 +56,5 @@ public interface IBaseView {
 
     void resultGameResultDetails(List<ResultGameDataResultBean> data);
 
+    void resultSureUseOrder(long orderId);
 }

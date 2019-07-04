@@ -179,18 +179,22 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
     public void resultDynamicCommentsSucceed() {
 
     }
+
     @Override
     public void resultAttentionTweetStatus(int position) {
 
     }
+
     @Override
     public void resultDianZanStatus(int position) {
 
     }
+
     @Override
     public void resultDeleteDynamicSucceed(int position) {
 
     }
+
     @Override
     public void resultFansFocus(ResultFansFocusBean bean) {
 
@@ -202,5 +206,11 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
     }
 
     @Override
-    public void resultGameResultDetails(List<ResultGameDataResultBean> data) {}
+    public void resultGameResultDetails(List<ResultGameDataResultBean> data) {
+    }
+
+    @Override
+    public void resultSureUseOrder(long orderId) {
+
+    }
 }

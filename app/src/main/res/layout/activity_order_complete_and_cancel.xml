@@ -16,7 +16,8 @@
         app:center_data="@string/order_details"
         app:center_text_color="@color/color_4"
         app:center_text_size="@dimen/size_18sp"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:back_click_is_finish="false"/>
 
     <View
         android:id="@+id/line_top"

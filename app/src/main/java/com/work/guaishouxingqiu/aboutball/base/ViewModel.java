@@ -10,7 +10,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.text.HtmlCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 
+import com.airbnb.lottie.LottieComposition;
+import com.airbnb.lottie.LottieDrawable;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -20,10 +23,12 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
 import com.work.guaishouxingqiu.aboutball.community.activity.CommunityDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.community.activity.TopicDynamicsActivity;
+import com.work.guaishouxingqiu.aboutball.community.adapter.CommunityDataAdapter;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultRecommendHotBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.login.activity.LoginActivity;
+import com.work.guaishouxingqiu.aboutball.my.activity.OrderCompleteEvaluateCancelActivity;
 import com.work.guaishouxingqiu.aboutball.my.activity.OrderEvaluateActivity;
 import com.work.guaishouxingqiu.aboutball.my.activity.RefundActivity;
 import com.work.guaishouxingqiu.aboutball.my.activity.UpdatePhoneActivity;
@@ -555,7 +560,7 @@ public class ViewModel {
         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_IMAGE_PREVIEW, bundle);
     }
 
-    public void updateDianZan(@NonNull RecyclerView.Adapter adapter, @NonNull List<ResultCommunityDataBean> data, int position) {
+    public void updateDianZan(@NonNull CommunityDataAdapter adapter, @NonNull List<ResultCommunityDataBean> data, int position) {
         ResultCommunityDataBean bean = data.get(position);
         if (bean.hasPraise == 1) {
             bean.hasPraise = 0;
@@ -692,6 +697,17 @@ public class ViewModel {
                 mCreateDialog.dismiss();
             }
         });
+    }
+
+    public void startActivityToOrderEvaluate(long orderId, int status, Fragment fragment) {
+        Bundle bundle = new Bundle();
+        bundle.putLong(ARouterConfig.Key.ORDER_ID, orderId);
+        bundle.putInt(ARouterConfig.Key.ORDER_STATUS, status);
+        if (fragment == null) {
+            ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_ORDER_COMPLETE_EVALUATE_CANCEL, mSoftActivity.get(), bundle, status);
+        } else {
+            ARouterIntent.startActivityForResult(fragment, OrderCompleteEvaluateCancelActivity.class, bundle, status);
+        }
     }
 
 }

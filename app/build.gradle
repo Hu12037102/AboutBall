@@ -20,7 +20,7 @@ android {
         minSdkVersion android.minSdkVersion
         targetSdkVersion android.targetSdkVersion
         versionCode 6
-        versionName '1.1.2'
+        versionName '1.1.3'
         testInstrumentationRunner android.testInstrumentationRunner
         //GrowingIO数据统计
         resValue("string", "growingio_project_id", "924c976f18bd2145")
@@ -194,5 +194,7 @@ dependencies {
     /*友盟数据统计*/
     implementation 'com.umeng.umsdk:analytics:8.0.0'
     implementation 'com.umeng.umsdk:common:2.0.0'
+    //lottie动画
+    implementation 'com.airbnb.android:lottie:2.7.0'
 
 }

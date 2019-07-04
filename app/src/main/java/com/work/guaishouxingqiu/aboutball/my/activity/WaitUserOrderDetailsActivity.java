@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.TitleView;
+import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.my.contract.WaitUserOrderDetailsContract;
@@ -133,6 +134,7 @@ public class WaitUserOrderDetailsActivity extends BaseOrderActivity<WaitUserOrde
                 clickCancelOrder();
                 break;
             case R.id.tv_bottom_right:
+                mPresenter.sureUserOrder(mOrderId);
                 break;
             case R.id.iv_address:
                 mViewModel.startActivityToMap(mResultBean.longitude, mResultBean.latitude, mResultBean.address);
@@ -140,12 +142,21 @@ public class WaitUserOrderDetailsActivity extends BaseOrderActivity<WaitUserOrde
         }
     }
 
+    /**
+     * 确认使用变成待评价状态
+     * @param orderId
+     */
+    @Override
+    public void resultSureUseOrder(long orderId) {
+        mViewModel.startActivityToOrderEvaluate(orderId, Contast.OrderStatus.WAIT_EVALUATE, null);
+    }
+
 
     private void clickCancelOrder() {
-       // EventBus.getDefault().post(new WaitUserOrderDetailsActivity.ResultPayBean(true));
+        // EventBus.getDefault().post(new WaitUserOrderDetailsActivity.ResultPayBean(true));
         mViewModel.toRefundActivityToResult(mResultBean.stadiumName,
                 DataUtils.getNotNullData(mResultBean.orderTime).concat("（").concat(DateUtils.getWeek(mResultBean.orderTime)).concat("）"),
-                getSiteContent(mResultBean.orderDetailForOrders), mOrderId, DataUtils.getMoneyFormat(mResultBean.totalPrice),null);
+                getSiteContent(mResultBean.orderDetailForOrders), mOrderId, DataUtils.getMoneyFormat(mResultBean.totalPrice), null);
       /*  mViewModel.showCancelOrderDialog(new BaseDialog.OnItemClickSureAndCancelListener() {
             @Override
             public void onClickSure(@NonNull View view) {
@@ -173,9 +184,6 @@ public class WaitUserOrderDetailsActivity extends BaseOrderActivity<WaitUserOrde
     }
 
 
-
-
-
     public static class ResultPayBean {
         public boolean isUpdateResult;
 
@@ -187,9 +195,20 @@ public class WaitUserOrderDetailsActivity extends BaseOrderActivity<WaitUserOrde
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ARouterIntent.REQUEST_CODE && resultCode == Activity.RESULT_OK){
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case ARouterIntent.REQUEST_CODE:
+                    EventBus.getDefault().post(new WaitUserOrderDetailsActivity.ResultPayBean(true));
+                    finish();
+                    break;
+                case Contast.OrderStatus.WAIT_EVALUATE:
+                    clickBackForResult();
+                    break;
+            }
+        }
+     /*   if (requestCode == ARouterIntent.REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             EventBus.getDefault().post(new WaitUserOrderDetailsActivity.ResultPayBean(true));
             finish();
-        }
+        }*/
     }
 }

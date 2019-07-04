@@ -45,4 +45,8 @@ public interface BaseService {
 
     @GET(IApiService.GET_SHARE_COMMUNITY_DYNAMIC)
     Observable<BaseBean<BaseDataBean<String>>> shareCommunityDynamic(@Query(Contast.TWEET_ID) long tweetId);
+
+    @GET(IApiService.GET_SURE_USER_ORDER)
+    Observable<BaseBean<BaseDataBean<String>>> sureUserOrder(@Query(Contast.ORDER_ID) long orderId);
+
 }

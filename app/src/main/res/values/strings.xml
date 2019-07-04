@@ -606,5 +606,5 @@
         <Data><![CDATA[<font color="#1D1D1D">退全款</font>]]></Data></string>
     <string name="situation">特殊情况</string>
     <string name="you_are_not_captain_to_create_team">您不是球队队长，是否前往创建球队</string>
-
+    <string name="data_json">data.json</string>
 </resources>

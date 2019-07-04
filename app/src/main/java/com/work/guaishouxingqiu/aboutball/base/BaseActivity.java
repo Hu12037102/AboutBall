@@ -271,4 +271,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends LocationActi
     @Override
     public void resultGameResultDetails(List<ResultGameDataResultBean> data) {
     }
+
+    @Override
+    public void resultSureUseOrder(long orderId) {
+
+    }
 }
