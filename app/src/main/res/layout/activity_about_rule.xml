@@ -54,7 +54,7 @@
                     android:layout_marginLeft="@dimen/size_15dp"
                     android:lineSpacingExtra="@dimen/size_5dp"
                     android:text="@string/about_ball_rule_1"
-                    android:textColor="@color/color_4"
+                    android:textColor="@color/colorFFA6A6A6"
                     android:textSize="@dimen/size_14sp"
                     app:layout_constraintLeft_toRightOf="@id/iv_title_1"
                     app:layout_constraintRight_toRightOf="parent"
@@ -85,7 +85,7 @@
                     android:layout_marginLeft="@dimen/size_15dp"
                     android:lineSpacingExtra="@dimen/size_5dp"
                     android:text="@string/about_ball_rule_2"
-                    android:textColor="@color/color_4"
+                    android:textColor="@color/colorFFA6A6A6"
                     android:textSize="@dimen/size_14sp"
                     app:layout_constraintBottom_toBottomOf="@id/iv_title_2"
                     app:layout_constraintLeft_toRightOf="@id/iv_title_1"
@@ -117,7 +117,7 @@
                     android:layout_marginLeft="@dimen/size_15dp"
                     android:lineSpacingExtra="@dimen/size_5dp"
                     android:text="@string/about_ball_rule_3"
-                    android:textColor="@color/color_4"
+                    android:textColor="@color/colorFFA6A6A6"
                     android:textSize="@dimen/size_14sp"
                     app:layout_constraintBottom_toBottomOf="@id/iv_title_3"
                     app:layout_constraintLeft_toRightOf="@id/iv_title_2"
@@ -169,12 +169,13 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tv_content_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_10dp"
                 android:lineSpacingExtra="@dimen/size_5dp"
                 android:text="@string/about_ball_rule_4"
-                android:textColor="@color/color_4" />
+                android:textColor="@color/colorFFA6A6A6" />
 
 
             <TextView
@@ -189,12 +190,13 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tv_content_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_10dp"
                 android:lineSpacingExtra="@dimen/size_5dp"
                 android:text="@string/about_ball_rule_5"
-                android:textColor="@color/color_4" />
+                android:textColor="@color/colorFFA6A6A6"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -208,12 +210,13 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tv_content_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_10dp"
                 android:lineSpacingExtra="@dimen/size_5dp"
                 android:text="@string/about_ball_rule_6"
-                android:textColor="@color/color_4" />
+                android:textColor="@color/colorFFA6A6A6" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </LinearLayout>
