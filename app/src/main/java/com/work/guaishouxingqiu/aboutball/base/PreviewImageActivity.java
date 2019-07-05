@@ -1,6 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.base;
 
 import android.content.Context;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
@@ -8,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -19,12 +21,14 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.media.adapter.PreviewAdapter;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
 
 import java.util.List;
 
 import butterknife.BindView;
+import utils.bean.ImageConfig;
 
 /**
  * 作者: 胡庆岭
@@ -38,6 +42,8 @@ public class PreviewImageActivity extends BaseActivity {
     BaseViewPager mBvpImage;
     @BindView(R.id.rg_count)
     RadioGroup mRgCount;
+    @BindView(R.id.iv_download)
+    ImageView mIvDownload;
     private int mPosition;
     private List<String> mPathData;
 
@@ -124,6 +130,12 @@ public class PreviewImageActivity extends BaseActivity {
             @Override
             public void onPageScrollStateChanged(int i) {
 
+            }
+        });
+        mIvDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GlideManger.get().downloadImage(mPathData.get(mBvpImage.getCurrentItem()));
             }
         });
     }

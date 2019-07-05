@@ -26,6 +26,19 @@
         android:gravity="center"
         />
 
-
+<ImageView
+    android:id="@+id/iv_download"
+    android:layout_width="@dimen/size_40dp"
+    android:layout_height="@dimen/size_40dp"
+    android:src="@mipmap/icon_download_image"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    android:layout_marginRight="@dimen/size_10dp"
+    android:layout_marginBottom="@dimen/size_10dp"
+    android:padding="@dimen/size_10dp"
+    android:contentDescription="@null"
+    android:background="#10000000"
+    android:visibility="gone"
+    />
 
 </android.support.constraint.ConstraintLayout>

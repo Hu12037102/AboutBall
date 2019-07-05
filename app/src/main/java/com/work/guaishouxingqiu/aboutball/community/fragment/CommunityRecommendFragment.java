@@ -57,7 +57,6 @@ public class CommunityRecommendFragment extends LoginOrShareFragment<CommunityRe
     RecyclerView mRvData;
     @BindView(R.id.srl_refresh)
     SmartRefreshLayout mSrlRefresh;
-    Unbinder unbinder;
     private CommunityDataAdapter mAdapter;
     private List<ResultCommunityDataBean> mData;
     private View mHeadView;
@@ -465,7 +464,6 @@ public class CommunityRecommendFragment extends LoginOrShareFragment<CommunityRe
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
     }
 
     @OnClick(R.id.iv_add_community)

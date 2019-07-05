@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import com.bugtags.library.Bugtags;
@@ -157,7 +158,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends LocationActi
         super.onDestroy();
         mBinder.unbind();
         ActivityManger.get().removeActivity(this.getClass());
-
     }
 
 
@@ -276,4 +276,5 @@ public abstract class BaseActivity<P extends BasePresenter> extends LocationActi
     public void resultSureUseOrder(long orderId) {
 
     }
+
 }

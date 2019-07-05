@@ -2,8 +2,11 @@ package com.work.guaishouxingqiu.aboutball.other;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,10 +29,14 @@ import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.media.weight.MediaScanner;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import java.io.File;
+
+import utils.CompressPicker;
+import utils.task.CompressImageTask;
 
 
 /**
@@ -79,17 +86,19 @@ public class GlideManger {
         }
         Glide.with(context).asDrawable().apply(requestOptions).load(path).into(imageView);
     }
-    public void loadHeadImage(Context context, @NonNull String path, @NonNull ImageView imageView){
+
+    public void loadHeadImage(Context context, @NonNull String path, @NonNull ImageView imageView) {
         RequestOptions requestOptions = new RequestOptions().placeholder(R.mipmap.icon_my_default_head).error(R.mipmap.icon_my_default_head)
                 .centerCrop();
         Glide.with(context).asDrawable().apply(requestOptions).load(path).into(imageView);
     }
 
-    public void loadLogoImage(Context context,@NonNull String path,@NonNull ImageView imageView){
+    public void loadLogoImage(Context context, @NonNull String path, @NonNull ImageView imageView) {
         RequestOptions requestOptions = new RequestOptions().placeholder(R.mipmap.icon_default_logo).error(R.mipmap.icon_default_logo)
                 .centerCrop();
         Glide.with(context).asDrawable().apply(requestOptions).load(path).into(imageView);
     }
+
     public void loadImage(@NonNull Context context, @DrawableRes int resId, @NonNull ImageView imageView) {
         RequestOptions requestOptions = new RequestOptions().centerCrop();
 
@@ -101,6 +110,7 @@ public class GlideManger {
         RequestOptions requestOptions = new RequestOptions().centerCrop().placeholder(R.mipmap.icon_default_banner).error(R.mipmap.icon_default_banner);
         Glide.with(context).asDrawable().apply(requestOptions).load(imagePath).into(imageView);
     }
+
     public void loadImage(@NonNull Context context, @NonNull File file, @NonNull ImageView imageView) {
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         RequestOptions requestOptions = new RequestOptions().centerCrop().placeholder(R.mipmap.icon_default_banner).error(R.mipmap.icon_default_banner);
@@ -116,11 +126,47 @@ public class GlideManger {
     public void loadDefaultImage(@NonNull Context context, @NonNull String imagePath, @NonNull ImageView imageView) {
         loadImage(context, imagePath, R.drawable.shape_item_recommend_preview_item, R.drawable.shape_item_recommend_banner_view, imageView);
     }
-    public void loadImageDrawable(@NonNull String imagePath,@NonNull CustomTarget<Drawable> target){
+
+    public void loadImageDrawable(@NonNull String imagePath, @NonNull CustomTarget<Drawable> target) {
         Glide.with(UIUtils.getContext()).asDrawable().load(imagePath).into(target);
     }
 
-    public void loadBannerImage(@NonNull Context context, @NonNull String imagePath, @NonNull ImageView imageView){
+    public void loadBannerImage(@NonNull Context context, @NonNull String imagePath, @NonNull ImageView imageView) {
         loadImage(context, imagePath, R.mipmap.icon_default_banner, R.mipmap.icon_default_banner, imageView);
+    }
+
+    public void downloadImage( @NonNull String imagePath) {
+      Context context =  UIUtils.getContext();
+        Glide.with(context).asBitmap().load(imagePath).into(new CustomTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                if (resource.getWidth() > 0 && resource.getHeight() > 0) {
+                    new Thread() {
+                        @Override
+                        public void run() {
+                            super.run();
+                            File file = CompressPicker.bitmapToFile(resource);
+                            new Handler(Looper.getMainLooper()).post(() -> {
+                                FileUtils.scanImage(context, file);
+                                UIUtils.showToast(R.string.succeed_to_download_picture);
+                            });
+                        }
+                    }.start();
+                } else {
+                    UIUtils.showToast(R.string.failed_to_download_picture);
+                }
+            }
+
+            @Override
+            public void onLoadCleared(@Nullable Drawable placeholder) {
+                UIUtils.showToast(R.string.failed_to_download_picture);
+            }
+        });
+    }
+
+    public interface OnDownLoadImageListener {
+        void onDownLoadSucceed(File file);
+
+        void onDownLoadFailed();
     }
 }
