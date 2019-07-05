@@ -1,6 +1,6 @@
 <resources>
-    <!--<string name="app_name">踢球么</string>-->
-    <string name="app_name">踢球么测试版</string>
+    <string name="app_name">踢球么</string>
+    <!--<string name="app_name">踢球么测试版</string>-->
     <string name="me">我</string>
     <string name="my_about_ball">我的约球</string>
     <string name="my_order">我的订单</string>
