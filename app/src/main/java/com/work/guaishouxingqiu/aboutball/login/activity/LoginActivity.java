@@ -73,6 +73,7 @@ public class LoginActivity extends LoginOrShareActivity<LoginPresenter> implemen
     TextView mTvLogin;
     public static final int REQUEST_CODE_LOGIN = 88;
     private HintDialog mBandDialog;
+    private static final int REQUEST_REGISTER_CODE = 189;
 
     @Override
     protected int getLayoutId() {
@@ -178,7 +179,7 @@ public class LoginActivity extends LoginOrShareActivity<LoginPresenter> implemen
     }
 
     private void clickRegister() {
-        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_REGISTER, ARouterConfig.Key.LOGIN_STATUS, Contast.LoginStatus.REGISTER);
+        ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_REGISTER, this, ARouterConfig.Key.LOGIN_STATUS, Contast.LoginStatus.REGISTER, LoginActivity.REQUEST_REGISTER_CODE);
     }
 
     /**
@@ -308,6 +309,7 @@ public class LoginActivity extends LoginOrShareActivity<LoginPresenter> implemen
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
+                case LoginActivity.REQUEST_REGISTER_CODE:
                 case UpdatePhoneActivity.REQUEST_CODE_BAND_PHONE:
                     mPresenter.loadUserAccountInfo();
                     break;

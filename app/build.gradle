@@ -16,7 +16,7 @@ android {
 
         multiDexEnabled true
         applicationId android.applicationId
-        // applicationId "com.work.guaishouxingqiu.aboutball1"
+       //  applicationId "com.work.guaishouxingqiu.aboutball"
         minSdkVersion android.minSdkVersion
         targetSdkVersion android.targetSdkVersion
         versionCode 6

@@ -9,6 +9,7 @@ import com.work.guaishouxingqiu.aboutball.login.bean.RegisterResultBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.RequestRegisterBean;
 import com.work.guaishouxingqiu.aboutball.login.contract.RegisterContract;
 import com.work.guaishouxingqiu.aboutball.login.model.RegisterModel;
+import com.work.guaishouxingqiu.aboutball.other.UserManger;
 
 import io.reactivex.disposables.Disposable;
 

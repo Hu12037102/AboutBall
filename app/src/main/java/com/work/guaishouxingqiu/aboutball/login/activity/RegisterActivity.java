@@ -64,9 +64,9 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     protected void initView() {
         mStatus = mIntent.getIntExtra(ARouterConfig.Key.LOGIN_STATUS, Contast.LoginStatus.REGISTER);
 
-        mPhoneFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_REGISTER_PHONE,ARouterConfig.Key.LOGIN_STATUS, mStatus);
-        mCodeFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_REGISTER_CODE,ARouterConfig.Key.LOGIN_STATUS, mStatus);
-        mPasswordFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_REGISTER_PASSWORD,ARouterConfig.Key.LOGIN_STATUS, mStatus);
+        mPhoneFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_REGISTER_PHONE, ARouterConfig.Key.LOGIN_STATUS, mStatus);
+        mCodeFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_REGISTER_CODE, ARouterConfig.Key.LOGIN_STATUS, mStatus);
+        mPasswordFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_REGISTER_PASSWORD, ARouterConfig.Key.LOGIN_STATUS, mStatus);
         mFragmentData = new ArrayList<>();
         mFragmentData.add(mPhoneFragment);
         mFragmentData.add(mCodeFragment);
@@ -130,7 +130,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         });
         mPasswordFragment.setOnInputPasswordResult(password -> {
             mRequestBean.password = password;
-            switch (mStatus){
+            switch (mStatus) {
                 case Contast.LoginStatus.REGISTER:
                     mPresenter.register(mRequestBean);
                     break;
@@ -197,7 +197,10 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     public void registerResult(@NonNull BaseBean<RegisterResultBean> bean) {
         switch (bean.code) {
             case IApi.Code.SUCCEED:
-                finish();
+                if (bean.result.id_token != null) {
+                    UserManger.get().putToken(bean.result.id_token);
+                }
+                clickBackForResult();
                 break;
             default:
                 break;

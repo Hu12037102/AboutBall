@@ -81,7 +81,7 @@ public interface GameService {
 
     @GET(IApiService.GET_MATCH_INFO_SCOREBOARD)
     Observable<BaseBean<List<ResultGameInfoScoreboardBean>>> loadMatchScoreboardData(@Query(Contast.GAME_ID) long gameId,
-                                                                                     @Query(Contast.GROUP_ID) long groupId);
+                                                                                     @Query(Contast.GROUP_ID) Long groupId);
 
     @GET(IApiService.GET_MATCH_INFO_OTHER_LIST)
     Observable<BaseBean<List<ResultGameInfoOtherBean>>> loadGameInfoOtherData(@Query(Contast.GAME_ID) long gameId,

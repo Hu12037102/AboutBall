@@ -61,7 +61,7 @@ public class GameInfoActivity extends BaseActivity<GameInfoPresenter> implements
     @BindView(R.id.tv_goals)
     TextView mTvGoals;
     private long mRequestGameId = -1;
-    private long mRequestGroupId = -1;
+    private Long mRequestGroupId ;
     private int mRequestAction = GameInfoActivity.ACTION_SHOT;
     private List<String> mDialogData;
     private List<ResultGameFiltrateBean> mFiltrateData;
@@ -244,7 +244,7 @@ public class GameInfoActivity extends BaseActivity<GameInfoPresenter> implements
             mRvGrouping.setVisibility(View.VISIBLE);
         } else {
             mRvGrouping.setVisibility(View.GONE);
-            mRequestGroupId = 0;
+            mRequestGroupId = null;
         }
         mGroupAdapter.notifyDataSetChanged();
         mPresenter.loadMatchScoreboardData(mRequestGameId, mRequestGroupId);

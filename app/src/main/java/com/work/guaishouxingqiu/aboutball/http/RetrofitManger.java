@@ -108,8 +108,8 @@ public class RetrofitManger {
             Request request = chain.request();
             request = request.newBuilder().header("Authorization", UserManger.get().isLogin() ?
                     TOKEN_HOST.concat(UserManger.get().getToken()) : TOKEN_HOST + UserManger.get().getTemporaryToken())
-                  //  .header("Version", DownloadApkHelp.getVersionName(UIUtils.getContext()))//版本号
-                  //  .header("Accept-Language", PhoneUtils.getPhoneLoca(UIUtils.getContext()).getCountry())
+                    //  .header("Version", DownloadApkHelp.getVersionName(UIUtils.getContext()))//版本号
+                    //  .header("Accept-Language", PhoneUtils.getPhoneLoca(UIUtils.getContext()).getCountry())
                     .build();
 
 
@@ -118,7 +118,6 @@ public class RetrofitManger {
             Request newRequest = request.newBuilder()
                     .headers(newBuilder)
                     .build();*/
-            LogUtils.w("HeadInterceptor--", UserManger.get().getToken());
             return chain.proceed(request);
         }
     }

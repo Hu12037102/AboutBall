@@ -30,7 +30,7 @@ public interface GameInfoContract {
 
         void loadMatchGroupData(long gameId);
 
-        void loadMatchScoreboardData(long requestGameId, long requestGroupId);
+        void loadMatchScoreboardData(long requestGameId, Long requestGroupId);
 
         void loadOtherData(long mRequestGameId, int mRequestAction);
     }

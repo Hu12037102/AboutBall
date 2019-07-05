@@ -72,7 +72,7 @@ public class GameInfoPresenter extends BasePresenter<GameInfoContract.View, Game
     }
 
     @Override
-    public void loadMatchScoreboardData(long requestGameId, long requestGroupId) {
+    public void loadMatchScoreboardData(long requestGameId, Long requestGroupId) {
         mModel.loadMatchScoreboardData(requestGameId, requestGroupId, new BaseObserver<>(true, this, new BaseObserver.Observer<List<ResultGameInfoScoreboardBean>>() {
             @Override
             public void onNext(BaseBean<List<ResultGameInfoScoreboardBean>> t) {

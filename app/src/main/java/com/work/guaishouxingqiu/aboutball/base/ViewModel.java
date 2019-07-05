@@ -42,6 +42,7 @@ import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.FileUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.activity.WaitPayOrderDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultRefereeBean;
@@ -214,6 +215,7 @@ public class ViewModel {
     public void showLoginDialog() {
         if (!DataUtils.isEmpty(UserManger.get().getToken())) {
             UserManger.get().loginOut();
+            FileUtils.removeFileCache();
         }
         Activity activity = mSoftActivity.get();
         if (activity == null || activity.isFinishing()) {
@@ -236,6 +238,10 @@ public class ViewModel {
     }
 
     public void showLoginDialog(Fragment fragment) {
+        if (!DataUtils.isEmpty(UserManger.get().getToken())) {
+            UserManger.get().loginOut();
+            FileUtils.removeFileCache();
+        }
         Activity activity = mSoftActivity.get();
         if (activity == null || activity.isFinishing()) {
             return;

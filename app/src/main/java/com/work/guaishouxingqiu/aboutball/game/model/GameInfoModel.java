@@ -38,7 +38,7 @@ public class GameInfoModel extends BaseModel {
                 .subscribe(observer);
     }
 
-    public void loadMatchScoreboardData(long requestGameId, long requestGroupId, BaseObserver<List<ResultGameInfoScoreboardBean>>observer) {
+    public void loadMatchScoreboardData(long requestGameId, Long requestGroupId, BaseObserver<List<ResultGameInfoScoreboardBean>>observer) {
         mRetrofitManger.create(GameService.class)
                 .loadMatchScoreboardData(requestGameId,requestGroupId)
                 .subscribeOn(Schedulers.io())
