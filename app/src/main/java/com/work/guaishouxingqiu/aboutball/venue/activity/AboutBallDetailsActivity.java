@@ -126,7 +126,7 @@ public class AboutBallDetailsActivity extends LoginOrShareActivity<AboutBallDeta
         }
         mHasRefereeStatus = bundle.getInt(ARouterConfig.Key.REFEREE_STATUS, -1);
         mHasTeamStatus = bundle.getInt(ARouterConfig.Key.TEAM_STATUS, -1);
-        //mAboutBallFlag 0,参加约球1，取消约球
+        //mAboutBallFlag 0,参加约球1，取消约球(我发布的)2，取消约球(我参与的)
         mAboutBallFlag = bundle.getInt(ARouterConfig.Key.ABOUT_BALL_FLAG, 0);
         mAgreeId = bundle.getLong(ARouterConfig.Key.OFFER_ID, -1);
 
@@ -177,8 +177,8 @@ public class AboutBallDetailsActivity extends LoginOrShareActivity<AboutBallDeta
         UIUtils.setText(mItemDate.mTvRight, DateUtils.getDate(bean.startTime));
         UIUtils.setText(mItemTime.mTvRight, DateUtils.getHourMinutes(bean.startTime) + "-" + DateUtils.getHourMinutes(bean.endTime));
         UIUtils.setText(mItemMoney.mTvRight, DataUtils.getMoneyFormat(bean.cost));
-        if (mAboutBallFlag == 1) {
-            if (DateUtils.isNewTimeMoreThan(bean.startTime)) {
+        if (mAboutBallFlag == Contast.AboutBallFlag.PUBLISH || mAboutBallFlag == Contast.AboutBallFlag.PARTICIPATION) {
+            if (DateUtils.isNewTimeMoreThan(bean.startTime) || mAboutBallFlag == Contast.AboutBallFlag.PARTICIPATION) {
                 mRlCancel.setVisibility(View.GONE);
             } else {
                 mRlCancel.setVisibility(View.VISIBLE);

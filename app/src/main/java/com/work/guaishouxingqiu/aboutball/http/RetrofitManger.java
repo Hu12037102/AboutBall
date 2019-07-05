@@ -72,7 +72,8 @@ public class RetrofitManger {
 
     private void initRetrofit() {
         mRetrofit = new Retrofit.Builder()
-                .baseUrl(IApi.BASE_URL)
+                //.baseUrl(IApi.BASE_URL)
+                .baseUrl(BuildConfig.HOST_URL)
                 .client(createOKHttp())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -107,8 +108,8 @@ public class RetrofitManger {
             Request request = chain.request();
             request = request.newBuilder().header("Authorization", UserManger.get().isLogin() ?
                     TOKEN_HOST.concat(UserManger.get().getToken()) : TOKEN_HOST + UserManger.get().getTemporaryToken())
-                    .header("Version", DownloadApkHelp.getVersionName(UIUtils.getContext()))//版本号
-                    .header("Accept-Language", PhoneUtils.getPhoneLoca(UIUtils.getContext()).getCountry())
+                  //  .header("Version", DownloadApkHelp.getVersionName(UIUtils.getContext()))//版本号
+                  //  .header("Accept-Language", PhoneUtils.getPhoneLoca(UIUtils.getContext()).getCountry())
                     .build();
 
 

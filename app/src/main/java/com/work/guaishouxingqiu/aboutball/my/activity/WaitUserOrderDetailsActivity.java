@@ -22,6 +22,7 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.activity.BaseOrderActivity;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultOrderDetailsBean;
@@ -71,6 +72,8 @@ public class WaitUserOrderDetailsActivity extends BaseOrderActivity<WaitUserOrde
     TextView mTvPhoneNumber;
     @BindView(R.id.iv_address)
     ImageView mIvAddress;
+    @BindView(R.id.tv_bottom_left)
+    TextView mTvLeft;
     private long mOrderId;
     private HintDialog mCancelOrderDialog;
     private ResultOrderDetailsBean mResultBean;
@@ -123,6 +126,11 @@ public class WaitUserOrderDetailsActivity extends BaseOrderActivity<WaitUserOrde
         UIUtils.setOrderDetailsItemSpan(mTvPracticalPrice, UIUtils.getString(R.string.order_practical), "￥" + bean.totalPrice);
         UIUtils.setOrderDetailsItemSpan(mTvOrderStatus, UIUtils.getString(R.string.order_status), UIUtils.getString(R.string.paying));
         mLlBottomRoot.setVisibility(View.VISIBLE);
+        if (bean.orderType == Contast.OrderStatus.ORDER_STATUS_NOT_CANCEL){
+            mTvLeft.setVisibility(View.GONE);
+        }else {
+            mTvLeft.setVisibility(View.VISIBLE);
+        }
 
     }
 
@@ -130,8 +138,13 @@ public class WaitUserOrderDetailsActivity extends BaseOrderActivity<WaitUserOrde
     @OnClick({R.id.tv_bottom_left, R.id.tv_bottom_right, R.id.iv_address})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            //orderType==2的时候不能取消订单
             case R.id.tv_bottom_left:
-                clickCancelOrder();
+                if (Contast.OrderStatus.ORDER_STATUS_NOT_CANCEL != mResultBean.orderType) {
+                    clickCancelOrder();
+                } else {
+                    UIUtils.showToast(R.string.this_order_not_cancel);
+                }
                 break;
             case R.id.tv_bottom_right:
                 mPresenter.sureUserOrder(mOrderId);
@@ -144,6 +157,7 @@ public class WaitUserOrderDetailsActivity extends BaseOrderActivity<WaitUserOrde
 
     /**
      * 确认使用变成待评价状态
+     *
      * @param orderId
      */
     @Override

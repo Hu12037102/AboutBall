@@ -161,7 +161,7 @@ public class MyAboutBallFragment extends DelayedFragment<MyAboutBallChildPresent
     private void startActivityToAboutBallDetails(ResultMyAboutBean bean) {
         Bundle bundle = new Bundle();
         bundle.putLong(ARouterConfig.Key.OFFER_ID, bean.agreeId);
-        bundle.putInt(ARouterConfig.Key.ABOUT_BALL_FLAG, 1);
+        bundle.putInt(ARouterConfig.Key.ABOUT_BALL_FLAG, mFlag);
         ARouterIntent.startActivityForResult(this, AboutBallDetailsActivity.class, bundle);
     }
 }

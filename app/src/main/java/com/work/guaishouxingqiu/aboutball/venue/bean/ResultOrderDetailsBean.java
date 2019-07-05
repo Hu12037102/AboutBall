@@ -11,7 +11,7 @@ import java.util.List;
  * 更新时间: 2019/4/22 16:22
  * 描述:
  */
-public class ResultOrderDetailsBean implements Parcelable{
+public class ResultOrderDetailsBean implements Parcelable {
     public long orderId;
     public String stadiumName;
     public String orderTime;
@@ -28,6 +28,7 @@ public class ResultOrderDetailsBean implements Parcelable{
     public float grade;
     public double longitude;
     public double latitude;
+    public int orderType;
 
     protected ResultOrderDetailsBean(Parcel in) {
         orderId = in.readLong();
@@ -46,6 +47,7 @@ public class ResultOrderDetailsBean implements Parcelable{
         longitude = in.readDouble();
         latitude = in.readDouble();
         orderDetailForOrders = in.createTypedArrayList(OrderPeopleCountBean.CREATOR);
+        orderType = in.readInt();
     }
 
     public static final Creator<ResultOrderDetailsBean> CREATOR = new Creator<ResultOrderDetailsBean>() {
@@ -83,9 +85,10 @@ public class ResultOrderDetailsBean implements Parcelable{
         dest.writeTypedList(orderDetailForOrders);
         dest.writeDouble(longitude);
         dest.writeDouble(latitude);
+        dest.writeInt(orderType);
     }
 
-    public static class OrderPeopleCountBean implements Parcelable{
+    public static class OrderPeopleCountBean implements Parcelable {
         public String areaName;
         public String calendar;
         public float price;

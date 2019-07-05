@@ -168,6 +168,8 @@ public interface Contast {
         //已退款
         int REFUNDED = 7;
         int ALL_REFUNDED = 10;
+
+        int ORDER_STATUS_NOT_CANCEL =2;//不能取消订单状态
     }
 
     interface PayOrderFlag {

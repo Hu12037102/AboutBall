@@ -45,9 +45,9 @@ public class MyOrderAdapter extends BaseRecyclerAdapter<MyOrderAdapter.ViewHolde
 
     @Override
     protected void onBindViewDataHolder(@NonNull ViewHolder viewHolder, int i) {
-        if (i == mData.size()-1){
+        if (i == mData.size() - 1) {
             viewHolder.mLineBottomRoot.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             viewHolder.mLineBottomRoot.setVisibility(View.GONE);
         }
         ResultMyOrderBean bean = mData.get(i);
@@ -64,7 +64,7 @@ public class MyOrderAdapter extends BaseRecyclerAdapter<MyOrderAdapter.ViewHolde
         List<ResultMyOrderBean.DetailsOrder> orderDetailsData = mData.get(i).orderDetailForOrders;
         if (orderDetailsData != null && orderDetailsData.size() > 0) {
             for (ResultMyOrderBean.DetailsOrder details : orderDetailsData) {
-                if (details == null){
+                if (details == null) {
                     continue;
                 }
                 addressContent = addressContent.concat(DataUtils.getNotNullData(details.areaName)).concat(" ").concat(DataUtils.getNotNullData(details.calendar));
@@ -78,8 +78,8 @@ public class MyOrderAdapter extends BaseRecyclerAdapter<MyOrderAdapter.ViewHolde
         viewHolder.mRlBottom.setVisibility(View.VISIBLE);
         viewHolder.mTv1.setBackgroundResource(R.drawable.shape_black_line_view);
         viewHolder.mTv2.setBackgroundResource(R.drawable.shape_black_line_view);
-        viewHolder.mTv1.setTextColor(ContextCompat.getColor(mContext,R.color.color_4));
-        viewHolder.mTv2.setTextColor(ContextCompat.getColor(mContext,R.color.color_4));
+        viewHolder.mTv1.setTextColor(ContextCompat.getColor(mContext, R.color.color_4));
+        viewHolder.mTv2.setTextColor(ContextCompat.getColor(mContext, R.color.color_4));
         switch (bean.stateId) {
             //待付款
             case Contast.OrderStatus.WAIT_PAY:
@@ -97,7 +97,12 @@ public class MyOrderAdapter extends BaseRecyclerAdapter<MyOrderAdapter.ViewHolde
             //待使用
             case Contast.OrderStatus.WAIT_USER:
                 viewHolder.mTv1.setVisibility(View.VISIBLE);
-                viewHolder.mTv2.setVisibility(View.VISIBLE);
+                if (bean.orderType == Contast.OrderStatus.ORDER_STATUS_NOT_CANCEL) {
+                    viewHolder.mTv2.setVisibility(View.GONE);
+                } else {
+                    viewHolder.mTv2.setVisibility(View.VISIBLE);
+                }
+
                 viewHolder.mTv1.setText(R.string.sure_user);
                 viewHolder.mTv2.setText(R.string.application_for_drawback);
                 break;

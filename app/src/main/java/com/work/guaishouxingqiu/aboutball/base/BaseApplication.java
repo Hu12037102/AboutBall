@@ -44,7 +44,7 @@ public class BaseApplication extends ZApplication {
      */
     private void init() {
         UIUtils.init(this);
-        if (!BuildConfig.IS_DEBUG) {
+        if (BuildConfig.IS_DEBUG) {
             BugtagsOptions options = new BugtagsOptions.Builder().
                     trackingLocation(true).//是否获取位置，默认 true
                     trackingCrashLog(false).//是否收集crash，默认 true
