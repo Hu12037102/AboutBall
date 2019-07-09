@@ -181,7 +181,7 @@ public class DynamicEditActivity extends CameraActivity<DynamicEditPresenter> im
                             public void onFailure(String errorCode) {
 
                             }
-                        });
+                        },true,DynamicEditActivity.this);
                     } else {
                         mPresenter.publishDynamic(mRequestBean);
                     }

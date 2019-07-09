@@ -22,6 +22,7 @@ import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.alibaba.sdk.android.oss.model.PutSymlinkRequest;
 import com.work.guaishouxingqiu.aboutball.BuildConfig;
 import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
@@ -275,6 +276,86 @@ public class OSSRequestHelp {
         });
 
     }
+
+
+    public void uploadingFiles(List<String> filePathData, OnOSSDataResultListener listener, boolean showLoadingView, BaseActivity baseActivity) {
+        if (mFileData == null) {
+            mFileData = checkFiles(filePathData);
+            if (mFileData.size() == 0) {
+                return;
+            }
+            mResultPathData = new ArrayList<>();
+            if (listener != null) {
+                listener.onStart();
+            }
+        }
+        if (mFileData.size() == 0){
+            UIUtils.showToast("上传文件不能为空！");
+            return;
+        }
+        File file = mFileData.get(0);
+        if (!file.exists() || !file.isFile()) {
+            UIUtils.showToast("没有获取到文件！");
+            return;
+        }
+        PutObjectRequest request = new PutObjectRequest(OSSRequestHelp.BUCKET, file.getName(), file.getAbsolutePath());
+        request.setCRC64(OSSRequest.CRC64Config.YES);
+        request.setMetadata(mMetadata);
+        //上传监听回调
+        request.setProgressCallback((request1, currentSize, totalSize) -> {
+
+        });
+        if (showLoadingView){
+            baseActivity.showLoadingView();
+        }
+        mOssClient.asyncPutObject(request, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+            @Override
+            public void onSuccess(PutObjectRequest request, PutObjectResult result) {
+                mMainHandler.post(() -> {
+
+                    String ossFilePath = "https://" + OSSRequestHelp.BUCKET.concat(".").concat(OSSRequestHelp.ENDPOINT_BODY).concat("/")
+                            .concat(request.getObjectKey());
+                    mResultPathData.add(ossFilePath);
+                    filePathData.remove(0);
+                    mFileData.remove(0);
+                    FileUtils.removeFile(file);
+                    if (filePathData.size() == 0) {
+                        if (showLoadingView){
+                            baseActivity.dismissLoadingView();
+                        }
+                        if (listener != null) {
+                            listener.onSucceed(mResultPathData);
+                        }
+                    } else {
+                        uploadingFiles(filePathData, listener);
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(PutObjectRequest request, ClientException clientException, ServiceException serviceException) {
+                mMainHandler.post(() -> {
+                    if (showLoadingView){
+                        baseActivity.dismissLoadingView();
+                    }
+                    UIUtils.showToast(R.string.uploading_fail_again);
+                    if (listener != null) {
+                        String errCode = "上传失败";
+                        if (serviceException != null) {
+                            errCode = serviceException.getErrorCode();
+                        } else {
+                            if (clientException != null) {
+                                errCode = clientException.getMessage();
+                            }
+                        }
+                        listener.onFailure(errCode);
+                    }
+                });
+            }
+        });
+
+    }
+
 
     public interface OnOSSResultListener {
         void onStart();
