@@ -38,7 +38,7 @@
     android:padding="@dimen/size_10dp"
     android:contentDescription="@null"
     android:background="#10000000"
-    android:visibility="gone"
+    android:visibility="visible"
     />
 
 </android.support.constraint.ConstraintLayout>

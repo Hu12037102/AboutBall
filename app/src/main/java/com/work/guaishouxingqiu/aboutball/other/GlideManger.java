@@ -10,15 +10,20 @@ import android.os.Looper;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
+import com.bumptech.glide.load.Encoder;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.cache.DiskCache;
 import com.bumptech.glide.load.engine.cache.DiskLruCacheFactory;
 import com.bumptech.glide.load.engine.cache.MemorySizeCalculator;
+import com.bumptech.glide.request.FutureTarget;
+import com.bumptech.glide.request.RequestFutureTarget;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.SingleRequest;
 import com.bumptech.glide.request.target.BaseTarget;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.request.target.CustomTarget;
@@ -30,10 +35,17 @@ import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.media.weight.MediaScanner;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 import utils.CompressPicker;
 import utils.task.CompressImageTask;
@@ -135,33 +147,78 @@ public class GlideManger {
         loadImage(context, imagePath, R.mipmap.icon_default_banner, R.mipmap.icon_default_banner, imageView);
     }
 
-    public void downloadImage( @NonNull String imagePath) {
-      Context context =  UIUtils.getContext();
-        Glide.with(context).asBitmap().load(imagePath).into(new CustomTarget<Bitmap>() {
+    public void downloadImage(@NonNull String imagePath) {
+        Context context = UIUtils.getContext();
+        Glide.with(UIUtils.getContext()).asBitmap().load(imagePath).into(new CustomTarget<Bitmap>() {
             @Override
             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                if (resource.getWidth() > 0 && resource.getHeight() > 0) {
-                    new Thread() {
-                        @Override
-                        public void run() {
-                            super.run();
-                            File file = CompressPicker.bitmapToFile(resource);
-                            new Handler(Looper.getMainLooper()).post(() -> {
-                                FileUtils.scanImage(context, file);
-                                UIUtils.showToast(R.string.succeed_to_download_picture);
-                            });
-                        }
-                    }.start();
-                } else {
-                    UIUtils.showToast(R.string.failed_to_download_picture);
-                }
+                downloadImage(resource, null);
             }
 
             @Override
             public void onLoadCleared(@Nullable Drawable placeholder) {
-                UIUtils.showToast(R.string.failed_to_download_picture);
+
             }
         });
+
+    }
+
+    public File bitmapToFile(Bitmap bitmap, @Nullable String imagePath) {
+        if (bitmap == null || bitmap.getHeight() <= 0 || bitmap.getWidth() <= 0) {
+            UIUtils.showToast(R.string.failed_to_download_picture);
+            return null;
+        }
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+        if (DataUtils.isEmpty(imagePath)) {
+            imagePath = FileUtils.getDownloadImageFile().getAbsolutePath();
+        }
+        File file = new File(imagePath);
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(file);
+            fos.write(bos.toByteArray(), 0, bos.toByteArray().length);
+            fos.flush();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            try {
+                bos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return file;
+    }
+
+    public void downloadImage(final Bitmap bitmap, @Nullable final String imagePath) {
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                File file = bitmapToFile(bitmap, imagePath);
+                if (file != null && FileUtils.existsFile(file.getAbsolutePath())) {
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            FileUtils.scanImage(UIUtils.getContext(), file);
+                            UIUtils.showToast(R.string.succeed_to_download_picture);
+                            LogUtils.w("downloadImage--", file.getAbsolutePath());
+                        }
+                    });
+                }
+            }
+        }.start();
     }
 
     public interface OnDownLoadImageListener {

@@ -31,6 +31,7 @@ public class FileUtils {
     private static final String NET_CACHE_NAME = "NetCache";
     private static final String IMAGE_CACHE_NAME = "ImageCache";
     private static final String CAMERA = "Camera";
+    private static final String DOWNLOAD = "Download";
 
 
     public static File getRootFolder() {
@@ -49,6 +50,12 @@ public class FileUtils {
         File childFolder = new File(rootFolder, folderName);
         createFolder(childFolder);
         return childFolder;
+    }
+
+    public static File getDownloadImageFile() {
+        File folder = createFolder(FileUtils.DOWNLOAD);
+        return new File(folder.getAbsolutePath(), "about_ball" + System.currentTimeMillis() + ".jpg");
+
     }
 
     /**
