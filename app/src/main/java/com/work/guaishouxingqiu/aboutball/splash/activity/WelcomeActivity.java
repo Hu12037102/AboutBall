@@ -155,9 +155,14 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
                         finish();
                         break;
                     default:
+                        mSkipHandler.removeMessages(WHAT, null);
+                        skipActivity();
                         break;
                 }
             }
+        }else {
+            mSkipHandler.removeMessages(WHAT, null);
+            skipActivity();
         }
     }
 
