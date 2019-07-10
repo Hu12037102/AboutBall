@@ -5,13 +5,13 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.tencent.map.geolocation.TencentLocation;
 import com.tencent.map.geolocation.TencentLocationListener;
 import com.tencent.map.geolocation.TencentLocationManager;
 import com.tencent.map.geolocation.TencentLocationRequest;
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.other.SharedPreferencesHelp;
@@ -28,7 +28,7 @@ import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
  * 更新时间: 2019/6/5 14:05
  * 描述:定位Activity
  */
-public abstract class LocationActivity extends RxAppCompatActivity implements TencentLocationListener {
+public abstract class LocationActivity extends AppCompatActivity implements TencentLocationListener {
 
     private TencentLocationRequest mRequestLocation;
     private TencentLocationManager mManager;

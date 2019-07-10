@@ -11,7 +11,6 @@ import android.view.MotionEvent;
 import com.bugtags.library.Bugtags;
 import com.example.item.util.ScreenUtils;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.umeng.analytics.MobclickAgent;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
@@ -155,6 +154,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends LocationActi
         if (mPresenter != null) {
             mPresenter.deathPresenter();
         }
+        CompressImageTask.get().deathCompress();
         super.onDestroy();
         mBinder.unbind();
         ActivityManger.get().removeActivity(this.getClass());
@@ -188,7 +188,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends LocationActi
             configData.add(MediaSelectorFile.thisToDefaultImageConfig(mMediaFileData.get(i)));
         }
 
-        CompressImageTask.get().compressImages(this, configData, onImagesResult);
+        CompressImageTask.get().compressImages( configData, onImagesResult);
 
     }
 

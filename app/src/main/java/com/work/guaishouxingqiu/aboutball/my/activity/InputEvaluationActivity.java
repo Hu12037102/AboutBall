@@ -180,7 +180,7 @@ public class InputEvaluationActivity extends CameraActivity<InputEvaluationPrese
                     public void onFailure(String errorCode) {
 
                     }
-                });
+                },this);
             } else {
                 postEvaluation();
 

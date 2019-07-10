@@ -233,7 +233,7 @@ public class ApplyBecomeRefereeActivity extends CameraActivity<ApplyBecomeRefere
                         public void onFailure(String errorCode) {
 
                         }
-                    });
+                    },ApplyBecomeRefereeActivity.this);
                 } else {
                     mPresenter.commitRefereeCredential(mRequestBean);
                 }
@@ -243,7 +243,7 @@ public class ApplyBecomeRefereeActivity extends CameraActivity<ApplyBecomeRefere
             public void onFailure(String errorCode) {
 
             }
-        });
+        },this);
     }
 
     public boolean isInputName() {

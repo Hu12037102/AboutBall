@@ -202,7 +202,7 @@ public class FeedbackActivity extends CameraActivity<FeedbackPresenter> implemen
                     public void onFailure(String errorCode) {
 
                     }
-                });
+                },this);
             }
         }
     }

@@ -167,7 +167,7 @@ public class OrderEvaluateActivity extends CameraActivity<OrderEvaluatePresenter
             public void onFailure(String errorCode) {
 
             }
-        });
+        },this);
     }
 
     @Override

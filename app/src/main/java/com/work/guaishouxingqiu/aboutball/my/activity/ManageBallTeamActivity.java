@@ -109,7 +109,7 @@ public class ManageBallTeamActivity extends CameraActivity<ManageBallTeamPresent
                 public void onFailure(String errorCode) {
 
                 }
-            });
+            },this);
         } else {
             if (DataUtils.isEmpty(mRequestBean.logoUrl)) {
                 UIUtils.showToast(R.string.please_choose_team_logo);

@@ -322,6 +322,6 @@ public class MyDetailsActivity extends LoginOrShareActivity<MyDetailsPresenter> 
             public void onFailure(String errorCode) {
                 GlideManger.get().loadHeadImage(MyDetailsActivity.this, mUserBean.headerImg, mCivHead);
             }
-        });
+        },this);
     }
 }
