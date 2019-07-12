@@ -165,7 +165,7 @@ dependencies {
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
     /**/
     implementation 'com.makeramen:roundedimageview:2.3.0'
-    implementation 'com.contrarywind:Android-PickerView:4.1.7'
+    implementation 'com.contrarywind:Android-PickerView:4.1.8'
     // implementation project(':media')
     implementation files('libs/systembartint-1.0.4.jar')
     implementation project(':view')
