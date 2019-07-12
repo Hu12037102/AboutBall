@@ -1,13 +1,11 @@
 package com.work.guaishouxingqiu.aboutball.game.fragment;
 
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -15,7 +13,6 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
 import com.work.guaishouxingqiu.aboutball.game.adapter.GameResultAdapter;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataBean;
@@ -23,10 +20,6 @@ import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameSimpleBean;
 import com.work.guaishouxingqiu.aboutball.game.contract.MatchResultContract;
 import com.work.guaishouxingqiu.aboutball.game.presenter.MatchResultPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
-import com.work.guaishouxingqiu.aboutball.util.DataUtils;
-import com.work.guaishouxingqiu.aboutball.util.LogUtils;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;

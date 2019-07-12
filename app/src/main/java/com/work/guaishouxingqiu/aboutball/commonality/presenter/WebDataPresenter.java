@@ -1,8 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.commonality.presenter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
-import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.commonality.contract.WebDataContract;
 import com.work.guaishouxingqiu.aboutball.commonality.model.WebDataModel;
 

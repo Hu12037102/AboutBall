@@ -107,7 +107,7 @@
         android:layout_height="@dimen/size_5dp"
         android:background="@color/colorFFFBFAFA" />
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_55dp">
 
@@ -146,6 +146,6 @@
             android:layout_marginRight="@dimen/default_margin"
             android:layout_marginLeft="@dimen/default_margin"
             android:textColor="@color/color_4"/>
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

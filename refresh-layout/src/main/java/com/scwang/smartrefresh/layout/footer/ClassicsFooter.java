@@ -1,19 +1,16 @@
 package com.scwang.smartrefresh.layout.footer;
 
 import android.content.Context;
-import android.content.IntentFilter;
 import android.content.res.TypedArray;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewParent;
 import android.view.animation.LinearInterpolator;
 
 import com.scwang.smartrefresh.layout.R;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.RefreshState;

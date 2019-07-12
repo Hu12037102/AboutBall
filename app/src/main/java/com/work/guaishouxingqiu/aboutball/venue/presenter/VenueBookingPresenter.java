@@ -1,6 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.venue.presenter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
@@ -8,11 +8,9 @@ import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
-import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.venue.bean.RequestVenueOrderBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueBookBean;
 import com.work.guaishouxingqiu.aboutball.venue.contract.VenueBookingContract;
-import com.work.guaishouxingqiu.aboutball.venue.contract.VenueListContract;
 import com.work.guaishouxingqiu.aboutball.venue.model.VenueBookingModel;
 
 import java.util.List;

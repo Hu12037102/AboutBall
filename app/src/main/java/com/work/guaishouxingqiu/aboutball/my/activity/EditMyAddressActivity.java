@@ -1,6 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.my.activity;
 
-import android.support.v7.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatEditText;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.ItemView;

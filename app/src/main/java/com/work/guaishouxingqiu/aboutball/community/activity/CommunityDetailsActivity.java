@@ -2,12 +2,12 @@ package com.work.guaishouxingqiu.aboutball.community.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,16 +23,12 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.commonality.activity.LoginOrShareActivity;
 import com.work.guaishouxingqiu.aboutball.community.bean.RequestDynamicCommentsBean;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.community.contract.CommunityDetailsContract;
-import com.work.guaishouxingqiu.aboutball.community.fragment.CommunityNewFragment;
-import com.work.guaishouxingqiu.aboutball.community.fragment.CommunityRecommendFragment;
 import com.work.guaishouxingqiu.aboutball.community.presenter.CommunityDetailsPresenter;
 import com.work.guaishouxingqiu.aboutball.home.adapter.NewsMessageAdapter;
-import com.work.guaishouxingqiu.aboutball.home.bean.RequestSendMessageBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsMessageBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
@@ -51,7 +47,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 

@@ -1,12 +1,8 @@
 package com.work.guaishouxingqiu.aboutball.venue.activity;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
-import android.widget.FrameLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.TitleView;
@@ -21,7 +17,6 @@ import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 作者: 胡庆岭

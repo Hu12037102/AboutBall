@@ -29,13 +29,13 @@
         app:title_text_size="@dimen/size_14sp"
         app:content_drawable_padding="@dimen/size_10dp"/>
 
-    <android.support.design.widget.TabLayout
+    <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_content"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_45dp"
         app:tabIndicatorHeight="@dimen/size_0dp" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_grouping"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_55dp"
@@ -145,12 +145,12 @@
 
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_data"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_other_data"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

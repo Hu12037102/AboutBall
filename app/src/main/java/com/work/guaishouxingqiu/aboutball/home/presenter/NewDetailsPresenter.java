@@ -1,19 +1,16 @@
 package com.work.guaishouxingqiu.aboutball.home.presenter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
-import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
-import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.commonality.presenter.LoginOrSharePresenter;
 import com.work.guaishouxingqiu.aboutball.home.bean.RequestSendMessageBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsMessageBean;
 import com.work.guaishouxingqiu.aboutball.home.contract.NewsDetailsContract;
 import com.work.guaishouxingqiu.aboutball.home.model.NewsDetailsModel;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
-import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 
 import java.util.List;
 

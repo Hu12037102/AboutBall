@@ -2,10 +2,10 @@ package com.work.guaishouxingqiu.aboutball.weight;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
-import android.support.v7.app.AppCompatDialog;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatDialog;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +14,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.example.item.util.ScreenUtils;
 import com.work.guaishouxingqiu.aboutball.R;
 
 /**

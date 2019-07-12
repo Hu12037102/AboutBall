@@ -2,9 +2,9 @@ package com.work.guaishouxingqiu.aboutball.home.activity;
 
 import android.os.Handler;
 import android.os.Message;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebResourceError;

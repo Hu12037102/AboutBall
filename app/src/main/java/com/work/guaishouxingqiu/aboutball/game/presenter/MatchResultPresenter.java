@@ -1,6 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.game.presenter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
@@ -9,10 +9,7 @@ import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataBean;
 import com.work.guaishouxingqiu.aboutball.game.contract.MatchResultContract;
 import com.work.guaishouxingqiu.aboutball.game.model.MatchResultModel;
-import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
-
-import java.util.List;
 
 /**
  * 作者: 胡庆岭

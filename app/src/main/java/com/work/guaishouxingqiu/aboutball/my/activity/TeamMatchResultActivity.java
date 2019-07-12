@@ -1,11 +1,9 @@
 package com.work.guaishouxingqiu.aboutball.my.activity;
 
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -16,8 +14,6 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
-import com.work.guaishouxingqiu.aboutball.game.adapter.GameDataAdapter;
-import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataResultBean;
 import com.work.guaishouxingqiu.aboutball.my.adapter.MyGameRecordAdapter;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyGameRecordBean;
@@ -31,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**

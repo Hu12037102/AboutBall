@@ -1,14 +1,11 @@
 package com.work.guaishouxingqiu.aboutball.weight;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.hardware.input.InputManager;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.ResultReceiver;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.AppCompatEditText;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatEditText;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;

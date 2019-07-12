@@ -1,11 +1,11 @@
 package com.work.guaishouxingqiu.aboutball.game.activity;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
-import android.support.annotation.NonNull;
-import android.support.design.widget.TabLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import com.google.android.material.tabs.TabLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,7 +25,6 @@ import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameInfoScoreboardBean
 import com.work.guaishouxingqiu.aboutball.game.contract.GameInfoContract;
 import com.work.guaishouxingqiu.aboutball.game.presenter.GameInfoPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
-import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
 import com.work.guaishouxingqiu.aboutball.weight.SingWheelDialog;

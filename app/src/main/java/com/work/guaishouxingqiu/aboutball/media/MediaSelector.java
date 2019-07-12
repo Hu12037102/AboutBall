@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.ColorRes;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
+import androidx.annotation.ColorRes;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 
 import com.work.guaishouxingqiu.aboutball.Contast;

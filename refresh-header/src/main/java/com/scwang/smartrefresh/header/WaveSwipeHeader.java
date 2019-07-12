@@ -6,11 +6,11 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.support.annotation.ColorInt;
-import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;

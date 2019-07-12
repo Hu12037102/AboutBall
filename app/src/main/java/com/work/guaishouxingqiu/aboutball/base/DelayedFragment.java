@@ -1,11 +1,8 @@
 package com.work.guaishouxingqiu.aboutball.base;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 

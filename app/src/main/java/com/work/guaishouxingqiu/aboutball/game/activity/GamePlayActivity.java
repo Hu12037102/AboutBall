@@ -1,26 +1,16 @@
 package com.work.guaishouxingqiu.aboutball.game.activity;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.PixelFormat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.Surface;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 
 import com.alivc.player.AliVcMediaPlayer;
-import com.alivc.player.MediaPlayer;
 import com.aliyun.vodplayer.media.AliyunLocalSource;
-import com.aliyun.vodplayer.media.AliyunMediaInfo;
-import com.aliyun.vodplayer.media.AliyunPlayAuth;
 import com.aliyun.vodplayer.media.AliyunVodPlayer;
-import com.aliyun.vodplayer.media.IAliyunVodPlayer;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
-import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 
 public class GamePlayActivity extends BaseActivity {
    // String mLivePath = "http://player.alicdn.com/video/aliyunmedia.mp4";

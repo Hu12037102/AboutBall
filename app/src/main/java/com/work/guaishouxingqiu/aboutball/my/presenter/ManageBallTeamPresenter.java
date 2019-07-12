@@ -1,6 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.my.presenter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
@@ -11,7 +11,6 @@ import com.work.guaishouxingqiu.aboutball.my.bean.RequestManageBallTeamBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.ManageBallTeamContract;
 import com.work.guaishouxingqiu.aboutball.my.model.ManageBallTeamModel;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
-import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultTypeBean;
 
 import java.util.List;

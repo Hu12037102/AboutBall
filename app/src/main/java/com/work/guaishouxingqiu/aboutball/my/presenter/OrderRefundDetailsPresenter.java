@@ -1,6 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.my.presenter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
@@ -10,7 +10,6 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.OrderRefundDetailsContract;
 import com.work.guaishouxingqiu.aboutball.my.model.OrderRefundDetailsModel;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
-import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 
 /**
  * 作者: 胡庆岭

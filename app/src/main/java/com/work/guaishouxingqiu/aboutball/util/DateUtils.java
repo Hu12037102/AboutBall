@@ -1,13 +1,11 @@
 package com.work.guaishouxingqiu.aboutball.util;
 
 import android.annotation.SuppressLint;
-import android.support.v7.widget.CardView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Timer;
 
 /**
  * 作者: 胡庆岭

@@ -1,9 +1,9 @@
 package com.work.guaishouxingqiu.aboutball.weight;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatDialog;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatDialog;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,13 +11,9 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.bigkoo.pickerview.adapter.ArrayWheelAdapter;
-import com.bigkoo.pickerview.view.WheelOptions;
 import com.contrarywind.view.WheelView;
-import com.example.item.util.ScreenUtils;
 import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.util.DataUtils;
-import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,9 +1,9 @@
 package com.work.guaishouxingqiu.aboutball.community.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,12 +87,9 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
                     view.setEnabled(true);
                 }
             }));
-            viewHolder.mTvData.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (onTextContentClickListener != null && !DataUtils.isEmpty(bean.topicTitle)) {
-                        onTextContentClickListener.onClickContent(viewHolder.mTvData, i);
-                    }
+            viewHolder.mTvData.setOnClickListener(v -> {
+                if (onTextContentClickListener != null && !DataUtils.isEmpty(bean.topicTitle)) {
+                    onTextContentClickListener.onClickContent(viewHolder.mTvData, i);
                 }
             });
 

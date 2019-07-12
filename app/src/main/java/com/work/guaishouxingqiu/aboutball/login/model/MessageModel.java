@@ -1,8 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.login.model;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
-import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.base.BaseModel;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.login.LoginService;

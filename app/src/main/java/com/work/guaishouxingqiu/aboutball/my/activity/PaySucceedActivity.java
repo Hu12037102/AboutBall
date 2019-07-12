@@ -1,15 +1,12 @@
 package com.work.guaishouxingqiu.aboutball.my.activity;
 
-import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
-import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.commonality.activity.LoginOrShareActivity;
 import com.work.guaishouxingqiu.aboutball.my.contract.PaySucceedContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.PaySucceedPresenter;
@@ -19,7 +16,6 @@ import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**

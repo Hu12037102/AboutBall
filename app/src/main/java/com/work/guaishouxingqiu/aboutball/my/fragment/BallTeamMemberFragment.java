@@ -1,8 +1,8 @@
 package com.work.guaishouxingqiu.aboutball.my.fragment;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
@@ -10,10 +10,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.work.guaishouxingqiu.aboutball.Contast;
-import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
-import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
 import com.work.guaishouxingqiu.aboutball.commonality.fragment.LoginOrShareFragment;
 import com.work.guaishouxingqiu.aboutball.my.adapter.BallTeamMemberAdapter;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyBallBean;
@@ -23,16 +20,13 @@ import com.work.guaishouxingqiu.aboutball.my.presenter.BallTeamMemberPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
-import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
-import com.work.guaishouxingqiu.aboutball.weight.ShareDialog;
 import com.work.guaishouxingqiu.aboutball.weight.SingPopupWindows;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import butterknife.BindView;

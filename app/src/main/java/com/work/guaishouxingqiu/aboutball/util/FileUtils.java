@@ -9,15 +9,13 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.support.annotation.NonNull;
-import android.support.v4.content.FileProvider;
+import androidx.annotation.NonNull;
+import androidx.core.content.FileProvider;
 
 import com.work.guaishouxingqiu.aboutball.media.weight.MediaScanner;
 
 import java.io.File;
 import java.util.List;
-
-import io.reactivex.internal.operators.flowable.FlowableOnErrorNext;
 
 /**
  * 作者: 胡庆岭

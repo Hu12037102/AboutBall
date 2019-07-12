@@ -1,8 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.game.presenter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
-import com.work.guaishouxingqiu.aboutball.base.BaseModel;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.game.contract.GameContract;
 import com.work.guaishouxingqiu.aboutball.game.model.GameModel;

@@ -1,7 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.venue.activity;
 
-import android.os.Bundle;
-import android.support.v4.text.HtmlCompat;
+import androidx.core.text.HtmlCompat;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -12,7 +11,6 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 作者: 胡庆岭

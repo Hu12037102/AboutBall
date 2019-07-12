@@ -1,17 +1,12 @@
 package com.work.guaishouxingqiu.aboutball.base;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
-import com.work.guaishouxingqiu.aboutball.Contast;
-import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 
-import org.greenrobot.eventbus.EventBus;
-
 import io.reactivex.Observer;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import retrofit2.HttpException;
 

@@ -1,11 +1,9 @@
 package com.work.guaishouxingqiu.aboutball.login.activity;
 
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.view.View;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.TitleView;
@@ -16,24 +14,20 @@ import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.login.bean.RegisterResultBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.RequestRegisterBean;
-import com.work.guaishouxingqiu.aboutball.login.contract.RegisterCodeContract;
 import com.work.guaishouxingqiu.aboutball.login.contract.RegisterContract;
 import com.work.guaishouxingqiu.aboutball.login.fragment.RegisterCodeFragment;
 import com.work.guaishouxingqiu.aboutball.login.fragment.RegisterPasswordFragment;
 import com.work.guaishouxingqiu.aboutball.login.fragment.RegisterPhoneFragment;
 import com.work.guaishouxingqiu.aboutball.login.presenter.RegisterPresenter;
-import com.work.guaishouxingqiu.aboutball.other.ActivityManger;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
-import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 作者: 胡庆岭

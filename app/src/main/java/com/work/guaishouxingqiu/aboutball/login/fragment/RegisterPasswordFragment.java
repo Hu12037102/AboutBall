@@ -1,8 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.login.fragment;
 
-import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputEditText;
-import android.support.v7.widget.AppCompatEditText;
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;

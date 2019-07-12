@@ -1,6 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.my.bean;
 
-import android.support.annotation.DrawableRes;
+import androidx.annotation.DrawableRes;
 
 import com.work.guaishouxingqiu.aboutball.R;
 

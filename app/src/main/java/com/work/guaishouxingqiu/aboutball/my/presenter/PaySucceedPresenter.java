@@ -1,6 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.my.presenter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.commonality.presenter.LoginOrSharePresenter;
 import com.work.guaishouxingqiu.aboutball.my.contract.PaySucceedContract;

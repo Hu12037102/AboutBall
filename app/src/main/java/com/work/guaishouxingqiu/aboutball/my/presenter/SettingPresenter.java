@@ -1,8 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.my.presenter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
-import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
@@ -11,9 +10,7 @@ import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.SettingContract;
 import com.work.guaishouxingqiu.aboutball.my.model.SettingModel;
-import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 
-import java.io.File;
 import java.text.NumberFormat;
 
 import io.reactivex.Observer;

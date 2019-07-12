@@ -1,8 +1,8 @@
 package com.work.guaishouxingqiu.aboutball.home.adapter;
 
-import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,15 +11,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.item.util.ScreenUtils;
-import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultRecommendDataBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
-import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
-import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
 /**

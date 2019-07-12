@@ -2,8 +2,8 @@ package com.work.guaishouxingqiu.aboutball.community.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -12,7 +12,6 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
 import com.work.guaishouxingqiu.aboutball.commonality.fragment.LoginOrShareFragment;
 import com.work.guaishouxingqiu.aboutball.community.activity.DynamicEditActivity;
 import com.work.guaishouxingqiu.aboutball.community.adapter.CommunityDataAdapter;

@@ -22,7 +22,7 @@
             android:textSize="@dimen/size_17sp"
             tools:text="五华体育馆" />
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_188dp"
             android:layout_marginTop="@dimen/size_15dp">
@@ -47,7 +47,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:padding="@dimen/default_margin"/>
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/tv_from"

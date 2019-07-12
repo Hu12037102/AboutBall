@@ -1,8 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.base.imp;
 
-import android.support.annotation.NonNull;
-
-import org.greenrobot.eventbus.Subscribe;
+import androidx.annotation.NonNull;
 
 /**
  * 作者: 胡庆岭

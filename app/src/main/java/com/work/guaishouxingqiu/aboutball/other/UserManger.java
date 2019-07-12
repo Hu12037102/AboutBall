@@ -1,10 +1,9 @@
 package com.work.guaishouxingqiu.aboutball.other;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
-import com.work.guaishouxingqiu.aboutball.util.FileUtils;
 
 /**
  * 作者: 胡庆岭

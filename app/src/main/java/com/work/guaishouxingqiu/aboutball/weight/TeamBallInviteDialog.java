@@ -2,13 +2,11 @@ package com.work.guaishouxingqiu.aboutball.weight;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatDialog;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDialog;
 import android.util.DisplayMetrics;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;

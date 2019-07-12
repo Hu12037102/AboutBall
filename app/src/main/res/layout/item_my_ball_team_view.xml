@@ -6,7 +6,7 @@
     android:layout_height="@dimen/size_70dp"
     android:background="@drawable/selector_item">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -56,7 +56,7 @@
             app:layout_constraintRight_toRightOf="parent"
             tools:text="管理" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:id="@+id/line_bottom"

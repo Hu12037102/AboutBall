@@ -1,17 +1,13 @@
 package com.work.guaishouxingqiu.aboutball.game.presenter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
-import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
-import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameCollectionBean;
 import com.work.guaishouxingqiu.aboutball.game.contract.GameCollectionContract;
-import com.work.guaishouxingqiu.aboutball.game.contract.GameCommentContract;
 import com.work.guaishouxingqiu.aboutball.game.model.GameCollectionModel;
-import com.work.guaishouxingqiu.aboutball.game.model.GameCommentModel;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 
 import java.util.List;

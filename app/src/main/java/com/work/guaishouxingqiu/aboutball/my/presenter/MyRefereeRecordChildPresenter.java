@@ -1,14 +1,12 @@
 package com.work.guaishouxingqiu.aboutball.my.presenter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
-import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeRecordBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.MyRefereeRecordChildContract;
-import com.work.guaishouxingqiu.aboutball.my.contract.MyRefereeRecordContract;
 import com.work.guaishouxingqiu.aboutball.my.model.MyRefereeRecordChildModel;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 

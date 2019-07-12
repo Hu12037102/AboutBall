@@ -2,19 +2,17 @@ package com.work.guaishouxingqiu.aboutball.util;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
-import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.ColorRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.TabLayout;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.ColorRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
+
+import com.google.android.material.tabs.TabLayout;
+import androidx.core.content.ContextCompat;
 import android.text.Editable;
 import android.text.SpannableString;
 import android.text.TextWatcher;
@@ -27,29 +25,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.item.util.ScreenUtils;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.community.adapter.CommunityDataAdapter;
-import com.work.guaishouxingqiu.aboutball.http.IApi;
-import com.work.guaishouxingqiu.aboutball.my.activity.AboutWeActivity;
-import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
-import com.work.guaishouxingqiu.aboutball.other.DownloadApkHelp;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
-import com.work.guaishouxingqiu.aboutball.venue.activity.VenueDetailsActivity;
-import com.work.guaishouxingqiu.aboutball.venue.bean.ResultOrderDetailsBean;
 import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 import com.yalantis.ucrop.UCrop;
 
-import org.jsoup.helper.DataUtil;
-
 import java.io.File;
-import java.util.List;
 
 /**
  * 作者: 胡庆岭

@@ -1,11 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.my.activity;
 
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputEditText;
-import android.support.v7.widget.AppCompatEditText;
-import android.view.View;
-import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatEditText;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.TitleView;
@@ -20,7 +16,6 @@ import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 作者: 胡庆岭

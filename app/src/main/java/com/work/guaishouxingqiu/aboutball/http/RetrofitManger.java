@@ -1,16 +1,13 @@
 package com.work.guaishouxingqiu.aboutball.http;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.BuildConfig;
-import com.work.guaishouxingqiu.aboutball.other.DownloadApkHelp;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.NetWorkUtils;
-import com.work.guaishouxingqiu.aboutball.util.PhoneUtils;
-import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;

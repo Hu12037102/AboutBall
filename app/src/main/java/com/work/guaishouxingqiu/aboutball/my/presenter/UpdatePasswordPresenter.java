@@ -1,6 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.my.presenter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
@@ -11,7 +11,6 @@ import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdatePasswordBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.UpdatePasswordContract;
 import com.work.guaishouxingqiu.aboutball.my.model.UpdatePasswordModel;
-import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 /**
  * 作者: 胡庆岭

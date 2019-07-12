@@ -1,10 +1,10 @@
 package com.work.guaishouxingqiu.aboutball.weight;
 
 import android.content.Context;
-import android.os.Looper;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.util.TypedValue;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,34 +12,19 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.bigkoo.pickerview.adapter.ArrayWheelAdapter;
-import com.contrarywind.listener.OnItemSelectedListener;
 import com.contrarywind.view.WheelView;
-import com.example.item.util.ScreenUtils;
 import com.example.item.weight.TitleView;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.my.bean.AddressBean;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
-import okhttp3.Address;
 
 /**
  * 作者: 胡庆岭

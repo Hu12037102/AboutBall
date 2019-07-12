@@ -2,11 +2,10 @@ package com.work.guaishouxingqiu.aboutball.my.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.base.CameraActivity;
 import com.work.guaishouxingqiu.aboutball.media.MediaSelector;
 import com.work.guaishouxingqiu.aboutball.media.bean.MediaSelectorFile;
@@ -33,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**

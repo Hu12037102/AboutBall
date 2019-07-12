@@ -3,21 +3,14 @@ package com.work.guaishouxingqiu.aboutball.wxapi;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
-import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
-import com.work.guaishouxingqiu.aboutball.Contast;
-import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.base.BaseApplication;
-import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
-import com.work.guaishouxingqiu.aboutball.util.LogUtils;
-import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import org.greenrobot.eventbus.EventBus;
 

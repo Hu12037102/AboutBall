@@ -3,25 +3,19 @@ package com.work.guaishouxingqiu.aboutball.other;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Trace;
-import android.support.annotation.NonNull;
-import android.support.v4.content.FileProvider;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.FileProvider;
 
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.receiver.DownloadMangerReceiver;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
-import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import java.io.File;
-
-import utils.UiUtils;
 
 /**
  * 项  目 :  AboutBall

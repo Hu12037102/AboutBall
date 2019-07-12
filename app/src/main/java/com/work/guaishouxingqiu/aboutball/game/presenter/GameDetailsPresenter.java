@@ -1,14 +1,11 @@
 package com.work.guaishouxingqiu.aboutball.game.presenter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
-import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
-import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.commonality.presenter.LoginOrSharePresenter;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameSimpleBean;
-import com.work.guaishouxingqiu.aboutball.game.contract.GameContract;
 import com.work.guaishouxingqiu.aboutball.game.contract.GameDetailsContract;
 import com.work.guaishouxingqiu.aboutball.game.model.GameDetailsModel;
 import com.work.guaishouxingqiu.aboutball.http.IApi;

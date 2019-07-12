@@ -1,8 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.login.presenter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
-import com.work.guaishouxingqiu.aboutball.login.contract.RegisterContract;
 import com.work.guaishouxingqiu.aboutball.login.contract.RegisterPhoneContract;
 import com.work.guaishouxingqiu.aboutball.login.model.RegisterPhoneModel;
 

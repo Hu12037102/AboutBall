@@ -1,17 +1,12 @@
 package com.work.guaishouxingqiu.aboutball.venue.fragment;
 
-import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import com.google.android.material.tabs.TabLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
 import com.work.guaishouxingqiu.aboutball.home.adapter.RecommendedAdapter;
 import com.work.guaishouxingqiu.aboutball.home.fragment.HomeFragment;
@@ -25,9 +20,7 @@ import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
 import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * 作者: 胡庆岭

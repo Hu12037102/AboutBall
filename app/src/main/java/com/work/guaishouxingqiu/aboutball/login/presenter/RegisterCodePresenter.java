@@ -1,12 +1,9 @@
 package com.work.guaishouxingqiu.aboutball.login.presenter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
-import com.work.guaishouxingqiu.aboutball.login.bean.RegisterInputEditBean;
 import com.work.guaishouxingqiu.aboutball.login.contract.RegisterCodeContract;
 import com.work.guaishouxingqiu.aboutball.login.model.RegisterCodeModel;
-
-import java.util.List;
 
 /**
  * 作者: 胡庆岭

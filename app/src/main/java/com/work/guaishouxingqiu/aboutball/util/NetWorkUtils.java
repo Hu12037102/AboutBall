@@ -1,11 +1,9 @@
 package com.work.guaishouxingqiu.aboutball.util;
 
 import android.content.Context;
-import android.content.IntentFilter;
 import android.net.ConnectivityManager;
-import android.net.Network;
 import android.net.NetworkInfo;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * 作者: 胡庆岭

@@ -31,7 +31,7 @@
         app:show_top_line="true"
         app:title_data="@string/feedback_type" />
 
-    <android.support.v7.widget.AppCompatEditText
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/acet_content"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_140dp"
@@ -47,7 +47,7 @@
         android:textColorHint="@color/colorFFA6A6A6"
         android:textSize="@dimen/size_14sp" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -1,11 +1,10 @@
 package com.work.guaishouxingqiu.aboutball.venue.presenter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
-import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultMyAboutBean;
 import com.work.guaishouxingqiu.aboutball.venue.contract.MyAboutBallChildContract;

@@ -21,7 +21,7 @@
         app:sure_text_padding_left="@dimen/default_margin"
         app:sure_text_padding_right="@dimen/default_margin"/>
 
-    <android.support.v7.widget.AppCompatEditText
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/tiet_name"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_50dp"

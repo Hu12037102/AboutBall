@@ -1,16 +1,12 @@
 package com.work.guaishouxingqiu.aboutball.commonality.fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
-import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
-import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
-import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import org.greenrobot.eventbus.Subscribe;

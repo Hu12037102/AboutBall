@@ -1,9 +1,9 @@
 package com.work.guaishouxingqiu.aboutball.venue.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
@@ -23,8 +23,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * 作者: 胡庆岭

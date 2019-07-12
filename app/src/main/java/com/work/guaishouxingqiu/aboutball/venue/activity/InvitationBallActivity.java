@@ -2,9 +2,9 @@ package com.work.guaishouxingqiu.aboutball.venue.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
+
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import android.view.View;
 import android.widget.TextView;
 
@@ -19,15 +19,12 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.bean.RequestInvitationBallBean;
-import com.work.guaishouxingqiu.aboutball.venue.bean.RequestVenueOrderBean;
-import com.work.guaishouxingqiu.aboutball.venue.bean.ResultAboutBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultMyBallTeamBean;
 import com.work.guaishouxingqiu.aboutball.venue.contract.InvitationBallContract;
 import com.work.guaishouxingqiu.aboutball.venue.presenter.InvitationBallPresenter;
 import com.work.guaishouxingqiu.aboutball.weight.SelectorColorDialog;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**

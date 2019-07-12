@@ -1,11 +1,8 @@
 package com.work.guaishouxingqiu.aboutball.commonality.activity;
 
-import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.View;
+import androidx.annotation.Nullable;
 
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
@@ -13,29 +10,21 @@ import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.CameraActivity;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
-import com.work.guaishouxingqiu.aboutball.login.activity.LoginActivity;
-import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.ResultThreeLoginBean;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
-import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
-import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.RequestWeiChatTokenBean;
 import com.work.guaishouxingqiu.aboutball.commonality.contract.LoginOrShareContract;
 import com.work.guaishouxingqiu.aboutball.commonality.presenter.LoginOrSharePresenter;
 import com.work.guaishouxingqiu.aboutball.util.PhoneUtils;
-import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.ShareDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 import com.work.guaishouxingqiu.aboutball.wxapi.WXEntryActivity;
 
 import org.greenrobot.eventbus.Subscribe;
-
-import static com.tencent.mm.opensdk.modelmsg.SendMessageToWX.Req.WXSceneSession;
 
 /**
  * 作者: 胡庆岭

@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -139,7 +139,7 @@
                         android:textSize="@dimen/size_17sp" />
                 </LinearLayout>
 
-                <android.support.design.chip.ChipGroup
+                <com.google.android.material.chip.ChipGroup
                     android:id="@+id/cg_flow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -165,7 +165,7 @@
                 style="@style/ItemSingTextView"
                 android:text="@string/user_evaluation" />
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_evaluation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -186,7 +186,7 @@
                 style="@style/ItemSingTextView"
                 android:text="@string/about_ball_ball_friend" />
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_ball"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

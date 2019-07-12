@@ -1,6 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.home.contract;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -41,7 +41,7 @@
             android:textSize="@dimen/size_12sp"
             tools:text="匿名用戶" />
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_grade"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/tv_grade"
                 app:layout_constraintLeft_toRightOf="@id/tv_grade"
                 app:layout_constraintTop_toTopOf="@id/tv_grade" />
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.work.guaishouxingqiu.aboutball.weight.ExpandableTextView
             android:id="@+id/rtv_content"
@@ -112,4 +112,4 @@
             style="@style/HorizontalLine"
             android:layout_marginTop="@dimen/default_margin" />
     </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,12 +2,10 @@ package com.work.guaishouxingqiu.aboutball.commonality.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
-import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;

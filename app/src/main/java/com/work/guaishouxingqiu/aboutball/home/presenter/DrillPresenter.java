@@ -1,6 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.home.presenter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.home.contract.DrillContract;
 import com.work.guaishouxingqiu.aboutball.home.model.DrillModel;

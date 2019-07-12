@@ -1,9 +1,9 @@
 package com.work.guaishouxingqiu.aboutball.home.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +14,6 @@ import com.example.item.util.ScreenUtils;
 import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultHomeTabBean;
-import com.work.guaishouxingqiu.aboutball.venue.bean.ResultTypeBean;
 
 import java.util.List;
 

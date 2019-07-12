@@ -1,7 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.my.activity;
 
-import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -14,7 +13,6 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**

@@ -1,14 +1,13 @@
 package com.work.guaishouxingqiu.aboutball.my.adapter;
 
 import android.content.Context;
-import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
@@ -16,7 +15,6 @@ import com.work.guaishouxingqiu.aboutball.my.bean.AddImageBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 
-import java.io.File;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;

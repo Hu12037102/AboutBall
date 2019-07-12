@@ -3,12 +3,11 @@ package com.work.guaishouxingqiu.aboutball.base;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import android.view.MotionEvent;
 
-import com.bugtags.library.Bugtags;
 import com.example.item.util.ScreenUtils;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.umeng.analytics.MobclickAgent;
@@ -24,8 +23,6 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundCauseBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 import com.work.guaishouxingqiu.aboutball.other.ActivityManger;
-import com.work.guaishouxingqiu.aboutball.util.DataUtils;
-import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.LoadingView;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 

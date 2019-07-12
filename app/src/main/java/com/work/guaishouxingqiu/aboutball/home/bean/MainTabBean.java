@@ -1,8 +1,8 @@
 package com.work.guaishouxingqiu.aboutball.home.bean;
 
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.R;
 

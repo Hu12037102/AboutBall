@@ -77,7 +77,7 @@
             app:center_text_color="@color/color_4"
             app:center_text_size="@dimen/size_19sp" />
 
-        <android.support.design.widget.TabLayout
+        <com.google.android.material.tabs.TabLayout
             android:id="@+id/tb_date"
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_45dp"

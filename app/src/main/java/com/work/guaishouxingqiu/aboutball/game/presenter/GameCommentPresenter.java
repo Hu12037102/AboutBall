@@ -1,6 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.game.presenter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
@@ -11,7 +11,6 @@ import com.work.guaishouxingqiu.aboutball.game.bean.RequestGameCommentBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameCommentBean;
 import com.work.guaishouxingqiu.aboutball.game.contract.GameCommentContract;
 import com.work.guaishouxingqiu.aboutball.game.model.GameCommentModel;
-import com.work.guaishouxingqiu.aboutball.home.bean.RequestSendMessageBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 
 import java.util.List;

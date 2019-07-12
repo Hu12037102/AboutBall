@@ -1,6 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.my.presenter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
@@ -8,7 +8,6 @@ import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.BallTeamDetailsChildContract;
-import com.work.guaishouxingqiu.aboutball.my.contract.BallTeamDetailsContract;
 import com.work.guaishouxingqiu.aboutball.my.model.BallTeamDetailsChildModel;
 
 /**

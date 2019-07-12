@@ -1,15 +1,13 @@
 package com.work.guaishouxingqiu.aboutball.weight;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.item.weight.ItemView;
 import com.example.item.weight.TitleView;
-import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 

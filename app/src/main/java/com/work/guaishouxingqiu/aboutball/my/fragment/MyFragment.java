@@ -2,7 +2,7 @@ package com.work.guaishouxingqiu.aboutball.my.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -14,7 +14,6 @@ import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
 import com.work.guaishouxingqiu.aboutball.commonality.fragment.LoginOrShareFragment;
 import com.work.guaishouxingqiu.aboutball.login.activity.LoginActivity;

@@ -1,16 +1,12 @@
 package com.work.guaishouxingqiu.aboutball.home.presenter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.base.BaseModel;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.home.activity.MainActivity;
-import com.work.guaishouxingqiu.aboutball.home.bean.MainTabBean;
 import com.work.guaishouxingqiu.aboutball.home.contract.MainContract;
 import com.work.guaishouxingqiu.aboutball.home.model.MainModel;
-
-import java.util.List;
 
 /**
  * 作者: 胡庆岭

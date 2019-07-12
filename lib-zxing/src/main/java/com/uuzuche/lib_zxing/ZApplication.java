@@ -1,6 +1,6 @@
 package com.uuzuche.lib_zxing;
 
-import android.support.multidex.MultiDexApplication;
+import androidx.multidex.MultiDexApplication;
 import android.util.DisplayMetrics;
 
 

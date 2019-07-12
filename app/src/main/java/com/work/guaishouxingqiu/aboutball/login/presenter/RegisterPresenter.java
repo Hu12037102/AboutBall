@@ -1,6 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.login.presenter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
@@ -9,9 +9,6 @@ import com.work.guaishouxingqiu.aboutball.login.bean.RegisterResultBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.RequestRegisterBean;
 import com.work.guaishouxingqiu.aboutball.login.contract.RegisterContract;
 import com.work.guaishouxingqiu.aboutball.login.model.RegisterModel;
-import com.work.guaishouxingqiu.aboutball.other.UserManger;
-
-import io.reactivex.disposables.Disposable;
 
 /**
  * 作者: 胡庆岭

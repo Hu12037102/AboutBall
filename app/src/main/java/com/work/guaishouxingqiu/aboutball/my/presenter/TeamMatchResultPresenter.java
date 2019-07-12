@@ -1,11 +1,10 @@
 package com.work.guaishouxingqiu.aboutball.my.presenter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
-import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataResultBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyGameRecordBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.TeamMatchResultContract;
 import com.work.guaishouxingqiu.aboutball.my.model.TeamMatchResultModel;

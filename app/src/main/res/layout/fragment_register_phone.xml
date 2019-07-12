@@ -10,12 +10,12 @@
         style="@style/DefaultTitleText"
         android:text="@string/register" />
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         style="@style/InputRelativeLayout"
         android:layout_marginTop="@dimen/size_40dp">
 
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
             android:textColorHint="@color/color_4"
             app:hintTextAppearance="@style/DefaultTextInputLayout">
 
-            <android.support.v7.widget.AppCompatEditText
+            <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/tiet_phone"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_50dp"
@@ -39,7 +39,7 @@
                 android:textColorHint="@color/color_4"
                 android:textSize="18sp"
                 tools:text="123456" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
             android:id="@+id/iv_clear_register_phone"
@@ -54,7 +54,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:visibility="gone"/>
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/tv_next"

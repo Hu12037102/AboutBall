@@ -38,7 +38,7 @@
             android:text="@string/save" />
     </RelativeLayout>
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/rl_bottom"
@@ -63,7 +63,7 @@
                     android:textColor="@color/color_4"
                     android:textSize="@dimen/size_14sp" />
 
-                <android.support.v7.widget.AppCompatEditText
+                <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/aet_number"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -134,5 +134,5 @@
                  android:layout_marginBottom="@dimen/size_20dp" />-->
 
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 </RelativeLayout>

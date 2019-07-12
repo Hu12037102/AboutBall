@@ -17,7 +17,7 @@
         app:center_text_color="@color/color_4"
         app:center_text_size="@dimen/size_19sp" />
 
-    <android.support.design.widget.TabLayout
+    <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_title"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/size_40dp"

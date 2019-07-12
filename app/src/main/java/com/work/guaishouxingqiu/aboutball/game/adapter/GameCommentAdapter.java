@@ -1,8 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.game.adapter;
 
-import android.support.annotation.NonNull;
-import android.support.v4.util.SparseArrayCompat;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +10,9 @@ import android.widget.TextView;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameCommentBean;
-import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 
 import java.util.List;
-
-import me.jessyan.autosize.utils.ScreenUtils;
 
 /**
  * 作者: 胡庆岭

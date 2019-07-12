@@ -1,27 +1,19 @@
 package com.work.guaishouxingqiu.aboutball.base;
 
-import android.os.Build;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.example.item.util.ScreenUtils;
 import com.example.item.weight.TitleView;
-import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.commonality.activity.LoginOrShareActivity;
-import com.work.guaishouxingqiu.aboutball.commonality.model.LoginOrShareModel;
 import com.work.guaishouxingqiu.aboutball.commonality.presenter.LoginOrSharePresenter;
 import com.work.guaishouxingqiu.aboutball.other.WebHelp;
-import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 

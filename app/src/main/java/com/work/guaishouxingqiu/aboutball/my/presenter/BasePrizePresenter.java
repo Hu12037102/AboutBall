@@ -1,6 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.my.presenter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
@@ -10,9 +10,6 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultPrizeBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.BasePrizeContract;
 import com.work.guaishouxingqiu.aboutball.my.model.BasePrizeModel;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
-
-import java.util.IllegalFormatCodePointException;
-import java.util.List;
 
 /**
  * 作者: 胡庆岭

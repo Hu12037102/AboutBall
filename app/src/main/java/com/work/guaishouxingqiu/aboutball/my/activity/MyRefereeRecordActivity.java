@@ -1,20 +1,15 @@
 package com.work.guaishouxingqiu.aboutball.my.activity;
 
-import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.util.ArrayMap;
-import android.support.v4.util.SparseArrayCompat;
-import android.support.v4.view.ViewPager;
+import com.google.android.material.tabs.TabLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.my.contract.MyRefereeRecordContract;
-import com.work.guaishouxingqiu.aboutball.my.fragment.MyRefereeEvaluateFragment;
 import com.work.guaishouxingqiu.aboutball.my.fragment.MyRefereeRecordFragment;
 import com.work.guaishouxingqiu.aboutball.my.fragment.PostEvaluationFragment;
 import com.work.guaishouxingqiu.aboutball.my.presenter.MyRefereeRecordPresenter;
@@ -24,10 +19,7 @@ import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
 
-import org.jsoup.helper.DataUtil;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 作者: 胡庆岭

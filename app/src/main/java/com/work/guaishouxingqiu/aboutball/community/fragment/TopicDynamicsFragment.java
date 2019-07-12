@@ -2,13 +2,12 @@ package com.work.guaishouxingqiu.aboutball.community.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
@@ -17,8 +16,6 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
-import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
 import com.work.guaishouxingqiu.aboutball.commonality.fragment.LoginOrShareFragment;
 import com.work.guaishouxingqiu.aboutball.community.adapter.CommunityDataAdapter;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
@@ -32,8 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * 作者: 胡庆岭

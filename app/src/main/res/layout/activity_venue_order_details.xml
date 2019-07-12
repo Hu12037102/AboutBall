@@ -114,14 +114,14 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/ll_bottom_root"
         android:layout_below="@id/tv_top_hint">
 
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingLeft="@dimen/default_margin"
@@ -418,6 +418,6 @@
                 app:layout_constraintTop_toBottomOf="@id/ll_order_status" />
 
 
-        </android.support.constraint.ConstraintLayout>
-    </android.support.v4.widget.NestedScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </RelativeLayout>

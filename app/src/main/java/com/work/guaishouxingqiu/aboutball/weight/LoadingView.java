@@ -1,13 +1,11 @@
 package com.work.guaishouxingqiu.aboutball.weight;
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
-import android.view.LayoutInflater;
+import androidx.annotation.NonNull;
+
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import com.github.ybq.android.spinkit.SpinKitView;
 import com.work.guaishouxingqiu.aboutball.R;
 
 /**

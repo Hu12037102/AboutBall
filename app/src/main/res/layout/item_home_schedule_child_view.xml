@@ -12,7 +12,7 @@
         android:gravity="center"
         tools:text="02:26"
         />
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="4">
@@ -61,8 +61,8 @@
             android:layout_marginRight="@dimen/size_10dp"
             />
 
-    </android.support.constraint.ConstraintLayout>
-    <android.support.constraint.ConstraintLayout
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1">
@@ -94,7 +94,7 @@
             android:singleLine="true"
             android:ellipsize="end"
             />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:layout_width="0dp"

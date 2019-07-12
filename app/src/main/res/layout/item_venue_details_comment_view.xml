@@ -40,7 +40,7 @@
                 android:textSize="@dimen/size_12sp"
                 tools:text="15分之前" />
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_marginTop="@dimen/size_5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -66,7 +66,7 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     />
 
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.work.guaishouxingqiu.aboutball.weight.ExpandableTextView
                 android:id="@+id/etv_content"

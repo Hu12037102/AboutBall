@@ -1,15 +1,9 @@
 package com.work.guaishouxingqiu.aboutball.my.fragment;
 
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewStub;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -25,14 +19,11 @@ import com.work.guaishouxingqiu.aboutball.my.contract.BasePrizeContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.BasePrizePresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
-import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * 作者: 胡庆岭

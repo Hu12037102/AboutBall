@@ -1,7 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.util;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -12,7 +12,6 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
-import com.work.guaishouxingqiu.aboutball.community.adapter.CommunityDataAdapter;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.other.SharedPreferencesHelp;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;

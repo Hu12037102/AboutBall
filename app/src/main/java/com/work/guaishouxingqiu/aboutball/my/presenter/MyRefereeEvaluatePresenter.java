@@ -1,10 +1,9 @@
 package com.work.guaishouxingqiu.aboutball.my.presenter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.my.contract.MyRefereeEvaluateContract;
-import com.work.guaishouxingqiu.aboutball.my.contract.MyRefereeRecordChildContract;
 import com.work.guaishouxingqiu.aboutball.my.model.MyRefereeEvaluateModel;
 
 /**

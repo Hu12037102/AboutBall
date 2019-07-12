@@ -1,9 +1,9 @@
 package com.work.guaishouxingqiu.aboutball.my.adapter;
 
-import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -15,8 +15,6 @@ import android.widget.TextView;
 import com.example.item.util.ScreenUtils;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.game.adapter.GameDataAdapter;
-import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataResultBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyGameRecordBean;
 
 import java.util.List;

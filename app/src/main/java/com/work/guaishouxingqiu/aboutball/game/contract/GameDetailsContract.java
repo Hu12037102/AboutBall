@@ -1,9 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.game.contract;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
-import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
-import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.commonality.contract.LoginOrShareContract;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameSimpleBean;
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent" />
 
-    <android.support.v7.widget.AppCompatEditText
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/acet_content"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_140dp"
@@ -58,7 +58,7 @@
         app:layout_constraintBottom_toBottomOf="@id/acet_content"
         app:layout_constraintRight_toRightOf="@id/acet_content" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_data"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_0dp"
@@ -69,4 +69,4 @@
         android:layout_marginLeft="@dimen/default_margin"
         android:layout_marginRight="@dimen/default_margin"/>
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,7 +24,7 @@
         android:layout_marginTop="@dimen/size_20dp"
         android:text="@string/apply_to_become_referee" />
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/tv_apply"
@@ -95,6 +95,6 @@
 
 
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </RelativeLayout>

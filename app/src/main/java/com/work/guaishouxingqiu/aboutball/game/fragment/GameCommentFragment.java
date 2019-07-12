@@ -1,13 +1,11 @@
 package com.work.guaishouxingqiu.aboutball.game.fragment;
 
-import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,7 +14,6 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
 import com.work.guaishouxingqiu.aboutball.game.adapter.GameCommentAdapter;
 import com.work.guaishouxingqiu.aboutball.game.bean.RequestGameCommentBean;
@@ -24,7 +21,6 @@ import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameCommentBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameSimpleBean;
 import com.work.guaishouxingqiu.aboutball.game.contract.GameCommentContract;
 import com.work.guaishouxingqiu.aboutball.game.presenter.GameCommentPresenter;
-import com.work.guaishouxingqiu.aboutball.home.bean.RequestSendMessageBean;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.weight.InputMessageDialog;
@@ -33,9 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * 作者: 胡庆岭

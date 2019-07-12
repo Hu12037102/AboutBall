@@ -19,12 +19,12 @@
         style="@style/DefaultTitleText"
         android:text="@string/update_phone_number_title" />
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         style="@style/InputRelativeLayout"
         android:layout_marginTop="@dimen/size_40dp">
 
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_phone"
             app:hintTextAppearance="@style/DefaultTextInputLayout"
             android:layout_width="match_parent"
@@ -35,7 +35,7 @@
             android:orientation="horizontal"
             android:textColorHint="@color/color_4">
 
-            <android.support.v7.widget.AppCompatEditText
+            <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/acet_phone"
                 tools:text="123456"
                 android:layout_width="match_parent"
@@ -47,7 +47,7 @@
                 android:maxLines="1"
                 android:textColorHint="@color/color_4"
                 android:textSize="18sp" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
             android:id="@+id/iv_clear_phone"
@@ -62,17 +62,17 @@
             android:paddingTop="@dimen/size_15dp"
             android:src="@mipmap/icon_clear"
             android:visibility="gone" />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rl_message_code"
         style="@style/InputRelativeLayout"
         android:visibility="visible">
 
 
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/default_margin"
@@ -82,7 +82,7 @@
             android:textColorHint="@color/color_4"
             app:hintTextAppearance="@style/DefaultTextInputLayout">
 
-            <android.support.v7.widget.AppCompatEditText
+            <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/acet_code"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_50dp"
@@ -93,7 +93,7 @@
                 android:maxLines="1"
                 android:textColorHint="@color/color_4"
                 android:textSize="18sp" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
 
         <TextView
@@ -132,7 +132,7 @@
 
 
         </LinearLayout>
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/tv_sures"

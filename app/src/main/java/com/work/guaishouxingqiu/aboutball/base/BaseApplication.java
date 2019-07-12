@@ -4,8 +4,6 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.alivc.player.AliVcMediaPlayer;
 import com.bugtags.library.Bugtags;
 import com.bugtags.library.BugtagsOptions;
-import com.growingio.android.sdk.collection.Configuration;
-import com.growingio.android.sdk.collection.GrowingIO;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
@@ -58,7 +56,6 @@ public class BaseApplication extends ZApplication {
         initARouter();
         initALi();
         initWeiChat();
-        initGrowing();
         initUMeng();
     }
 
@@ -73,12 +70,7 @@ public class BaseApplication extends ZApplication {
         UMConfigure.setLogEnabled(BuildConfig.DEBUG);
     }
 
-    private void initGrowing() {
-        GrowingIO.startWithConfiguration(this, new Configuration()
-                .trackAllFragments()
-                .setChannel("XXX应用商店"));
 
-    }
 
     protected void initWeiChat() {
         mWeiChatApi = WXAPIFactory.createWXAPI(this, Contast.SecretKey.WEICHAT_APP_ID, false);

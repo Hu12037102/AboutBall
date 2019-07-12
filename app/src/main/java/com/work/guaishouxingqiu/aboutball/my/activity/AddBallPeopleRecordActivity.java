@@ -1,8 +1,8 @@
 package com.work.guaishouxingqiu.aboutball.my.activity;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import android.view.View;
 import android.widget.TextView;
 

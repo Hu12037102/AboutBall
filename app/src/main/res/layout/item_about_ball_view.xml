@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/selector_item">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
     </LinearLayout>
 
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <View
         style="@style/HorizontalLine"
         android:layout_below="@id/cl_body"

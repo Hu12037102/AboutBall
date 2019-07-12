@@ -1,6 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.venue.presenter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.venue.contract.WaitPayOrderDetailsContract;
 import com.work.guaishouxingqiu.aboutball.venue.model.WaitPayOrderDetailsModel;

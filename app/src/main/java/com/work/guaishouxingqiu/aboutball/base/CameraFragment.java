@@ -2,17 +2,14 @@ package com.work.guaishouxingqiu.aboutball.base;
 
 import android.Manifest;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.view.View;
+import androidx.annotation.NonNull;
 
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.permission.imp.OnPermissionsResult;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
-import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;

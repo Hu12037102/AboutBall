@@ -1,6 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.splash.presenter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.splash.contract.WelcomeContract;

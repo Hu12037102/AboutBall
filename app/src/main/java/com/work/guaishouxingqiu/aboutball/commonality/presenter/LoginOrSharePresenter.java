@@ -1,16 +1,14 @@
 package com.work.guaishouxingqiu.aboutball.commonality.presenter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
-import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.ResultThreeLoginBean;
 import com.work.guaishouxingqiu.aboutball.login.presenter.MessagePresenter;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestBandOtherAccountBean;
-import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.RequestOtherLoginBean;

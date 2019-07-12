@@ -1,13 +1,11 @@
 package com.work.guaishouxingqiu.aboutball.venue.fragment;
 
 import android.content.Intent;
-import android.location.Location;
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.view.animation.LinearInterpolator;
 
@@ -19,11 +17,8 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
-import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
-import com.work.guaishouxingqiu.aboutball.util.LogUtils;
-import com.work.guaishouxingqiu.aboutball.util.PhoneUtils;
 import com.work.guaishouxingqiu.aboutball.venue.adapter.BallTypeAdapter;
 import com.work.guaishouxingqiu.aboutball.venue.adapter.VenueListAdapter;
 import com.work.guaishouxingqiu.aboutball.venue.bean.RequestVenueListBean;
@@ -31,14 +26,11 @@ import com.work.guaishouxingqiu.aboutball.venue.bean.ResultTypeBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueData;
 import com.work.guaishouxingqiu.aboutball.venue.contract.VenueListContract;
 import com.work.guaishouxingqiu.aboutball.venue.presenter.VenueListPresenter;
-import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * 作者: 胡庆岭

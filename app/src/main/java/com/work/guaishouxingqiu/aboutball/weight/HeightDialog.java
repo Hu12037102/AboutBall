@@ -1,8 +1,8 @@
 package com.work.guaishouxingqiu.aboutball.weight;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +16,6 @@ import com.work.guaishouxingqiu.aboutball.R;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.PropertyResourceBundle;
 
 /**
  * 作者: 胡庆岭

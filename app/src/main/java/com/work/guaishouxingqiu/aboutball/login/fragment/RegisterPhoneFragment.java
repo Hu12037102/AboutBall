@@ -1,9 +1,8 @@
 package com.work.guaishouxingqiu.aboutball.login.fragment;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
-import android.support.design.widget.TextInputEditText;
-import android.support.v7.widget.AppCompatEditText;
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
+import androidx.appcompat.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;

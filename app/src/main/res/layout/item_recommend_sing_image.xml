@@ -11,7 +11,7 @@
     android:paddingRight="@dimen/default_margin"
     android:paddingTop="@dimen/default_margin">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -54,7 +54,7 @@
             app:layout_constraintBottom_toBottomOf="@id/iv_data"
             tools:text="来源：五华体育" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:id="@+id/line"

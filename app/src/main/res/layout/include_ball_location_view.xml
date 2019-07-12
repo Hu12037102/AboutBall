@@ -16,7 +16,7 @@
         android:textColor="@color/color_4"
         android:textSize="@dimen/size_12sp" />
 
-    <android.support.design.chip.ChipGroup
+    <com.google.android.material.chip.ChipGroup
         android:id="@+id/cg_goalkeeper"
         style="@style/CheckBoxChipGroup">
 
@@ -25,7 +25,7 @@
             style="@style/CheckBoxPosition"
             android:text="@string/the_goalkeeper" />
 
-    </android.support.design.chip.ChipGroup>
+    </com.google.android.material.chip.ChipGroup>
 
 
     <TextView
@@ -38,7 +38,7 @@
         android:textColor="@color/color_4"
         android:textSize="@dimen/size_12sp" />
 
-    <android.support.design.chip.ChipGroup
+    <com.google.android.material.chip.ChipGroup
         android:id="@+id/cg_defender"
         style="@style/CheckBoxChipGroup">
 
@@ -66,7 +66,7 @@
             android:id="@+id/db_right_wing"
             style="@style/CheckBoxPosition"
             android:text="@string/right_wing" />
-    </android.support.design.chip.ChipGroup>
+    </com.google.android.material.chip.ChipGroup>
 
     <TextView
         android:layout_width="wrap_content"
@@ -78,7 +78,7 @@
         android:textColor="@color/color_4"
         android:textSize="@dimen/size_12sp" />
 
-    <android.support.design.chip.ChipGroup
+    <com.google.android.material.chip.ChipGroup
         android:id="@+id/cg_short_loin"
         style="@style/CheckBoxChipGroup">
 
@@ -111,7 +111,7 @@
             android:id="@+id/cb_right_wing_back"
             style="@style/CheckBoxPosition"
             android:text="@string/right_wing_back" />
-    </android.support.design.chip.ChipGroup>
+    </com.google.android.material.chip.ChipGroup>
 
     <TextView
         android:layout_width="wrap_content"
@@ -123,7 +123,7 @@
         android:textColor="@color/color_4"
         android:textSize="@dimen/size_12sp" />
 
-    <android.support.design.chip.ChipGroup
+    <com.google.android.material.chip.ChipGroup
         android:id="@+id/cg_center_forward"
         style="@style/CheckBoxChipGroup"
         android:layout_marginBottom="@dimen/default_margin">
@@ -152,5 +152,5 @@
             android:id="@+id/cb_right_wings"
             style="@style/CheckBoxPosition"
             android:text="@string/right_wings" />
-    </android.support.design.chip.ChipGroup>
+    </com.google.android.material.chip.ChipGroup>
 </LinearLayout>

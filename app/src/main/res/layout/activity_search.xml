@@ -25,7 +25,7 @@
             android:text="@string/cancel"
             android:textColor="@color/colorFFA6A6A6" />
 
-        <android.support.v7.widget.AppCompatEditText
+        <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/acet_content"
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_30dp"
@@ -54,7 +54,7 @@
         app:srlEnableLoadMore="false"
        >
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_data"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

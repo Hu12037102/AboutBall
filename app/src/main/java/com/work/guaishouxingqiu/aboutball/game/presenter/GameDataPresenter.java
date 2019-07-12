@@ -1,18 +1,13 @@
 package com.work.guaishouxingqiu.aboutball.game.presenter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataInfoBean;
-import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataResultBean;
 import com.work.guaishouxingqiu.aboutball.game.contract.GameDataContract;
 import com.work.guaishouxingqiu.aboutball.game.model.GameDataModel;
-import com.work.guaishouxingqiu.aboutball.http.IApi;
-import com.work.guaishouxingqiu.aboutball.util.DataUtils;
-
-import java.util.List;
 
 /**
  * 作者: 胡庆岭

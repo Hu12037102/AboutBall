@@ -1,8 +1,8 @@
 package com.work.guaishouxingqiu.aboutball.weight;
 
 import android.content.Context;
-import android.support.annotation.StringRes;
-import android.support.v7.widget.AppCompatEditText;
+import androidx.annotation.StringRes;
+import androidx.appcompat.widget.AppCompatEditText;
 import android.text.InputFilter;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -12,7 +12,6 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.home.bean.RequestRecommendDataBean;
 
 /**
  * 作者: 胡庆岭

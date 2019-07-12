@@ -1,20 +1,15 @@
 package com.work.guaishouxingqiu.aboutball.router;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.http.PUT;
 
 /**
  * 作者: 胡庆岭

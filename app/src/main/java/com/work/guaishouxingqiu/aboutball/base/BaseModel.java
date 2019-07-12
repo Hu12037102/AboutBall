@@ -1,7 +1,5 @@
 package com.work.guaishouxingqiu.aboutball.base;
 
-import android.support.design.widget.TabItem;
-
 import com.work.guaishouxingqiu.aboutball.BaseService;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;

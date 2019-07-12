@@ -1,6 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.home.model;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseModel;

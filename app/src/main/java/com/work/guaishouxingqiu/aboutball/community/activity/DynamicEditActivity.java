@@ -2,13 +2,12 @@ package com.work.guaishouxingqiu.aboutball.community.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -20,7 +19,6 @@ import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.DelayedClickListener;
 import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.base.CameraActivity;
 import com.work.guaishouxingqiu.aboutball.community.bean.RequestPublishDynamicBean;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultTopicBean;
@@ -43,8 +41,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * 作者: 胡庆岭

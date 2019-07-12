@@ -1,15 +1,11 @@
 package com.work.guaishouxingqiu.aboutball.home.model;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
-import com.work.guaishouxingqiu.aboutball.base.BaseModel;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.home.HomeService;
 import com.work.guaishouxingqiu.aboutball.home.bean.RequestRecommendDataBean;
-import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultRecommendDataBean;
-
-import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;

@@ -1,28 +1,22 @@
 package com.work.guaishouxingqiu.aboutball.home.activity;
 
 
-import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.KeyEvent;
-import android.view.View;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.work.guaishouxingqiu.aboutball.BuildConfig;
-import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.community.fragment.CommunityFragment;
 import com.work.guaishouxingqiu.aboutball.game.fragment.GameFragment;
 import com.work.guaishouxingqiu.aboutball.home.adapter.MainTabAdapter;
-import com.work.guaishouxingqiu.aboutball.home.bean.EventOpenTypeBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.MainTabBean;
 import com.work.guaishouxingqiu.aboutball.home.contract.MainContract;
 import com.work.guaishouxingqiu.aboutball.home.fragment.HomeFragment;
 import com.work.guaishouxingqiu.aboutball.home.presenter.MainPresenter;
-import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.fragment.MyFragment;
 import com.work.guaishouxingqiu.aboutball.other.DownloadApkHelp;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
@@ -30,10 +24,7 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.NetWorkUtils;
-import com.work.guaishouxingqiu.aboutball.util.PhoneUtils;
-import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.fragment.VenueFragment;
-import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
 import com.work.guaishouxingqiu.aboutball.weight.TeamBallInviteDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;

@@ -16,7 +16,7 @@
             android:gravity="center_vertical"
             android:text="@string/name" />
 
-        <android.support.v7.widget.AppCompatEditText
+        <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/aet_name"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

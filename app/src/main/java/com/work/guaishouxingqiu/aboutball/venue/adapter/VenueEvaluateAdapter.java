@@ -1,8 +1,8 @@
 package com.work.guaishouxingqiu.aboutball.venue.adapter;
 
-import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +14,6 @@ import com.example.item.util.ScreenUtils;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.my.adapter.PostEvaluationAdapter;
-import com.work.guaishouxingqiu.aboutball.my.bean.ResultInputEvaluationBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;

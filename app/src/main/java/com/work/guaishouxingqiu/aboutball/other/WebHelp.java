@@ -2,14 +2,12 @@ package com.work.guaishouxingqiu.aboutball.other;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
 import com.work.guaishouxingqiu.aboutball.util.NetWorkUtils;
-
-import java.io.File;
 
 /**
  * 作者: 胡庆岭

@@ -21,7 +21,7 @@
 
     <View style="@style/HorizontalLine" />
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -148,7 +148,7 @@
                 app:top_line_margin_left="@dimen/default_margin"
                 app:top_line_margin_right="@dimen/default_margin" />
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_wechat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -193,7 +193,7 @@
                         android:textSize="@dimen/size_12sp" />
                 </LinearLayout>
 
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.example.item.weight.ItemView
                 android:id="@+id/item_address"
@@ -224,5 +224,5 @@
                 app:top_line_margin_left="@dimen/default_margin"
                 app:top_line_margin_right="@dimen/default_margin" />
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>

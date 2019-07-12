@@ -1,8 +1,8 @@
 package com.work.guaishouxingqiu.aboutball.community.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v4.view.PagerAdapter;
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +12,6 @@ import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultRecommendHotBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
-import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
-import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 
 import java.util.List;
 

@@ -1,16 +1,14 @@
 package com.work.guaishouxingqiu.aboutball.my.presenter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
-import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestApplyRefereeBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.ApplyBecomeRefereeContract;
 import com.work.guaishouxingqiu.aboutball.my.model.ApplyBecomeRefereeModel;
-import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 
 /**
  * 作者: 胡庆岭
