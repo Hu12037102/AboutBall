@@ -130,7 +130,6 @@ public class GlideManger {
     }
 
     public void downloadImage(@NonNull String imagePath) {
-        Context context = UIUtils.getContext();
         Glide.with(UIUtils.getContext()).asBitmap().load(imagePath).into(new CustomTarget<Bitmap>() {
             @Override
             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
