@@ -6,15 +6,19 @@ import android.graphics.Color;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
+
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
+
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -79,6 +83,8 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
     RecyclerView mRvData;
     @BindView(R.id.srl_refresh)
     SmartRefreshLayout mSrlRefresh;
+    @BindView(R.id.iv_sex)
+    ImageView mIvSex;
     private List<ResultCommunityDataBean> mData;
     private CommunityDataAdapter mAdapter;
     private int mSharePosition;
@@ -139,12 +145,21 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
         mAblGroup.setLiftable(true);
         UserBean userBean = UserManger.get().getUser();
         mTvName.setText(userBean.nickName);
+        if (userBean.gender == UserManger.SEX_MAN) {
+            mIvSex.setVisibility(View.VISIBLE);
+            mIvSex.setImageResource(R.mipmap.icon_man);
+        } else if (userBean.gender == UserManger.SEX_WOMAN) {
+            mIvSex.setVisibility(View.VISIBLE);
+            mIvSex.setImageResource(R.mipmap.icon_woman);
+        }
         String followContent = UIUtils.getString(R.string.attention_s, userBean.followCount);
-        mTvFollowCount.setText(SpanUtils.getTextSize(14, 0, String.valueOf(userBean.followCount).length(),
-                SpanUtils.getTextColor(R.color.color_4, 0, String.valueOf(userBean.followCount).length(), followContent)));
+     /*   mTvFollowCount.setText(SpanUtils.getTextSize(14, 0, String.valueOf(userBean.followCount).length(),
+                SpanUtils.getTextColor(R.color.color_4, 0, String.valueOf(userBean.followCount).length(), followContent)));*/
+        mTvFollowCount.setText(followContent);
         String fansContent = UIUtils.getString(R.string.fans_s, userBean.fansCount);
-        mTvFansCount.setText(SpanUtils.getTextSize(14, 0, String.valueOf(userBean.fansCount).length(),
-                SpanUtils.getTextColor(R.color.color_4, 0, String.valueOf(userBean.fansCount).length(), fansContent)));
+       /* mTvFansCount.setText(SpanUtils.getTextSize(14, 0, String.valueOf(userBean.fansCount).length(),
+                SpanUtils.getTextColor(R.color.color_4, 0, String.valueOf(userBean.fansCount).length(), fansContent)));*/
+        mTvFansCount.setText(fansContent);
         GlideManger.get().loadHeadImage(this, userBean.headerImg, mCivHead);
     }
 

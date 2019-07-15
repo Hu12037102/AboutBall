@@ -31,7 +31,8 @@ public class UserManger {
     private static final String KEY_FANS_COUNT = "fansCount";
     private static final String KEY_IS_REFEREE = "isReferee";
     private static final String KEY_TOKEN_TEMPORARY = "tokenTemporary";//临时token
-
+    public static final int SEX_MAN = 1;
+    public static final int SEX_WOMAN = 2;
     private static SharedPreferencesHelp mSP;
 
     private UserManger() {
@@ -189,6 +190,10 @@ public class UserManger {
         userBean.fansCount = mSP.getInt(UserManger.KEY_FANS_COUNT);
         userBean.isReferee = mSP.getInt(UserManger.KEY_IS_REFEREE);
         return userBean;
+    }
+
+    public int getSex() {
+        return mSP.getInt(UserManger.KEY_GENDER);
     }
 
     public void loginOut() {

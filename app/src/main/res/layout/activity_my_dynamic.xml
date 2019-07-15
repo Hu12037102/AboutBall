@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cl_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,7 +11,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/abl_group"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/size_220dp"
+        android:layout_height="wrap_content"
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -47,65 +48,89 @@
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/tv_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/default_margin"
-                        android:layout_marginLeft="@dimen/default_margin"
-                        android:layout_marginRight="@dimen/default_margin"
-                        android:text="踢球么用户"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/size_17sp"
-                        app:layout_constraintBottom_toBottomOf="@id/top_view"
-                        app:layout_constraintLeft_toLeftOf="parent" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <LinearLayout
-                    android:id="@+id/ll_count"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_my_count"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/size_55dp"
+                    android:layout_height="@dimen/size_85dp"
                     android:layout_below="@id/cl_top"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/size_20dp"
+                        android:layout_marginTop="@dimen/size_20dp"
+                        android:text="踢球么用户"
+                        android:textColor="@color/color_4"
+                        android:textSize="@dimen/size_17sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_referee_grade"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/size_10dp"
+                        android:textColor="@color/color_4"
+                        android:textSize="@dimen/size_12sp"
+                        android:visibility="gone"
+                        app:layout_constraintLeft_toLeftOf="@id/tv_name"
+                        app:layout_constraintTop_toBottomOf="@id/tv_name"
+                        tools:text="国家一级教练" />
+
+                    <TextView
                         android:id="@+id/tv_follow_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/default_margin"
-                        android:paddingRight="@dimen/default_margin"
-                        android:text="0\n关注"
-                        android:textColor="@color/colorFFA6A6A6"
-                        android:textSize="@dimen/size_12sp" />
+                        android:layout_marginTop="@dimen/size_10dp"
+                        android:text="关注 0"
+                        android:textColor="@color/color_4"
+                        android:textSize="@dimen/size_12sp"
+                        app:layout_constraintLeft_toRightOf="@id/tv_referee_grade"
+                        app:layout_constraintTop_toBottomOf="@id/tv_name" />
 
                     <TextView
                         android:id="@+id/tv_fans_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/default_margin"
-                        android:paddingRight="@dimen/default_margin"
-                        android:text="0\n粉丝"
-                        android:textColor="@color/colorFFA6A6A6"
-                        android:textSize="@dimen/size_12sp" />
-                </LinearLayout>
+                        android:text="粉丝 0"
+                        android:textColor="@color/color_4"
+                        android:textSize="@dimen/size_12sp"
+                        app:layout_constraintLeft_toRightOf="@id/tv_follow_count"
+                        app:layout_constraintTop_toTopOf="@id/tv_follow_count" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="5dp"
-                    android:layout_below="@id/ll_count"
+                    android:layout_below="@id/cl_my_count"
                     android:background="@color/colorFFFBFAFA" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/civ_head"
                     android:layout_width="@dimen/size_60dp"
                     android:layout_height="@dimen/size_60dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/default_margin"
                     android:layout_marginTop="@dimen/size_110dp"
+                    android:layout_marginLeft="@dimen/default_margin"
                     android:src="@mipmap/icon_my_default_head"
                     app:civ_border_color="@color/colorWhite"
                     app:civ_border_width="@dimen/size_1dp" />
+                <ImageView
+                    android:id="@+id/iv_sex"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon_man"
+                    android:layout_marginTop="150dp"
+                    android:layout_marginLeft="@dimen/size_60dp"
+                    android:layout_marginStart="@dimen/size_60dp"
+                    android:contentDescription="@null"
+                    android:visibility="gone"
+                    />
 
             </RelativeLayout>
 
@@ -149,6 +174,8 @@
         android:id="@+id/srl_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.recyclerview.widget.RecyclerView
