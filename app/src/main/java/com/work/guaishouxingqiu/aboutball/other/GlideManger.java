@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.Looper;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
@@ -31,6 +32,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.ThreadPoolExecutor;
 
 
 /**
@@ -183,23 +188,21 @@ public class GlideManger {
     }
 
     public void downloadImage(final Bitmap bitmap, @Nullable final String imagePath) {
-        new Thread() {
-            @Override
-            public void run() {
-                super.run();
-                File file = bitmapToFile(bitmap, imagePath);
-                if (file != null && FileUtils.existsFile(file.getAbsolutePath())) {
-                    new Handler(Looper.getMainLooper()).post(new Runnable() {
-                        @Override
-                        public void run() {
-                            FileUtils.scanImage(UIUtils.getContext(), file);
-                            UIUtils.showToast(R.string.succeed_to_download_picture);
-                            LogUtils.w("downloadImage--", file.getAbsolutePath());
-                        }
-                    });
-                }
+       ExecutorService executors = Executors.newSingleThreadExecutor();
+        if (executors.isShutdown()){
+            return;
+        }
+        executors.execute(() -> {
+            File file = bitmapToFile(bitmap, imagePath);
+            if (file != null && FileUtils.existsFile(file.getAbsolutePath())) {
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    FileUtils.scanImage(UIUtils.getContext(), file);
+                    UIUtils.showToast(R.string.succeed_to_download_picture);
+                    LogUtils.w("downloadImage--", file.getAbsolutePath());
+                });
             }
-        }.start();
+        });
+
     }
 
     public interface OnDownLoadImageListener {
