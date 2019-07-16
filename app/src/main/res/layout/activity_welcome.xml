@@ -22,7 +22,9 @@
         android:layout_height="@dimen/size_0dp"
         android:contentDescription="@null"
         app:layout_constraintBottom_toTopOf="@id/iv_bottom"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@mipmap/icon_default_welcome"
+        android:scaleType="centerCrop"/>
 
     <TextView
         android:id="@+id/tv_skip"

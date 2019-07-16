@@ -3,11 +3,15 @@ package com.work.guaishouxingqiu.aboutball.splash.activity;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -53,7 +57,8 @@ import butterknife.OnClick;
 @Route(path = ARouterConfig.Path.ACTIVITY_WELCOME)
 public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implements WelcomeContract.View {
 
-    private static final int WHAT = 100;
+    private static final int HAS_BANNER_WHAT = 100;
+    private static final int NO_BANNER_WHAT = 200;
     private int mTimeLength = 3;
     @BindView(R.id.iv_content)
     ImageView mIvContent;
@@ -62,23 +67,34 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
     @BindView(R.id.iv_bottom)
     ImageView ivBottom;
     private TeamBallInviteDialog mTeamInviteDialog;
+    private boolean mIsHasBanner= true;
     private Handler mSkipHandler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
         @Override
         public boolean handleMessage(Message message) {
-            if (mTimeLength > 1) {
-                mTimeLength--;
-                mTvSkip.setText(UIUtils.getString(R.string.skip_s_second, mTimeLength));
-                mSkipHandler.sendEmptyMessageDelayed(WHAT, 1000);
-            } else {
-                skipActivity();
+            switch (message.what) {
+                case HAS_BANNER_WHAT:
+                    if (mTimeLength > 1) {
+                        mTimeLength--;
+                        mTvSkip.setText(UIUtils.getString(R.string.skip_s_second, mTimeLength));
+                        mSkipHandler.sendEmptyMessageDelayed(HAS_BANNER_WHAT, 1000);
+                    } else {
+                        skipActivity();
+                    }
+                    break;
+                case NO_BANNER_WHAT:
+                    skipActivity();
+                    break;
+                default:
+                    break;
             }
+
             return true;
         }
     });
     private Long mTeamId;
 
     private void skipActivity() {
-        mSkipHandler.removeMessages(WHAT, null);
+        mSkipHandler.removeMessages(HAS_BANNER_WHAT, null);
         SharedPreferencesHelp sp = new SharedPreferencesHelp();
         if (sp.getBoolean(SharedPreferencesHelp.KEY_GUIDE_OPEN)) {
             ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MAIN);
@@ -87,6 +103,7 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
         }
         finish();
     }
+
 
     @Override
     public void initPermission() {
@@ -119,8 +136,22 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
 
     @Override
     protected void initView() {
-        mTvSkip.setText(UIUtils.getString(R.string.skip_s_second, mTimeLength));
-        mSkipHandler.sendEmptyMessageDelayed(WHAT, 1000);
+        if (mIsHasBanner) {
+            mTvSkip.setVisibility(View.VISIBLE);
+            mTvSkip.setText(UIUtils.getString(R.string.skip_s_second, mTimeLength));
+            mSkipHandler.sendEmptyMessageDelayed(HAS_BANNER_WHAT, 1000);
+        } else {
+            mTvSkip.setVisibility(View.GONE);
+            mIvContent.setImageDrawable(ContextCompat.getDrawable(this,R.mipmap.icon_default_welcome));
+            mIvContent.post(new Runnable() {
+                @Override
+                public void run() {
+                    mSkipHandler.sendEmptyMessageDelayed(NO_BANNER_WHAT, 1000);
+                }
+            });
+
+        }
+
         initOpenAgreement();
 
 
@@ -139,7 +170,7 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
             if (typeId != null && shareId != null) {
                 switch (Integer.valueOf(typeId)) {
                     case IApiService.TypeId.OPEN_BALL_INVITE:
-                        mSkipHandler.removeMessages(WHAT, null);
+                        removeAllMessage();
                         mTeamId = Long.valueOf(shareId);
                         if (UserManger.get().isLogin()) {
                             mPresenter.loadTeamDetails(mTeamId);
@@ -148,20 +179,27 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
                         }
                         break;
                     case IApiService.TypeId.OPEN_GAME_DETAILS_VIDEO:
-                        mSkipHandler.removeMessages(WHAT, null);
+                        removeAllMessage();
                         int matchId = Integer.valueOf(shareId);
                         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_GAME_DETAILS, ARouterConfig.Key.GAME_ID, matchId);
                         finish();
                         break;
                     default:
-                        mSkipHandler.removeMessages(WHAT, null);
+                        removeAllMessage();
                         skipActivity();
                         break;
                 }
             }
-        }else {
-            mSkipHandler.removeMessages(WHAT, null);
+        } /*else {
+            removeAllMessage();
             skipActivity();
+        }*/
+    }
+
+    private void removeAllMessage() {
+        if (mSkipHandler != null) {
+            mSkipHandler.removeMessages(HAS_BANNER_WHAT, null);
+            mSkipHandler.removeMessages(NO_BANNER_WHAT, null);
         }
     }
 
@@ -188,7 +226,7 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
                 openDialogFinishActivity();
             }
         });
-        mTeamInviteDialog.setOnDismissListener(dialog -> mSkipHandler.sendEmptyMessageDelayed(WHAT, 1000));
+        mTeamInviteDialog.setOnDismissListener(dialog -> mSkipHandler.sendEmptyMessageDelayed(HAS_BANNER_WHAT, 1000));
     }
 
     @Override
@@ -221,7 +259,7 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mSkipHandler.removeMessages(WHAT, null);
+        removeAllMessage();
     }
 
     @Override
@@ -235,11 +273,7 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
         skipActivity();
     }
 
-    @Override
-    public void onBackPressed() {
-        mSkipHandler.removeMessages(WHAT, null);
-        super.onBackPressed();
-    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
