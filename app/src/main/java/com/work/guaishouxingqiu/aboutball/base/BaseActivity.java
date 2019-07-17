@@ -151,7 +151,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends LocationActi
         if (mPresenter != null) {
             mPresenter.deathPresenter();
         }
-        CompressImageTask.get().deathCompress();
         super.onDestroy();
         mBinder.unbind();
         ActivityManger.get().removeActivity(this.getClass());
@@ -185,7 +184,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends LocationActi
             configData.add(MediaSelectorFile.thisToDefaultImageConfig(mMediaFileData.get(i)));
         }
 
-        CompressImageTask.get().compressImages( configData, onImagesResult);
+        CompressImageTask.get().compressImages( this,configData, onImagesResult);
 
     }
 
