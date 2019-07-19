@@ -7,6 +7,7 @@
     <string name="my_team" translatable="false">我的球队</string>
     <string name="ball_team" translatable="false">球队</string>
     <string name="my_message" translatable="false">我的消息</string>
+    <string name="message" translatable="false">消息</string>
     <string name="my_dynamic_state" translatable="false">我的动态</string>
     <string name="my_as_the_referee" translatable="false">成为裁判</string>
     <string name="my_referee_record" translatable="false">我的裁判记录</string>
@@ -88,6 +89,8 @@
     <string name="record_the_action" translatable="false">记录赛况</string>
     <string name="password" translatable="false">密码</string>
     <string name="login" translatable="false">登录</string>
+    <string name="my_focus">我的关注</string>
+    <string name="my_fans">我的粉丝</string>
     <string name="wechat_login" translatable="false">微信登录</string>
     <string name="register_account" translatable="false">注册账号</string>
     <string name="phone_shortcut_login" translatable="false">手机快捷登录</string>

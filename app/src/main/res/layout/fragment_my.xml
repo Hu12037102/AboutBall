@@ -11,13 +11,13 @@
             android:id="@+id/title_view"
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_50dp"
-            app:center_text_size="@dimen/size_19sp"
+            app:back_text_padding_left="@dimen/default_margin"
             app:center_data="@string/me"
             app:center_text_color="@color/color_4"
+            app:center_text_size="@dimen/size_19sp"
             app:group_color="@color/colorTheme"
             app:sure_right_drawable="@mipmap/icon_item_my_setting"
-            app:sure_text_padding_right="@dimen/default_margin"
-            app:back_text_padding_left="@dimen/default_margin"/>
+            app:sure_text_padding_right="@dimen/default_margin" />
 
         <RelativeLayout
             android:id="@+id/rl_my_head"
@@ -32,11 +32,10 @@
                 android:layout_width="@dimen/size_60dp"
                 android:layout_height="@dimen/size_60dp"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/default_margin"
                 android:layout_marginStart="@dimen/default_margin"
+                android:layout_marginLeft="@dimen/default_margin"
                 android:src="@mipmap/icon_my_default_head"
-                app:civ_circle_background_color="@color/colorWhite"
-                />
+                app:civ_circle_background_color="@color/colorWhite" />
 
             <TextView
                 android:id="@+id/tv_my_head_right"
@@ -57,13 +56,80 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/default_margin"
                 android:layout_marginRight="@dimen/default_margin"
-                android:layout_toEndOf="@id/civ_my_head"
-                android:layout_toLeftOf="@id/tv_my_head_right"
-                android:layout_toRightOf="@id/civ_my_head"
                 android:layout_toStartOf="@id/tv_my_head_right"
+                android:layout_toLeftOf="@id/tv_my_head_right"
+                android:layout_toEndOf="@id/civ_my_head"
+                android:layout_toRightOf="@id/civ_my_head"
                 android:gravity="center_vertical"
                 android:orientation="vertical" />
         </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_95dp"
+            android:background="@color/colorWhite"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="@dimen/size_0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_item"
+                    android:clickable="true"
+                    android:drawableTop="@mipmap/icon_my_attention"
+                    android:drawablePadding="@dimen/size_5dp"
+                    android:gravity="center_horizontal"
+                    android:padding="@dimen/size_5dp"
+                    android:text="@string/my_focus"
+                    android:textSize="@dimen/size_12sp"
+                    android:textColor="@color/color_4"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/size_0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_item"
+                    android:clickable="true"
+                    android:drawableTop="@mipmap/icon_my_fans"
+                    android:drawablePadding="@dimen/size_5dp"
+                    android:gravity="center_horizontal"
+                    android:padding="@dimen/size_5dp"
+                    android:text="@string/my_fans"
+                    android:textSize="@dimen/size_12sp"
+                    android:textColor="@color/color_4"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/size_0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_item"
+                    android:clickable="true"
+                    android:drawableTop="@mipmap/icon_my_message"
+                    android:drawablePadding="@dimen/size_5dp"
+                    android:gravity="center_horizontal"
+                    android:padding="@dimen/size_5dp"
+                    android:text="@string/message"
+                    android:textSize="@dimen/size_12sp"
+                    android:textColor="@color/color_4"/>
+            </LinearLayout>
+        </LinearLayout>
 
         <com.example.item.weight.ItemView
             android:id="@+id/item_about_ball"
@@ -131,13 +197,13 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:background="@color/colorTheme"
+            android:visibility="gone"
             app:content_right_icon="@mipmap/icon_item_right"
             app:show_top_line="true"
             app:title_data="@string/my_as_the_referee"
             app:title_drawable_padding="@dimen/item_drawable_padding"
             app:title_left_icon="@mipmap/icon_item_my_referee"
-            app:top_line_margin_left="@dimen/default_margin"
-            android:visibility="gone"/>
+            app:top_line_margin_left="@dimen/default_margin" />
 
         <com.example.item.weight.ItemView
             android:id="@+id/item_my_prize"
@@ -161,8 +227,7 @@
             app:show_top_line="false"
             app:title_data="@string/invite_friend"
             app:title_drawable_padding="@dimen/item_drawable_padding"
-            app:title_left_icon="@mipmap/icon_item_my_invite_friend"
-           />
+            app:title_left_icon="@mipmap/icon_item_my_invite_friend" />
 
     </LinearLayout>
 
