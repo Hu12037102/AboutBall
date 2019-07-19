@@ -70,6 +70,7 @@ public class GameCommentFragment extends DelayedFragment<GameCommentPresenter> i
 
     @Override
     protected void initDelayedView() {
+        mIvShareMessage.setVisibility(View.GONE);
         mBean = mBundle.getParcelable(ARouterConfig.Key.GAME_DETAILS_BEAN);
         mRvData.setLayoutManager(new LinearLayoutManager(getContext()));
     }

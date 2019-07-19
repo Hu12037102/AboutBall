@@ -104,6 +104,7 @@ public class CommunityDetailsActivity extends LoginOrShareActivity<CommunityDeta
 
     @Override
     protected void initView() {
+        mIvSendMessage.setVisibility(View.GONE);
         mRvData.setLayoutManager(new LinearLayoutManager(this));
         mPreviewData = new ArrayList<>();
         initHeadView();

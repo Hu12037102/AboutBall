@@ -14,7 +14,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:paddingBottom="@dimen/size_10dp"
-        android:paddingLeft="@dimen/default_margin"
+
         android:paddingRight="@dimen/default_margin"
         android:paddingTop="@dimen/size_10dp"
         android:src="@mipmap/icon_share_view" />
@@ -26,6 +26,8 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/size_20dp"
         android:layout_marginStart="@dimen/size_20dp"
+        android:layout_marginRight="@dimen/size_20dp"
+        android:layout_marginEnd="@dimen/size_20dp"
         android:layout_toLeftOf="@id/iv_send_message"
         android:background="@drawable/shape_send_message_view"
         android:gravity="center_vertical"
