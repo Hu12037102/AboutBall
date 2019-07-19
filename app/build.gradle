@@ -115,8 +115,8 @@ variant.outputs.all {
             buildConfigField("boolean", "IS_UPDATE", "true")
             //buildConfigField("String", "HOST_URL", '"https://iti.bmece.com"')
             // buildConfigField("String", "HOST_URL", '"https://www.test.ifeell.com"')
-            buildConfigField("String", "HOST_URL", '"https://test.ifeell.com.cn/"')
-            //  buildConfigField("String", "HOST_URL", '"https://www.ifeell.com.cn/v1.2/"')
+            //buildConfigField("String", "HOST_URL", '"https://test.ifeell.com.cn/"')
+              buildConfigField("String", "HOST_URL", '"https://www.ifeell.com.cn/v1.2/"')
             //  buildConfigField("String", "HOST_URL", '"http://47.106.255.172:8088"')
             shrinkResources false
             zipAlignEnabled false

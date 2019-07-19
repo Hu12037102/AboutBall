@@ -478,7 +478,7 @@ public class BallTeamMyDetailsActivity extends BaseActivity<BallTeamMyDetailsPre
 
     @OnClick(R.id.tv_save)
     public void onViewClicked() {
-        if (isInputNumber() && isInputMainLocation() && isInputSubstitutionLocation()) {
+        if (isInputNumber() && isInputMainLocation()) {
             RequestTeamMyDetailsBean bean = new RequestTeamMyDetailsBean();
             bean.number = DataUtils.getEditDetails(mAetNumber);
             bean.alternate = getLocationArray(mSubstitutionCheckData);

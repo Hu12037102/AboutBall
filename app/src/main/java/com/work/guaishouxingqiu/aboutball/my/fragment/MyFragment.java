@@ -2,7 +2,9 @@ package com.work.guaishouxingqiu.aboutball.my.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+
 import androidx.annotation.NonNull;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -297,8 +299,11 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
     public void resultRefereeStatus(Integer status) {
         mMyRefereeStatus = status;
         mItemAsReferee.setVisibility(View.VISIBLE);
-        if (status != null && status == Contast.RefereeStatus.REFEREE_1) {
-            mItemAsReferee.setTitleText(R.string.my_referee_record);
+        if (status != null) {
+            if (status == Contast.RefereeStatus.REFEREE_1) {
+                mItemAsReferee.setTitleText(R.string.my_referee_record);
+            }
+            UserManger.get().putRefereeStatus(status);
         } else {
             mItemAsReferee.setTitleText(R.string.my_as_the_referee);
         }
