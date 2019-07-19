@@ -52,9 +52,9 @@ public class GameLookBackHeadAdapter extends RecyclerView.Adapter<GameLookBackHe
         GlideManger.get().loadBannerImage(mContext, bean.photoUrl, viewHolder.mRivContent);
         UIUtils.setText(viewHolder.mTvContent, bean.description);
         ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) viewHolder.itemView.getLayoutParams();
-        marginLayoutParams.leftMargin = ScreenUtils.dp2px(mContext, 20);
+        marginLayoutParams.leftMargin = ScreenUtils.dp2px(mContext, 10);
         if (i == mData.size() - 1) {
-            marginLayoutParams.rightMargin = ScreenUtils.dp2px(mContext, 20);
+            marginLayoutParams.rightMargin = ScreenUtils.dp2px(mContext, 15);
         } else {
             marginLayoutParams.rightMargin = ScreenUtils.dp2px(mContext, 0);
         }

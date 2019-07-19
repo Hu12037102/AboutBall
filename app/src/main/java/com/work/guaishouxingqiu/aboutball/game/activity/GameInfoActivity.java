@@ -82,9 +82,9 @@ public class GameInfoActivity extends BaseActivity<GameInfoPresenter> implements
     @Override
     protected void initView() {
         mItemMatch.setEnabled(false);
-        mRvGrouping.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        mRvData.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        mRvOtherData.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        mRvGrouping.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        mRvData.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+        mRvOtherData.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
     }
 
     @Override

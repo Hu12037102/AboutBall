@@ -33,7 +33,9 @@
         android:id="@+id/tab_content"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_45dp"
-        app:tabIndicatorHeight="@dimen/size_0dp" />
+        app:tabIndicatorHeight="@dimen/size_0dp"
+        android:paddingLeft="@dimen/size_5dp"
+        android:paddingRight="@dimen/size_5dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_grouping"
