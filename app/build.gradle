@@ -3,6 +3,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.bugtags.library.plugin'
 apply plugin: 'com.jakewharton.butterknife'
 //apply plugin: 'com.growingio.android'
+
+//获取编译时间
+static def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
 android {
     useLibrary 'org.apache.http.legacy'
     def android = rootProject.ext.android
@@ -12,11 +18,26 @@ android {
          checkReleaseBuilds false
          abortOnError false
      }*/
+
+    // 3.0 gradle 批量打包
+    /*android.applicationVariants.all { variant ->
+      variant.outputs.all {
+          //输出apk名称为：渠道名_版本名_时间.apk
+         // outputFileName = "${variant.productFlavors[0].name}Member_v${defaultConfig.versionName}_${releaseTime()}.apk"
+          outputFileName = "tiqiume.apk"
+      }
+  }
+variant.outputs.all {
+      outputFileName = "Nanosic_OTA_${variant.versionCode}-${variant.versionName}-${releaseTime()}.apk"
+  }*/
+
+
+
     defaultConfig {
 
         multiDexEnabled true
         applicationId android.applicationId
-       //  applicationId "com.work.guaishouxingqiu.aboutball"
+        //  applicationId "com.work.guaishouxingqiu.aboutball"
         minSdkVersion android.minSdkVersion
         targetSdkVersion android.targetSdkVersion
         versionCode 7
@@ -72,8 +93,6 @@ android {
     }
 
 
-
-
     buildTypes {
         release {
             signingConfig signingConfigs.release
@@ -97,13 +116,14 @@ android {
             //buildConfigField("String", "HOST_URL", '"https://iti.bmece.com"')
             // buildConfigField("String", "HOST_URL", '"https://www.test.ifeell.com"')
             buildConfigField("String", "HOST_URL", '"https://test.ifeell.com.cn/"')
-          //  buildConfigField("String", "HOST_URL", '"https://www.ifeell.com.cn/v1.2/"')
+            //  buildConfigField("String", "HOST_URL", '"https://www.ifeell.com.cn/v1.2/"')
             //  buildConfigField("String", "HOST_URL", '"http://47.106.255.172:8088"')
             shrinkResources false
             zipAlignEnabled false
             pseudoLocalesEnabled false
         }
     }
+
 
 }
 
@@ -157,7 +177,7 @@ dependencies {
     // implementation project(':media')
     implementation files('libs/systembartint-1.0.4.jar')
     implementation project(':view')
-   // implementation 'com.github.Hu12037102.ImageCompress:compress:2.0.9'
+    // implementation 'com.github.Hu12037102.ImageCompress:compress:2.0.9'
     implementation 'com.github.Hu12037102:ImageCompress:2.2.0'
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
     implementation 'com.github.yalantis:ucrop:2.2.2'
@@ -173,7 +193,7 @@ dependencies {
     /*zxing二维码扫一扫*/
     implementation project(':lib-zxing')
     /** growingio数据统计
-    implementation 'com.growingio.android:vds-android-agent:autotrack-2.7.5@aar' */
+     implementation 'com.growingio.android:vds-android-agent:autotrack-2.7.5@aar' */
     implementation project(':refresh-footer')
     implementation project(':refresh-header')
     implementation project(':refresh-layout')

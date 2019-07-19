@@ -34,10 +34,10 @@ dependencies {
     })
     testImplementation 'junit:junit:4.12'
     //noinspection GradleDependency
-    compileOnly 'androidx.annotation:annotation:1.0.0'
+    implementation 'androidx.annotation:annotation:1.0.0'
     //noinspection GradleDependency,GradleCompatible
-    compileOnly 'androidx.legacy:legacy-support-v4:1.0.0'
-    compileOnly project(':refresh-layout')
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation project(':refresh-layout')
 }
 
 /*publish {
