@@ -3,7 +3,9 @@ package com.work.guaishouxingqiu.aboutball.weight;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
+
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
@@ -27,7 +29,8 @@ import com.work.guaishouxingqiu.aboutball.R;
 
 public class PhotoDialog extends Dialog {
 
-    private TextView mItemCamera, mItemAlbum, mItemCancel;
+    private TextView mItemCamera, mItemAlbum, mItemCancel, mItemCameraVideo;
+    private boolean mHasVideo;
 
     public void setOnPhotoDialogItemClickListener(OnPhotoDialogItemClickListener onPhotoDialogItemClickListener) {
         this.onPhotoDialogItemClickListener = onPhotoDialogItemClickListener;
@@ -37,6 +40,11 @@ public class PhotoDialog extends Dialog {
 
     public PhotoDialog(@NonNull Context context) {
         this(context, R.style.DefaultDialogStyle);
+    }
+
+    public PhotoDialog(@NonNull Context context, boolean hasVideo) {
+        this(context, R.style.DefaultDialogStyle);
+        this.mHasVideo = hasVideo;
     }
 
     public PhotoDialog(@NonNull Context context, int themeResId) {
@@ -58,7 +66,7 @@ public class PhotoDialog extends Dialog {
         mItemCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (onPhotoDialogItemClickListener != null){
+                if (onPhotoDialogItemClickListener != null) {
                     onPhotoDialogItemClickListener.onClickCamera(mItemCamera);
                 }
             }
@@ -66,7 +74,7 @@ public class PhotoDialog extends Dialog {
         mItemAlbum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (onPhotoDialogItemClickListener != null){
+                if (onPhotoDialogItemClickListener != null) {
                     onPhotoDialogItemClickListener.onClickAlbum(mItemAlbum);
                 }
             }
@@ -74,8 +82,16 @@ public class PhotoDialog extends Dialog {
         mItemCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (onPhotoDialogItemClickListener != null){
+                if (onPhotoDialogItemClickListener != null) {
                     onPhotoDialogItemClickListener.onClickCancel(mItemCancel);
+                }
+            }
+        });
+        mItemCameraVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onPhotoDialogItemClickListener != null) {
+                    onPhotoDialogItemClickListener.onClickCameraAndVideo(v);
                 }
             }
         });
@@ -85,6 +101,14 @@ public class PhotoDialog extends Dialog {
         mItemCamera = findViewById(R.id.item_camera);
         mItemAlbum = findViewById(R.id.item_album);
         mItemCancel = findViewById(R.id.item_cancel);
+        mItemCameraVideo = findViewById(R.id.item_camera_video);
+        if (mHasVideo) {
+            mItemCameraVideo.setVisibility(View.VISIBLE);
+            mItemCamera.setVisibility(View.GONE);
+        } else {
+            mItemCamera.setVisibility(View.VISIBLE);
+            mItemCameraVideo.setVisibility(View.GONE);
+        }
     }
 
     private void init() {
@@ -111,5 +135,7 @@ public class PhotoDialog extends Dialog {
         void onClickAlbum(View view);
 
         void onClickCancel(View view);
+
+        void onClickCameraAndVideo(View view);
     }
 }

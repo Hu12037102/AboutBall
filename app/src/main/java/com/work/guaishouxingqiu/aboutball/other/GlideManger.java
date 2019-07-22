@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
+
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -188,8 +189,8 @@ public class GlideManger {
     }
 
     public void downloadImage(final Bitmap bitmap, @Nullable final String imagePath) {
-       ExecutorService executors = Executors.newSingleThreadExecutor();
-        if (executors.isShutdown()){
+        ExecutorService executors = Executors.newSingleThreadExecutor();
+        if (executors.isShutdown()) {
             return;
         }
         executors.execute(() -> {
@@ -202,7 +203,43 @@ public class GlideManger {
                 });
             }
         });
+    }
 
+    public void bitmapToImage(final Bitmap bitmap, @Nullable final String imagePath) {
+        ExecutorService executors = Executors.newSingleThreadExecutor();
+        if (executors.isShutdown()) {
+            return;
+        }
+        executors.execute(() -> {
+            File file = bitmapToFile(bitmap, imagePath);
+            if (file != null && FileUtils.existsFile(file.getAbsolutePath())) {
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    FileUtils.scanImage(UIUtils.getContext(), file);
+                });
+            }
+        });
+    }
+
+    public void bitmapToImage(final Bitmap bitmap, @Nullable final String imagePath, @Nullable OnDownLoadImageListener onDownLoadImageListener) {
+        ExecutorService executors = Executors.newSingleThreadExecutor();
+        if (executors.isShutdown()) {
+            return;
+        }
+        executors.execute(() -> {
+            File file = bitmapToFile(bitmap, imagePath);
+            new Handler(Looper.getMainLooper()).post(() -> {
+                if (file != null && FileUtils.existsFile(file.getAbsolutePath())) {
+                    FileUtils.scanImage(UIUtils.getContext(), file);
+                    if (onDownLoadImageListener != null) {
+                        onDownLoadImageListener.onDownLoadSucceed(file);
+                    }
+                } else {
+                    if (onDownLoadImageListener != null) {
+                        onDownLoadImageListener.onDownLoadFailed();
+                    }
+                }
+            });
+        });
     }
 
     public interface OnDownLoadImageListener {

@@ -101,7 +101,7 @@ public class DynamicEditActivity extends CameraActivity<DynamicEditPresenter> im
 
     private void clickMediaSelector() {
         mMediaOptions.maxChooseMedia = AddImageAdapter.MAX_IMAGE_COUNT - (mImageData.size() - 1);
-        openPhotoDialog(mMediaOptions);
+        openPhotoDialog(mMediaOptions,true);
     }
 
     @Override

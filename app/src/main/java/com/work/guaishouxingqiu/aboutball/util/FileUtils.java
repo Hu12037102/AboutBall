@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+
 import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 
@@ -28,6 +29,7 @@ public class FileUtils {
     private static final String CACHE_FILE_NAME = "Cache";
     private static final String NET_CACHE_NAME = "NetCache";
     private static final String IMAGE_CACHE_NAME = "ImageCache";
+    private static final String VIDEO = "Video";
     private static final String CAMERA = "Camera";
     private static final String DOWNLOAD = "Download";
 
@@ -76,6 +78,18 @@ public class FileUtils {
         File imageCacheFile = new File(getRootFolder().getAbsolutePath(), FileUtils.IMAGE_CACHE_NAME);
         createFolder(imageCacheFile);
         return imageCacheFile;
+    }
+
+    public static File createVideoFile() {
+        File videoFile = createVideoFolder();
+        videoFile = new File(videoFile.getAbsolutePath(), "video_" + System.currentTimeMillis() + ".mp4");
+        return videoFile;
+    }
+
+    public static File createVideoFolder() {
+        File videoFolder = new File(getRootFolder().getAbsolutePath(), FileUtils.VIDEO);
+        createFolder(videoFolder);
+        return videoFolder;
     }
 
     public static File resultImageCameraFile() {
@@ -148,7 +162,7 @@ public class FileUtils {
      *
      * @param filePath
      * @return
-     * @throws Exception
+     * @throws
      */
     public static String getParentFileName(@NonNull String filePath) {
         return getParentFile(filePath).getName();
@@ -167,7 +181,7 @@ public class FileUtils {
      *
      * @param filePath
      * @return
-     * @throws Exception
+     * @throws
      */
     public static String getParentFilePath(@NonNull String filePath) {
         return getParentFile(filePath).getAbsolutePath();

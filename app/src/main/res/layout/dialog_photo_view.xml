@@ -9,6 +9,12 @@
         style="@style/PhotoDialogItem"
         android:text="@string/camera"
         android:background="@drawable/selector_item"/>
+    <TextView
+        android:id="@+id/item_camera_video"
+        style="@style/PhotoDialogItem"
+        android:text="@string/shoot_camera"
+        android:background="@drawable/selector_item"
+        android:visibility="gone"/>
 
     <View style="@style/HorizontalLine" />
 

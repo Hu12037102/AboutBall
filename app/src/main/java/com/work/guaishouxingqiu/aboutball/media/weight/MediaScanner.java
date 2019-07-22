@@ -24,7 +24,7 @@ public class MediaScanner implements MediaScannerConnection.MediaScannerConnecti
 
     @Override
     public void onMediaScannerConnected() {
-        mMSC.scanFile(mImageFile.getAbsolutePath(), "image");
+        mMSC.scanFile(mImageFile.getAbsolutePath(), "*");
     }
 
     @Override

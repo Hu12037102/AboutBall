@@ -348,6 +348,7 @@
     <string name="max_choose_media" translatable="false">最大选择%s张</string>
     <string name="confirm" translatable="false">确定</string>
     <string name="camera" translatable="false">相机</string>
+    <string name="shoot_camera" translatable="false">拍摄</string>
     <string name="what_permission_is_must" translatable="false">%s为必要权限，请允许，否则无法使用</string>
     <string name="memory_card" translatable="false">储存卡</string>
     <string name="not_gain_media_photo" translatable="false">没有获取到照片</string>
@@ -613,4 +614,5 @@
     <string name="this_order_not_cancel" translatable="false">该订单不能取消</string>
     <string name="failed_to_download_picture" translatable="false">下载图片失败</string>
     <string name="succeed_to_download_picture" translatable="false">图片已保存到图库</string>
+    <string name="camera_shooting_ailed_please_try_again" translatable="false">相机拍摄失败，请重试</string>
 </resources>

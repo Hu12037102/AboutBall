@@ -14,6 +14,8 @@ import com.work.guaishouxingqiu.aboutball.media.MediaSelector;
 import com.work.guaishouxingqiu.aboutball.media.bean.MediaSelectorFile;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
 import com.work.guaishouxingqiu.aboutball.permission.imp.OnPermissionsResult;
+import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.PhotoDialog;
@@ -79,6 +81,7 @@ public abstract class CameraActivity<P extends BasePresenter> extends Permission
 
     protected void openPhotoDialog(MediaSelector.MediaOptions options) {
         this.mMediaOptions = options;
+
         if (mPhotoDialog == null) {
             mPhotoDialog = new PhotoDialog(this);
         }
@@ -101,6 +104,47 @@ public abstract class CameraActivity<P extends BasePresenter> extends Permission
             @Override
             public void onClickCancel(View view) {
                 mPhotoDialog.dismiss();
+            }
+
+            @Override
+            public void onClickCameraAndVideo(View view) {
+                mPhotoDialog.dismiss();
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_CAMERA_VIDEO);
+            }
+        });
+    }
+
+    protected void openPhotoDialog(MediaSelector.MediaOptions options,boolean hasCameraVideo) {
+        this.mMediaOptions = options;
+
+        if (mPhotoDialog == null) {
+            mPhotoDialog = new PhotoDialog(this,hasCameraVideo);
+        }
+        if (!mPhotoDialog.isShowing()) {
+            mPhotoDialog.show();
+        }
+        mPhotoDialog.setOnPhotoDialogItemClickListener(new PhotoDialog.OnPhotoDialogItemClickListener() {
+            @Override
+            public void onClickCamera(View view) {
+                mPhotoDialog.dismiss();
+                openCamera();
+            }
+
+            @Override
+            public void onClickAlbum(View view) {
+                mPhotoDialog.dismiss();
+                openAlbum(options);
+            }
+
+            @Override
+            public void onClickCancel(View view) {
+                mPhotoDialog.dismiss();
+            }
+
+            @Override
+            public void onClickCameraAndVideo(View view) {
+                mPhotoDialog.dismiss();
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_CAMERA_VIDEO);
             }
         });
     }
@@ -134,15 +178,17 @@ public abstract class CameraActivity<P extends BasePresenter> extends Permission
                 File file = new File(resultUri.getPath());
                 resultCameraResult(file);
             }
-        }else if (resultCode ==UCrop.RESULT_ERROR &&  requestCode == UCrop.REQUEST_CROP){
+        } else if (resultCode == UCrop.RESULT_ERROR && requestCode == UCrop.REQUEST_CROP) {
             Toasts.with().showToast(R.string.crop_image_error);
         }
 
     }
 
 
-    protected  void resultAlbumResult(List<MediaSelectorFile> data){}
+    protected void resultAlbumResult(List<MediaSelectorFile> data) {
+    }
 
-    protected  void resultCameraResult(File cameraFile){}
+    protected void resultCameraResult(File cameraFile) {
+    }
 
 }
