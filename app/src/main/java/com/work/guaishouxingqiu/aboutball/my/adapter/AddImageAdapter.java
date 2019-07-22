@@ -4,9 +4,11 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
@@ -57,6 +59,12 @@ public class AddImageAdapter extends RecyclerView.Adapter<AddImageAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         AddImageBean bean = mData.get(i);
+        if (bean.isVideo) {
+
+            viewHolder.mIvVideo.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.mIvVideo.setVisibility(View.GONE);
+        }
         if (bean.isAdd) {
 
             viewHolder.itemView.setEnabled(true);
@@ -82,20 +90,31 @@ public class AddImageAdapter extends RecyclerView.Adapter<AddImageAdapter.ViewHo
                 onDeleteClickListener.onClickItem(v, i);
             }
             mData.remove(i);
-           notifyDataSetChanged();
+            notifyDataSetChanged();
         });
     }
 
 
     @Override
     public int getItemCount() {
-        return mData == null ? 0 : mData.size() > MAX_IMAGE_COUNT ? MAX_IMAGE_COUNT : mData.size();
+        return mData == null ? 0 : hasVideo() ? 1
+                : (mData.size() > MAX_IMAGE_COUNT ? MAX_IMAGE_COUNT : mData.size());
+    }
+
+    private boolean hasVideo() {
+        for (AddImageBean bean : mData) {
+            if (bean.isVideo) {
+                return true;
+            }
+        }
+        return false;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         private RoundedImageView mRivData;
         private CircleImageView mCivDelete;
+        private ImageView mIvVideo;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -105,6 +124,7 @@ public class AddImageAdapter extends RecyclerView.Adapter<AddImageAdapter.ViewHo
         private void initView(View itemView) {
             mRivData = itemView.findViewById(R.id.riv_data);
             mCivDelete = itemView.findViewById(R.id.civ_delete);
+            mIvVideo = itemView.findViewById(R.id.iv_video);
             itemView.post(() -> {
                 ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
                 layoutParams.height = itemView.getWidth();

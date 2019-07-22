@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
@@ -73,6 +74,10 @@ public class ARouterIntent {
         ARouter.getInstance().build(path).navigation(activity, requestCode);
     }
 
+    public static void startActivityForResult(@NonNull String path, @NonNull Activity activity, int requestCode, @NonNull String key, boolean values) {
+        ARouter.getInstance().build(path).withBoolean(key, values).navigation(activity, requestCode);
+    }
+
     public static void startActivityForResult(@NonNull String path, @NonNull Activity activity, String key, long values) {
         ARouter.getInstance().build(path).withLong(key, values).navigation(activity, REQUEST_CODE);
     }
@@ -128,14 +133,16 @@ public class ARouterIntent {
         intent.putExtras(bundle);
         fragment.startActivityForResult(intent, requestCode);
     }
-    public static void startActivityForResult(@NonNull Fragment fragment, Class clazz,String key,Parcelable parcelable) {
+
+    public static void startActivityForResult(@NonNull Fragment fragment, Class clazz, String key, Parcelable parcelable) {
         Intent intent = new Intent(fragment.getContext(), clazz);
-        intent.putExtra(key,parcelable);
+        intent.putExtra(key, parcelable);
         fragment.startActivityForResult(intent, REQUEST_CODE);
     }
-    public static void startActivityForResult(@NonNull Fragment fragment, Class clazz,String key,Parcelable parcelable,int requestCode) {
+
+    public static void startActivityForResult(@NonNull Fragment fragment, Class clazz, String key, Parcelable parcelable, int requestCode) {
         Intent intent = new Intent(fragment.getContext(), clazz);
-        intent.putExtra(key,parcelable);
+        intent.putExtra(key, parcelable);
         fragment.startActivityForResult(intent, requestCode);
     }
 

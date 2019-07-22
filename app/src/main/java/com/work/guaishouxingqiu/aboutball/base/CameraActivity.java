@@ -5,11 +5,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.community.activity.CameraVideoActivity;
 import com.work.guaishouxingqiu.aboutball.media.MediaSelector;
 import com.work.guaishouxingqiu.aboutball.media.bean.MediaSelectorFile;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
@@ -38,6 +38,7 @@ public abstract class CameraActivity<P extends BasePresenter> extends Permission
     private PhotoDialog mPhotoDialog;
     private static final int PICK_IMAGE_REQUEST_CODE = 100;
     private static final int OPEN_CAMERA_REQUEST_CODE = 101;
+    private static final int REQUEST_CODE_VIDEO_CAMERA = 1750;
     private File mCameraFile;
     private MediaSelector.MediaOptions mMediaOptions;
 
@@ -109,16 +110,16 @@ public abstract class CameraActivity<P extends BasePresenter> extends Permission
             @Override
             public void onClickCameraAndVideo(View view) {
                 mPhotoDialog.dismiss();
-                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_CAMERA_VIDEO);
+                openVideoCamera(false);
             }
         });
     }
 
-    protected void openPhotoDialog(MediaSelector.MediaOptions options,boolean hasCameraVideo) {
+    protected void openCameraVideoDialog(MediaSelector.MediaOptions options, boolean hasCameraMedia) {
         this.mMediaOptions = options;
 
         if (mPhotoDialog == null) {
-            mPhotoDialog = new PhotoDialog(this,hasCameraVideo);
+            mPhotoDialog = new PhotoDialog(this, true);
         }
         if (!mPhotoDialog.isShowing()) {
             mPhotoDialog.show();
@@ -144,9 +145,29 @@ public abstract class CameraActivity<P extends BasePresenter> extends Permission
             @Override
             public void onClickCameraAndVideo(View view) {
                 mPhotoDialog.dismiss();
-                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_CAMERA_VIDEO);
+                openVideoCamera(hasCameraMedia);
             }
         });
+    }
+
+    private void openVideoCamera(boolean hasCameraMedia) {
+
+        requestPermission(new OnPermissionsResult() {
+            @Override
+            public void onAllow(List<String> allowPermissions) {
+                ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_CAMERA_VIDEO, CameraActivity.this, CameraActivity.REQUEST_CODE_VIDEO_CAMERA, ARouterConfig.Key.HAS_CAMERA_MEDIA, hasCameraMedia);
+            }
+
+            @Override
+            public void onNoAllow(List<String> noAllowPermissions) {
+                initPermission();
+            }
+
+            @Override
+            public void onForbid(List<String> noForbidPermissions) {
+
+            }
+        }, Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO);
     }
 
 
@@ -180,6 +201,12 @@ public abstract class CameraActivity<P extends BasePresenter> extends Permission
             }
         } else if (resultCode == UCrop.RESULT_ERROR && requestCode == UCrop.REQUEST_CROP) {
             Toasts.with().showToast(R.string.crop_image_error);
+        } else if (resultCode == Activity.RESULT_OK && requestCode == CameraActivity.REQUEST_CODE_VIDEO_CAMERA) {
+            if (data == null) {
+                return;
+            }
+            String filePath = data.getStringExtra(ARouterConfig.Key.CAMERA_VIDEO_PATH);
+            resultCameraVideoResult(filePath, data.getBooleanExtra(ARouterConfig.Key.IS_CAMERA_VIDEO, false));
         }
 
     }
@@ -191,4 +218,6 @@ public abstract class CameraActivity<P extends BasePresenter> extends Permission
     protected void resultCameraResult(File cameraFile) {
     }
 
+    protected void resultCameraVideoResult(String filePath, boolean isVideo) {
+    }
 }

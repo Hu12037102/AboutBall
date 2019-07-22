@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -101,7 +102,7 @@ public class DynamicEditActivity extends CameraActivity<DynamicEditPresenter> im
 
     private void clickMediaSelector() {
         mMediaOptions.maxChooseMedia = AddImageAdapter.MAX_IMAGE_COUNT - (mImageData.size() - 1);
-        openPhotoDialog(mMediaOptions,true);
+        openCameraVideoDialog(mMediaOptions, mRequestOSSPathData.size() > 0);
     }
 
     @Override
@@ -177,7 +178,7 @@ public class DynamicEditActivity extends CameraActivity<DynamicEditPresenter> im
                             public void onFailure(String errorCode) {
 
                             }
-                        },true,DynamicEditActivity.this);
+                        }, true, DynamicEditActivity.this);
                     } else {
                         mPresenter.publishDynamic(mRequestBean);
                     }
@@ -251,6 +252,17 @@ public class DynamicEditActivity extends CameraActivity<DynamicEditPresenter> im
         mRequestOSSPathData.add(cameraPath);
         AddImageBean addBean = new AddImageBean();
         addBean.path = cameraPath;
+        int position = mImageData.size() - 1;
+        mImageData.add(position, addBean);
+        mImageAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void resultCameraVideoResult(String filePath, boolean isVideo) {
+        mRequestOSSPathData.add(filePath);
+        AddImageBean addBean = new AddImageBean();
+        addBean.isVideo = isVideo;
+        addBean.path = filePath;
         int position = mImageData.size() - 1;
         mImageData.add(position, addBean);
         mImageAdapter.notifyDataSetChanged();

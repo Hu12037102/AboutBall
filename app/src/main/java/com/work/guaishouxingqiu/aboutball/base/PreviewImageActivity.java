@@ -2,9 +2,11 @@ package com.work.guaishouxingqiu.aboutball.base;
 
 import android.content.Context;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -54,14 +56,14 @@ public class PreviewImageActivity extends BaseActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         Bundle bundle = mIntent.getExtras();
         if (bundle == null) {
-            UIUtils.showToast(R.string.there_are_no_previews);
+            UIUtils.showToast(R.string.there_are_no_previews_image);
             finish();
             return;
         }
         mPosition = bundle.getInt(ARouterConfig.Key.POSITION);
         mPathData = bundle.getStringArrayList(ARouterConfig.Key.ARRAY_LIST_STRING);
         if (mPosition == -1 || mPathData == null || mPathData.size() == 0) {
-            UIUtils.showToast(R.string.there_are_no_previews);
+            UIUtils.showToast(R.string.there_are_no_previews_image);
             finish();
             return;
         }

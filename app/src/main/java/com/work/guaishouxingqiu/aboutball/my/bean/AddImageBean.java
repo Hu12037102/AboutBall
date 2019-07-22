@@ -22,5 +22,6 @@ public class AddImageBean {
     public String path;
     public @DrawableRes
     int resIcon = R.mipmap.icon_add_image;
+    public boolean isVideo;
 
 }

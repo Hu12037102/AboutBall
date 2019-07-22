@@ -554,7 +554,8 @@
     <string name="report_reasons" translatable="false">举报原因</string>
     <string name="attentionning" translatable="false">已关注</string>
     <string name="image_preview" translatable="false">图片预览</string>
-    <string name="there_are_no_previews" translatable="false">没有可以预览的图片</string>
+    <string name="there_are_no_previews_image" translatable="false">没有可以预览的图片</string>
+    <string name="there_are_no_previews_video" translatable="false">没有可以预览的视频</string>
     <string name="please_selector_report_case" translatable="false">请选择举报原因</string>
     <string name="you_sure_delete_community" translatable="false">你确定删除该动态</string>
     <string name="attention_s" translatable="false">关注&#160;&#160;%s&#160;&#160;|&#160;&#160;</string>

@@ -173,7 +173,9 @@ public interface ARouterConfig {
         String DELETE = "delete";
         String TOPIC_STATUS = "topicStatus";
         String TOPIC_ID = "topicId";
-
+        String CAMERA_VIDEO_PATH="cameraVideoPath";
+        String IS_CAMERA_VIDEO="cameraIsVideo";
+        String HAS_CAMERA_MEDIA ="hasImage";
     }
 
 }

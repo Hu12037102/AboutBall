@@ -1,21 +1,17 @@
 package com.work.guaishouxingqiu.aboutball.community.activity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.MaskFilter;
-import android.os.Build;
-import android.os.Bundle;
 import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
+
+import androidx.annotation.NonNull;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.cjt2325.cameralibrary.JCameraView;
 import com.cjt2325.cameralibrary.listener.ClickListener;
 import com.cjt2325.cameralibrary.listener.JCameraListener;
-import com.cjt2325.cameralibrary.util.FileUtil;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
@@ -30,7 +26,6 @@ import java.io.File;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 @Route(path = ARouterConfig.Path.ACTIVITY_CAMERA_VIDEO)
 public class CameraVideoActivity extends PermissionActivity {
@@ -99,8 +94,14 @@ public class CameraVideoActivity extends PermissionActivity {
     @Override
     protected void initView() {
         mJcvCamera.setSaveVideoPath(FileUtils.createVideoFolder().getAbsolutePath());
-        mJcvCamera.setMediaQuality(JCameraView.MEDIA_QUALITY_HIGH);
-        mJcvCamera.setFeatures(JCameraView.BUTTON_STATE_BOTH);
+        mJcvCamera.setMediaQuality( JCameraView.MEDIA_QUALITY_HIGH);
+        boolean hasCameraMedia = mIntent.getBooleanExtra(ARouterConfig.Key.HAS_CAMERA_MEDIA, false);
+        if (hasCameraMedia) {
+            mJcvCamera.setFeatures(JCameraView.BUTTON_STATE_ONLY_CAPTURE);
+        } else {
+            mJcvCamera.setFeatures(JCameraView.BUTTON_STATE_BOTH);
+        }
+
       /* ViewGroup.LayoutParams layoutParams =  mJcvCamera.getLayoutParams();
         layoutParams.width = getResources().getDisplayMetrics().widthPixels;
         layoutParams.height = getResources().getDisplayMetrics().heightPixels;
@@ -131,6 +132,13 @@ public class CameraVideoActivity extends PermissionActivity {
 
     }
 
+    private void clickComplete(@NonNull String filePath, boolean isVideo) {
+        Intent intent = new Intent();
+        intent.putExtra(ARouterConfig.Key.CAMERA_VIDEO_PATH, filePath);
+        intent.putExtra(ARouterConfig.Key.IS_CAMERA_VIDEO, isVideo);
+        mViewModel.clickBackForResult(intent);
+    }
+
     @Override
     protected void initEvent() {
         mJcvCamera.setJCameraLisenter(new JCameraListener() {
@@ -140,6 +148,7 @@ public class CameraVideoActivity extends PermissionActivity {
                 GlideManger.get().bitmapToImage(bitmap, null, new GlideManger.OnDownLoadImageListener() {
                     @Override
                     public void onDownLoadSucceed(File file) {
+                        clickComplete(file.getAbsolutePath(), false);
                         LogUtils.w("mJcvCamera--", bitmap + "--" + file.getAbsolutePath());
                     }
 
@@ -151,9 +160,9 @@ public class CameraVideoActivity extends PermissionActivity {
             }
 
             @Override
-            public void recordSuccess(String url, Bitmap firstFrame) {
-                FileUtils.scanImage(CameraVideoActivity.this,new File(url));
-                LogUtils.w("mJcvCamera--", url + "--" + firstFrame);
+            public void recordSuccess(String filePath, Bitmap firstFrame) {
+                FileUtils.scanImage(CameraVideoActivity.this, new File(filePath));
+                clickComplete(filePath, true);
             }
         });
         mJcvCamera.setLeftClickListener(new ClickListener() {
