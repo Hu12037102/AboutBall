@@ -242,6 +242,7 @@ public class DynamicEditActivity extends CameraActivity<DynamicEditPresenter> im
             mRequestOSSPathData.add(media.filePath);
             AddImageBean addBean = new AddImageBean();
             addBean.path = media.filePath;
+            addBean.isVideo = DataUtils.isVideo(addBean.path);
             mImageData.add(mImageData.size() - 1, addBean);
         }
         mImageAdapter.notifyDataSetChanged();

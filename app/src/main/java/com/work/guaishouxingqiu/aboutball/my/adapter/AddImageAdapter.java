@@ -60,7 +60,6 @@ public class AddImageAdapter extends RecyclerView.Adapter<AddImageAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         AddImageBean bean = mData.get(i);
         if (bean.isVideo) {
-
             viewHolder.mIvVideo.setVisibility(View.VISIBLE);
         } else {
             viewHolder.mIvVideo.setVisibility(View.GONE);
