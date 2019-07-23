@@ -185,13 +185,30 @@ public class PreviewActivity extends BaseActivity {
             }
         });
     }
-
+    private boolean hasFileCheckVideo() {
+        if (mCheckMediaData != null && mCheckMediaData.size() > 0) {
+            for (MediaSelectorFile mediaSelectorFile : mCheckMediaData) {
+                if (mediaSelectorFile.isCheck && mediaSelectorFile.isVideo) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     @Override
     protected void initEvent() {
 
         mTvBottom.setOnSureViewClickListener(new TitleView.OnSureViewClickListener() {
             @Override
             public void onSureClick(@NonNull View view) {
+               /* if (hasFileCheckVideo()) {
+                    UIUtils.showToast(R.string.not_selector_video_and_image);
+                    return;
+                }*/
+                if ((hasFileCheckVideo() || mCheckMediaData.size() > 0 && mMediaFileData.get(mVpPreview.getCurrentItem()).isVideo) && !mMediaFileData.get(mVpPreview.getCurrentItem()).isCheck) {
+                    UIUtils.showToast(R.string.not_selector_video_and_image);
+                    return;
+                }
                 if (mCheckMediaData.size() < mOptions.maxChooseMedia || (mCheckMediaData.size() == mOptions.maxChooseMedia && mMediaFileData.get(mPreviewPosition).isCheck)) {
                     mMediaFileData.get(mPreviewPosition).isCheck = !mMediaFileData.get(mPreviewPosition).isCheck;
                     mTvBottom.mTvSure.setCompoundDrawablesWithIntrinsicBounds(mMediaFileData.get(mPreviewPosition).isCheck ? R.mipmap.icon_preview_check : R.mipmap.icon_preview_uncheck, 0, 0, 0);

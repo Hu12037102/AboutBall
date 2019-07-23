@@ -7,11 +7,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Parcelable;
 import android.provider.MediaStore;
+
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +36,7 @@ import com.work.guaishouxingqiu.aboutball.media.weight.FolderWindow;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
 import com.work.guaishouxingqiu.aboutball.permission.imp.OnPermissionsResult;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
+import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -45,7 +48,7 @@ import java.util.List;
 
 import utils.task.CompressImageTask;
 
-public  class MediaActivity extends PermissionActivity {
+public class MediaActivity extends PermissionActivity {
 
     private TitleView mTvTop;
     private TitleView mTvBottom;
@@ -72,7 +75,6 @@ public  class MediaActivity extends PermissionActivity {
 
 
     }
-
 
 
     private void requestExternalStoragePermission() {
@@ -106,7 +108,6 @@ public  class MediaActivity extends PermissionActivity {
             mCameraPermissionDialog.show();
         }
     }
-
 
 
     @Override
@@ -211,6 +212,17 @@ public  class MediaActivity extends PermissionActivity {
         finish();
     }
 
+    private boolean hasFileCheckVideo() {
+        if (mCheckMediaFileData != null && mCheckMediaFileData.size() > 0) {
+            for (MediaSelectorFile mediaSelectorFile : mCheckMediaFileData) {
+                if (mediaSelectorFile.isCheck && mediaSelectorFile.isVideo) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     @Override
     protected void initEvent() {
         mTvTop.setOnSureViewClickListener(new TitleView.OnSureViewClickListener() {
@@ -240,7 +252,7 @@ public  class MediaActivity extends PermissionActivity {
                     openCamera();
                 } else {
                     if (mOptions.isCrop && mOptions.maxChooseMedia == 1 && mOptions.isShowVideo && mMediaFileData.get(position).isVideo) {
-                        Toasts.with().showToast( R.string.video_not_crop, Toast.LENGTH_SHORT);
+                        Toasts.with().showToast(R.string.video_not_crop, Toast.LENGTH_SHORT);
                     } else {
                         toPreviewActivity(position, mMediaFileData, mCheckMediaFileData);
                     }
@@ -252,6 +264,10 @@ public  class MediaActivity extends PermissionActivity {
         mMediaFileAdapter.setOnCheckMediaListener(new MediaFileAdapter.OnCheckMediaListener() {
             @Override
             public void onChecked(boolean isCheck, int position) {
+                if ((hasFileCheckVideo() || mCheckMediaFileData.size() > 0 && mMediaFileData.get(position).isVideo) && !mMediaFileData.get(position).isCheck) {
+                    UIUtils.showToast(R.string.not_selector_video_and_image);
+                    return;
+                }
                 if (isCheck) {
                     mMediaFileData.get(position).isCheck = false;
                     mCheckMediaFileData.remove(mMediaFileData.get(position));
@@ -260,7 +276,7 @@ public  class MediaActivity extends PermissionActivity {
                         mMediaFileData.get(position).isCheck = true;
                         mCheckMediaFileData.add(mMediaFileData.get(position));
                     } else {
-                        Toasts.with().showToast( getString(R.string.max_choose_media, String.valueOf(mOptions.maxChooseMedia)));
+                        Toasts.with().showToast(getString(R.string.max_choose_media, String.valueOf(mOptions.maxChooseMedia)));
                     }
                 }
                 setSureStatus();
@@ -298,7 +314,7 @@ public  class MediaActivity extends PermissionActivity {
             @Override
             public void onAllow(List<String> list) {
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-              //  cameraIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                //  cameraIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 cameraIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 if (cameraIntent.resolveActivity(getPackageManager()) != null) {
                     mCameraFile = FileUtils.resultImageCameraFile();
@@ -324,7 +340,7 @@ public  class MediaActivity extends PermissionActivity {
 
     private void toPreviewActivity(int position, @NonNull List<MediaSelectorFile> data, @NonNull List<MediaSelectorFile> checkData) {
         Intent intent = new Intent(MediaActivity.this, PreviewActivity.class);
-       // intent.putParcelableArrayListExtra(Contast.KEY_PREVIEW_DATA_MEDIA, (ArrayList<? extends Parcelable>) data);
+        // intent.putParcelableArrayListExtra(Contast.KEY_PREVIEW_DATA_MEDIA, (ArrayList<? extends Parcelable>) data);
         IntentData.get().putData(data);
         intent.putParcelableArrayListExtra(Contast.KEY_PREVIEW_CHECK_MEDIA, (ArrayList<? extends Parcelable>) checkData);
         intent.putExtra(Contast.KEY_OPEN_MEDIA, mOptions);

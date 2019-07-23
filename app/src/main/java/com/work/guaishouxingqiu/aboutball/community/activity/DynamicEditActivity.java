@@ -93,6 +93,7 @@ public class DynamicEditActivity extends CameraActivity<DynamicEditPresenter> im
         mMediaOptions.isCrop = false;
         mMediaOptions.isCompress = true;
         mMediaOptions.isShowCamera = false;
+        mMediaOptions.isShowVideo = true;
 
         mImageData = new ArrayList<>();
         mImageData.add(new AddImageBean(true));
