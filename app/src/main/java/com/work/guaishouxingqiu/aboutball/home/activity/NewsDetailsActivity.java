@@ -309,7 +309,7 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
                     mVideoView.pause();
                     removeVideoMessage();
                 } else {
-                    mVideoView.resume();
+                    mVideoView.start();
                     sendVideoMessage();
                 }
             }

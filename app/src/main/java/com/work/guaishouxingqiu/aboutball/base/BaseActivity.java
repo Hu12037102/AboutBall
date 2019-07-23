@@ -67,14 +67,14 @@ public abstract class BaseActivity<P extends BasePresenter> extends LocationActi
     @Override
     protected void onResume() {
         super.onResume();
-        //Bugtags.onResume(this);
+        //Bugtags.onRestart(this);
         MobclickAgent.onResume(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        //Bugtags.onResume(this);
+        //Bugtags.onRestart(this);
         MobclickAgent.onPause(this);
     }
 

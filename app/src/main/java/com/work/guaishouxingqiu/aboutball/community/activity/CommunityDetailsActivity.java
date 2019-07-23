@@ -4,17 +4,23 @@ import android.app.Activity;
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.item.util.ScreenUtils;
 import com.example.item.weight.TitleView;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -178,6 +184,36 @@ public class CommunityDetailsActivity extends LoginOrShareActivity<CommunityDeta
                 case 1:
                     View oneImageInflate = LayoutInflater.from(this).inflate(R.layout.item_community_child_image_1, mGroupImageData, false);
                     RoundedImageView civ_1_1 = oneImageInflate.findViewById(R.id.riv_child_1);
+                    ImageView ivVideo = oneImageInflate.findViewById(R.id.iv_video);
+                    String path = imagePathArray[0];
+                    ViewGroup.LayoutParams layoutParams = civ_1_1.getLayoutParams();
+                    if (DataUtils.isVideo(path)) {
+                        ivVideo.setVisibility(View.VISIBLE);
+                        GlideManger.get().loadImageBitmap(path, new CustomTarget<Bitmap>() {
+                            @Override
+                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                if (resource.getWidth() > resource.getHeight()) {
+                                    layoutParams.width = ScreenUtils.dp2px(CommunityDetailsActivity.this, 176);
+                                    layoutParams.height = ScreenUtils.dp2px(CommunityDetailsActivity.this, 114);
+                                } else {
+                                    layoutParams.width = ScreenUtils.dp2px(CommunityDetailsActivity.this, 176);
+                                    layoutParams.height = ScreenUtils.dp2px(CommunityDetailsActivity.this, 225);
+                                }
+                                civ_1_1.setLayoutParams(layoutParams);
+                            }
+
+                            @Override
+                            public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                            }
+                        });
+                    } else {
+                        ivVideo.setVisibility(View.GONE);
+                        layoutParams.width = ScreenUtils.dp2px(CommunityDetailsActivity.this, 176);
+                        layoutParams.height = ScreenUtils.dp2px(CommunityDetailsActivity.this, 176);
+                        civ_1_1.setLayoutParams(layoutParams);
+                    }
+
                     civ_1_1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

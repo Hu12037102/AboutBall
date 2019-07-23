@@ -7,12 +7,15 @@ import android.os.Parcelable;
  * 媒体库资源预览类
  */
 public class PreviewMediaBean implements Parcelable {
+    public static final int MEDIA_TYPW_IMAGE =0;//图片类型
+    public static final int MEDIA_TYPE_VIDEO =1;//视频类型
     public String mediaUrl;
-    public boolean isVideo;
+    public int mediaType;
+
 
     protected PreviewMediaBean(Parcel in) {
         mediaUrl = in.readString();
-        isVideo = in.readByte() != 0;
+        mediaType = in.readInt();
     }
 
     public static final Creator<PreviewMediaBean> CREATOR = new Creator<PreviewMediaBean>() {
@@ -35,6 +38,6 @@ public class PreviewMediaBean implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(mediaUrl);
-        dest.writeByte((byte) (isVideo ? 1 : 0));
+        dest.writeInt(mediaType);
     }
 }

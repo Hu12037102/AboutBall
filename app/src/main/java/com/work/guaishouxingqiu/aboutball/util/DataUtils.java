@@ -1,7 +1,9 @@
 package com.work.guaishouxingqiu.aboutball.util;
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
+
 import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -236,6 +238,15 @@ public class DataUtils {
 
     public static <T> boolean baseDataBeanIsSucceed(BaseBean<BaseDataBean<T>> bean) {
         return bean.code == IApi.Code.SUCCEED && bean.result != null && bean.result.code == IApi.Code.SUCCEED;
+    }
+
+    /**
+     * 是不是视频;
+     * @param url
+     * @return
+     */
+    public static boolean isVideo(@NonNull String url) {
+        return !DataUtils.isEmpty(url) && (url.endsWith(".mp4") || url.endsWith(".mp3") || url.endsWith(".avi"));
     }
 
     /**

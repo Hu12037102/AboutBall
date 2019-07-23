@@ -1,9 +1,14 @@
 package com.work.guaishouxingqiu.aboutball.community.adapter;
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.item.util.ScreenUtils;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -23,6 +30,7 @@ import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
@@ -173,10 +181,10 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
         UIUtils.setCommunityCount(viewHolder.mTvShare, bean.shareCount);
         if (bean.hasPraise == 1) {
             viewHolder.mTvLikeNum.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_like, 0, 0, 0);
-            viewHolder.mTvLikeNum.setTextColor(ContextCompat.getColor(mContext,R.color.color_2));
+            viewHolder.mTvLikeNum.setTextColor(ContextCompat.getColor(mContext, R.color.color_2));
         } else {
             viewHolder.mTvLikeNum.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_no_like, 0, 0, 0);
-            viewHolder.mTvLikeNum.setTextColor(ContextCompat.getColor(mContext,R.color.color_3));
+            viewHolder.mTvLikeNum.setTextColor(ContextCompat.getColor(mContext, R.color.color_3));
         }
         viewHolder.mLlLike.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -234,13 +242,43 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
                 case 1:
                     View oneImageInflate = LayoutInflater.from(mContext).inflate(R.layout.item_community_child_image_1, viewHolder.mGroupImageData, false);
                     RoundedImageView civ_1_1 = oneImageInflate.findViewById(R.id.riv_child_1);
+                    ImageView ivVideo = oneImageInflate.findViewById(R.id.iv_video);
+                    String path = imagePathArray[0];
+                    ViewGroup.LayoutParams layoutParams = civ_1_1.getLayoutParams();
+                    if (DataUtils.isVideo(path)) {
+                        ivVideo.setVisibility(View.VISIBLE);
+                        GlideManger.get().loadImageBitmap(path, new CustomTarget<Bitmap>() {
+                            @Override
+                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                if (resource.getWidth() > resource.getHeight()) {
+                                    layoutParams.width = ScreenUtils.dp2px(mContext, 176);
+                                    layoutParams.height = ScreenUtils.dp2px(mContext, 114);
+                                } else {
+                                    layoutParams.width = ScreenUtils.dp2px(mContext, 176);
+                                    layoutParams.height = ScreenUtils.dp2px(mContext, 225);
+                                }
+                                civ_1_1.setLayoutParams(layoutParams);
+                            }
+
+                            @Override
+                            public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                            }
+                        });
+                    } else {
+                        ivVideo.setVisibility(View.GONE);
+                        layoutParams.width = ScreenUtils.dp2px(mContext, 176);
+                        layoutParams.height = ScreenUtils.dp2px(mContext, 176);
+                        civ_1_1.setLayoutParams(layoutParams);
+                    }
+
                     civ_1_1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             startPreview(0, i);
                         }
                     });
-                    GlideManger.get().loadBannerImage(mContext, imagePathArray[0], civ_1_1);
+                    GlideManger.get().loadBannerImage(mContext, path, civ_1_1);
                     viewHolder.mGroupImageData.addView(oneImageInflate);
 
                     break;

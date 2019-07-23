@@ -9,7 +9,7 @@
         android:id="@+id/jcv_camera"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:duration_max="15000"
+        app:duration_max="16000"
         app:iconMargin="@dimen/size_20dp"
         app:iconSrc="@mipmap/icon_switch_camera"
         android:fitsSystemWindows="false"
