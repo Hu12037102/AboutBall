@@ -6,8 +6,10 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import android.text.TextUtils;
 import android.widget.Toast;
 
@@ -89,7 +91,7 @@ public class MediaHelper {
                 mediaFile.isVideo = cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.MEDIA_TYPE)) == MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO;
                 if (mediaFile.isVideo) {
                     mediaFile.videoDuration = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION));
-                    if (mediaFile.videoDuration >= 60 * 60 * 1000 || mediaFile.videoDuration < 1000) {
+                    if (mediaFile.videoDuration >= /*60 * 60 * 1000*/16 * 1000 || mediaFile.videoDuration < 1000) {
                         continue;
                     }
                     mVideoFileData.add(mediaFile);
