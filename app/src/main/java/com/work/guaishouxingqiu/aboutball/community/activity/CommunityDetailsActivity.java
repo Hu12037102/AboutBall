@@ -634,9 +634,11 @@ public class CommunityDetailsActivity extends LoginOrShareActivity<CommunityDeta
     private void notifyFollow() {
         mTvHeadAttention.setVisibility(View.VISIBLE);
         if (mIntentBean.hasFollow == 1) {
-            mTvHeadAttention.setText(R.string.attentionning);
+            //mTvHeadAttention.setText(R.string.attentionning);
+            mTvHeadAttention.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_followed,0,0,0);
         } else {
-            mTvHeadAttention.setText(R.string.attention);
+            mTvHeadAttention.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_add_followed,0,0,0);
+          //  mTvHeadAttention.setText(R.string.attention);
             if (mIntentBean.myTweet == 1) {
                 mTvHeadAttention.setVisibility(View.GONE);
             } else {

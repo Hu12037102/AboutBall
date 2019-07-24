@@ -199,9 +199,11 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
         if (mIsShowAttentionBtn) {
             viewHolder.mTvAttention.setVisibility(View.VISIBLE);
             if (bean.hasFollow == 1) {
-                viewHolder.mTvAttention.setText(R.string.attentionning);
+                //viewHolder.mTvAttention.setText(R.string.attentionning);
+                viewHolder.mTvAttention.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_followed,0,0,0);
             } else {
-                viewHolder.mTvAttention.setText(R.string.attention);
+              //  viewHolder.mTvAttention.setText(R.string.attention);
+                viewHolder.mTvAttention.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_add_followed,0,0,0);
                 if (bean.myTweet == 1) {
                     viewHolder.mTvAttention.setVisibility(View.GONE);
                 } else {
