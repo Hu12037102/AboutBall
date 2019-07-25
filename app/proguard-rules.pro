@@ -291,6 +291,8 @@ rx.internal.util.atomic.LinkedQueueNode consumerNode;
 -keep public class com.work.guaishouxingqiu.aboutball.R$*{
 public static final int *;
 }
+-dontwarn io.microshow.rxffmpeg.**
+-keep class io.microshow.rxffmpeg.**{*;}
 
 
 

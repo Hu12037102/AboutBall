@@ -16,6 +16,8 @@ import androidx.core.content.FileProvider;
 import com.work.guaishouxingqiu.aboutball.media.weight.MediaScanner;
 
 import java.io.File;
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.List;
 
 /**
@@ -32,6 +34,7 @@ public class FileUtils {
     private static final String VIDEO = "Video";
     private static final String CAMERA = "Camera";
     private static final String DOWNLOAD = "Download";
+    private static final int MAX_VIDEO_LENGTH = 5;
 
 
     public static File getRootFolder() {
@@ -69,6 +72,11 @@ public class FileUtils {
         return cacheFile;
     }
 
+    public static File createCacheVideoFile() {
+        File cacheVideoFile = getCacheFile();
+        cacheVideoFile = new File(cacheVideoFile.getAbsolutePath(), "video_" + System.currentTimeMillis() + ".mp4");
+        return cacheVideoFile;
+    }
     /**
      * 返回图片缓存目录
      *
@@ -85,6 +93,7 @@ public class FileUtils {
         videoFile = new File(videoFile.getAbsolutePath(), "video_" + System.currentTimeMillis() + ".mp4");
         return videoFile;
     }
+
 
     public static File createVideoFolder() {
         File videoFolder = new File(getRootFolder().getAbsolutePath(), FileUtils.VIDEO);
@@ -235,7 +244,7 @@ public class FileUtils {
      * @param file
      * @return
      */
-    public static long getFileSize(File file) {
+    public static long getFilesSize(File file) {
         long fileSize = 0;
         if (file.isDirectory()) {
             File[] files = file.listFiles();
@@ -250,4 +259,28 @@ public class FileUtils {
         return fileSize;
     }
 
+    /**
+     * 获取文件的大小M，保留两位小数
+     *
+     * @return
+     */
+    public static String getFileSize2M(@NonNull File file) {
+        if (file.exists() && file.isFile()) {
+            long length = file.length();
+            NumberFormat numberFormat = NumberFormat.getNumberInstance();
+            numberFormat.setMaximumFractionDigits(2);
+            numberFormat.setMinimumFractionDigits(2);
+            return numberFormat.format((double) length / 1000d / 1000d);
+        }
+        return "0";
+    }
+
+    /**
+     * 判断文件大小是否大于视频约定大小压缩值
+     * @param file 文件
+     * @return
+     */
+    public static boolean isCanCompressVideo(@NonNull File file) {
+        return Double.valueOf(getFileSize2M(file)) > FileUtils.MAX_VIDEO_LENGTH;
+    }
 }

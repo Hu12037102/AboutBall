@@ -5,10 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -25,6 +27,7 @@ import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultRecommendHotBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.login.activity.LoginActivity;
+import com.work.guaishouxingqiu.aboutball.media.bean.MediaSelectorFile;
 import com.work.guaishouxingqiu.aboutball.my.activity.OrderCompleteEvaluateCancelActivity;
 import com.work.guaishouxingqiu.aboutball.my.activity.OrderEvaluateActivity;
 import com.work.guaishouxingqiu.aboutball.my.activity.RefundActivity;
@@ -711,6 +714,11 @@ public class ViewModel {
         } else {
             ARouterIntent.startActivityForResult(fragment, OrderCompleteEvaluateCancelActivity.class, bundle, status);
         }
+    }
+
+    public boolean isMediaVideo(@NonNull List<MediaSelectorFile> data) {
+        return data.size() == 1 && FileUtils.existsFile(data.get(0).filePath)
+                && DataUtils.isVideo(data.get(0).filePath);
     }
 
 }

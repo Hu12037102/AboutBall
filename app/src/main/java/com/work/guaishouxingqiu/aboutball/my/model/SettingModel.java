@@ -1,7 +1,5 @@
 package com.work.guaishouxingqiu.aboutball.my.model;
 
-import android.os.Build;
-
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseModel;
@@ -10,13 +8,9 @@ import com.work.guaishouxingqiu.aboutball.my.MyService;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
 
-import java.io.File;
-
 import io.reactivex.Observable;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -28,14 +22,14 @@ import io.reactivex.schedulers.Schedulers;
 public class SettingModel extends BaseModel {
     public void getFileSize(Observer<Long> observable) {
        /* Observable.create((ObservableOnSubscribe<Long>) emitter -> {
-            Long fileSize = FileUtils.getFileSize(FileUtils.getNetCacheFile()) +
-                    FileUtils.getFileSize(FileUtils.getImageCacheFile());
+            Long fileSize = FileUtils.getFilesSize(FileUtils.getNetCacheFile()) +
+                    FileUtils.getFilesSize(FileUtils.getImageCacheFile());
             emitter.onNext(fileSize);
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observable);*/
-        Observable.just(FileUtils.getFileSize(FileUtils.getNetCacheFile()) +
-                FileUtils.getFileSize(FileUtils.getImageCacheFile()))
+        Observable.just(FileUtils.getFilesSize(FileUtils.getNetCacheFile()) +
+                FileUtils.getFilesSize(FileUtils.getImageCacheFile()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observable);

@@ -8,3 +8,4 @@ import java.util.List;
 public interface ILoadMediaResult {
     void mediaResult(List<MediaSelectorFolder> data);
 }
+

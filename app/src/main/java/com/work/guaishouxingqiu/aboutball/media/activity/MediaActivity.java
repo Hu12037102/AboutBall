@@ -4,23 +4,35 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.item.weight.TitleView;
+import com.github.hiteshsondhi88.libffmpeg.ExecuteBinaryResponseHandler;
+import com.github.hiteshsondhi88.libffmpeg.FFmpeg;
+import com.github.hiteshsondhi88.libffmpeg.LoadBinaryResponseHandler;
+import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegCommandAlreadyRunningException;
+import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegNotSupportedException;
+import com.tencent.ijk.media.player.ffmpeg.FFmpegApi;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
@@ -33,9 +45,12 @@ import com.work.guaishouxingqiu.aboutball.media.bean.MediaSelectorFolder;
 import com.work.guaishouxingqiu.aboutball.media.resolver.MediaHelper;
 import com.work.guaishouxingqiu.aboutball.media.weight.DialogHelper;
 import com.work.guaishouxingqiu.aboutball.media.weight.FolderWindow;
+import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
 import com.work.guaishouxingqiu.aboutball.permission.imp.OnPermissionsResult;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
@@ -43,9 +58,16 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import io.microshow.rxffmpeg.RxFFmpegInvoke;
+import io.microshow.rxffmpeg.RxFFmpegSubscriber;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import utils.task.CompressImageTask;
 
 public class MediaActivity extends PermissionActivity {
@@ -168,49 +190,123 @@ public class MediaActivity extends PermissionActivity {
 
     private void resultMediaData() {
         if (mCheckMediaFileData.size() > 0) {
-            if (mOptions.isCompress && !mOptions.isShowVideo) {
-                final ViewGroup viewGroup = (ViewGroup) getWindow().getDecorView();
-                final View inflate = LayoutInflater.from(MediaActivity.this).inflate(R.layout.item_loading_view, viewGroup, false);
-                compressImage(mCheckMediaFileData, new CompressImageTask.OnImagesResult() {
-                    @Override
-                    public void startCompress() {
-                        viewGroup.addView(inflate);
-                    }
-
-                    @Override
-                    public void resultFilesSucceed(List<File> list) {
-
-                        mCheckMediaFileData.clear();
-                        for (File file : list) {
-                            mCheckMediaFileData.add(MediaSelectorFile.checkFileToThis(file));
-                        }
-                        resultMediaIntent();
-                        if (viewGroup.indexOfChild(inflate) != -1) {
-                            viewGroup.removeView(inflate);
-                        }
-                    }
-
-                    @Override
-                    public void resultFilesError() {
-                        if (viewGroup.indexOfChild(inflate) != -1) {
-                            viewGroup.removeView(inflate);
-                        }
-                    }
-                });
-
-            } else {
-                resultMediaIntent();
+            if (mViewModel.isMediaVideo(mCheckMediaFileData)){
+                compressVideo(mCheckMediaFileData);
+            }else {
+                compressImage();
             }
-
         }
     }
+    private void compressImage(){
+        if (mOptions.isCompress && !mOptions.isShowVideo) {
+            final ViewGroup viewGroup = (ViewGroup) getWindow().getDecorView();
+            final View inflate = LayoutInflater.from(MediaActivity.this).inflate(R.layout.item_loading_view, viewGroup, false);
+            compressImage(mCheckMediaFileData, new CompressImageTask.OnImagesResult() {
+                @Override
+                public void startCompress() {
+                    viewGroup.addView(inflate);
+                }
 
-    private void resultMediaIntent() {
+                @Override
+                public void resultFilesSucceed(List<File> list) {
+
+                    mCheckMediaFileData.clear();
+                    for (File file : list) {
+                        mCheckMediaFileData.add(MediaSelectorFile.checkFileToThis(file));
+                    }
+                    resultMediaIntent(mCheckMediaFileData);
+                    if (viewGroup.indexOfChild(inflate) != -1) {
+                        viewGroup.removeView(inflate);
+                    }
+                }
+
+                @Override
+                public void resultFilesError() {
+                    if (viewGroup.indexOfChild(inflate) != -1) {
+                        viewGroup.removeView(inflate);
+                    }
+                }
+            });
+
+        } else {
+            resultMediaIntent(mCheckMediaFileData);
+        }
+    }
+    private void resultMediaIntent(List<MediaSelectorFile> checkMediaFileData) {
         Intent intent = new Intent();
-        intent.putParcelableArrayListExtra(Contast.KEY_REQUEST_MEDIA_DATA, (ArrayList<? extends Parcelable>) mCheckMediaFileData);
+        intent.putParcelableArrayListExtra(Contast.KEY_REQUEST_MEDIA_DATA, (ArrayList<? extends Parcelable>) checkMediaFileData);
         setResult(Contast.CODE_RESULT_MEDIA, intent);
         finish();
     }
+
+    private void compressVideo(@NonNull List<MediaSelectorFile> checkMediaFileData) {
+        for (MediaSelectorFile mediaSelectorFile : checkMediaFileData) {
+            final String filePath = mediaSelectorFile.filePath;
+            if (FileUtils.existsFile(filePath) && DataUtils.isVideo(filePath)) {
+                File file = new File(filePath);
+                if (FileUtils.isCanCompressVideo(file)) {
+                    mViewModel.showLoadingView();
+                    mIsCompressVideoing = true;
+                    String compressVideoPath = FileUtils.createCacheVideoFile().getAbsolutePath();
+                    GlideManger.get().loadImageBitmap(filePath, new CustomTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                            if (resource.getWidth() > 0 && resource.getHeight() > 0) {
+                                String[] complexCommand = new String[]{"ffmpeg", "-i", filePath, "-s",
+                                        resource.getWidth() > resource.getHeight() ? "960*540" : "540*960", "-c:v",
+                                        "libx264", "-crf", "30", "-preset", "ultrafast", "-y", "-acodec", "libmp3lame", compressVideoPath};
+                                RxFFmpegInvoke.getInstance().runCommandRxJava(complexCommand)
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe(new RxFFmpegSubscriber() {
+                                            @Override
+                                            public void onFinish() {
+                                                mViewModel.dismissLoadingView();
+                                                mIsCompressVideoing = false;
+                                                mediaSelectorFile.filePath = compressVideoPath;
+                                                resultMediaIntent(checkMediaFileData);
+                                            }
+
+                                            @Override
+                                            public void onProgress(int progress) {
+                                                LogUtils.w("FFmpeg---", "发布中！" + progress);
+                                            }
+
+                                            @Override
+                                            public void onCancel() {
+                                                mViewModel.dismissLoadingView();
+                                                mIsCompressVideoing = false;
+                                                LogUtils.w("FFmpeg---", "取消了！");
+                                                finish();
+                                            }
+
+                                            @Override
+                                            public void onError(String message) {
+                                                mViewModel.dismissLoadingView();
+                                                mIsCompressVideoing = false;
+                                                LogUtils.w("FFmpeg---", "失败了！");
+                                                UIUtils.showToast(R.string.video_deals_with_video);
+                                                finish();
+                                            }
+                                        });
+                            }
+                        }
+
+                        @Override
+                        public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                        }
+                    });
+
+                } else {
+                    resultMediaIntent(checkMediaFileData);
+                }
+            }
+        }
+    }
+
+
+
 
     private boolean hasFileCheckVideo() {
         if (mCheckMediaFileData != null && mCheckMediaFileData.size() > 0) {
@@ -229,6 +325,15 @@ public class MediaActivity extends PermissionActivity {
             @Override
             public void onSureClick(@NonNull View view) {
                 resultMediaData();
+            }
+        });
+        mTvTop.setOnBackViewClickListener(new TitleView.OnBackViewClickListener() {
+            @Override
+            public void onBackClick(@NonNull View view) {
+                if (mIsCompressVideoing){
+                    return;
+                }
+                finish();
             }
         });
         mTvBottom.setOnTitleViewClickListener(new TitleView.OnTitleViewClickListener() {
@@ -435,7 +540,7 @@ public class MediaActivity extends PermissionActivity {
         if (checkMediaData.size() > 0) {
             mCheckMediaFileData.clear();
             mCheckMediaFileData.addAll(checkMediaData);
-            resultMediaIntent();
+            resultMediaIntent(mCheckMediaFileData);
         }
     }
 

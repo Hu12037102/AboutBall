@@ -260,6 +260,8 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
                                     layoutParams.height = ScreenUtils.dp2px(mContext, 225);
                                 }
                                 civ_1_1.setLayoutParams(layoutParams);
+                              //  GlideManger.get().loadBannerImage(mContext, path, civ_1_1);
+                                civ_1_1.setImageBitmap(resource);
                             }
 
                             @Override
@@ -273,14 +275,14 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
                         layoutParams.height = ScreenUtils.dp2px(mContext, 176);
                         civ_1_1.setLayoutParams(layoutParams);
                     }
-
+                    GlideManger.get().loadBannerImage(mContext, path, civ_1_1);
                     civ_1_1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             startPreview(0, i);
                         }
                     });
-                    GlideManger.get().loadBannerImage(mContext, path, civ_1_1);
+
                     viewHolder.mGroupImageData.addView(oneImageInflate);
 
                     break;

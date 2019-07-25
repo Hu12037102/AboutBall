@@ -24,6 +24,7 @@ import java.util.List;
 
 public class MediaHelper {
     private static final Uri QUERY_URI = MediaStore.Files.getContentUri("external");
+    public static final int VIDEO_MAX_LENGTH= 5*1024*1024;
     //查询的内容
     @SuppressLint("InlinedApi")
     private static final String[] IMAGE_PROJECTION = {

@@ -14,6 +14,7 @@ import utils.bean.ImageConfig;
 
 
 public class MediaSelectorFile implements Parcelable {
+
     public String fileName;
     public String filePath;
     public int fileSize;

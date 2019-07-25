@@ -3,13 +3,18 @@ package com.work.guaishouxingqiu.aboutball.media.activity;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +23,8 @@ import android.view.animation.LinearInterpolator;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.item.util.ScreenUtils;
 import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.Contast;
@@ -31,7 +38,10 @@ import com.work.guaishouxingqiu.aboutball.media.adapter.MediaCheckAdapter;
 import com.work.guaishouxingqiu.aboutball.media.adapter.PreviewAdapter;
 import com.work.guaishouxingqiu.aboutball.media.bean.MediaSelectorFile;
 import com.work.guaishouxingqiu.aboutball.media.weight.PreviewViewPager;
+import com.work.guaishouxingqiu.aboutball.other.GlideManger;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 import com.yalantis.ucrop.UCrop;
@@ -42,6 +52,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.microshow.rxffmpeg.RxFFmpegInvoke;
+import io.microshow.rxffmpeg.RxFFmpegSubscriber;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import utils.task.CompressImageTask;
 
 public class PreviewActivity extends BaseActivity {
@@ -185,6 +199,7 @@ public class PreviewActivity extends BaseActivity {
             }
         });
     }
+
     private boolean hasFileCheckVideo() {
         if (mCheckMediaData != null && mCheckMediaData.size() > 0) {
             for (MediaSelectorFile mediaSelectorFile : mCheckMediaData) {
@@ -195,6 +210,7 @@ public class PreviewActivity extends BaseActivity {
         }
         return false;
     }
+
     @Override
     protected void initEvent() {
 
@@ -248,6 +264,9 @@ public class PreviewActivity extends BaseActivity {
         mTvTop.setOnBackViewClickListener(new TitleView.OnBackViewClickListener() {
             @Override
             public void onBackClick(@NonNull View view) {
+                if (mIsCompressVideoing) {
+                    return;
+                }
                 finish();
             }
         });
@@ -274,7 +293,7 @@ public class PreviewActivity extends BaseActivity {
         }
     }
 
-    private void sureData() {
+    private void compressImage() {
         if (mOptions.isCompress && !mOptions.isShowVideo && !mOptions.isCrop) {
             final ViewGroup viewGroup = (ViewGroup) getWindow().getDecorView();
             final View inflate = LayoutInflater.from(PreviewActivity.this).inflate(R.layout.item_loading_view, viewGroup, false);
@@ -307,17 +326,6 @@ public class PreviewActivity extends BaseActivity {
         } else {
             if (mOptions.isCrop && mOptions.maxChooseMedia == 1) {
                 if (!mCheckMediaData.get(0).isVideo) {
-                   /* UCrop.Options options = new UCrop.Options();
-                    options.setCompressionQuality(100);
-                    options.setToolbarColor(ContextCompat.getColor(this,  R.color.color_4));
-                    options.setStatusBarColor(ContextCompat.getColor(this, R.color.color_4));
-                    options.setLogoColor(ContextCompat.getColor(this, R.color.color_4));
-                    options.setActiveWidgetColor(ContextCompat.getColor(this, R.color.color_2));
-                    UCrop.of(Uri.fromFile(new File(mCheckMediaData.get(0).filePath)), Uri.fromFile(FileUtils.resultImageCacheFile()))
-                            .withAspectRatio(mOptions.scaleX, mOptions.scaleY)
-                            .withMaxResultSize(mOptions.cropWidth, mOptions.cropHeight)
-                            .withOptions(options)
-                            .start(this);*/
                     UIUtils.uCropImage(this, new File(mCheckMediaData.get(0).filePath), FileUtils.resultImageCacheFile(),
                             mOptions.scaleX, mOptions.scaleY, mOptions.cropWidth, mOptions.cropHeight);
                 } else {
@@ -328,7 +336,86 @@ public class PreviewActivity extends BaseActivity {
                 finish();
             }
         }
+
     }
+
+    private void sureData() {
+        if (mViewModel.isMediaVideo(mCheckMediaData)) {
+            compressVideo(mCheckMediaData);
+        } else {
+            compressImage();
+        }
+
+    }
+
+    private void compressVideo(@NonNull List<MediaSelectorFile> checkMediaFileData) {
+        for (MediaSelectorFile mediaSelectorFile : checkMediaFileData) {
+            final String filePath = mediaSelectorFile.filePath;
+            if (FileUtils.existsFile(filePath) && DataUtils.isVideo(filePath)) {
+                File file = new File(filePath);
+                if (FileUtils.isCanCompressVideo(file)) {
+                    mViewModel.showLoadingView();
+                    mIsCompressVideoing = true;
+                    String compressVideoPath = FileUtils.createCacheVideoFile().getAbsolutePath();
+                    GlideManger.get().loadImageBitmap(filePath, new CustomTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                            if (resource.getWidth() > 0 && resource.getHeight() > 0) {
+                                String[] complexCommand = new String[]{"ffmpeg", "-i", filePath, "-s",
+                                        resource.getWidth() > resource.getHeight() ? "960*540" : "540*960", "-c:v",
+                                        "libx264", "-crf", "30", "-preset", "ultrafast", "-y", "-acodec", "libmp3lame", compressVideoPath};
+                                RxFFmpegInvoke.getInstance().runCommandRxJava(complexCommand)
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe(new RxFFmpegSubscriber() {
+                                            @Override
+                                            public void onFinish() {
+                                                mViewModel.dismissLoadingView();
+                                                mIsCompressVideoing = false;
+                                                mediaSelectorFile.filePath = compressVideoPath;
+                                                EventBus.getDefault().post(mCheckMediaData);
+                                                finish();
+                                            }
+
+                                            @Override
+                                            public void onProgress(int progress) {
+                                                LogUtils.w("FFmpeg---", "发布中！" + progress);
+                                            }
+
+                                            @Override
+                                            public void onCancel() {
+                                                mViewModel.dismissLoadingView();
+                                                mIsCompressVideoing = false;
+                                                LogUtils.w("FFmpeg---", "取消了！");
+                                                finish();
+                                            }
+
+                                            @Override
+                                            public void onError(String message) {
+                                                mViewModel.dismissLoadingView();
+                                                mIsCompressVideoing = false;
+                                                LogUtils.w("FFmpeg---", "失败了！");
+                                                UIUtils.showToast(R.string.video_deals_with_video);
+                                                finish();
+                                            }
+                                        });
+                            }
+                        }
+
+                        @Override
+                        public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                        }
+                    });
+
+                } else {
+                    EventBus.getDefault().post(mCheckMediaData);
+                    finish();
+                }
+            }
+        }
+    }
+
 
     @Override
     protected int getLayoutId() {

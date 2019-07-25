@@ -18,7 +18,8 @@
         app:sure_text_color="@color/colorTextUnSelector"
         app:sure_text_padding_left="@dimen/default_margin"
         app:sure_text_padding_right="@dimen/default_margin"
-        app:sure_text_size="16sp" />
+        app:sure_text_size="16sp"
+        app:back_click_is_finish="false"/>
 
     <com.example.item.weight.TitleView
         android:id="@+id/ctv_bottom"

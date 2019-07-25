@@ -203,6 +203,7 @@ public class OSSRequestHelp {
         }
         for (String path : filePathData) {
             File file = new File(path);
+            LogUtils.w("checkFiles--", file.isFile() + "--" + file.exists()+"--"+file.getAbsolutePath());
             if (file.exists() && file.isFile()) {
                 files.add(file);
             } else {

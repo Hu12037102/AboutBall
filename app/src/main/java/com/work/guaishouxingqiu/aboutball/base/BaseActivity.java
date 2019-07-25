@@ -1,16 +1,23 @@
 package com.work.guaishouxingqiu.aboutball.base;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import android.os.Parcelable;
 import android.view.MotionEvent;
 
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.item.util.ScreenUtils;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.umeng.analytics.MobclickAgent;
+import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
@@ -23,16 +30,26 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundCauseBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 import com.work.guaishouxingqiu.aboutball.other.ActivityManger;
+import com.work.guaishouxingqiu.aboutball.other.GlideManger;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.FileUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
+import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.LoadingView;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.microshow.rxffmpeg.RxFFmpegInvoke;
+import io.microshow.rxffmpeg.RxFFmpegSubscriber;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import utils.bean.ImageConfig;
 import utils.task.CompressImageTask;
 
@@ -48,6 +65,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends LocationActi
     private Unbinder mBinder;
     private LoadingView mLoadingView;
     protected Intent mIntent;
+    protected boolean mIsCompressVideoing;
 
 
     @Override
@@ -178,14 +196,24 @@ public abstract class BaseActivity<P extends BasePresenter> extends LocationActi
         mViewModel.resultBaseData(baseBean);
     }
 
-    protected void compressImage(List<MediaSelectorFile> mMediaFileData, CompressImageTask.OnImagesResult onImagesResult) {
+    protected void compressImage(List<MediaSelectorFile> mediaFileData, CompressImageTask.OnImagesResult onImagesResult) {
         final List<ImageConfig> configData = new ArrayList<>();
-        for (int i = 0; i < mMediaFileData.size(); i++) {
-            configData.add(MediaSelectorFile.thisToDefaultImageConfig(mMediaFileData.get(i)));
+        for (int i = 0; i < mediaFileData.size(); i++) {
+            configData.add(MediaSelectorFile.thisToDefaultImageConfig(mediaFileData.get(i)));
         }
 
-        CompressImageTask.get().compressImages( this,configData, onImagesResult);
+        CompressImageTask.get().compressImages(this, configData, onImagesResult);
 
+    }
+
+
+
+    @Override
+    public void onBackPressed() {
+        if (mIsCompressVideoing) {
+            return;
+        }
+        super.onBackPressed();
     }
 
     @Override
