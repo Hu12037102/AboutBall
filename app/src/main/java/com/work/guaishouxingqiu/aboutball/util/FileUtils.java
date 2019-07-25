@@ -231,6 +231,14 @@ public class FileUtils {
             }
         }
     }
+    public static void removeOSSCacheFile(@NonNull File file){
+        if (file.exists()){
+            File parentFile = file.getParentFile();
+            if (parentFile.getName().equalsIgnoreCase(FileUtils.CACHE_FILE_NAME)){
+                removeFile(file);
+            }
+        }
+    }
 
     public static void removeFileCache() {
         removeFile(FileUtils.getCacheFile());

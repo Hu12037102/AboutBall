@@ -161,7 +161,7 @@ public class OSSRequestHelp {
                     String ossFilePath = "https://" + OSSRequestHelp.BUCKET.concat(".").concat(OSSRequestHelp.ENDPOINT_BODY).concat("/")
                             .concat(request.getObjectKey());
                     LogUtils.w("onSuccess--", "上传成功啦！" + ossFilePath + "--" + Thread.currentThread().getName());
-                    FileUtils.removeFile(file);
+                    FileUtils.removeOSSCacheFile(file);
                     mMainHandler.post(() -> {
                         if (listener != null) {
                             listener.onSucceed(ossFilePath);
@@ -250,7 +250,7 @@ public class OSSRequestHelp {
                         mResultPathData.add(ossFilePath);
                         filePathData.remove(0);
                         mFileData.remove(0);
-                        FileUtils.removeFile(file);
+                        FileUtils.removeOSSCacheFile(file);
                         if (filePathData.size() == 0) {
 
                             if (listener != null) {
@@ -328,7 +328,7 @@ public class OSSRequestHelp {
                         mResultPathData.add(ossFilePath);
                         filePathData.remove(0);
                         mFileData.remove(0);
-                        FileUtils.removeFile(file);
+                        FileUtils.removeOSSCacheFile(file);
                         if (filePathData.size() == 0) {
                             if (showLoadingView) {
                                 activity.dismissLoadingView();
