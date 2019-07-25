@@ -207,7 +207,7 @@ dependencies {
     //lottie动画
     implementation 'com.airbnb.android:lottie:2.7.0'
     implementation project(path: ':camera')
-    implementation 'com.writingminds:FFmpegAndroid:0.3.2'
+   // implementation 'com.writingminds:FFmpegAndroid:0.3.2'
     implementation 'com.github.microshow:RxFFmpeg:2.0.0'
 
 }
