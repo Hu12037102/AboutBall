@@ -23,6 +23,7 @@ import com.alibaba.sdk.android.oss.model.PutSymlinkRequest;
 import com.work.guaishouxingqiu.aboutball.BuildConfig;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
@@ -138,7 +139,7 @@ public class OSSRequestHelp {
         }
 
         //  String ossObjectKey = getObjectKey(file.getName());
-        PutObjectRequest request = new PutObjectRequest(OSSRequestHelp.BUCKET, file.getName(), file.getAbsolutePath());
+        PutObjectRequest request = new PutObjectRequest(OSSRequestHelp.BUCKET, DataUtils.getPath(file.getName()), file.getAbsolutePath());
         request.setCRC64(OSSRequest.CRC64Config.YES);
         request.setMetadata(mMetadata);
         //上传监听回调
@@ -233,7 +234,7 @@ public class OSSRequestHelp {
             UIUtils.showToast("没有获取到文件！");
             return;
         }
-        PutObjectRequest request = new PutObjectRequest(OSSRequestHelp.BUCKET, file.getName(), file.getAbsolutePath());
+        PutObjectRequest request = new PutObjectRequest(OSSRequestHelp.BUCKET, DataUtils.getPath(file.getName()), file.getAbsolutePath());
         request.setCRC64(OSSRequest.CRC64Config.YES);
         request.setMetadata(mMetadata);
         //上传监听回调
@@ -307,7 +308,7 @@ public class OSSRequestHelp {
             UIUtils.showToast("没有获取到文件！");
             return;
         }
-        PutObjectRequest request = new PutObjectRequest(OSSRequestHelp.BUCKET, file.getName(), file.getAbsolutePath());
+        PutObjectRequest request = new PutObjectRequest(OSSRequestHelp.BUCKET, DataUtils.getPath(file.getName()), file.getAbsolutePath());
         request.setCRC64(OSSRequest.CRC64Config.YES);
         request.setMetadata(mMetadata);
         //上传监听回调

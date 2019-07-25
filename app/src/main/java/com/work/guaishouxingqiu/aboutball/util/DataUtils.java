@@ -39,6 +39,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import utils.FileUtils;
 
 /**
  * 作者: 胡庆岭
@@ -242,6 +243,7 @@ public class DataUtils {
 
     /**
      * 是不是视频;
+     *
      * @param url
      * @return
      */
@@ -421,5 +423,27 @@ public class DataUtils {
             return imageUrlData;
         }
         return imageUrlData;
+    }
+
+    public static String getPath(@NonNull String path) {
+        if (DataUtils.isEmpty(path)) {
+            return "";
+        }
+
+      if (path.contains(Contast.SPLIT_IMAGE)) {
+           return path.replaceAll(Contast.SPLIT_IMAGE,"");
+        }
+      return path;
+    }
+
+    public static boolean isImgae(@NonNull String imagePath) {
+        if (DataUtils.isEmpty(imagePath)) {
+            return false;
+        }
+        if (imagePath.endsWith(".jpg") || imagePath.endsWith(".jpeg") || imagePath.endsWith(".png") ||
+                imagePath.endsWith(".bmp") || imagePath.endsWith(".webp")) {
+            return true;
+        }
+        return false;
     }
 }
