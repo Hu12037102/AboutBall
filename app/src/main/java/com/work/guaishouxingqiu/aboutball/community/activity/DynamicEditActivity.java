@@ -120,6 +120,8 @@ public class DynamicEditActivity extends CameraActivity<DynamicEditPresenter> im
                 AddImageBean bean = mImageData.get(position);
                 if (bean.isAdd) {
                     clickMediaSelector();
+                }else {
+                    clickPreviewMedia(position);
                 }
             }
         });
@@ -186,6 +188,10 @@ public class DynamicEditActivity extends CameraActivity<DynamicEditPresenter> im
                 }
             }
         });
+    }
+
+    private void clickPreviewMedia(int position) {
+     mViewModel.startActivityToPreview(position, (ArrayList<String>) mRequestOSSPathData);
     }
 
     @Override

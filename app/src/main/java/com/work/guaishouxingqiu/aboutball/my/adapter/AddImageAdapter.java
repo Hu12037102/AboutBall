@@ -66,7 +66,7 @@ public class AddImageAdapter extends RecyclerView.Adapter<AddImageAdapter.ViewHo
         }
         if (bean.isAdd) {
 
-            viewHolder.itemView.setEnabled(true);
+           // viewHolder.itemView.setEnabled(true);
             viewHolder.mCivDelete.setVisibility(View.GONE);
             viewHolder.itemView.setBackgroundResource(bean.resIcon);
             viewHolder.mRivData.setImageDrawable(null);
@@ -74,7 +74,7 @@ public class AddImageAdapter extends RecyclerView.Adapter<AddImageAdapter.ViewHo
 
         } else {
             viewHolder.itemView.setBackground(null);
-            viewHolder.itemView.setEnabled(false);
+           // viewHolder.itemView.setEnabled(false);
             viewHolder.mCivDelete.setVisibility(View.VISIBLE);
             GlideManger.get().loadImage(mContext, bean.path, viewHolder.mRivData);
         }

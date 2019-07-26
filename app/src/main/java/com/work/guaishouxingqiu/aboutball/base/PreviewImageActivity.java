@@ -118,9 +118,9 @@ public class PreviewImageActivity extends BaseActivity {
                 radioButton.setButtonDrawable(null);
                 radioButton.setBackgroundResource(R.drawable.selector_image_radio_button);
                 RadioGroup.LayoutParams layoutParams = (RadioGroup.LayoutParams) radioButton.getLayoutParams();
-                layoutParams.width = ScreenUtils.dp2px(this, 8);
-                layoutParams.height = ScreenUtils.dp2px(this, 8);
-                layoutParams.rightMargin = ScreenUtils.dp2px(this, 20);
+                layoutParams.width = ScreenUtils.dp2px(this, 6);
+                layoutParams.height = ScreenUtils.dp2px(this, 6);
+                layoutParams.rightMargin = ScreenUtils.dp2px(this, 12);
                 radioButton.setChecked(i == mPosition);
             }
         }

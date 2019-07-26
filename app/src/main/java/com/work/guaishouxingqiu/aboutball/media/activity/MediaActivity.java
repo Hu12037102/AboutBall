@@ -47,12 +47,14 @@ import com.work.guaishouxingqiu.aboutball.util.FileUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
+
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
 import io.microshow.rxffmpeg.RxFFmpegInvoke;
 import io.microshow.rxffmpeg.RxFFmpegSubscriber;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -179,14 +181,15 @@ public class MediaActivity extends PermissionActivity {
 
     private void resultMediaData() {
         if (mCheckMediaFileData.size() > 0) {
-            if (mViewModel.isMediaVideo(mCheckMediaFileData)){
+            if (mViewModel.isMediaVideo(mCheckMediaFileData)) {
                 compressVideo(mCheckMediaFileData);
-            }else {
+            } else {
                 compressImage();
             }
         }
     }
-    private void compressImage(){
+
+    private void compressImage() {
         if (mOptions.isCompress && !mOptions.isShowVideo) {
             final ViewGroup viewGroup = (ViewGroup) getWindow().getDecorView();
             final View inflate = LayoutInflater.from(MediaActivity.this).inflate(R.layout.item_loading_view, viewGroup, false);
@@ -221,6 +224,7 @@ public class MediaActivity extends PermissionActivity {
             resultMediaIntent(mCheckMediaFileData);
         }
     }
+
     private void resultMediaIntent(List<MediaSelectorFile> checkMediaFileData) {
         Intent intent = new Intent();
         intent.putParcelableArrayListExtra(Contast.KEY_REQUEST_MEDIA_DATA, (ArrayList<? extends Parcelable>) checkMediaFileData);
@@ -258,14 +262,12 @@ public class MediaActivity extends PermissionActivity {
 
                                             @Override
                                             public void onProgress(int progress) {
-                                                LogUtils.w("FFmpeg---", "发布中！" + progress);
                                             }
 
                                             @Override
                                             public void onCancel() {
                                                 mViewModel.dismissLoadingView();
                                                 mIsCompressVideoing = false;
-                                                LogUtils.w("FFmpeg---", "取消了！");
                                                 finish();
                                             }
 
@@ -273,7 +275,6 @@ public class MediaActivity extends PermissionActivity {
                                             public void onError(String message) {
                                                 mViewModel.dismissLoadingView();
                                                 mIsCompressVideoing = false;
-                                                LogUtils.w("FFmpeg---", "失败了！");
                                                 UIUtils.showToast(R.string.video_deals_with_video);
                                                 finish();
                                             }
@@ -293,8 +294,6 @@ public class MediaActivity extends PermissionActivity {
             }
         }
     }
-
-
 
 
     private boolean hasFileCheckVideo() {
@@ -319,7 +318,7 @@ public class MediaActivity extends PermissionActivity {
         mTvTop.setOnBackViewClickListener(new TitleView.OnBackViewClickListener() {
             @Override
             public void onBackClick(@NonNull View view) {
-                if (mIsCompressVideoing){
+                if (mIsCompressVideoing) {
                     return;
                 }
                 finish();

@@ -427,13 +427,13 @@ public class DataUtils {
 
     public static String getPath(@NonNull String path) {
         if (DataUtils.isEmpty(path)) {
-            return "";
+            return System.currentTimeMillis() + "";
         }
 
-      if (path.contains(Contast.SPLIT_IMAGE)) {
-           return path.replaceAll(Contast.SPLIT_IMAGE,"");
+        if (path.contains(Contast.SPLIT_IMAGE)) {
+            return System.currentTimeMillis() + path.replaceAll(Contast.SPLIT_IMAGE, "");
         }
-      return path;
+        return System.currentTimeMillis() + path;
     }
 
     public static boolean isImgae(@NonNull String imagePath) {
