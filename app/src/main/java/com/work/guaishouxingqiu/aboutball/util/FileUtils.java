@@ -235,7 +235,7 @@ public class FileUtils {
         if (file.exists()){
             File parentFile = file.getParentFile();
             if (parentFile.getName().equalsIgnoreCase(FileUtils.CACHE_FILE_NAME)){
-                removeFile(file);
+               file.delete();
             }
         }
     }
