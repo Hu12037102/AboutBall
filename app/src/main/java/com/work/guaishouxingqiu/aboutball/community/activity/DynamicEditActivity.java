@@ -4,19 +4,25 @@ import android.app.Activity;
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.item.weight.ItemView;
 import com.example.item.weight.TitleView;
+import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.DelayedClickListener;
 import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
@@ -29,6 +35,7 @@ import com.work.guaishouxingqiu.aboutball.media.MediaSelector;
 import com.work.guaishouxingqiu.aboutball.media.bean.MediaSelectorFile;
 import com.work.guaishouxingqiu.aboutball.my.adapter.AddImageAdapter;
 import com.work.guaishouxingqiu.aboutball.my.bean.AddImageBean;
+import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.other.OSSRequestHelp;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
@@ -120,7 +127,7 @@ public class DynamicEditActivity extends CameraActivity<DynamicEditPresenter> im
                 AddImageBean bean = mImageData.get(position);
                 if (bean.isAdd) {
                     clickMediaSelector();
-                }else {
+                } else {
                     clickPreviewMedia(position);
                 }
             }
@@ -153,7 +160,6 @@ public class DynamicEditActivity extends CameraActivity<DynamicEditPresenter> im
             public void onDelayedClick(View view) {
                 if (isCanPublish()) {
                     String content = DataUtils.getEditDetails(mAcetContent);
-
                     if (mResultTopicBean != null) {
                         if (content.contains(mResultTopicBean.topicTitle)) {
                             content = content.replace(mResultTopicBean.topicTitle, "");
@@ -161,27 +167,28 @@ public class DynamicEditActivity extends CameraActivity<DynamicEditPresenter> im
                     }
                     mRequestBean.tweetContent = content;
                     if (mRequestOSSPathData.size() > 0) {
-                        OSSRequestHelp.get().uploadingFiles(mRequestOSSPathData, new OSSRequestHelp.OnOSSDataResultListener() {
-                            @Override
-                            public void onStart() {
-
-                            }
-
-                            @Override
-                            public void onSucceed(List<String> pathData) {
-                                StringBuffer sb = new StringBuffer();
-                                for (int i = 0; i < pathData.size(); i++) {
-                                    sb = sb.append(pathData.get(i)).append(i == pathData.size() - 1 ? "" : ",");
+                        if (mRequestOSSPathData.size() == 1 && DataUtils.isVideo(mRequestOSSPathData.get(0))) {
+                            GlideManger.get().loadImageBitmap(mRequestOSSPathData.get(0), new CustomTarget<Bitmap>() {
+                                @Override
+                                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                    if (resource.getWidth() > resource.getHeight()) {
+                                        mRequestBean.tweetType = Contast.DynamicType.VIDEO_LANDSCAPE;
+                                    } else {
+                                        mRequestBean.tweetType = Contast.DynamicType.VIDEO_PORTRAIT;
+                                    }
+                                    ossUpdateFile();
                                 }
-                                mRequestBean.imageUrl = sb.toString();
-                                mPresenter.publishDynamic(mRequestBean);
-                            }
 
-                            @Override
-                            public void onFailure(String errorCode) {
+                                @Override
+                                public void onLoadCleared(@Nullable Drawable placeholder) {
 
-                            }
-                        }, true, DynamicEditActivity.this);
+                                }
+                            });
+                        } else {
+                            mRequestBean.tweetType = Contast.DynamicType.IMAGE;
+                            ossUpdateFile();
+                        }
+
                     } else {
                         mPresenter.publishDynamic(mRequestBean);
                     }
@@ -190,8 +197,32 @@ public class DynamicEditActivity extends CameraActivity<DynamicEditPresenter> im
         });
     }
 
+    private void ossUpdateFile() {
+        OSSRequestHelp.get().uploadingFiles(mRequestOSSPathData, new OSSRequestHelp.OnOSSDataResultListener() {
+            @Override
+            public void onStart() {
+
+            }
+
+            @Override
+            public void onSucceed(List<String> pathData) {
+                StringBuffer sb = new StringBuffer();
+                for (int i = 0; i < pathData.size(); i++) {
+                    sb = sb.append(pathData.get(i)).append(i == pathData.size() - 1 ? "" : ",");
+                }
+                mRequestBean.imageUrl = sb.toString();
+                mPresenter.publishDynamic(mRequestBean);
+            }
+
+            @Override
+            public void onFailure(String errorCode) {
+
+            }
+        }, true, DynamicEditActivity.this);
+    }
+
     private void clickPreviewMedia(int position) {
-     mViewModel.startActivityToPreview(position, (ArrayList<String>) mRequestOSSPathData);
+        mViewModel.startActivityToPreview(position, (ArrayList<String>) mRequestOSSPathData);
     }
 
     @Override

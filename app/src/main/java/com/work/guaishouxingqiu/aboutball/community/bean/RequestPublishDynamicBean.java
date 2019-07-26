@@ -10,4 +10,5 @@ public class RequestPublishDynamicBean {
     public String imageUrl;
     public Long topicId;
     public String tweetContent;
+    public int tweetType;//"1: 图片， 2：竖屏视频，3：横屏视频"
 }

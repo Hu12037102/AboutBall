@@ -55,6 +55,10 @@ public class DataUtils {
         return t;
     }
 
+    public static <T> boolean isEmptyList(List<T> data) {
+        return (data == null || data.size() == 0);
+    }
+
 
     /**
      * 判断数据是存在
@@ -82,6 +86,13 @@ public class DataUtils {
             return TextUtils.getTrimmedLength(data);
         }
         return 0;
+    }
+
+    public static <T> int getListSize(@NonNull List<T> data) {
+        if (isEmptyList(data)) {
+            return 0;
+        }
+        return data.size();
     }
 
     /**

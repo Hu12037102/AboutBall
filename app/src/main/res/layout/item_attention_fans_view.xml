@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_70dp"
+        android:background="@drawable/selector_item">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_head"
+            android:layout_width="@dimen/size_40dp"
+            android:layout_height="@dimen/size_40dp"
+            android:layout_marginLeft="@dimen/default_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_attention_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/default_margin"
+            android:contentDescription="@null"
+            android:src="@mipmap/icon_add_followed"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginRight="@dimen/default_margin"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toRightOf="@id/civ_head"
+            app:layout_constraintRight_toLeftOf="@id/iv_attention_status">
+
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/SingLineTextView"
+                android:textColor="@color/color_4"
+                android:textSize="@dimen/size_17sp"
+                tools:text="天青色等烟雨" />
+
+            <TextView
+                android:id="@+id/tv_referee_grade"
+                style="@style/SingLineTextView"
+                android:layout_marginTop="@dimen/size_5dp"
+                android:textColor="@color/colorFFA6A6A6"
+                android:textSize="@dimen/size_14sp"
+                tools:text="天青色等烟雨" />
+        </LinearLayout>
+
+        <View
+            style="@style/HorizontalLine"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginRight="@dimen/default_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintLeft_toRightOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include
+        android:id="@+id/include_foot"
+        layout="@layout/item_not_more"
+        android:visibility="gone" />
+</LinearLayout>

@@ -20,6 +20,7 @@ import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
 import com.work.guaishouxingqiu.aboutball.commonality.fragment.LoginOrShareFragment;
 import com.work.guaishouxingqiu.aboutball.login.activity.LoginActivity;
 import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
+import com.work.guaishouxingqiu.aboutball.my.activity.AttentionAndFansActivity;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultFansFocusBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.MyContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.MyPresenter;
@@ -68,7 +69,7 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
     private View view;
     private Integer mMyRefereeStatus;
     private TextView mHeadTvFocusFans;
-
+    private static final int REQUEST_CODE_ATTENTION_AND_FANS = 93;
     public static MyFragment newInstance() {
         return new MyFragment();
     }
@@ -253,7 +254,7 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
 
 
     @OnClick({R.id.item_about_ball, R.id.item_order, R.id.item_team, R.id.item_message,
-            R.id.item_dynamic, R.id.item_as_referee, R.id.rl_my_head})
+            R.id.item_dynamic, R.id.item_as_referee, R.id.rl_my_head, R.id.tv_attention, R.id.tv_fans, R.id.tv_message})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.item_about_ball:
@@ -271,6 +272,14 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
 
             case R.id.rl_my_head:
                 clickHead();
+                break;
+            case R.id.tv_attention:
+                mViewModel.startActivityToAttentionAndFans(this, AttentionAndFansActivity.ATTENTION_ID,MyFragment.REQUEST_CODE_ATTENTION_AND_FANS);
+                break;
+            case R.id.tv_fans:
+                mViewModel.startActivityToAttentionAndFans(this, AttentionAndFansActivity.FANS_ID,MyFragment.REQUEST_CODE_ATTENTION_AND_FANS);
+                break;
+            case R.id.tv_message:
                 break;
             default:
                 break;
@@ -319,6 +328,8 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
                         mPresenter.judgeRefereeStatus();
                     }
                     break;
+                    default:
+                        break;
             }
         }
     }

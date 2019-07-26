@@ -7,12 +7,14 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
 
+import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -28,6 +30,7 @@ import com.work.guaishouxingqiu.aboutball.community.bean.ResultRecommendHotBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.login.activity.LoginActivity;
 import com.work.guaishouxingqiu.aboutball.media.bean.MediaSelectorFile;
+import com.work.guaishouxingqiu.aboutball.my.activity.AttentionAndFansActivity;
 import com.work.guaishouxingqiu.aboutball.my.activity.OrderCompleteEvaluateCancelActivity;
 import com.work.guaishouxingqiu.aboutball.my.activity.OrderEvaluateActivity;
 import com.work.guaishouxingqiu.aboutball.my.activity.RefundActivity;
@@ -719,6 +722,18 @@ public class ViewModel {
     public boolean isMediaVideo(@NonNull List<MediaSelectorFile> data) {
         return data.size() == 1 && FileUtils.existsFile(data.get(0).filePath)
                 && DataUtils.isVideo(data.get(0).filePath);
+    }
+
+    public <T> void setRefreshViewStatus(@NonNull SmartRefreshLayout refreshLayout, @NonNull List<T> data, int countSize) {
+        refreshLayout.setEnableLoadMore(DataUtils.isEmptyList(data) || data.size() < countSize);
+    }
+
+    public void startActivityToAttentionAndFans(@Nullable Fragment fragment, int status, int requestCode) {
+        if (fragment == null) {
+            ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_ATTENTION_AND_FANS, mSoftActivity.get(), requestCode, ARouterConfig.Key.ATTENTION_AND_FANS, status);
+        } else {
+            ARouterIntent.startActivityForResult(fragment, AttentionAndFansActivity.class, requestCode, ARouterConfig.Key.ATTENTION_AND_FANS, status);
+        }
     }
 
 }

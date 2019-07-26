@@ -192,6 +192,10 @@ public class UserManger {
         return userBean;
     }
 
+    public long getUserId() {
+        return mSP.getLong(UserManger.KEY_USER_ID);
+    }
+
     public int getSex() {
         return mSP.getInt(UserManger.KEY_GENDER);
     }

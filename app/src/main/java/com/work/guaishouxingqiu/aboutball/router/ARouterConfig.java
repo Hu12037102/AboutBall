@@ -75,6 +75,7 @@ public interface ARouterConfig {
         String ACTIVITY_MY_TEAM_EVALUATE = "/activity/my/team/evaluate";
         String ACTIVITY_VERSION_HISTORY = "/activity/version/history";
         String ACTIVITY_CAMERA_VIDEO = "/activity/camera/video";
+        String ACTIVITY_ATTENTION_AND_FANS="/activity/attention/and/fans";
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";
@@ -176,6 +177,7 @@ public interface ARouterConfig {
         String CAMERA_VIDEO_PATH="cameraVideoPath";
         String IS_CAMERA_VIDEO="cameraIsVideo";
         String HAS_CAMERA_MEDIA ="hasImage";
+        String ATTENTION_AND_FANS="attentionAndFans";
     }
 
 }

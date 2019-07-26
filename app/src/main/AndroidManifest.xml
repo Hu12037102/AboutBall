@@ -365,6 +365,9 @@
         <activity
             android:name=".community.activity.CameraVideoActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".my.activity.AttentionAndFansActivity"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>

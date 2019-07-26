@@ -7,7 +7,7 @@ package com.work.guaishouxingqiu.aboutball;
  * 描述: 一些常量
  */
 public interface Contast {
-    String SPLIT_IMAGE=",";
+    String SPLIT_IMAGE = ",";
     //手机号码验证正则
     // public static final String REGEX_PHONE_NUMBER = "^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\\\D])|(18[0,5-9]))\\\\d{8}$";
     String REGEX_PHONE_NUMBER = "^[1][3,4,5,7,8][0-9]{9}$";
@@ -150,6 +150,12 @@ public interface Contast {
         int UPDATE_PHONE = 2;//更换手机号
     }
 
+    interface DynamicType {
+        int IMAGE = 1;//图片
+        int VIDEO_PORTRAIT = 2;//视频竖屏
+        int VIDEO_LANDSCAPE = 3;//视频横屏
+    }
+
     //订单状态
     interface OrderStatus {
         //全部
@@ -170,7 +176,7 @@ public interface Contast {
         int REFUNDED = 7;
         int ALL_REFUNDED = 10;
 
-        int ORDER_STATUS_NOT_CANCEL =2;//不能取消订单状态
+        int ORDER_STATUS_NOT_CANCEL = 2;//不能取消订单状态
     }
 
     interface PayOrderFlag {

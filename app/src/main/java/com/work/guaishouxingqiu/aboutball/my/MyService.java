@@ -25,6 +25,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdatePasswordBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdatePhoneBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateSexBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdateWeightBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultAttentionFanBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultInputEvaluationBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMatchRefereeResultBean;
@@ -238,4 +239,10 @@ public interface MyService {
     Observable<BaseBean<List<ResultVersionHistoryBean>>> getVersionHistoryData(@Query(Contast.PAGE_NUM) int pageNum,
                                                                                @Query(Contast.PAGE_SIZE) int pageSize,
                                                                                @Query(Contast.PHONE_MODEL) String phoneModel);
+    @GET(IApiService.GET_MY_ATTENTION_DATA)
+    Observable<BaseBean<List<ResultAttentionFanBean>>> loadMyAttentionData(@Query(Contast.PAGE_NUM) int pageNum,
+                                                                           @Query(Contast.PAGE_SIZE) int pageSize);
+    @GET(IApiService.GET_MY_FANS_DATA)
+    Observable<BaseBean<List<ResultAttentionFanBean>>> loadMyFansData(@Query(Contast.PAGE_NUM) int pageNum,
+                                                                      @Query(Contast.PAGE_SIZE) int pageSize);
 }

@@ -78,6 +78,10 @@ public class ARouterIntent {
         ARouter.getInstance().build(path).withBoolean(key, values).navigation(activity, requestCode);
     }
 
+    public static void startActivityForResult(@NonNull String path, @NonNull Activity activity, int requestCode, @NonNull String key, int values) {
+        ARouter.getInstance().build(path).withInt(key, values).navigation(activity, requestCode);
+    }
+
     public static void startActivityForResult(@NonNull String path, @NonNull Activity activity, String key, long values) {
         ARouter.getInstance().build(path).withLong(key, values).navigation(activity, REQUEST_CODE);
     }
@@ -120,6 +124,12 @@ public class ARouterIntent {
 
     public static void startActivityForResult(@NonNull Fragment fragment, Class clazz, int requestCode) {
         fragment.startActivityForResult(new Intent(fragment.getContext(), clazz), requestCode);
+    }
+
+    public static void startActivityForResult(@NonNull Fragment fragment, Class clazz, int requestCode, String key, int values) {
+        Intent intent = new Intent(fragment.getContext(), clazz);
+        intent.putExtra(key, values);
+        fragment.startActivityForResult(intent, requestCode);
     }
 
     public static void startActivityForResult(@NonNull Fragment fragment, Class clazz, String key, long values, int requestCode) {
