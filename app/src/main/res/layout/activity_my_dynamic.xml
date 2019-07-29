@@ -24,7 +24,8 @@
             app:expandedTitleMarginBottom="@dimen/size_0dp"
             app:expandedTitleMarginTop="@dimen/size_0dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:titleEnabled="false">
+            app:titleEnabled="false"
+            >
 
 
             <RelativeLayout
