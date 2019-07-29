@@ -70,6 +70,8 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
     private Integer mMyRefereeStatus;
     private TextView mHeadTvFocusFans;
     private static final int REQUEST_CODE_ATTENTION_AND_FANS = 93;
+    private static final int REQUEST_CODE_USER_DYNAMIC = 94;//用户动态
+
     public static MyFragment newInstance() {
         return new MyFragment();
     }
@@ -143,7 +145,8 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
             @Override
             public void onClickItem(View view) {
                 if (UserManger.get().isLogin()) {
-                    ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_DYNAMIC);
+                    // ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_DYNAMIC);
+                    mViewModel.startActivityToUserDynamicForResult(MyFragment.this, UserManger.get().getUserId(), MyFragment.REQUEST_CODE_USER_DYNAMIC);
                 } else {
                     mViewModel.showLoginDialog();
                 }
@@ -274,10 +277,10 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
                 clickHead();
                 break;
             case R.id.tv_attention:
-                mViewModel.startActivityToAttentionAndFans(this, AttentionAndFansActivity.ATTENTION_ID,MyFragment.REQUEST_CODE_ATTENTION_AND_FANS);
+                mViewModel.startActivityToAttentionAndFans(this, AttentionAndFansActivity.ATTENTION_ID, MyFragment.REQUEST_CODE_ATTENTION_AND_FANS);
                 break;
             case R.id.tv_fans:
-                mViewModel.startActivityToAttentionAndFans(this, AttentionAndFansActivity.FANS_ID,MyFragment.REQUEST_CODE_ATTENTION_AND_FANS);
+                mViewModel.startActivityToAttentionAndFans(this, AttentionAndFansActivity.FANS_ID, MyFragment.REQUEST_CODE_ATTENTION_AND_FANS);
                 break;
             case R.id.tv_message:
                 break;
@@ -328,8 +331,8 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
                         mPresenter.judgeRefereeStatus();
                     }
                     break;
-                    default:
-                        break;
+                default:
+                    break;
             }
         }
     }

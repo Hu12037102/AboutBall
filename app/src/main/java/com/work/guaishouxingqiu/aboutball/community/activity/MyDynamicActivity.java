@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,6 +34,7 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.commonality.activity.LoginOrShareActivity;
 import com.work.guaishouxingqiu.aboutball.community.adapter.CommunityDataAdapter;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
+import com.work.guaishouxingqiu.aboutball.community.bean.ResultUserDynamicBean;
 import com.work.guaishouxingqiu.aboutball.community.contract.MyDynamicContract;
 import com.work.guaishouxingqiu.aboutball.community.presenter.MyDynamicPresenter;
 import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
@@ -85,9 +87,21 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
     SmartRefreshLayout mSrlRefresh;
     @BindView(R.id.iv_sex)
     ImageView mIvSex;
+    @BindView(R.id.cl_other_count)
+    ConstraintLayout mClOtherCount;
+    @BindView(R.id.iv_followed)
+    ImageView mIvFollowed;
+    @BindView(R.id.tv_other_name)
+    TextView mTvOtherName;
+    @BindView(R.id.cl_my_count)
+    ConstraintLayout mClMyCount;
+    @BindView(R.id.tv_referee_grade)
+    TextView mTvRefereeGrade;
     private List<ResultCommunityDataBean> mData;
     private CommunityDataAdapter mAdapter;
     private int mSharePosition;
+    private boolean mIsMe;
+    private long mUserId;
 
     @Override
     protected int getLayoutId() {
@@ -101,8 +115,21 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
 
     @Override
     protected void initView() {
+        mIsMe = (UserManger.get().isLogin() && UserManger.get().getUserId() == mUserId);
+
         setTranslucentStatusBar(mTitleView);
         mRvData.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    public void initPermission() {
+        mUserId = mIntent.getLongExtra(ARouterConfig.Key.USER_ID, -1);
+        if (mUserId == -1) {
+            UIUtils.showToast("没有找到该用户");
+            finish();
+            return;
+        }
+        super.initPermission();
     }
 
     /**
@@ -135,14 +162,14 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
     @Override
     protected void initData() {
 
-        initHeadData();
+        // initHeadData();
 
         initAdapter();
 
     }
 
     private void initHeadData() {
-        mAblGroup.setLiftable(true);
+        //  mAblGroup.setLiftable(true);
         UserBean userBean = UserManger.get().getUser();
         mTvName.setText(userBean.nickName);
         if (userBean.gender == UserManger.SEX_MAN) {
@@ -288,7 +315,7 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
         } else {
             mSrlRefresh.finishLoadMore();
         }
-        mPresenter.loadMyDynamic();
+        mPresenter.loadMyDynamic(mUserId);
     }
 
     @Override
@@ -309,14 +336,53 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
     }
 
     @Override
-    public void resultMyDynamic(List<ResultCommunityDataBean> data) {
+    public void resultMyDynamic(ResultUserDynamicBean userDynamicBean) {
+        GlideManger.get().loadImage(this, userDynamicBean.headerImg, mCivHead);
+        if (mIsMe) {
+            mClMyCount.setVisibility(View.VISIBLE);
+            mClOtherCount.setVisibility(View.GONE);
+            if (!DataUtils.isEmpty(userDynamicBean.refereeLevel)) {
+                mTvRefereeGrade.setVisibility(View.VISIBLE);
+                UIUtils.setText(mTvRefereeGrade, userDynamicBean.refereeLevel);
+            } else {
+                mTvRefereeGrade.setVisibility(View.GONE);
+            }
+            UIUtils.setText(mTvName, userDynamicBean.nickName);
+            String followContent = UIUtils.getString(R.string.attention_s, userDynamicBean.followCount);
+            mTvFollowCount.setText(followContent);
+
+            String fansContent = UIUtils.getString(R.string.fans_s, userDynamicBean.fansCount);
+            mTvFansCount.setText(fansContent);
+        } else {
+            mClMyCount.setVisibility(View.GONE);
+            mClOtherCount.setVisibility(View.VISIBLE);
+            UIUtils.setText(mTvOtherName, userDynamicBean.nickName);
+            if (userDynamicBean.hasFollow == 1) {
+                mIvFollowed.setImageResource(R.mipmap.icon_followed);
+            } else {
+                mIvFollowed.setImageResource(R.mipmap.icon_add_followed);
+            }
+        }
+
+        if (userDynamicBean.gender == UserManger.SEX_MAN) {
+            mIvSex.setVisibility(View.VISIBLE);
+            mIvSex.setImageResource(R.mipmap.icon_man);
+        } else if (userDynamicBean.gender == UserManger.SEX_WOMAN) {
+            mIvSex.setVisibility(View.VISIBLE);
+            mIvSex.setImageResource(R.mipmap.icon_woman);
+        }
+
+
+        List<ResultCommunityDataBean> data = userDynamicBean.tweetList;
         if (mPresenter.isRefresh && mData.size() > 0) {
             mData.clear();
         }
-        if (data.size() != 0) {
-            mData.addAll(data);
+        if (data != null) {
+            if (data.size() != 0) {
+                mData.addAll(data);
+            }
+            mSrlRefresh.setNoMoreData(data.size() < mPresenter.mPageSize);
         }
-        mSrlRefresh.setNoMoreData(data.size() < mPresenter.mPageSize);
     /*    if (data.size() < mPresenter.mPageSize) {
             mAdapter.showFootView();
         } else {

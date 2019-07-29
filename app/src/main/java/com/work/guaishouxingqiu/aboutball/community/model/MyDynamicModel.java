@@ -6,6 +6,7 @@ import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.commonality.model.LoginOrShareModel;
 import com.work.guaishouxingqiu.aboutball.community.CommunityService;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
+import com.work.guaishouxingqiu.aboutball.community.bean.ResultUserDynamicBean;
 
 import java.util.List;
 
@@ -19,9 +20,9 @@ import io.reactivex.schedulers.Schedulers;
  * 描述:我的动态model
  */
 public class MyDynamicModel extends LoginOrShareModel {
-    public void loadMyDynamic(int pageNum, int pageSize, BaseObserver<List<ResultCommunityDataBean>> observer) {
+    public void loadMyDynamic(int pageNum, int pageSize,long userId, BaseObserver<ResultUserDynamicBean> observer) {
         mRetrofitManger.create(CommunityService.class)
-                .getMyDynamicData(pageNum, pageSize)
+                .getMyDynamicData(pageNum, pageSize,userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

@@ -93,7 +93,7 @@ public interface IApiService {
     String GET_CANCEL_DYNAMIC_DIAN_ZAN = "api/tweet/cancelPraise";
     String GET_REPORT_COMMUNITY = "api/tweet/tweetTips";
     String GET_DELETE_DYNAMIC = "api/tweet/removeTweet";
-    String GET_MY_DYNAMIC = "api/tweet/getMyTweetList";
+    String GET_USER_DYNAMIC = "api/tweet/getMyTweetHomePage";
     String GET_BAND_THREE_ACCOUNT = "api/accountManagement/bandingThreeAccount";
     String GET_RECOMMEND_TOPIC = "api/topic/getRecommendTweetForTopic";
     String GET_NEW_TOPIC = "api/topic/getTweetForTopic";

@@ -23,6 +23,7 @@ import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
 import com.work.guaishouxingqiu.aboutball.community.activity.CommunityDetailsActivity;
+import com.work.guaishouxingqiu.aboutball.community.activity.MyDynamicActivity;
 import com.work.guaishouxingqiu.aboutball.community.activity.TopicDynamicsActivity;
 import com.work.guaishouxingqiu.aboutball.community.adapter.CommunityDataAdapter;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
@@ -736,4 +737,11 @@ public class ViewModel {
         }
     }
 
+    public void startActivityToUserDynamicForResult(@Nullable Fragment fragment, long userId, int requestCode) {
+        if (fragment == null) {
+            ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_MY_DYNAMIC, mSoftActivity.get(), ARouterConfig.Key.USER_ID, userId, requestCode);
+        } else {
+            ARouterIntent.startActivityForResult(fragment, MyDynamicActivity.class, ARouterConfig.Key.USER_ID, userId, requestCode);
+        }
+    }
 }

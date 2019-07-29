@@ -7,6 +7,7 @@ import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.commonality.presenter.LoginOrSharePresenter;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
+import com.work.guaishouxingqiu.aboutball.community.bean.ResultUserDynamicBean;
 import com.work.guaishouxingqiu.aboutball.community.contract.MyDynamicContract;
 import com.work.guaishouxingqiu.aboutball.community.model.MyDynamicModel;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
@@ -36,13 +37,13 @@ public class MyDynamicPresenter extends LoginOrSharePresenter<MyDynamicContract.
     }
 
     @Override
-    public void loadMyDynamic() {
+    public void loadMyDynamic(long userId) {
         if (isRefresh) {
             mPageNum = Contast.DEFAULT_PAGE_NUM;
         }
-        mModel.loadMyDynamic(mPageNum, mPageSize, new BaseObserver<>(true, this, new BaseObserver.Observer<List<ResultCommunityDataBean>>() {
+        mModel.loadMyDynamic(mPageNum, mPageSize,userId, new BaseObserver<>(true, this, new BaseObserver.Observer<ResultUserDynamicBean>() {
             @Override
-            public void onNext(BaseBean<List<ResultCommunityDataBean>> t) {
+            public void onNext(BaseBean<ResultUserDynamicBean> t) {
                 if (DataUtils.isResultSure(t)) {
                     mPageNum++;
                     mView.resultMyDynamic(t.result);

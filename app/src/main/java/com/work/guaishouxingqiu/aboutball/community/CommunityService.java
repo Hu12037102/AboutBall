@@ -8,8 +8,8 @@ import com.work.guaishouxingqiu.aboutball.community.bean.RequestPublishDynamicBe
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultRecommendHotBean;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultTopicBean;
+import com.work.guaishouxingqiu.aboutball.community.bean.ResultUserDynamicBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsMessageBean;
-import com.work.guaishouxingqiu.aboutball.http.IApi;
 
 import java.util.List;
 
@@ -55,8 +55,9 @@ public interface CommunityService {
     @GET(IApiService.GET_REPORT_COMMUNITY)
     Observable<BaseBean<BaseDataBean<String>>> getReportCommunity(@Query(Contast.TWEET_ID) long tweetId, @Query(Contast.TIPS_REASON) String tipsReason);
 
-    @GET(IApiService.GET_MY_DYNAMIC)
-    Observable<BaseBean<List<ResultCommunityDataBean>>> getMyDynamicData(@Query(Contast.PAGE_NUM) int pageNum, @Query(Contast.PAGE_SIZE) int pageSize);
+    @GET(IApiService.GET_USER_DYNAMIC)
+    Observable<BaseBean<ResultUserDynamicBean>> getMyDynamicData(@Query(Contast.PAGE_NUM) int pageNum, @Query(Contast.PAGE_SIZE) int pageSize,
+                                                                 @Query(Contast.USER_ID) long userId);
 
     @GET(IApiService.GET_RECOMMEND_TOPIC)
     Observable<BaseBean<List<ResultCommunityDataBean>>> loadRecommendedTopic(@Query(Contast.TOPIC_ID) long topicId, @Query(Contast.PAGE_NUM) int pageNum,

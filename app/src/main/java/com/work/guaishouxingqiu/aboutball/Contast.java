@@ -67,6 +67,7 @@ public interface Contast {
     String TOPIC_ID = "topicId";
     String GAME_ID = "gameId";
     String GROUP_ID = "groupId";
+    String USER_ID="userId";
     //默认经度
     double DEFAULT_LONGITUDE = 115.770000;
     //默认纬度
