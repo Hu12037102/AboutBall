@@ -2,8 +2,10 @@ package com.work.guaishouxingqiu.aboutball.base;
 
 import android.content.Context;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +58,9 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
     protected abstract P createPresenter();
 
     protected void registerEventBus() {
-        EventBus.getDefault().register(this);
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
     }
 
     protected void unRegisterEventBus() {

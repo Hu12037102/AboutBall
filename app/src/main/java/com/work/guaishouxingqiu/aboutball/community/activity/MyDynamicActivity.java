@@ -102,6 +102,8 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
     private int mSharePosition;
     private boolean mIsMe;
     private long mUserId;
+    private boolean mHasFollow;
+    private ResultUserDynamicBean mResultBean;
 
     @Override
     protected int getLayoutId() {
@@ -200,6 +202,8 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
 
     @Override
     protected void initEvent() {
+
+
         mAblGroup.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
@@ -341,6 +345,7 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
 
     @Override
     public void resultMyDynamic(ResultUserDynamicBean userDynamicBean) {
+        this.mResultBean = userDynamicBean;
         GlideManger.get().loadImage(this, userDynamicBean.headerImg, mCivHead);
         if (mIsMe) {
             mClMyCount.setVisibility(View.VISIBLE);
@@ -358,6 +363,7 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
             String fansContent = UIUtils.getString(R.string.fans_s, userDynamicBean.fansCount);
             mTvFansCount.setText(fansContent);
         } else {
+            mIvFollowed.setVisibility(View.VISIBLE);
             mClMyCount.setVisibility(View.GONE);
             mClOtherCount.setVisibility(View.VISIBLE);
             UIUtils.setText(mTvOtherName, userDynamicBean.nickName);
@@ -366,6 +372,16 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
             } else {
                 mIvFollowed.setImageResource(R.mipmap.icon_add_followed);
             }
+            mIvFollowed.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (userDynamicBean.hasFollow == 0) {
+                        mPresenter.getAttentionTweet(-1, mUserId);
+                    } else if (userDynamicBean.hasFollow == 1) {
+                        mPresenter.getCancelAttentionTweet(-1, mUserId);
+                    }
+                }
+            });
         }
 
         if (userDynamicBean.gender == UserManger.SEX_MAN) {
@@ -393,6 +409,19 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
             mAdapter.hideFootView();
         }*/
         mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void resultAttentionTweetStatus(int position) {
+        if (mResultBean != null) {
+            if (mResultBean.hasFollow == 1) {
+                mResultBean.hasFollow = 0;
+                mIvFollowed.setImageResource(R.mipmap.icon_add_followed);
+            } else if (mResultBean.hasFollow == 0) {
+                mResultBean.hasFollow = 1;
+                mIvFollowed.setImageResource(R.mipmap.icon_followed);
+            }
+        }
     }
 
     @Override

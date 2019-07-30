@@ -3,6 +3,7 @@ package com.work.guaishouxingqiu.aboutball.community.fragment;
 import android.app.Activity;
 import android.content.Intent;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,9 +21,14 @@ import com.work.guaishouxingqiu.aboutball.community.adapter.CommunityDataAdapter
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.community.contract.CommunityAttentionContract;
 import com.work.guaishouxingqiu.aboutball.community.presenter.CommunityAttentionPresenter;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultAttentionFanBean;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +69,7 @@ public class CommunityAttentionFragment extends LoginOrShareFragment<CommunityAt
 
     @Override
     protected void initDelayedView() {
+
         mRvData.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
@@ -158,13 +165,14 @@ public class CommunityAttentionFragment extends LoginOrShareFragment<CommunityAt
 
             @Override
             public void onClickHead(View view, int position) {
-                mViewModel.startActivityToUserDynamicForResult(CommunityAttentionFragment.this,mData.get(position).userId,CommunityAttentionFragment.REQUEST_CODE_USER_DYNAMIC);
+                mViewModel.startActivityToUserDynamicForResult(CommunityAttentionFragment.this, mData.get(position).userId, CommunityAttentionFragment.REQUEST_CODE_USER_DYNAMIC);
             }
         });
     }
 
     @Override
     protected void initView() {
+        registerEventBus();
         /*mRvData.setLayoutManager(new LinearLayoutManager(getContext()));*/
     }
 
@@ -332,7 +340,7 @@ public class CommunityAttentionFragment extends LoginOrShareFragment<CommunityAt
                 case REQUEST_CODE_TOPIC:
                     mSrlLayout.autoRefresh();
                     break;
-                    //点击头像跳转页面回调
+                //点击头像跳转页面回调
                 case CommunityAttentionFragment.REQUEST_CODE_USER_DYNAMIC:
                     mSrlLayout.autoRefresh();
                     onEventUpdate(null);
@@ -393,5 +401,22 @@ public class CommunityAttentionFragment extends LoginOrShareFragment<CommunityAt
         void updateRecommended(ResultCommunityDataBean bean);
 
         void updateNew(ResultCommunityDataBean bean);
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        unRegisterEventBus();
+        super.onDestroyView();
+    }
+
+    /**
+     * 我的粉丝和我的关注发送消息
+     *
+     * @param message
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void attentionFansMessage(ResultAttentionFanBean message) {
+        mViewModel.resultCommunityData(mAdapter, message, mData, true);
     }
 }

@@ -28,11 +28,15 @@ import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultRecommendHotBean;
 import com.work.guaishouxingqiu.aboutball.community.contract.CommunityRecommendContract;
 import com.work.guaishouxingqiu.aboutball.community.presenter.CommunityRecommendPresenter;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultAttentionFanBean;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -493,5 +497,15 @@ public class CommunityRecommendFragment extends LoginOrShareFragment<CommunityRe
         void updateAttention(ResultCommunityDataBean bean);
 
         void updateNew(ResultCommunityDataBean bean);
+    }
+    /**
+     * 我的粉丝和我的关注发送消息
+     *
+     * @param message
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void attentionFansMessage(ResultAttentionFanBean message) {
+        mViewModel.updateAttention(mAdapter,mData,message);
+      //  mViewModel.resultCommunityData(mAdapter, message, mData, true);
     }
 }

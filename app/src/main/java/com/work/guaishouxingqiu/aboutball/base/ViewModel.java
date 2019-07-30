@@ -37,6 +37,7 @@ import com.work.guaishouxingqiu.aboutball.my.activity.OrderCompleteEvaluateCance
 import com.work.guaishouxingqiu.aboutball.my.activity.OrderEvaluateActivity;
 import com.work.guaishouxingqiu.aboutball.my.activity.RefundActivity;
 import com.work.guaishouxingqiu.aboutball.my.activity.UpdatePhoneActivity;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultAttentionFanBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
@@ -48,6 +49,7 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.activity.WaitPayOrderDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultRefereeBean;
@@ -610,6 +612,19 @@ public class ViewModel {
         adapter.notifyDataSetChanged();
     }
 
+    public void updateAttention(RecyclerView.Adapter adapter, List<ResultCommunityDataBean> data, ResultAttentionFanBean messageBean) {
+        if (adapter == null || data == null || messageBean == null) {
+            return;
+        }
+        for (int i = 0; i < data.size(); i++) {
+            ResultCommunityDataBean bean = data.get(i);
+            if (messageBean.userId == bean.userId) {
+                bean.hasFollow = messageBean.isFollow;
+            }
+        }
+        adapter.notifyDataSetChanged();
+    }
+
     public void resultCommunityData(RecyclerView.Adapter adapter, ResultCommunityDataBean resultBean, List<ResultCommunityDataBean> data) {
         if (adapter == null || data == null || data.size() == 0) {
             return;
@@ -625,6 +640,30 @@ public class ViewModel {
             }
             if (resultBean.userId == bean.userId) {
                 bean.hasFollow = resultBean.hasFollow;
+            }
+        }
+        adapter.notifyDataSetChanged();
+    }
+
+    public void resultCommunityData(RecyclerView.Adapter adapter, ResultAttentionFanBean messageBean, List<ResultCommunityDataBean> data, boolean isAttentionPage) {
+        if (adapter == null || messageBean == null || data == null) {
+            return;
+        }
+
+        if (isAttentionPage) {
+            Iterator<ResultCommunityDataBean> iterator = data.iterator();
+            while (iterator.hasNext()) {
+                ResultCommunityDataBean bean = iterator.next();
+                if (bean.userId == messageBean.userId) {
+                    iterator.remove();
+                }
+            }
+        } else {
+            for (int i = 0; i < data.size(); i++) {
+                ResultCommunityDataBean bean = data.get(i);
+                if (messageBean.userId == bean.userId) {
+                    bean.hasFollow = messageBean.isFollow;
+                }
             }
         }
         adapter.notifyDataSetChanged();

@@ -1,8 +1,12 @@
 package com.work.guaishouxingqiu.aboutball.venue.adapter;
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +53,16 @@ public class VenueDateAdapter extends RecyclerView.Adapter<VenueDateAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         ResultVenueDetailsBean.CalendarListForAreaList bean = mData.get(i);
-        viewHolder.mTvCount.setText(UIUtils.getString(R.string.residue_count_s, bean.remainingTimes));
+
+        if (Integer.valueOf(bean.remainingTimes) == 0) {
+            viewHolder.mTvCount.setTextColor(ContextCompat.getColor(mContext,R.color.colorFFA6A6A6));
+            viewHolder.itemView.setEnabled(false);
+            viewHolder.mTvCount.setText("已约满");
+        } else {
+            viewHolder.mTvCount.setTextColor(ContextCompat.getColor(mContext,R.color.color_2));
+            viewHolder.itemView.setEnabled(true);
+            viewHolder.mTvCount.setText(UIUtils.getString(R.string.residue_count_s, bean.remainingTimes));
+        }
         viewHolder.mTvDay.setText(DateUtils.getWeek(bean.date));
         viewHolder.mTvDate.setText(bean.date);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ScreenUtils.dp2px(mContext, 85),
@@ -65,8 +78,8 @@ public class VenueDateAdapter extends RecyclerView.Adapter<VenueDateAdapter.View
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onItemClickListener != null){
-                    onItemClickListener.onClickItem(v,i );
+                if (onItemClickListener != null) {
+                    onItemClickListener.onClickItem(v, i);
                 }
             }
         });

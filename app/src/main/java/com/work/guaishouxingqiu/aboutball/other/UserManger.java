@@ -31,6 +31,7 @@ public class UserManger {
     private static final String KEY_FANS_COUNT = "fansCount";
     private static final String KEY_IS_REFEREE = "isReferee";
     private static final String KEY_TOKEN_TEMPORARY = "tokenTemporary";//临时token
+    private static final String KEY_REFEREE_LEVEL = "refereeLevel";
     public static final int SEX_MAN = 1;
     public static final int SEX_WOMAN = 2;
     private static SharedPreferencesHelp mSP;
@@ -167,7 +168,14 @@ public class UserManger {
         if (userBean.isReferee != null) {
             mSP.putObject(UserManger.KEY_IS_REFEREE, userBean.isReferee);
         }
+        if (!DataUtils.isEmpty(userBean.refereeLevel)) {
+            mSP.putObject(UserManger.KEY_REFEREE_LEVEL, userBean.refereeLevel);
+        }
 
+    }
+
+    public String getRefereeLevel() {
+        return mSP.getString(UserManger.KEY_REFEREE_LEVEL);
     }
 
     public UserBean getUser() {
@@ -189,6 +197,7 @@ public class UserManger {
         userBean.followCount = mSP.getInt(UserManger.KEY_FOLLOW_COUNT);
         userBean.fansCount = mSP.getInt(UserManger.KEY_FANS_COUNT);
         userBean.isReferee = mSP.getInt(UserManger.KEY_IS_REFEREE);
+        userBean.refereeLevel = mSP.getString(UserManger.KEY_REFEREE_LEVEL);
         return userBean;
     }
 

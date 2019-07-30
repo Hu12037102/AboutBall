@@ -176,7 +176,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends LocationActi
 
 
     protected void registerEventBus() {
-        EventBus.getDefault().register(this);
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
     }
 
     protected void unRegisterEventBus() {
@@ -205,7 +207,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends LocationActi
         CompressImageTask.get().compressImages(this, configData, onImagesResult);
 
     }
-
 
 
     @Override

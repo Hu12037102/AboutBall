@@ -24,4 +24,5 @@ public class UserBean {
     public int followCount;
     public int fansCount;
     public Integer isReferee;
+    public String refereeLevel;
 }

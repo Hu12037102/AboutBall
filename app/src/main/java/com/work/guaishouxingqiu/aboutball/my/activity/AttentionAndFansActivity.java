@@ -22,11 +22,12 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 作者: 胡庆岭
@@ -128,7 +129,11 @@ public class AttentionAndFansActivity extends BaseActivity<AttentionAndFansPrese
         } else if (bean.isFollow == 0) {
             bean.isFollow = 1;
         }
-        mAdapter.notifyItemChanged(position);
+        EventBus.getDefault().post(bean);
+        if (mStatusId == AttentionAndFansActivity.ATTENTION_ID) {
+            mData.remove(position);
+        }
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -148,4 +153,6 @@ public class AttentionAndFansActivity extends BaseActivity<AttentionAndFansPrese
         mViewModel.setRefreshViewStatus(mSrlLayout, data, mPresenter.mPageSize);
         mAdapter.setNotifyData(DataUtils.getListSize(data) == mPresenter.mPageSize);
     }
+
+
 }

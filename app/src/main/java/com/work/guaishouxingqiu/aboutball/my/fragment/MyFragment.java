@@ -209,8 +209,8 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
             TextView mTvName = view.findViewById(R.id.tv_name);
             mHeadTvFocusFans = view.findViewById(R.id.tv_focus_fans);
             mTvName.setText(DataUtils.isEmpty(userBean.nickName) ? userBean.phone : userBean.nickName);
-            mHeadTvFocusFans.setText(getString(R.string.focus_and_fans, UserManger.get().getFollowCount() + "", UserManger.get().getFansCount() + ""));
-            //
+            // mHeadTvFocusFans.setText(getString(R.string.focus_and_fans, UserManger.get().getFollowCount() + "", UserManger.get().getFansCount() + ""));
+            UIUtils.setText(mHeadTvFocusFans, userBean.refereeLevel);
         } else {
             view = LayoutInflater.from(getContext()).inflate(R.layout.item_no_login_my_head_view, null);
             mItemAsReferee.setVisibility(View.VISIBLE);
@@ -245,9 +245,9 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
 
     @Override
     public void resultFansFocus(ResultFansFocusBean bean) {
-        if (mHeadTvFocusFans != null) {
+       /* if (mHeadTvFocusFans != null) {
             mHeadTvFocusFans.setText(getString(R.string.focus_and_fans, bean.followCount + "", bean.fansCount + ""));
-        }
+        }*/
     }
 
     @Override
