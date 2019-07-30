@@ -185,7 +185,7 @@
                     android:id="@+id/title_view"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/size_65dp"
-                    app:back_click_is_finish="true"
+                    app:back_click_is_finish="false"
                     app:back_left_drawable="@mipmap/icon_back_white"
                     app:back_text_padding_left="@dimen/default_margin"
                     app:back_text_padding_right="@dimen/default_margin"
@@ -193,7 +193,8 @@
                     app:center_text_color="@color/colorBlack"
                     app:center_text_size="@dimen/size_18sp"
                     app:group_color="@color/transparent"
-                    app:layout_collapseMode="pin" />
+                    app:layout_collapseMode="pin"
+                    />
 
             </androidx.appcompat.widget.Toolbar>
 

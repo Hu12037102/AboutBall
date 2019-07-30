@@ -48,6 +48,7 @@ public class CommunityAttentionFragment extends LoginOrShareFragment<CommunityAt
     private static final int REQUEST_CODE_PUBLISH_DYNAMIC = 122;
     private static final int REQUEST_CODE_TOPIC = 321;
     private int mSharePosition;
+    private static final int REQUEST_CODE_USER_DYNAMIC = 92;
 
     public void setOnUpdateCommunity(OnUpdateCommunity onUpdateCommunity) {
         this.onUpdateCommunity = onUpdateCommunity;
@@ -154,6 +155,11 @@ public class CommunityAttentionFragment extends LoginOrShareFragment<CommunityAt
                 mSharePosition = position;
                 showShareDialog(mViewModel.getCommunityShare(mData.get(position)));
             }
+
+            @Override
+            public void onClickHead(View view, int position) {
+                mViewModel.startActivityToUserDynamicForResult(CommunityAttentionFragment.this,mData.get(position).userId,CommunityAttentionFragment.REQUEST_CODE_USER_DYNAMIC);
+            }
         });
     }
 
@@ -182,11 +188,18 @@ public class CommunityAttentionFragment extends LoginOrShareFragment<CommunityAt
     }
 
     public void notifyData(ResultCommunityDataBean bean) {
-        mViewModel.resultCommunityData(mAdapter, bean, mData, true);
+        if (bean != null) {
+            mViewModel.resultCommunityData(mAdapter, bean, mData, true);
+        } else {
+            autoRefresh();
+        }
     }
 
     public void autoRefresh() {
-        mSrlLayout.autoRefresh();
+        if (mSrlLayout != null) {
+            mSrlLayout.autoRefresh();
+        }
+
     }
 
     @Override
@@ -318,6 +331,12 @@ public class CommunityAttentionFragment extends LoginOrShareFragment<CommunityAt
                     break;
                 case REQUEST_CODE_TOPIC:
                     mSrlLayout.autoRefresh();
+                    break;
+                    //点击头像跳转页面回调
+                case CommunityAttentionFragment.REQUEST_CODE_USER_DYNAMIC:
+                    mSrlLayout.autoRefresh();
+                    onEventUpdate(null);
+                    break;
                 default:
                     break;
             }

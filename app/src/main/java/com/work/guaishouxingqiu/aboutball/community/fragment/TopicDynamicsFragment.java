@@ -48,6 +48,7 @@ public class TopicDynamicsFragment extends LoginOrShareFragment<TopicDynamicsPre
     private CommunityDataAdapter mAdapter;
     private int mSharePosition;
     private boolean mIsShare;
+    private static final int REQUEST_CODE_USER_DYNAMIC = 92;
 
     public void setOnUpdateDataChangListener(OnUpdateDataChangListener onUpdateDataChangListener) {
         this.onUpdateDataChangListener = onUpdateDataChangListener;
@@ -89,7 +90,13 @@ public class TopicDynamicsFragment extends LoginOrShareFragment<TopicDynamicsPre
     }
 
     public void autoRefresh(ResultCommunityDataBean bean) {
-        mViewModel.resultCommunityData(mAdapter, bean, mData);
+        if (bean != null) {
+            mViewModel.resultCommunityData(mAdapter, bean, mData);
+        } else {
+            if (mSrlRefresh != null) {
+                mSrlRefresh.autoRefresh();
+            }
+        }
     }
 
     @Override
@@ -199,6 +206,11 @@ public class TopicDynamicsFragment extends LoginOrShareFragment<TopicDynamicsPre
                 showShareDialog(mViewModel.getCommunityShare(mData.get(position)));
                 LogUtils.w("onClickShare--", "我点击了--");
             }
+
+            @Override
+            public void onClickHead(View view, int position) {
+                mViewModel.startActivityToUserDynamicForResult(TopicDynamicsFragment.this,mData.get(position).userId,TopicDynamicsFragment.REQUEST_CODE_USER_DYNAMIC);
+            }
         });
     }
 
@@ -269,6 +281,11 @@ public class TopicDynamicsFragment extends LoginOrShareFragment<TopicDynamicsPre
                     ResultCommunityDataBean bean = data.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
                     mViewModel.resultCommunityData(mAdapter, bean, mData);
                     onEventUpdate(bean);
+                    break;
+                //点击头像跳转页面回调
+                case TopicDynamicsFragment.REQUEST_CODE_USER_DYNAMIC:
+                    mSrlRefresh.autoRefresh();
+                    onEventUpdate(null);
                     break;
                 default:
                     break;

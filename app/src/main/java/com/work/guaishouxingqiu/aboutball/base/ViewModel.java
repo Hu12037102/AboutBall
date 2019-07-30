@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
 import android.view.View;
 
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
@@ -356,6 +357,16 @@ public class ViewModel {
 
     public void clickBackForResult(Intent intent) {
         Activity activity = mSoftActivity.get();
+        activity.setResult(Activity.RESULT_OK, intent);
+        if (!activity.isFinishing()) {
+            mSoftActivity.get().finish();
+        }
+    }
+
+    public void clickBackForResult(Parcelable parcelable) {
+        Activity activity = mSoftActivity.get();
+        Intent intent = new Intent();
+        intent.putExtra(ARouterConfig.Key.PARCELABLE, parcelable);
         activity.setResult(Activity.RESULT_OK, intent);
         if (!activity.isFinishing()) {
             mSoftActivity.get().finish();

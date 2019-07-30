@@ -200,7 +200,6 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
 
     @Override
     protected void initEvent() {
-
         mAblGroup.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
@@ -220,7 +219,7 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
         mTitleView.setOnBackViewClickListener(new TitleView.OnBackViewClickListener() {
             @Override
             public void onBackClick(@NonNull View view) {
-                finish();
+                clickBackForResult();
             }
         });
         mSrlRefresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
@@ -290,6 +289,11 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
             public void onClickShare(View view, int position) {
                 mSharePosition = position;
                 showShareDialog(mViewModel.getCommunityShare(mData.get(position)));
+
+            }
+
+            @Override
+            public void onClickHead(View view, int position) {
 
             }
         });
@@ -419,5 +423,10 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
                     break;
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        clickBackForResult();
     }
 }

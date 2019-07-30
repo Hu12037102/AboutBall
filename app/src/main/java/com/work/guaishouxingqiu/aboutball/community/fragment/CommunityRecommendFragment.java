@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -59,7 +60,8 @@ public class CommunityRecommendFragment extends LoginOrShareFragment<CommunityRe
     private static final int WHAT = 100;
     private boolean mIsSendMessage;
     private int mSharePosition;
-    private static final int REQUEST_CODE_PUBLISH_DYNAMIC =178;
+    private static final int REQUEST_CODE_PUBLISH_DYNAMIC = 178;
+    private static final int REQUEST_CODE_USER_DYNAMIC = 92;
 
     public void setOnUpdateCommunity(OnUpdateCommunity onUpdateCommunity) {
         this.onUpdateCommunity = onUpdateCommunity;
@@ -199,6 +201,11 @@ public class CommunityRecommendFragment extends LoginOrShareFragment<CommunityRe
                 mSharePosition = position;
                 showShareDialog(mViewModel.getCommunityShare(mData.get(position)));
             }
+
+            @Override
+            public void onClickHead(View view, int position) {
+                mViewModel.startActivityToUserDynamicForResult(CommunityRecommendFragment.this,mData.get(position).userId,CommunityRecommendFragment.REQUEST_CODE_USER_DYNAMIC);
+            }
         });
     }
 
@@ -224,11 +231,18 @@ public class CommunityRecommendFragment extends LoginOrShareFragment<CommunityRe
     }
 
     public void notifyData(ResultCommunityDataBean bean) {
-        mViewModel.resultCommunityData(mAdapter, bean, mData);
+        if (bean != null) {
+            mViewModel.resultCommunityData(mAdapter, bean, mData);
+        } else {
+            mSrlRefresh.autoRefresh();
+        }
+
     }
 
     public void autoRefresh() {
-        mSrlRefresh.autoRefresh();
+        if (mSrlRefresh != null) {
+            mSrlRefresh.autoRefresh();
+        }
     }
 
     @Override
@@ -440,6 +454,11 @@ public class CommunityRecommendFragment extends LoginOrShareFragment<CommunityRe
                 case CommunityRecommendFragment.REQUEST_CODE_PUBLISH_DYNAMIC:
                     mSrlRefresh.autoRefresh();
                     break;
+                //点击头像跳转页面回调
+                case CommunityRecommendFragment.REQUEST_CODE_USER_DYNAMIC:
+                    mSrlRefresh.autoRefresh();
+                    onEventUpdate(null);
+                    break;
                 default:
                     break;
             }
@@ -454,7 +473,6 @@ public class CommunityRecommendFragment extends LoginOrShareFragment<CommunityRe
             onUpdateCommunity.updateAttention(bean);
         }
     }
-
 
 
     @Override

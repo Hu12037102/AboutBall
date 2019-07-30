@@ -46,6 +46,7 @@ public class CommunityNewFragment extends LoginOrShareFragment<CommunityNewsPres
     private List<ResultCommunityDataBean> mData;
     private static final int REQUEST_CODE_PUBLISH_DYNAMIC = 145;
     private static final int REQUEST_CODE_TOPIC = 321;
+    private static final int REQUEST_CODE_USER_DYNAMIC = 87;
     private int mSharePosition;
 
     public void setOnUpdateCommunity(OnUpdateCommunity onUpdateCommunity) {
@@ -78,7 +79,12 @@ public class CommunityNewFragment extends LoginOrShareFragment<CommunityNewsPres
     }
 
     public void notifyData(ResultCommunityDataBean bean) {
-        mViewModel.resultCommunityData(mAdapter, bean, mData);
+        if (bean!=null){
+            mViewModel.resultCommunityData(mAdapter, bean, mData);
+        }else {
+            autoRefresh();
+        }
+
     }
 
     public void autoRefresh() {
@@ -168,6 +174,11 @@ public class CommunityNewFragment extends LoginOrShareFragment<CommunityNewsPres
                 mSharePosition = position;
                 showShareDialog(mViewModel.getCommunityShare(mData.get(position)));
             }
+
+            @Override
+            public void onClickHead(View view, int position) {
+            mViewModel.startActivityToUserDynamicForResult(CommunityNewFragment.this,mData.get(position).userId,CommunityNewFragment.REQUEST_CODE_USER_DYNAMIC);
+            }
         });
     }
 
@@ -247,6 +258,7 @@ public class CommunityNewFragment extends LoginOrShareFragment<CommunityNewsPres
                 case CommunityNewFragment.REQUEST_CODE_PUBLISH_DYNAMIC:
                     mSrlLayout.autoRefresh();
                     break;
+
                 case ARouterIntent.REQUEST_CODE:
                     if (data == null) {
                         return;
@@ -258,6 +270,12 @@ public class CommunityNewFragment extends LoginOrShareFragment<CommunityNewsPres
                     break;
                 case REQUEST_CODE_TOPIC:
                     mSrlLayout.autoRefresh();
+                    break;
+                    //点击头像跳转页面回调
+                case CommunityNewFragment.REQUEST_CODE_USER_DYNAMIC:
+                    mSrlLayout.autoRefresh();
+                    onEventUpdate(null);
+                    break;
                 default:
                     break;
             }

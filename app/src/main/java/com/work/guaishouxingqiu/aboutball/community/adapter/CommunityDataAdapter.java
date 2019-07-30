@@ -9,10 +9,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowInsets;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -119,10 +122,15 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
         viewHolder.mCliHead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mContext instanceof BaseActivity) {
-                    BaseActivity baseActivity = (BaseActivity) mContext;
-                    baseActivity.mViewModel.startActivityToPreview(0, DataUtils.getOnePreviewData(bean.headImg));
+                if (onTextContentClickListener != null) {
+                    onTextContentClickListener.onClickHead(v, i);
                 }
+              /*  if (mContext instanceof BaseActivity) {
+                    BaseActivity baseActivity = (BaseActivity) mContext;
+                    // baseActivity.mViewModel.startActivityToPreview(0, DataUtils.getOnePreviewData(bean.headImg));
+                    baseActivity.mViewModel.startActivityToUserDynamicForResult(null, bean.userId, 0);
+                }*/
+
             }
         });
         viewHolder.mIvMore.setOnClickListener(new View.OnClickListener() {
@@ -200,10 +208,10 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
             viewHolder.mTvAttention.setVisibility(View.VISIBLE);
             if (bean.hasFollow == 1) {
                 //viewHolder.mTvAttention.setText(R.string.attentionning);
-                viewHolder.mTvAttention.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_followed,0,0,0);
+                viewHolder.mTvAttention.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_followed, 0, 0, 0);
             } else {
-              //  viewHolder.mTvAttention.setText(R.string.attention);
-                viewHolder.mTvAttention.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_add_followed,0,0,0);
+                //  viewHolder.mTvAttention.setText(R.string.attention);
+                viewHolder.mTvAttention.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_add_followed, 0, 0, 0);
                 if (bean.myTweet == 1) {
                     viewHolder.mTvAttention.setVisibility(View.GONE);
                 } else {
@@ -260,7 +268,7 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
                                     layoutParams.height = ScreenUtils.dp2px(mContext, 225);
                                 }
                                 civ_1_1.setLayoutParams(layoutParams);
-                              //  GlideManger.get().loadBannerImage(mContext, path, civ_1_1);
+                                //  GlideManger.get().loadBannerImage(mContext, path, civ_1_1);
                                 civ_1_1.setImageBitmap(resource);
                             }
 
@@ -749,6 +757,8 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
         void onClickDianZan(View view, int position);//点赞
 
         void onClickShare(View view, int position);//分享
+
+        void onClickHead(View view, int position);//头像
     }
 
 
