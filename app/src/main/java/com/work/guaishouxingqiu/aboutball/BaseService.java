@@ -6,6 +6,7 @@ import com.work.guaishouxingqiu.aboutball.community.bean.RequestDynamicCommentsB
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultRedPointInfoBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestBandOtherAccountBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultFansFocusBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyMessageBean;
 
 import java.util.List;
 
@@ -51,7 +52,11 @@ public interface BaseService {
 
     @GET(IApiService.GET_SURE_USER_ORDER)
     Observable<BaseBean<BaseDataBean<String>>> sureUserOrder(@Query(Contast.ORDER_ID) long orderId);
+
     @GET(IApiService.GET_RED_POINT)
     Observable<BaseBean<List<ResultRedPointInfoBean>>> getReadPoint();
+
+    @GET(IApiService.GET_MY_MESSAGE_LIST)
+    Observable<BaseBean<List<ResultMyMessageBean>>> getMyMessageList();
 
 }

@@ -15,6 +15,7 @@ import com.work.guaishouxingqiu.aboutball.home.bean.ResultRedPointInfoBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultFansFocusBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyMessageBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundCauseBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
@@ -424,5 +425,21 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
 
             }
         }, false));
+    }
+
+    public void getMyMessageList(){
+        mModel.getMyMessageList(new BaseObserver<>(true, this, new BaseObserver.Observer<List<ResultMyMessageBean>>() {
+            @Override
+            public void onNext(BaseBean<List<ResultMyMessageBean>> t) {
+                if (DataUtils.isResultSure(t)){
+                    mView.resultMyMessageList(t.result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
     }
 }

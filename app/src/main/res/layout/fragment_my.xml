@@ -139,7 +139,7 @@
                         android:id="@+id/iv_red_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/shape_message_badge_view"
+                        android:src="@drawable/shape_message_badge_size_6_view"
                         app:layout_constraintRight_toRightOf="parent"
                         android:padding="@dimen/size_7dp"
                         android:contentDescription="@null"
@@ -197,7 +197,8 @@
             app:title_data="@string/my_message"
             app:title_drawable_padding="@dimen/item_drawable_padding"
             app:title_left_icon="@mipmap/icon_item_my_message"
-            app:top_line_margin_left="@dimen/default_margin" />
+            app:top_line_margin_left="@dimen/default_margin"
+            android:visibility="gone"/>
 
         <com.example.item.weight.ItemView
             android:id="@+id/item_dynamic"

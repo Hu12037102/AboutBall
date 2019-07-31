@@ -16,6 +16,7 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
+import com.work.guaishouxingqiu.aboutball.home.bean.ResultRedPointInfoBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundCauseBean;
 import com.work.guaishouxingqiu.aboutball.other.SharedPreferencesHelp;
@@ -200,9 +201,9 @@ public class DataUtils {
 
     }
 
-    public static <T> T jsonToBean(@NonNull String json) {
+    public static List<ResultRedPointInfoBean> jsonToListRedPoint(@NonNull String json) {
         Gson gson = new Gson();
-        return gson.fromJson(json, new TypeToken<T>() {
+        return gson.fromJson(json, new TypeToken<List<ResultRedPointInfoBean>>() {
         }.getType());
     }
 

@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Parcelable;
 import android.view.View;
 
-import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -50,7 +49,6 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
-import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.activity.WaitPayOrderDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultRefereeBean;
@@ -800,7 +798,7 @@ public class ViewModel {
         UserManger userManger = UserManger.get();
         String redPointJson = userManger.getRedPointJson();
         if (!DataUtils.isEmpty(redPointJson)) {
-            List<ResultRedPointInfoBean> redPointData = DataUtils.jsonToBean(redPointJson);
+            List<ResultRedPointInfoBean> redPointData = DataUtils.jsonToListRedPoint(redPointJson);
             return redPointData != null && redPointData.size() > 0 && userManger.isLogin();
         }
         return false;

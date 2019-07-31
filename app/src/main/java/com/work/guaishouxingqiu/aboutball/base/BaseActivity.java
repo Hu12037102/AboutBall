@@ -26,6 +26,7 @@ import com.work.guaishouxingqiu.aboutball.home.bean.ResultRedPointInfoBean;
 import com.work.guaishouxingqiu.aboutball.media.bean.MediaSelectorFile;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultFansFocusBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyMessageBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundCauseBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
@@ -305,6 +306,11 @@ public abstract class BaseActivity<P extends BasePresenter> extends LocationActi
 
     @Override
     public void resultRedPointData(List<ResultRedPointInfoBean> data) {
+
+    }
+
+    @Override
+    public void resultMyMessageList(List<ResultMyMessageBean> data) {
 
     }
 }

@@ -298,6 +298,7 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
                 mViewModel.startActivityToAttentionAndFans(this, AttentionAndFansActivity.FANS_ID, MyFragment.REQUEST_CODE_ATTENTION_AND_FANS);
                 break;
             case R.id.tv_message:
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_MESSAGE);
                 break;
             default:
                 break;
