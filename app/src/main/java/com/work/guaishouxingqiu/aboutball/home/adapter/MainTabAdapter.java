@@ -3,6 +3,7 @@ package com.work.guaishouxingqiu.aboutball.home.adapter;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +58,11 @@ public class MainTabAdapter extends RecyclerView.Adapter<MainTabAdapter.ViewHold
         viewHolder.mTvName.setTextColor(mData.get(i).isChecked ? ContextCompat.getColor(viewHolder.itemView.getContext(), R.color.color_2)
                 : ContextCompat.getColor(viewHolder.itemView.getContext(), R.color.color_3));
         viewHolder.mIvTab.setImageResource(mData.get(i).isChecked ? mData.get(i).mCheckResIcon : mData.get(i).mDefaultResIcon);
+        if (mData.get(i).showRedPoint) {
+            viewHolder.mIvRed.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.mIvRed.setVisibility(View.GONE);
+        }
         viewHolder.itemView.setOnClickListener(v -> {
             if (!mData.get(i).isChecked) {
                 for (MainTabBean bean : mData) {
@@ -80,19 +86,21 @@ public class MainTabAdapter extends RecyclerView.Adapter<MainTabAdapter.ViewHold
 
         private ImageView mIvTab;
         private TextView mTvName;
+        private ImageView mIvRed;
 
         ViewHolder(@NonNull View itemView, int tabSize) {
             super(itemView);
-            initView(itemView,tabSize);
+            initView(itemView, tabSize);
         }
 
-        private void initView(View itemView,int tabSize) {
+        private void initView(View itemView, int tabSize) {
             mIvTab = itemView.findViewById(R.id.iv_tab);
             mTvName = itemView.findViewById(R.id.tv_name);
             ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
             layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
-            layoutParams.width = ScreenUtils.getScreenWidth(itemView.getContext()) /tabSize;
+            layoutParams.width = ScreenUtils.getScreenWidth(itemView.getContext()) / tabSize;
             itemView.setLayoutParams(layoutParams);
+            mIvRed = itemView.findViewById(R.id.iv_red);
         }
     }
 

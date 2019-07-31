@@ -11,6 +11,7 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.community.bean.RequestDynamicCommentsBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataResultBean;
+import com.work.guaishouxingqiu.aboutball.home.bean.ResultRedPointInfoBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultFansFocusBean;
@@ -378,7 +379,7 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
             public void onNext(BaseBean<List<ResultGameDataResultBean>> t) {
                 if (DataUtils.isResultSure(t)) {
                     if (t.result.size() > 0) {
-                        t.result.add(0,new ResultGameDataResultBean(true));
+                        t.result.add(0, new ResultGameDataResultBean(true));
                     }
                     mView.resultGameResultDetails(t.result);
                 }
@@ -392,10 +393,10 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
     }
 
     public void sureUserOrder(long orderId) {
-        mModel.sureUserOrder(orderId,new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
+        mModel.sureUserOrder(orderId, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
             @Override
             public void onNext(BaseBean<BaseDataBean<String>> t) {
-                if (DataUtils.baseDataBeanIsSucceed(t)){
+                if (DataUtils.baseDataBeanIsSucceed(t)) {
                     mView.resultSureUseOrder(orderId);
                 }
             }
@@ -405,5 +406,23 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
 
             }
         }));
+    }
+
+    public void obtainHotPoint() {
+        mModel.obtainHotPoint(new BaseObserver<>(false, this, new BaseObserver.Observer<List<ResultRedPointInfoBean>>() {
+            @Override
+            public void onNext(BaseBean<List<ResultRedPointInfoBean>> t) {
+                if (DataUtils.isResultSure(t)) {
+                    UserManger.get().putRedPointJson(new Gson().toJson(t.result));
+                  //  LogUtils.w("obtainHotPoint", new Gson().toJson(t.result) + "--");
+                    mView.resultRedPointData(t.result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }, false));
     }
 }

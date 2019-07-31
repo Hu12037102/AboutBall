@@ -14,6 +14,7 @@ import com.work.guaishouxingqiu.aboutball.community.fragment.CommunityFragment;
 import com.work.guaishouxingqiu.aboutball.game.fragment.GameFragment;
 import com.work.guaishouxingqiu.aboutball.home.adapter.MainTabAdapter;
 import com.work.guaishouxingqiu.aboutball.home.bean.MainTabBean;
+import com.work.guaishouxingqiu.aboutball.home.bean.ResultRedPointInfoBean;
 import com.work.guaishouxingqiu.aboutball.home.contract.MainContract;
 import com.work.guaishouxingqiu.aboutball.home.fragment.HomeFragment;
 import com.work.guaishouxingqiu.aboutball.home.presenter.MainPresenter;
@@ -31,6 +32,7 @@ import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -52,6 +54,7 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
     private MainTabAdapter mTabAdapter;
     private long mFinishTime;
     private TeamBallInviteDialog mTeamInviteDialog;
+    private List<MainTabBean> mTabData;
 
 
     @Override
@@ -70,7 +73,9 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
 
     @Override
     protected void initData() {
+        mTabData = new ArrayList<>();
         initLocation();
+
         // mPresenter.loadMainTab();
     }
 
@@ -86,6 +91,12 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
     public void locationResult(double longitude, double latitude, String city) {
         mPresenter.loadMainTab();
         LogUtils.w("locationResult--", longitude + "--" + latitude + "--" + city);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        mPresenter.obtainHotPoint();
     }
 
     @Override
@@ -130,16 +141,25 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
         return new MainPresenter(this);
     }
 
+    @Override
+    public void resultRedPointData(List<ResultRedPointInfoBean> data) {
+        if (data.size() > 0 && mTabData.size() > 0 && mTabAdapter != null) {
+            mTabData.get(mTabData.size() - 1).showRedPoint = true;
+            mTabAdapter.notifyDataSetChanged();
+        }
+    }
 
     @Override
     public void loadMainTabResult(@NonNull List<MainTabBean> data) {
         if (data.size() > 0) {
+            mTabData.addAll(data);
             if (mTabAdapter == null) {
                 mTabAdapter = new MainTabAdapter(data);
                 mRvMainTab.setAdapter(mTabAdapter);
                 mTabAdapter.setOnCheckTabListener((view, position) -> {
                     mBvpContent.setCurrentItem(position, true);
                 });
+                mPresenter.obtainHotPoint();
                 initFragment();
             } else {
                 mTabAdapter.notifyDataSetChanged();

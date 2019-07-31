@@ -29,6 +29,7 @@ import com.work.guaishouxingqiu.aboutball.community.activity.TopicDynamicsActivi
 import com.work.guaishouxingqiu.aboutball.community.adapter.CommunityDataAdapter;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultRecommendHotBean;
+import com.work.guaishouxingqiu.aboutball.home.bean.ResultRedPointInfoBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.login.activity.LoginActivity;
 import com.work.guaishouxingqiu.aboutball.media.bean.MediaSelectorFile;
@@ -793,5 +794,15 @@ public class ViewModel {
         } else {
             ARouterIntent.startActivityForResult(fragment, MyDynamicActivity.class, ARouterConfig.Key.USER_ID, userId, requestCode);
         }
+    }
+
+    public boolean isShowRedPoint() {
+        UserManger userManger = UserManger.get();
+        String redPointJson = userManger.getRedPointJson();
+        if (!DataUtils.isEmpty(redPointJson)) {
+            List<ResultRedPointInfoBean> redPointData = DataUtils.jsonToBean(redPointJson);
+            return redPointData != null && redPointData.size() > 0 && userManger.isLogin();
+        }
+        return false;
     }
 }

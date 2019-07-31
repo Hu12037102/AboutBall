@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="app_name" translatable="false">踢球么</string>
-    <!--<string name="app_name" translatable="false">踢球么测试版</string>-->
+    <!--<string name="app_name" translatable="false">踢球么</string>-->
+    <string name="app_name" translatable="false">踢球么测试版</string>
     <string name="me" translatable="false">我</string>
     <string name="my_about_ball" translatable="false">我的约球</string>
     <string name="my_order" translatable="false">我的订单</string>

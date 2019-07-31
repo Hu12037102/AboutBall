@@ -8,10 +8,12 @@ buildscript {
         jcenter()
         maven { url 'https://dl.bintray.com/umsdk/release' }
     }
+    ext.objectboxVersion = '2.3.4'
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.2'
         classpath 'com.bugtags.library:bugtags-gradle:2.1.5'
         classpath 'com.jakewharton:butterknife-gradle-plugin:10.1.0'
+        classpath "io.objectbox:objectbox-gradle-plugin:$objectboxVersion"
        // classpath 'com.growingio.android:vds-gradle-plugin:autotrack-2.7.5'
 
         // NOTE: Do not place your application dependencies here; they belong

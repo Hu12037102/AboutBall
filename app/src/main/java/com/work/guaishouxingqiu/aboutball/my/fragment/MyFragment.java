@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
 import com.work.guaishouxingqiu.aboutball.commonality.fragment.LoginOrShareFragment;
+import com.work.guaishouxingqiu.aboutball.home.bean.ResultRedPointInfoBean;
 import com.work.guaishouxingqiu.aboutball.login.activity.LoginActivity;
 import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
 import com.work.guaishouxingqiu.aboutball.my.activity.AttentionAndFansActivity;
@@ -31,6 +33,8 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -66,6 +70,10 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
     ItemView mItemDynamic;
     @BindView(R.id.item_as_referee)
     ItemView mItemAsReferee;
+    @BindView(R.id.tv_message)
+    TextView mTvMessage;
+    @BindView(R.id.iv_red_point)
+    ImageView mIvRedPoint;
     private View view;
     private Integer mMyRefereeStatus;
     private TextView mHeadTvFocusFans;
@@ -197,6 +205,13 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
 
     }
 
+    private void setRedPointStatus() {
+        if (mViewModel.isShowRedPoint()) {
+            mIvRedPoint.setVisibility(View.VISIBLE);
+        } else {
+            mIvRedPoint.setVisibility(View.GONE);
+        }
+    }
 
     private void initLoginView() {
         if (mLlHeadGroup.getChildCount() > 0) {
@@ -233,9 +248,9 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && mContext != null && UserManger.get().isLogin()) {
-
             mPresenter.judgeRefereeStatus();
             mPresenter.loadFansAndFocus();
+            setRedPointStatus();
         }
     }
 

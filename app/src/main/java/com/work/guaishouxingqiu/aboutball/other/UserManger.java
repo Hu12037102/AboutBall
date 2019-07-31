@@ -32,6 +32,7 @@ public class UserManger {
     private static final String KEY_IS_REFEREE = "isReferee";
     private static final String KEY_TOKEN_TEMPORARY = "tokenTemporary";//临时token
     private static final String KEY_REFEREE_LEVEL = "refereeLevel";
+    private static final String KEY_JSON_RED_POINT = "keyJsonRedPoint";
     public static final int SEX_MAN = 1;
     public static final int SEX_WOMAN = 2;
     private static SharedPreferencesHelp mSP;
@@ -51,6 +52,14 @@ public class UserManger {
             }
         }
         return mUserManger;
+    }
+
+    public void putRedPointJson(@NonNull String values) {
+        mSP.putObject(KEY_JSON_RED_POINT, values);
+    }
+
+    public String getRedPointJson() {
+        return mSP.getString(KEY_JSON_RED_POINT);
     }
 
     public void putTemporaryToken(String tokenTemporary) {

@@ -2,10 +2,12 @@ package com.work.guaishouxingqiu.aboutball.base;
 
 import com.work.guaishouxingqiu.aboutball.BaseService;
 import com.work.guaishouxingqiu.aboutball.Contast;
+import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
 import com.work.guaishouxingqiu.aboutball.community.bean.RequestDynamicCommentsBean;
 import com.work.guaishouxingqiu.aboutball.game.GameService;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataResultBean;
+import com.work.guaishouxingqiu.aboutball.home.bean.ResultRedPointInfoBean;
 import com.work.guaishouxingqiu.aboutball.http.RetrofitManger;
 import com.work.guaishouxingqiu.aboutball.my.MyService;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
@@ -113,14 +115,15 @@ public class BaseModel {
                 .subscribe(observer);
     }
 
-    public void getAttentionTweet(long concernId,BaseObserver<BaseDataBean<String>> observer) {
+    public void getAttentionTweet(long concernId, BaseObserver<BaseDataBean<String>> observer) {
         mRetrofitManger.create(BaseService.class)
                 .getAttentionTweet(concernId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
-    public void getCancelAttentionTweet(long concernId,BaseObserver<BaseDataBean<String>> observer) {
+
+    public void getCancelAttentionTweet(long concernId, BaseObserver<BaseDataBean<String>> observer) {
         mRetrofitManger.create(BaseService.class)
                 .getCancelAttentionTweet(concernId)
                 .subscribeOn(Schedulers.io())
@@ -128,21 +131,23 @@ public class BaseModel {
                 .subscribe(observer);
     }
 
-    public void dynamicsDianZan(long tweetId,BaseObserver<BaseDataBean<String>> observer) {
+    public void dynamicsDianZan(long tweetId, BaseObserver<BaseDataBean<String>> observer) {
         mRetrofitManger.create(BaseService.class)
                 .dynamicsDianZan(tweetId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
-    public void dynamicsCancelDianZan(long tweetId,BaseObserver<BaseDataBean<String>> observer) {
+
+    public void dynamicsCancelDianZan(long tweetId, BaseObserver<BaseDataBean<String>> observer) {
         mRetrofitManger.create(BaseService.class)
                 .dynamicsCancelDianZan(tweetId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
-    public void deleteDynamics(long tweetId,BaseObserver<BaseDataBean<String>> observer){
+
+    public void deleteDynamics(long tweetId, BaseObserver<BaseDataBean<String>> observer) {
         mRetrofitManger.create(BaseService.class)
                 .deleteDynamics(tweetId)
                 .subscribeOn(Schedulers.io())
@@ -159,7 +164,7 @@ public class BaseModel {
 
     }
 
-    public void shareCommunityDynamic(long tweetId,BaseObserver<BaseDataBean<String>> observer) {
+    public void shareCommunityDynamic(long tweetId, BaseObserver<BaseDataBean<String>> observer) {
         mRetrofitManger.create(BaseService.class)
                 .shareCommunityDynamic(tweetId)
                 .subscribeOn(Schedulers.io())
@@ -175,12 +180,20 @@ public class BaseModel {
                 .subscribe(observer);
     }
 
-    public void sureUserOrder(long orderId,BaseObserver<BaseDataBean<String>>observer) {
+    public void sureUserOrder(long orderId, BaseObserver<BaseDataBean<String>> observer) {
         mRetrofitManger.create(BaseService.class)
                 .sureUserOrder(orderId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
 
+    }
+
+    public void obtainHotPoint(BaseObserver<List<ResultRedPointInfoBean>> observer) {
+        mRetrofitManger.create(BaseService.class)
+                .getReadPoint()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
     }
 }

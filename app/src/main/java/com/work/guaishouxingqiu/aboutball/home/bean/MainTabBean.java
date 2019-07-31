@@ -23,4 +23,5 @@ public class MainTabBean {
     public @DrawableRes int mDefaultResIcon;
     public @ColorRes int mCheckResText = R.color.color_2;
     public @ColorRes int mDefaultheckResText= R.color.color_3;
+    public boolean showRedPoint;
 }
