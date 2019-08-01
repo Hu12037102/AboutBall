@@ -5,8 +5,10 @@ import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.community.bean.RequestDynamicCommentsBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultRedPointInfoBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestBandOtherAccountBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultDynamicNotificationBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultFansFocusBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyMessageBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultSystemNotificationBean;
 
 import java.util.List;
 
@@ -59,4 +61,16 @@ public interface BaseService {
     @GET(IApiService.GET_MY_MESSAGE_LIST)
     Observable<BaseBean<List<ResultMyMessageBean>>> getMyMessageList();
 
+    @GET(IApiService.GET_DYNAMIC_NOTIFICATION_LIST)
+    Observable<BaseBean<List<ResultDynamicNotificationBean>>> getDynamicNotificationList(@Query(Contast.NOTICE_TYPE) int noticeType,
+                                                                                         @Query(Contast.PAGE_NUM) int pageNum,
+                                                                                         @Query(Contast.PAGE_SIZE) int pageSize);
+
+    @GET(IApiService.GET_SYSTEM_NOTIFICATION_LIST)
+    Observable<BaseBean<List<ResultSystemNotificationBean>>> getSystemNotificationList(@Query(Contast.NOTICE_TYPE) int noticeType,
+                                                                                       @Query(Contast.PAGE_NUM) int pageNum,
+                                                                                       @Query(Contast.PAGE_SIZE) int pageSize);
+
+    @GET(IApiService.GET_CLEAR_RED_POINT)
+    Observable<BaseBean<String>> clearRedPoint(@Query(Contast.NOTICE_TYPE) int noticeType);
 }

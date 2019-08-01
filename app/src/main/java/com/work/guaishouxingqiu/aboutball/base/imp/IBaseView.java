@@ -7,10 +7,12 @@ import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataResultBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultRedPointInfoBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultDynamicNotificationBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultFansFocusBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyMessageBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundCauseBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultSystemNotificationBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 
@@ -64,5 +66,11 @@ public interface IBaseView {
     void resultSureUseOrder(long orderId);
 
     void resultRedPointData(List<ResultRedPointInfoBean> data);
+
     void resultMyMessageList(List<ResultMyMessageBean> data);
+
+    void resultDynamicNotificationData(List<ResultDynamicNotificationBean> data);
+
+    void resultSystemNotificationData(List<ResultSystemNotificationBean> data);
+    void resultClearRedPoint(boolean isSucceed);
 }

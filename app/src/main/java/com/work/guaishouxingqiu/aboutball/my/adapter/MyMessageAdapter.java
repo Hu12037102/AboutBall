@@ -72,8 +72,12 @@ public class MyMessageAdapter extends BaseRecyclerAdapter<MyMessageAdapter.ViewH
             List<ResultRedPointInfoBean> redPointData = DataUtils.jsonToListRedPoint(redPointJson);
             for (ResultRedPointInfoBean bean : redPointData) {
                 if (bean.noticeType == mData.get(position).noticeType) {
-                    textView.setText(bean.unReadNum + "");
-                    textView.setVisibility(View.VISIBLE);
+                    if (bean.unReadNum == 0) {
+                        textView.setVisibility(View.GONE);
+                    } else {
+                        textView.setText(bean.unReadNum + "");
+                        textView.setVisibility(View.VISIBLE);
+                    }
                 }
             }
         }

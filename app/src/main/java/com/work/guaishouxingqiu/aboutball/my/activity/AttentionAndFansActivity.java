@@ -1,8 +1,5 @@
 package com.work.guaishouxingqiu.aboutball.my.activity;
 
-import android.os.Bundle;
-import android.view.View;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -150,7 +147,7 @@ public class AttentionAndFansActivity extends BaseActivity<AttentionAndFansPrese
         if (!DataUtils.isEmptyList(data)) {
             mData.addAll(data);
         }
-        mViewModel.setRefreshViewStatus(mSrlLayout, data, mPresenter.mPageSize);
+        mViewModel.setRefreshViewMoreStatus(mSrlLayout, data, mPresenter.mPageSize);
         mAdapter.setNotifyData(DataUtils.getListSize(data) == mPresenter.mPageSize);
     }
 

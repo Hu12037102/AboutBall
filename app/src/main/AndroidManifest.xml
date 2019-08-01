@@ -371,6 +371,9 @@
         <activity
             android:name=".my.activity.MyMessageActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".my.activity.MessageNotificationActivity"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>

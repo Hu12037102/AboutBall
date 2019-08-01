@@ -100,8 +100,11 @@ public interface IApiService {
     String GET_FANS_AND_FOCUS = "api/tweet/getMyFansAndFollow";
     String GET_SHARE_COMMUNITY_DYNAMIC = "api/tweet/tweetShare";
     String GET_SURE_USER_ORDER = "api/order/confirmOrderUsed";
-    String GET_RED_POINT="api/notice/getNoticeCenterRedPoint";
-    String GET_MY_MESSAGE_LIST="/api/notice/getUserNoticeCenterList";
+    String GET_RED_POINT = "api/notice/getNoticeCenterRedPoint";
+    String GET_MY_MESSAGE_LIST = "api/notice/getUserNoticeCenterList";
+    String GET_DYNAMIC_NOTIFICATION_LIST = "api/notice/getSocialNoticeList";
+    String GET_SYSTEM_NOTIFICATION_LIST = "api/notice/getSysTemNoticeList";
+    String GET_CLEAR_RED_POINT = "api/notice/saveNoticeCenterReadByType";
 
     //获取微信登录token
     String GET_WEICHAT_TOKEN = "sns/oauth2/access_token";
@@ -170,8 +173,8 @@ public interface IApiService {
     String GET_DELETE_REFEREE_MATCH_RECORD = "api/referee/removeAgreeOuts";
     String GET_MY_TEAM_MATCH_RECORD = "api/myTeam/getMyAgreeOuts";
     String GET_VERSION_HISTORY_DETAILS = "api/commons/getVersionExplain";
-    String GET_MY_ATTENTION_DATA="api/tweet/getMyFollowList";
-    String GET_MY_FANS_DATA="api/tweet/getMyFansList";
+    String GET_MY_ATTENTION_DATA = "api/tweet/getMyFollowList";
+    String GET_MY_FANS_DATA = "api/tweet/getMyFansList";
 
     interface H5 {
         // String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";

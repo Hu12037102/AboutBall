@@ -16,10 +16,12 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataResultBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultRedPointInfoBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultDynamicNotificationBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultFansFocusBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyMessageBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundCauseBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultSystemNotificationBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionFragment;
@@ -218,12 +220,29 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
     public void resultSureUseOrder(long orderId) {
 
     }
+
     @Override
     public void resultRedPointData(List<ResultRedPointInfoBean> data) {
 
     }
+
     @Override
     public void resultMyMessageList(List<ResultMyMessageBean> data) {
+
+    }
+
+    @Override
+    public void resultSystemNotificationData(List<ResultSystemNotificationBean> data) {
+
+    }
+
+    @Override
+    public void resultDynamicNotificationData(List<ResultDynamicNotificationBean> data) {
+
+    }
+
+    @Override
+    public void resultClearRedPoint(boolean isSucceed) {
 
     }
 }

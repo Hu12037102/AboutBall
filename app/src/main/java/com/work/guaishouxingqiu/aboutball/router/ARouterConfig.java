@@ -77,6 +77,7 @@ public interface ARouterConfig {
         String ACTIVITY_CAMERA_VIDEO = "/activity/camera/video";
         String ACTIVITY_ATTENTION_AND_FANS = "/activity/attention/and/fans";
         String ACTIVITY_MY_MESSAGE="/activity/my/message";
+        String ACTIVITY_MESSAGE_NOTIFICATION="/activity/message/notification";
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";

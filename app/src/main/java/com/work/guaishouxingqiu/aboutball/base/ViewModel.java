@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -49,6 +50,7 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.activity.WaitPayOrderDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultRefereeBean;
@@ -63,6 +65,7 @@ import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 项  目 :  AboutBall
@@ -774,8 +777,8 @@ public class ViewModel {
                 && DataUtils.isVideo(data.get(0).filePath);
     }
 
-    public <T> void setRefreshViewStatus(@NonNull SmartRefreshLayout refreshLayout, @NonNull List<T> data, int countSize) {
-        refreshLayout.setEnableLoadMore(DataUtils.isEmptyList(data) || data.size() < countSize);
+    public <T> void setRefreshViewMoreStatus(@NonNull SmartRefreshLayout refreshLayout, @NonNull List<T> data, int countSize) {
+        refreshLayout.setEnableLoadMore(!DataUtils.isEmptyList(data) && data.size() == countSize);
     }
 
     public void startActivityToAttentionAndFans(@Nullable Fragment fragment, int status, int requestCode) {
@@ -795,12 +798,25 @@ public class ViewModel {
     }
 
     public boolean isShowRedPoint() {
+        return getRedPointCount() > 0;
+
+    }
+
+    private int getRedPointCount() {
         UserManger userManger = UserManger.get();
-        String redPointJson = userManger.getRedPointJson();
-        if (!DataUtils.isEmpty(redPointJson)) {
-            List<ResultRedPointInfoBean> redPointData = DataUtils.jsonToListRedPoint(redPointJson);
-            return redPointData != null && redPointData.size() > 0 && userManger.isLogin();
+        if (userManger.isLogin()) {
+            String redPointJson = userManger.getRedPointJson();
+            if (!DataUtils.isEmpty(redPointJson)) {
+                List<ResultRedPointInfoBean> redPointData = DataUtils.jsonToListRedPoint(redPointJson);
+                if (redPointData != null && redPointData.size() > 0) {
+                    int sum = 0;
+                    for (int i = 0; i < redPointData.size(); i++) {
+                        sum += redPointData.get(i).unReadNum;
+                    }
+                    return sum;
+                }
+            }
         }
-        return false;
+        return 0;
     }
 }

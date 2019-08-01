@@ -14,10 +14,12 @@ import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataResultBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultRedPointInfoBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultDynamicNotificationBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultFansFocusBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyMessageBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundCauseBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultSystemNotificationBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 import com.work.guaishouxingqiu.aboutball.other.SharedPreferencesHelp;
@@ -409,13 +411,16 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
         }));
     }
 
-    public void obtainHotPoint() {
-        mModel.obtainHotPoint(new BaseObserver<>(false, this, new BaseObserver.Observer<List<ResultRedPointInfoBean>>() {
+    /**
+     * 获取红点
+     */
+    public void obtainRedPoint() {
+        mModel.obtainRedPoint(new BaseObserver<>(false, this, new BaseObserver.Observer<List<ResultRedPointInfoBean>>() {
             @Override
             public void onNext(BaseBean<List<ResultRedPointInfoBean>> t) {
                 if (DataUtils.isResultSure(t)) {
                     UserManger.get().putRedPointJson(new Gson().toJson(t.result));
-                  //  LogUtils.w("obtainHotPoint", new Gson().toJson(t.result) + "--");
+                    //  LogUtils.w("obtainRedPoint", new Gson().toJson(t.result) + "--");
                     mView.resultRedPointData(t.result);
                 }
             }
@@ -427,11 +432,14 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
         }, false));
     }
 
-    public void getMyMessageList(){
+    /**
+     * 获取消息列表
+     */
+    public void getMyMessageList() {
         mModel.getMyMessageList(new BaseObserver<>(true, this, new BaseObserver.Observer<List<ResultMyMessageBean>>() {
             @Override
             public void onNext(BaseBean<List<ResultMyMessageBean>> t) {
-                if (DataUtils.isResultSure(t)){
+                if (DataUtils.isResultSure(t)) {
                     mView.resultMyMessageList(t.result);
                 }
             }
@@ -439,6 +447,74 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
             @Override
             public void onError(Throwable e) {
 
+            }
+        }));
+    }
+
+    /**
+     * 获取通知社区通知列表
+     *
+     * @param noticeType
+     */
+    public void getDynamicNotificationList(int noticeType) {
+        if (isRefresh) {
+            mPageNum = 1;
+        }
+        mModel.getDynamicNotificationList(noticeType, mPageNum, mPageSize, new BaseObserver<>(this, new BaseObserver.Observer<List<ResultDynamicNotificationBean>>() {
+            @Override
+            public void onNext(BaseBean<List<ResultDynamicNotificationBean>> t) {
+                if (DataUtils.isResultSure(t)) {
+                    mPageNum++;
+                    mView.resultDynamicNotificationData(t.result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+
+    /**
+     * 获取通知系统通知列表
+     *
+     * @param noticeType
+     */
+    public void getSystemNotificationList(int noticeType) {
+        if (isRefresh) {
+            mPageNum = 1;
+        }
+        mModel.getSystemNotificationList(noticeType, mPageNum, mPageSize, new BaseObserver<>(true, this, new BaseObserver.Observer<List<ResultSystemNotificationBean>>() {
+            @Override
+            public void onNext(BaseBean<List<ResultSystemNotificationBean>> t) {
+                if (DataUtils.isResultSure(t)) {
+                    mPageNum++;
+                    mView.resultSystemNotificationData(t.result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+
+    public void clearRedPoint(int noticeType) {
+        mModel.clearRedPoint(noticeType, new BaseObserver<>(true, this, new BaseObserver.Observer<String>() {
+            @Override
+            public void onNext(BaseBean<String> t) {
+                if (DataUtils.isResultSure(t)) {
+                    mView.resultClearRedPoint(true);
+                } else {
+                    mView.resultClearRedPoint(false);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                mView.resultClearRedPoint(false);
             }
         }));
     }

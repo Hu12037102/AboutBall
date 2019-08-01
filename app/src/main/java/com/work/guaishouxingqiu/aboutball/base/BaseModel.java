@@ -11,10 +11,12 @@ import com.work.guaishouxingqiu.aboutball.home.bean.ResultRedPointInfoBean;
 import com.work.guaishouxingqiu.aboutball.http.RetrofitManger;
 import com.work.guaishouxingqiu.aboutball.my.MyService;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultDynamicNotificationBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultFansFocusBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyMessageBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundCauseBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultSystemNotificationBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 
@@ -190,7 +192,7 @@ public class BaseModel {
 
     }
 
-    public void obtainHotPoint(BaseObserver<List<ResultRedPointInfoBean>> observer) {
+    public void obtainRedPoint(BaseObserver<List<ResultRedPointInfoBean>> observer) {
         mRetrofitManger.create(BaseService.class)
                 .getReadPoint()
                 .subscribeOn(Schedulers.io())
@@ -205,5 +207,30 @@ public class BaseModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
 
+    }
+
+    public void getDynamicNotificationList(int noticeType, int pageNum, int pageSize, BaseObserver<List<ResultDynamicNotificationBean>> observer) {
+        mRetrofitManger.create(BaseService.class)
+                .getDynamicNotificationList(noticeType, pageNum, pageSize)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+
+    }
+
+    public void getSystemNotificationList(int noticeType, int pageNum, int pageSize, BaseObserver<List<ResultSystemNotificationBean>> observer) {
+        mRetrofitManger.create(BaseService.class)
+                .getSystemNotificationList(noticeType, pageNum, pageSize)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    public void clearRedPoint(int noticeType,BaseObserver<String> observer) {
+        mRetrofitManger.create(BaseService.class)
+                .clearRedPoint(noticeType)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
     }
 }

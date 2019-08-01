@@ -1,12 +1,17 @@
 package com.work.guaishouxingqiu.aboutball.my.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.example.item.weight.TitleView;
+import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
@@ -17,6 +22,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyMessageBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.MyMessageContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.MyMessagePresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +42,8 @@ public class MyMessageActivity extends BaseActivity<MyMessagePresenter> implemen
     RecyclerView mRvData;
     @BindView(R.id.srl_layout)
     SmartRefreshLayout mSrlLayout;
+    @BindView(R.id.title_view)
+    TitleView mTitleView;
     private List<ResultMyMessageBean> mData;
     private MyMessageAdapter mAdapter;
 
@@ -68,6 +76,7 @@ public class MyMessageActivity extends BaseActivity<MyMessagePresenter> implemen
 
     @Override
     protected void initEvent() {
+        mTitleView.setOnBackViewClickListener(view -> mViewModel.clickBackForResult());
         mSrlLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
@@ -79,14 +88,30 @@ public class MyMessageActivity extends BaseActivity<MyMessagePresenter> implemen
                 loadData(true);
             }
         });
+        mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onNotNetClick(View view) {
+                mSrlLayout.autoRefresh();
+            }
+
+            @Override
+            public void onNotDataClick(View view) {
+                mSrlLayout.autoRefresh();
+            }
+
+            @Override
+            public void onItemClick(View view, int position) {
+                ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_MESSAGE_NOTIFICATION, MyMessageActivity.this, ARouterConfig.Key.PARCELABLE, mData.get(position));
+            }
+        });
     }
 
     @Override
     public void resultMyMessageList(List<ResultMyMessageBean> data) {
-        if (mData.size() > 0){
+        if (mData.size() > 0) {
             mData.clear();
         }
-        if (data.size() > 0){
+        if (data.size() > 0) {
             mData.addAll(data);
         }
         mAdapter.notifyDataSetChanged();
@@ -97,5 +122,16 @@ public class MyMessageActivity extends BaseActivity<MyMessagePresenter> implemen
         return new MyMessagePresenter(this);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && requestCode == ARouterIntent.REQUEST_CODE) {
+            mAdapter.notifyDataSetChanged();
+        }
+    }
 
+    @Override
+    public void onBackPressed() {
+        mViewModel.clickBackForResult();
+    }
 }

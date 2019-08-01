@@ -9,4 +9,20 @@ package com.work.guaishouxingqiu.aboutball.home.bean;
 public class ResultRedPointInfoBean {
     public int noticeType;
     public int unReadNum;
+
+    public int getNoticeType() {
+        return noticeType;
+    }
+
+    public void setNoticeType(int noticeType) {
+        this.noticeType = noticeType;
+    }
+
+    public int getUnReadNum() {
+        return unReadNum;
+    }
+
+    public void setUnReadNum(int unReadNum) {
+        this.unReadNum = unReadNum;
+    }
 }

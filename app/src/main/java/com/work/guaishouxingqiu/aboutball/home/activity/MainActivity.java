@@ -96,7 +96,11 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
     @Override
     protected void onRestart() {
         super.onRestart();
-        mPresenter.obtainHotPoint();
+        mPresenter.obtainRedPoint();
+      /*  if (mTabAdapter != null) {
+            mTabData.get(mTabData.size() - 1).isChecked = mViewModel.isShowRedPoint();
+            mTabAdapter.notifyDataSetChanged();
+        }*/
     }
 
     @Override
@@ -143,10 +147,8 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
 
     @Override
     public void resultRedPointData(List<ResultRedPointInfoBean> data) {
-        if (data.size() > 0 && mTabData.size() > 0 && mTabAdapter != null) {
-            mTabData.get(mTabData.size() - 1).showRedPoint = true;
-            mTabAdapter.notifyDataSetChanged();
-        }
+        mTabData.get(mTabData.size() - 1).showRedPoint = mViewModel.isShowRedPoint();
+        mTabAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -159,7 +161,7 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
                 mTabAdapter.setOnCheckTabListener((view, position) -> {
                     mBvpContent.setCurrentItem(position, true);
                 });
-                mPresenter.obtainHotPoint();
+                mPresenter.obtainRedPoint();
                 initFragment();
             } else {
                 mTabAdapter.notifyDataSetChanged();

@@ -23,6 +23,7 @@ import com.work.guaishouxingqiu.aboutball.home.bean.ResultRedPointInfoBean;
 import com.work.guaishouxingqiu.aboutball.login.activity.LoginActivity;
 import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
 import com.work.guaishouxingqiu.aboutball.my.activity.AttentionAndFansActivity;
+import com.work.guaishouxingqiu.aboutball.my.activity.MyMessageActivity;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultFansFocusBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.MyContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.MyPresenter;
@@ -79,6 +80,7 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
     private TextView mHeadTvFocusFans;
     private static final int REQUEST_CODE_ATTENTION_AND_FANS = 93;
     private static final int REQUEST_CODE_USER_DYNAMIC = 94;//用户动态
+    private static final int REQUEST_CODE_MY_MESSAGE = 97;//我的消息
 
     public static MyFragment newInstance() {
         return new MyFragment();
@@ -298,7 +300,7 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
                 mViewModel.startActivityToAttentionAndFans(this, AttentionAndFansActivity.FANS_ID, MyFragment.REQUEST_CODE_ATTENTION_AND_FANS);
                 break;
             case R.id.tv_message:
-                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_MESSAGE);
+                ARouterIntent.startActivityForResult(this, MyMessageActivity.class, MyFragment.REQUEST_CODE_MY_MESSAGE);
                 break;
             default:
                 break;
@@ -346,6 +348,9 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
                     if (UserManger.get().isLogin()) {
                         mPresenter.judgeRefereeStatus();
                     }
+                    break;
+                case MyFragment.REQUEST_CODE_MY_MESSAGE:
+                    setRedPointStatus();
                     break;
                 default:
                     break;
