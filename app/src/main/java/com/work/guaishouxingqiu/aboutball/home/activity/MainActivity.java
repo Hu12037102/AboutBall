@@ -75,7 +75,6 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
     protected void initData() {
         mTabData = new ArrayList<>();
         initLocation();
-
         // mPresenter.loadMainTab();
     }
 
@@ -90,7 +89,6 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
     @Override
     public void locationResult(double longitude, double latitude, String city) {
         mPresenter.loadMainTab();
-        LogUtils.w("locationResult--", longitude + "--" + latitude + "--" + city);
     }
 
     @Override
