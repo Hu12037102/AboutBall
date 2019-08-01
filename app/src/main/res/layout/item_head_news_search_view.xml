@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/colorWhite">
+
+    <LinearLayout
+        android:id="@+id/ll_head_not"
+        android:layout_width="match_parent"
+        android:layout_height="275dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:ignore="UselessParent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@mipmap/ic_not_data"
+            android:drawablePadding="@dimen/size_10dp"
+            android:gravity="center_horizontal"
+            android:lineSpacingExtra="@dimen/size_5dp"
+            android:textColor="@color/colorFFA6A6A6"
+            android:textSize="@dimen/size_16sp"
+            tools:text="暂时没有找到“相关”\n内容请重新输入搜索信息" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_5dp"
+            android:background="@color/colorFFFDFDFE" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_55dp"
+            android:drawableStart="@mipmap/icon_news_recommend"
+            android:drawableLeft="@mipmap/icon_news_recommend"
+            android:drawablePadding="@dimen/size_10dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/default_margin"
+            android:paddingRight="@dimen/default_margin"
+            android:text="@string/find_the_following_recommendations_for_you"
+            android:textColor="@color/color_4"
+            android:textSize="@dimen/size_17sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_head_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_head_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</LinearLayout>

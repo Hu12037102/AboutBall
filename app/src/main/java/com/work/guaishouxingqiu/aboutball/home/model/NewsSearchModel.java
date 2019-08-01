@@ -4,6 +4,7 @@ import com.work.guaishouxingqiu.aboutball.base.BaseModel;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.home.HomeService;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsBean;
+import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsSearchBean;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ import io.reactivex.schedulers.Schedulers;
  * 描述:
  */
 public class NewsSearchModel extends BaseModel {
-    public void loadSearchNews(String content, int pageNum, int pageSize, BaseObserver<List<ResultNewsBean>> observer) {
+    public void loadSearchNews(String content, int pageNum, int pageSize, BaseObserver<ResultNewsSearchBean> observer) {
         mRetrofitManger.create(HomeService.class)
                 .getSearchNewsData(content,pageNum,pageSize)
                 .subscribeOn(Schedulers.io())

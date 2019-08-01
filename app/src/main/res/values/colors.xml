@@ -44,6 +44,7 @@
     <color name="colorFFBABCBF">#FFBABCBF</color>
     <color name="colorFFEBF0FF">#FFEBF0FF</color>
     <color name="colorFFF53133">#FFF53133</color>
+    <color name="colorFFFDFDFE">#FFFDFDFE</color>
 
     <color name="color_1">@color/colorWhite</color>
     <color name="color_2">@color/colorFF3586FF</color>

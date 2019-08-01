@@ -3,6 +3,7 @@ package com.work.guaishouxingqiu.aboutball.home.contract;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsBean;
+import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsSearchBean;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  */
 public interface NewsSearchContract {
     interface View extends IBaseView {
-        void resultSearchNewsData(List<ResultNewsBean> data);
+        void resultSearchNewsData(ResultNewsSearchBean bean);
     }
 
     interface Presenter extends IBasePresenter {

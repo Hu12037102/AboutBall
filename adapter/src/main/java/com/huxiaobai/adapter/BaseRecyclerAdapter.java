@@ -6,6 +6,7 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,6 +47,7 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
     private LinearLayout mHeadLinearLayout;
     private LinearLayout mFootLinearLayout;
     private boolean mIsItemClick;
+    private boolean isShowNotDataView = true;
 
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -174,6 +176,9 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
         return super.getItemViewType(position);
     }
 
+    public void setShowNotDataView(boolean isShowNotDataView) {
+        this.isShowNotDataView = isShowNotDataView;
+    }
 
     @NonNull
     @Override
@@ -223,6 +228,11 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
 
         } else if (viewHolder instanceof NotDataViewHolder) {
             final NotDataViewHolder notDataHolder = (NotDataViewHolder) viewHolder;
+            if (!isShowNotDataView) {
+                notDataHolder.itemView.setVisibility(View.GONE);
+            } else {
+                notDataHolder.itemView.setVisibility(View.VISIBLE);
+            }
             notDataHolder.mIvNotData.setImageResource(mNotDataViewRes);
             notDataHolder.mTvNotData.setText(mNotDataContentRes);
             notDataHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -243,10 +253,10 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
                                 + (notDataHolder.itemView.getMeasuredHeight() - mHeadLinearLayout.getMeasuredHeight() > notDataHolder.mLlParent.getMeasuredHeight()));
                         ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) notDataHolder.itemView.getLayoutParams();
                         int lastHeight = displayMetrics.heightPixels - mHeadLinearLayout.getMeasuredHeight();
-                        if (lastHeight > notDataHolder.mLlParent.getMeasuredHeight()){
+                        if (lastHeight > notDataHolder.mLlParent.getMeasuredHeight()) {
                             layoutParams.height = lastHeight;
                             notDataHolder.mLlParent.setPadding(0, 0, 0, 0);
-                        }else {
+                        } else {
                             layoutParams.height = ViewGroup.MarginLayoutParams.WRAP_CONTENT;
                             notDataHolder.mLlParent.setPadding(0, dp2px(mContext, 40), 0, dp2px(mContext, 40));
                         }

@@ -9,6 +9,7 @@ import com.work.guaishouxingqiu.aboutball.home.bean.RequestSendMessageBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultHomeTabBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsMessageBean;
+import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsSearchBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultRecommendDataBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 
@@ -51,8 +52,8 @@ public interface HomeService {
     Observable<BaseBean<BaseDataBean<String>>> postSendMessageContent(@Body RequestSendMessageBean bean);
 
     @GET(IApiService.GET_SEARCH_NEWS_DATA)
-    Observable<BaseBean<List<ResultNewsBean>>> getSearchNewsData(@Query(Contast.KEYWORD) String content,
-                                                                 @Query(Contast.PAGE_NUM) int pageNum,
-                                                                 @Query(Contast.PAGE_SIZE) int pageSize);
+    Observable<BaseBean<ResultNewsSearchBean>> getSearchNewsData(@Query(Contast.KEYWORD) String content,
+                                                                       @Query(Contast.PAGE_NUM) int pageNum,
+                                                                       @Query(Contast.PAGE_SIZE) int pageSize);
 
 }

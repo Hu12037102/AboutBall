@@ -1,21 +1,26 @@
 package com.work.guaishouxingqiu.aboutball.home.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.LinearLayout;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
+import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.home.adapter.NewsSearchAdapter;
+import com.work.guaishouxingqiu.aboutball.home.adapter.RecommendedAdapter;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsBean;
+import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsSearchBean;
 import com.work.guaishouxingqiu.aboutball.home.contract.NewsSearchContract;
 import com.work.guaishouxingqiu.aboutball.home.presenter.NewsSearchPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
@@ -44,9 +49,15 @@ public class NewsSearchActivity extends BaseActivity<NewsSearchPresenter> implem
     @BindView(R.id.srl_refresh)
     SmartRefreshLayout mSrlRefresh;
     private String mSearchContent;
-    private List<ResultNewsBean> mData;
-    private NewsSearchAdapter mSearchAdapter;
+    private List<ResultNewsBean> mHeadData;
+    private NewsSearchAdapter mHeadAdapter;
     private View mInflateView;
+    private View mHeadView;
+    private LinearLayout mLlHeadNot;
+    private LinearLayout mLlHeadData;
+    private RecyclerView mRvHeadData;
+    private RecommendedAdapter mAdapter;
+    private List<ResultNewsBean> mData;
 
     @Override
     protected int getLayoutId() {
@@ -58,15 +69,30 @@ public class NewsSearchActivity extends BaseActivity<NewsSearchPresenter> implem
         mRvData.setLayoutManager(new LinearLayoutManager(this));
     }
 
+    private void initHeadView() {
+        mHeadView = getLayoutInflater().inflate(R.layout.item_head_news_search_view, mRvData, false);
+        mLlHeadNot = mHeadView.findViewById(R.id.ll_head_not);
+        mLlHeadData = mHeadView.findViewById(R.id.ll_head_data);
+        mRvHeadData = mHeadView.findViewById(R.id.rv_head_data);
+        mRvHeadData.setLayoutManager(new LinearLayoutManager(this));
+        mHeadData = new ArrayList<>();
+        mHeadAdapter = new NewsSearchAdapter(mHeadData, mSearchContent);
+        mRvHeadData.setAdapter(mHeadAdapter);
+    }
+
     @Override
     protected void initData() {
+        initHeadView();
         mData = new ArrayList<>();
-        mSearchAdapter = new NewsSearchAdapter(mData, mSearchContent);
-        mSearchAdapter.setHasStableIds(true);
-        mRvData.setAdapter(mSearchAdapter);
+        mAdapter = new RecommendedAdapter(mData);
+        mAdapter.setShowNotDataView(false);
+        mAdapter.setHasStableIds(true);
+        mAdapter.addHeadView(mHeadView);
+        mRvData.setAdapter(mAdapter);
 
         // mInflateView = LayoutInflater.from(this).inflate(R.layout.item_not_more, mRvData, false);
     }
+
 
     @Override
     protected void initEvent() {
@@ -76,10 +102,13 @@ public class NewsSearchActivity extends BaseActivity<NewsSearchPresenter> implem
                 if (DataUtils.isEmpty(mSearchContent)) {
                     Toasts.with().showToast(R.string.please_input_search_content);
                 } else {
+                    mData.clear();
+                    mHeadData.clear();
+                    mHeadAdapter.notifyDataSetChanged();
+                    mAdapter.notifyDataSetChanged();
                     mPresenter.searchNews(mSearchContent);
                     return true;
                 }
-
                 //搜索逻辑
             }
             return false;
@@ -95,23 +124,8 @@ public class NewsSearchActivity extends BaseActivity<NewsSearchPresenter> implem
                 loadData(refreshLayout, true);
             }
         });
-        mSearchAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
-            @Override
-            public void onNotNetClick(View view) {
-
-            }
-
-            @Override
-            public void onNotDataClick(View view) {
-
-            }
-
-            @Override
-            public void onItemClick(View view, int position) {
-                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_NEW_DETAILS,
-                        ARouterConfig.Key.NEW_DETAILS_ID, mData.get(position).newsId);
-            }
-        });
+        mHeadAdapter.setOnItemClickListener((view, position) -> ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_NEW_DETAILS,
+                ARouterConfig.Key.NEW_DETAILS_ID, mHeadData.get(position).newsId));
     }
 
     private void loadData(RefreshLayout refreshLayout, boolean isRefresh) {
@@ -141,18 +155,32 @@ public class NewsSearchActivity extends BaseActivity<NewsSearchPresenter> implem
     }
 
     @Override
-    public void resultSearchNewsData(List<ResultNewsBean> data) {
-        if (mPresenter.isRefresh) {
+    public void resultSearchNewsData(ResultNewsSearchBean bean) {
+        if (bean.newsForSearchList != null) {
             mData.clear();
+            mLlHeadNot.setVisibility(View.GONE);
+            mLlHeadData.setVisibility(View.VISIBLE);
+            if (mPresenter.isRefresh && mHeadData.size() > 0) {
+                mHeadData.clear();
+            }
+            if (bean.newsForSearchList.size() > 0) {
+                mHeadData.addAll(bean.newsForSearchList);
+            }
+            mViewModel.setRefreshViewMoreStatus(mSrlRefresh, bean.newsForSearchList, mPresenter.mPageSize);
+            mHeadAdapter.notifyData(mSearchContent);
+
+        } else if (bean.newsForRecommendList != null) {
+            mHeadData.clear();
+            mLlHeadNot.setVisibility(View.VISIBLE);
+            mLlHeadData.setVisibility(View.GONE);
+            if (mData.size() > 0) {
+                mData.clear();
+            }
+            if (bean.newsForRecommendList.size() > 0) {
+                mData.addAll(bean.newsForRecommendList);
+            }
         }
-        mData.addAll(data);
-        mSrlRefresh.setEnableLoadMore(data.size() >= mPresenter.mPageSize);
-     /*   if (mSearchAdapter.isHaveFootView) {
-            mSearchAdapter.removeFootView();
-        }
-        if (data.size() < mPresenter.mPageSize) {
-            mSearchAdapter.addFootView(UIUtils.loadNotMoreView(mRvData));
-        }*/
-        mSearchAdapter.notifyData(mSearchContent);
+        mAdapter.notifyDataSetChanged();
+
     }
 }

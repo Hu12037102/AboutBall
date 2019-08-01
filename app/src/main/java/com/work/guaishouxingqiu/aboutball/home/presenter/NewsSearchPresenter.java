@@ -7,8 +7,10 @@ import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsBean;
+import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsSearchBean;
 import com.work.guaishouxingqiu.aboutball.home.contract.NewsSearchContract;
 import com.work.guaishouxingqiu.aboutball.home.model.NewsSearchModel;
+import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 
 import java.util.List;
@@ -42,10 +44,10 @@ public class NewsSearchPresenter extends BasePresenter<NewsSearchContract.View, 
         if (isRefresh) {
             mPageNum = Contast.DEFAULT_PAGE_NUM;
         }
-        mModel.loadSearchNews(content, mPageNum, mPageSize, new BaseObserver<>(true, this, new BaseObserver.Observer<List<ResultNewsBean>>() {
+        mModel.loadSearchNews(content, mPageNum, mPageSize, new BaseObserver<>(true, this, new BaseObserver.Observer<ResultNewsSearchBean>() {
             @Override
-            public void onNext(BaseBean<List<ResultNewsBean>> t) {
-                if (DataUtils.isResultSure(t)) {
+            public void onNext(BaseBean<ResultNewsSearchBean> t) {
+                if (t.code == IApi.Code.SUCCEED) {
                     mPageNum++;
                     mView.resultSearchNewsData(t.result);
                 }
