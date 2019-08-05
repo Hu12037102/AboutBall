@@ -51,16 +51,20 @@ public class NewsSearchActivity extends BaseActivity<NewsSearchPresenter> implem
     RecyclerView mRvData;
     @BindView(R.id.srl_refresh)
     SmartRefreshLayout mSrlRefresh;
+    @BindView(R.id.ll_head_root)
+    LinearLayout mLlHeadRoot;
     private String mSearchContent;
     private List<ResultNewsBean> mHeadData;
     private NewsSearchAdapter mHeadAdapter;
     private View mInflateView;
-    private View mHeadView;
-    private LinearLayout mLlHeadNot;
-    private RecyclerView mRvHeadData;
+    @BindView(R.id.ll_head_not)
+    LinearLayout mLlHeadNot;
+    @BindView(R.id.rv_head_data)
+    RecyclerView mRvHeadData;
     private RecommendedAdapter mAdapter;
     private List<ResultNewsBean> mData;
-    private TextView mTvHeadNotHint;
+    @BindView(R.id.tv_head_not_data_hint)
+    TextView mTvHeadNotHint;
 
     @Override
     protected int getLayoutId() {
@@ -73,10 +77,6 @@ public class NewsSearchActivity extends BaseActivity<NewsSearchPresenter> implem
     }
 
     private void initHeadView() {
-        mHeadView = getLayoutInflater().inflate(R.layout.item_head_news_search_view, mRvData,false);
-        mLlHeadNot = mHeadView.findViewById(R.id.ll_head_not);
-        mRvHeadData = mHeadView.findViewById(R.id.rv_head_data);
-        mTvHeadNotHint = mHeadView.findViewById(R.id.tv_head_not_data_hint);
         mRvHeadData.setLayoutManager(new LinearLayoutManager(this));
         mHeadData = new ArrayList<>();
         mHeadAdapter = new NewsSearchAdapter(mHeadData, mSearchContent);
@@ -89,8 +89,6 @@ public class NewsSearchActivity extends BaseActivity<NewsSearchPresenter> implem
         mData = new ArrayList<>();
         mAdapter = new RecommendedAdapter(mData);
         mAdapter.setShowNotDataView(false);
-        mAdapter.setHasStableIds(true);
-        mAdapter.addHeadView(mHeadView);
         mRvData.setAdapter(mAdapter);
 
         // mInflateView = LayoutInflater.from(this).inflate(R.layout.item_not_more, mRvData, false);
@@ -110,7 +108,6 @@ public class NewsSearchActivity extends BaseActivity<NewsSearchPresenter> implem
                     mHeadAdapter.notifyDataSetChanged();
                     mAdapter.notifyDataSetChanged();
                     mPresenter.searchNews(mSearchContent);
-
                     return true;
                 }
                 //搜索逻辑
@@ -130,6 +127,23 @@ public class NewsSearchActivity extends BaseActivity<NewsSearchPresenter> implem
         });
         mHeadAdapter.setOnItemClickListener((view, position) -> ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_NEW_DETAILS,
                 ARouterConfig.Key.NEW_DETAILS_ID, mHeadData.get(position).newsId));
+        mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onNotNetClick(View view) {
+
+            }
+
+            @Override
+            public void onNotDataClick(View view) {
+
+            }
+
+            @Override
+            public void onItemClick(View view, int position) {
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_NEW_DETAILS,
+                        ARouterConfig.Key.NEW_DETAILS_ID, mData.get(position).newsId);
+            }
+        });
     }
 
     private void notifyNotHeadHint() {
@@ -166,10 +180,12 @@ public class NewsSearchActivity extends BaseActivity<NewsSearchPresenter> implem
 
     @Override
     public void resultSearchNewsData(ResultNewsSearchBean bean) {
+        //搜索内容不为空的时候
         if (bean.newsForSearchList != null) {
+            mRvData.setVisibility(View.GONE);
+            mRvHeadData.setVisibility(View.VISIBLE);
             mData.clear();
             mLlHeadNot.setVisibility(View.GONE);
-            mRvHeadData.setVisibility(View.VISIBLE);
             if (mPresenter.isRefresh && mHeadData.size() > 0) {
                 mHeadData.clear();
             }
@@ -177,20 +193,23 @@ public class NewsSearchActivity extends BaseActivity<NewsSearchPresenter> implem
                 mHeadData.addAll(bean.newsForSearchList);
             }
             mViewModel.setRefreshViewMoreStatus(mSrlRefresh, bean.newsForSearchList, mPresenter.mPageSize);
+            mHeadAdapter.notifyData(mSearchContent, bean.newsForSearchList.size() == mPresenter.mPageSize);
+            mRvHeadData.smoothScrollToPosition(mHeadData.size() - bean.newsForSearchList.size());
+            //推荐内容不为空
         } else if (bean.newsForRecommendList != null) {
-            notifyNotHeadHint();
-            mHeadData.clear();
-            mLlHeadNot.setVisibility(View.VISIBLE);
+            mRvData.setVisibility(View.VISIBLE);
             mRvHeadData.setVisibility(View.GONE);
+            mLlHeadNot.setVisibility(View.VISIBLE);
+            notifyNotHeadHint();
             if (mData.size() > 0) {
                 mData.clear();
             }
             if (bean.newsForRecommendList.size() > 0) {
                 mData.addAll(bean.newsForRecommendList);
             }
+            mAdapter.notifyDataSetChanged();
         }
-        mHeadAdapter.notifyData(mSearchContent);
-        mAdapter.notifyDataSetChanged();
+
 
     }
 }

@@ -28,6 +28,8 @@ public class NewsSearchAdapter extends RecyclerView.Adapter<NewsSearchAdapter.Vi
     private String mSearchText;
     private List<ResultNewsBean> mData;
 
+    private boolean mHasMore = true;
+
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
@@ -58,22 +60,23 @@ public class NewsSearchAdapter extends RecyclerView.Adapter<NewsSearchAdapter.Vi
                 onItemClickListener.onClickItem(view, position);
             }
         });
+        if (!mHasMore && mData.size() - 1 == position) {
+            viewHolder.mIncludeFoot.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.mIncludeFoot.setVisibility(View.GONE);
+        }
     }
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
 
     @Override
     public int getItemCount() {
         return mData == null ? 0 : mData.size();
     }
 
-    public void notifyData(String searchText) {
+    public void notifyData(String searchText, boolean hasMore) {
         this.mSearchText = searchText;
+        this.mHasMore = hasMore;
         this.notifyDataSetChanged();
-
     }
 /*
     @Override
@@ -94,6 +97,7 @@ public class NewsSearchAdapter extends RecyclerView.Adapter<NewsSearchAdapter.Vi
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTvContent;
+        private View mIncludeFoot;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -102,6 +106,7 @@ public class NewsSearchAdapter extends RecyclerView.Adapter<NewsSearchAdapter.Vi
 
         private void initView(View itemView) {
             mTvContent = itemView.findViewById(R.id.tv_content);
+            mIncludeFoot = itemView.findViewById(R.id.include_foot);
         }
     }
 }
