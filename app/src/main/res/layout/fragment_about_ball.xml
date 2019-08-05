@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorTheme"
-    android:orientation="vertical">
+    android:background="@color/colorTheme">
 
     <ViewStub
         android:id="@+id/vs_rule"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_35dp"
-        android:layout="@layout/layout_hint_rule_view" />
+        android:layout="@layout/layout_hint_rule_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/srl_data"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vs_rule">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_data"
@@ -23,4 +28,16 @@
             android:layout_height="match_parent" />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/iv_create"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
+        android:layout_marginBottom="@dimen/size_50dp"
+        android:contentDescription="@null"
+        android:src="@mipmap/icon_create"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

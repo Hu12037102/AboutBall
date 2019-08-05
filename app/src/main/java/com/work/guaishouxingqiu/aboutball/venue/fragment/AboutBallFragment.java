@@ -3,9 +3,11 @@ package com.work.guaishouxingqiu.aboutball.venue.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.ImageView;
@@ -32,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * 作者: 胡庆岭
@@ -73,7 +76,7 @@ public class AboutBallFragment extends DelayedFragment<AboutBallPresenter> imple
             mInflateRuleView.setBackgroundResource(R.color.colorFFEBF0FF);
             ImageView mIvClose = mInflateRuleView.findViewById(R.id.iv_close);
             TextView mTvRule = mInflateRuleView.findViewById(R.id.tv_rule);
-            mTvRule.setTextColor(ContextCompat.getColor(mContext,R.color.color_2));
+            mTvRule.setTextColor(ContextCompat.getColor(mContext, R.color.color_2));
             mIvClose.setImageResource(R.mipmap.icon_item_right);
             /*mIvClose.setOnClickListener(v -> {
                 sph.putObject(KEY_RULE_STATUS, false);
@@ -107,6 +110,17 @@ public class AboutBallFragment extends DelayedFragment<AboutBallPresenter> imple
             refreshLayout.finishLoadMore();
         }
 
+    }
+
+    @OnClick(R.id.iv_create)
+    public void onClickView(View view) {
+        switch (view.getId()) {
+            case R.id.iv_create:
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_CREATE_BALL);
+                break;
+            default:
+                break;
+        }
     }
 
     private void startActivityToAboutBallDetails(ResultAboutBallBean bean) {

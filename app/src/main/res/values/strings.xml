@@ -620,6 +620,10 @@
     <string name="video_deals_with_video" translatable="false">视频处理失败</string>
     <string name="abnormal_illegal_state" translatable="false">非法状态异常</string>
     <string name="not_find_this_notification" translatable="false">找不到该通知</string>
-    <string name="find_the_following_recommendations_for_you">为您找到以下推荐内容</string>
-    <string name="the_content_has_not_been_found_yet">暂时没有找到“%s”相关内容，请重新输入搜索信息</string>
+    <string name="find_the_following_recommendations_for_you" translatable="false">为您找到以下推荐内容</string>
+    <string name="the_content_has_not_been_found_yet" translatable="false">暂时没有找到“%s”相关内容，请重新输入搜索信息</string>
+    <string name="select_the_starting_team" translatable="false">选择发起球队</string>
+    <string name="contact_way" translatable="false">联系方式</string>
+    <string name="please_input_contact_way" translatable="false">请输入联系方式</string>
+    <string name="sure_launch" translatable="false">确定发起</string>
 </resources>

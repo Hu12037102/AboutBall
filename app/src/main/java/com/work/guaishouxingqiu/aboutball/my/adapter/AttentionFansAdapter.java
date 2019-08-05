@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
@@ -44,7 +43,7 @@ public class AttentionFansAdapter extends BaseRecyclerAdapter<AttentionFansAdapt
         ResultAttentionFanBean bean = mData.get(i);
         GlideManger.get().loadHeadImage(mContext, bean.headerImg, viewHolder.mCivHead);
         if (bean.isFollow == 0) {
-            viewHolder.mIvAttentionStatus.setImageResource(R.mipmap.icon_add_followed);
+            viewHolder.mIvAttentionStatus.setImageResource(R.mipmap.icon_blue_add_following);
         } else if (bean.isFollow == 1) {
             viewHolder.mIvAttentionStatus.setImageResource(R.mipmap.icon_followed);
         }
