@@ -3,21 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@color/colorWhite">
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/ll_head_not"
         android:layout_width="match_parent"
-        android:layout_height="275dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone"
         tools:ignore="UselessParent">
 
         <TextView
+            android:id="@+id/tv_head_not_data_hint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginTop="@dimen/size_30dp"
+            android:layout_marginRight="@dimen/default_margin"
+            android:layout_marginBottom="@dimen/size_30dp"
             android:drawableTop="@mipmap/ic_not_data"
             android:drawablePadding="@dimen/size_10dp"
             android:gravity="center_horizontal"
@@ -43,19 +48,13 @@
             android:text="@string/find_the_following_recommendations_for_you"
             android:textColor="@color/color_4"
             android:textSize="@dimen/size_17sp" />
+
+        <View style="@style/HorizontalLine" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_head_data"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_head_data"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_head_data"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

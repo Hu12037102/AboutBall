@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
@@ -26,6 +27,8 @@ import com.work.guaishouxingqiu.aboutball.home.presenter.NewsSearchPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
+import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import java.util.ArrayList;
@@ -54,10 +57,10 @@ public class NewsSearchActivity extends BaseActivity<NewsSearchPresenter> implem
     private View mInflateView;
     private View mHeadView;
     private LinearLayout mLlHeadNot;
-    private LinearLayout mLlHeadData;
     private RecyclerView mRvHeadData;
     private RecommendedAdapter mAdapter;
     private List<ResultNewsBean> mData;
+    private TextView mTvHeadNotHint;
 
     @Override
     protected int getLayoutId() {
@@ -70,10 +73,10 @@ public class NewsSearchActivity extends BaseActivity<NewsSearchPresenter> implem
     }
 
     private void initHeadView() {
-        mHeadView = getLayoutInflater().inflate(R.layout.item_head_news_search_view, mRvData, false);
+        mHeadView = getLayoutInflater().inflate(R.layout.item_head_news_search_view, mRvData,false);
         mLlHeadNot = mHeadView.findViewById(R.id.ll_head_not);
-        mLlHeadData = mHeadView.findViewById(R.id.ll_head_data);
         mRvHeadData = mHeadView.findViewById(R.id.rv_head_data);
+        mTvHeadNotHint = mHeadView.findViewById(R.id.tv_head_not_data_hint);
         mRvHeadData.setLayoutManager(new LinearLayoutManager(this));
         mHeadData = new ArrayList<>();
         mHeadAdapter = new NewsSearchAdapter(mHeadData, mSearchContent);
@@ -107,6 +110,7 @@ public class NewsSearchActivity extends BaseActivity<NewsSearchPresenter> implem
                     mHeadAdapter.notifyDataSetChanged();
                     mAdapter.notifyDataSetChanged();
                     mPresenter.searchNews(mSearchContent);
+
                     return true;
                 }
                 //搜索逻辑
@@ -126,6 +130,12 @@ public class NewsSearchActivity extends BaseActivity<NewsSearchPresenter> implem
         });
         mHeadAdapter.setOnItemClickListener((view, position) -> ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_NEW_DETAILS,
                 ARouterConfig.Key.NEW_DETAILS_ID, mHeadData.get(position).newsId));
+    }
+
+    private void notifyNotHeadHint() {
+        String notContent = UIUtils.getString(R.string.the_content_has_not_been_found_yet, mSearchContent);
+        int index = notContent.indexOf(mSearchContent);
+        UIUtils.setText(mTvHeadNotHint, SpanUtils.getTextColor(R.color.color_2, index, index + mSearchContent.length(), notContent));
     }
 
     private void loadData(RefreshLayout refreshLayout, boolean isRefresh) {
@@ -159,7 +169,7 @@ public class NewsSearchActivity extends BaseActivity<NewsSearchPresenter> implem
         if (bean.newsForSearchList != null) {
             mData.clear();
             mLlHeadNot.setVisibility(View.GONE);
-            mLlHeadData.setVisibility(View.VISIBLE);
+            mRvHeadData.setVisibility(View.VISIBLE);
             if (mPresenter.isRefresh && mHeadData.size() > 0) {
                 mHeadData.clear();
             }
@@ -167,12 +177,11 @@ public class NewsSearchActivity extends BaseActivity<NewsSearchPresenter> implem
                 mHeadData.addAll(bean.newsForSearchList);
             }
             mViewModel.setRefreshViewMoreStatus(mSrlRefresh, bean.newsForSearchList, mPresenter.mPageSize);
-            mHeadAdapter.notifyData(mSearchContent);
-
         } else if (bean.newsForRecommendList != null) {
+            notifyNotHeadHint();
             mHeadData.clear();
             mLlHeadNot.setVisibility(View.VISIBLE);
-            mLlHeadData.setVisibility(View.GONE);
+            mRvHeadData.setVisibility(View.GONE);
             if (mData.size() > 0) {
                 mData.clear();
             }
@@ -180,6 +189,7 @@ public class NewsSearchActivity extends BaseActivity<NewsSearchPresenter> implem
                 mData.addAll(bean.newsForRecommendList);
             }
         }
+        mHeadAdapter.notifyData(mSearchContent);
         mAdapter.notifyDataSetChanged();
 
     }

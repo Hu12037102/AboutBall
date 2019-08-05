@@ -621,4 +621,5 @@
     <string name="abnormal_illegal_state" translatable="false">非法状态异常</string>
     <string name="not_find_this_notification" translatable="false">找不到该通知</string>
     <string name="find_the_following_recommendations_for_you">为您找到以下推荐内容</string>
+    <string name="the_content_has_not_been_found_yet">暂时没有找到“%s”相关内容，请重新输入搜索信息</string>
 </resources>

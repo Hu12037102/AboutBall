@@ -228,11 +228,7 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
 
         } else if (viewHolder instanceof NotDataViewHolder) {
             final NotDataViewHolder notDataHolder = (NotDataViewHolder) viewHolder;
-            if (!isShowNotDataView) {
-                notDataHolder.itemView.setVisibility(View.GONE);
-            } else {
-                notDataHolder.itemView.setVisibility(View.VISIBLE);
-            }
+
             notDataHolder.mIvNotData.setImageResource(mNotDataViewRes);
             notDataHolder.mTvNotData.setText(mNotDataContentRes);
             notDataHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -265,6 +261,12 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, D 
                     }
                 });
             }
+            if (!isShowNotDataView) {
+                notDataHolder.itemView.setVisibility(View.GONE);
+            } else {
+                notDataHolder.itemView.setVisibility(View.VISIBLE);
+            }
+
         } else if (getItemViewType(i) == 0) {
 
 
