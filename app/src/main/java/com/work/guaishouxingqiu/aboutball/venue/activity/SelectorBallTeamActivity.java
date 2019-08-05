@@ -1,9 +1,11 @@
 package com.work.guaishouxingqiu.aboutball.venue.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,6 +15,7 @@ import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.venue.adapter.SelectorBallTeamAdapter;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultMyBallTeamBean;
 import com.work.guaishouxingqiu.aboutball.venue.contract.SelectorBallTeamContract;
@@ -23,6 +26,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * 作者: 胡庆岭
@@ -36,10 +40,8 @@ public class SelectorBallTeamActivity extends BaseActivity<SelectorBallTeamPrese
     TitleView mTitleView;
     @BindView(R.id.rv_data)
     RecyclerView mRvData;
-    @BindView(R.id.tv_sures)
-    TextView mTvSure;
-    @BindView(R.id.rl_bottom)
-    View mRlBottom;
+
+
     private SelectorBallTeamAdapter mAdapter;
     private List<ResultMyBallTeamBean> mData;
     private ResultMyBallTeamBean mMyBallTeamBean;
@@ -52,9 +54,9 @@ public class SelectorBallTeamActivity extends BaseActivity<SelectorBallTeamPrese
     @Override
     protected void initView() {
         mMyBallTeamBean = mIntent.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
-        if (mMyBallTeamBean != null) {
+       /* if (mMyBallTeamBean != null) {
             mRlBottom.setVisibility(View.VISIBLE);
-        }
+        }*/
         mRvData.setLayoutManager(new LinearLayoutManager(this));
     }
 
@@ -68,14 +70,7 @@ public class SelectorBallTeamActivity extends BaseActivity<SelectorBallTeamPrese
 
     @Override
     protected void initEvent() {
-        mTvSure.setOnClickListener(v -> {
-            if (mAdapter.getCheckTeam() != null) {
-                Intent intent = new Intent();
-                intent.putExtra(ARouterConfig.Key.PARCELABLE, mAdapter.getCheckTeam());
-                setResult(RESULT_OK, intent);
-            }
-            finish();
-        });
+
         mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onNotNetClick(View view) {
@@ -89,7 +84,13 @@ public class SelectorBallTeamActivity extends BaseActivity<SelectorBallTeamPrese
 
             @Override
             public void onItemClick(View view, int position) {
-                mRlBottom.setVisibility(View.VISIBLE);
+                if (mAdapter.getCheckTeam() != null) {
+                    Intent intent = new Intent();
+                    intent.putExtra(ARouterConfig.Key.PARCELABLE, mAdapter.getCheckTeam());
+                    setResult(RESULT_OK, intent);
+                }
+                finish();
+                // mRlBottom.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -99,6 +100,16 @@ public class SelectorBallTeamActivity extends BaseActivity<SelectorBallTeamPrese
         return new SelectorBallTeamPresenter(this);
     }
 
+    @OnClick(R.id.iv_create)
+    public void onClickView(View view) {
+        switch (view.getId()) {
+            case R.id.iv_create:
+                ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_MANAGE_BALL_TEAM, this);
+                break;
+            default:
+                break;
+        }
+    }
 
     @Override
     public void resultMyBallTeam(List<ResultMyBallTeamBean> data) {
@@ -123,5 +134,15 @@ public class SelectorBallTeamActivity extends BaseActivity<SelectorBallTeamPrese
 
     }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case ARouterIntent.REQUEST_CODE:
+                    mPresenter.start();
+                    break;
+            }
+        }
+    }
 }
