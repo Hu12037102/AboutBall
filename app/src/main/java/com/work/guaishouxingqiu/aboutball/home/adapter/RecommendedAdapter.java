@@ -1,12 +1,14 @@
 package com.work.guaishouxingqiu.aboutball.home.adapter;
 
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.core.content.ContextCompat;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -158,7 +160,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
     }
 
     private void showHotView(ResultNewsBean bean, TextView view) {
-        if (Integer.valueOf(bean.commentCount) >= 10) {
+        if ( !DataUtils.isEmpty(bean.commentCount) && Integer.valueOf(bean.commentCount) >= 10) {
             view.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_hot, 0, 0, 0);
         } else {
             view.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);

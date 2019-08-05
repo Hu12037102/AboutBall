@@ -55,7 +55,7 @@ public class NewsSearchActivity extends BaseActivity<NewsSearchPresenter> implem
     LinearLayout mLlHeadRoot;
     private String mSearchContent;
     private List<ResultNewsBean> mHeadData;
-    private NewsSearchAdapter mHeadAdapter;
+    private RecommendedAdapter mHeadAdapter;
     private View mInflateView;
     @BindView(R.id.ll_head_not)
     LinearLayout mLlHeadNot;
@@ -79,7 +79,8 @@ public class NewsSearchActivity extends BaseActivity<NewsSearchPresenter> implem
     private void initHeadView() {
         mRvHeadData.setLayoutManager(new LinearLayoutManager(this));
         mHeadData = new ArrayList<>();
-        mHeadAdapter = new NewsSearchAdapter(mHeadData, mSearchContent);
+        mHeadAdapter = new RecommendedAdapter(mHeadData);
+        mHeadAdapter.setShowNotDataView(false);
         mRvHeadData.setAdapter(mHeadAdapter);
     }
 
@@ -125,8 +126,23 @@ public class NewsSearchActivity extends BaseActivity<NewsSearchPresenter> implem
                 loadData(refreshLayout, true);
             }
         });
-        mHeadAdapter.setOnItemClickListener((view, position) -> ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_NEW_DETAILS,
-                ARouterConfig.Key.NEW_DETAILS_ID, mHeadData.get(position).newsId));
+        mHeadAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onNotNetClick(View view) {
+
+            }
+
+            @Override
+            public void onNotDataClick(View view) {
+
+            }
+
+            @Override
+            public void onItemClick(View view, int position) {
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_NEW_DETAILS,
+                        ARouterConfig.Key.NEW_DETAILS_ID, mHeadData.get(position).newsId);
+            }
+        });
         mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onNotNetClick(View view) {
@@ -193,7 +209,8 @@ public class NewsSearchActivity extends BaseActivity<NewsSearchPresenter> implem
                 mHeadData.addAll(bean.newsForSearchList);
             }
             mViewModel.setRefreshViewMoreStatus(mSrlRefresh, bean.newsForSearchList, mPresenter.mPageSize);
-            mHeadAdapter.notifyData(mSearchContent, bean.newsForSearchList.size() == mPresenter.mPageSize);
+           // mHeadAdapter.notifyData(mSearchContent, bean.newsForSearchList.size() == mPresenter.mPageSize);
+            mHeadAdapter.notifyDataSetChanged();
             mRvHeadData.smoothScrollToPosition(mHeadData.size() - bean.newsForSearchList.size());
             //推荐内容不为空
         } else if (bean.newsForRecommendList != null) {
