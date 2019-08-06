@@ -269,7 +269,7 @@ public class DataUtils {
      * @return
      */
     public static boolean isVideo(@NonNull String url) {
-        return !DataUtils.isEmpty(url) && (url.endsWith(".mp4") || url.endsWith(".mp3") || url.endsWith(".avi"));
+        return !DataUtils.isEmpty(url) && (url.endsWith(".mp4") || url.endsWith(".3gp") || url.endsWith(".avi"));
     }
 
     /**

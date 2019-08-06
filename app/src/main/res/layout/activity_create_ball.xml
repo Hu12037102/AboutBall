@@ -57,7 +57,8 @@
         app:bottom_line_margin_right="@dimen/default_margin"
         app:content_right_icon="@mipmap/icon_item_right"
         app:show_bottom_line="true"
-        app:title_data="@string/time" />
+        app:title_data="@string/time"
+        android:visibility="gone"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

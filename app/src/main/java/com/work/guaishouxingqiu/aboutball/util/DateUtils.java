@@ -2,10 +2,14 @@ package com.work.guaishouxingqiu.aboutball.util;
 
 import android.annotation.SuppressLint;
 
+import androidx.annotation.NonNull;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 作者: 胡庆岭
@@ -66,6 +70,36 @@ public class DateUtils {
     }
 
     /**
+     * 选择的年月日是否大于现在时间
+     *
+     * @param date yyyy-MM-dd
+     * @return
+     */
+    public static boolean isSelectorDayThanNewDay(String date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date selectorDate = sdf.parse(date);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(selectorDate);
+            int selectorYear = calendar.get(Calendar.YEAR);
+            int selectorMonth = calendar.get(Calendar.MONTH);
+            int selectorDay = calendar.get(Calendar.DAY_OF_MONTH);
+            calendar.clear();
+            calendar.setTime(new Date());
+            int newYear = calendar.get(Calendar.YEAR);
+            int newMonth = calendar.get(Calendar.MONTH);
+            int newDay = calendar.get(Calendar.DAY_OF_MONTH);
+            LogUtils.w("isSelectorDayThanNewDay--", selectorYear + "--" + selectorMonth + "--" + selectorDay + "--" + newYear + "--" + newMonth + "--" + newDay);
+            return selectorYear > newYear || selectorMonth > newMonth || selectorDay > newDay;
+          /*  LogUtils.w("isSelectorDayThanNewDay--", selectorDate.getTime() + "---" + System.currentTimeMillis());
+            return selectorDate.getTime() > System.currentTimeMillis();*/
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
      * 根据时间戳显示年-月-日
      *
      * @param timestamp
@@ -75,7 +109,6 @@ public class DateUtils {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.format(new Date(timestamp));
     }
-
 
 
     private static String getMonthDayToWeek(int day) {
@@ -143,6 +176,23 @@ public class DateUtils {
         return "";
     }
 
+    /**
+     * 获取指定时间以后的日期
+     *
+     * @return 年月日时间集合
+     */
+    public static List<String> getCountYearForDay(@NonNull Date date, int dayCount) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+        List<String> dateData = new ArrayList<>();
+        for (int i = 0; i < dayCount; i++) {
+            calendar.setTime(date);
+            calendar.add(Calendar.DAY_OF_MONTH, i);
+            dateData.add(sdf.format(calendar.getTime()));
+        }
+        return dateData;
+    }
+
 
     /**
      * 根据当前日期返回后几天的年月日
@@ -195,7 +245,7 @@ public class DateUtils {
      * @return
      */
     public static String getDate(String time) {
-      //  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        //  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String dateTime = "";
         try {

@@ -89,8 +89,10 @@
     <string name="record_the_action" translatable="false">记录赛况</string>
     <string name="password" translatable="false">密码</string>
     <string name="login" translatable="false">登录</string>
-    <string name="my_focus">我的关注</string>
-    <string name="my_fans">我的粉丝</string>
+    <string name="my_focus" translatable="false">我的关注</string>
+    <string name="my_fans" translatable="false">我的粉丝</string>
+    <string name="please_selector_date" translatable="false">请选择日期</string>
+    <string name="please_selector_time" translatable="false">请选择时间</string>
     <string name="wechat_login" translatable="false">微信登录</string>
     <string name="register_account" translatable="false">注册账号</string>
     <string name="phone_shortcut_login" translatable="false">手机快捷登录</string>
@@ -626,4 +628,6 @@
     <string name="contact_way" translatable="false">联系方式</string>
     <string name="please_input_contact_way" translatable="false">请输入联系方式</string>
     <string name="sure_launch" translatable="false">确定发起</string>
+    <string name="selector_venue_time_than_new_time">选择场馆时间必须大于现在时间</string>
+    <string name="book_a_venue_not_selector" translatable="false">预定场地（非必选）</string>
 </resources>
