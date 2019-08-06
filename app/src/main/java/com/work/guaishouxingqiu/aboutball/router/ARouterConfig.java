@@ -79,6 +79,7 @@ public interface ARouterConfig {
         String ACTIVITY_MY_MESSAGE = "/activity/my/message";
         String ACTIVITY_MESSAGE_NOTIFICATION = "/activity/message/notification";
         String ACTIVITY_CREATE_BALL = "/activity/create/ball";
+        String ACTIVITY_VENUE_LIST = "/activity/venue/list";
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";

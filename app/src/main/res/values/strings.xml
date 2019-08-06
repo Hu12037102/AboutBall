@@ -630,4 +630,5 @@
     <string name="sure_launch" translatable="false">确定发起</string>
     <string name="selector_venue_time_than_new_time">选择场馆时间必须大于现在时间</string>
     <string name="book_a_venue_not_selector" translatable="false">预定场地（非必选）</string>
+    <string name="venue_list" translatable="false">场馆列表</string>
 </resources>

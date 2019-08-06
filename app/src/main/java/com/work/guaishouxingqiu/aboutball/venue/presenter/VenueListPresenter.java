@@ -20,7 +20,7 @@ import java.util.List;
  * 更新时间: 2019/3/18 10:41
  * 描述:场馆列表P
  */
-public class VenueListPresenter extends BasePresenter< VenueListContract.View,VenueListModel>
+public class VenueListPresenter extends BasePresenter<VenueListContract.View, VenueListModel>
         implements VenueListContract.Presenter {
 
 
@@ -30,12 +30,12 @@ public class VenueListPresenter extends BasePresenter< VenueListContract.View,Ve
 
     @Override
     public void start() {
-        mModel.loadBallListType(new BaseObserver<>(true,this, new BaseObserver.Observer<List<ResultTypeBean>>() {
+        mModel.loadBallListType(new BaseObserver<>(true, this, new BaseObserver.Observer<List<ResultTypeBean>>() {
             @Override
             public void onNext(BaseBean<List<ResultTypeBean>> bean) {
-                if ( bean.result != null) {
+                if (DataUtils.isResultSure(bean)) {
                     mView.resultBallTypeList(bean.result);
-                }else {
+                } else {
                     mView.resultBallTypeError();
                 }
             }
@@ -46,12 +46,13 @@ public class VenueListPresenter extends BasePresenter< VenueListContract.View,Ve
             }
         }));
     }
+
     @Override
     public void loadVenueList(RequestVenueListBean bean) {
         if (isRefresh) {
             mPageNum = 1;
         }
-        mModel.loadVenueList(mPageNum, mPageSize, bean, new BaseObserver<>(true,this, new BaseObserver.Observer<List<ResultVenueData>>() {
+        mModel.loadVenueList(mPageNum, mPageSize, bean, new BaseObserver<>(true, this, new BaseObserver.Observer<List<ResultVenueData>>() {
             @Override
             public void onNext(BaseBean<List<ResultVenueData>> bean) {
                 if (mView == null) {

@@ -110,7 +110,10 @@
         app:top_line_margin_right="@dimen/default_margin" />
 
     <TextView
+        android:id="@+id/tv_sures"
         style="@style/ButtonCenterText"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_45dp"
         android:layout_marginTop="@dimen/size_40dp"
         android:background="@drawable/shape_default_button"
         android:enabled="false"

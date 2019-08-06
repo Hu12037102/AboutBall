@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatEditText;
@@ -58,8 +59,11 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
     ItemView mItemSite;
     @BindView(R.id.acet_phone)
     AppCompatEditText mAcetPhone;
+    @BindView(R.id.tv_sures)
+    TextView mTvSure;
     private ResultMyBallTeamBean mMyBallTeam;
     private SingWheelDialog mTimeDialog;
+    private static final int REQUEST_CODE_SITE = 127;
 
     @Override
     protected int getLayoutId() {
@@ -80,7 +84,7 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
         mItemTime.mTvRight.setHintTextColor(ContextCompat.getColor(this, R.color.colorFFA6A6A6));
         mItemTime.mTvRight.setHint(R.string.please_selector_time);
 
-        mItemSite.mTvRight.setHintTextColor(ContextCompat.getColor(this,R.color.colorFFA6A6A6));
+        mItemSite.mTvRight.setHintTextColor(ContextCompat.getColor(this, R.color.colorFFA6A6A6));
         mItemSite.mTvRight.setHint(R.string.book_a_venue_not_selector);
 
     }
@@ -113,6 +117,7 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
                     mColorDialog.setOnColorSelectorListener((view1, color) -> {
                         //mRequestBean.guestShirtColor = color;
                         mItemColor.mTvRight.setText(color);
+                        notifyInputAllContent();
                     });
                 }
                 if (!mColorDialog.isShowing() && !isFinishing()) {
@@ -134,6 +139,7 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
                         mItemDate.mTvRight.setText(dateData.get(position));
                         LogUtils.w("mDateDialog--", DateUtils.isSelectorDayThanNewDay(dateData.get(position)) + "--");
                         mItemTime.setVisibility(View.VISIBLE);
+                        notifyInputAllContent();
                     });
                 }
                 if (!mDateDialog.isShowing() && !isFinishing()) {
@@ -146,6 +152,12 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
             @Override
             public void onClickItem(View view) {
                 clickShowTimeDialog();
+            }
+        });
+        mItemSite.setOnItemClickListener(new ItemView.OnItemClickListener() {
+            @Override
+            public void onClickItem(View view) {
+                ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_VENUE_LIST, CreateBallActivity.this, REQUEST_CODE_SITE);
             }
         });
     }
@@ -163,6 +175,7 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
                     } else {
                         UIUtils.showToast(R.string.selector_venue_time_than_new_time);
                     }
+                    notifyInputAllContent();
                 }
             });
         }
@@ -211,6 +224,7 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
                     }
                     mMyBallTeam = data.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
                     mItemTeam.setContentText(mMyBallTeam.teamName);
+                    notifyInputAllContent();
                     // mRequestBean.guestTeamId = mMyBallTeam.teamId;
                     break;
                 default:
@@ -218,7 +232,19 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
             }
         }
     }
-    public boolean isInputAllContent(){
-       return true;
+
+    public void notifyInputAllContent() {
+        if (!DataUtils.isEmpty(DataUtils.getTextViewContent(mItemTeam.mTvRight)) &&
+                !DataUtils.isEmpty(DataUtils.getTextViewContent(mItemColor.mTvRight)) &&
+                !DataUtils.isEmpty(DataUtils.getTextViewContent(mItemDate.mTvRight)) &&
+                !DataUtils.isEmpty(DataUtils.getTextViewContent(mItemTime.mTvRight))) {
+            mTvSure.setEnabled(true);
+            mTvSure.setBackground(ContextCompat.getDrawable(this, R.drawable.shape_click_button));
+        } else {
+            mTvSure.setEnabled(false);
+            mTvSure.setBackground(ContextCompat.getDrawable(this, R.drawable.shape_default_button));
+
+        }
+
     }
 }

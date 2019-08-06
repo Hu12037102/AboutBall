@@ -62,6 +62,7 @@ public class VenueListFragment extends BaseFragment<VenueListPresenter> implemen
 
     @Override
     protected void initView() {
+        mRvBallType.setVisibility(View.GONE);
         mRvBallType.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         mRvData.setLayoutManager(new LinearLayoutManager(getContext()));
         if (mNoTypeInflateView == null) {
