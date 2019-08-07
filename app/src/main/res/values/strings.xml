@@ -175,7 +175,7 @@
     <string name="net_error" translatable="false">网络异常！</string>
     <string name="live_no_start" translatable="false">直播尚未开始</string>
     <string name="team_stats" translatable="false">球队统计</string>
-    <string name="game_send_comment_hint" translatable="false">1&#160;&#160;踢球吧对直播内容进行24小时巡查，禁止传播违法
+    <string name="game_send_comment_hint" translatable="false">1踢球吧对直播内容进行24小时巡查，禁止传播违法
 违规、封建迷信、暴力血腥、低俗色情、招嫖诈骗、违禁品
 等不良信息，坚决维护青少年精神文明健康。</string>
     <string name="update_phone_number_title" translatable="false">更换绑定手机</string>
@@ -184,8 +184,8 @@
     <string name="you_not_band_phone_number" translatable="false">请绑定手机号</string>
     <string name="please_sure_and_read_agreement" translatable="false">请勾选并且认真阅读《用户协议》</string>
     <string name="match_record" translatable="false">比赛记录</string>
-    <!--&#160;  空格-->
-    <string name="notice" translatable="false">系统通知&#160;&#160;</string>
+    <!--  空格-->
+    <string name="notice" translatable="false">系统通知</string>
     <string name="game_id_error" translatable="false">比赛房间未找到！</string>
     <string name="please_open_location" translatable="false">请打开定位权限！</string>
     <string name="weight_not_zero" translatable="false">体重不能为0</string>
@@ -197,10 +197,10 @@
     <string name="clear_cache" translatable="false">清理缓存</string>
     <string name="user_agreement" translatable="false">用户协议</string>
     <string name="login_out" translatable="false">退出登录</string>
-    <string name="m" translatable="false">%s&#160;M</string>
+    <string name="m" translatable="false">%sM</string>
     <string name="clear_cache_complete" translatable="false">清理缓存完成</string>
     <string name="complete" translatable="false">完成</string>
-    <string name="from_data" translatable="false">来源：%s&#160;&#160;%s</string>
+    <string name="from_data" translatable="false">来源：%s%s</string>
     <string name="not_message" translatable="false">暂无评论</string>
     <string name="your_sure_login_out" translatable="false">您确定退出登录？</string>
     <string name="line_video_error" translatable="false">直播获取异常！</string>
@@ -228,8 +228,8 @@
     <string name="add_shipping_address" translatable="false">新增收货地址</string>
     <string name="message_my_address" translatable="false">管理我的收获地址</string>
     <string name="please_selector_address" translatable="false">请选择省/市/区</string>
-    <string name="your_sure_delete_member_body" translatable="false">是否将&#160;%s&#160;从成员中删除？</string>
-    <string name="your_sure_delete_member_host" translatable="false">是否将&#160;</string>
+    <string name="your_sure_delete_member_body" translatable="false">是否将%s从成员中删除？</string>
+    <string name="your_sure_delete_member_host" translatable="false">是否将</string>
     <string name="my_prize" translatable="false">我的奖品</string>
     <string name="you_not_installed_weichat" translatable="false">您还没有安装微信，是否前去下载</string>
     <string name="camera_is_must_permission" translatable="false">相机为必要权限，请允许！</string>
@@ -242,15 +242,15 @@
     <string name="read_more" translatable="false">查看更多</string>
     <string name="friend_ball" translatable="false">球友约球</string>
     <string name="title" translatable="false">标题</string>
-    <string name="period_of_validity" translatable="false">有&#160;&#160;效&#160;&#160;期:</string>
-    <string name="expiry_date_code" translatable="false">兑&#160;&#160;奖&#160;&#160;码:</string>
-    <string name="remark" translatable="false">备&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;注:</string>
+    <string name="period_of_validity" translatable="false">有效期:</string>
+    <string name="expiry_date_code" translatable="false">兑奖码:</string>
+    <string name="remark" translatable="false">备注:</string>
     <string name="way" translatable="false">兑奖方式:</string>
     <string name="have_change" translatable="false">已兑换</string>
     <string name="out_off_date" translatable="false">已过期</string>
     <string name="skip_s_second" translatable="false">跳过(%sS)</string>
     <string name="experience_immediately" translatable="false">立即体验</string>
-    <string name="prize_data" translatable="false">%s&#160;%s</string>
+    <string name="prize_data" translatable="false">%s%s</string>
     <string name="line_prize_input_address" translatable="false">线上邮寄奖品，请先完善收货信息，才能发货</string>
     <string name="resume_click_exit_app" translatable="false">再点击一次退出APP</string>
     <string name="pleases_next_open" translatable="false">功能正在开发中...</string>
@@ -290,9 +290,9 @@
     <string name="make_a_block_booking" translatable="false">包场</string>
     <string name="the_court_where_the_ball_is_to_be_played" translatable="false">待约球的场</string>
     <string name="make_a_block_booking_rule" translatable="false">包场为支付全场费用,不支持广场约球</string>
-    <string name="money_make_booking" translatable="false">¥%s&#160;&#160;包场</string>
+    <string name="money_make_booking" translatable="false">¥%s包场</string>
     <string name="post_about_ball" translatable="false">发起约球</string>
-    <string name="s_post_about_ball" translatable="false">¥%s&#160;&#160;发起约球</string>
+    <string name="s_post_about_ball" translatable="false">¥%s发起约球</string>
     <string name="post_ball_hint" translatable="false">约球功能会将您的约球信息自动发布至广场，开球前一天没有球队应邀，则退款并关闭此约球。</string>
     <string name="one_post_about_ball" translatable="false">1发起约球</string>
     <string name="two_sure_order" translatable="false">2确认订单</string>
@@ -310,7 +310,7 @@
     <string name="book_hint" translatable="false">包场为支付全场费用,不支持广场约球</string>
     <string name="order_details" translatable="false">订单详情</string>
     <string name="order_in_ten_minute" translatable="false">订单在10分钟内自动取消，请及时支付</string>
-    <string name="add_up_to_money_please_pay" translatable="false">合计:&#160;¥%s&#160;&#160;请支付</string>
+    <string name="add_up_to_money_please_pay" translatable="false">合计:¥%s请支付</string>
     <string name="sum_add" translatable="false">合计</string>
     <string name="please_add_up_to_order" translatable="false">请认真核对信息，包场暂不提供裁判</string>
     <string name="order_content" translatable="false">订单内容</string>
@@ -364,9 +364,9 @@
     <string name="delete_team_member" translatable="false">删除队员</string>
     <string name="report" translatable="false">举报</string>
     <string name="exit_ball_team" translatable="false">退出球队</string>
-    <string name="you_sure_exit_s_team" translatable="false">您确定退出&#160;%s&#160;球队</string>
-    <string name="you_sure_exit" translatable="false">您确定退出&#160;</string>
-    <string name="you_sure_dissolution_of_the_team_s" translatable="false">您确定解除&#160;%s&#160;球队</string>
+    <string name="you_sure_exit_s_team" translatable="false">您确定退出%s球队</string>
+    <string name="you_sure_exit" translatable="false">您确定退出</string>
+    <string name="you_sure_dissolution_of_the_team_s" translatable="false">您确定解除%s球队</string>
     <string name="weichat_friend" translatable="false">微信好友</string>
     <string name="weichat_circle_of_friends" translatable="false">朋友圈</string>
     <string name="qq_friend" translatable="false">朋友圈</string>
@@ -560,8 +560,8 @@
     <string name="there_are_no_previews_video" translatable="false">没有可以预览的视频</string>
     <string name="please_selector_report_case" translatable="false">请选择举报原因</string>
     <string name="you_sure_delete_community" translatable="false">你确定删除该动态</string>
-    <string name="attention_s" translatable="false">关注&#160;&#160;%s&#160;&#160;|&#160;&#160;</string>
-    <string name="fans_s" translatable="false">粉丝&#160;&#160;%s</string>
+    <string name="attention_s" translatable="false">关注%s|</string>
+    <string name="fans_s" translatable="false">粉丝%s</string>
     <string name="your_are_banding_weichat_code" translatable="false">您已经绑定了微信号</string>
     <string name="attack" translatable="false">进攻</string>
     <string name="ball_possession" translatable="false">控球率</string>

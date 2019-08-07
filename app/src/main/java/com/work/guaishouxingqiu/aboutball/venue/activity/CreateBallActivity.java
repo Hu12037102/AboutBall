@@ -193,7 +193,7 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
                 @Override
                 public void onClickItem(@NonNull View view, int position) {
                     if (isSureSelectorTime(DataUtils.getTextViewContent(mItemDate.mTvRight), timeData.get(position))) {
-                        String[] timeArray = timeData.get(position).split(" - ");
+                        String[] timeArray = timeData.get(position).split("-");
                         if (timeArray.length >= 2) {
                             mRequestBean.startTime = DataUtils.getTextViewContent(mItemDate.mTvRight) + " " + timeArray[0] + ":00";
                             mRequestBean.endTime = DataUtils.getTextViewContent(mItemDate.mTvRight) + " " + timeArray[1] + ":00";
@@ -213,13 +213,14 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
 
 
     @OnClick(R.id.tv_sures)
-    public void onClickView(View view){
-        switch (view.getId()){
+    public void onClickView(View view) {
+        switch (view.getId()) {
             case R.id.tv_sures:
                 mPresenter.createPostBall(mRequestBean);
                 break;
         }
     }
+
     /**
      * 是否可以选择当前时间
      *
@@ -231,7 +232,7 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
         if (DateUtils.isSelectorDayThanNewDay(date)) {
             return true;
         }
-        String[] timeArray = time.split(" - ");
+        String[] timeArray = time.split("-");
         if (timeArray.length > 0) {
             String[] hourArray = timeArray[0].split(":");
             if (hourArray.length > 0) {
@@ -316,6 +317,7 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
         mRequestBean.startTime = venueBookBean.startTime;
         mRequestBean.endTime = venueBookBean.endTime;
         mItemTime.mTvRight.setText(DateUtils.getStartTime2EndTimeForHourMinute(venueBookBean.startTime, venueBookBean.endTime));
+        notifyInputAllContent();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -327,7 +329,11 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
     }
 
     @Override
-    public void resultCreateBallOrderId(long orderId) {
-        mViewModel.startActivityToOrderPay(orderId, Contast.PayOrderFlag.PAY_LAUNCHER_ORDER);
+    public void resultCreateBallOrderId(String orderId) {
+        if (orderId != null) {
+            mViewModel.startActivityToOrderPay(Long.valueOf(orderId), Contast.PayOrderFlag.PAY_LAUNCHER_ORDER);
+        }
+        mViewModel.clickBackForResult();
+
     }
 }

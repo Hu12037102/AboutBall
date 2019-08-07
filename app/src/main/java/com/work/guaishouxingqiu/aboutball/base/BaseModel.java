@@ -237,7 +237,7 @@ public class BaseModel {
                 .subscribe(observer);
     }
 
-    public void createPostBall(@NonNull RequestCreateBallBean ballBean,BaseObserver<BaseDataBean<Long>> observer) {
+    public void createPostBall(@NonNull RequestCreateBallBean ballBean,BaseObserver<BaseDataBean<String>> observer) {
         mRetrofitManger.create(BaseService.class)
                 .createPostBall(ballBean)
                 .subscribeOn(Schedulers.io())

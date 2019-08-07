@@ -25,6 +25,7 @@ import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.venue.activity.AboutBallDetailsActivity;
+import com.work.guaishouxingqiu.aboutball.venue.activity.CreateBallActivity;
 import com.work.guaishouxingqiu.aboutball.venue.adapter.AboutBallAdapter;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultAboutBallBean;
 import com.work.guaishouxingqiu.aboutball.venue.contract.AboutBallContract;
@@ -55,6 +56,7 @@ public class AboutBallFragment extends DelayedFragment<AboutBallPresenter> imple
     private List<ResultAboutBallBean> mData;
     private View mInflateRuleView;
     private int mClickPosition = -1;
+    private static final int REQUEST_CODE_CREATE_BALL = 245;
 
     @Override
     protected int getLayoutId() {
@@ -116,7 +118,7 @@ public class AboutBallFragment extends DelayedFragment<AboutBallPresenter> imple
     public void onClickView(View view) {
         switch (view.getId()) {
             case R.id.iv_create:
-                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_CREATE_BALL);
+                ARouterIntent.startActivityForResult(this, CreateBallActivity.class, REQUEST_CODE_CREATE_BALL);
                 break;
             default:
                 break;
@@ -201,6 +203,8 @@ public class AboutBallFragment extends DelayedFragment<AboutBallPresenter> imple
                 }
             }
             mAdapter.notifyDataSetChanged();
+        } else if (requestCode == REQUEST_CODE_CREATE_BALL && resultCode == Activity.RESULT_OK) {
+            mSrlData.autoRefresh();
         }
     }
 }

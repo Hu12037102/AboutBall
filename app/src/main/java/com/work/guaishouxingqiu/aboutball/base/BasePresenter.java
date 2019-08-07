@@ -522,9 +522,9 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
     }
 
     public void createPostBall(@NonNull RequestCreateBallBean ballBean) {
-        mModel.createPostBall(ballBean, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<Long>>() {
+        mModel.createPostBall(ballBean, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
             @Override
-            public void onNext(BaseBean<BaseDataBean<Long>> t) {
+            public void onNext(BaseBean<BaseDataBean<String>> t) {
                 if (DataUtils.baseDataBeanIsSucceed(t)) {
                     mView.resultCreateBallOrderId(t.result.result);
                 }

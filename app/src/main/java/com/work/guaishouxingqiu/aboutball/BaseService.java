@@ -75,5 +75,5 @@ public interface BaseService {
     @GET(IApiService.GET_CLEAR_RED_POINT)
     Observable<BaseBean<String>> clearRedPoint(@Query(Contast.NOTICE_TYPE) int noticeType);
     @POST(IApiService.POST_LAUNCHER_BALL)
-    Observable<BaseBean<BaseDataBean<Long>>> createPostBall(@Body RequestCreateBallBean ballBean);
+    Observable<BaseBean<BaseDataBean<String>>> createPostBall(@Body RequestCreateBallBean ballBean);
 }

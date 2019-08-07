@@ -75,5 +75,5 @@ public interface IBaseView {
 
     void resultClearRedPoint(boolean isSucceed);
 
-    void resultCreateBallOrderId(long orderId);
+    void resultCreateBallOrderId(String orderId);
 }

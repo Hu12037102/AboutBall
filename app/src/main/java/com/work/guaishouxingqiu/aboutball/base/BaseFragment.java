@@ -247,7 +247,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
     }
 
     @Override
-    public void resultCreateBallOrderId(long orderId) {
+    public void resultCreateBallOrderId(String orderId) {
 
     }
 }
