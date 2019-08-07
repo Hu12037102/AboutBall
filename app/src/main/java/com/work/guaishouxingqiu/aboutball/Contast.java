@@ -67,8 +67,8 @@ public interface Contast {
     String TOPIC_ID = "topicId";
     String GAME_ID = "gameId";
     String GROUP_ID = "groupId";
-    String USER_ID="userId";
-    String NOTICE_TYPE="noticeType";
+    String USER_ID = "userId";
+    String NOTICE_TYPE = "noticeType";
     //默认经度
     double DEFAULT_LONGITUDE = 115.770000;
     //默认纬度
@@ -141,6 +141,11 @@ public interface Contast {
         String Bugtag_ID = "96481d2c6099fa3e827b8c04d036d566";
         String UMENG_ID = "5c773884b465f59b44000a29";
 
+    }
+
+    interface VenueType {
+        //创建发起约球
+        int CREATE_BALL = 1;
     }
 
     interface LoginStatus {

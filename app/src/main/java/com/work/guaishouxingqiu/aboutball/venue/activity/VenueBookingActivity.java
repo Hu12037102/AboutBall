@@ -1,22 +1,29 @@
 package com.work.guaishouxingqiu.aboutball.venue.activity;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.google.android.material.tabs.TabLayout;
+
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -25,6 +32,7 @@ import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.media.IntentData;
+import com.work.guaishouxingqiu.aboutball.other.ActivityManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
@@ -38,6 +46,11 @@ import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueDetailsBean;
 import com.work.guaishouxingqiu.aboutball.venue.contract.VenueBookingContract;
 import com.work.guaishouxingqiu.aboutball.venue.presenter.VenueBookingPresenter;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
+import com.work.guaishouxingqiu.aboutball.weight.Toasts;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +86,10 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
     ImageView mIvClose;
     @BindView(R.id.tv_rule)
     TextView mTvRule;
+    @BindView(R.id.rl_create_sure)
+    RelativeLayout mRlCreateSure;
+    @BindView(R.id.ll_parent_bottom)
+    LinearLayout mLlParentBottom;
     private int mTabPosition;
     private long mAreaId, mStadiumId;
     private String mDate;
@@ -84,6 +101,7 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
     private VenueBookAdapter mBookAdapter;
     private VenueWaitBookAdapter mWaitBookAdapter;
     private static final int REQUEST_CODE_INVITATION = 112;
+    private boolean mIsCreateBall;
 
     @Override
     protected int getLayoutId() {
@@ -92,11 +110,14 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
 
     @Override
     protected void initView() {
+
         Bundle bundle = mIntent.getExtras();
         if (bundle == null) {
             finish();
             return;
         }
+        registerEventBus();
+        LogUtils.w("sendVenueTypeMessage--", "我收到消息啦initView" + "--");
         mIncludeRuleView.setBackgroundResource(R.color.colorFFEBF0FF);
         mIvClose.setImageResource(R.mipmap.icon_item_right);
         mTvRule.setTextColor(ContextCompat.getColor(this, R.color.color_2));
@@ -135,6 +156,7 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
                 } else {
                     mPresenter.loadWaitBookList(mAreaId, mCalendarData.get(mTabPosition).date);
                 }
+                mRlCreateSure.setVisibility(View.GONE);
             }
 
             @Override
@@ -245,7 +267,7 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
     }
 
 
-    @OnClick({R.id.tv_rule, R.id.tv_bottom_left, R.id.tv_bottom_right})
+    @OnClick({R.id.tv_rule, R.id.tv_bottom_left, R.id.tv_bottom_right, R.id.tv_create_sure})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -283,6 +305,12 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
                     ResultVenueBookBean bean = mWaitBookData.get(mWaitBookAdapter.getSelectorPosition());
                     mViewModel.startActivityToInvitation(bean.agreeId, bean.calendarId, VenueBookingActivity.REQUEST_CODE_INVITATION);
                 }
+                break;
+            case R.id.tv_create_sure:
+                EventBus.getDefault().post(mBookData.get(mBookAdapter.getSelectorPosition()));
+                ActivityManger.get().removeActivity(VenueDetailsActivity.class);
+                ActivityManger.get().removeActivity(VenueListActivity.class);
+                finish();
                 break;
 
         }
@@ -372,6 +400,17 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
                                     mLlBottom.setVisibility(View.GONE);
                                     mTvBottomLeft.setText(UIUtils.getString(R.string.make_a_block_booking));
                                 }
+                                if (mIsCreateBall) {
+                                    if (mBookAdapter.getCheckData().size() > 0) {
+                                        mRlCreateSure.setVisibility(View.VISIBLE);
+                                    } else {
+                                        mRlCreateSure.setVisibility(View.GONE);
+                                    }
+                                    mLlBottom.setVisibility(View.GONE);
+                                } /*else {
+                                    mLlBottom.setVisibility(View.VISIBLE);
+                                }*/
+
 
                               /*  if (mBookData.get(position).isCheck) {
                                     mTvBottomLeft.setText(UIUtils.getString(R.string.money_make_booking, mBookData.get(position).price));
@@ -461,4 +500,27 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
             return o == view;
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        unRegisterEventBus();
+        super.onDestroy();
+    }
+
+    /**
+     * 创建发起约球发送消息
+     *
+     * @param status
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void sendVenueTypeMessage(@NonNull CreateBallActivity.Status status) {
+        mBvpContent.setViewPagerScroll(false);
+        mRgBooking.setVisibility(View.GONE);
+        mIncludeRuleView.setVisibility(View.GONE);
+        mLlBottom.setVisibility(View.GONE);
+        mIsCreateBall = true;
+
+    }
+
+
 }

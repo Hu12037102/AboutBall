@@ -82,6 +82,10 @@ public class ARouterIntent {
         ARouter.getInstance().build(path).withInt(key, values).navigation(activity, requestCode);
     }
 
+    public static void startActivityForResult(@NonNull String path, @NonNull Activity activity, @NonNull String key1, int values1, @NonNull String key2, int values2, int requestCode) {
+        ARouter.getInstance().build(path).withInt(key1, values1).withInt(key2, values2).navigation(activity, requestCode);
+    }
+
     public static void startActivityForResult(@NonNull String path, @NonNull Activity activity, String key, long values) {
         ARouter.getInstance().build(path).withLong(key, values).navigation(activity, REQUEST_CODE);
     }

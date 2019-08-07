@@ -330,4 +330,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends LocationActi
     public void resultClearRedPoint(boolean isSucceed) {
 
     }
+    @Override
+    public void resultCreateBallOrderId(long orderId) {
+
+    }
 }

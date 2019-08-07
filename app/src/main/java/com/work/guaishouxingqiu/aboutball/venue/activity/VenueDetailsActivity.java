@@ -2,12 +2,16 @@ package com.work.guaishouxingqiu.aboutball.venue.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
+
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.tabs.TabLayout;
+
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +45,8 @@ import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueData;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueDetailsBean;
 import com.work.guaishouxingqiu.aboutball.venue.contract.VenueDetailsContract;
 import com.work.guaishouxingqiu.aboutball.venue.presenter.VenueDetailsPresenter;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -247,7 +253,7 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
     }
 
     private void clickGo() {
-        if (mDetailsBean.areaForDetailList != null &&
+        if (mDetailsBean != null && mDetailsBean.areaForDetailList != null &&
                 mDetailsBean.areaForDetailList.size() > mSelectorTabPosition) {
             Bundle bundle = new Bundle();
             bundle.putInt(ARouterConfig.Key.POSITION, mCalendarPosition);
@@ -255,7 +261,12 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
             bundle.putLong(ARouterConfig.Key.STADIUM_ID, mStadiumId);
             IntentData.get().putData(mDetailsBean.areaForDetailList.get(mSelectorTabPosition).calendarListForAreaList);
             ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_BOOKING, bundle);
+
+
+            EventBus.getDefault().post(new CreateBean(mDetailsBean.stadiumName, mDetailsBean.areaForDetailList.get(mSelectorTabPosition).areaName));
+
         }
+
     }
 
     private void clickCallPhone() {
@@ -451,5 +462,15 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
         bundle.putLong(ARouterConfig.Key.OFFER_ID, bean.agreeId);
         bundle.putInt(ARouterConfig.Key.ABOUT_BALL_FLAG, 0);
         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ABOUT_BALL_DETAILS, bundle);
+    }
+
+    public static class CreateBean {
+        public CreateBean(String venueName, String screening) {
+            this.venueName = venueName;
+            this.screening = screening;
+        }
+
+        public String venueName;
+        public String screening;
     }
 }

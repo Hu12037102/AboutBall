@@ -1,7 +1,10 @@
 package com.work.guaishouxingqiu.aboutball.other;
 
 import android.app.Activity;
+
 import androidx.annotation.NonNull;
+
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
@@ -40,6 +43,17 @@ public class ActivityManger {
         String key = activityClass.getSimpleName();
         if (mWeakMap.containsKey(key)) {
             if (mWeakMap.get(key) != null && mWeakMap.get(key).get() != null && !mWeakMap.get(key).get().isFinishing()) {
+                mWeakMap.get(key).get().finish();
+            }
+            mWeakMap.remove(key);
+        }
+    }
+
+    public void removeActivityForResult(@NonNull Class activityClass) {
+        String key = activityClass.getSimpleName();
+        if (mWeakMap.containsKey(key)) {
+            if (mWeakMap.get(key) != null && DataUtils.checkData(mWeakMap.get(key)).get() != null && !mWeakMap.get(key).get().isFinishing()) {
+                mWeakMap.get(key).get().setResult(Activity.RESULT_OK);
                 mWeakMap.get(key).get().finish();
             }
             mWeakMap.remove(key);

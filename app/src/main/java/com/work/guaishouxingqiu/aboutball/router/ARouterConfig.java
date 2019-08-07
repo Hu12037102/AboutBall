@@ -149,6 +149,7 @@ public interface ARouterConfig {
         String ORDER_FLAG = "orderFlag";
         String ORDER_DETAILS = "orderDetails";
         String VENUE_NAME = "venueName";
+        String VENUE_TYPE = "venueType";
         String TARGET_DATE = "targetDate";
         String TARGET_SITE = "targetSite";
         String TEAM_STATUS = "teamStatus";

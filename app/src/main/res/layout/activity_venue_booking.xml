@@ -5,65 +5,86 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <LinearLayout
-        android:id="@+id/ll_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/size_80dp"
+        android:id="@+id/ll_parent_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorWhite"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:orientation="vertical">
 
-        <View style="@style/HorizontalLine" />
-
-        <TextView
-            android:id="@+id/tv_bottom_hit"
+        <RelativeLayout
+            android:id="@+id/rl_create_sure"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_5dp"
-            android:gravity="center_horizontal"
-            android:text="@string/make_a_block_booking_rule"
-            android:textColor="@color/colorFFA6A6A6"
-            android:textSize="@dimen/size_12sp"/>
+            android:layout_height="@dimen/size_50dp"
+            android:background="@color/colorWhite"
+            android:visibility="gone">
+
+            <View style="@style/HorizontalLine" />
+
+            <TextView
+                android:id="@+id/tv_create_sure"
+                style="@style/ButtonCenterText"
+                android:layout_centerInParent="true"
+                android:text="@string/sure" />
+        </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/ll_bottom"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="bottom"
-            android:paddingBottom="@dimen/size_5dp">
+            android:layout_height="@dimen/size_80dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <View style="@style/HorizontalLine" />
 
             <TextView
-                android:id="@+id/tv_bottom_left"
-                android:layout_width="@dimen/size_0dp"
-                android:layout_height="@dimen/size_40dp"
-                android:layout_marginLeft="@dimen/size_20dp"
-                android:layout_marginRight="@dimen/size_15dp"
-                android:layout_weight="1"
-                android:background="@drawable/shape_stroke_blue_view"
-                android:gravity="center"
-                android:text="@string/make_a_block_booking"
-                android:textColor="@color/color_2" />
+                android:id="@+id/tv_bottom_hit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_5dp"
+                android:gravity="center_horizontal"
+                android:text="@string/make_a_block_booking_rule"
+                android:textColor="@color/colorFFA6A6A6"
+                android:textSize="@dimen/size_12sp" />
 
-            <TextView
-                android:id="@+id/tv_bottom_right"
-                android:layout_width="@dimen/size_0dp"
-                android:layout_height="@dimen/size_40dp"
-                android:layout_marginRight="@dimen/size_20dp"
-                android:layout_weight="1"
-                android:background="@drawable/shape_click_button"
-                android:gravity="center"
-                android:text="@string/post_about_ball"
-                android:textColor="@color/colorWhite" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:paddingBottom="@dimen/size_5dp">
+
+                <TextView
+                    android:id="@+id/tv_bottom_left"
+                    android:layout_width="@dimen/size_0dp"
+                    android:layout_height="@dimen/size_40dp"
+                    android:layout_marginLeft="@dimen/size_20dp"
+                    android:layout_marginRight="@dimen/size_15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_stroke_blue_view"
+                    android:gravity="center"
+                    android:text="@string/make_a_block_booking"
+                    android:textColor="@color/color_2" />
+
+                <TextView
+                    android:id="@+id/tv_bottom_right"
+                    android:layout_width="@dimen/size_0dp"
+                    android:layout_height="@dimen/size_40dp"
+                    android:layout_marginRight="@dimen/size_20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_click_button"
+                    android:gravity="center"
+                    android:text="@string/post_about_ball"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/ll_bottom"
+        android:layout_above="@id/ll_parent_bottom"
         android:orientation="vertical">
 
         <com.example.item.weight.TitleView
@@ -100,10 +121,10 @@
                 android:background="@drawable/selector_venue_count_view"
                 android:button="@null"
                 android:checked="true"
-                android:paddingBottom="@dimen/size_5dp"
                 android:paddingLeft="@dimen/size_15dp"
-                android:paddingRight="@dimen/size_15dp"
                 android:paddingTop="@dimen/size_5dp"
+                android:paddingRight="@dimen/size_15dp"
+                android:paddingBottom="@dimen/size_5dp"
                 android:text="@string/make_a_block_booking"
                 android:textColor="@color/selector_text_blue_white_color" />
 
@@ -115,10 +136,10 @@
                 android:background="@drawable/selector_venue_count_view"
                 android:button="@null"
                 android:checked="false"
-                android:paddingBottom="@dimen/size_5dp"
                 android:paddingLeft="@dimen/size_15dp"
-                android:paddingRight="@dimen/size_15dp"
                 android:paddingTop="@dimen/size_5dp"
+                android:paddingRight="@dimen/size_15dp"
+                android:paddingBottom="@dimen/size_5dp"
                 android:text="@string/the_court_where_the_ball_is_to_be_played"
                 android:textColor="@color/selector_text_blue_white_color" />
         </RadioGroup>

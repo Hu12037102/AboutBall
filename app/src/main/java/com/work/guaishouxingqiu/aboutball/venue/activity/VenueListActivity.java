@@ -121,6 +121,7 @@ public class VenueListActivity extends BaseActivity<VenueListPresenter> implemen
                 public void onItemClick(View view, int position) {
                     ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_DETAILS, ARouterConfig.Key.STADIUM_ID, mListData.get(position).stadiumId);
 
+
                 }
             });
         } else {

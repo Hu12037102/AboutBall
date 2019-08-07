@@ -1,5 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.base;
 
+import androidx.annotation.NonNull;
+
 import com.work.guaishouxingqiu.aboutball.BaseService;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.IApiService;
@@ -19,6 +21,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundCauseBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultSystemNotificationBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
+import com.work.guaishouxingqiu.aboutball.venue.bean.RequestCreateBallBean;
 
 import java.util.List;
 
@@ -226,9 +229,17 @@ public class BaseModel {
                 .subscribe(observer);
     }
 
-    public void clearRedPoint(int noticeType,BaseObserver<String> observer) {
+    public void clearRedPoint(int noticeType, BaseObserver<String> observer) {
         mRetrofitManger.create(BaseService.class)
                 .clearRedPoint(noticeType)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    public void createPostBall(@NonNull RequestCreateBallBean ballBean,BaseObserver<BaseDataBean<Long>> observer) {
+        mRetrofitManger.create(BaseService.class)
+                .createPostBall(ballBean)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

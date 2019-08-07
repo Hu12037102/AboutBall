@@ -369,6 +369,28 @@ public class DateUtils {
         return DateUtils.getYear2Minutes(startTime) + " - " + DateUtils.getHourMinutes(endTime);
     }
 
+    public static String getStartTime2EndTimeForHourMinute(String startTime, String endTime) {
+        return DateUtils.getHour2Minute(startTime) + " - " + DateUtils.getHour2Minute(endTime);
+    }
+
+    /**
+     * 把时间拆分为时分
+     *
+     * @param time yyyy-MM-dd HH:mm:ss
+     * @return
+     */
+    public static String getHour2Minute(String time) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date date = sdf.parse(time);
+            SimpleDateFormat sdfs = new SimpleDateFormat("HH:mm");
+            return sdfs.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
     /**
      * 根据时间长度返回时分秒 长度为毫秒秒
      *

@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.ItemView;
 import com.example.item.weight.TitleView;
+import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
@@ -23,11 +24,17 @@ import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
+import com.work.guaishouxingqiu.aboutball.venue.bean.RequestCreateBallBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultMyBallTeamBean;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueBookBean;
 import com.work.guaishouxingqiu.aboutball.venue.contract.CreateBallContract;
 import com.work.guaishouxingqiu.aboutball.venue.presenter.CreateBallPresenter;
 import com.work.guaishouxingqiu.aboutball.weight.SelectorColorDialog;
 import com.work.guaishouxingqiu.aboutball.weight.SingWheelDialog;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -36,6 +43,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 作者: 胡庆岭
@@ -64,6 +72,8 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
     private ResultMyBallTeamBean mMyBallTeam;
     private SingWheelDialog mTimeDialog;
     private static final int REQUEST_CODE_SITE = 127;
+    private VenueDetailsActivity.CreateBean mResultCreateBean;
+    private RequestCreateBallBean mRequestBean;
 
     @Override
     protected int getLayoutId() {
@@ -72,6 +82,9 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
 
     @Override
     protected void initView() {
+        mRequestBean = new RequestCreateBallBean();
+        mRequestBean.refereeId = new Long[]{};
+        registerEventBus();
         mItemTeam.mTvRight.setHintTextColor(ContextCompat.getColor(this, R.color.colorFFA6A6A6));
         mItemTeam.mTvRight.setHint(R.string.please_selector_ball_team);
 
@@ -91,10 +104,15 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
 
     @Override
     protected void initData() {
+
         if (UserManger.get().isLogin() && !DataUtils.isEmpty(UserManger.get().getPhone())) {
-            mAcetPhone.setText(UserManger.get().getPhone());
+            String phoneNumber = UserManger.get().getPhone();
+            mAcetPhone.setText(phoneNumber);
             mAcetPhone.setSelection(DataUtils.checkData(mAcetPhone.getText()).length());
+            mRequestBean.phone = phoneNumber;
         }
+
+
     }
 
     @Override
@@ -117,6 +135,7 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
                     mColorDialog.setOnColorSelectorListener((view1, color) -> {
                         //mRequestBean.guestShirtColor = color;
                         mItemColor.mTvRight.setText(color);
+                        mRequestBean.hostShirtColor = color;
                         notifyInputAllContent();
                     });
                 }
@@ -137,6 +156,7 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
                     mDateDialog.setTitle(R.string.please_selector_date);
                     mDateDialog.setOnItemClickListener((view12, position) -> {
                         mItemDate.mTvRight.setText(dateData.get(position));
+
                         LogUtils.w("mDateDialog--", DateUtils.isSelectorDayThanNewDay(dateData.get(position)) + "--");
                         mItemTime.setVisibility(View.VISIBLE);
                         notifyInputAllContent();
@@ -157,6 +177,8 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
         mItemSite.setOnItemClickListener(new ItemView.OnItemClickListener() {
             @Override
             public void onClickItem(View view) {
+                EventBus.getDefault().postSticky(new CreateBallActivity.Status(Contast.VenueType.CREATE_BALL));
+
                 ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_VENUE_LIST, CreateBallActivity.this, REQUEST_CODE_SITE);
             }
         });
@@ -171,6 +193,11 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
                 @Override
                 public void onClickItem(@NonNull View view, int position) {
                     if (isSureSelectorTime(DataUtils.getTextViewContent(mItemDate.mTvRight), timeData.get(position))) {
+                        String[] timeArray = timeData.get(position).split(" - ");
+                        if (timeArray.length >= 2) {
+                            mRequestBean.startTime = DataUtils.getTextViewContent(mItemDate.mTvRight) + " " + timeArray[0] + ":00";
+                            mRequestBean.endTime = DataUtils.getTextViewContent(mItemDate.mTvRight) + " " + timeArray[1] + ":00";
+                        }
                         mItemTime.mTvRight.setText(timeData.get(position));
                     } else {
                         UIUtils.showToast(R.string.selector_venue_time_than_new_time);
@@ -184,6 +211,15 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
         }
     }
 
+
+    @OnClick(R.id.tv_sures)
+    public void onClickView(View view){
+        switch (view.getId()){
+            case R.id.tv_sures:
+                mPresenter.createPostBall(mRequestBean);
+                break;
+        }
+    }
     /**
      * 是否可以选择当前时间
      *
@@ -224,6 +260,7 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
                     }
                     mMyBallTeam = data.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
                     mItemTeam.setContentText(mMyBallTeam.teamName);
+                    mRequestBean.hostTeamId = mMyBallTeam.teamId;
                     notifyInputAllContent();
                     // mRequestBean.guestTeamId = mMyBallTeam.teamId;
                     break;
@@ -246,5 +283,51 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
 
         }
 
+    }
+
+    public static class Status {
+        public int mType;
+
+        public Status(int type) {
+            this.mType = type;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().removeAllStickyEvents();
+        unRegisterEventBus();
+        super.onDestroy();
+    }
+
+    /**
+     * 回调场地信息bean
+     *
+     * @param venueBookBean
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void resultBallMessage(@NonNull ResultVenueBookBean venueBookBean) {
+        if (mResultCreateBean != null) {
+            mItemSite.mTvRight.setText(mResultCreateBean.venueName.concat(mResultCreateBean.screening));
+        }
+        mItemDate.mTvRight.setText(DateUtils.getNextCountData(venueBookBean.startTime, 0));
+        mItemTime.setVisibility(View.VISIBLE);
+        mRequestBean.calendarId = venueBookBean.calendarId;
+        mRequestBean.startTime = venueBookBean.startTime;
+        mRequestBean.endTime = venueBookBean.endTime;
+        mItemTime.mTvRight.setText(DateUtils.getStartTime2EndTimeForHourMinute(venueBookBean.startTime, venueBookBean.endTime));
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void resultVenueName(VenueDetailsActivity.CreateBean createBean) {
+        this.mResultCreateBean = createBean;
+        if (createBean != null) {
+            mItemSite.mTvRight.setText(createBean.venueName.concat(createBean.screening));
+        }
+    }
+
+    @Override
+    public void resultCreateBallOrderId(long orderId) {
+        mViewModel.startActivityToOrderPay(orderId, Contast.PayOrderFlag.PAY_LAUNCHER_ORDER);
     }
 }

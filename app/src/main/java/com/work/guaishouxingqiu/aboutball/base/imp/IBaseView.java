@@ -72,5 +72,8 @@ public interface IBaseView {
     void resultDynamicNotificationData(List<ResultDynamicNotificationBean> data);
 
     void resultSystemNotificationData(List<ResultSystemNotificationBean> data);
+
     void resultClearRedPoint(boolean isSucceed);
+
+    void resultCreateBallOrderId(long orderId);
 }

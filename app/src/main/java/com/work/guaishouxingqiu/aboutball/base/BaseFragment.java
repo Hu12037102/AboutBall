@@ -245,4 +245,9 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
     public void resultClearRedPoint(boolean isSucceed) {
 
     }
+
+    @Override
+    public void resultCreateBallOrderId(long orderId) {
+
+    }
 }
