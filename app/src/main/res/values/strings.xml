@@ -339,6 +339,7 @@
     <string name="edit" translatable="false">编辑</string>
     <string name="immediate_payment" translatable="false">立即支付</string>
     <string name="money_count" translatable="false">￥%s</string>
+    <string name="edit_about_ball">编辑约球</string>
     <!--相册选择器-->
     <string name="back" translatable="false">返回</string>
     <string name="all_image" translatable="false">全部图片</string>

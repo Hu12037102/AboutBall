@@ -69,10 +69,10 @@ public class AboutBallDetailsPresenter extends LoginOrSharePresenter<AboutBallDe
 
     @Override
     public void cancelAboutBall(long agreeId) {
-        mModel.cancelAboutBall(agreeId, new BaseObserver<>(true, this, new BaseObserver.Observer<Long>() {
+        mModel.cancelAboutBall(agreeId, new BaseObserver<>(true, this, new BaseObserver.Observer<String>() {
             @Override
-            public void onNext(BaseBean<Long> t) {
-                if (DataUtils.isResultSure(t)) {
+            public void onNext(BaseBean<String> t) {
+                if (DataUtils.isResultSureResultNull(t)) {
                     mView.resultCancelAboutBall(t.result);
                 }
             }

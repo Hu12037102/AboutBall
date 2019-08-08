@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.ItemView;
@@ -25,6 +27,7 @@ import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.bean.RequestCreateBallBean;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultAboutBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultMyBallTeamBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueBookBean;
 import com.work.guaishouxingqiu.aboutball.venue.contract.CreateBallContract;
@@ -74,14 +77,40 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
     private static final int REQUEST_CODE_SITE = 127;
     private VenueDetailsActivity.CreateBean mResultCreateBean;
     private RequestCreateBallBean mRequestBean;
+    private ResultAboutBallDetailsBean mIntentBean;
 
     @Override
     protected int getLayoutId() {
         return R.layout.activity_create_ball;
     }
 
+
+    private void initIntent() {
+        mIntentBean = mIntent.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
+        if (mIntentBean != null) {
+            mRequestBean.agreeId = mIntentBean.agreeId;
+            mItemTeam.mTvRight.setText(mIntentBean.hostTeamName);
+            mItemColor.mTvRight.setText(mIntentBean.hostShirtColor);
+            mItemDate.mTvRight.setText(DateUtils.getNextCountData(mIntentBean.startTime, 0));
+            mItemTime.setVisibility(View.VISIBLE);
+            mItemTime.mTvRight.setText(DateUtils.getStartTime2EndTimeForHourMinute(mIntentBean.startTime, mIntentBean.endTime));
+            mItemSite.mTvRight.setText(DataUtils.getNotNullData(mIntentBean.stadiumName));
+            mRequestBean.calendarId = mIntentBean.calendarId == 0 ? null : mIntentBean.calendarId;
+            mRequestBean.hostTeamId = mIntentBean.hostTeamId;
+            mRequestBean.hostShirtColor = mIntentBean.hostShirtColor;
+            mRequestBean.startTime = mIntentBean.startTime;
+            mRequestBean.endTime = mIntentBean.endTime;
+            mItemSite.mRootView.setEnabled(false);
+            mItemDate.mRootView.setEnabled(false);
+            mItemTime.mRootView.setEnabled(false);
+            mTvSure.setText(R.string.edit_about_ball);
+            notifyInputAllContent();
+        }
+    }
+
     @Override
     protected void initView() {
+
         mRequestBean = new RequestCreateBallBean();
         mRequestBean.refereeId = new Long[]{};
         registerEventBus();
@@ -99,7 +128,7 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
 
         mItemSite.mTvRight.setHintTextColor(ContextCompat.getColor(this, R.color.colorFFA6A6A6));
         mItemSite.mTvRight.setHint(R.string.book_a_venue_not_selector);
-
+        initIntent();
     }
 
     @Override
@@ -216,7 +245,12 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
     public void onClickView(View view) {
         switch (view.getId()) {
             case R.id.tv_sures:
-                mPresenter.createPostBall(mRequestBean);
+                if (mIntentBean == null) {
+                    mPresenter.createPostBall(mRequestBean);
+                } else {
+                    mPresenter.editAboutBall(mRequestBean);
+                }
+
                 break;
         }
     }
@@ -285,6 +319,7 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
         }
 
     }
+
 
     public static class Status {
         public int mType;

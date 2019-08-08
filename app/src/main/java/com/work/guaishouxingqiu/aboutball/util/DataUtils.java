@@ -177,6 +177,9 @@ public class DataUtils {
     public static boolean isResultSure(@NonNull BaseBean baseBean) {
         return IApi.Code.SUCCEED == baseBean.code && baseBean.result != null;
     }
+    public static boolean isResultSureResultNull(@NonNull BaseBean baseBean) {
+        return IApi.Code.SUCCEED == baseBean.code;
+    }
 
     public static String videoDuration(long videoDuration) {
         StringBuilder sb = new StringBuilder();

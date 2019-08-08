@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.venue.contract;
 
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.venue.bean.RequestCreateBallBean;
 
 /**
  * 作者: 胡庆岭
@@ -14,5 +15,6 @@ public interface CreateBallContract {
     }
 
     interface Presenter extends IBasePresenter {
+        void editAboutBall(RequestCreateBallBean ballBean);
     }
 }

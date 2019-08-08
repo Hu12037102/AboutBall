@@ -3,8 +3,10 @@ package com.work.guaishouxingqiu.aboutball.venue.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,7 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultAboutBallDetailsBean;
@@ -81,8 +84,16 @@ public class AboutBallDetailsActivity extends LoginOrShareActivity<AboutBallDeta
     ViewGroup mClTopTeam;
     @BindView(R.id.title_view)
     TitleView mTitleView;
-    @BindView(R.id.rl_cancel)
-    RelativeLayout mRlCancel;
+    @BindView(R.id.ll_cancel)
+    LinearLayout mLlCancel;
+    @BindView(R.id.rl_edit)
+    RelativeLayout mRlEdit;
+    @BindView(R.id.tv_cancel_edit)
+    TextView mTvCancelEdit;
+    @BindView(R.id.tv_cancel)
+    TextView mTvCancel;
+    @BindView(R.id.tv_edit)
+    TextView mTvEdit;
     private int mHasRefereeStatus;
     private int mHasTeamStatus;
     private ResultAboutBallDetailsBean mResultBean;
@@ -94,6 +105,7 @@ public class AboutBallDetailsActivity extends LoginOrShareActivity<AboutBallDeta
     private static final int REQUEST_CODE_ORDER_USER = 124;
     private int mAboutBallFlag = -1;
     private HintDialog mCancelBallDialog;
+    private static final int REQUEST_CODE_EDIT_ABOUT_BALL = 177;
 
 
     @Override
@@ -126,6 +138,7 @@ public class AboutBallDetailsActivity extends LoginOrShareActivity<AboutBallDeta
         mHasTeamStatus = bundle.getInt(ARouterConfig.Key.TEAM_STATUS, -1);
         //mAboutBallFlag 0,参加约球1，取消约球(我发布的)2，取消约球(我参与的)
         mAboutBallFlag = bundle.getInt(ARouterConfig.Key.ABOUT_BALL_FLAG, 0);
+        LogUtils.w("initData--", mAboutBallFlag + "--");
         mAgreeId = bundle.getLong(ARouterConfig.Key.OFFER_ID, -1);
 
 
@@ -176,11 +189,18 @@ public class AboutBallDetailsActivity extends LoginOrShareActivity<AboutBallDeta
         UIUtils.setText(mItemTime.mTvRight, DateUtils.getHourMinutes(bean.startTime) + "-" + DateUtils.getHourMinutes(bean.endTime));
         UIUtils.setText(mItemMoney.mTvRight, DataUtils.getMoneyFormat(bean.cost));
         if (mAboutBallFlag == Contast.AboutBallFlag.PUBLISH || mAboutBallFlag == Contast.AboutBallFlag.PARTICIPATION) {
+            mLlCancel.setVisibility(View.VISIBLE);
             if (DateUtils.isNewTimeMoreThan(bean.startTime) || mAboutBallFlag == Contast.AboutBallFlag.PARTICIPATION) {
-                mRlCancel.setVisibility(View.GONE);
+                mTvCancel.setVisibility(View.GONE);
             } else {
-                mRlCancel.setVisibility(View.VISIBLE);
+                mTvCancel.setVisibility(View.VISIBLE);
             }
+            if (!DateUtils.isNewTimeMoreThan(bean.startTime) && bean.myAgreeBall == 1) {
+                mTvCancelEdit.setVisibility(View.VISIBLE);
+            } else {
+                mTvCancelEdit.setVisibility(View.GONE);
+            }
+
 
             LinearLayout.LayoutParams tvTeamParams = (LinearLayout.LayoutParams) mTvTeamContent.getLayoutParams();
             String host = "报名队伍";
@@ -205,7 +225,7 @@ public class AboutBallDetailsActivity extends LoginOrShareActivity<AboutBallDeta
             }
             mTvTeamContent.setLayoutParams(tvTeamParams);
         } else {
-            mRlCancel.setVisibility(View.GONE);
+            mLlCancel.setVisibility(View.GONE);
             notifyRefereeTeamStatus(bean);
         }
 
@@ -269,6 +289,13 @@ public class AboutBallDetailsActivity extends LoginOrShareActivity<AboutBallDeta
 
         }
         mTvTeamContent.setLayoutParams(tvTeamParams);
+        if (bean.myAgreeBall == 1) {
+            mRlBottomMultiple.setVisibility(View.GONE);
+            mRlBottomSing.setVisibility(View.GONE);
+            mRlEdit.setVisibility(View.VISIBLE);
+        } else {
+            mRlEdit.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -285,14 +312,18 @@ public class AboutBallDetailsActivity extends LoginOrShareActivity<AboutBallDeta
      * @param orderId
      */
     @Override
-    public void resultCancelAboutBall(long orderId) {
-        ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_WAIT_USER_ORDER_DETAILS, this, ARouterConfig.Key.ORDER_ID, orderId, AboutBallDetailsActivity.REQUEST_CODE_ORDER_USER);
+    public void resultCancelAboutBall(String orderId) {
+        if (orderId == null) {
+            clickBackForResult();
+        } else {
+            ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_WAIT_USER_ORDER_DETAILS, this, ARouterConfig.Key.ORDER_ID, Long.valueOf(orderId), AboutBallDetailsActivity.REQUEST_CODE_ORDER_USER);
+        }
     }
 
     private void startActivityForBallTeamDetails(int teamId, String shirtColor) {
     }
 
-    @OnClick({R.id.tv_bottom_left, R.id.tv_bottom_right, R.id.tv_sing, R.id.cl_bottom_team, R.id.cl_top_team, R.id.tv_cancel})
+    @OnClick({R.id.tv_bottom_left, R.id.tv_bottom_right, R.id.tv_sing, R.id.cl_bottom_team, R.id.cl_top_team, R.id.tv_cancel, R.id.tv_edit, R.id.tv_cancel_edit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_bottom_left:
@@ -331,7 +362,10 @@ public class AboutBallDetailsActivity extends LoginOrShareActivity<AboutBallDeta
 
                     }
                 });
-
+                break;
+            case R.id.tv_edit:
+            case R.id.tv_cancel_edit:
+                ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_CREATE_BALL, this, ARouterConfig.Key.PARCELABLE, mResultBean, REQUEST_CODE_EDIT_ABOUT_BALL);
                 break;
             default:
                 break;

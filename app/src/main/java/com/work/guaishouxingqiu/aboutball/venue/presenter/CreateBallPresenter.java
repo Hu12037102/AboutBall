@@ -2,7 +2,12 @@ package com.work.guaishouxingqiu.aboutball.venue.presenter;
 
 import androidx.annotation.NonNull;
 
+import com.work.guaishouxingqiu.aboutball.base.BaseBean;
+import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
+import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.venue.bean.RequestCreateBallBean;
 import com.work.guaishouxingqiu.aboutball.venue.contract.CreateBallContract;
 import com.work.guaishouxingqiu.aboutball.venue.model.CreateBallModel;
 
@@ -26,5 +31,22 @@ public class CreateBallPresenter extends BasePresenter<CreateBallContract.View, 
     @Override
     public void start() {
 
+    }
+
+    @Override
+    public void editAboutBall(RequestCreateBallBean ballBean) {
+        mModel.editAboutBall(ballBean, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
+            @Override
+            public void onNext(BaseBean<BaseDataBean<String>> t) {
+                if (DataUtils.baseDataBeanIsSucceed(t)) {
+                    mView.resultCreateBallOrderId(t.result.result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
     }
 }

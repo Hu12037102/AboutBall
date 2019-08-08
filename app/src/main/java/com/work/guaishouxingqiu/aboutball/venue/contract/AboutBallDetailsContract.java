@@ -17,7 +17,7 @@ public interface AboutBallDetailsContract {
 
         void resultPlayReferee();
 
-        void resultCancelAboutBall(long orderId);
+        void resultCancelAboutBall(String orderId);
     }
 
     interface Presenter extends LoginOrShareContract.Presenter {

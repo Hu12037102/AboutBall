@@ -23,7 +23,7 @@ public class ItemView extends RelativeLayout {
 
     public TextView mTvLeft;
     public TextView mTvRight;
-    private ViewGroup mRootView;
+    public ViewGroup mRootView;
     public View mTopLine;
     public View mBottomLine;
 

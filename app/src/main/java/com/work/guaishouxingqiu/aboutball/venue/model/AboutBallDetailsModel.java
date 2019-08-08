@@ -33,7 +33,7 @@ public class AboutBallDetailsModel extends LoginOrShareModel {
                 .subscribe(observer);
     }
 
-    public void cancelAboutBall(long agreeId,BaseObserver<Long> observer) {
+    public void cancelAboutBall(long agreeId,BaseObserver<String> observer) {
         mRetrofitManger.create(VenueService.class)
                 .cancelAboutBall(agreeId)
                 .subscribeOn(Schedulers.io())

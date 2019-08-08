@@ -5,6 +5,7 @@ import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
+import com.work.guaishouxingqiu.aboutball.venue.bean.RequestCreateBallBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.RequestInvitationBallBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.RequestLauncherBallBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.RequestVenueOrderBean;
@@ -97,9 +98,12 @@ public interface VenueService {
     Observable<BaseBean<BaseDataBean<Long>>> invitationBall(@Body RequestInvitationBallBean bean);
 
     @GET(IApiService.GET_CANCEL_ABOUT_BALL)
-    Observable<BaseBean<Long>> cancelAboutBall(@Query(Contast.AGREE_ID) long agreeId);
+    Observable<BaseBean<String>> cancelAboutBall(@Query(Contast.AGREE_ID) long agreeId);
 
     @GET(IApiService.GET_VENUE_EVALUATE)
     Observable<BaseBean<ResultVenueEvaluateBean>> loadVenueEvaluate(@Query(Contast.AREA_ID) long areaId, @Query(Contast.FLAG) int flag,
-                                                                                  @Query(Contast.PAGE_NUM) int pageNum, @Query(Contast.PAGE_SIZE) int pageSize);
+                                                                    @Query(Contast.PAGE_NUM) int pageNum, @Query(Contast.PAGE_SIZE) int pageSize);
+
+    @POST(IApiService.POST_EDIT_ABOUT_BALL)
+    Observable<BaseBean<BaseDataBean<String>>> editAboutBall(@Body RequestCreateBallBean ballBean);
 }
