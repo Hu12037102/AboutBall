@@ -166,11 +166,11 @@ public class UIUtils {
     }
 
     public static void showCallPhoneDialog(Context context, String phoneNumber) {
-        if (phoneNumber != null && DataUtils.isPhoneNumber(phoneNumber)) {
+        if (!DataUtils.isEmpty(phoneNumber) && (DataUtils.isPhoneNumber(phoneNumber) || DataUtils.isTellPhone(phoneNumber))) {
             String phoneContent = UIUtils.getString(R.string.you_sure_call_this_phone, phoneNumber);
             SpannableString spannableString = null;
             if (phoneContent.length() >= 11) {
-                spannableString = SpanUtils.getTextColor(R.color.color_2, phoneContent.length() - 11, phoneContent.length(), phoneContent);
+                spannableString = SpanUtils.getTextColor(R.color.color_2, phoneContent.length() - phoneNumber.length(), phoneContent.length(), phoneContent);
             }
 
             HintDialog hintDialog = new HintDialog.Builder(context)

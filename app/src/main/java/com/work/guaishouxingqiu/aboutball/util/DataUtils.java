@@ -112,6 +112,21 @@ public class DataUtils {
         return matcher.matches();
     }
 
+    public static boolean isTellPhone(final String str) {
+        Matcher m;
+        boolean b;
+        Pattern p1 = Pattern.compile(Contast.TELL_PHONE_ZONE); // 验证带区号的
+        Pattern p2 = Pattern.compile(Contast.TELL_PHONE_NO_ZONE);     // 验证没有区号的
+        if (str.length() > 9) {
+            m = p1.matcher(str);
+            b = m.matches();
+        } else {
+            m = p2.matcher(str);
+            b = m.matches();
+        }
+        return b;
+    }
+
     /**
      * 延时倒计时
      */
@@ -177,6 +192,7 @@ public class DataUtils {
     public static boolean isResultSure(@NonNull BaseBean baseBean) {
         return IApi.Code.SUCCEED == baseBean.code && baseBean.result != null;
     }
+
     public static boolean isResultSureResultNull(@NonNull BaseBean baseBean) {
         return IApi.Code.SUCCEED == baseBean.code;
     }
