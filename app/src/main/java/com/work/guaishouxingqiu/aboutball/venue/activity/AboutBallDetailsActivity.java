@@ -184,10 +184,10 @@ public class AboutBallDetailsActivity extends LoginOrShareActivity<AboutBallDeta
         GlideManger.get().loadLogoImage(this, bean.hostTeamLogo, mCivLogo);
         GlideManger.get().loadLogoImage(this, bean.guestTeamLogo, mCivLogoJoin);
         UIUtils.setText(mTvBottomTeamName, bean.guestTeamName);
-        UIUtils.setText(mItemSite.mTvRight, bean.stadiumName);
+        UIUtils.setText(mItemSite.mTvRight, bean.stadiumName, R.string.not_settings);
         UIUtils.setText(mItemDate.mTvRight, DateUtils.getDate(bean.startTime));
         UIUtils.setText(mItemTime.mTvRight, DateUtils.getHourMinutes(bean.startTime) + "-" + DateUtils.getHourMinutes(bean.endTime));
-        UIUtils.setText(mItemMoney.mTvRight, DataUtils.getMoneyFormat(bean.cost));
+        UIUtils.setText(mItemMoney.mTvRight, bean.cost == 0 ? UIUtils.getString(R.string.not_sure) : DataUtils.getMoneyFormat(bean.cost));
         if (mAboutBallFlag == Contast.AboutBallFlag.PUBLISH || mAboutBallFlag == Contast.AboutBallFlag.PARTICIPATION) {
             mLlCancel.setVisibility(View.VISIBLE);
             if (DateUtils.isNewTimeMoreThan(bean.startTime) || mAboutBallFlag == Contast.AboutBallFlag.PARTICIPATION) {

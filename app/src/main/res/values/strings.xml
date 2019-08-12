@@ -633,6 +633,9 @@
     <string name="book_a_venue_not_selector" translatable="false">预定场地（非必选）</string>
     <string name="venue_list" translatable="false">场馆列表</string>
     <string name="you_have_unconfirmed_dates" translatable="false">您有未确定的场次</string>
-    <string name="selector_appointment_has_been_made">选择已发起的约球</string>
-    <string name="selector_appointment_new_made">发起新约球</string>
+    <string name="selector_appointment_has_been_made" translatable="false">选择已发起的约球</string>
+    <string name="selector_appointment_new_made" translatable="false">发起新约球</string>
+    <string name="venue_not_setting" translatable="false">场馆未定</string>
+    <string name="not_sure" translatable="false">未知</string>
+    <string name="not_settings" translatable="false">未定</string>
 </resources>

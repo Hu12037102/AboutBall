@@ -7,12 +7,15 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+
 import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
 import com.google.android.material.tabs.TabLayout;
+
 import androidx.core.content.ContextCompat;
+
 import android.text.Editable;
 import android.text.SpannableString;
 import android.text.TextWatcher;
@@ -342,6 +345,14 @@ public class UIUtils {
         textView.setText(resContent);
     }
 
+    public static void setText(@NonNull TextView textView, String content, @NonNull String defaultContent) {
+        textView.setText(DataUtils.isEmpty(content) ? defaultContent : content);
+    }
+
+    public static void setText(@NonNull TextView textView, String content, @StringRes int resContent) {
+        textView.setText(DataUtils.isEmpty(content) ? UIUtils.getString(resContent) : content);
+    }
+
     public static void setOrderDetailsItemSpan(@NonNull TextView textView, String host, String body) {
         if (DataUtils.isEmpty(host)) {
             return;
@@ -404,6 +415,7 @@ public class UIUtils {
         }
         return inflateView;
     }
+
     public static void setCommunityCount(TextView textView, int count) {
         UIUtils.setText(textView, count > CommunityDataAdapter.MAX_COMMUNITY_COUNT ? CommunityDataAdapter.MAX_COMMUNITY_CONTENT :
                 count > 0 ? String.valueOf(count) : "");
