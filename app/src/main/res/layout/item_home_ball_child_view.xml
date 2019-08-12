@@ -38,7 +38,9 @@
                 android:ellipsize="end"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/size_5dp"
-                tools:text="关键是了框架家里的事感觉脸上监督管理局是感觉深蹲路公交上考虑"/>
+                android:textColor="@color/color_4"
+                android:lineSpacingExtra="@dimen/size_5dp"
+                tools:text="关键是了框架家里的事感觉脸\n上监督管理局是感觉深蹲路公交上考虑"/>
         </LinearLayout>
         <TextView
             android:id="@+id/tv_include_time"

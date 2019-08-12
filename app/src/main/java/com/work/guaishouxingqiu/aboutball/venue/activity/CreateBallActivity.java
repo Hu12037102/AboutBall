@@ -192,8 +192,14 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
                     mDateDialog.setTitle(R.string.please_selector_date);
                     mDateDialog.setOnItemClickListener((view12, position) -> {
                         mItemDate.mTvRight.setText(dateData.get(position));
-
-                        LogUtils.w("mDateDialog--", DateUtils.isSelectorDayThanNewDay(dateData.get(position)) + "--");
+                        String timeContent = DataUtils.getTextViewContent(mItemTime.mTvRight);
+                        if (!DataUtils.isEmpty(timeContent)) {
+                            String[] timeArray = timeContent.split("-");
+                            if (timeArray.length >= 2) {
+                                mRequestBean.startTime = DataUtils.getTextViewContent(mItemDate.mTvRight).concat(" ").concat(timeArray[0]).concat(":00");
+                                mRequestBean.endTime = DataUtils.getTextViewContent(mItemDate.mTvRight).concat(" ").concat(timeArray[1]).concat(":00");
+                            }
+                        }
                         mItemTime.setVisibility(View.VISIBLE);
                         notifyInputAllContent();
                     });

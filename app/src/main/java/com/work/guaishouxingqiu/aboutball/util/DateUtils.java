@@ -370,7 +370,7 @@ public class DateUtils {
     }
 
     public static String getStartTime2EndTimeForHourMinute(String startTime, String endTime) {
-        return DateUtils.getHour2Minute(startTime) + " - " + DateUtils.getHour2Minute(endTime);
+        return DateUtils.getHour2Minute(startTime) + "-" + DateUtils.getHour2Minute(endTime);
     }
 
     /**

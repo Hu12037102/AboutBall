@@ -160,7 +160,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
     }
 
     private void showHotView(ResultNewsBean bean, TextView view) {
-        if ( !DataUtils.isEmpty(bean.commentCount) && Integer.valueOf(bean.commentCount) >= 10) {
+        if (!DataUtils.isEmpty(bean.commentCount) && Integer.valueOf(bean.commentCount) >= 10) {
             view.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_hot, 0, 0, 0);
         } else {
             view.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
@@ -521,7 +521,9 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
         public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
             ResultRecommendDataBean.AgreeBallMatch bean = mData.get(i);
             GlideManger.get().loadHeadImage(viewHolder.itemView.getContext(), bean.hostTeamLogo, viewHolder.mCivHead);
-            viewHolder.mTvContent.setText(bean.stadiumName + "\n" + bean.areaName);
+            viewHolder.mTvContent.setText((DataUtils.isEmpty(bean.stadiumName) ? "场馆" + UIUtils.getString(R.string.not_settings) : bean.stadiumName)
+                    .concat("\n")
+                    .concat(DataUtils.isEmpty(bean.areaName) ? "球员场次" + UIUtils.getString(R.string.not_settings) : bean.areaName));
             viewHolder.mTvTime.setText(bean.startTime);
             viewHolder.mTvName.setText(bean.hostTeamName);
             CardView.LayoutParams layoutParams = new FrameLayout.LayoutParams(ScreenUtils.dp2px(viewHolder.itemView.getContext(), 190),
