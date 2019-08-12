@@ -251,6 +251,7 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
     public void onClickView(View view) {
         switch (view.getId()) {
             case R.id.tv_sures:
+                mRequestBean.phone = DataUtils.getEditDetails(mAcetPhone);
                 if (mIntentBean == null) {
                     mPresenter.createPostBall(mRequestBean);
                 } else {

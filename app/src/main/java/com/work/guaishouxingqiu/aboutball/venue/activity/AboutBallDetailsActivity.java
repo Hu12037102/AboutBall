@@ -490,6 +490,9 @@ public class AboutBallDetailsActivity extends LoginOrShareActivity<AboutBallDeta
                     setResult(Activity.RESULT_OK);
                     finish();
                     break;*/
+                case REQUEST_CODE_EDIT_ABOUT_BALL:
+                  mPresenter.loadDetails(mAgreeId);
+                    break;
                 default:
                     break;
             }
