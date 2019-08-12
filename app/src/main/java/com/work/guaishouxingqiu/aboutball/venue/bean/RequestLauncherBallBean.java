@@ -7,8 +7,13 @@ package com.work.guaishouxingqiu.aboutball.venue.bean;
  * 描述:请求发起约球body
  */
 public class RequestLauncherBallBean {
+    public long agreeId;
     public long calendarId;
     public Long[] refereeId;
     public long hostTeamId;
     public String hostShirtColor;
+    public String endTime;
+    public String phone;
+    public String startTime;
+
 }

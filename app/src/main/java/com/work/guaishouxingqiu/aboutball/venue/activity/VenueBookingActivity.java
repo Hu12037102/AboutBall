@@ -16,6 +16,7 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,9 @@ import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
+import com.work.guaishouxingqiu.aboutball.commonality.activity.BasePayActivity;
 import com.work.guaishouxingqiu.aboutball.media.IntentData;
+import com.work.guaishouxingqiu.aboutball.my.activity.PaySucceedActivity;
 import com.work.guaishouxingqiu.aboutball.other.ActivityManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
@@ -41,11 +44,13 @@ import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.adapter.VenueBookAdapter;
 import com.work.guaishouxingqiu.aboutball.venue.adapter.VenueWaitBookAdapter;
 import com.work.guaishouxingqiu.aboutball.venue.bean.RequestVenueOrderBean;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultNotBookBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueBookBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueDetailsBean;
 import com.work.guaishouxingqiu.aboutball.venue.contract.VenueBookingContract;
 import com.work.guaishouxingqiu.aboutball.venue.presenter.VenueBookingPresenter;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
+import com.work.guaishouxingqiu.aboutball.weight.NotAboutBallDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
 import org.greenrobot.eventbus.EventBus;
@@ -102,6 +107,7 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
     private VenueWaitBookAdapter mWaitBookAdapter;
     private static final int REQUEST_CODE_INVITATION = 112;
     private boolean mIsCreateBall;
+    private NotAboutBallDialog mNotBookDialog;
 
     @Override
     protected int getLayoutId() {
@@ -110,7 +116,6 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
 
     @Override
     protected void initView() {
-
         Bundle bundle = mIntent.getExtras();
         if (bundle == null) {
             finish();
@@ -296,23 +301,60 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
                 break;
             case R.id.tv_bottom_right:
                 if (mIsSelectorBook) {
-                    Bundle bundle = new Bundle();
+                    mPresenter.gainNotBooking();
+                  /*  Bundle bundle = new Bundle();
                     bundle.putLong(ARouterConfig.Key.STADIUM_ID, mStadiumId);
                     bundle.putLong(ARouterConfig.Key.CALENDAR_ID, mBookData.get(mBookAdapter.getSelectorPosition()).calendarId);
                     bundle.putLong(ARouterConfig.Key.AREA_ID, mAreaId);
-                    ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_LAUNCHER_BALL, this, bundle);
+                    ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_LAUNCHER_BALL, this, bundle);*/
                 } else {
+
                     ResultVenueBookBean bean = mWaitBookData.get(mWaitBookAdapter.getSelectorPosition());
                     mViewModel.startActivityToInvitation(bean.agreeId, bean.calendarId, VenueBookingActivity.REQUEST_CODE_INVITATION);
                 }
                 break;
             case R.id.tv_create_sure:
                 EventBus.getDefault().post(mBookData.get(mBookAdapter.getSelectorPosition()));
+
                 ActivityManger.get().removeActivity(VenueDetailsActivity.class);
                 ActivityManger.get().removeActivity(VenueListActivity.class);
                 finish();
                 break;
 
+        }
+    }
+
+    private void launcherBall(@Nullable ArrayList<ResultNotBookBean> data) {
+        Bundle bundle = new Bundle();
+        bundle.putLong(ARouterConfig.Key.STADIUM_ID, mStadiumId);
+        bundle.putLong(ARouterConfig.Key.CALENDAR_ID, mBookData.get(mBookAdapter.getSelectorPosition()).calendarId);
+        bundle.putLong(ARouterConfig.Key.AREA_ID, mAreaId);
+        bundle.putParcelableArrayList(ARouterConfig.Key.ARRAY_LIST_PARCELABLE,data);
+        ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_LAUNCHER_BALL, this, bundle);
+    }
+
+    @Override
+    public void resultNotBookData(List<ResultNotBookBean> data) {
+        if (data.size() == 0) {
+            launcherBall(null);
+        } else {
+            if (mNotBookDialog == null) {
+                mNotBookDialog = new NotAboutBallDialog(this);
+            }
+            mNotBookDialog.setOnClickAboutItemClickListener(new NotAboutBallDialog.OnClickAboutItemClickListener() {
+                @Override
+                public void onClickFormerBall(View view) {
+                    mNotBookDialog.dismiss();
+                    launcherBall((ArrayList<ResultNotBookBean>) data);
+                }
+
+                @Override
+                public void onClickNewBall(View view) {
+                    launcherBall(null);
+                    mNotBookDialog.dismiss();
+                }
+            });
+            mNotBookDialog.show();
         }
     }
 

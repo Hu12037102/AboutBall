@@ -3,11 +3,14 @@ package com.work.guaishouxingqiu.aboutball.venue.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -16,17 +19,23 @@ import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
+import com.work.guaishouxingqiu.aboutball.my.activity.PaySucceedActivity;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
+import com.work.guaishouxingqiu.aboutball.venue.adapter.NotBookAdapter;
 import com.work.guaishouxingqiu.aboutball.venue.adapter.RefereeListAdapter;
+import com.work.guaishouxingqiu.aboutball.venue.bean.RequestCreateBallBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.RequestLauncherBallBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultMyBallTeamBean;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultNotBookBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultRefereeBean;
 import com.work.guaishouxingqiu.aboutball.venue.contract.LauncherBallContract;
 import com.work.guaishouxingqiu.aboutball.venue.presenter.LauncherBallPresenter;
 import com.work.guaishouxingqiu.aboutball.weight.SelectorColorDialog;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +59,10 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
     RecyclerView mRvReferee;
     @BindView(R.id.tv_next)
     TextView mTvNext;
+    @BindView(R.id.rv_not_book)
+    RecyclerView mRvNotBook;
+    @BindView(R.id.ll_new_book)
+    LinearLayout mLlNewBook;
     private RefereeListAdapter mRefereeAdapter;
     private List<ResultRefereeBean> mRefereeData;
     private ResultMyBallTeamBean mMyBallTeam;
@@ -58,6 +71,8 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
     private long mAreaId;
     private static final int REQUEST_CODE_REFEREE_DETAILS = 45;
     private static final int REQUEST_CODE_ORDER_PAY = 46;
+    private List<ResultNotBookBean> mNotBookData;
+    private NotBookAdapter mNotBookAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -76,6 +91,34 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
         mStadiumId = bundle.getLong(ARouterConfig.Key.STADIUM_ID, -1);
         mCalendarId = bundle.getLong(ARouterConfig.Key.CALENDAR_ID, -1);
         mAreaId = bundle.getLong(ARouterConfig.Key.AREA_ID, -1);
+
+        mNotBookData = bundle.getParcelableArrayList(ARouterConfig.Key.ARRAY_LIST_PARCELABLE);
+        if (DataUtils.isEmptyList(mNotBookData)) {
+            mLlNewBook.setVisibility(View.VISIBLE);
+            mRvNotBook.setVisibility(View.GONE);
+        } else {
+            mLlNewBook.setVisibility(View.GONE);
+            mRvNotBook.setVisibility(View.VISIBLE);
+            mRvNotBook.setLayoutManager(new LinearLayoutManager(this));
+            mNotBookAdapter = new NotBookAdapter(mNotBookData);
+            mNotBookAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+                @Override
+                public void onNotNetClick(View view) {
+
+                }
+
+                @Override
+                public void onNotDataClick(View view) {
+
+                }
+
+                @Override
+                public void onItemClick(View view, int position) {
+                    setNextStatus();
+                }
+            });
+            mRvNotBook.setAdapter(mNotBookAdapter);
+        }
         if (mStadiumId == -1 || mCalendarId == -1 || mAreaId == -1) {
             UIUtils.showToast(R.string.this_order_not_exist);
             finish();
@@ -138,13 +181,37 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
             }
         });
         mTvNext.setOnClickListener(v -> {
-            RequestLauncherBallBean requestBean = new RequestLauncherBallBean();
-            requestBean.calendarId = mCalendarId;
-            requestBean.hostTeamId = mMyBallTeam.teamId;
-            requestBean.refereeId = mRefereeAdapter.getSelectorInviteReferee();
-            requestBean.hostShirtColor = mItemColor.mTvRight.getText().toString();
-            mPresenter.launcherBall(requestBean);
+            if (DataUtils.isEmptyList(mNotBookData)) {
+                RequestLauncherBallBean requestBean = new RequestLauncherBallBean();
+                requestBean.calendarId = mCalendarId;
+                requestBean.hostTeamId = mMyBallTeam.teamId;
+                requestBean.refereeId = mRefereeAdapter.getSelectorInviteReferee();
+                requestBean.hostShirtColor = mItemColor.mTvRight.getText().toString();
+                mPresenter.launcherBall(requestBean);
+            } else {
+                ResultNotBookBean bean = mNotBookData.get(mNotBookAdapter.getSelectorPosition());
+                RequestCreateBallBean editRequestBean = new RequestCreateBallBean();
+                editRequestBean.agreeId = bean.agreeId;
+                editRequestBean.calendarId = mCalendarId;
+                editRequestBean.startTime = bean.startTime;
+                editRequestBean.endTime = bean.endTime;
+                editRequestBean.hostShirtColor = bean.hostShirtColor;
+                editRequestBean.refereeId = new Long[]{};
+                editRequestBean.hostTeamId = bean.hostTeamId;
+                editRequestBean.phone = bean.phone;
+                mPresenter.editAboutBall(editRequestBean);
+            }
+
         });
+    }
+
+    @Override
+    public void resultCreateBallOrderId(String orderId) {
+        if (orderId != null) {
+            mViewModel.startActivityToOrderPay(Long.valueOf(orderId), Contast.PayOrderFlag.PAY_LAUNCHER_ORDER);
+        }
+        mViewModel.clickBackForResult();
+
     }
 
     @Override
@@ -233,17 +300,27 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
     }
 
     public boolean isSelectorReferee() {
-      /*  return mRefereeAdapter != null && mRefereeAdapter.isInviteReferee();*/
-      return true;
+        /*  return mRefereeAdapter != null && mRefereeAdapter.isInviteReferee();*/
+        return true;
     }
 
     private void setNextStatus() {
-        if (isSelectorTeam() && isSelectorColor() && isSelectorReferee()) {
-            mTvNext.setEnabled(true);
-            mTvNext.setBackgroundResource(R.drawable.shape_click_button);
+        if (DataUtils.isEmptyList(mNotBookData)) {
+            if (isSelectorTeam() && isSelectorColor() && isSelectorReferee()) {
+                mTvNext.setEnabled(true);
+                mTvNext.setBackgroundResource(R.drawable.shape_click_button);
+            } else {
+                mTvNext.setEnabled(false);
+                mTvNext.setBackgroundResource(R.drawable.shape_default_button);
+            }
         } else {
-            mTvNext.setEnabled(false);
-            mTvNext.setBackgroundResource(R.drawable.shape_default_button);
+            if (mNotBookAdapter.getSelectorPosition() != -1) {
+                mTvNext.setEnabled(true);
+                mTvNext.setBackgroundResource(R.drawable.shape_click_button);
+            } else {
+                mTvNext.setEnabled(false);
+                mTvNext.setBackgroundResource(R.drawable.shape_default_button);
+            }
         }
     }
 }

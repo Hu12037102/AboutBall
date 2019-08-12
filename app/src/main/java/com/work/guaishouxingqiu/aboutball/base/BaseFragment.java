@@ -26,6 +26,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionFragment;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultNotBookBean;
 import com.work.guaishouxingqiu.aboutball.weight.LoadingView;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
@@ -248,6 +249,10 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
 
     @Override
     public void resultCreateBallOrderId(String orderId) {
+
+    }
+    @Override
+    public void resultNotBookData(List<ResultNotBookBean> data) {
 
     }
 }

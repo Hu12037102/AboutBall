@@ -33,20 +33,5 @@ public class CreateBallPresenter extends BasePresenter<CreateBallContract.View, 
 
     }
 
-    @Override
-    public void editAboutBall(RequestCreateBallBean ballBean) {
-        mModel.editAboutBall(ballBean, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
-            @Override
-            public void onNext(BaseBean<BaseDataBean<String>> t) {
-                if (DataUtils.baseDataBeanIsSucceed(t)) {
-                    mView.resultCreateBallOrderId(t.result.result);
-                }
-            }
 
-            @Override
-            public void onError(Throwable e) {
-
-            }
-        }));
-    }
 }

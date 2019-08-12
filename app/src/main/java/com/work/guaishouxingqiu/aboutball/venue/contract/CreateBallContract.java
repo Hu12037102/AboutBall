@@ -15,6 +15,5 @@ public interface CreateBallContract {
     }
 
     interface Presenter extends IBasePresenter {
-        void editAboutBall(RequestCreateBallBean ballBean);
     }
 }

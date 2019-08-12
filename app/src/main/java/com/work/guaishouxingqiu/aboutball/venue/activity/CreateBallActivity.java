@@ -19,6 +19,7 @@ import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
+import com.work.guaishouxingqiu.aboutball.my.activity.PaySucceedActivity;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
@@ -95,14 +96,20 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
             mItemTime.setVisibility(View.VISIBLE);
             mItemTime.mTvRight.setText(DateUtils.getStartTime2EndTimeForHourMinute(mIntentBean.startTime, mIntentBean.endTime));
             mItemSite.mTvRight.setText(DataUtils.getNotNullData(mIntentBean.stadiumName));
-            mRequestBean.calendarId = mIntentBean.calendarId == 0 ? null : mIntentBean.calendarId;
+          //  mRequestBean.calendarId = mIntentBean.calendarId == 0 ? null : mIntentBean.calendarId;
             mRequestBean.hostTeamId = mIntentBean.hostTeamId;
             mRequestBean.hostShirtColor = mIntentBean.hostShirtColor;
             mRequestBean.startTime = mIntentBean.startTime;
             mRequestBean.endTime = mIntentBean.endTime;
-            mItemSite.mRootView.setEnabled(false);
-            mItemDate.mRootView.setEnabled(false);
-            mItemTime.mRootView.setEnabled(false);
+            if (mIntentBean.calendarId != 0) {
+                mItemSite.mRootView.setEnabled(false);
+                mItemDate.mRootView.setEnabled(false);
+                mItemTime.mRootView.setEnabled(false);
+            } else {
+                mItemSite.mRootView.setEnabled(true);
+                mItemDate.mRootView.setEnabled(true);
+                mItemTime.mRootView.setEnabled(true);
+            }
             mTvSure.setText(R.string.edit_about_ball);
             notifyInputAllContent();
         }
@@ -250,7 +257,6 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
                 } else {
                     mPresenter.editAboutBall(mRequestBean);
                 }
-
                 break;
         }
     }
@@ -331,7 +337,8 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
 
     @Override
     protected void onDestroy() {
-        EventBus.getDefault().removeAllStickyEvents();
+       // EventBus.getDefault().removeAllStickyEvents();
+        EventBus.getDefault().removeStickyEvent(VenueDetailsActivity.CreateBean.class);
         unRegisterEventBus();
         super.onDestroy();
     }
@@ -366,6 +373,7 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
     @Override
     public void resultCreateBallOrderId(String orderId) {
         if (orderId != null) {
+            EventBus.getDefault().postSticky(new PaySucceedActivity.Type(1) );
             mViewModel.startActivityToOrderPay(Long.valueOf(orderId), Contast.PayOrderFlag.PAY_LAUNCHER_ORDER);
         }
         mViewModel.clickBackForResult();

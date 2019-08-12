@@ -15,6 +15,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundCauseBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultSystemNotificationBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultNotBookBean;
 
 import java.util.List;
 
@@ -76,4 +77,6 @@ public interface IBaseView {
     void resultClearRedPoint(boolean isSucceed);
 
     void resultCreateBallOrderId(String orderId);
+
+    void resultNotBookData(List<ResultNotBookBean> data);
 }

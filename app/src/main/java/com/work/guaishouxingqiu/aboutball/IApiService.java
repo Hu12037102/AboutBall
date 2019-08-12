@@ -128,6 +128,7 @@ public interface IApiService {
     String GET_MY_BALL_TEAM = "api/myTeam/getMyTeam";
     String POST_LAUNCHER_BALL = "api/agreeBall/initiateAgreeBall";
     String GET_OSS_TOKEN = "api/commons/static/ossCredentials";
+    String GET_NOT_BOOK="api/agreeBall/agreeBallWithoutCalendar";
 
     String POST_MANAGE_TEAM = "api/myTeam/createTeam";
     String GET_BALL_TEAM_DETAILS = "api/myTeam/getTeamInfo";

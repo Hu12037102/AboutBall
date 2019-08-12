@@ -10,6 +10,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultFansFocusBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyMessageBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultSystemNotificationBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.RequestCreateBallBean;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultNotBookBean;
 
 import java.util.List;
 
@@ -74,6 +75,10 @@ public interface BaseService {
 
     @GET(IApiService.GET_CLEAR_RED_POINT)
     Observable<BaseBean<String>> clearRedPoint(@Query(Contast.NOTICE_TYPE) int noticeType);
+
     @POST(IApiService.POST_LAUNCHER_BALL)
     Observable<BaseBean<BaseDataBean<String>>> createPostBall(@Body RequestCreateBallBean ballBean);
+
+    @GET(IApiService.GET_NOT_BOOK)
+    Observable<BaseBean<List<ResultNotBookBean>>> gainNotBooking();
 }

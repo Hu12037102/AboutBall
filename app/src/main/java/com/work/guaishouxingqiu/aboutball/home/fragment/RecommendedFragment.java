@@ -38,6 +38,7 @@ import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.venue.activity.AboutBallDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.weight.CarouselViewPager;
+import com.work.guaishouxingqiu.aboutball.weight.NotAboutBallDialog;
 
 import org.greenrobot.eventbus.EventBus;
 

@@ -25,9 +25,9 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 import com.work.guaishouxingqiu.aboutball.other.SharedPreferencesHelp;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
-import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.venue.bean.RequestCreateBallBean;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultNotBookBean;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 
 import java.util.List;
@@ -523,6 +523,38 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
 
     public void createPostBall(@NonNull RequestCreateBallBean ballBean) {
         mModel.createPostBall(ballBean, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
+            @Override
+            public void onNext(BaseBean<BaseDataBean<String>> t) {
+                if (DataUtils.baseDataBeanIsSucceed(t)) {
+                    mView.resultCreateBallOrderId(t.result.result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+
+    public void gainNotBooking() {
+        mModel.gainNotBooking(new BaseObserver<>(true, this, new BaseObserver.Observer<List<ResultNotBookBean>>() {
+            @Override
+            public void onNext(BaseBean<List<ResultNotBookBean>> t) {
+                if (DataUtils.isResultSure(t)) {
+                    mView.resultNotBookData(t.result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+
+    public void editAboutBall(RequestCreateBallBean ballBean) {
+        mModel.editAboutBall(ballBean, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
             @Override
             public void onNext(BaseBean<BaseDataBean<String>> t) {
                 if (DataUtils.baseDataBeanIsSucceed(t)) {

@@ -21,7 +21,9 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundCauseBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultSystemNotificationBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
+import com.work.guaishouxingqiu.aboutball.venue.VenueService;
 import com.work.guaishouxingqiu.aboutball.venue.bean.RequestCreateBallBean;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultNotBookBean;
 
 import java.util.List;
 
@@ -240,6 +242,22 @@ public class BaseModel {
     public void createPostBall(@NonNull RequestCreateBallBean ballBean,BaseObserver<BaseDataBean<String>> observer) {
         mRetrofitManger.create(BaseService.class)
                 .createPostBall(ballBean)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    public void gainNotBooking(BaseObserver<List<ResultNotBookBean>> observer) {
+        mRetrofitManger.create(BaseService.class)
+                .gainNotBooking()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    public void editAboutBall(RequestCreateBallBean ballBean, BaseObserver<BaseDataBean<String>> observer) {
+        mRetrofitManger.create(VenueService.class)
+                .editAboutBall(ballBean)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

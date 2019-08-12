@@ -7,6 +7,7 @@ package com.work.guaishouxingqiu.aboutball;
  * 描述: 一些常量
  */
 public interface Contast {
+
     String SPLIT_IMAGE = ",";
     //手机号码验证正则
     // public static final String REGEX_PHONE_NUMBER = "^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\\\D])|(18[0,5-9]))\\\\d{8}$";
@@ -146,6 +147,8 @@ public interface Contast {
     interface VenueType {
         //创建发起约球
         int CREATE_BALL = 1;
+        int FORMER_BALL = 2;//选择已发起的约球
+        int NEW_BALL = 3;//选择新发起的约球
     }
 
     interface LoginStatus {

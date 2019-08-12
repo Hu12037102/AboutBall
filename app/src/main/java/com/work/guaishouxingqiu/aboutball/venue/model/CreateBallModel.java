@@ -16,11 +16,5 @@ import io.reactivex.schedulers.Schedulers;
  * 描述:创建约球model
  */
 public class CreateBallModel extends BaseModel {
-    public void editAboutBall(RequestCreateBallBean ballBean, BaseObserver<BaseDataBean<String>> observer) {
-        mRetrofitManger.create(VenueService.class)
-                .editAboutBall(ballBean)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
-    }
+
 }
