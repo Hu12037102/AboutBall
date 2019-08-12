@@ -2,8 +2,10 @@ package com.work.guaishouxingqiu.aboutball.game.fragment;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -69,6 +71,8 @@ public class GameDataFragment extends DelayedFragment<GameDataPresenter> impleme
         mHeadTvStart = mHeadView.findViewById(R.id.tv_start);
         mHeadView.setVisibility(View.VISIBLE);
         mHeadRvData = mHeadView.findViewById(R.id.rv_data);
+        LinearLayout llHeadTop = mHeadView.findViewById(R.id.ll_head_top);
+        llHeadTop.setVisibility(View.GONE);
         mHeadRvData.setLayoutManager(new LinearLayoutManager(mContext));
     }
 
