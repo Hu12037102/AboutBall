@@ -96,7 +96,7 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
             mItemTime.setVisibility(View.VISIBLE);
             mItemTime.mTvRight.setText(DateUtils.getStartTime2EndTimeForHourMinute(mIntentBean.startTime, mIntentBean.endTime));
             mItemSite.mTvRight.setText(DataUtils.getNotNullData(mIntentBean.stadiumName));
-          //  mRequestBean.calendarId = mIntentBean.calendarId == 0 ? null : mIntentBean.calendarId;
+            //  mRequestBean.calendarId = mIntentBean.calendarId == 0 ? null : mIntentBean.calendarId;
             mRequestBean.hostTeamId = mIntentBean.hostTeamId;
             mRequestBean.hostShirtColor = mIntentBean.hostShirtColor;
             mRequestBean.startTime = mIntentBean.startTime;
@@ -214,7 +214,6 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
             @Override
             public void onClickItem(View view) {
                 EventBus.getDefault().postSticky(new CreateBallActivity.Status(Contast.VenueType.CREATE_BALL));
-
                 ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_VENUE_LIST, CreateBallActivity.this, REQUEST_CODE_SITE);
             }
         });
@@ -337,8 +336,10 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
 
     @Override
     protected void onDestroy() {
-       // EventBus.getDefault().removeAllStickyEvents();
-        EventBus.getDefault().removeStickyEvent(VenueDetailsActivity.CreateBean.class);
+        Status stickyEvent = EventBus.getDefault().getStickyEvent(Status.class);
+        if (stickyEvent != null) {
+            EventBus.getDefault().removeStickyEvent(stickyEvent);
+        }
         unRegisterEventBus();
         super.onDestroy();
     }
@@ -373,7 +374,7 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
     @Override
     public void resultCreateBallOrderId(String orderId) {
         if (orderId != null) {
-            EventBus.getDefault().postSticky(new PaySucceedActivity.Type(1) );
+            EventBus.getDefault().postSticky(new PaySucceedActivity.Type(1));
             mViewModel.startActivityToOrderPay(Long.valueOf(orderId), Contast.PayOrderFlag.PAY_LAUNCHER_ORDER);
         }
         mViewModel.clickBackForResult();

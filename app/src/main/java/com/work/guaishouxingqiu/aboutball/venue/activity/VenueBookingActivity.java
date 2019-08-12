@@ -561,7 +561,6 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
         mIncludeRuleView.setVisibility(View.GONE);
         mLlBottom.setVisibility(View.GONE);
         mIsCreateBall = true;
-
     }
 
 

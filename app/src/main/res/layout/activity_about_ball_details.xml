@@ -113,6 +113,36 @@
         app:title_left_icon="@mipmap/icon_about_time"
         app:title_text_color="@color/color_4"
         app:title_text_size="@dimen/size_14sp" />
+    <com.example.item.weight.ItemView
+        android:id="@+id/item_shirt"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/colorWhite"
+        app:bottom_line_margin_left="@dimen/default_margin"
+        app:bottom_line_margin_right="@dimen/default_margin"
+        app:content_text_color="@color/color_4"
+        app:content_text_size="@dimen/size_14sp"
+        app:show_bottom_line="true"
+        app:title_data="@string/ball_shirt"
+        app:title_drawable_padding="@dimen/size_15dp"
+        app:title_left_icon="@mipmap/icon_about_short"
+        app:title_text_color="@color/color_4"
+        app:title_text_size="@dimen/size_14sp" />
+    <com.example.item.weight.ItemView
+        android:id="@+id/item_contact"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/colorWhite"
+        app:bottom_line_margin_left="@dimen/default_margin"
+        app:bottom_line_margin_right="@dimen/default_margin"
+        app:content_text_color="@color/color_4"
+        app:content_text_size="@dimen/size_14sp"
+        app:show_bottom_line="true"
+        app:title_data="@string/contact_way"
+        app:title_drawable_padding="@dimen/size_15dp"
+        app:title_left_icon="@mipmap/icon_about_phone"
+        app:title_text_color="@color/color_4"
+        app:title_text_size="@dimen/size_14sp" />
 
     <com.example.item.weight.ItemView
         android:id="@+id/item_money"

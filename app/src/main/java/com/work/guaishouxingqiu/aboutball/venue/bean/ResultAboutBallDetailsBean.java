@@ -27,6 +27,7 @@ public class ResultAboutBallDetailsBean implements Parcelable {
     public String hostShirtColor;
     public String guestShirtColor;
     public int myAgreeBall;
+    public String phone;
 
 
     protected ResultAboutBallDetailsBean(Parcel in) {
@@ -47,6 +48,7 @@ public class ResultAboutBallDetailsBean implements Parcelable {
         hostShirtColor = in.readString();
         guestShirtColor = in.readString();
         myAgreeBall = in.readInt();
+        phone = in.readString();
     }
 
     @Override
@@ -68,6 +70,7 @@ public class ResultAboutBallDetailsBean implements Parcelable {
         dest.writeString(hostShirtColor);
         dest.writeString(guestShirtColor);
         dest.writeInt(myAgreeBall);
+        dest.writeString(phone);
     }
 
     @Override

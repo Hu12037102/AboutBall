@@ -435,6 +435,7 @@
     <string name="site" translatable="false">场地</string>
     <string name="date" translatable="false">日期</string>
     <string name="time" translatable="false">时间</string>
+    <string name="ball_shirt" translatable="false">球衣</string>
     <string name="money_cash_pledge" translatable="false">场地+押金</string>
     <string name="the_registration_team" translatable="false">报名队伍</string>
     <string name="serve_as_a_judge" translatable="false">担任裁判</string>

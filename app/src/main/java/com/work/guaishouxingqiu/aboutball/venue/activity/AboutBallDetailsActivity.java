@@ -94,6 +94,10 @@ public class AboutBallDetailsActivity extends LoginOrShareActivity<AboutBallDeta
     TextView mTvCancel;
     @BindView(R.id.tv_edit)
     TextView mTvEdit;
+    @BindView(R.id.item_shirt)
+    ItemView mItemShirt;
+    @BindView(R.id.item_contact)
+    ItemView mItemContact;
     private int mHasRefereeStatus;
     private int mHasTeamStatus;
     private ResultAboutBallDetailsBean mResultBean;
@@ -167,6 +171,12 @@ public class AboutBallDetailsActivity extends LoginOrShareActivity<AboutBallDeta
                 }
             }
         });
+        mItemContact.mTvRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UIUtils.showCallPhoneDialog(AboutBallDetailsActivity.this, DataUtils.getTextViewContent(mItemContact.mTvRight));
+            }
+        });
     }
 
     @Override
@@ -188,6 +198,8 @@ public class AboutBallDetailsActivity extends LoginOrShareActivity<AboutBallDeta
         UIUtils.setText(mItemDate.mTvRight, DateUtils.getDate(bean.startTime));
         UIUtils.setText(mItemTime.mTvRight, DateUtils.getHourMinutes(bean.startTime) + "-" + DateUtils.getHourMinutes(bean.endTime));
         UIUtils.setText(mItemMoney.mTvRight, bean.cost == 0 ? UIUtils.getString(R.string.not_sure) : DataUtils.getMoneyFormat(bean.cost));
+        UIUtils.setTextShirtColor(mItemShirt.mTvRight, bean.hostShirtColor, R.string.not_settings);
+        UIUtils.setText(mItemContact.mTvRight, bean.phone, R.string.not_sure);
         if (mAboutBallFlag == Contast.AboutBallFlag.PUBLISH || mAboutBallFlag == Contast.AboutBallFlag.PARTICIPATION) {
             mLlCancel.setVisibility(View.VISIBLE);
             if (DateUtils.isNewTimeMoreThan(bean.startTime) || mAboutBallFlag == Contast.AboutBallFlag.PARTICIPATION) {
