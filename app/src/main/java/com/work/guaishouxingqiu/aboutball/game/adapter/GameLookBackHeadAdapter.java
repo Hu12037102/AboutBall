@@ -1,9 +1,11 @@
 package com.work.guaishouxingqiu.aboutball.game.adapter;
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,11 +54,14 @@ public class GameLookBackHeadAdapter extends RecyclerView.Adapter<GameLookBackHe
         GlideManger.get().loadBannerImage(mContext, bean.photoUrl, viewHolder.mRivContent);
         UIUtils.setText(viewHolder.mTvContent, bean.description);
         ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) viewHolder.itemView.getLayoutParams();
-        marginLayoutParams.leftMargin = ScreenUtils.dp2px(mContext, 10);
+        marginLayoutParams.leftMargin = ScreenUtils.dp2px(mContext, 8);
         if (i == mData.size() - 1) {
             marginLayoutParams.rightMargin = ScreenUtils.dp2px(mContext, 15);
+        } else if (i == 0) {
+            marginLayoutParams.leftMargin = ScreenUtils.dp2px(mContext, 10);
         } else {
             marginLayoutParams.rightMargin = ScreenUtils.dp2px(mContext, 0);
+
         }
         if (bean.isCheck) {
             viewHolder.mTvContent.setTextColor(ContextCompat.getColor(mContext, R.color.color_2));
