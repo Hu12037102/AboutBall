@@ -58,8 +58,12 @@ public class InvitationBallPresenter extends BasePresenter<InvitationBallContrac
         mModel.invitationBall(requestBean, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<Long>>() {
             @Override
             public void onNext(BaseBean<BaseDataBean<Long>> t) {
-                if (DataUtils.baseDataBeanIsSucceed(t) && t.result.result != null) {
-                    mView.resultOrderId(t.result.result);
+                if (DataUtils.baseDataBeanIsSucceed(t)) {
+                    if (t.result.result != null) {
+                        mView.resultOrderId(t.result.result);
+                    } else {
+                        mView.resultOrderIdNull();
+                    }
                 }
             }
 

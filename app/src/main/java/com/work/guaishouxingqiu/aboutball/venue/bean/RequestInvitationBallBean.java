@@ -8,7 +8,7 @@ package com.work.guaishouxingqiu.aboutball.venue.bean;
  */
 public class RequestInvitationBallBean {
     public long agreeId;
-    public long calendarId;
+    public Long calendarId;
     public long guestTeamId;
     public String guestShirtColor;
 }

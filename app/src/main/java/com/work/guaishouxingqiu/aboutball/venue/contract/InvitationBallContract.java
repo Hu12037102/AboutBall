@@ -14,6 +14,7 @@ import com.work.guaishouxingqiu.aboutball.venue.bean.RequestVenueOrderBean;
 public interface InvitationBallContract {
     interface View extends IBaseView {
         void resultOrderId(long result);
+        void resultOrderIdNull();
     }
 
     interface Presenter extends IBasePresenter {

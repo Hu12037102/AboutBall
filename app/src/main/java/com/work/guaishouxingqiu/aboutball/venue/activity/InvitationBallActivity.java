@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+
 import android.view.View;
 import android.widget.TextView;
 
@@ -71,7 +72,7 @@ public class InvitationBallActivity extends BaseActivity<InvitationBallPresenter
         mItemTeam.mTvRight.setHint(R.string.please_selector_ball_team);
         mRequestBean = new RequestInvitationBallBean();
         mRequestBean.agreeId = agreeId;
-        mRequestBean.calendarId = calendarId;
+        mRequestBean.calendarId = calendarId == 0 ? null : calendarId;
 
 
     }
@@ -175,5 +176,10 @@ public class InvitationBallActivity extends BaseActivity<InvitationBallPresenter
     @Override
     public void resultOrderId(long result) {
         mViewModel.startActivityToOrderPay(result, Contast.PayOrderFlag.PAY_LAUNCHER_ORDER, InvitationBallActivity.REQUEST_CODE_WAIT_PAY);
+    }
+
+    @Override
+    public void resultOrderIdNull() {
+        mViewModel.clickBackForResult();
     }
 }
