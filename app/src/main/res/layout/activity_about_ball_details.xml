@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -16,326 +16,352 @@
         app:center_data="@string/about_ball_details"
         app:center_text_color="@color/color_4"
         app:center_text_size="@dimen/size_18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:sure_right_drawable="@mipmap/icon_share_view"
         app:sure_text_padding_left="@dimen/default_margin"
         app:sure_text_padding_right="@dimen/default_margin" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_top_team"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/size_100dp"
-        android:layout_marginTop="@dimen/size_5dp"
-        android:background="@drawable/selector_item">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/civ_logo"
-            android:layout_width="@dimen/size_60dp"
-            android:layout_height="@dimen/size_60dp"
-            android:layout_marginLeft="@dimen/default_margin"
-            android:src="@mipmap/icon_default_logo"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_read"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/default_margin"
-            android:drawableRight="@mipmap/icon_item_right"
-            android:drawablePadding="@dimen/size_5dp"
-            android:text="@string/read"
-            android:textColor="@color/colorFFA6A6A6"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_top_team_name"
-            android:layout_width="@dimen/size_0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/default_margin"
-            android:layout_marginRight="@dimen/default_margin"
-            android:gravity="center_vertical"
-            android:textColor="@color/color_4"
-            android:textSize="@dimen/size_17sp"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toRightOf="@id/civ_logo"
-            app:layout_constraintRight_toLeftOf="@id/tv_read"
-            tools:text="我们都是熊碧一家人" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <com.example.item.weight.ItemView
-        android:id="@+id/item_site"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/item_height"
-        android:layout_marginTop="@dimen/size_5dp"
-        android:background="@color/colorWhite"
-        app:bottom_line_margin_left="@dimen/default_margin"
-        app:bottom_line_margin_right="@dimen/default_margin"
-        app:content_text_color="@color/color_4"
-        app:content_text_size="@dimen/size_14sp"
-        app:show_bottom_line="true"
-        app:title_data="@string/site"
-        app:title_drawable_padding="@dimen/size_15dp"
-        app:title_left_icon="@mipmap/icon_about_site"
-        app:title_text_color="@color/color_4"
-        app:title_text_size="@dimen/size_14sp" />
-
-    <com.example.item.weight.ItemView
-        android:id="@+id/item_date"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/item_height"
-        android:background="@color/colorWhite"
-        app:bottom_line_margin_left="@dimen/default_margin"
-        app:bottom_line_margin_right="@dimen/default_margin"
-        app:content_text_color="@color/color_4"
-        app:content_text_size="@dimen/size_14sp"
-        app:show_bottom_line="true"
-        app:title_data="@string/date"
-        app:title_drawable_padding="@dimen/size_15dp"
-        app:title_left_icon="@mipmap/icon_about_date"
-        app:title_text_color="@color/color_4"
-        app:title_text_size="@dimen/size_14sp" />
-
-    <com.example.item.weight.ItemView
-        android:id="@+id/item_time"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/item_height"
-        android:background="@color/colorWhite"
-        app:bottom_line_margin_left="@dimen/default_margin"
-        app:bottom_line_margin_right="@dimen/default_margin"
-        app:content_text_color="@color/color_4"
-        app:content_text_size="@dimen/size_14sp"
-        app:show_bottom_line="true"
-        app:title_data="@string/time"
-        app:title_drawable_padding="@dimen/size_15dp"
-        app:title_left_icon="@mipmap/icon_about_time"
-        app:title_text_color="@color/color_4"
-        app:title_text_size="@dimen/size_14sp" />
-    <com.example.item.weight.ItemView
-        android:id="@+id/item_shirt"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/item_height"
-        android:background="@color/colorWhite"
-        app:bottom_line_margin_left="@dimen/default_margin"
-        app:bottom_line_margin_right="@dimen/default_margin"
-        app:content_text_color="@color/color_4"
-        app:content_text_size="@dimen/size_14sp"
-        app:show_bottom_line="true"
-        app:title_data="@string/ball_shirt"
-        app:title_drawable_padding="@dimen/size_15dp"
-        app:title_left_icon="@mipmap/icon_about_short"
-        app:title_text_color="@color/color_4"
-        app:title_text_size="@dimen/size_14sp" />
-    <com.example.item.weight.ItemView
-        android:id="@+id/item_contact"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/item_height"
-        android:background="@color/colorWhite"
-        app:bottom_line_margin_left="@dimen/default_margin"
-        app:bottom_line_margin_right="@dimen/default_margin"
-        app:content_text_color="@color/color_4"
-        app:content_text_size="@dimen/size_14sp"
-        app:show_bottom_line="true"
-        app:title_data="@string/contact_way"
-        app:title_drawable_padding="@dimen/size_15dp"
-        app:title_left_icon="@mipmap/icon_about_phone"
-        app:title_text_color="@color/color_4"
-        app:title_text_size="@dimen/size_14sp" />
-
-    <com.example.item.weight.ItemView
-        android:id="@+id/item_money"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/item_height"
-        android:background="@color/colorWhite"
-        app:bottom_line_margin_left="@dimen/default_margin"
-        app:bottom_line_margin_right="@dimen/default_margin"
-        app:content_text_color="@color/color_4"
-        app:content_text_size="@dimen/size_14sp"
-        app:show_bottom_line="true"
-        app:title_data="@string/money_cash_pledge"
-        app:title_drawable_padding="@dimen/size_15dp"
-        app:title_left_icon="@mipmap/icon_about_money"
-        app:title_text_color="@color/color_4"
-        app:title_text_size="@dimen/size_14sp" />
-
-    <TextView
-        android:id="@+id/tv_team_content"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/size_40dp"
-        android:background="@color/colorWhite"
-        android:lineSpacingExtra="@dimen/size_5dp"
-        android:paddingLeft="@dimen/default_margin"
-        android:text="@string/the_registration_team"
-        android:textColor="@color/color_4"
-        android:textSize="@dimen/size_14sp" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_bottom_team"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/size_75dp"
-        android:background="@drawable/selector_item"
-        android:visibility="gone">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/civ_logo_join"
-            android:layout_width="@dimen/size_60dp"
-            android:layout_height="@dimen/size_60dp"
-            android:layout_marginLeft="@dimen/default_margin"
-            android:src="@mipmap/icon_default_logo"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_read_join"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/default_margin"
-            android:drawableRight="@mipmap/icon_item_right"
-            android:drawablePadding="@dimen/size_5dp"
-            android:text="@string/read"
-            android:textColor="@color/colorFFA6A6A6"
-            android:textSize="@dimen/size_12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_bottom_team_name"
-            android:layout_width="@dimen/size_0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/default_margin"
-            android:layout_marginRight="@dimen/default_margin"
-            android:gravity="center_vertical"
-            android:textColor="@color/color_4"
-            android:textSize="@dimen/size_17sp"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toRightOf="@id/civ_logo_join"
-            app:layout_constraintRight_toLeftOf="@id/tv_read_join"
-            tools:text="我们都是熊碧一家人" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <RelativeLayout
-        android:id="@+id/rl_edit"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/tv_edit"
-            style="@style/ButtonCenterText"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="bottom"
-            android:layout_marginTop="@dimen/size_5dp"
-            android:layout_marginBottom="@dimen/size_5dp"
-            android:text="@string/edit_about_ball" />
-
-        <View
-            style="@style/HorizontalLine"
-            android:layout_above="@id/tv_edit" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/rl_bottom_multiple"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
+        android:layout_height="@dimen/size_0dp"
+        app:layout_constraintBottom_toTopOf="@id/ll_bottom"
+        app:layout_constraintTop_toBottomOf="@id/title_view">
 
         <LinearLayout
-            android:id="@+id/ll_bottom_root"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/size_50dp"
-            android:layout_alignParentBottom="true"
-            android:gravity="center_vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_5dp"
+            android:layout_marginBottom="@dimen/size_5dp"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_top_team"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_100dp"
+
+                android:background="@drawable/selector_item">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/civ_logo"
+                    android:layout_width="@dimen/size_60dp"
+                    android:layout_height="@dimen/size_60dp"
+                    android:layout_marginLeft="@dimen/default_margin"
+                    android:src="@mipmap/icon_default_logo"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_read"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/default_margin"
+                    android:drawableRight="@mipmap/icon_item_right"
+                    android:drawablePadding="@dimen/size_5dp"
+                    android:text="@string/read"
+                    android:textColor="@color/colorFFA6A6A6"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_top_team_name"
+                    android:layout_width="@dimen/size_0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/default_margin"
+                    android:layout_marginRight="@dimen/default_margin"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/color_4"
+                    android:textSize="@dimen/size_17sp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toRightOf="@id/civ_logo"
+                    app:layout_constraintRight_toLeftOf="@id/tv_read"
+                    tools:text="我们都是熊碧一家人" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.example.item.weight.ItemView
+                android:id="@+id/item_site"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:layout_marginTop="@dimen/size_5dp"
+                android:background="@color/colorWhite"
+                app:bottom_line_margin_left="@dimen/default_margin"
+                app:bottom_line_margin_right="@dimen/default_margin"
+                app:content_text_color="@color/color_4"
+                app:content_text_size="@dimen/size_14sp"
+                app:show_bottom_line="true"
+                app:title_data="@string/site"
+                app:title_drawable_padding="@dimen/size_15dp"
+                app:title_left_icon="@mipmap/icon_about_site"
+                app:title_text_color="@color/color_4"
+                app:title_text_size="@dimen/size_14sp" />
+
+            <com.example.item.weight.ItemView
+                android:id="@+id/item_date"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:background="@color/colorWhite"
+                app:bottom_line_margin_left="@dimen/default_margin"
+                app:bottom_line_margin_right="@dimen/default_margin"
+                app:content_text_color="@color/color_4"
+                app:content_text_size="@dimen/size_14sp"
+                app:show_bottom_line="true"
+                app:title_data="@string/date"
+                app:title_drawable_padding="@dimen/size_15dp"
+                app:title_left_icon="@mipmap/icon_about_date"
+                app:title_text_color="@color/color_4"
+                app:title_text_size="@dimen/size_14sp" />
+
+            <com.example.item.weight.ItemView
+                android:id="@+id/item_time"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:background="@color/colorWhite"
+                app:bottom_line_margin_left="@dimen/default_margin"
+                app:bottom_line_margin_right="@dimen/default_margin"
+                app:content_text_color="@color/color_4"
+                app:content_text_size="@dimen/size_14sp"
+                app:show_bottom_line="true"
+                app:title_data="@string/time"
+                app:title_drawable_padding="@dimen/size_15dp"
+                app:title_left_icon="@mipmap/icon_about_time"
+                app:title_text_color="@color/color_4"
+                app:title_text_size="@dimen/size_14sp" />
+
+            <com.example.item.weight.ItemView
+                android:id="@+id/item_shirt"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:background="@color/colorWhite"
+                app:bottom_line_margin_left="@dimen/default_margin"
+                app:bottom_line_margin_right="@dimen/default_margin"
+                app:content_text_color="@color/color_4"
+                app:content_text_size="@dimen/size_14sp"
+                app:show_bottom_line="true"
+                app:title_data="@string/ball_shirt"
+                app:title_drawable_padding="@dimen/size_15dp"
+                app:title_left_icon="@mipmap/icon_about_short"
+                app:title_text_color="@color/color_4"
+                app:title_text_size="@dimen/size_14sp" />
+
+            <com.example.item.weight.ItemView
+                android:id="@+id/item_contact"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:background="@color/colorWhite"
+                app:bottom_line_margin_left="@dimen/default_margin"
+                app:bottom_line_margin_right="@dimen/default_margin"
+                app:content_text_color="@color/color_4"
+                app:content_text_size="@dimen/size_14sp"
+                app:show_bottom_line="true"
+                app:title_data="@string/contact_way"
+                app:title_drawable_padding="@dimen/size_15dp"
+                app:title_left_icon="@mipmap/icon_about_phone"
+                app:title_text_color="@color/color_4"
+                app:title_text_size="@dimen/size_14sp" />
+
+            <com.example.item.weight.ItemView
+                android:id="@+id/item_money"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:background="@color/colorWhite"
+                app:bottom_line_margin_left="@dimen/default_margin"
+                app:bottom_line_margin_right="@dimen/default_margin"
+                app:content_text_color="@color/color_4"
+                app:content_text_size="@dimen/size_14sp"
+                app:show_bottom_line="true"
+                app:title_data="@string/money_cash_pledge"
+                app:title_drawable_padding="@dimen/size_15dp"
+                app:title_left_icon="@mipmap/icon_about_money"
+                app:title_text_color="@color/color_4"
+                app:title_text_size="@dimen/size_14sp" />
 
             <TextView
-                android:id="@+id/tv_bottom_left"
-                android:layout_width="@dimen/size_0dp"
+                android:id="@+id/tv_team_content"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_40dp"
+                android:background="@color/colorWhite"
+                android:lineSpacingExtra="@dimen/size_5dp"
+                android:paddingLeft="@dimen/default_margin"
+                android:text="@string/the_registration_team"
+                android:textColor="@color/color_4"
+                android:textSize="@dimen/size_14sp" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_bottom_team"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_75dp"
+                android:background="@drawable/selector_item"
+                android:visibility="gone">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/civ_logo_join"
+                    android:layout_width="@dimen/size_60dp"
+                    android:layout_height="@dimen/size_60dp"
+                    android:layout_marginLeft="@dimen/default_margin"
+                    android:src="@mipmap/icon_default_logo"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_read_join"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/default_margin"
+                    android:drawableRight="@mipmap/icon_item_right"
+                    android:drawablePadding="@dimen/size_5dp"
+                    android:text="@string/read"
+                    android:textColor="@color/colorFFA6A6A6"
+                    android:textSize="@dimen/size_12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_bottom_team_name"
+                    android:layout_width="@dimen/size_0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/default_margin"
+                    android:layout_marginRight="@dimen/default_margin"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/color_4"
+                    android:textSize="@dimen/size_17sp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toRightOf="@id/civ_logo_join"
+                    app:layout_constraintRight_toLeftOf="@id/tv_read_join"
+                    tools:text="我们都是熊碧一家人" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/ll_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <RelativeLayout
+            android:id="@+id/rl_edit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_50dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_edit"
+                style="@style/ButtonCenterText"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="@dimen/size_5dp"
+                android:layout_marginBottom="@dimen/size_5dp"
+                android:text="@string/edit_about_ball" />
+
+            <View
+                style="@style/HorizontalLine"
+                android:layout_above="@id/tv_edit" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_bottom_multiple"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_50dp"
+
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/ll_bottom_root"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_50dp"
+                android:layout_alignParentBottom="true"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_bottom_left"
+                    android:layout_width="@dimen/size_0dp"
+                    android:layout_height="@dimen/size_40dp"
+                    android:layout_marginLeft="@dimen/size_20dp"
+                    android:layout_marginRight="@dimen/size_15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_stroke_blue_view"
+                    android:gravity="center"
+                    android:text="@string/serve_as_a_judge"
+                    android:textColor="@color/color_2" />
+
+                <TextView
+                    android:id="@+id/tv_bottom_right"
+                    android:layout_width="@dimen/size_0dp"
+                    android:layout_height="@dimen/size_40dp"
+                    android:layout_marginRight="@dimen/size_20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_click_button"
+                    android:gravity="center"
+                    android:text="@string/invited_to_the_ball_about"
+                    android:textColor="@color/colorWhite" />
+
+            </LinearLayout>
+
+            <View
+                style="@style/HorizontalLine"
+                android:layout_above="@id/ll_bottom_root"
+                android:layout_marginBottom="@dimen/size_5dp" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_bottom_sing"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_50dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_sing"
+                style="@style/ButtonCenterText"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/size_5dp"
+
+                />
+
+            <View
+                style="@style/HorizontalLine"
+                android:layout_above="@id/tv_sing"
+                android:layout_marginBottom="@dimen/size_5dp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_cancel"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/size_40dp"
                 android:layout_marginLeft="@dimen/size_20dp"
-                android:layout_marginRight="@dimen/size_15dp"
+                android:layout_marginRight="@dimen/size_20dp"
                 android:layout_weight="1"
                 android:background="@drawable/shape_stroke_blue_view"
                 android:gravity="center"
-                android:text="@string/serve_as_a_judge"
+                android:text="@string/cancel_about_ball"
                 android:textColor="@color/color_2" />
 
             <TextView
-                android:id="@+id/tv_bottom_right"
-                android:layout_width="@dimen/size_0dp"
+                android:id="@+id/tv_cancel_edit"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/size_40dp"
                 android:layout_marginRight="@dimen/size_20dp"
                 android:layout_weight="1"
                 android:background="@drawable/shape_click_button"
                 android:gravity="center"
-                android:text="@string/invited_to_the_ball_about"
+                android:text="@string/edit_about_ball"
                 android:textColor="@color/colorWhite" />
-
         </LinearLayout>
-
-        <View
-            style="@style/HorizontalLine"
-            android:layout_above="@id/ll_bottom_root"
-            android:layout_marginBottom="@dimen/size_5dp" />
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:id="@+id/rl_bottom_sing"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/tv_sing"
-            style="@style/ButtonCenterText"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/size_5dp"
-
-            />
-
-        <View
-            style="@style/HorizontalLine"
-            android:layout_above="@id/tv_sing"
-            android:layout_marginBottom="@dimen/size_5dp" />
-    </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_cancel"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom"
-        android:orientation="horizontal"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/tv_cancel"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/size_40dp"
-            android:layout_marginLeft="@dimen/size_20dp"
-            android:layout_marginBottom="@dimen/size_5dp"
-            android:layout_marginRight="@dimen/size_20dp"
-            android:layout_weight="1"
-            android:background="@drawable/shape_stroke_blue_view"
-            android:gravity="center"
-            android:text="@string/cancel_about_ball"
-            android:textColor="@color/color_2" />
-
-        <TextView
-            android:id="@+id/tv_cancel_edit"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/size_40dp"
-            android:layout_marginRight="@dimen/size_20dp"
-            android:layout_marginBottom="@dimen/size_5dp"
-            android:layout_weight="1"
-            android:background="@drawable/shape_click_button"
-            android:gravity="center"
-            android:text="@string/edit_about_ball"
-            android:textColor="@color/colorWhite" />
     </LinearLayout>
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
