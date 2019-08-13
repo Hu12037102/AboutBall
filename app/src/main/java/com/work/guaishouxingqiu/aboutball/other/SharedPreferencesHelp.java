@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 
@@ -42,6 +43,14 @@ public class SharedPreferencesHelp {
         editor.clear();
         editor.apply();
         editor.commit();
+    }
+    public void removeValues(@NonNull String key){
+        if (!DataUtils.isEmpty(key)&&isContainsKey(key)){
+            SharedPreferences.Editor editor = mSharedPreferences.edit();
+            editor.remove(key);
+            editor.apply();
+            editor.commit();
+        }
     }
 
     public boolean isContainsKey(String key) {

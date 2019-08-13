@@ -54,6 +54,7 @@ public class UserManger {
         return mUserManger;
     }
 
+
     public void putRedPointJson(@NonNull String values) {
         mSP.putObject(KEY_JSON_RED_POINT, values);
     }
@@ -68,6 +69,10 @@ public class UserManger {
 
     public String getTemporaryToken() {
         return mSP.getString(UserManger.KEY_TOKEN_TEMPORARY);
+    }
+
+    public void removeTemporaryToken() {
+        mSP.removeValues(UserManger.KEY_TOKEN_TEMPORARY);
     }
 
     public void putToken(@NonNull String values) {

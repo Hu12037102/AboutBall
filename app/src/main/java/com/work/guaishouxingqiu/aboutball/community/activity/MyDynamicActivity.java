@@ -43,7 +43,6 @@ import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
-import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import java.util.ArrayList;
@@ -336,7 +335,9 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.civ_head:
-                mViewModel.startActivityToPreview(0, DataUtils.getOnePreviewData(UserManger.get().getUser().headerImg));
+                if (this.mResultBean != null) {
+                    mViewModel.startActivityToPreview(0, DataUtils.getOnePreviewData(mResultBean.headerImg));
+                }
                 break;
             default:
                 break;
@@ -367,7 +368,7 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
             mClMyCount.setVisibility(View.GONE);
             mClOtherCount.setVisibility(View.VISIBLE);
             UIUtils.setText(mTvOtherName, userDynamicBean.nickName);
-            if (userDynamicBean.hasFollow == 1) {
+            if (userDynamicBean.isFollow == 1) {
                 mIvFollowed.setImageResource(R.mipmap.icon_followed);
             } else {
                 mIvFollowed.setImageResource(R.mipmap.icon_add_followed);
@@ -375,9 +376,9 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
             mIvFollowed.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (userDynamicBean.hasFollow == 0) {
+                    if (userDynamicBean.isFollow == 0) {
                         mPresenter.getAttentionTweet(-1, mUserId);
-                    } else if (userDynamicBean.hasFollow == 1) {
+                    } else if (userDynamicBean.isFollow == 1) {
                         mPresenter.getCancelAttentionTweet(-1, mUserId);
                     }
                 }
@@ -414,11 +415,11 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
     @Override
     public void resultAttentionTweetStatus(int position) {
         if (mResultBean != null) {
-            if (mResultBean.hasFollow == 1) {
-                mResultBean.hasFollow = 0;
+            if (mResultBean.isFollow == 1) {
+                mResultBean.isFollow = 0;
                 mIvFollowed.setImageResource(R.mipmap.icon_add_followed);
-            } else if (mResultBean.hasFollow == 0) {
-                mResultBean.hasFollow = 1;
+            } else if (mResultBean.isFollow == 0) {
+                mResultBean.isFollow = 1;
                 mIvFollowed.setImageResource(R.mipmap.icon_followed);
             }
         }

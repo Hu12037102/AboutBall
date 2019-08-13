@@ -261,9 +261,9 @@ public class CommunityAttentionFragment extends LoginOrShareFragment<CommunityAt
             @Override
             public void onClickAttention(View view, int position) {
                 ResultCommunityDataBean bean = mData.get(position);
-                if (bean.hasFollow == 0) {
+                if (bean.isFollow == 0) {
                     mPresenter.getAttentionTweet(position, mData.get(position).userId);
-                } else if (bean.hasFollow == 1) {
+                } else if (bean.isFollow == 1) {
                     mPresenter.getCancelAttentionTweet(position, mData.get(position).userId);
                 }
 

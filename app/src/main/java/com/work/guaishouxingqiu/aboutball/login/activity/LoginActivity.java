@@ -299,6 +299,7 @@ public class LoginActivity extends LoginOrShareActivity<LoginPresenter> implemen
 
             @Override
             public void onClickCancel(@NonNull View view) {
+                UserManger.get().removeTemporaryToken();
                 mBandDialog.dismiss();
             }
         });

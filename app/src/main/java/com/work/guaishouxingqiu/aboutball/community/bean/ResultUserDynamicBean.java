@@ -3,8 +3,6 @@ package com.work.guaishouxingqiu.aboutball.community.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
-
 import java.util.List;
 
 /**
@@ -20,7 +18,7 @@ public class ResultUserDynamicBean implements Parcelable {
     public String refereeLevel;
     public int followCount;
     public int fansCount;
-    public int hasFollow;
+    public int isFollow;
     public List<ResultCommunityDataBean>tweetList;
 
     protected ResultUserDynamicBean(Parcel in) {
@@ -30,7 +28,7 @@ public class ResultUserDynamicBean implements Parcelable {
         refereeLevel = in.readString();
         followCount = in.readInt();
         fansCount = in.readInt();
-        hasFollow = in.readInt();
+        isFollow = in.readInt();
         tweetList = in.createTypedArrayList(ResultCommunityDataBean.CREATOR);
     }
 
@@ -60,6 +58,6 @@ public class ResultUserDynamicBean implements Parcelable {
         dest.writeInt(followCount);
         dest.writeInt(fansCount);
         dest.writeTypedList(tweetList);
-        dest.writeInt(hasFollow);
+        dest.writeInt(isFollow);
     }
 }
