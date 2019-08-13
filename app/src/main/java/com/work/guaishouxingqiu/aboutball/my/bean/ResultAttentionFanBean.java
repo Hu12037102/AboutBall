@@ -12,4 +12,5 @@ public class ResultAttentionFanBean {
     public String headerImg;
     public String nickName;
     public int isFollow;//0未关注，1关注
+    public String refereeLevel;
 }

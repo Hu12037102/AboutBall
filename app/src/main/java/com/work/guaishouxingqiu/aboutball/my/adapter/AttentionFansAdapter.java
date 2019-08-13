@@ -48,6 +48,7 @@ public class AttentionFansAdapter extends BaseRecyclerAdapter<AttentionFansAdapt
             viewHolder.mIvAttentionStatus.setImageResource(R.mipmap.icon_followed);
         }
         UIUtils.setText(viewHolder.mTvName, bean.nickName);
+        UIUtils.setText(viewHolder.mTvRefereeGrade, bean.refereeLevel);
         viewHolder.mIvAttentionStatus.setOnClickListener(v -> {
             if (onAttentionClickListener != null) {
                 onAttentionClickListener.onClickAttention(v, i);
