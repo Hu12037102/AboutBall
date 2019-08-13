@@ -639,4 +639,5 @@
     <string name="venue_not_setting" translatable="false">场馆未定</string>
     <string name="not_sure" translatable="false">未知</string>
     <string name="not_settings" translatable="false">未定</string>
+    <string name="about_ball_pay_succeed_dialog_body">您发起约球的时间已自动同步为您选择的场地时间，请留意</string>
 </resources>

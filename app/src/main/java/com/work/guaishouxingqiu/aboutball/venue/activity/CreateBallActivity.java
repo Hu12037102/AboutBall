@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -381,7 +382,7 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
     @Override
     public void resultCreateBallOrderId(String orderId) {
         if (orderId != null) {
-            EventBus.getDefault().postSticky(new PaySucceedActivity.Type(1));
+            EventBus.getDefault().postSticky(new PaySucceedActivity.Type(Contast.PayType.ABOUT_BALL_ORDER));
             mViewModel.startActivityToOrderPay(Long.valueOf(orderId), Contast.PayOrderFlag.PAY_LAUNCHER_ORDER);
         }
         mViewModel.clickBackForResult();

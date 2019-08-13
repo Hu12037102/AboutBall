@@ -12,8 +12,8 @@ public interface Contast {
     //手机号码验证正则
     // public static final String REGEX_PHONE_NUMBER = "^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\\\D])|(18[0,5-9]))\\\\d{8}$";
     String REGEX_PHONE_NUMBER = "^[1][3,4,5,7,8][0-9]{9}$";
-    String TELL_PHONE_ZONE ="^[0][1-9]{2,3}-[0-9]{5,10}$";//带区号
-    String TELL_PHONE_NO_ZONE ="^[1-9]{1}[0-9]{5,8}$";//不带区号
+    String TELL_PHONE_ZONE = "^[0][1-9]{2,3}-[0-9]{5,10}$";//带区号
+    String TELL_PHONE_NO_ZONE = "^[1-9]{1}[0-9]{5,8}$";//不带区号
     //判断密码长度
     int MIN_PASSWORD_LENGTH = 6;
     //手机验证码长度
@@ -222,5 +222,10 @@ public interface Contast {
         int MY_REFEREE = 0;//我的裁判评论
     }
 
+    interface PayType {
+        int ABOUT_BALL_ORDER = 1;//约球-创建、编辑约球订单
+        int WAIT_NOT_ABOUT_BALL_ORDER = 2;//未完成约球订单约球
+
+    }
 
 }

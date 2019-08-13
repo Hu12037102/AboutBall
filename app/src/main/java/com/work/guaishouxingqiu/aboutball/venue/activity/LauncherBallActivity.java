@@ -199,6 +199,7 @@ public class LauncherBallActivity extends BaseActivity<LauncherBallPresenter> im
                 editRequestBean.refereeId = new Long[]{};
                 editRequestBean.hostTeamId = bean.hostTeamId;
                 editRequestBean.phone = bean.phone;
+                EventBus.getDefault().postSticky(new PaySucceedActivity.Type(Contast.PayType.WAIT_NOT_ABOUT_BALL_ORDER));
                 mPresenter.editAboutBall(editRequestBean);
             }
 

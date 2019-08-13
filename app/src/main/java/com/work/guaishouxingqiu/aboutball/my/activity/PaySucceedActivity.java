@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.my.activity;
 
 import androidx.annotation.NonNull;
 
+import android.app.Activity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.activity.CreateBallActivity;
 import com.work.guaishouxingqiu.aboutball.venue.activity.VenueDetailsActivity;
+import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -44,6 +46,7 @@ public class PaySucceedActivity extends LoginOrShareActivity<PaySucceedPresenter
     @BindView(R.id.tv_click)
     TextView mTvClick;
     private long mOrderId;
+    private HintDialog mAboutDialog;
 
 
     @Override
@@ -106,12 +109,33 @@ public class PaySucceedActivity extends LoginOrShareActivity<PaySucceedPresenter
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true, priority = 100)
     public void sendCreateBallMessage(PaySucceedActivity.Type type) {
-        mTvClick.setVisibility(View.VISIBLE);
-        String host = UIUtils.getString(R.string.succeed_pay);
-        String content = "已经成功预定该场地，可以返回发起约球";
-        mTvTitle.setText(SpanUtils.getTextSize(17, 0, host.length(), SpanUtils.getTextColor(R.color.color_4, 0, host.length(), content)));
-        mTvClick.setVisibility(View.VISIBLE);
-        mTvClick.setText("返回发起约球");
+        if (type.flag == Contast.PayType.ABOUT_BALL_ORDER) {
+            mTvClick.setVisibility(View.VISIBLE);
+            String host = UIUtils.getString(R.string.succeed_pay);
+            String content = "已经成功预定该场地，可以返回发起约球";
+            mTvTitle.setText(SpanUtils.getTextSize(17, 0, host.length(), SpanUtils.getTextColor(R.color.color_4, 0, host.length(), content)));
+            mTvClick.setVisibility(View.VISIBLE);
+            mTvClick.setText("返回发起约球");
+        } else if (type.flag == Contast.PayType.WAIT_NOT_ABOUT_BALL_ORDER) {
+            if (mAboutDialog == null) {
+                mAboutDialog = new HintDialog.Builder(this)
+                        .setTitle(R.string.hint)
+                        .setBody(R.string.about_ball_pay_succeed_dialog_body)
+                        .setSure(R.string.sure)
+                        .setCancelTouchOut(false)
+                        .builder();
+            }
+            mAboutDialog.setOnItemClickListener(new HintDialog.OnItemClickListener() {
+                @Override
+                public void onClickSure(@NonNull View view) {
+                    mAboutDialog.dismiss();
+                }
+            });
+            if (!mAboutDialog.isShowing() && !isFinishing()) {
+                mAboutDialog.show();
+            }
+        }
+
     }
 
     public static class Type {
