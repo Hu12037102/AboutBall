@@ -177,8 +177,12 @@ public class GameLookBackFragment extends BaseFragment<GameLookBackPresenter> im
             mData.addAll(bean.newsList);
         }
         mHeadAdapter.notifyDataSetChanged();
-        mAdapter.notifyDataSetChanged();
 
+        if (mHeadData.size() <= 0){
+            mRvHead.setVisibility(View.GONE);
+        }else {
+            mRvHead.setVisibility(View.VISIBLE);
+        }
     }
 
     public interface OnClickLookBackListener {
