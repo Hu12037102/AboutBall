@@ -2,13 +2,16 @@ package com.work.guaishouxingqiu.aboutball.media.bean;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
+
 import android.text.TextUtils;
 
 
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
 
 import java.io.File;
+import java.util.List;
 
 import utils.bean.ImageConfig;
 
@@ -114,4 +117,12 @@ public class MediaSelectorFile implements Parcelable {
         return ImageConfig.getDefaultConfig(mediaFile.filePath);
     }
 
+    public static boolean hasVideo(@NonNull List<MediaSelectorFile> data) {
+        for (MediaSelectorFile mediaSelectorFile : data) {
+            if (mediaSelectorFile.isVideo) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

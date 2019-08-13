@@ -91,6 +91,7 @@ public class CommunityDetailsActivity extends LoginOrShareActivity<CommunityDeta
     private CircleImageView mCivHead;
     private static final int REQUEST_CODE_TOPIC = 155;
     private TextView mTvHeadShareNum;
+    private static final int REQUEST_CODE_USER_DYNAMIC = 522;
 
     @Override
     protected int getLayoutId() {
@@ -772,6 +773,7 @@ public class CommunityDetailsActivity extends LoginOrShareActivity<CommunityDeta
             @Override
             public void onClick(View v) {
                 mViewModel.startActivityToPreview(0, DataUtils.getOnePreviewData(mIntentBean.headImg));
+              //  mViewModel.startActivityToUserDynamicForResult(null,mIntentBean.userId, REQUEST_CODE_USER_DYNAMIC);
             }
         });
     }

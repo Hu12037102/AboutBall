@@ -17,6 +17,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.AddImageBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 
+import java.util.Iterator;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -66,7 +67,7 @@ public class AddImageAdapter extends RecyclerView.Adapter<AddImageAdapter.ViewHo
         }
         if (bean.isAdd) {
 
-           // viewHolder.itemView.setEnabled(true);
+            // viewHolder.itemView.setEnabled(true);
             viewHolder.mCivDelete.setVisibility(View.GONE);
             viewHolder.itemView.setBackgroundResource(bean.resIcon);
             viewHolder.mRivData.setImageDrawable(null);
@@ -74,7 +75,7 @@ public class AddImageAdapter extends RecyclerView.Adapter<AddImageAdapter.ViewHo
 
         } else {
             viewHolder.itemView.setBackground(null);
-           // viewHolder.itemView.setEnabled(false);
+            // viewHolder.itemView.setEnabled(false);
             viewHolder.mCivDelete.setVisibility(View.VISIBLE);
             GlideManger.get().loadImage(mContext, bean.path, viewHolder.mRivData);
         }
@@ -100,7 +101,7 @@ public class AddImageAdapter extends RecyclerView.Adapter<AddImageAdapter.ViewHo
                 : (mData.size() > MAX_IMAGE_COUNT ? MAX_IMAGE_COUNT : mData.size());
     }
 
-    private boolean hasVideo() {
+    public boolean hasVideo() {
         for (AddImageBean bean : mData) {
             if (bean.isVideo) {
                 return true;
@@ -130,7 +131,16 @@ public class AddImageAdapter extends RecyclerView.Adapter<AddImageAdapter.ViewHo
                 LogUtils.w("LayoutParams--", layoutParams.height + "--" + layoutParams.width);
                 itemView.setLayoutParams(layoutParams);
             });
+        }
+    }
 
+    public void removeData() {
+        Iterator<AddImageBean> iterator = mData.iterator();
+        while (iterator.hasNext()) {
+            AddImageBean bean = iterator.next();
+            if (!bean.isAdd) {
+                iterator.remove();
+            }
         }
     }
 

@@ -274,6 +274,10 @@ public class DynamicEditActivity extends CameraActivity<DynamicEditPresenter> im
 
     @Override
     protected void resultAlbumResult(List<MediaSelectorFile> data) {
+        if (MediaSelectorFile.hasVideo(data)) {
+            mRequestOSSPathData.clear();
+            mImageAdapter.removeData();
+        }
         for (int i = 0; i < data.size(); i++) {
             MediaSelectorFile media = data.get(i);
             mRequestOSSPathData.add(media.filePath);
@@ -298,6 +302,7 @@ public class DynamicEditActivity extends CameraActivity<DynamicEditPresenter> im
 
     @Override
     protected void resultCameraVideoResult(String filePath, boolean isVideo) {
+
         mRequestOSSPathData.add(filePath);
         AddImageBean addBean = new AddImageBean();
         addBean.isVideo = isVideo;
