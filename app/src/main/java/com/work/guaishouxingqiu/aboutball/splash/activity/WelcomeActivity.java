@@ -136,6 +136,8 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
 
     @Override
     protected void initView() {
+        //去除零时token
+        UserManger.get().removeTemporaryToken();
         if (mIsHasBanner) {
             mTvSkip.setVisibility(View.VISIBLE);
             mTvSkip.setText(UIUtils.getString(R.string.skip_s_second, mTimeLength));

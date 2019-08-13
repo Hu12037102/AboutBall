@@ -174,6 +174,12 @@ public class UpdatePhoneActivity extends BaseActivity<UpdatePhonePresenter> impl
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        UserManger.get().removeTemporaryToken();
+        super.onDestroy();
+    }
+
     private void clickSure() {
         if (UserManger.get().getPhone().equals(DataUtils.getEditDetails(mAcetPhone))) {
             Toasts.with().showToast(R.string.you_band_this_phone);
