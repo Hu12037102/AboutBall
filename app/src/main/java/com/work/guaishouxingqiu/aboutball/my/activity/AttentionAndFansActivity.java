@@ -1,5 +1,9 @@
 package com.work.guaishouxingqiu.aboutball.my.activity;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,6 +49,7 @@ public class AttentionAndFansActivity extends BaseActivity<AttentionAndFansPrese
     private int mStatusId;
     private AttentionFansAdapter mAdapter;
     private List<ResultAttentionFanBean> mData;
+    private static final int REQUEST_CODE_USER_DYNAMIC = 215;
 
     @Override
     protected int getLayoutId() {
@@ -108,12 +113,20 @@ public class AttentionAndFansActivity extends BaseActivity<AttentionAndFansPrese
                 loadData(true);
             }
         });
-        mAdapter.setOnAttentionClickListener((view, position) -> {
-            ResultAttentionFanBean bean = mData.get(position);
-            if (bean.isFollow == 0) {
-                mPresenter.getAttentionTweet(position, bean.userId);
-            } else if (bean.isFollow == 1) {
-                mPresenter.getCancelAttentionTweet(position, bean.userId);
+        mAdapter.setOnAttentionClickListener(new AttentionFansAdapter.onAttentionClickListener() {
+            @Override
+            public void onClickAttention(View view, int position) {
+                ResultAttentionFanBean bean = mData.get(position);
+                if (bean.isFollow == 0) {
+                    mPresenter.getAttentionTweet(position, bean.userId);
+                } else if (bean.isFollow == 1) {
+                    mPresenter.getCancelAttentionTweet(position, bean.userId);
+                }
+            }
+
+            @Override
+            public void onClickHead(View view, int position) {
+                mViewModel.startActivityToUserDynamicForResult(null, mData.get(position).userId, REQUEST_CODE_USER_DYNAMIC);
             }
         });
     }
@@ -131,6 +144,14 @@ public class AttentionAndFansActivity extends BaseActivity<AttentionAndFansPrese
             mData.remove(position);
         }
         mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_USER_DYNAMIC) {
+            mSrlLayout.autoRefresh();
+        }
     }
 
     @Override

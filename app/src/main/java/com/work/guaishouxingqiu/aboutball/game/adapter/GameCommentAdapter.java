@@ -2,11 +2,13 @@ package com.work.guaishouxingqiu.aboutball.game.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.item.util.ScreenUtils;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameCommentBean;
@@ -23,13 +25,10 @@ import java.util.List;
 public class GameCommentAdapter extends BaseRecyclerAdapter<GameCommentAdapter.ViewHolder, List<ResultGameCommentBean>> {
 
 
-
     public GameCommentAdapter(@NonNull List<ResultGameCommentBean> data) {
         super(data);
 
     }
-
-
 
 
     @Override
@@ -37,9 +36,20 @@ public class GameCommentAdapter extends BaseRecyclerAdapter<GameCommentAdapter.V
         ResultGameCommentBean bean = mData.get(i);
         if (bean.nickName != null) {
             String data = bean.nickName.concat(": ").concat(bean.commentContent);
-
             viewHolder.mTvContent.setText(SpanUtils.getTextColor(R.color.colorFFA6A6A6, 0, bean.nickName.length() + 1, data));
         }
+        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) viewHolder.mTvContent.getLayoutParams();
+        if (i == 0) {
+            layoutParams.topMargin = 0;
+            layoutParams.bottomMargin = 0;
+        } else if (i == mData.size() - 1) {
+            layoutParams.topMargin = ScreenUtils.dp2px(mContext, 15);
+            layoutParams.bottomMargin = ScreenUtils.dp2px(mContext, 15);
+        } else {
+            layoutParams.topMargin = ScreenUtils.dp2px(mContext, 15);
+            layoutParams.bottomMargin = 0;
+        }
+        viewHolder.mTvContent.setLayoutParams(layoutParams);
     }
 
     @Override

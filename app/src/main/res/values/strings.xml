@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="app_name" translatable="false">踢球么</string>
-   <!-- <string name="app_name" translatable="false">踢球么测试版</string>-->
+    <!-- <string name="app_name" translatable="false">踢球么测试版</string>-->
     <string name="me" translatable="false">我</string>
     <string name="my_about_ball" translatable="false">我的约球</string>
     <string name="my_order" translatable="false">我的订单</string>
@@ -562,8 +562,8 @@
     <string name="there_are_no_previews_video" translatable="false">没有可以预览的视频</string>
     <string name="please_selector_report_case" translatable="false">请选择举报原因</string>
     <string name="you_sure_delete_community" translatable="false">你确定删除该动态</string>
-    <string name="attention_s" translatable="false">关注%s|</string>
-    <string name="fans_s" translatable="false">粉丝%s</string>
+    <string name="attention_s" translatable="false">\t关注 %s\t|</string>
+    <string name="fans_s" translatable="false">\t粉丝 %s</string>
     <string name="your_are_banding_weichat_code" translatable="false">您已经绑定了微信号</string>
     <string name="attack" translatable="false">进攻</string>
     <string name="ball_possession" translatable="false">控球率</string>
@@ -640,4 +640,5 @@
     <string name="not_sure" translatable="false">未知</string>
     <string name="not_settings" translatable="false">未定</string>
     <string name="about_ball_pay_succeed_dialog_body">您发起约球的时间已自动同步为您选择的场地时间，请留意</string>
+    <string name="name_and_referee">%s\n%s</string>
 </resources>

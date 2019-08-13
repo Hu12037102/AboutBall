@@ -315,6 +315,7 @@ public class PreviewImageActivity extends BaseActivity {
                     @Override
                     public void onStopTrackingTouch(SeekBar seekBar) {
                         mVideoView.seekTo(seekBar.getProgress());
+                        UIUtils.setText(mTVPlayingLength, DateUtils.getHourMinuteSecond(mVideoView.getCurrentPosition()));
                     }
                 });
                 ivPlayStatus.setOnClickListener(new View.OnClickListener() {

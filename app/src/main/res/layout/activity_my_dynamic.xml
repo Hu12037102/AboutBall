@@ -59,7 +59,7 @@
                     android:layout_below="@id/cl_top"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <TextView
                         android:id="@+id/tv_name"
@@ -142,6 +142,7 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toLeftOf="@id/iv_followed"
                         app:layout_constraintTop_toTopOf="parent"
+                        android:lineSpacingExtra="@dimen/size_5dp"
                         tools:text="足球俱乐部" />
                     <View
                         android:layout_width="match_parent"

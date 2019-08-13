@@ -43,6 +43,7 @@ import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import java.util.ArrayList;
@@ -367,7 +368,15 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
             mIvFollowed.setVisibility(View.VISIBLE);
             mClMyCount.setVisibility(View.GONE);
             mClOtherCount.setVisibility(View.VISIBLE);
-            UIUtils.setText(mTvOtherName, userDynamicBean.nickName);
+            String content;
+            if (DataUtils.isEmpty(userDynamicBean.refereeLevel)) {
+                content = userDynamicBean.nickName;
+                UIUtils.setText(mTvOtherName, content);
+            } else {
+                content = UIUtils.getString(R.string.name_and_referee, userDynamicBean.nickName, userDynamicBean.refereeLevel);
+                UIUtils.setText(mTvOtherName, SpanUtils.getTextSize(12, content.length() - userDynamicBean.refereeLevel.length(), content.length(), content));
+            }
+
             if (userDynamicBean.isFollow == 1) {
                 mIvFollowed.setImageResource(R.mipmap.icon_followed);
             } else {

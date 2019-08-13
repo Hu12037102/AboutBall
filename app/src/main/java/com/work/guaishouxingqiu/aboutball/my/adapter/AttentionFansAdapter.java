@@ -54,6 +54,14 @@ public class AttentionFansAdapter extends BaseRecyclerAdapter<AttentionFansAdapt
                 onAttentionClickListener.onClickAttention(v, i);
             }
         });
+        viewHolder.mCivHead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onAttentionClickListener!=null){
+                    onAttentionClickListener.onClickHead(v,i);
+                }
+            }
+        });
         if (!mHasMoreData && mData.size() - 1 == i) {
             viewHolder.mIncludeFoot.setVisibility(View.VISIBLE);
         } else {
@@ -96,5 +104,6 @@ public class AttentionFansAdapter extends BaseRecyclerAdapter<AttentionFansAdapt
 
     public interface onAttentionClickListener {
         void onClickAttention(View view, int position);
+        void onClickHead(View view,int position);
     }
 }
