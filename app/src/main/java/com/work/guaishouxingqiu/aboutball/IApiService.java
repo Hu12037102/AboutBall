@@ -105,6 +105,7 @@ public interface IApiService {
     String GET_DYNAMIC_NOTIFICATION_LIST = "api/notice/getSocialNoticeList";
     String GET_SYSTEM_NOTIFICATION_LIST = "api/notice/getSysTemNoticeList";
     String GET_CLEAR_RED_POINT = "api/notice/saveNoticeCenterReadByType";
+    String GET_SETTING_PASSWORD="api/accountManagement/settingPassword";
 
     //获取微信登录token
     String GET_WEICHAT_TOKEN = "sns/oauth2/access_token";

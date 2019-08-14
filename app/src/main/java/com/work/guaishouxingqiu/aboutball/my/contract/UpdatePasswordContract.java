@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.my.contract;
 
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.login.contract.MessageContract;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdatePasswordBean;
 
 /**
@@ -11,11 +12,11 @@ import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdatePasswordBean;
  * 描述:更新密码契约
  */
 public interface UpdatePasswordContract {
-    interface View extends IBaseView {
+    interface View extends MessageContract.View {
         void resultPasswordSucceed(String token);
     }
 
-    interface Presenter extends IBasePresenter {
+    interface Presenter extends MessageContract.Presenter {
         void updatePassword(RequestUpdatePasswordBean bean);
     }
 }

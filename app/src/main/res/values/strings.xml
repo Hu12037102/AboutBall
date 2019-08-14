@@ -168,6 +168,7 @@
     <string name="hot_message" translatable="false">热门评论</string>
     <string name="commit" translatable="false">提交</string>
     <string name="please_input_message" translatable="false">请输入评论！</string>
+    <string name="please_input_message_code" translatable="false">请输入验证码</string>
     <string name="watch_live" translatable="false">观看直播</string>
     <string name="watch_collection" translatable="false">观看集锦</string>
     <string name="collection" translatable="false">集锦</string>

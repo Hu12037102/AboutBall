@@ -8,6 +8,7 @@ import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
+import com.work.guaishouxingqiu.aboutball.login.presenter.MessagePresenter;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdatePasswordBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.UpdatePasswordContract;
 import com.work.guaishouxingqiu.aboutball.my.model.UpdatePasswordModel;
@@ -18,7 +19,7 @@ import com.work.guaishouxingqiu.aboutball.my.model.UpdatePasswordModel;
  * 更新时间: 2019/4/16 14:48
  * 描述:
  */
-public class UpdatePasswordPresenter extends BasePresenter<UpdatePasswordContract.View, UpdatePasswordModel>
+public class UpdatePasswordPresenter extends MessagePresenter<UpdatePasswordContract.View, UpdatePasswordModel>
         implements UpdatePasswordContract.Presenter {
     public UpdatePasswordPresenter(@NonNull UpdatePasswordContract.View view) {
         super(view);

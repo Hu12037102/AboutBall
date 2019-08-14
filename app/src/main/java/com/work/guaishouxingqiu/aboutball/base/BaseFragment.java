@@ -255,4 +255,8 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
     public void resultNotBookData(List<ResultNotBookBean> data) {
 
     }
+    @Override
+    public void resultSettingPasswordSucceed(String token) {
+
+    }
 }

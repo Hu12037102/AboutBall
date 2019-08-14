@@ -79,4 +79,5 @@ public interface IBaseView {
     void resultCreateBallOrderId(String orderId);
 
     void resultNotBookData(List<ResultNotBookBean> data);
+    void resultSettingPasswordSucceed(String token);
 }

@@ -5,6 +5,7 @@ import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.community.bean.RequestDynamicCommentsBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultRedPointInfoBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestBandOtherAccountBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestSettingPasswordBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultDynamicNotificationBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultFansFocusBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyMessageBean;
@@ -81,4 +82,7 @@ public interface BaseService {
 
     @GET(IApiService.GET_NOT_BOOK)
     Observable<BaseBean<List<ResultNotBookBean>>> gainNotBooking();
+
+    @POST(IApiService.GET_SETTING_PASSWORD)
+    Observable<BaseBean<String>> settingPassword(@Body RequestSettingPasswordBean bean);
 }

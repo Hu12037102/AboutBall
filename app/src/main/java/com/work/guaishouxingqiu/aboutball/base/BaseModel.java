@@ -12,6 +12,7 @@ import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataResultBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultRedPointInfoBean;
 import com.work.guaishouxingqiu.aboutball.http.RetrofitManger;
 import com.work.guaishouxingqiu.aboutball.my.MyService;
+import com.work.guaishouxingqiu.aboutball.my.bean.RequestSettingPasswordBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultDynamicNotificationBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultFansFocusBean;
@@ -261,5 +262,14 @@ public class BaseModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
+    }
+
+    public void settingPassword(RequestSettingPasswordBean bean,BaseObserver<String> observer) {
+        mRetrofitManger.create(BaseService.class)
+                .settingPassword(bean)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+
     }
 }

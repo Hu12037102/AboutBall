@@ -340,4 +340,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends LocationActi
     public void resultNotBookData(List<ResultNotBookBean> data) {
 
     }
+
+    @Override
+    public void resultSettingPasswordSucceed(String token) {
+
+    }
 }
