@@ -335,6 +335,7 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
             }
             UserManger.get().putRefereeStatus(status);
         } else {
+            UserManger.get().putRefereeStatus(-1);
             mItemAsReferee.setTitleText(R.string.my_as_the_referee);
         }
     }
