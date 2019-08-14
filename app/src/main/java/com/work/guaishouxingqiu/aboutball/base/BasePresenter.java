@@ -13,6 +13,7 @@ import com.work.guaishouxingqiu.aboutball.community.bean.RequestDynamicCommentsB
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataResultBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultRedPointInfoBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
+import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestSettingPasswordBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultDynamicNotificationBean;
@@ -571,11 +572,11 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
     }
 
     public void settingPassword(RequestSettingPasswordBean bean) {
-        mModel.settingPassword(bean, new BaseObserver<>(true, this, new BaseObserver.Observer<String>() {
+        mModel.settingPassword(bean, new BaseObserver<>(true, this, new BaseObserver.Observer<LoginResultBean>() {
             @Override
-            public void onNext(BaseBean<String> t) {
+            public void onNext(BaseBean<LoginResultBean> t) {
                 if (DataUtils.isResultSure(t)) {
-                    mView.resultSettingPasswordSucceed(t.result);
+                    mView.resultSettingPasswordSucceed(t.result.id_token);
                 }
             }
 
