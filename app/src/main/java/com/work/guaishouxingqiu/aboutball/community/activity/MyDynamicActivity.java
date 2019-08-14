@@ -431,7 +431,11 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
                 mResultBean.isFollow = 1;
                 mIvFollowed.setImageResource(R.mipmap.icon_followed);
             }
+            for (int i = 0;i < mData.size();i++){
+                mData.get(i).hasFollow = mResultBean.isFollow;
+            }
         }
+
     }
 
     @Override
