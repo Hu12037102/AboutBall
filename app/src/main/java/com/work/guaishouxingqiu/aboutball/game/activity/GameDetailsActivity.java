@@ -5,13 +5,17 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
+
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.google.android.material.tabs.TabLayout;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
+
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -90,6 +94,8 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
     ImageView mIvBack;
     @BindView(R.id.ll_body)
     ViewGroup mLlBody;
+    @BindView(R.id.iv_share)
+    ImageView mIvTitleShare;
     private FragmentPagerAdapter mPagerAdapter;
     private View mHeadLiveParent;
     private boolean mIconShowWindows = true;
@@ -146,6 +152,8 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
         setHeadParentParamsScreen(false);
 
         mIvBack.setPadding(ScreenUtils.dp2px(this, 20), ScreenUtils.dp2px(this, 20) + ScreenUtils.getStatuWindowsHeight(this),
+                ScreenUtils.dp2px(this, 20), ScreenUtils.dp2px(this, 20));
+        mIvTitleShare.setPadding(ScreenUtils.dp2px(this, 20), ScreenUtils.dp2px(this, 20) + ScreenUtils.getStatuWindowsHeight(this),
                 ScreenUtils.dp2px(this, 20), ScreenUtils.dp2px(this, 20));
 
     }
@@ -254,6 +262,7 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
     }
 
     private void initCollectionVideo(ResultGameSimpleBean bean, String videoUrl) {
+
         mDataBean.liveAddress = videoUrl;
         isLive = false;
         if (mVideoPlay != null) {
@@ -381,6 +390,7 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
     @Override
     public void resultGameSimple(@NonNull ResultGameSimpleBean bean) {
         mDataBean = bean;
+        mIvTitleShare.setVisibility(View.VISIBLE);
         initTabData();
         initPagerData(bean);
 
@@ -432,7 +442,7 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
                         mTvHasVideoStatus.setBackgroundResource(0);
                         break;
                 }
-                if ("集锦/回放".equals(bean.matchState)){
+                if ("集锦/回放".equals(bean.matchState)) {
                     mTvHasVideoStatus.setText(R.string.watch_collection);
                     mTvHasVideoStatus.setBackgroundResource(R.drawable.shape_watch_live_tv);
                 }
@@ -524,6 +534,7 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
 
         mClHeadDetails.setVisibility(View.GONE);
         if (mHeadLiveParent == null) {
+            mIvTitleShare.setVisibility(View.GONE);
             mHeadLiveParent = mVsLive.inflate();
             mIvShare = mHeadLiveParent.findViewById(R.id.iv_share_video);
             mIvScreen = mHeadLiveParent.findViewById(R.id.iv_screen);
@@ -770,20 +781,24 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
                 }
             });
 
-        } else
-
-        {
+        } else {
             mHeadLiveParent.setVisibility(View.VISIBLE);
         }
 
     }
 
 
-    @OnClick(R.id.iv_back)
+    @OnClick({R.id.iv_back, R.id.iv_share})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
                 clickBack();
+                break;
+            case R.id.iv_share:
+                ShareWebBean webBean = DataUtils.resultShareGameVideo(mDataBean.matchId, mDataBean.hostName, mDataBean.guestName);
+                showShareDialog(webBean);
+                break;
+            default:
                 break;
         }
     }
