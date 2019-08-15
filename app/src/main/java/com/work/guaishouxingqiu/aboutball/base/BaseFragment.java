@@ -27,6 +27,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionFragment;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultNotBookBean;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueData;
 import com.work.guaishouxingqiu.aboutball.weight.LoadingView;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
@@ -257,6 +258,10 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
     }
     @Override
     public void resultSettingPasswordSucceed(String token) {
+
+    }
+    @Override
+    public void resultCanUserVenueList(List<ResultVenueData> data) {
 
     }
 }

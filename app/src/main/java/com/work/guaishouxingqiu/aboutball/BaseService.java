@@ -13,6 +13,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyMessageBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultSystemNotificationBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.RequestCreateBallBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultNotBookBean;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueData;
 
 import java.util.List;
 
@@ -86,4 +87,11 @@ public interface BaseService {
 
     @POST(IApiService.GET_SETTING_PASSWORD)
     Observable<BaseBean<LoginResultBean>> settingPassword(@Body RequestSettingPasswordBean bean);
+
+    @GET(IApiService.GET_CAN_USER_STADIUM_LIST)
+    Observable<BaseBean<List<ResultVenueData>>> getCanUserVenueList(@Query(Contast.PAGE_NUM) int pageNum,
+                                                             @Query(Contast.PAGE_SIZE) int pageSize,
+                                                             @Query(Contast.TYPE_ID) int typeId,
+                                                             @Query(Contast.LONGITUDE) String longitude,
+                                                             @Query(Contast.LATITUDE) String latitude);
 }

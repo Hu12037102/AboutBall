@@ -29,7 +29,9 @@ import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.venue.bean.RequestCreateBallBean;
+import com.work.guaishouxingqiu.aboutball.venue.bean.RequestVenueListBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultNotBookBean;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueData;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 
 import java.util.List;
@@ -577,6 +579,30 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
             public void onNext(BaseBean<LoginResultBean> t) {
                 if (DataUtils.isResultSure(t)) {
                     mView.resultSettingPasswordSucceed(t.result.id_token);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+
+
+    public void loadCanUserVenueList(RequestVenueListBean bean) {
+        if (isRefresh) {
+            mPageNum = 1;
+        }
+        mModel.loadCanUserVenueList(mPageNum, mPageSize, bean, new BaseObserver<>(true, this, new BaseObserver.Observer<List<ResultVenueData>>() {
+            @Override
+            public void onNext(BaseBean<List<ResultVenueData>> bean) {
+                if (mView == null) {
+                    return;
+                }
+                if (DataUtils.isResultSure(bean)) {
+                    mPageNum++;
+                    mView.resultCanUserVenueList(bean.result);
                 }
             }
 

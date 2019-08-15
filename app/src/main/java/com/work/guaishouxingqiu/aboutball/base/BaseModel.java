@@ -25,7 +25,9 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 import com.work.guaishouxingqiu.aboutball.venue.VenueService;
 import com.work.guaishouxingqiu.aboutball.venue.bean.RequestCreateBallBean;
+import com.work.guaishouxingqiu.aboutball.venue.bean.RequestVenueListBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultNotBookBean;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueData;
 
 import java.util.List;
 
@@ -272,5 +274,13 @@ public class BaseModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
 
+    }
+
+    public void loadCanUserVenueList(int pageNum, int pageSize, RequestVenueListBean bean, BaseObserver<List<ResultVenueData>> observer) {
+        mRetrofitManger.create(BaseService.class)
+                .getCanUserVenueList(pageNum, pageSize, bean.typeId, bean.longitude, bean.latitude)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
     }
 }

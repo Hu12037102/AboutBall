@@ -16,6 +16,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultSystemNotificationBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultNotBookBean;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueData;
 
 import java.util.List;
 
@@ -80,4 +81,6 @@ public interface IBaseView {
 
     void resultNotBookData(List<ResultNotBookBean> data);
     void resultSettingPasswordSucceed(String token);
+
+    void resultCanUserVenueList(List<ResultVenueData> data);
 }

@@ -40,6 +40,7 @@ import com.work.guaishouxingqiu.aboutball.util.FileUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultNotBookBean;
+import com.work.guaishouxingqiu.aboutball.venue.bean.ResultVenueData;
 import com.work.guaishouxingqiu.aboutball.weight.LoadingView;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 
@@ -343,6 +344,11 @@ public abstract class BaseActivity<P extends BasePresenter> extends LocationActi
 
     @Override
     public void resultSettingPasswordSucceed(String token) {
+
+    }
+
+    @Override
+    public void resultCanUserVenueList(List<ResultVenueData> data) {
 
     }
 }

@@ -133,7 +133,7 @@ public class VenueListActivity extends BaseActivity<VenueListPresenter> implemen
     private void loadData(boolean isRefresh, RefreshLayout refreshLayout) {
         if (mRequestBean != null) {
             mPresenter.isRefresh = isRefresh;
-            mPresenter.loadVenueList(mRequestBean);
+            mPresenter.loadCanUserVenueList(mRequestBean);
             if (isRefresh) {
                 refreshLayout.finishRefresh();
             } else {
@@ -144,6 +144,16 @@ public class VenueListActivity extends BaseActivity<VenueListPresenter> implemen
 
     @Override
     public void resultVenueList(List<ResultVenueData> data) {
+        if (mPresenter.isRefresh) {
+            mListData.clear();
+        }
+        mListData.addAll(data);
+        mSrlRefresh.setNoMoreData(data.size() < mPresenter.mPageSize);
+        mListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void resultCanUserVenueList(List<ResultVenueData> data) {
         if (mPresenter.isRefresh) {
             mListData.clear();
         }
