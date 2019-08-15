@@ -10,6 +10,8 @@ import com.work.guaishouxingqiu.aboutball.login.presenter.MessagePresenter;
 import com.work.guaishouxingqiu.aboutball.my.bean.RequestUpdatePhoneBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.UpdatePhoneContract;
 import com.work.guaishouxingqiu.aboutball.my.model.UpdatePhoneModel;
+import com.work.guaishouxingqiu.aboutball.other.UserManger;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 
 /**
  * 作者: 胡庆岭
@@ -52,11 +54,13 @@ public class UpdatePhonePresenter extends MessagePresenter<UpdatePhoneContract.V
 
     @Override
     public void updatePhone(RequestUpdatePhoneBean bean) {
-        mModel.updatePhoneNumber(bean, new BaseObserver<>(true, this, new BaseObserver.Observer<String>() {
+        mModel.updatePhoneNumber(bean, new BaseObserver<>(true, this, new BaseObserver.Observer<LoginResultBean>() {
             @Override
-            public void onNext(BaseBean<String> t) {
-                if (t.code == IApi.Code.SUCCEED) {
-                    mView.updatePhoneSucceed(t.result);
+            public void onNext(BaseBean<LoginResultBean> t) {
+                if (DataUtils.isResultSure(t)) {
+                    UserManger.get().putToken(t.result.id_token);
+                    UserManger.get().putPhone(bean.phone);
+                    mView.updatePhoneSucceed(t.result.id_token);
                 }
             }
 

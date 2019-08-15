@@ -241,7 +241,6 @@ public class UpdatePhoneActivity extends BaseActivity<UpdatePhonePresenter> impl
 
     @Override
     public void updatePhoneSucceed(String phoneNumber) {
-        UserManger.get().putPhone(phoneNumber);
         finish();
     }
 

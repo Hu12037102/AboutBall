@@ -227,7 +227,7 @@ public interface MyService {
     Observable<BaseBean<BaseDataBean<String>>> goActionRecord(@Body RequestActionRecordsBean bean);
 
     @POST(IApiService.POST_UPDATE_PHONE_NUMBER)
-    Observable<BaseBean<String>> updatePhoneNumber(@Body RequestUpdatePhoneBean bean);
+    Observable<BaseBean<LoginResultBean>> updatePhoneNumber(@Body RequestUpdatePhoneBean bean);
 
     @GET(IApiService.GET_DELETE_REFEREE_MATCH_RECORD)
     Observable<BaseBean<BaseDataBean<String>>> deleteRefereeMathRecord(@Query(Contast.OUTS_ID) long outsId);

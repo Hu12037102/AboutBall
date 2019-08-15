@@ -24,7 +24,7 @@ public class UpdatePhoneModel extends MessageModel {
                 .subscribe(observer);
     }
 
-    public void updatePhoneNumber(RequestUpdatePhoneBean bean,BaseObserver<String> observer) {
+    public void updatePhoneNumber(RequestUpdatePhoneBean bean,BaseObserver<LoginResultBean> observer) {
         mRetrofitManger.create(MyService.class)
                 .updatePhoneNumber(bean)
                 .subscribeOn(Schedulers.io())
