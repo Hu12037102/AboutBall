@@ -63,9 +63,9 @@
 
                     <TextView
                         android:id="@+id/tv_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/size_20dp"
+                        style="@style/SingLineTextView"
+                        android:layout_marginLeft="@dimen/default_margin"
+                        android:layout_marginRight="@dimen/default_margin"
                         android:layout_marginTop="@dimen/size_20dp"
                         android:text="踢球么用户"
                         android:textColor="@color/color_4"
@@ -197,7 +197,6 @@
                     app:back_left_drawable="@mipmap/icon_back_white"
                     app:back_text_padding_left="@dimen/default_margin"
                     app:back_text_padding_right="@dimen/default_margin"
-                    app:center_data="@string/my_dynamic_state"
                     app:center_text_color="@color/colorBlack"
                     app:center_text_size="@dimen/size_18sp"
                     app:group_color="@color/transparent"

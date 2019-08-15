@@ -348,8 +348,10 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
     @Override
     public void resultMyDynamic(ResultUserDynamicBean userDynamicBean) {
         this.mResultBean = userDynamicBean;
+
         GlideManger.get().loadImage(this, userDynamicBean.headerImg, mCivHead);
         if (mIsMe) {
+            mTitleView.mTvCenter.setText(R.string.my_dynamic_state);
             mClMyCount.setVisibility(View.VISIBLE);
             mClOtherCount.setVisibility(View.GONE);
             if (!DataUtils.isEmpty(userDynamicBean.refereeLevel)) {
@@ -365,6 +367,7 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
             String fansContent = UIUtils.getString(R.string.fans_s, userDynamicBean.fansCount);
             mTvFansCount.setText(fansContent);
         } else {
+            mTitleView.mTvCenter.setText(userDynamicBean.nickName);
             mIvFollowed.setVisibility(View.VISIBLE);
             mClMyCount.setVisibility(View.GONE);
             mClOtherCount.setVisibility(View.VISIBLE);
@@ -373,6 +376,9 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
                 content = userDynamicBean.nickName;
                 UIUtils.setText(mTvOtherName, content);
             } else {
+                if (!DataUtils.isEmpty(userDynamicBean.nickName) && userDynamicBean.nickName.length() > 10) {
+                    userDynamicBean.nickName = userDynamicBean.nickName.substring(0, 10);
+                }
                 content = UIUtils.getString(R.string.name_and_referee, userDynamicBean.nickName, userDynamicBean.refereeLevel);
                 UIUtils.setText(mTvOtherName, SpanUtils.getTextSize(12, content.length() - userDynamicBean.refereeLevel.length(), content.length(), content));
             }
@@ -409,6 +415,9 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
         }
         if (data != null) {
             if (data.size() != 0) {
+                for (int i = 0; i < data.size(); i++) {
+                    data.get(i).hasFollow = mResultBean.isFollow;
+                }
                 mData.addAll(data);
             }
             mSrlRefresh.setNoMoreData(data.size() < mPresenter.mPageSize);
@@ -431,7 +440,7 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
                 mResultBean.isFollow = 1;
                 mIvFollowed.setImageResource(R.mipmap.icon_followed);
             }
-            for (int i = 0;i < mData.size();i++){
+            for (int i = 0; i < mData.size(); i++) {
                 mData.get(i).hasFollow = mResultBean.isFollow;
             }
         }
