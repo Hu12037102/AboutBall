@@ -92,6 +92,7 @@
             tools:text="15079254622"
             android:gravity="center"
             android:inputType="phone"
+            android:maxLength="@integer/phone_length"
             android:digits="@string/phone_digits"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
