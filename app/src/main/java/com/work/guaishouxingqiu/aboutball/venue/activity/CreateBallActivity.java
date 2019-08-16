@@ -259,6 +259,10 @@ public class CreateBallActivity extends BaseActivity<CreateBallPresenter> implem
         switch (view.getId()) {
             case R.id.tv_sures:
                 mRequestBean.phone = DataUtils.getEditDetails(mAcetPhone);
+                if (!DataUtils.isEmpty(mRequestBean.phone)&&!DataUtils.isPhoneNumber(mRequestBean.phone)){
+                    UIUtils.showToast(R.string.please_sure_phone_number);
+                    return;
+                }
                 if (mIntentBean == null) {
                     mPresenter.createPostBall(mRequestBean);
                 } else {
