@@ -85,6 +85,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends LocationActi
         initPermission();
         ActivityManger.get().addActivity(this);
 
+
     }
 
 

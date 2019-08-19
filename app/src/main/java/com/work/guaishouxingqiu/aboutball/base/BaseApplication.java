@@ -9,6 +9,8 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.tencent.stat.StatConfig;
+import com.tencent.stat.StatService;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 import com.uuzuche.lib_zxing.ZApplication;
@@ -57,6 +59,17 @@ public class BaseApplication extends ZApplication {
         initALi();
         initWeiChat();
         initUMeng();
+        initTencent();
+    }
+
+    /**
+     * 腾讯数据统计
+     */
+    private void initTencent() {
+        // 打开Logcat输出，上线时，一定要关闭
+        StatConfig.setDebugEnable(BuildConfig.IS_DEBUG);
+        // 注册activity生命周期，统计时长
+        StatService.registerActivityLifecycleCallbacks(this);
     }
 
     /**

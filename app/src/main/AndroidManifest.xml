@@ -50,6 +50,9 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="n">
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
 
         <meta-data
             android:name="5c773884b465f59b44000a29"
@@ -377,8 +380,9 @@
         <activity
             android:name=".venue.activity.CreateBallActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".venue.activity.VenueListActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".venue.activity.VenueListActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

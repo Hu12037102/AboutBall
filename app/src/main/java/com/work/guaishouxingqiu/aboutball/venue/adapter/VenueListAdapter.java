@@ -2,6 +2,8 @@ package com.work.guaishouxingqiu.aboutball.venue.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +50,7 @@ public class VenueListAdapter extends BaseRecyclerAdapter<VenueListAdapter.ViewH
         if (bean.location != null && bean.distance != null) {
             viewHolder.mTvDistance.setText(bean.location.concat("  ").concat(bean.distance).concat("km"));
         }
-        viewHolder.mTvAddress.setText(viewHolder.itemView.getContext().getString(R.string.address_to_where, bean.address));
+        viewHolder.mTvAddress.setText(viewHolder.itemView.getContext().getString(R.string.address_to_where, bean.address == null ? "地址未填写" : bean.address));
 
     }
 

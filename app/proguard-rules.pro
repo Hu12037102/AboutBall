@@ -294,7 +294,9 @@ public static final int *;
 -dontwarn io.microshow.rxffmpeg.**
 -keep class io.microshow.rxffmpeg.**{*;}
 
-
+#腾讯数据统计
+-keep class com.tencent.stat.*{*;}
+-keep class com.tencent.mid.*{*;}
 
 
 
