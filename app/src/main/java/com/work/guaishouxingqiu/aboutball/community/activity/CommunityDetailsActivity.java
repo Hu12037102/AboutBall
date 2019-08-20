@@ -37,6 +37,7 @@ import com.work.guaishouxingqiu.aboutball.community.presenter.CommunityDetailsPr
 import com.work.guaishouxingqiu.aboutball.home.adapter.NewsMessageAdapter;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsMessageBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
+import com.work.guaishouxingqiu.aboutball.other.SellingPointsEvent;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
@@ -167,6 +168,7 @@ public class CommunityDetailsActivity extends LoginOrShareActivity<CommunityDeta
         mLlHeadShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DataUtils.addSellingPoint(CommunityDetailsActivity.this,SellingPointsEvent.Key.A0409);
                 showShareDialog(mViewModel.getCommunityShare(mIntentBean));
             }
         });
@@ -705,7 +707,7 @@ public class CommunityDetailsActivity extends LoginOrShareActivity<CommunityDeta
         mLlHeadLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                DataUtils.addSellingPoint(CommunityDetailsActivity.this, SellingPointsEvent.Key.A0408);
                 if (mIntentBean.hasPraise == 1) {
                     mPresenter.dynamicsCancelDianZan(mIntentBean.tweetId, -1);
                 } else if (mIntentBean.hasPraise == 0) {
@@ -725,6 +727,7 @@ public class CommunityDetailsActivity extends LoginOrShareActivity<CommunityDeta
         mTvHeadAttention.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DataUtils.addSellingPoint(CommunityDetailsActivity.this, SellingPointsEvent.Key.A0405);
                 if (mIntentBean.hasFollow == 0) {
                     mPresenter.getAttentionTweet(-1, mIntentBean.userId);
                 } else if (mIntentBean.hasFollow == 1) {
@@ -759,6 +762,7 @@ public class CommunityDetailsActivity extends LoginOrShareActivity<CommunityDeta
                             }
                         });
                     } else {
+                        DataUtils.addSellingPoint(CommunityDetailsActivity.this, SellingPointsEvent.Key.A0406);
                         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_COMMUNITY_REPORT, ARouterConfig.Key.TWEET_ID, mIntentBean.tweetId);
                     }
 

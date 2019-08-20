@@ -4,10 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
+
 import com.google.android.material.tabs.TabLayout;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +25,7 @@ import com.work.guaishouxingqiu.aboutball.community.bean.ResultRecommendHotBean;
 import com.work.guaishouxingqiu.aboutball.community.fragment.TopicDynamicsFragment;
 import com.work.guaishouxingqiu.aboutball.community.presenter.TopicDynamicsPresenter;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
+import com.work.guaishouxingqiu.aboutball.other.SellingPointsEvent;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
@@ -73,6 +77,11 @@ public class TopicDynamicsActivity extends BaseActivity {
             return;
         }
         super.initPermission();
+    }
+
+    @Override
+    protected void initSellingPoint() {
+        DataUtils.addSellingPoint(TopicDynamicsActivity.this, SellingPointsEvent.Key.A0407);
     }
 
     @Override

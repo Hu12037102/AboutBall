@@ -44,6 +44,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 import com.work.guaishouxingqiu.aboutball.my.fragment.PostEvaluationFragment;
 import com.work.guaishouxingqiu.aboutball.other.DownloadApkHelp;
+import com.work.guaishouxingqiu.aboutball.other.SellingPointsEvent;
 import com.work.guaishouxingqiu.aboutball.other.SharedPreferencesHelp;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
@@ -790,6 +791,7 @@ public class ViewModel {
     }
 
     public void startActivityToUserDynamicForResult(@Nullable Fragment fragment, long userId, int requestCode) {
+        DataUtils.addSellingPoint(mSoftActivity.get(), SellingPointsEvent.Key.A0404);
         if (fragment == null) {
             ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_MY_DYNAMIC, mSoftActivity.get(), ARouterConfig.Key.USER_ID, userId, requestCode);
         } else {

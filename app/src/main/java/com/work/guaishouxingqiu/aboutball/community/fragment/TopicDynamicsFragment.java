@@ -17,12 +17,15 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.commonality.fragment.LoginOrShareFragment;
+import com.work.guaishouxingqiu.aboutball.community.activity.TopicDynamicsActivity;
 import com.work.guaishouxingqiu.aboutball.community.adapter.CommunityDataAdapter;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.community.contract.TopicDynamicsContract;
 import com.work.guaishouxingqiu.aboutball.community.presenter.TopicDynamicsPresenter;
+import com.work.guaishouxingqiu.aboutball.other.SellingPointsEvent;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 
 import java.util.ArrayList;
@@ -175,6 +178,7 @@ public class TopicDynamicsFragment extends LoginOrShareFragment<TopicDynamicsPre
 
             @Override
             public void onClickAttention(View view, int position) {
+                DataUtils.addSellingPoint(mContext, SellingPointsEvent.Key.A0405);
                 ResultCommunityDataBean bean = mData.get(position);
                 if (bean.hasFollow == 0) {
                     mPresenter.getAttentionTweet(position, mData.get(position).userId);
@@ -191,6 +195,7 @@ public class TopicDynamicsFragment extends LoginOrShareFragment<TopicDynamicsPre
 
             @Override
             public void onClickDianZan(View view, int position) {
+                DataUtils.addSellingPoint(mContext, SellingPointsEvent.Key.A0408);
                 ResultCommunityDataBean bean = mData.get(position);
                 if (bean.hasPraise == 1) {
                     mPresenter.dynamicsCancelDianZan(bean.tweetId, position);

@@ -39,6 +39,7 @@ import com.work.guaishouxingqiu.aboutball.community.contract.MyDynamicContract;
 import com.work.guaishouxingqiu.aboutball.community.presenter.MyDynamicPresenter;
 import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
+import com.work.guaishouxingqiu.aboutball.other.SellingPointsEvent;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
@@ -281,6 +282,7 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
 
             @Override
             public void onClickDianZan(View view, int position) {
+                DataUtils.addSellingPoint(MyDynamicActivity.this, SellingPointsEvent.Key.A0408);
                 ResultCommunityDataBean bean = mData.get(position);
                 if (bean.hasPraise == 1) {
                     mPresenter.dynamicsCancelDianZan(bean.tweetId, position);
@@ -391,6 +393,7 @@ public class MyDynamicActivity extends LoginOrShareActivity<MyDynamicPresenter> 
             mIvFollowed.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    DataUtils.addSellingPoint(MyDynamicActivity.this,SellingPointsEvent.Key.A0401);
                     if (userDynamicBean.isFollow == 0) {
                         mPresenter.getAttentionTweet(-1, mUserId);
                     } else if (userDynamicBean.isFollow == 1) {

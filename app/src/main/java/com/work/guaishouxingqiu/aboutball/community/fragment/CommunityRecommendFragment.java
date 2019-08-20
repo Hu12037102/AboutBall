@@ -29,6 +29,7 @@ import com.work.guaishouxingqiu.aboutball.community.bean.ResultRecommendHotBean;
 import com.work.guaishouxingqiu.aboutball.community.contract.CommunityRecommendContract;
 import com.work.guaishouxingqiu.aboutball.community.presenter.CommunityRecommendPresenter;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultAttentionFanBean;
+import com.work.guaishouxingqiu.aboutball.other.SellingPointsEvent;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
@@ -176,6 +177,7 @@ public class CommunityRecommendFragment extends LoginOrShareFragment<CommunityRe
 
             @Override
             public void onClickAttention(View view, int position) {
+                DataUtils.addSellingPoint(mContext, SellingPointsEvent.Key.A0407);
                 ResultCommunityDataBean bean = mData.get(position);
                 if (bean.hasFollow == 0) {
                     mPresenter.getAttentionTweet(position, mData.get(position).userId);
@@ -192,6 +194,7 @@ public class CommunityRecommendFragment extends LoginOrShareFragment<CommunityRe
 
             @Override
             public void onClickDianZan(View view, int position) {
+                DataUtils.addSellingPoint(mContext, SellingPointsEvent.Key.A0408);
                 ResultCommunityDataBean bean = mData.get(position);
                 if (bean.hasPraise == 1) {
                     mPresenter.dynamicsCancelDianZan(bean.tweetId, position);

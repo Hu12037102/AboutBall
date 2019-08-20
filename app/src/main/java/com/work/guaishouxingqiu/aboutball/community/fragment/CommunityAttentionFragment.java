@@ -22,9 +22,11 @@ import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean
 import com.work.guaishouxingqiu.aboutball.community.contract.CommunityAttentionContract;
 import com.work.guaishouxingqiu.aboutball.community.presenter.CommunityAttentionPresenter;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultAttentionFanBean;
+import com.work.guaishouxingqiu.aboutball.other.SellingPointsEvent;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -132,6 +134,7 @@ public class CommunityAttentionFragment extends LoginOrShareFragment<CommunityAt
 
             @Override
             public void onClickAttention(View view, int position) {
+                DataUtils.addSellingPoint(mContext, SellingPointsEvent.Key.A0405);
                 ResultCommunityDataBean bean = mData.get(position);
                 if (bean.hasFollow == 0) {
                     mPresenter.getAttentionTweet(position, mData.get(position).userId);
@@ -149,6 +152,7 @@ public class CommunityAttentionFragment extends LoginOrShareFragment<CommunityAt
 
             @Override
             public void onClickDianZan(View view, int position) {
+                DataUtils.addSellingPoint(mContext, SellingPointsEvent.Key.A0408);
                 ResultCommunityDataBean bean = mData.get(position);
                 if (bean.hasPraise == 1) {
                     mPresenter.dynamicsCancelDianZan(bean.tweetId, position);
@@ -165,6 +169,7 @@ public class CommunityAttentionFragment extends LoginOrShareFragment<CommunityAt
 
             @Override
             public void onClickHead(View view, int position) {
+                DataUtils.addSellingPoint(mContext, SellingPointsEvent.Key.A0404);
                 mViewModel.startActivityToUserDynamicForResult(CommunityAttentionFragment.this, mData.get(position).userId, CommunityAttentionFragment.REQUEST_CODE_USER_DYNAMIC);
             }
         });

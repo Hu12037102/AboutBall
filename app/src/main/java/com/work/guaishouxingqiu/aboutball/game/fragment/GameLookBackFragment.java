@@ -14,6 +14,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
+import com.work.guaishouxingqiu.aboutball.game.activity.GameDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.game.adapter.GameLookBackHeadAdapter;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameLiveDetailsBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameSimpleBean;
@@ -21,6 +22,7 @@ import com.work.guaishouxingqiu.aboutball.game.contract.GameLookBackContract;
 import com.work.guaishouxingqiu.aboutball.game.presenter.GameLookBackPresenter;
 import com.work.guaishouxingqiu.aboutball.home.adapter.RecommendedAdapter;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsBean;
+import com.work.guaishouxingqiu.aboutball.other.SellingPointsEvent;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
@@ -122,6 +124,7 @@ public class GameLookBackFragment extends BaseFragment<GameLookBackPresenter> im
         mHeadAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onClickItem(@NonNull View view, int position) {
+                DataUtils.addSellingPoint(getContext(), SellingPointsEvent.Key.A0207);
                 if (onClickLookBackListener != null) {
                     onClickLookBackListener.clickCollection(mHeadData.get(position).videoUrl);
                 }
@@ -167,6 +170,7 @@ public class GameLookBackFragment extends BaseFragment<GameLookBackPresenter> im
         }
         if (mHeadData.size() > 0 && onClickLookBackListener != null) {
             mHeadData.get(0).isCheck = true;
+            DataUtils.addSellingPoint(getContext(), SellingPointsEvent.Key.A0207);
             onClickLookBackListener.resultCollectionCount(mHeadData.size());
             onClickLookBackListener.playCollectionVideo(mHeadData.get(0).videoUrl);
         }

@@ -32,6 +32,7 @@ import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultRecommendDataBean;
 import com.work.guaishouxingqiu.aboutball.home.contract.RecommendedContract;
 import com.work.guaishouxingqiu.aboutball.home.presenter.RecommendedPresenter;
+import com.work.guaishouxingqiu.aboutball.other.SellingPointsEvent;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
@@ -132,12 +133,15 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
             return false;
         });
         mTvVenue.setOnClickListener(v -> {
+            DataUtils.addSellingPoint(getContext(), SellingPointsEvent.Key.A0111);
             EventBus.getDefault().post(new HomeFragment.Message(TYPE_VENUE, 2));
         });
         mTvBall.setOnClickListener(v -> {
+            DataUtils.addSellingPoint(getContext(), SellingPointsEvent.Key.A0112);
             EventBus.getDefault().post(new HomeFragment.Message(TYPE_BALL, 2));
         });
         mTvGame.setOnClickListener(v -> {
+            DataUtils.addSellingPoint(getContext(), SellingPointsEvent.Key.A0113);
             EventBus.getDefault().post(new HomeFragment.Message(0, 1));
         });
     }

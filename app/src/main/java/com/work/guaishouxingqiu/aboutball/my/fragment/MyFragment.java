@@ -19,6 +19,7 @@ import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
 import com.work.guaishouxingqiu.aboutball.commonality.fragment.LoginOrShareFragment;
+import com.work.guaishouxingqiu.aboutball.community.activity.DynamicEditActivity;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultRedPointInfoBean;
 import com.work.guaishouxingqiu.aboutball.login.activity.LoginActivity;
 import com.work.guaishouxingqiu.aboutball.login.bean.UserBean;
@@ -28,6 +29,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultFansFocusBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.MyContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.MyPresenter;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
+import com.work.guaishouxingqiu.aboutball.other.SellingPointsEvent;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
@@ -119,6 +121,7 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
             }
         });
         mItemPrize.setOnItemClickListener(view -> {
+            DataUtils.addSellingPoint(mContext, SellingPointsEvent.Key.A0505);
             if (UserManger.get().isLogin()) {
                 ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_PRIZE);
             } else {
@@ -128,6 +131,7 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
         mItemBall.setOnItemClickListener(new ItemView.OnItemClickListener() {
             @Override
             public void onClickItem(View view) {
+                DataUtils.addSellingPoint(mContext, SellingPointsEvent.Key.A0501);
                 ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_ABOUT_BALL);
             }
         });
@@ -135,12 +139,14 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
             @Override
             public void onClickItem(View view) {
                 //Toasts.with().showToast(R.string.pleases_next_open);
+                DataUtils.addSellingPoint(mContext, SellingPointsEvent.Key.A0503);
                 ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_ORDER);
             }
         });
         mItemTeam.setOnItemClickListener(new ItemView.OnItemClickListener() {
             @Override
             public void onClickItem(View view) {
+                DataUtils.addSellingPoint(mContext, SellingPointsEvent.Key.A0504);
                 ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_BALL_TEAM);
                 //  Toasts.with().showToast(R.string.pleases_next_open);
             }
@@ -166,6 +172,7 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
         mItemAsReferee.setOnItemClickListener(new ItemView.OnItemClickListener() {
             @Override
             public void onClickItem(View view) {
+                DataUtils.addSellingPoint(mContext, SellingPointsEvent.Key.A0506);
                 if (UserManger.get().isLogin()) {
                     if (mMyRefereeStatus == null) {
                         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_APPLY_REFEREE);
@@ -294,12 +301,15 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
                 clickHead();
                 break;
             case R.id.tv_attention:
+                DataUtils.addSellingPoint(mContext, SellingPointsEvent.Key.A0510);
                 mViewModel.startActivityToAttentionAndFans(this, AttentionAndFansActivity.ATTENTION_ID, MyFragment.REQUEST_CODE_ATTENTION_AND_FANS);
                 break;
             case R.id.tv_fans:
+                DataUtils.addSellingPoint(mContext, SellingPointsEvent.Key.A0511);
                 mViewModel.startActivityToAttentionAndFans(this, AttentionAndFansActivity.FANS_ID, MyFragment.REQUEST_CODE_ATTENTION_AND_FANS);
                 break;
             case R.id.tv_message:
+                DataUtils.addSellingPoint(mContext, SellingPointsEvent.Key.A0502);
                 ARouterIntent.startActivityForResult(this, MyMessageActivity.class, MyFragment.REQUEST_CODE_MY_MESSAGE);
                 break;
             default:
@@ -308,10 +318,12 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
     }
 
     private void clickSetting() {
+        DataUtils.addSellingPoint(mContext, SellingPointsEvent.Key.A0507);
         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_SETTING);
     }
 
     private void clickHead() {
+        DataUtils.addSellingPoint(mContext, SellingPointsEvent.Key.A0508);
         if (!UserManger.get().isLogin()) {
             $startActivity(ARouterConfig.Path.ACTIVITY_LOGIN);
 

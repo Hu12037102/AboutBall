@@ -8,8 +8,10 @@ import androidx.annotation.NonNull;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.other.SellingPointsEvent;
 import com.work.guaishouxingqiu.aboutball.permission.imp.OnPermissionsResult;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
@@ -25,6 +27,7 @@ import java.util.List;
  */
 public abstract class CameraFragment<P extends BasePresenter> extends BaseFragment<P> {
     protected void openScanCode() {
+        DataUtils.addSellingPoint(getContext(), SellingPointsEvent.Key.A0109);
         requestPermission(new OnPermissionsResult() {
             @Override
             public void onAllow(List<String> allowPermissions) {

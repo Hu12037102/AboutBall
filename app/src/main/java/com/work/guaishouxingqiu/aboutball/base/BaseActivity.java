@@ -36,6 +36,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 import com.work.guaishouxingqiu.aboutball.other.ActivityManger;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
+import com.work.guaishouxingqiu.aboutball.other.SellingPointsEvent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
@@ -84,8 +85,13 @@ public abstract class BaseActivity<P extends BasePresenter> extends LocationActi
 
         initStatusColor();
         initPermission();
+        initSellingPoint();
         ActivityManger.get().addActivity(this);
 
+
+    }
+
+    protected void initSellingPoint() {
 
     }
 

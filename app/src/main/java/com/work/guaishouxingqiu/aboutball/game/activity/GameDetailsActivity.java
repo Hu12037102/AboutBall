@@ -46,6 +46,7 @@ import com.work.guaishouxingqiu.aboutball.game.fragment.GameLookBackFragment;
 import com.work.guaishouxingqiu.aboutball.game.fragment.GameResultFragment;
 import com.work.guaishouxingqiu.aboutball.game.presenter.GameDetailsPresenter;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
+import com.work.guaishouxingqiu.aboutball.other.SellingPointsEvent;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
@@ -193,6 +194,22 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 mBvData.setCurrentItem(tab.getPosition(), true);
+                switch (tab.getPosition()) {
+                    case 0:
+                        DataUtils.addSellingPoint(GameDetailsActivity.this, SellingPointsEvent.Key.A0206);
+                        break;
+                    case 1:
+                        DataUtils.addSellingPoint(GameDetailsActivity.this, SellingPointsEvent.Key.A0205);
+                        break;
+                    case 2:
+                        DataUtils.addSellingPoint(GameDetailsActivity.this, SellingPointsEvent.Key.A0203);
+                        break;
+                    case 3:
+                        DataUtils.addSellingPoint(GameDetailsActivity.this, SellingPointsEvent.Key.A0204);
+                        break;
+                    default:
+                        break;
+                }
 
             }
 

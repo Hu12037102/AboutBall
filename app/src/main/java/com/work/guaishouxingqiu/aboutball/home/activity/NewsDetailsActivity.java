@@ -31,6 +31,7 @@ import com.work.guaishouxingqiu.aboutball.home.bean.RequestSendMessageBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsMessageBean;
 import com.work.guaishouxingqiu.aboutball.home.contract.NewsDetailsContract;
 import com.work.guaishouxingqiu.aboutball.home.presenter.NewDetailsPresenter;
+import com.work.guaishouxingqiu.aboutball.other.SellingPointsEvent;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
@@ -103,9 +104,15 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
     protected void initView() {
         initHeadView();
         super.initView();
+
         mNewsId = mIntent.getLongExtra(ARouterConfig.Key.NEW_DETAILS_ID, 0);
         mRvMessage.setLayoutManager(new LinearLayoutManager(this));
         mRvMessage.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    protected void initSellingPoint() {
+        DataUtils.addSellingPoint(this, SellingPointsEvent.Key.A0102);
     }
 
     private void initHeadView() {
@@ -173,6 +180,7 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_send_message:
+                DataUtils.addSellingPoint(this, SellingPointsEvent.Key.A010202);
                 ShareWebBean shareWebBean = new ShareWebBean();
                 shareWebBean.webUrl = IApiService.H5.SHARE_NEWS_DETAILS + mNewsId;
                 LogUtils.w("onViewClicked--", shareWebBean.webUrl + "\n" + mWebView.getTitle());
@@ -181,6 +189,7 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
                 showShareDialog(shareWebBean);
                 break;
             case R.id.tv_input_message:
+                DataUtils.addSellingPoint(this, SellingPointsEvent.Key.A010201);
                 if (mSendMessageDialog == null) {
                     mSendMessageDialog = new InputMessageDialog(this);
                     mSendMessageDialog.setOnInputMessageListener(text -> {

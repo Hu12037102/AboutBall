@@ -37,6 +37,7 @@ import com.work.guaishouxingqiu.aboutball.my.adapter.AddImageAdapter;
 import com.work.guaishouxingqiu.aboutball.my.bean.AddImageBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.other.OSSRequestHelp;
+import com.work.guaishouxingqiu.aboutball.other.SellingPointsEvent;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
@@ -91,6 +92,12 @@ public class DynamicEditActivity extends CameraActivity<DynamicEditPresenter> im
     }
 
     @Override
+    protected void initSellingPoint() {
+        super.initSellingPoint();
+        DataUtils.addSellingPoint(this, SellingPointsEvent.Key.A0410);
+    }
+
+    @Override
     protected void initData() {
         mRequestBean = new RequestPublishDynamicBean();
         mRequestOSSPathData = new ArrayList<>();
@@ -109,6 +116,7 @@ public class DynamicEditActivity extends CameraActivity<DynamicEditPresenter> im
     }
 
     private void clickMediaSelector() {
+        DataUtils.addSellingPoint(DynamicEditActivity.this, SellingPointsEvent.Key.A041002);
         mMediaOptions.maxChooseMedia = AddImageAdapter.MAX_IMAGE_COUNT - (mImageData.size() - 1);
         openCameraVideoDialog(mMediaOptions, mRequestOSSPathData.size() > 0);
     }
@@ -118,6 +126,7 @@ public class DynamicEditActivity extends CameraActivity<DynamicEditPresenter> im
         mItemTopic.setOnItemClickListener(new ItemView.OnItemClickListener() {
             @Override
             public void onClickItem(View view) {
+                DataUtils.addSellingPoint(DynamicEditActivity.this, SellingPointsEvent.Key.A041003);
                 ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_SELECTOR_TOPIC, DynamicEditActivity.this);
             }
         });
@@ -139,6 +148,12 @@ public class DynamicEditActivity extends CameraActivity<DynamicEditPresenter> im
                 mRequestOSSPathData.remove(position);
             }
         });
+        mAcetContent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DataUtils.addSellingPoint(DynamicEditActivity.this, SellingPointsEvent.Key.A041001);
+            }
+        });
         mAcetContent.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -158,6 +173,7 @@ public class DynamicEditActivity extends CameraActivity<DynamicEditPresenter> im
         mTvCommit.setOnClickListener(new DelayedClickListener() {
             @Override
             public void onDelayedClick(View view) {
+                DataUtils.addSellingPoint(DynamicEditActivity.this, SellingPointsEvent.Key.A041004);
                 if (isCanPublish()) {
                     String content = DataUtils.getEditDetails(mAcetContent);
                     if (mResultTopicBean != null) {

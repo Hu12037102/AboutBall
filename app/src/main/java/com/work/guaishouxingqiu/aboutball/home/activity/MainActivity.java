@@ -20,9 +20,11 @@ import com.work.guaishouxingqiu.aboutball.home.fragment.HomeFragment;
 import com.work.guaishouxingqiu.aboutball.home.presenter.MainPresenter;
 import com.work.guaishouxingqiu.aboutball.my.fragment.MyFragment;
 import com.work.guaishouxingqiu.aboutball.other.DownloadApkHelp;
+import com.work.guaishouxingqiu.aboutball.other.SellingPointsEvent;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.NetWorkUtils;
 import com.work.guaishouxingqiu.aboutball.venue.fragment.VenueFragment;
@@ -157,6 +159,24 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
                 mTabAdapter = new MainTabAdapter(data);
                 mRvMainTab.setAdapter(mTabAdapter);
                 mTabAdapter.setOnCheckTabListener((view, position) -> {
+                    switch (position) {
+                        case 0:
+                            break;
+                        case 1:
+                            DataUtils.addSellingPoint(MainActivity.this, SellingPointsEvent.Key.A0201);
+                            break;
+                        case 2:
+                            DataUtils.addSellingPoint(MainActivity.this, SellingPointsEvent.Key.A0301);
+                            break;
+                        case 3:
+                            DataUtils.addSellingPoint(MainActivity.this, SellingPointsEvent.Key.A0401);
+                            break;
+                        case 4:
+                            DataUtils.addSellingPoint(MainActivity.this, SellingPointsEvent.Key.A0501);
+                            break;
+                        default:
+                            break;
+                    }
                     mBvpContent.setCurrentItem(position, true);
                 });
                 mPresenter.obtainRedPoint();

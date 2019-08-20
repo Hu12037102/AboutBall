@@ -1,6 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.community.fragment;
 
 import com.google.android.material.tabs.TabLayout;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -11,9 +12,11 @@ import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.community.contract.CommunityContract;
 import com.work.guaishouxingqiu.aboutball.community.presenter.CommunityPresenter;
+import com.work.guaishouxingqiu.aboutball.other.SellingPointsEvent;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
 
@@ -62,6 +65,18 @@ public class CommunityFragment extends DelayedFragment<CommunityPresenter> imple
         mTabTitle.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()) {
+                    case 0:
+                        DataUtils.addSellingPoint(getContext(), SellingPointsEvent.Key.A0401);
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        DataUtils.addSellingPoint(getContext(), SellingPointsEvent.Key.A0402);
+                        break;
+                    default:
+                        break;
+                }
                 mBvpContent.setCurrentItem(tab.getPosition(), true);
             }
 

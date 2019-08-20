@@ -12,6 +12,8 @@ import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultRecommendHotBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
+import com.work.guaishouxingqiu.aboutball.other.SellingPointsEvent;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 
 import java.util.List;
 
@@ -52,6 +54,7 @@ public class CommunityRecommendPagerAdapter extends PagerAdapter {
         inflateView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DataUtils.addSellingPoint(mContext, SellingPointsEvent.Key.A0403);
                 if (onItemClickListener != null) {
                     onItemClickListener.onClickItem(inflateView, selectorPosition);
                 }

@@ -30,6 +30,7 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
+import com.work.guaishouxingqiu.aboutball.other.SellingPointsEvent;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
@@ -165,6 +166,7 @@ public class CommunityDataAdapter extends BaseRecyclerAdapter<CommunityDataAdapt
                             });
                         }
                     } else {
+                        DataUtils.addSellingPoint(mContext, SellingPointsEvent.Key.A0406);
                         ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_COMMUNITY_REPORT, ARouterConfig.Key.TWEET_ID, bean.tweetId);
                         if (onTextContentClickListener != null) {
                             onTextContentClickListener.onClickReport(view, i);

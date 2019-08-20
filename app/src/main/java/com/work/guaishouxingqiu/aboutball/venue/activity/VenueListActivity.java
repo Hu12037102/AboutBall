@@ -15,8 +15,10 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
+import com.work.guaishouxingqiu.aboutball.other.SellingPointsEvent;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.venue.adapter.VenueListAdapter;
 import com.work.guaishouxingqiu.aboutball.venue.bean.RequestVenueListBean;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultTypeBean;
@@ -120,7 +122,7 @@ public class VenueListActivity extends BaseActivity<VenueListPresenter> implemen
                 @Override
                 public void onItemClick(View view, int position) {
                     ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_DETAILS, ARouterConfig.Key.STADIUM_ID, mListData.get(position).stadiumId);
-
+                    DataUtils.addSellingPoint(VenueListActivity.this, SellingPointsEvent.Key.A0302);
 
                 }
             });

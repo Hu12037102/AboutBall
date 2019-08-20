@@ -19,6 +19,8 @@ import com.work.guaishouxingqiu.aboutball.game.adapter.GameListAdapter;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameBean;
 import com.work.guaishouxingqiu.aboutball.game.contract.GameOfficialContract;
 import com.work.guaishouxingqiu.aboutball.game.presenter.GameOfficialPresenter;
+import com.work.guaishouxingqiu.aboutball.home.activity.MainActivity;
+import com.work.guaishouxingqiu.aboutball.other.SellingPointsEvent;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
@@ -57,7 +59,7 @@ public class GameOfficialFragment extends BaseFragment<GameOfficialPresenter> im
 
     @Override
     protected void initView() {
-        mLayoutManager = new LinearLayoutManager(DataUtils.checkData(getContext()), LinearLayoutManager.VERTICAL, false);
+        mLayoutManager = new LinearLayoutManager(DataUtils.checkData(getContext()), RecyclerView.VERTICAL, false);
         mRvData.setLayoutManager(mLayoutManager);
     }
 
@@ -79,6 +81,7 @@ public class GameOfficialFragment extends BaseFragment<GameOfficialPresenter> im
 
             @Override
             public void onItemClick(View view, int position) {
+                DataUtils.addSellingPoint(getContext(), SellingPointsEvent.Key.A0202);
                 ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_GAME_DETAILS, ARouterConfig.Key.GAME_ID, mData.get(position).matchId);
             }
         });

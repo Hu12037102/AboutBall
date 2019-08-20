@@ -1,10 +1,13 @@
 package com.work.guaishouxingqiu.aboutball.home.fragment;
 
 import androidx.annotation.NonNull;
+
 import com.google.android.material.tabs.TabLayout;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+
 import android.view.View;
 import android.view.ViewStub;
 
@@ -15,6 +18,7 @@ import com.work.guaishouxingqiu.aboutball.base.CameraFragment;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultHomeTabBean;
 import com.work.guaishouxingqiu.aboutball.home.contract.HomeContract;
 import com.work.guaishouxingqiu.aboutball.home.presenter.HomePresenter;
+import com.work.guaishouxingqiu.aboutball.other.SellingPointsEvent;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
@@ -136,6 +140,27 @@ public class HomeFragment extends CameraFragment<HomePresenter> implements HomeC
                 if (mBvpContent.getChildCount() > DataUtils.checkData(tab.getPosition())) {
                     mBvpContent.setCurrentItem(DataUtils.checkData(tab.getPosition()), true);
                 }
+                switch (tab.getPosition()) {
+                    case 0:
+                        break;
+                    case 1:
+                        DataUtils.addSellingPoint(getContext(), SellingPointsEvent.Key.A0103);
+                        break;
+                    case 2:
+                        DataUtils.addSellingPoint(getContext(), SellingPointsEvent.Key.A0104);
+                        break;
+                    case 3:
+                        DataUtils.addSellingPoint(getContext(), SellingPointsEvent.Key.A0105);
+                        break;
+                    case 4:
+                        DataUtils.addSellingPoint(getContext(), SellingPointsEvent.Key.A0106);
+                        break;
+                    case 5:
+                        DataUtils.addSellingPoint(getContext(), SellingPointsEvent.Key.A0107);
+                        break;
+                    default:
+                        break;
+                }
             }
 
             @Override
@@ -184,6 +209,7 @@ public class HomeFragment extends CameraFragment<HomePresenter> implements HomeC
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_search:
+                DataUtils.addSellingPoint(getContext(),SellingPointsEvent.Key.A0108);
                 ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_NEWS_SEARCH);
                 break;
             case R.id.iv_scan_code:

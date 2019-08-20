@@ -10,8 +10,10 @@ import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
 import com.work.guaishouxingqiu.aboutball.home.adapter.RecommendedAdapter;
 import com.work.guaishouxingqiu.aboutball.home.fragment.HomeFragment;
+import com.work.guaishouxingqiu.aboutball.other.SellingPointsEvent;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.contract.VenueContract;
 import com.work.guaishouxingqiu.aboutball.venue.presenter.VenuePresenter;
@@ -60,6 +62,9 @@ public class VenueFragment extends DelayedFragment<VenuePresenter> implements Ve
         mTabTitle.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getPosition()==1){
+                    DataUtils.addSellingPoint(getContext(), SellingPointsEvent.Key.A0303);
+                }
                 mBvpContent.setCurrentItem(tab.getPosition(),true);
             }
 

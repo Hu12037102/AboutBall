@@ -17,8 +17,11 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseFragment;
+import com.work.guaishouxingqiu.aboutball.other.SellingPointsEvent;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.venue.activity.VenueListActivity;
 import com.work.guaishouxingqiu.aboutball.venue.adapter.BallTypeAdapter;
 import com.work.guaishouxingqiu.aboutball.venue.adapter.VenueListAdapter;
 import com.work.guaishouxingqiu.aboutball.venue.bean.RequestVenueListBean;
@@ -173,6 +176,7 @@ public class VenueListFragment extends BaseFragment<VenueListPresenter> implemen
 
                 @Override
                 public void onItemClick(View view, int position) {
+                    DataUtils.addSellingPoint(getContext(), SellingPointsEvent.Key.A0302);
                     ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_VENUE_DETAILS, ARouterConfig.Key.STADIUM_ID, mListData.get(position).stadiumId);
                     //Toasts.with().showToast(R.string.pleases_next_open);
                 }

@@ -71,6 +71,12 @@ public class SellingPointsEvent {
         String A0503 = "A0503";//我的订单点击
         String A0504 = "A0504";//我的球队点击
         String A0505 = "A0505";//我的奖品点击
+        String A0506 = "A0506";//成为裁判点击
+        String A0507 = "A0507";//点击设置
+        String A0508 = "A0508";//我的门票点击
+        String A0509 = "A0509";//我的资料点击
+        String A0510 = "A0510";//我的关注点击
+        String A0511 = "A0511";//我的粉丝点击
     }
 
 }
