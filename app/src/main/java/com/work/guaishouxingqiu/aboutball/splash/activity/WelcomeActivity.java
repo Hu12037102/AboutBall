@@ -23,6 +23,7 @@ import com.work.guaishouxingqiu.aboutball.login.activity.LoginActivity;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.other.ActivityManger;
 import com.work.guaishouxingqiu.aboutball.other.SharedPreferencesHelp;
+import com.work.guaishouxingqiu.aboutball.other.TencentBuriedPoint;
 import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
 import com.work.guaishouxingqiu.aboutball.permission.imp.OnPermissionsResult;
@@ -136,6 +137,7 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
 
     @Override
     protected void initView() {
+        TencentBuriedPoint.init();
         //去除零时token
         UserManger.get().removeTemporaryToken();
         if (mIsHasBanner) {

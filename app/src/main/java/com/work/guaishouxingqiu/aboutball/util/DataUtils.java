@@ -20,6 +20,7 @@ import com.work.guaishouxingqiu.aboutball.home.bean.ResultRedPointInfoBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundCauseBean;
 import com.work.guaishouxingqiu.aboutball.other.SharedPreferencesHelp;
+import com.work.guaishouxingqiu.aboutball.other.TencentBuriedPoint;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultOrderDetailsBean;
 
@@ -485,5 +486,9 @@ public class DataUtils {
             return true;
         }
         return false;
+    }
+
+    public static void addSellingPoint(Context context, String key) {
+        TencentBuriedPoint.defaultBuriedPoint(context, key);
     }
 }

@@ -16,6 +16,7 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.item.util.ScreenUtils;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.tencent.stat.StatService;
 import com.umeng.analytics.MobclickAgent;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
@@ -92,14 +93,23 @@ public abstract class BaseActivity<P extends BasePresenter> extends LocationActi
     @Override
     protected void onResume() {
         super.onResume();
+        StatService.onResume(this);
+
         //Bugtags.onRestart(this);
         MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        StatService.onStop(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         //Bugtags.onRestart(this);
+        StatService.onPause(this);
         MobclickAgent.onPause(this);
     }
 
@@ -333,6 +343,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends LocationActi
     public void resultClearRedPoint(boolean isSucceed) {
 
     }
+
     @Override
     public void resultCreateBallOrderId(String orderId) {
 

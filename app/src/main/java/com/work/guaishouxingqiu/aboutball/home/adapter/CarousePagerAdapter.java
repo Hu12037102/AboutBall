@@ -11,8 +11,10 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultRecommendDataBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
+import com.work.guaishouxingqiu.aboutball.other.SellingPointsEvent;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 
 import java.util.List;
 
@@ -67,6 +69,7 @@ public class CarousePagerAdapter extends PagerAdapter {
         mTvTitle.setText(mData.get(position % mData.size()).title);
         container.addView(inflate);
         inflate.setOnClickListener(v -> {
+            DataUtils.addSellingPoint(container.getContext(), SellingPointsEvent.Key.A0101);
             ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_NEW_DETAILS,
                     ARouterConfig.Key.NEW_DETAILS_ID, mData.get(position % mData.size()).newsId);
         });

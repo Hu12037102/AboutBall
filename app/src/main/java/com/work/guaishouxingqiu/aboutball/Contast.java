@@ -143,6 +143,8 @@ public interface Contast {
         String WEI_CHAT_BUSINESS_ID = "1524077161";//微信支付商户ID
         String Bugtag_ID = "96481d2c6099fa3e827b8c04d036d566";
         String UMENG_ID = "5c773884b465f59b44000a29";
+        String TENCENT_SELLING_POINTS_ID="3104087912";
+        String TENCENT_SELLING_POINTS_KEY="A5EG8UD35GVB";
 
     }
 
