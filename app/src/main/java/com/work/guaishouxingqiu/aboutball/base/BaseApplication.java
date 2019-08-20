@@ -1,5 +1,8 @@
 package com.work.guaishouxingqiu.aboutball.base;
 
+import android.content.Context;
+import android.util.Log;
+
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.alivc.player.AliVcMediaPlayer;
 import com.bugtags.library.Bugtags;
@@ -10,12 +13,16 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.tencent.stat.StatConfig;
+import com.tencent.stat.StatCrashCallback;
+import com.tencent.stat.StatCrashReporter;
+import com.tencent.stat.StatReportStrategy;
 import com.tencent.stat.StatService;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 import com.uuzuche.lib_zxing.ZApplication;
 import com.work.guaishouxingqiu.aboutball.BuildConfig;
 import com.work.guaishouxingqiu.aboutball.Contast;
+import com.work.guaishouxingqiu.aboutball.other.TencentBuriedPoint;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
@@ -68,8 +75,34 @@ public class BaseApplication extends ZApplication {
     private void initTencent() {
         // 打开Logcat输出，上线时，一定要关闭
         StatConfig.setDebugEnable(BuildConfig.IS_DEBUG);
+
+
+        // 设置10分钟为周期的上报策略
+        StatConfig.setStatSendStrategy(StatReportStrategy.PERIOD);
+        StatConfig.setSendPeriodMinutes(10);
+
+        // 是否开启java crash捕获，默认开启
+        StatCrashReporter.getStatCrashReporter(getApplicationContext()).setJavaCrashHandlerStatus(true);
+        // 是否开启c/c++ crash捕获，默认关闭
+        StatCrashReporter.getStatCrashReporter(getApplicationContext()).setJniNativeCrashStatus(true);
+        // 设置crash后的回调
+        StatCrashReporter.getStatCrashReporter(getApplicationContext()).addCrashCallback(new StatCrashCallback() {
+
+            @Override
+            public void onJniNativeCrash(String tombstoneMsg) {
+                LogUtils.d("Test", "Native crash happened, tombstone message:" + tombstoneMsg);
+            }
+
+            @Override
+            public void onJavaCrash(Thread thread, Throwable throwable) {
+                LogUtils.d("Test", "Java crash happened, thread: " + thread + ",Throwable:" + throwable.toString());
+            }
+        });
+
         // 注册activity生命周期，统计时长
         StatService.registerActivityLifecycleCallbacks(this);
+
+
     }
 
     /**
@@ -77,12 +110,11 @@ public class BaseApplication extends ZApplication {
      */
     private void initUMeng() {
         //UMConfigure.init(this,UMConfigure.DEVICE_TYPE_PHONE,Contast.SecretKey.UMENG_ID);
-        UMConfigure.init(this,Contast.SecretKey.UMENG_ID,"Umeng",UMConfigure.DEVICE_TYPE_PHONE,null);
+        UMConfigure.init(this, Contast.SecretKey.UMENG_ID, "Umeng", UMConfigure.DEVICE_TYPE_PHONE, null);
         // 选用AUTO页面采集模式
         MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
         UMConfigure.setLogEnabled(BuildConfig.DEBUG);
     }
-
 
 
     protected void initWeiChat() {
@@ -124,8 +156,8 @@ public class BaseApplication extends ZApplication {
         });
     }
 
-    public void closeWeiChat(){
-        if (mWeiChatApi != null){
+    public void closeWeiChat() {
+        if (mWeiChatApi != null) {
         }
     }
 

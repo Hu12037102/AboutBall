@@ -20,7 +20,7 @@ import java.util.Properties;
  * 描述:腾讯埋点信息
  */
 public class TencentBuriedPoint {
-    public static void init() {
+    public static void init(@NonNull Context context) {
         try {
             boolean b = StatService.startStatService(UIUtils.getContext(), Contast.SecretKey.TENCENT_SELLING_POINTS_KEY, StatConstants.VERSION);
             LogUtils.w("TencentBuriedPoint--", "MTA初始化成功" + "--" + b);
@@ -32,9 +32,8 @@ public class TencentBuriedPoint {
 
     public void clickBuriedPoint(@NonNull Context context, @NonNull String key) {
         Properties prop = new Properties();
-        prop.setProperty(key, "click ");
-        StatService.trackCustomKVEvent(context, "button_click", prop);
-        // StatService.trackCustomBeginKVEvent(context, "button_click", prop);
+        prop.setProperty(key, "click" + System.currentTimeMillis());
+       StatService.trackCustomKVEvent(UIUtils.getContext(), "ButtonClick", prop);
     }
 
     public static void defaultBuriedPoint(@NonNull Context context, @NonNull String key) {

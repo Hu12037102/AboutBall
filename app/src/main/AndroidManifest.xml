@@ -50,6 +50,18 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="n">
+        <!-- 配置组件 -->
+
+
+        <meta-data
+            android:name="TA_APPKEY"
+            android:value="A5EG8UD35GVB" />
+        <!-- 请将value改为APP的发布渠道（市场） < -->
+        <meta-data
+            android:name="InstallChannel"
+            android:value="play" />
+
+
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />

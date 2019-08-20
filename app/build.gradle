@@ -47,15 +47,17 @@ variant.outputs.all {
         /*//GrowingIO数据统计
         resValue("string", "growingio_project_id", "924c976f18bd2145")
         resValue("string", "growingio_url_scheme", "growing.788865291abc90a2")*/
+        manifestPlaceholders = [
+                MTA_APPKEY:"A5EG8UD35GVB",
+               //  MTA_APPKEY:"AGV52KUZ87BK",
+                MTA_CHANNEL:"play"
+        ]
         ndk {
             // 设置支持的 SO 库构架，一般而言，取你所有的库支持的构架的`交集`。
             abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
         }
 
-        manifestPlaceholders = [
-                MTA_APPKEY:"A5EG8UD35GVB",
-                MTA_CHANNEL:"android.com.aboutball"
-        ]
+
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -221,8 +223,10 @@ dependencies {
     releaseImplementation "io.objectbox:objectbox-android:$objectboxVersion"
 
     //腾讯埋点数据统计
-    implementation 'com.qq.mta:mta:3.4.7-Release'
-    implementation 'com.tencent.mid:mid:4.06-Release'
+    /*implementation 'com.qq.mta:mta:3.4.7-Release'
+    implementation 'com.tencent.mid:mid:4.06-Release'*/
+    implementation 'com.qq.mta:mta:3.4.2'
+    implementation 'com.tencent.mid:mid:3.73-release'
 
 }
 apply plugin: 'io.objectbox'

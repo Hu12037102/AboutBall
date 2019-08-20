@@ -9,7 +9,7 @@ package com.work.guaishouxingqiu.aboutball.other;
 public class SellingPointsEvent {
    public interface Key {
         //A01 首页
-        String A0101 = "A0101";//banner点击
+        String A0101 = "A0101";//banner点击A0101
         String A0102 = "A0102";//阅读文章
         String A0103 = "A0103";//资讯tab点击
         String A0104 = "A0104";//赛事tab点击

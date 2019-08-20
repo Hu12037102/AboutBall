@@ -137,7 +137,7 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
 
     @Override
     protected void initView() {
-        TencentBuriedPoint.init();
+        TencentBuriedPoint.init(this);
         //去除零时token
         UserManger.get().removeTemporaryToken();
         if (mIsHasBanner) {

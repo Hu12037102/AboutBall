@@ -145,6 +145,7 @@ public interface Contast {
         String UMENG_ID = "5c773884b465f59b44000a29";
         String TENCENT_SELLING_POINTS_ID="3104087912";
         String TENCENT_SELLING_POINTS_KEY="A5EG8UD35GVB";
+        //String TENCENT_SELLING_POINTS_KEY="AGV52KUZ87BK";
 
     }
 
