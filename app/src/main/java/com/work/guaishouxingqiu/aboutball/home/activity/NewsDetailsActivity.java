@@ -2,9 +2,11 @@ package com.work.guaishouxingqiu.aboutball.home.activity;
 
 import android.os.Handler;
 import android.os.Message;
+
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebResourceError;
@@ -169,6 +171,10 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
 
     }
 
+    @Override
+    public void resultShareWeiChat() {
+        mPresenter.newsSellingPoints(mNewsId);
+    }
 
     @Override
     protected NewDetailsPresenter createPresenter() {

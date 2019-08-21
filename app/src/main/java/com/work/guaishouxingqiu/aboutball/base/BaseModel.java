@@ -283,4 +283,12 @@ public class BaseModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
+
+    public void newsSellingPoints(long newsId,BaseObserver<BaseDataBean<String>> observer) {
+        mRetrofitManger.create(BaseService.class)
+                .newsSellingPoints(newsId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
 }

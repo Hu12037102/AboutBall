@@ -107,6 +107,7 @@ public interface IApiService {
     String GET_CLEAR_RED_POINT = "api/notice/saveNoticeCenterReadByType";
     String GET_SETTING_PASSWORD="api/accountManagement/settingPassword";
     String GET_CAN_USER_STADIUM_LIST="api/stadium/getStadiumListForAgree";
+    String GET_NEWS_SELLING_POINTS="api/news/saveNewsShareCount";
 
     //获取微信登录token
     String GET_WEICHAT_TOKEN = "sns/oauth2/access_token";

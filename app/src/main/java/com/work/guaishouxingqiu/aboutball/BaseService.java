@@ -94,4 +94,7 @@ public interface BaseService {
                                                              @Query(Contast.TYPE_ID) int typeId,
                                                              @Query(Contast.LONGITUDE) String longitude,
                                                              @Query(Contast.LATITUDE) String latitude);
+
+    @GET(IApiService.GET_NEWS_SELLING_POINTS)
+    Observable<BaseBean<BaseDataBean<String>>> newsSellingPoints(@Query(Contast.NEW_ID) long newsId);
 }

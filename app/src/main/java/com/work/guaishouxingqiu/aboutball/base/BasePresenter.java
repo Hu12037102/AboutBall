@@ -612,4 +612,17 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
             }
         }));
     }
+    public void newsSellingPoints(long newsId){
+        mModel.newsSellingPoints(newsId,new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<String>>() {
+            @Override
+            public void onNext(BaseBean<BaseDataBean<String>> t) {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
 }
