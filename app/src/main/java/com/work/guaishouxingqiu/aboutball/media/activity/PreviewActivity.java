@@ -253,6 +253,7 @@ public class PreviewActivity extends BaseActivity {
         mTvTop.setOnSureViewClickListener(new TitleView.OnSureViewClickListener() {
             @Override
             public void onSureClick(@NonNull View view) {
+                mTvTop.mTvSure.setEnabled(false);
                 if (mCheckMediaData.size() <= 0) {
                     mMediaFileData.get(mPreviewPosition).isCheck = true;
                     mCheckMediaData.add(mMediaFileData.get(mPreviewPosition));
@@ -374,6 +375,7 @@ public class PreviewActivity extends BaseActivity {
                                                 mIsCompressVideoing = false;
                                                 mediaSelectorFile.filePath = compressVideoPath;
                                                 EventBus.getDefault().post(mCheckMediaData);
+                                                mTvTop.mTvSure.setEnabled(true);
                                                 finish();
                                             }
 
@@ -387,12 +389,14 @@ public class PreviewActivity extends BaseActivity {
                                                 mViewModel.dismissLoadingView();
                                                 mIsCompressVideoing = false;
                                                 LogUtils.w("FFmpeg---", "取消了！");
+                                                mTvTop.mTvSure.setEnabled(true);
                                                 finish();
                                             }
 
                                             @Override
                                             public void onError(String message) {
                                                 mViewModel.dismissLoadingView();
+                                                mTvTop.mTvSure.setEnabled(true);
                                                 mIsCompressVideoing = false;
                                                 LogUtils.w("FFmpeg---", "失败了！");
                                                 UIUtils.showToast(R.string.video_deals_with_video);
@@ -412,6 +416,8 @@ public class PreviewActivity extends BaseActivity {
                     EventBus.getDefault().post(mCheckMediaData);
                     finish();
                 }
+            }else {
+                mTvTop.mTvSure.setEnabled(true);
             }
         }
     }

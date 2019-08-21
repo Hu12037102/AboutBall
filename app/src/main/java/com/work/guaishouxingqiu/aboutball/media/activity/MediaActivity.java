@@ -180,6 +180,7 @@ public class MediaActivity extends PermissionActivity {
     }
 
     private void resultMediaData() {
+        mTvTop.mTvSure.setEnabled(false);
         if (mCheckMediaFileData.size() > 0) {
             if (mViewModel.isMediaVideo(mCheckMediaFileData)) {
                 compressVideo(mCheckMediaFileData);
@@ -201,7 +202,7 @@ public class MediaActivity extends PermissionActivity {
 
                 @Override
                 public void resultFilesSucceed(List<File> list) {
-
+                    mTvTop.mTvSure.setEnabled(true);
                     mCheckMediaFileData.clear();
                     for (File file : list) {
                         mCheckMediaFileData.add(MediaSelectorFile.checkFileToThis(file));
@@ -214,6 +215,7 @@ public class MediaActivity extends PermissionActivity {
 
                 @Override
                 public void resultFilesError() {
+                    mTvTop.mTvSure.setEnabled(true);
                     if (viewGroup.indexOfChild(inflate) != -1) {
                         viewGroup.removeView(inflate);
                     }
@@ -254,6 +256,7 @@ public class MediaActivity extends PermissionActivity {
                                         .subscribe(new RxFFmpegSubscriber() {
                                             @Override
                                             public void onFinish() {
+                                                mTvTop.mTvSure.setEnabled(true);
                                                 mViewModel.dismissLoadingView();
                                                 mIsCompressVideoing = false;
                                                 mediaSelectorFile.filePath = compressVideoPath;
@@ -266,6 +269,7 @@ public class MediaActivity extends PermissionActivity {
 
                                             @Override
                                             public void onCancel() {
+                                                mTvTop.mTvSure.setEnabled(true);
                                                 mViewModel.dismissLoadingView();
                                                 mIsCompressVideoing = false;
                                                 finish();
@@ -273,6 +277,7 @@ public class MediaActivity extends PermissionActivity {
 
                                             @Override
                                             public void onError(String message) {
+                                                mTvTop.mTvSure.setEnabled(true);
                                                 mViewModel.dismissLoadingView();
                                                 mIsCompressVideoing = false;
                                                 UIUtils.showToast(R.string.video_deals_with_video);
@@ -291,6 +296,8 @@ public class MediaActivity extends PermissionActivity {
                 } else {
                     resultMediaIntent(checkMediaFileData);
                 }
+            }else {
+                mTvTop.mTvSure.setEnabled(true);
             }
         }
     }
