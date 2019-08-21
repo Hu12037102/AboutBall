@@ -41,8 +41,8 @@ variant.outputs.all {
         //  applicationId "com.work.guaishouxingqiu.aboutball"
         minSdkVersion android.minSdkVersion
         targetSdkVersion android.targetSdkVersion
-        versionCode 7
-        versionName '1.6.5'
+        versionCode 8
+        versionName '1.6.6'
         testInstrumentationRunner android.testInstrumentationRunner
         /*//GrowingIO数据统计
         resValue("string", "growingio_project_id", "924c976f18bd2145")
@@ -122,8 +122,8 @@ variant.outputs.all {
             buildConfigField("boolean", "IS_DEBUG", "true")
             buildConfigField("boolean", "IS_UPDATE", "true")
             //buildConfigField("String", "HOST_URL", '"https://iti.bmece.com"')
-          //  buildConfigField("String", "HOST_URL", '"https://test.ifeell.com.cn/"')
-             buildConfigField("String", "HOST_URL", '"https://www.ifeell.com.cn/"')
+            buildConfigField("String", "HOST_URL", '"https://test.ifeell.com.cn/"')
+            // buildConfigField("String", "HOST_URL", '"https://www.ifeell.com.cn/"')
             //  buildConfigField("String", "HOST_URL", '"http://47.106.255.172:8088"')
             shrinkResources false
             zipAlignEnabled false
