@@ -22,7 +22,7 @@ import java.util.Properties;
 public class TencentBuriedPoint {
     public static void init(@NonNull Context context) {
         try {
-            boolean b = StatService.startStatService(UIUtils.getContext(), Contast.SecretKey.TENCENT_SELLING_POINTS_KEY, StatConstants.VERSION);
+            boolean b = StatService.startStatService(context, Contast.SecretKey.TENCENT_SELLING_POINTS_KEY, StatConstants.VERSION);
             LogUtils.w("TencentBuriedPoint--", "MTA初始化成功" + "--" + b);
         } catch (MtaSDkException e) {
             LogUtils.w("TencentBuriedPoint---", "MTA初始化失败");
@@ -32,8 +32,8 @@ public class TencentBuriedPoint {
 
     public void clickBuriedPoint(@NonNull Context context, @NonNull String key) {
         Properties prop = new Properties();
-        prop.setProperty(key, "click" + System.currentTimeMillis());
-       StatService.trackCustomKVEvent(UIUtils.getContext(), "ButtonClick", prop);
+        prop.setProperty(key, key + "_" + System.currentTimeMillis());
+        StatService.trackCustomKVEvent(context, key, prop);
     }
 
     public static void defaultBuriedPoint(@NonNull Context context, @NonNull String key) {

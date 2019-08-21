@@ -52,14 +52,18 @@
         tools:targetApi="n">
         <!-- 配置组件 -->
 
-
+       <!-- <provider
+            android:name="com.tencent.mid.api.MidProvider"
+            android:authorities="com.work.guaishouxingqiu.aboutball.TENCENT.MID.V3"
+            android:exported="true" >
+        </provider>
         <meta-data
             android:name="TA_APPKEY"
             android:value="A5EG8UD35GVB" />
-        <!-- 请将value改为APP的发布渠道（市场） < -->
+        &lt;!&ndash; 请将value改为APP的发布渠道（市场） < &ndash;&gt;
         <meta-data
             android:name="InstallChannel"
-            android:value="play" />
+            android:value="play" />-->
 
 
         <uses-library
