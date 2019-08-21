@@ -62,8 +62,10 @@ public class BallDetailsChildAdapter extends BaseRecyclerAdapter<BallDetailsChil
         if (mIsInputEvaluate) {
             viewHolder.mTvMatchRecords.setVisibility(View.VISIBLE);
             //viewHolder.mTvMatchEvaluate.setVisibility(View.VISIBLE);
+            viewHolder.mTvMatchEvaluate.setText(R.string.match_evaluate);
         } else {
             viewHolder.mTvMatchRecords.setVisibility(View.GONE);
+            viewHolder.mTvMatchEvaluate.setText(R.string.give_ball_team_judge);
             //viewHolder.mTvMatchEvaluate.setVisibility(View.GONE);
         }
         viewHolder.mTvMatchRecords.setOnClickListener(v -> {
