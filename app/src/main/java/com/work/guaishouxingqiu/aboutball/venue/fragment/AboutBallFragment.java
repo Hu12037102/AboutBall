@@ -50,11 +50,10 @@ public class AboutBallFragment extends DelayedFragment<AboutBallPresenter> imple
     RecyclerView mRvData;
     @BindView(R.id.srl_data)
     SmartRefreshLayout mSrlData;
-    @BindView(R.id.vs_rule)
-    ViewStub mVsRule;
+    @BindView(R.id.include_rule)
+    View mViewIncludeRule;
     private AboutBallAdapter mAdapter;
     private List<ResultAboutBallBean> mData;
-    private View mInflateRuleView;
     private int mClickPosition = -1;
     private static final int REQUEST_CODE_CREATE_BALL = 245;
 
@@ -71,26 +70,17 @@ public class AboutBallFragment extends DelayedFragment<AboutBallPresenter> imple
     }
 
     private void initRuleView() {
-        SharedPreferencesHelp sph = new SharedPreferencesHelp();
-        boolean ruleStatus = sph.getBoolean(KEY_RULE_STATUS, true);
-        if (mInflateRuleView == null) {
-            mInflateRuleView = mVsRule.inflate();
-            mInflateRuleView.setBackgroundResource(R.color.colorFFEBF0FF);
-            ImageView mIvClose = mInflateRuleView.findViewById(R.id.iv_close);
-            TextView mTvRule = mInflateRuleView.findViewById(R.id.tv_rule);
-            mTvRule.setTextColor(ContextCompat.getColor(mContext, R.color.color_2));
-            mIvClose.setImageResource(R.mipmap.icon_item_right);
+
+        mViewIncludeRule.setBackgroundResource(R.color.colorFFEBF0FF);
+        ImageView mIvClose = mViewIncludeRule.findViewById(R.id.iv_close);
+        TextView mTvRule = mViewIncludeRule.findViewById(R.id.tv_rule);
+        mTvRule.setTextColor(ContextCompat.getColor(mContext, R.color.color_2));
+        mIvClose.setImageResource(R.mipmap.icon_item_right);
             /*mIvClose.setOnClickListener(v -> {
                 sph.putObject(KEY_RULE_STATUS, false);
                 mInflateRuleView.setVisibility(View.GONE);
             });*/
-            mTvRule.setOnClickListener(v -> ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ABOUT_RULE));
-        }
-        if (ruleStatus) {
-            mInflateRuleView.setVisibility(View.VISIBLE);
-        } else {
-            mInflateRuleView.setVisibility(View.GONE);
-        }
+        mTvRule.setOnClickListener(v -> ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ABOUT_RULE));
 
 
     }

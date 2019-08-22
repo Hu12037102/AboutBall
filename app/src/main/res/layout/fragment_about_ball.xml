@@ -5,11 +5,11 @@
     android:layout_height="match_parent"
     android:background="@color/colorTheme">
 
-    <ViewStub
-        android:id="@+id/vs_rule"
+    <include
+        android:id="@+id/include_rule"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_35dp"
-        android:layout="@layout/layout_hint_rule_view"
+        layout="@layout/layout_hint_rule_view"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -17,10 +17,11 @@
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/srl_data"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="@dimen/size_0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/vs_rule">
+        app:layout_constraintTop_toBottomOf="@id/include_rule"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_data"
