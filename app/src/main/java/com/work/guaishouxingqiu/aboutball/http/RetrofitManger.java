@@ -75,6 +75,7 @@ public class RetrofitManger {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
+
     }
 
     private OkHttpClient createOKHttp() {

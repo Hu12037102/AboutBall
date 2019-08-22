@@ -471,10 +471,10 @@ public class DateUtils {
      * @return
      */
     public static boolean isNewTimeMoreThan(String time) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             Date date = sdf.parse(time);
-            return System.currentTimeMillis() - date.getTime() > 0;
+            return System.currentTimeMillis() > date.getTime();
         } catch (ParseException e) {
             e.printStackTrace();
         }
