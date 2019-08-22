@@ -67,9 +67,10 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
     @Override
     protected void initView() {
         registerEventBus();
-        if (BuildConfig.IS_UPDATE) {
+       /* if (BuildConfig.IS_UPDATE) {
             mPresenter.updateApkInfo(DownloadApkHelp.getVersionName(this));
-        }
+        }*/
+        mPresenter.updateApkInfo(DownloadApkHelp.getVersionName(this));
         mRvMainTab.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
     }
 

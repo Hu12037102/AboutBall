@@ -106,7 +106,7 @@ variant.outputs.all {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField("boolean", "IS_DEBUG", "false")
-            buildConfigField("boolean", "IS_UPDATE", "false")
+          //  buildConfigField("boolean", "IS_UPDATE", "true")
             // buildConfigField("String", "HOST_URL", '"https://ifi.bmece.com"')
             // buildConfigField("String", "HOST_URL", '"https://www.ifeell.com.cn/v1.2/"')
             buildConfigField("String", "HOST_URL", '"https://www.ifeell.com.cn/"')
@@ -120,10 +120,10 @@ variant.outputs.all {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField("boolean", "IS_DEBUG", "true")
-            buildConfigField("boolean", "IS_UPDATE", "true")
+           // buildConfigField("boolean", "IS_UPDATE", "true")
             //buildConfigField("String", "HOST_URL", '"https://iti.bmece.com"')
-            buildConfigField("String", "HOST_URL", '"https://test.ifeell.com.cn/"')
-            // buildConfigField("String", "HOST_URL", '"https://www.ifeell.com.cn/"')
+           // buildConfigField("String", "HOST_URL", '"https://test.ifeell.com.cn/"')
+             buildConfigField("String", "HOST_URL", '"https://www.ifeell.com.cn/"')
             //  buildConfigField("String", "HOST_URL", '"http://47.106.255.172:8088"')
             shrinkResources false
             zipAlignEnabled false

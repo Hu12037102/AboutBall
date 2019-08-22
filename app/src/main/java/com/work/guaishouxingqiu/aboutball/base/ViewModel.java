@@ -166,7 +166,7 @@ public class ViewModel {
     public void showUpdateDialog(Context context, ResultUpdateApkBean updateBean) {
         // String content = UIUtils.getString(R.string.update_content);
         if (mUpdateDialog == null) {
-            mUpdateDialog = new UpdateApkDialog(context, HtmlCompat.fromHtml(updateBean.content, HtmlCompat.FROM_HTML_MODE_COMPACT).toString(), updateBean.isForce == 1);
+            mUpdateDialog = new UpdateApkDialog(context,updateBean );
         }
         if (!mUpdateDialog.isShowing()) {
             mUpdateDialog.show();

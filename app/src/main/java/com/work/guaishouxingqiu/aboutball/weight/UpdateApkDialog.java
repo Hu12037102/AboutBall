@@ -11,8 +11,11 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.text.HtmlCompat;
+
 import com.example.item.util.ScreenUtils;
 import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.other.DownloadApkHelp;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.PhoneUtils;
@@ -28,9 +31,8 @@ public class UpdateApkDialog extends BaseDialog {
     private TextView mTvVersionsName;
     private TextView mTvUpdateContent;
     private TextView mTvUpdateNow;
-    private boolean mIsForceUpdate;
-    private String mUpdateContent;
     private ImageView mIvClose;
+    private ResultUpdateApkBean mUpdateBean;
 
     public void setOnClickUpdateViewListener(OnClickUpdateViewListener onClickUpdateViewListener) {
         this.onClickUpdateViewListener = onClickUpdateViewListener;
@@ -38,10 +40,9 @@ public class UpdateApkDialog extends BaseDialog {
 
     private OnClickUpdateViewListener onClickUpdateViewListener;
 
-    public UpdateApkDialog(Context context, String updateContent, boolean isForceUpdate) {
+    public UpdateApkDialog(Context context, ResultUpdateApkBean updateBean) {
         super(context);
-        this.mUpdateContent = updateContent;
-        this.mIsForceUpdate = isForceUpdate;
+        this.mUpdateBean = updateBean;
     }
 
     @Override
@@ -74,7 +75,6 @@ public class UpdateApkDialog extends BaseDialog {
 
     @Override
     protected void initData() {
-        mTvVersionsName.setText(DownloadApkHelp.getVersionName(getContext()));
 
 
     }
@@ -102,19 +102,19 @@ public class UpdateApkDialog extends BaseDialog {
         windowManager.getDefaultDisplay().getMetrics(dm);
 
         layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        layoutParams.width = dm.widthPixels - ScreenUtils.dp2px(getContext(),80);
+        layoutParams.width = dm.widthPixels - ScreenUtils.dp2px(getContext(), 80);
         layoutParams.gravity = Gravity.CENTER;
         window.setAttributes(layoutParams);
         window.setWindowAnimations(R.style.DefaultDialogAnimation);
-
-        setCanceledOnTouchOutside(!mIsForceUpdate);
-        setCancelable(!mIsForceUpdate);
-        if (!mIsForceUpdate) {
+        mTvVersionsName.setText(mUpdateBean.version);
+        setCanceledOnTouchOutside(mUpdateBean.isForce == 0);
+        setCancelable(mUpdateBean.isForce == 0);
+        if (mUpdateBean.isForce == 0) {
             mIvClose.setVisibility(View.VISIBLE);
         } else {
             mIvClose.setVisibility(View.GONE);
         }
-        mTvUpdateContent.setText(mUpdateContent);
+        mTvUpdateContent.setText(HtmlCompat.fromHtml(mUpdateBean.content, HtmlCompat.FROM_HTML_MODE_COMPACT).toString());
         mTvUpdateContent.setMovementMethod(ScrollingMovementMethod.getInstance());
     }
 
