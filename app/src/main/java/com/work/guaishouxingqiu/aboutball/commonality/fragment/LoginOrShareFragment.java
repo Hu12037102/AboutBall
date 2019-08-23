@@ -78,7 +78,7 @@ public abstract class LoginOrShareFragment<P extends LoginOrSharePresenter> exte
         msg.mediaObject = webObject;
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         req.message = msg;
-        req.openId = UserManger.get().getUser().weChatOpenId;
+        //req.openId = UserManger.get().getUser().weChatOpenId;
         req.scene = bean.scene;
         weiChatApi.sendReq(req);
     }
