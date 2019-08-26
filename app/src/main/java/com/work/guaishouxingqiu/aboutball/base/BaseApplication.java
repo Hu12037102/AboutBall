@@ -7,6 +7,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.alivc.player.AliVcMediaPlayer;
 import com.bugtags.library.Bugtags;
 import com.bugtags.library.BugtagsOptions;
+import com.meituan.android.walle.WalleChannelReader;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
@@ -98,7 +99,7 @@ public class BaseApplication extends ZApplication {
                 LogUtils.d("Test", "Java crash happened, thread: " + thread + ",Throwable:" + throwable.toString());
             }
         });
-
+        StatConfig.setInstallChannel(this, DataUtils.isEmpty(WalleChannelReader.getChannel(this)) ? Contast.Channel.MY_STORE : WalleChannelReader.getChannel(this, Contast.Channel.MY_STORE));
         // 注册activity生命周期，统计时长
         StatService.registerActivityLifecycleCallbacks(this);
 

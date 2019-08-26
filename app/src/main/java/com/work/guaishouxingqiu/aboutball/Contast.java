@@ -8,6 +8,9 @@ package com.work.guaishouxingqiu.aboutball;
  */
 public interface Contast {
 
+    interface Channel{
+        String MY_STORE="mystore";
+    }
     String SPLIT_IMAGE = ",";
     //手机号码验证正则
     // public static final String REGEX_PHONE_NUMBER = "^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\\\D])|(18[0,5-9]))\\\\d{8}$";

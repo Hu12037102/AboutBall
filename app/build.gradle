@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 //应用 Bugtags 插件
 apply plugin: 'com.bugtags.library.plugin'
 apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'walle'
 
 //apply plugin: 'com.growingio.android'
 
@@ -50,7 +51,7 @@ variant.outputs.all {
         manifestPlaceholders = [
                 MTA_APPKEY : "A5EG8UD35GVB",
                 //  MTA_APPKEY:"AGV52KUZ87BK",
-                MTA_CHANNEL: "play"
+                MTA_CHANNEL: "mystore"
         ]
         ndk {
             // 设置支持的 SO 库构架，一般而言，取你所有的库支持的构架的`交集`。
@@ -122,8 +123,8 @@ variant.outputs.all {
             buildConfigField("boolean", "IS_DEBUG", "true")
            // buildConfigField("boolean", "IS_UPDATE", "true")
             //buildConfigField("String", "HOST_URL", '"https://iti.bmece.com"')
-           // buildConfigField("String", "HOST_URL", '"https://test.ifeell.com.cn/"')
-             buildConfigField("String", "HOST_URL", '"https://www.ifeell.com.cn/"')
+            buildConfigField("String", "HOST_URL", '"https://test.ifeell.com.cn/"')
+            // buildConfigField("String", "HOST_URL", '"https://www.ifeell.com.cn/"')
             //  buildConfigField("String", "HOST_URL", '"http://47.106.255.172:8088"')
             shrinkResources false
             zipAlignEnabled false
@@ -134,6 +135,17 @@ variant.outputs.all {
         abortOnError false
     }
 
+
+
+
+}
+walle {
+    // 指定渠道包的输出路径
+    apkOutputFolder = new File("${project.buildDir}/outputs/channels");
+    // 定制渠道包的APK的文件名称
+    apkFileNameFormat = '${appName}-${packageName}-${channel}-${buildType}-v${versionName}-${versionCode}-${buildTime}.apk';
+    // 渠道配置文件
+    channelFile = new File("${project.getProjectDir()}/channel")
 }
 
 dependencies {
@@ -249,5 +261,7 @@ dependencies {
     implementation 'com.tencent.mid:mid:4.06-Release'
     implementation 'com.qq.mta:mta:3.4.2'
     implementation 'com.tencent.mid:mid:3.73-release'
+    //美团多渠道打包
+    implementation 'com.meituan.android.walle:library:1.1.6'
 
 }
