@@ -113,8 +113,8 @@ variant.outputs.all {
             buildConfigField("String", "HOST_URL", '"https://www.ifeell.com.cn/"')
             //buildConfigField("String", "HOST_URL", '"http://47.106.255.172:8088"')
             shrinkResources false
-            zipAlignEnabled false
-            pseudoLocalesEnabled false
+            zipAlignEnabled true
+            pseudoLocalesEnabled true
         }
         debug {
             signingConfig signingConfigs.debug
@@ -139,6 +139,7 @@ variant.outputs.all {
 
 
 }
+//最外层目录
 walle {
     // 指定渠道包的输出路径
     apkOutputFolder = new File("${project.buildDir}/outputs/channels");

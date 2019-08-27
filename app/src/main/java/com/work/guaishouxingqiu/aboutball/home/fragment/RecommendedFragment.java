@@ -121,6 +121,7 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
         mTvVenue = mInflateHead.findViewById(R.id.tv_venue);
         mTvBall = mInflateHead.findViewById(R.id.tv_ball);
         mTvGame = mInflateHead.findViewById(R.id.tv_game);
+        mInflateHead.findViewById(R.id.tv_ticket_mall).setOnClickListener(v -> ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_TICKET_MALL));
         mCvpBanner.setOnTouchListener((v, event) -> {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:

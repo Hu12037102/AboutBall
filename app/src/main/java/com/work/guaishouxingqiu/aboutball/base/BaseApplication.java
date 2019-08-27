@@ -99,6 +99,7 @@ public class BaseApplication extends ZApplication {
                 LogUtils.d("Test", "Java crash happened, thread: " + thread + ",Throwable:" + throwable.toString());
             }
         });
+        //设置腾讯安装渠道
         StatConfig.setInstallChannel(this, DataUtils.isEmpty(WalleChannelReader.getChannel(this)) ? Contast.Channel.MY_STORE : WalleChannelReader.getChannel(this, Contast.Channel.MY_STORE));
         // 注册activity生命周期，统计时长
         StatService.registerActivityLifecycleCallbacks(this);
