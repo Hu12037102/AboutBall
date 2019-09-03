@@ -50,7 +50,7 @@ public class TicketMallAdapter extends BaseRecyclerAdapter<TicketMallAdapter.Vie
                 UIUtils.setText(viewHolder.mTvTime, DateUtils.getFormatDate(bean.startTime));
                 UIUtils.setText(viewHolder.mTvHostName, bean.hostTeamName);
                 UIUtils.setText(viewHolder.mTvGuestName, bean.guestTeamName);
-                GlideManger.get().loadLogoImage(mContext, bean.hostTeamName, viewHolder.mCivHostLogo);
+                GlideManger.get().loadLogoImage(mContext, bean.hostLogoUrl, viewHolder.mCivHostLogo);
                 GlideManger.get().loadLogoImage(mContext, bean.guestLogoUrl, viewHolder.mCivGuestLogo);
                 break;
             case 2:
