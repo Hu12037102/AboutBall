@@ -4,11 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/colorWhite">
 
     <com.example.item.weight.TitleView
+        android:id="@+id/title_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_50dp"
+        app:back_left_drawable="@mipmap/icon_back"
+        app:back_text_padding_left="@dimen/default_margin"
+        app:back_text_padding_right="@dimen/default_margin"
+        app:center_data="@string/ticket_mall"
+        app:center_text_color="@color/color_4"
+        app:center_text_size="@dimen/size_18sp" />
 
-        />
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_content"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/size_45dp"
+        android:layout_gravity="center_horizontal"
+        app:tabIndicatorHeight="@dimen/size_0dp" />
+
+    <View style="@style/HorizontalLine" />
+
+    <com.work.guaishouxingqiu.aboutball.weight.BaseViewPager
+        android:id="@+id/bvp_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

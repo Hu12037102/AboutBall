@@ -643,4 +643,13 @@
     <string name="about_ball_pay_succeed_dialog_body">您发起约球的时间已自动同步为您选择的场地时间，请留意</string>
     <string name="name_and_referee">%s\n%s</string>
     <string name="ticket_mall">售票商城</string>
+    <string name="add">+</string>
+    <string name="subtract">-</string>
+    <string name="standards">规格</string>
+    <string name="graphic_introduction">图文介绍</string>
+    <string name="the_ticket_information">售票须知</string>
+    <string name="not_find_tick_mall_message">没有找到该售票信息</string>
+    <string name="buy_ticket">购票</string>
+    <string name="out_of_print">已售完</string>
+    <string name="not_of_print">未开售</string>
 </resources>

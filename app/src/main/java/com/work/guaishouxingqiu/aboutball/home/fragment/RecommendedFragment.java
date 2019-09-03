@@ -40,6 +40,7 @@ import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.venue.activity.AboutBallDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.weight.CarouselViewPager;
 import com.work.guaishouxingqiu.aboutball.weight.NotAboutBallDialog;
+import com.work.guaishouxingqiu.aboutball.weight.SureOrderDialog;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -109,6 +110,12 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
             mTypeId = getArguments().getInt(ARouterConfig.Key.TAB_TYPE_ID);
         }
         initHeadView();
+        initDialog();
+    }
+
+    private void initDialog() {
+        SureOrderDialog sureOrderDialog = new SureOrderDialog(mContext);
+        sureOrderDialog.show();
     }
 
     @SuppressLint("ClickableViewAccessibility")

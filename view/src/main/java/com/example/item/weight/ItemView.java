@@ -61,6 +61,7 @@ public class ItemView extends RelativeLayout {
         mRootView = viewInflate.findViewById(R.id.root_view);
         mTvLeft = viewInflate.findViewById(R.id.tv_left);
         mTvRight = viewInflate.findViewById(R.id.tv_right);
+        mTvRight.setSingleLine(true);
         mTopLine = viewInflate.findViewById(R.id.top_line);
         mBottomLine = viewInflate.findViewById(R.id.bottom_line);
         mTvLeft.post(new Runnable() {

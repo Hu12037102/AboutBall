@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_radius_top_six_color_6_view">
+
+    <TextView
+        android:id="@+id/tv_sures"
+        style="@style/ButtonCenterText"
+        android:layout_marginTop="@dimen/size_10dp"
+        android:layout_marginBottom="@dimen/size_10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:text="确定购买" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/size_20dp"
+        app:layout_constraintBottom_toTopOf="@id/tv_sures"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/size_55dp"
+            android:contentDescription="@null"
+            android:paddingLeft="@dimen/default_margin"
+            android:paddingRight="@dimen/default_margin"
+            android:src="@mipmap/icon_black_close"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <LinearLayout
+            android:id="@+id/ll_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_title" />
+
+        <LinearLayout
+            android:id="@+id/ll_count"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/size_30dp"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:layout_marginRight="@dimen/default_margin"
+            android:orientation="horizontal"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_data">
+
+            <TextView
+                android:layout_width="@dimen/size_30dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/layer_click_left_six_radius_view"
+                android:gravity="center"
+                android:text="@string/subtract" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_zero_radius_view"
+                android:gravity="center"
+                android:minWidth="@dimen/size_50dp"
+                android:textColor="@color/color_4"
+                tools:text="100" />
+
+            <TextView
+                android:layout_width="@dimen/size_30dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/layer_click_right_six_radius_view"
+                android:gravity="center"
+                android:text="@string/add" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_count_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginRight="@dimen/default_margin"
+            android:textColor="@color/color_4"
+            app:layout_constraintBottom_toBottomOf="@id/ll_count"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ll_count"
+            tools:text="购买数量" />
+
+        <TextView
+            android:id="@+id/tv_money_count"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/size_55dp"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginRight="@dimen/default_margin"
+            android:gravity="center_vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="￥2500" />
+
+        <View
+            android:id="@+id/view_title"
+            style="@style/HorizontalLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_money_count" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

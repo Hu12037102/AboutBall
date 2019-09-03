@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools">
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:text="成人票"
+    android:paddingLeft="@dimen/size_20dp"
+    android:paddingRight="@dimen/size_20dp"
+    android:paddingTop="@dimen/size_5dp"
+    android:paddingBottom="@dimen/size_5dp"
+    android:background="@drawable/shape_default_fbfafa_button"
+    android:textColor="@color/color_4"
+    />
+
+</LinearLayout>

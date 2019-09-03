@@ -80,7 +80,9 @@ public interface ARouterConfig {
         String ACTIVITY_MESSAGE_NOTIFICATION = "/activity/message/notification";
         String ACTIVITY_CREATE_BALL = "/activity/create/ball";
         String ACTIVITY_VENUE_LIST = "/activity/venue/list";
-        String ACTIVITY_TICKET_MALL="/activity/ticket_mall";
+        String ACTIVITY_TICKET_MALL = "/activity/ticket_mall";
+        String ACTIVITY_TICKET_MALL_DETAILS ="/activity/ticket/mall/details";
+
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";
@@ -119,7 +121,7 @@ public interface ARouterConfig {
         String FRAGMENT_TOPIC_DYNAMICS = "/fragment/topic/dynamics";
         String FRAGMENT_GAME_LOOK_BACK = "/fragment/game/look/back";
         String FRAGMENT_POST_ALL_EVALUATION = "/fragment/post/all/evaluation";
-
+        String FRAGMENT_TICK_MALL = "/fragment/tick/mall";
 
 
     }

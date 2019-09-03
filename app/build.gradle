@@ -250,7 +250,7 @@ dependencies {
     implementation 'com.umeng.umsdk:common:2.0.0'
 
     //lottie动画
-    implementation 'com.airbnb.android:lottie:2.7.0'
+    implementation 'com.airbnb.android:lottie:3.0.0'
     implementation project(path: ':camera')
     implementation 'com.github.microshow:RxFFmpeg:2.0.0'
 

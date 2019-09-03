@@ -139,4 +139,9 @@
         <item>20:00&#045;21:00</item>
         <item>21:00&#045;22:00</item>
     </string-array>
+    <string-array name="ticket_mall_tab_array">
+        <item>全部</item>
+        <item>比赛</item>
+        <item>泳票</item>
+    </string-array>
 </resources>

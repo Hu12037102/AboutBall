@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?><!--售票商城item-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/selector_item"
+    android:clickable="true"
+    android:focusable="true">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/size_15dp"
+        android:layout_marginTop="@dimen/size_10dp"
+        android:layout_marginRight="@dimen/size_15dp"
+        android:foreground="@drawable/selector_item"
+        app:cardCornerRadius="@dimen/size_6dp"
+        app:cardUseCompatPadding="true"
+        android:clickable="true"
+        android:focusable="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/size_20dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_top"
+                android:layout_width="match_parent"
+                android:layout_height="115dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/riv_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    app:riv_corner_radius_top_left="@dimen/size_6dp"
+                    app:riv_corner_radius_top_right="@dimen/size_6dp"
+                    tools:src="@mipmap/icon_sell_tickets_background" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_game"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tv_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/size_15dp"
+                        android:textColor="@color/colorWhite"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="2018-11-25 20:00" />
+
+                    <TextView
+                        android:id="@+id/tv_vs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/vs"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="VS" />
+
+                    <LinearLayout
+                        android:layout_width="@dimen/size_0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/size_10dp"
+                        android:layout_marginRight="@dimen/size_10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toLeftOf="@id/tv_vs">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/civ_host_logo"
+                            android:layout_width="@dimen/size_40dp"
+                            android:layout_height="@dimen/size_40dp"
+                            tools:src="@mipmap/icon_default_logo" />
+
+                        <TextView
+                            android:id="@+id/tv_host_name"
+                            style="@style/SingLineTextView"
+                            android:layout_marginTop="@dimen/size_10dp"
+                            android:gravity="center"
+                            android:textColor="@color/colorWhite"
+                            android:textStyle="bold"
+                            tools:text="梅州客家队" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="@dimen/size_0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/size_10dp"
+                        android:layout_marginRight="@dimen/size_10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        app:layout_constraintLeft_toRightOf="@id/tv_vs"
+                        app:layout_constraintRight_toRightOf="parent">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/civ_guest_logo"
+                            android:layout_width="@dimen/size_40dp"
+                            android:layout_height="@dimen/size_40dp"
+                            tools:src="@mipmap/icon_default_logo" />
+
+                        <TextView
+                            android:id="@+id/tv_guest_name"
+                            style="@style/SingLineTextView"
+                            android:layout_marginTop="@dimen/size_10dp"
+                            android:gravity="center"
+                            android:textColor="@color/colorWhite"
+                            android:textStyle="bold"
+                            tools:text="梅州客家队深圳五号线欢迎所有人的" />
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginTop="@dimen/size_15dp"
+                android:layout_marginRight="@dimen/default_margin"
+                android:lineSpacingExtra="@dimen/size_5dp"
+                android:textColor="@color/color_4"
+                android:textSize="@dimen/size_17sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/cl_top"
+                tools:text="天青色等烟雨，而我在等你！你是风儿，我是沙，风儿飘飘傻二走走"
+
+                />
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="@dimen/size_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginTop="@dimen/size_15dp"
+                android:layout_marginRight="@dimen/default_margin"
+                android:singleLine="true"
+                android:textColor="@color/colorFFA6A6A6"
+                android:textSize="@dimen/size_12sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/tv_status"
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
+                tools:text="天青色等烟雨，而我在等你！你是风儿，我是沙，风儿飘飘傻二走走,天青色等烟雨，而我在等你！你是风儿，我是沙，风儿飘飘傻二走走" />
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="@dimen/size_60dp"
+                android:layout_height="@dimen/size_25dp"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:background="@drawable/shape_default_button"
+                android:gravity="center"
+                android:textColor="@color/colorWhite"
+                app:layout_constraintBottom_toBottomOf="@id/tv_address"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_address"
+                tools:text="已售完" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <include
+        android:id="@+id/include_foot"
+        layout="@layout/item_not_more"
+        android:visibility="gone" />
+
+</LinearLayout>

@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_0dp"
+        app:layout_constraintBottom_toTopOf="@id/include_bottom"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/default_margin">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_top"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_210dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@null"
+                    android:scaleType="centerCrop"
+                    tools:src="@mipmap/icon_sell_tickets_background" />
+
+                <ImageView
+                    android:id="@+id/iv_tickets_obscuration"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_65dp"
+                    android:background="@mipmap/icon_tickets_obscuration"
+                    android:contentDescription="@null"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@null"
+                    android:padding="@dimen/size_20dp"
+                    android:src="@mipmap/icon_back_white"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_tickets_obscuration"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/iv_tickets_obscuration" />
+
+                <LinearLayout
+                    android:id="@+id/ll_vs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_vs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/vs"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        tools:text="VS" />
+
+                    <TextView
+                        android:id="@+id/tv_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/size_10dp"
+                        android:textColor="@color/colorFFFCFCFC"
+                        android:textSize="@dimen/size_12sp"
+                        tools:text="2018-11-05 20:13" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="@dimen/size_0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/size_10dp"
+                    android:layout_marginRight="@dimen/size_10dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/ll_vs">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/civ_host_logo"
+                        android:layout_width="@dimen/size_40dp"
+                        android:layout_height="@dimen/size_40dp"
+                        tools:src="@mipmap/icon_default_logo" />
+
+                    <TextView
+                        android:id="@+id/tv_host_name"
+                        style="@style/SingLineTextView"
+                        android:layout_marginTop="@dimen/size_10dp"
+                        android:gravity="center"
+                        android:textColor="@color/colorWhite"
+                        android:textStyle="bold"
+                        tools:text="梅州客家队" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="@dimen/size_0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/size_10dp"
+                    android:layout_marginRight="@dimen/size_10dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintLeft_toRightOf="@id/ll_vs"
+                    app:layout_constraintRight_toRightOf="parent">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/civ_guest_logo"
+                        android:layout_width="@dimen/size_40dp"
+                        android:layout_height="@dimen/size_40dp"
+                        tools:src="@mipmap/icon_default_logo" />
+
+                    <TextView
+                        android:id="@+id/tv_guest_name"
+                        style="@style/SingLineTextView"
+                        android:layout_marginTop="@dimen/size_10dp"
+                        android:gravity="center"
+                        android:textColor="@color/colorWhite"
+                        android:textStyle="bold"
+                        tools:text="梅州客家队深圳五号线欢迎所有人的" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="205dp"
+                android:background="@color/color_4"
+                app:cardCornerRadius="@dimen/size_6dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_money"
+                        android:layout_width="@dimen/size_0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/default_margin"
+                        android:layout_marginTop="@dimen/default_margin"
+                        android:layout_marginRight="@dimen/default_margin"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="￥30" />
+
+                    <TextView
+                        android:id="@+id/tv_residue"
+                        android:layout_width="@dimen/size_0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/default_margin"
+                        android:layout_marginTop="@dimen/size_10dp"
+                        android:layout_marginRight="@dimen/default_margin"
+                        android:textColor="@color/color_4"
+                        android:textSize="@dimen/size_12sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_money"
+                        tools:text="当前剩余票数108张" />
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/default_margin"
+                        android:layout_marginTop="@dimen/size_15dp"
+                        android:layout_marginRight="@dimen/default_margin"
+                        android:textColor="@color/color_4"
+                        android:textSize="@dimen/size_17sp"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toBottomOf="@id/tv_residue"
+                        tools:text="中国篮球队队长蔡徐坤" />
+
+                    <TextView
+                        android:id="@+id/tv_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/default_margin"
+                        android:layout_marginTop="@dimen/size_15dp"
+                        android:layout_marginRight="@dimen/default_margin"
+                        android:textColor="@color/color_4"
+                        android:textSize="@dimen/size_12sp"
+                        app:layout_constraintTop_toBottomOf="@id/tv_name"
+                        tools:text="五华奥体中心体育馆" />
+
+                    <View
+                        android:id="@+id/view_top_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size_5dp"
+                        android:layout_marginTop="@dimen/size_20dp"
+                        android:background="@color/colorDefaultLayout"
+                        app:layout_constraintTop_toBottomOf="@id/tv_address" />
+
+                    <ViewStub
+                        android:id="@+id/vs_swim_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout="@layout/include_swim_details_view"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view_top_line" />
+
+                    <com.example.item.weight.ItemView
+                        android:id="@+id/item_information"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size_50dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/vs_swim_content"
+                        app:show_bottom_line="true"
+                        app:title_text_size="@dimen/size_17sp"
+                        app:title_data="@string/the_ticket_information" />
+
+                    <TextView
+                        android:id="@+id/tv_information"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/default_margin"
+                        android:lineSpacingExtra="@dimen/size_10dp"
+                        android:textColor="@color/color_4"
+                        app:layout_constraintTop_toBottomOf="@id/item_information"
+                        tools:text="1.在本平台购买门票后请在开赛前到球场售票处凭购买凭证兑换实体票券\n
+2.兑换实体票券后凭票券进场观赛\n
+3.购票后一般不予退票，请留意比赛时间及时前往观赛\n
+4.因不可抗力的因素(如极端天气)导致比赛延期或更换场地可以视情况申请退票" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <include
+        android:id="@+id/include_bottom"
+        layout="@layout/include_bottom_click_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

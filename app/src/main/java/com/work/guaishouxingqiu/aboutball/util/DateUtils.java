@@ -193,6 +193,27 @@ public class DateUtils {
         return dateData;
     }
 
+    /**
+     * 格式化日期 yyyy-MM-dd HH:mm
+     *
+     * @param time
+     * @return
+     */
+    public static String getFormatDate(@NonNull String time) {
+        if (DataUtils.isEmpty(time)) {
+            return "";
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date date = sdf.parse(time);
+            SimpleDateFormat sdfFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            return sdfFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
 
     /**
      * 根据当前日期返回后几天的年月日

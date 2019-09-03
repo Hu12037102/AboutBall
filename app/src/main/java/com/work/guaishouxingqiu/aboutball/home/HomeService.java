@@ -11,6 +11,7 @@ import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsMessageBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsSearchBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultRecommendDataBean;
+import com.work.guaishouxingqiu.aboutball.home.bean.ResultTicketMallBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 
 import java.util.List;
@@ -53,7 +54,9 @@ public interface HomeService {
 
     @GET(IApiService.GET_SEARCH_NEWS_DATA)
     Observable<BaseBean<ResultNewsSearchBean>> getSearchNewsData(@Query(Contast.KEYWORD) String content,
-                                                                       @Query(Contast.PAGE_NUM) int pageNum,
-                                                                       @Query(Contast.PAGE_SIZE) int pageSize);
+                                                                 @Query(Contast.PAGE_NUM) int pageNum,
+                                                                 @Query(Contast.PAGE_SIZE) int pageSize);
 
+    @GET(IApiService.GET_TICKET_MALL_LIST)
+    Observable<BaseBean<List<ResultTicketMallBean>>> getTicketMallList(@Query(Contast.SPU_ID) int spuId);
 }

@@ -3,6 +3,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.work.guaishouxingqiu.aboutball">
 
+    <uses-feature android:name="android.hardware.Camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <uses-permission
+        android:name="android.permission.READ_LOGS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- 通过GPS得到精确位置 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!-- 通过网络得到粗略位置 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 访问网络，某些位置信息需要从网络服务器获取 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 访问WiFi状态，需要WiFi信息用于网络定位 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 修改WiFi状态，发起WiFi扫描, 需要WiFi信息用于网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 访问网络状态, 检测网络的可用性，需要网络运营商相关信息用于网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!-- 访问网络的变化, 需要某些信息用于网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 访问手机当前状态, 需要某些信息用于网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+
+
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+
     <application
         android:name=".base.BaseApplication"
         android:hardwareAccelerated="true"
@@ -73,9 +111,11 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="growing.788865291abc90a2" />
             </intent-filter>
 
@@ -332,6 +372,7 @@
         <activity
             android:name=".home.activity.TicketMallActivity"
             android:screenOrientation="portrait" />
+
         <meta-data
             android:name="5c773884b465f59b44000a29"
             android:value="YOUR_APP_KEY" />
@@ -347,6 +388,7 @@
         <meta-data
             android:name="design_height_in_dp"
             android:value="667" />
+
         <provider
             android:name=".media.provider.MediaProvider"
             android:authorities="${applicationId}.provider"
@@ -366,42 +408,10 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
+        <activity
+            android:name=".home.activity.TicketMallDetailsActivity"
+            android:screenOrientation="portrait" />
     </application>
-    <uses-feature android:name="android.hardware.Camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
 
-    <uses-permission
-        android:name="android.permission.READ_LOGS"
-        tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <!-- 通过GPS得到精确位置 -->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <!-- 通过网络得到粗略位置 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <!-- 访问网络，某些位置信息需要从网络服务器获取 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <!-- 访问WiFi状态，需要WiFi信息用于网络定位 -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!-- 修改WiFi状态，发起WiFi扫描, 需要WiFi信息用于网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!-- 访问网络状态, 检测网络的可用性，需要网络运营商相关信息用于网络定位 -->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <!-- 访问网络的变化, 需要某些信息用于网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!-- 访问手机当前状态, 需要某些信息用于网络定位 -->
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.FLASHLIGHT" />
-
-
-    <uses-permission
-        android:name="android.permission.WRITE_SETTINGS"
-        tools:ignore="ProtectedPermissions" />
 
 </manifest>

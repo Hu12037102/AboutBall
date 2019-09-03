@@ -34,6 +34,7 @@ public interface IApiService {
     String GET_NEWS_MESSAGE_CONTENT_LIST = "api/news/getNewsComment";
     String POST_SEND_NEWS_MESSAGE_CONTENT = "api/news/newsCommented";
     String GET_SEARCH_NEWS_DATA = "api/news/searchNews";
+    String GET_TICKET_MALL_LIST ="api/sku/getTicketSkuList";
 
     //赛事-列表
     String GAME_LIST = "api/match/getMatchList";
