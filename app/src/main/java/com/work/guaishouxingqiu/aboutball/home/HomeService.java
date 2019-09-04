@@ -6,6 +6,8 @@ import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.RequestSendMessageBean;
+import com.work.guaishouxingqiu.aboutball.home.bean.ResultDoorTicketDetailsBean;
+import com.work.guaishouxingqiu.aboutball.home.bean.ResultGameTicketDetailsBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultHomeTabBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsMessageBean;
@@ -59,4 +61,9 @@ public interface HomeService {
 
     @GET(IApiService.GET_TICKET_MALL_LIST)
     Observable<BaseBean<List<ResultTicketMallBean>>> getTicketMallList(@Query(Contast.SPU_ID) int spuId);
+
+    @GET(IApiService.GET_GAME_TICKET_DETAILS)
+    Observable<BaseBean<ResultGameTicketDetailsBean>> getGameTicketDetails(@Query(Contast.SKU_ID) long skuId);
+    @GET(IApiService.GET_DOOR_TICKET_DETAILS)
+    Observable<BaseBean<ResultDoorTicketDetailsBean>> getDoorTicketDetails(@Query(Contast.SKU_ID) long skuId);
 }

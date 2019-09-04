@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.base;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
@@ -46,6 +47,10 @@ public abstract class BaseWebActivity<P extends LoginOrSharePresenter> extends L
         WebHelp.initSetting(mWebView, isLoadJs());
     }
 
+    public void setWebView(WebView webView) {
+        this.mWebView = webView;
+    }
+
     @Override
     protected void initEvent() {
         mWebView.setWebChromeClient(new WebChromeClient() {
@@ -77,6 +82,7 @@ public abstract class BaseWebActivity<P extends LoginOrSharePresenter> extends L
 
                 LogUtils.w("WebViewClient--", url);
             }
+
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
@@ -93,7 +99,7 @@ public abstract class BaseWebActivity<P extends LoginOrSharePresenter> extends L
      * @param content
      */
     protected void loadEditData(String content) {
-      //  content = getNewData(content);
+        //  content = getNewData(content);
         content = content.replace("<img", "<img style=max-width:100%;height:auto");
         //视频宽度自适应
         content = content.replace("<video", "<video style=max-width:100%;height:auto");

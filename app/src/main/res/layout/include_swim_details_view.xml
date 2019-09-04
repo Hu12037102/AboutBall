@@ -1,34 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/colorWhite">
-<com.example.item.weight.ItemView
     android:layout_width="match_parent"
-    android:layout_height="@dimen/size_50dp"
-    app:title_data="@string/standards"
-    app:title_text_color="@color/colorFFA6A6A6"
-    app:content_right_icon="@mipmap/icon_item_right"
-    />
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <com.example.item.weight.ItemView
+        android:id="@+id/item_standard"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        app:content_right_icon="@mipmap/icon_item_right"
+        app:title_data="@string/standards"
+        app:title_text_color="@color/colorFFA6A6A6"
+        app:content_drawable_padding="@dimen/size_10dp"/>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_5dp"
         android:background="@color/colorDefaultLayout"
-        app:layout_constraintTop_toBottomOf="@id/tv_address"
-        />
+        app:layout_constraintTop_toBottomOf="@id/tv_address" />
+
     <com.example.item.weight.ItemView
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_50dp"
-        app:title_data="@string/graphic_introduction"
-        app:title_text_size="@dimen/size_17sp"
         app:show_bottom_line="true"
-        />
+        app:title_data="@string/graphic_introduction"
+        app:title_text_size="@dimen/size_17sp" />
+
     <com.work.guaishouxingqiu.aboutball.weight.BaseWebView
         android:id="@+id/bwv_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_5dp"
+        android:background="@color/colorDefaultLayout"
+        app:layout_constraintTop_toBottomOf="@id/tv_address" />
 </LinearLayout>

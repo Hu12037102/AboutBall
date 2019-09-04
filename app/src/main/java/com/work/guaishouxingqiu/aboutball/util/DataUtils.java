@@ -357,12 +357,43 @@ public class DataUtils {
     }
 
     public static String getMoneyFormat(Number number) {
-
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.CHINA);
         numberFormat.setMaximumFractionDigits(2);
         numberFormat.setMinimumFractionDigits(2);
         numberFormat.setGroupingUsed(false);
         return numberFormat.format(number);
+    }
+
+    public static String getMoneyFormat(@NonNull String numberFormat) {
+        String result = "";
+        if (DataUtils.isEmpty(numberFormat)) {
+            return result;
+        }
+        try {
+            Double number = Double.valueOf(numberFormat);
+            NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.CHINA);
+            nf.setMaximumFractionDigits(2);
+            nf.setMinimumFractionDigits(2);
+            nf.setGroupingUsed(false);
+            result = nf.format(number);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public static int getIntFormat(@NonNull String numberFormat) {
+        int result = -1;
+        if (DataUtils.isEmpty(numberFormat)) {
+            return result;
+        }
+        try {
+            result = Integer.valueOf(numberFormat);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return result;
+        }
+        return result;
     }
 
     public static Double getMoneyFormats(Number number) {

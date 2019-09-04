@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.card.MaterialCardView;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.work.guaishouxingqiu.aboutball.R;
@@ -30,6 +31,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class TicketMallAdapter extends BaseRecyclerAdapter<TicketMallAdapter.ViewHolder, List<ResultTicketMallBean>> {
 
     private boolean mHasMore = true;
+
+    public void setOnCardViewClickListener(TicketMallAdapter.onCardViewClickListener onCardViewClickListener) {
+        this.onCardViewClickListener = onCardViewClickListener;
+    }
+
+    private onCardViewClickListener onCardViewClickListener;
 
     public TicketMallAdapter(@NonNull List<ResultTicketMallBean> data) {
         super(data);
@@ -62,18 +69,18 @@ public class TicketMallAdapter extends BaseRecyclerAdapter<TicketMallAdapter.Vie
         //"商品状态：1购票,2已售完,3未开售",
         switch (bean.saleStatus) {
             case 1:
-                viewHolder.itemView.setEnabled(true);
+                viewHolder.mMcvParent.setEnabled(true);
                 viewHolder.mTvStatus.setBackgroundResource(R.drawable.shape_click_button);
                 UIUtils.setText(viewHolder.mTvStatus, R.string.buy_ticket);
                 break;
             case 2:
                 viewHolder.mTvStatus.setBackgroundResource(R.drawable.shape_default_button);
-                viewHolder.itemView.setEnabled(false);
+                viewHolder.mMcvParent.setEnabled(false);
                 UIUtils.setText(viewHolder.mTvStatus, R.string.out_of_print);
                 break;
             case 3:
                 viewHolder.mTvStatus.setBackgroundResource(R.drawable.shape_default_button);
-                viewHolder.itemView.setEnabled(false);
+                viewHolder.mMcvParent.setEnabled(false);
                 UIUtils.setText(viewHolder.mTvStatus, R.string.not_of_print);
                 break;
             default:
@@ -89,6 +96,11 @@ public class TicketMallAdapter extends BaseRecyclerAdapter<TicketMallAdapter.Vie
         } else {
             viewHolder.mIncludeFoot.setVisibility(View.GONE);
         }
+        viewHolder.mMcvParent.setOnClickListener(v -> {
+            if (onCardViewClickListener != null) {
+                onCardViewClickListener.clickCard(v,i);
+            }
+        });
     }
 
     @Override
@@ -110,6 +122,7 @@ public class TicketMallAdapter extends BaseRecyclerAdapter<TicketMallAdapter.Vie
         private TextView mTvStatus;
         private ConstraintLayout mClGame;
         private View mIncludeFoot;
+        private MaterialCardView mMcvParent;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -129,6 +142,11 @@ public class TicketMallAdapter extends BaseRecyclerAdapter<TicketMallAdapter.Vie
             mTvStatus = itemView.findViewById(R.id.tv_status);
             mClGame = itemView.findViewById(R.id.cl_game);
             mIncludeFoot = itemView.findViewById(R.id.include_foot);
+            mMcvParent = itemView.findViewById(R.id.mcv_parent);
         }
+    }
+
+    public interface onCardViewClickListener {
+        void clickCard(@NonNull View view,int position);
     }
 }

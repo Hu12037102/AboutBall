@@ -333,6 +333,7 @@
     <string name="personnel" translatable="false">人员</string>
     <string name="location" translatable="false">位置</string>
     <string name="number" translatable="false">号码</string>
+    <string name="number_num">0123456789</string>
     <string name="paying" translatable="false">已支付</string>
     <string name="pay_order" translatable="false">支付订单</string>
     <string name="not_this_ball_team_details" translatable="false">沒有找到该球队信息</string>
@@ -652,4 +653,8 @@
     <string name="buy_ticket">购票</string>
     <string name="out_of_print">已售完</string>
     <string name="not_of_print">未开售</string>
+    <string name="one_count">/张</string>
+    <string name="one">1</string>
+    <string name="now_buy">立即购买</string>
+    <string name="current_vote_surplus">当前票数剩余%s张</string>
 </resources>

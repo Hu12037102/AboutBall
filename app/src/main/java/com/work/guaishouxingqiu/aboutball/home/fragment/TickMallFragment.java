@@ -1,5 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.home.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -13,11 +15,14 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
+import com.work.guaishouxingqiu.aboutball.home.activity.TicketMallDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.home.adapter.TicketMallAdapter;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultTicketMallBean;
 import com.work.guaishouxingqiu.aboutball.home.contract.TicketMallChildContract;
 import com.work.guaishouxingqiu.aboutball.home.presenter.TicketMallChildPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import java.util.ArrayList;
@@ -119,8 +124,12 @@ public class TickMallFragment extends DelayedFragment<TicketMallChildPresenter> 
 
             @Override
             public void onItemClick(View view, int position) {
-
+                LogUtils.w("initEvent--", "我被点击了");
             }
+        });
+        mAdapter.setOnCardViewClickListener((view, position) -> {
+            ARouterIntent.startActivityForResult(TickMallFragment.this, TicketMallDetailsActivity.class, ARouterConfig.Key.PARCELABLE, mData.get(position));
+            LogUtils.w("initEvent---", "我被点击了");
         });
         mSrlRefresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
@@ -149,5 +158,13 @@ public class TickMallFragment extends DelayedFragment<TicketMallChildPresenter> 
             mData.addAll(data);
         }
         mAdapter.notifyData(!(data.size() > 0));
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ARouterIntent.REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            mSrlRefresh.autoRefresh();
+        }
     }
 }

@@ -49,6 +49,7 @@ public interface Contast {
     String VERSION = "version";
     String ANDROID = "android";
     String KEYWORD = "keyword";
+    String SKU_ID="skuId";
     String SPU_ID="spuId";
     String ACTION_ID = "actionId";
     String STATS = "state";

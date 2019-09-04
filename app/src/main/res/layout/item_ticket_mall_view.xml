@@ -4,26 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@drawable/selector_item"
-    android:clickable="true"
-    android:focusable="true">
+    android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcv_parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/size_15dp"
         android:layout_marginTop="@dimen/size_10dp"
         android:layout_marginRight="@dimen/size_15dp"
-        android:foreground="@drawable/selector_item"
-        app:cardCornerRadius="@dimen/size_6dp"
-        app:cardUseCompatPadding="true"
         android:clickable="true"
-        android:focusable="true">
+        android:focusable="true"
+        app:cardCornerRadius="@dimen/size_6dp"
+        app:cardUseCompatPadding="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?android:selectableItemBackground"
             android:paddingBottom="@dimen/size_20dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout

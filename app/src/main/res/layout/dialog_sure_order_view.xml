@@ -56,27 +56,39 @@
             app:layout_constraintTop_toBottomOf="@id/ll_data">
 
             <TextView
+                android:id="@+id/tv_subtract"
                 android:layout_width="@dimen/size_30dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/layer_click_left_six_radius_view"
                 android:gravity="center"
-                android:text="@string/subtract" />
+                android:text="@string/subtract"
+                android:textColor="@color/colorFF8C8C8C"
+                android:textSize="14sp" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_num"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@drawable/shape_zero_radius_view"
                 android:gravity="center"
                 android:minWidth="@dimen/size_50dp"
-                android:textColor="@color/color_4"
-                tools:text="100" />
+                android:text="@string/one"
+                android:textSize="@dimen/size_14sp"
+                android:singleLine="true"
+                android:maxLength="3"
+                android:inputType="number"
+                android:digits="@string/number_num"
+                android:textColor="@color/color_4" />
 
             <TextView
+                android:id="@+id/tv_add"
                 android:layout_width="@dimen/size_30dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/layer_click_right_six_radius_view"
                 android:gravity="center"
-                android:text="@string/add" />
+                android:text="@string/add"
+                android:textColor="@color/colorFF8C8C8C"
+                android:textSize="14sp" />
 
         </LinearLayout>
 

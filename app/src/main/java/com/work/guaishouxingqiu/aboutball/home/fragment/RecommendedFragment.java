@@ -110,13 +110,8 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
             mTypeId = getArguments().getInt(ARouterConfig.Key.TAB_TYPE_ID);
         }
         initHeadView();
-        initDialog();
     }
 
-    private void initDialog() {
-        SureOrderDialog sureOrderDialog = new SureOrderDialog(mContext);
-        sureOrderDialog.show();
-    }
 
     @SuppressLint("ClickableViewAccessibility")
     private void initHeadView() {
