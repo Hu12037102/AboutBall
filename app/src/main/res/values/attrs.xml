@@ -23,4 +23,9 @@
         <attr name="expandCollapseToggleId" format="reference"/>
         <attr name="expandToggleOnTextClick" format="boolean"/>
     </declare-styleable>
+    <declare-styleable name="InputNumberView">
+        <attr name="inv_input_max_num" format="integer"/>
+        <attr name="inv_default_num" format="integer"/>
+        <attr name="inv_input_digit" format="integer"/>
+    </declare-styleable>
 </resources>

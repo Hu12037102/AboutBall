@@ -657,4 +657,7 @@
     <string name="one">1</string>
     <string name="now_buy">立即购买</string>
     <string name="current_vote_surplus">当前票数剩余%s张</string>
+    <string name="my_tickets">我的门票</string>
+    <string name="sure_order">确定订单</string>
+    <string name="commit_order">提交订单</string>
 </resources>

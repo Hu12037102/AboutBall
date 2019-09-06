@@ -5,6 +5,7 @@ import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -32,6 +33,7 @@ import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseWebView;
 import com.work.guaishouxingqiu.aboutball.weight.SureOrderDialog;
@@ -109,10 +111,18 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
             decorView.setSystemUiVisibility(option);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
-        mIvBack.setPadding(ScreenUtils.dp2px(this, 20), ScreenUtils.getStatuWindowsHeight(this) + ScreenUtils.dp2px(this, 20),
+        LogUtils.w("initStatusColor--", ScreenUtils.getStatuWindowsHeight(this) + "--");
+        mIvBack.setPadding(ScreenUtils.dp2px(this, 20), ScreenUtils.getStatuWindowsHeight(this) / 2 + ScreenUtils.dp2px(this, 20),
                 ScreenUtils.dp2px(this, 20), ScreenUtils.dp2px(this, 20));
-        mIvTicketsObscuration.setPadding(0, ScreenUtils.getStatuWindowsHeight(this) + ScreenUtils.dp2px(this, 20),
-                0, 0);
+      /*  mIvTicketsObscuration.setPadding(0, ScreenUtils.getStatuWindowsHeight(this) + ScreenUtils.dp2px(this, 20),
+                0, 0);*/
+        ViewGroup.LayoutParams layoutParams = mIvTicketsObscuration.getLayoutParams();
+        mIvTicketsObscuration.post(() -> {
+            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            layoutParams.height = mIvTicketsObscuration.getMaxHeight() + ScreenUtils.getStatuWindowsHeight(TicketMallDetailsActivity.this);
+            mIvTicketsObscuration.setLayoutParams(layoutParams);
+        });
+
     }
 
     @Override
@@ -172,7 +182,7 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
         });
     }
 
-    private void showBuyTicketDialog(){
+    private void showBuyTicketDialog() {
         SureOrderDialog dialog = new SureOrderDialog(this);
         dialog.show();
     }
@@ -255,7 +265,7 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
         UIUtils.setText(mTvAddress, bean.subTitle);
         loadEditData(bean.introduction);
         UIUtils.setText(mTvInformation, bean.ticketNotice);
-        UIUtils.setText(mItemStandard.mTvRight,bean.specifications);
+        UIUtils.setText(mItemStandard.mTvRight, bean.specifications);
     }
 
 

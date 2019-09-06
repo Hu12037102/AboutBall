@@ -1,4 +1,4 @@
-package com.work.guaishouxingqiu.aboutball.home.activity;
+package com.work.guaishouxingqiu.aboutball.my.activity;
 
 import android.os.Bundle;
 
@@ -11,12 +11,11 @@ import com.example.item.weight.TitleView;
 import com.google.android.material.tabs.TabLayout;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
-import com.work.guaishouxingqiu.aboutball.home.contract.TicketMallContract;
-import com.work.guaishouxingqiu.aboutball.home.presenter.TicketMallPresenter;
+import com.work.guaishouxingqiu.aboutball.my.contract.MyTicketsContract;
+import com.work.guaishouxingqiu.aboutball.my.presenter.MyTicketsPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
-import com.work.guaishouxingqiu.aboutball.weight.BaseViewPager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,31 +26,31 @@ import butterknife.ButterKnife;
 
 /**
  * 作者: 胡庆岭
- * 创建时间: 2019/8/27 11:22
- * 更新时间: 2019/8/27 11:22
- * 描述:售票商城Activity
+ * 创建时间: 2019/9/4 17:14
+ * 更新时间: 2019/9/4 17:14
+ * 描述:我的购票activity
  */
-@Route(path = ARouterConfig.Path.ACTIVITY_TICKET_MALL)
-public class TicketMallActivity extends BaseActivity<TicketMallPresenter> implements TicketMallContract.View {
+@Route(path = ARouterConfig.Path.ACTIVITY_MY_TICKETS)
+public class MyTicketsActivity extends BaseActivity<MyTicketsPresenter> implements MyTicketsContract.View {
     @BindView(R.id.title_view)
     TitleView mTitleView;
     @BindView(R.id.tab_content)
     TabLayout mTabContent;
     @BindView(R.id.bvp_content)
-    BaseViewPager mBvpContent;
+    ViewPager mBvpContent;
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_ticket_mall;
+        return R.layout.activity_my_tickets;
     }
 
     @Override
     protected void initView() {
-        List<String> tabData = Arrays.asList(getResources().getStringArray(R.array.ticket_mall_tab_array));
+        List<String> tabData = Arrays.asList(getResources().getStringArray(R.array.my_tickets_tab_array));
         List<Fragment> fragmentData = new ArrayList<>();
         for (int i = 0; i < tabData.size(); i++) {
-            UIUtils.setBaseCustomTabLayout(mTabContent, tabData.get(i), i == 0, 45,18);
-            fragmentData.add(ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_TICK_MALL, ARouterConfig.Key.KEY_STATUS, i));
+            UIUtils.setBaseCustomTabLayout(mTabContent, tabData.get(i), i == 0, 45, 18);
+            fragmentData.add(ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_MY_TICKETS, ARouterConfig.Key.KEY_STATUS, i));
         }
         FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -65,7 +64,7 @@ public class TicketMallActivity extends BaseActivity<TicketMallPresenter> implem
             }
         };
         mBvpContent.setAdapter(pagerAdapter);
-        mBvpContent.setOffscreenPageLimit(fragmentData.size());
+        mBvpContent.setOffscreenPageLimit(pagerAdapter.getCount());
     }
 
     @Override
@@ -110,8 +109,8 @@ public class TicketMallActivity extends BaseActivity<TicketMallPresenter> implem
     }
 
     @Override
-    protected TicketMallPresenter createPresenter() {
-        return new TicketMallPresenter(this);
+    protected MyTicketsPresenter createPresenter() {
+        return new MyTicketsPresenter(this);
     }
 
 

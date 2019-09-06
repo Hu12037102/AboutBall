@@ -44,7 +44,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view_title" />
 
-        <LinearLayout
+        <!--<LinearLayout
             android:id="@+id/ll_count"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/size_30dp"
@@ -90,7 +90,17 @@
                 android:textColor="@color/colorFF8C8C8C"
                 android:textSize="14sp" />
 
-        </LinearLayout>
+        </LinearLayout>-->
+        <com.work.guaishouxingqiu.aboutball.weight.InputNumberView
+            android:id="@+id/inv_count"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/size_30dp"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:layout_marginRight="@dimen/default_margin"
+            android:orientation="horizontal"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_data"/>
 
         <TextView
             android:id="@+id/tv_count_title"
@@ -99,9 +109,9 @@
             android:layout_marginLeft="@dimen/default_margin"
             android:layout_marginRight="@dimen/default_margin"
             android:textColor="@color/color_4"
-            app:layout_constraintBottom_toBottomOf="@id/ll_count"
+            app:layout_constraintBottom_toBottomOf="@id/inv_count"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@id/ll_count"
+            app:layout_constraintTop_toTopOf="@id/inv_count"
             tools:text="购买数量" />
 
         <TextView

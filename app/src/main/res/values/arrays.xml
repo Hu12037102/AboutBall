@@ -144,4 +144,8 @@
         <item>比赛</item>
         <item>泳票</item>
     </string-array>
+    <string-array name="my_tickets_tab_array">
+        <item>未使用门票</item>
+        <item>已使用门票</item>
+    </string-array>
 </resources>

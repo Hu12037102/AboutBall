@@ -24,9 +24,7 @@ public class SureOrderDialog extends BaseDialog {
 
     private ImageView mIvClose;
     private TextView mTvSures;
-    private TextView mTvSubtract;
-    private TextView mTvAdd;
-    private AppCompatEditText mAcetNum;
+    private InputNumberView mInvCount;
 
     public SureOrderDialog(Context context) {
         super(context);
@@ -35,7 +33,7 @@ public class SureOrderDialog extends BaseDialog {
     @Override
     protected void initEvent() {
         mIvClose.setOnClickListener(v -> dismiss());
-        mTvSubtract.setOnClickListener(v -> {
+        /*mTvSubtract.setOnClickListener(v -> {
             int number = DataUtils.getIntFormat(DataUtils.getEditDetails(mAcetNum)) - 1;
             mAcetNum.setText(String.valueOf(number));
         });
@@ -62,7 +60,7 @@ public class SureOrderDialog extends BaseDialog {
             public void afterTextChanged(Editable s) {
 
             }
-        });
+        });*/
     }
 
     @Override
@@ -76,9 +74,7 @@ public class SureOrderDialog extends BaseDialog {
         setContentView(view);
         mTvSures = findViewById(R.id.tv_sures);
         mIvClose = findViewById(R.id.iv_close);
-        mTvSubtract = findViewById(R.id.tv_subtract);
-        mAcetNum = findViewById(R.id.et_num);
-        mTvAdd = findViewById(R.id.tv_add);
+        mInvCount = findViewById(R.id.inv_count);
         LinearLayout mLlData = findViewById(R.id.ll_data);
         View childView = LayoutInflater.from(context).inflate(R.layout.item_dialog_sure_order_view, mLlData, false);
         mLlData.addView(childView);

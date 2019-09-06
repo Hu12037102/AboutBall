@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+
+    <com.example.item.weight.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        app:back_left_drawable="@mipmap/icon_back"
+        app:back_text_padding_left="@dimen/default_margin"
+        app:back_text_padding_right="@dimen/default_margin"
+        app:center_data="@string/sure_order"
+        app:center_text_color="@color/color_4"
+        app:center_text_size="@dimen/size_18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title_show_bottom_line="true" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:lineSpacingExtra="@dimen/size_5dp"
+        android:textColor="@color/color_4"
+        android:textSize="@dimen/size_17sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/title_view"
+        tools:text="中国足球协会甲级联赛 梅州客家VS梅州铁汉 梅州铁汉梅州铁" />
+
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:textColor="@color/color_4"
+        app:layout_constraintTop_toBottomOf="@id/tv_name"
+        tools:text="场馆位置：江西省吉安市青原区麻布村" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:textColor="@color/color_4"
+        app:layout_constraintTop_toBottomOf="@id/tv_address"
+        tools:text="比赛时间：2019-10-01 10:00" />
+
+    <!--<LinearLayout
+        android:id="@+id/ll_count"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/size_30dp"
+        android:layout_margin="@dimen/default_margin"
+        android:orientation="horizontal"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_time">
+
+        <TextView
+            android:id="@+id/tv_subtract"
+            android:layout_width="@dimen/size_30dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/layer_click_left_six_radius_view"
+            android:gravity="center"
+            android:text="@string/subtract"
+            android:textColor="@color/colorFF8C8C8C"
+            android:textSize="14sp" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_num"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_zero_radius_view"
+            android:digits="@string/number_num"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="3"
+            android:minWidth="@dimen/size_50dp"
+            android:singleLine="true"
+            android:text="@string/one"
+            android:textColor="@color/color_4"
+            android:textSize="@dimen/size_14sp" />
+
+        <TextView
+            android:id="@+id/tv_add"
+            android:layout_width="@dimen/size_30dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/layer_click_right_six_radius_view"
+            android:gravity="center"
+            android:text="@string/add"
+            android:textColor="@color/colorFF8C8C8C"
+            android:textSize="14sp" />
+
+    </LinearLayout>-->
+    <com.work.guaishouxingqiu.aboutball.weight.InputNumberView
+        android:id="@+id/inv_count"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/size_30dp"
+        android:layout_margin="@dimen/default_margin"
+        android:orientation="horizontal"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_time"/>
+
+    <TextView
+        android:id="@+id/tv_count_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
+        android:textColor="@color/color_4"
+        app:layout_constraintBottom_toBottomOf="@id/inv_count"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/inv_count"
+        tools:text="购买数量" />
+
+    <com.example.item.weight.ItemView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        android:layout_marginTop="@dimen/default_margin"
+        app:bottom_line_margin_left="@dimen/default_margin"
+        app:bottom_line_margin_right="@dimen/default_margin"
+        app:content_data="@string/weichat_pay"
+        app:layout_constraintTop_toBottomOf="@id/inv_count"
+        app:show_bottom_line="true"
+        app:show_top_line="true"
+        app:title_data="@string/pay_way"
+        app:top_line_margin_left="@dimen/default_margin"
+        app:top_line_margin_right="@dimen/default_margin" />
+
+    <TextView
+        android:id="@+id/tv_commit"
+        style="@style/ButtonCenterText"
+        android:layout_width="@dimen/size_100dp"
+        android:layout_height="@dimen/size_40dp"
+        android:text="@string/commit_order"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/size_5dp"
+        android:layout_marginRight="@dimen/default_margin"
+        android:layout_marginLeft="@dimen/default_margin"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/tv_commit"
+        app:layout_constraintBottom_toBottomOf="@id/tv_commit"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
+        tools:text="总价￥100"
+        android:textColor="@color/color_4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+    <View
+        style="@style/HorizontalLine"
+        app:layout_constraintBottom_toTopOf="@id/tv_commit"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="@dimen/size_5dp"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

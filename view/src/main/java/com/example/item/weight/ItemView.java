@@ -10,6 +10,7 @@ import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -58,6 +59,7 @@ public class ItemView extends RelativeLayout {
 
     private void initView() {
         View viewInflate = View.inflate(getContext(), R.layout.view_item, this);
+        //View viewInflate = LayoutInflater.from(getContext()).inflate(R.layout.view_item,this);
         mRootView = viewInflate.findViewById(R.id.root_view);
         mTvLeft = viewInflate.findViewById(R.id.tv_left);
         mTvRight = viewInflate.findViewById(R.id.tv_right);
@@ -98,7 +100,7 @@ public class ItemView extends RelativeLayout {
             mTvRight.setTextColor(typedArray.getColor(R.styleable.ItemView_content_text_color, ContextCompat.getColor(getContext(), R.color.colorFF333333)));
             mTvRight.setCompoundDrawablePadding(typedArray.getDimensionPixelSize(R.styleable.ItemView_content_drawable_padding, 0));
             if (typedArray.getDrawable(R.styleable.ItemView_selector_drawable) != null) {
-                mRootView.setBackgroundDrawable(typedArray.getDrawable(R.styleable.ItemView_selector_drawable));
+                mRootView.setBackground(typedArray.getDrawable(R.styleable.ItemView_selector_drawable));
             }
             setMargin(mBottomLine, typedArray.getDimensionPixelSize(R.styleable.ItemView_bottom_line_margin_left, 0), typedArray.getDimensionPixelSize(R.styleable.ItemView_bottom_line_margin_top, 0),
                     typedArray.getDimensionPixelSize(R.styleable.ItemView_bottom_line_margin_right, 0), typedArray.getDimensionPixelSize(R.styleable.ItemView_bottom_line_margin_bottom, 0));
@@ -169,9 +171,6 @@ public class ItemView extends RelativeLayout {
         int resultHeight = ScreenUtils.dp2px(getContext(), IView.DEFAULT_VIEW_HEIGHT);
         switch (measureHeightMode) {
             case MeasureSpec.UNSPECIFIED:
-                ScreenUtils.dp2px(getContext(), IView.DEFAULT_VIEW_HEIGHT);
-                ScreenUtils.setDefaultRootViewSize(getContext(), mRootView);
-                break;
             case MeasureSpec.AT_MOST:
                 ScreenUtils.dp2px(getContext(), IView.DEFAULT_VIEW_HEIGHT);
                 ScreenUtils.setDefaultRootViewSize(getContext(), mRootView);
