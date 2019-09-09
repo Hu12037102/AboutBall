@@ -60,10 +60,10 @@ public interface HomeService {
                                                                  @Query(Contast.PAGE_SIZE) int pageSize);
 
     @GET(IApiService.GET_TICKET_MALL_LIST)
-    Observable<BaseBean<List<ResultTicketMallBean>>> getTicketMallList(@Query(Contast.SPU_ID) int spuId);
+    Observable<BaseBean<List<ResultTicketMallBean>>> getTicketMallList(@Query(Contast.SPU_CATEGORY_ID) int spuId);
 
     @GET(IApiService.GET_GAME_TICKET_DETAILS)
-    Observable<BaseBean<ResultGameTicketDetailsBean>> getGameTicketDetails(@Query(Contast.SKU_ID) long skuId);
+    Observable<BaseBean<ResultGameTicketDetailsBean>> getGameTicketDetails(@Query(Contast.SPU_ID) long skuId);
     @GET(IApiService.GET_DOOR_TICKET_DETAILS)
-    Observable<BaseBean<ResultDoorTicketDetailsBean>> getDoorTicketDetails(@Query(Contast.SKU_ID) long skuId);
+    Observable<BaseBean<ResultDoorTicketDetailsBean>> getDoorTicketDetails(@Query(Contast.SPU_ID) long skuId);
 }

@@ -3,10 +3,8 @@ package com.work.guaishouxingqiu.aboutball.home.activity;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
-import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewStub;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -22,7 +20,6 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.base.BaseWebActivity;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultDoorTicketDetailsBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultGameTicketDetailsBean;
@@ -39,7 +36,6 @@ import com.work.guaishouxingqiu.aboutball.weight.BaseWebView;
 import com.work.guaishouxingqiu.aboutball.weight.SureOrderDialog;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -196,9 +192,9 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
         mPresenter.isRefresh = isRefresh;
         //"内容类型: 1.比赛门票，2.泳票",
         if (mIntentBean.contentType == 1) {
-            mPresenter.loadGameTicketDetails(mIntentBean.skuId);
+            mPresenter.loadGameTicketDetails(mIntentBean.spuId);
         } else if (mIntentBean.contentType == 2) {
-            mPresenter.loadDoorTicketDetails(mIntentBean.skuId);
+            mPresenter.loadDoorTicketDetails(mIntentBean.spuId);
         }
     }
 

@@ -18,7 +18,7 @@ public class ResultTicketMallBean implements Parcelable {
     public String image;
     public long matchId;
     public int saleStatus;//"商品状态：1购票,2已售完,3未开售",
-    public long skuId;
+    public long spuId;
     public String startTime;
     public String subTitle;
     public String title;
@@ -32,7 +32,7 @@ public class ResultTicketMallBean implements Parcelable {
         image = in.readString();
         matchId = in.readLong();
         saleStatus = in.readInt();
-        skuId = in.readLong();
+        spuId = in.readLong();
         startTime = in.readString();
         subTitle = in.readString();
         title = in.readString();
@@ -65,7 +65,7 @@ public class ResultTicketMallBean implements Parcelable {
         dest.writeString(image);
         dest.writeLong(matchId);
         dest.writeInt(saleStatus);
-        dest.writeLong(skuId);
+        dest.writeLong(spuId);
         dest.writeString(startTime);
         dest.writeString(subTitle);
         dest.writeString(title);

@@ -34,9 +34,9 @@ public interface IApiService {
     String GET_NEWS_MESSAGE_CONTENT_LIST = "api/news/getNewsComment";
     String POST_SEND_NEWS_MESSAGE_CONTENT = "api/news/newsCommented";
     String GET_SEARCH_NEWS_DATA = "api/news/searchNews";
-    String GET_TICKET_MALL_LIST ="api/sku/getTicketSkuList";
-    String GET_GAME_TICKET_DETAILS="api/sku/getMatchTicketSkuDetail";
-    String GET_DOOR_TICKET_DETAILS="api/sku/getSwimTicketSkuDetail";
+    String GET_TICKET_MALL_LIST ="api/mall/getTicketSpuList";
+    String GET_GAME_TICKET_DETAILS="api/mall/getMatchTicketSpuDetail";
+    String GET_DOOR_TICKET_DETAILS="api/mall/getSwimTicketSkuDetail";
 
     //赛事-列表
     String GAME_LIST = "api/match/getMatchList";
