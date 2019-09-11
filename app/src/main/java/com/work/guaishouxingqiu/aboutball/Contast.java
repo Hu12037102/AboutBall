@@ -51,6 +51,8 @@ public interface Contast {
     String KEYWORD = "keyword";
     String SKU_ID="spuId";
     String SPU_ID="spuId";
+    String PARAMS="params";
+    String NUM="num";
     String SPU_CATEGORY_ID="spuCategoryId";
     String ACTION_ID = "actionId";
     String STATS = "state";

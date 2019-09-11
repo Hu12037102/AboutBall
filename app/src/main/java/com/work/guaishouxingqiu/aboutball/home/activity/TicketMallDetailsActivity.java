@@ -20,7 +20,10 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseWebActivity;
+import com.work.guaishouxingqiu.aboutball.base.bean.RequestSureOrderBean;
+import com.work.guaishouxingqiu.aboutball.base.bean.ResultSureOrderDialogBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultDoorTicketDetailsBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultGameTicketDetailsBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultTicketMallBean;
@@ -91,6 +94,8 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
     ItemView mItemStandard;
     @BindView(R.id.bwv_content)
     BaseWebView mBwvContent;
+    private RequestSureOrderBean mRequestDialogBean;
+    private SureOrderDialog mSureOrderDialog;
 
 
     @Override
@@ -147,7 +152,7 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
 
     @Override
     protected void initData() {
-
+        mRequestDialogBean = new RequestSureOrderBean(mIntentBean.spuId);
     }
 
     @Override
@@ -179,8 +184,7 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
     }
 
     private void showBuyTicketDialog() {
-        SureOrderDialog dialog = new SureOrderDialog(this);
-        dialog.show();
+        mPresenter.getSureOrderDialog(mRequestDialogBean);
     }
 
     private void loadData(boolean isRefresh) {
@@ -218,6 +222,31 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
         return new TicketMallDetailsPresenter(this);
     }
 
+    @Override
+    public void resultSureOrderDialog(BaseBean<ResultSureOrderDialogBean> bean) {
+        if (DataUtils.isResultSure(bean)) {
+            if (mSureOrderDialog == null) {
+                mSureOrderDialog = new SureOrderDialog(this, bean.result);
+            }
+            if (!mSureOrderDialog.isShowing()) {
+                mSureOrderDialog.show();
+            }
+            mSureOrderDialog.setOnSureOrderClickListener(new SureOrderDialog.OnSureOrderClickListener() {
+                @Override
+                public void onClickSureBuy(View view, String allValues, int num) {
+
+                }
+
+                @Override
+                public void onClickItemNotify(View view, int position, String values, int num) {
+                    mRequestDialogBean.params = values;
+                    mRequestDialogBean.num = num;
+                    mPresenter.getSureOrderDialog(mRequestDialogBean);
+                }
+            });
+        }
+    }
+
     /**
      * 比赛详情
      *
@@ -234,7 +263,7 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
         UIUtils.setText(mTvAddress, bean.subTitle);
         UIUtils.setText(mTvInformation, bean.ticketNotice);
         GlideManger.get().loadImage(this, mIntentBean.image, mIvContent);
-        UIUtils.setText(mTvTime, DateUtils.getFormatDate(bean.startTime));
+        UIUtils.setText(mTvTime, bean.startTime);
         UIUtils.setText(mTvHostName, bean.hostTeamName);
         UIUtils.setText(mTvGuestName, bean.guestTeamName);
         GlideManger.get().loadLogoImage(this, bean.hostLogoUrl, mCivHostLogo);

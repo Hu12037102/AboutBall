@@ -340,6 +340,9 @@ public class UIUtils {
     public static void setText(@NonNull TextView textView, String content) {
         textView.setText(DataUtils.isEmpty(content) ? "" : content);
     }
+    public static void setTextColor(@NonNull TextView textView, @ColorRes int colorRes) {
+        textView.setTextColor(ContextCompat.getColor(textView.getContext(),colorRes));
+    }
 
     public static void setText(@NonNull TextView textView, @StringRes int resContent) {
         textView.setText(resContent);

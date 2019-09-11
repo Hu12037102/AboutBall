@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
+import com.work.guaishouxingqiu.aboutball.base.bean.ResultSureOrderDialogBean;
 import com.work.guaishouxingqiu.aboutball.community.bean.RequestDynamicCommentsBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultRedPointInfoBean;
 import com.work.guaishouxingqiu.aboutball.login.bean.LoginResultBean;
@@ -90,11 +91,17 @@ public interface BaseService {
 
     @GET(IApiService.GET_CAN_USER_STADIUM_LIST)
     Observable<BaseBean<List<ResultVenueData>>> getCanUserVenueList(@Query(Contast.PAGE_NUM) int pageNum,
-                                                             @Query(Contast.PAGE_SIZE) int pageSize,
-                                                             @Query(Contast.TYPE_ID) int typeId,
-                                                             @Query(Contast.LONGITUDE) String longitude,
-                                                             @Query(Contast.LATITUDE) String latitude);
+                                                                    @Query(Contast.PAGE_SIZE) int pageSize,
+                                                                    @Query(Contast.TYPE_ID) int typeId,
+                                                                    @Query(Contast.LONGITUDE) String longitude,
+                                                                    @Query(Contast.LATITUDE) String latitude);
 
     @GET(IApiService.GET_NEWS_SELLING_POINTS)
     Observable<BaseBean<BaseDataBean<String>>> newsSellingPoints(@Query(Contast.NEW_ID) long newsId);
+
+    @GET(IApiService.GET_SURE_ORDER_DIALOG)
+    Observable<BaseBean<ResultSureOrderDialogBean>> getSureOrderDialog(@Query(Contast.SPU_ID) long spuId,
+                                                                       @Query(Contast.PARAMS) String params,
+                                                                       @Query(Contast.NUM) int num);
+
 }

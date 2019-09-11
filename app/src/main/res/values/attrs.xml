@@ -27,5 +27,6 @@
         <attr name="inv_input_max_num" format="integer"/>
         <attr name="inv_default_num" format="integer"/>
         <attr name="inv_input_digit" format="integer"/>
+        <attr name="inv_input_min_num" format="integer"/>
     </declare-styleable>
 </resources>

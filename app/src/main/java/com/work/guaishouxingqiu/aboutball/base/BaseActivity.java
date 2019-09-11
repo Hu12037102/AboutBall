@@ -21,6 +21,7 @@ import com.umeng.analytics.MobclickAgent;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
+import com.work.guaishouxingqiu.aboutball.base.bean.ResultSureOrderDialogBean;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataResultBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultRedPointInfoBean;
@@ -367,6 +368,11 @@ public abstract class BaseActivity<P extends BasePresenter> extends LocationActi
 
     @Override
     public void resultCanUserVenueList(List<ResultVenueData> data) {
+
+    }
+
+    @Override
+    public void resultSureOrderDialog(BaseBean<ResultSureOrderDialogBean> bean) {
 
     }
 }

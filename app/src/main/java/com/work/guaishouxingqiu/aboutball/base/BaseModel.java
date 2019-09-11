@@ -4,8 +4,9 @@ import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.BaseService;
 import com.work.guaishouxingqiu.aboutball.Contast;
-import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
+import com.work.guaishouxingqiu.aboutball.base.bean.RequestSureOrderBean;
+import com.work.guaishouxingqiu.aboutball.base.bean.ResultSureOrderDialogBean;
 import com.work.guaishouxingqiu.aboutball.community.bean.RequestDynamicCommentsBean;
 import com.work.guaishouxingqiu.aboutball.game.GameService;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataResultBean;
@@ -243,7 +244,7 @@ public class BaseModel {
                 .subscribe(observer);
     }
 
-    public void createPostBall(@NonNull RequestCreateBallBean ballBean,BaseObserver<BaseDataBean<String>> observer) {
+    public void createPostBall(@NonNull RequestCreateBallBean ballBean, BaseObserver<BaseDataBean<String>> observer) {
         mRetrofitManger.create(BaseService.class)
                 .createPostBall(ballBean)
                 .subscribeOn(Schedulers.io())
@@ -267,7 +268,7 @@ public class BaseModel {
                 .subscribe(observer);
     }
 
-    public void settingPassword(RequestSettingPasswordBean bean,BaseObserver<LoginResultBean> observer) {
+    public void settingPassword(RequestSettingPasswordBean bean, BaseObserver<LoginResultBean> observer) {
         mRetrofitManger.create(BaseService.class)
                 .settingPassword(bean)
                 .subscribeOn(Schedulers.io())
@@ -284,9 +285,17 @@ public class BaseModel {
                 .subscribe(observer);
     }
 
-    public void newsSellingPoints(long newsId,BaseObserver<BaseDataBean<String>> observer) {
+    public void newsSellingPoints(long newsId, BaseObserver<BaseDataBean<String>> observer) {
         mRetrofitManger.create(BaseService.class)
                 .newsSellingPoints(newsId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    public void getSureOrderDialog(RequestSureOrderBean bean, BaseObserver<ResultSureOrderDialogBean> observer) {
+        mRetrofitManger.create(BaseService.class)
+                .getSureOrderDialog(bean.spuId,bean.params,bean.num)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

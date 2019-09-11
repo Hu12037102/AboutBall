@@ -6,6 +6,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
+import com.work.guaishouxingqiu.aboutball.base.bean.RequestSureOrderBean;
+import com.work.guaishouxingqiu.aboutball.base.bean.ResultSureOrderDialogBean;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseModelCallback;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
@@ -622,6 +624,20 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
             @Override
             public void onError(Throwable e) {
 
+            }
+        }));
+    }
+    public void getSureOrderDialog(RequestSureOrderBean bean){
+        mModel.getSureOrderDialog( bean ,new BaseObserver<>(true, this, new BaseObserver.Observer<ResultSureOrderDialogBean>() {
+            @Override
+            public void onNext(BaseBean<ResultSureOrderDialogBean> t) {
+                mView.resultSureOrderDialog(t);
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                mView.resultSureOrderDialog(null);
             }
         }));
     }

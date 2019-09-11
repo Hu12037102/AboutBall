@@ -54,7 +54,7 @@ public class TicketMallAdapter extends BaseRecyclerAdapter<TicketMallAdapter.Vie
         switch (bean.contentType) {
             case 1:
                 viewHolder.mClGame.setVisibility(View.VISIBLE);
-                UIUtils.setText(viewHolder.mTvTime, DateUtils.getFormatDate(bean.startTime));
+                UIUtils.setText(viewHolder.mTvTime, bean.startTime);
                 UIUtils.setText(viewHolder.mTvHostName, bean.hostTeamName);
                 UIUtils.setText(viewHolder.mTvGuestName, bean.guestTeamName);
                 GlideManger.get().loadLogoImage(mContext, bean.hostLogoUrl, viewHolder.mCivHostLogo);

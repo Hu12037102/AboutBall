@@ -5,15 +5,17 @@
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools">
 <TextView
+    android:id="@+id/tv_content"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     tools:text="成人票"
-    android:paddingLeft="@dimen/size_20dp"
-    android:paddingRight="@dimen/size_20dp"
+    android:paddingLeft="@dimen/size_15dp"
+    android:paddingRight="@dimen/size_15dp"
     android:paddingTop="@dimen/size_5dp"
     android:paddingBottom="@dimen/size_5dp"
     android:background="@drawable/shape_default_fbfafa_button"
     android:textColor="@color/color_4"
+    android:singleLine="true"
     />
 
 </LinearLayout>

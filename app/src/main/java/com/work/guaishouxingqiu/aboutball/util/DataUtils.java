@@ -356,6 +356,17 @@ public class DataUtils {
         return 0f;
     }
 
+    public static double getDoubleFormat(String number) {
+        double result;
+        try {
+            result = Double.valueOf(number);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            result = 0;
+        }
+        return result;
+    }
+
     public static String getMoneyFormat(Number number) {
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.CHINA);
         numberFormat.setMaximumFractionDigits(2);

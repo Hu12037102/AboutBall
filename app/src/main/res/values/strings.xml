@@ -660,4 +660,6 @@
     <string name="my_tickets">我的门票</string>
     <string name="sure_order">确定订单</string>
     <string name="commit_order">提交订单</string>
+    <string name="sure_buy">确认购买</string>
+    <string name="buy_count">购买数量</string>
 </resources>

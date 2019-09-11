@@ -17,6 +17,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.example.item.util.ScreenUtils;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 
 /**
@@ -33,6 +34,14 @@ public class InputNumberView extends LinearLayout {
     private TextView mTvSubtract;
     private AppCompatEditText mAcetNum;
     private TextView mTvAdd;
+    private int mMinNum;
+    private static final int DEFAULT_MAX_COUNT = 999;
+
+    public void setOnClickInputClickListener(OnClickInputClickListener onClickInputClickListener) {
+        this.onClickInputClickListener = onClickInputClickListener;
+    }
+
+    private OnClickInputClickListener onClickInputClickListener;
 
     public InputNumberView(Context context) {
         super(context);
@@ -43,9 +52,11 @@ public class InputNumberView extends LinearLayout {
         super(context, attrs);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.InputNumberView);
         if (typedArray != null) {
-            mMaxNum = typedArray.getInteger(R.styleable.InputNumberView_inv_input_max_num, 999);
+            mMaxNum = typedArray.getInteger(R.styleable.InputNumberView_inv_input_max_num, DEFAULT_MAX_COUNT);
+            mMaxNum = mMaxNum > DEFAULT_MAX_COUNT ? DEFAULT_MAX_COUNT : mMaxNum;
             mDefaultNum = typedArray.getInteger(R.styleable.InputNumberView_inv_default_num, 1);
             mDigit = typedArray.getInteger(R.styleable.InputNumberView_inv_input_digit, 3);
+            mMinNum = typedArray.getInteger(R.styleable.InputNumberView_inv_input_min_num, 0);
             typedArray.recycle();
         }
         init();
@@ -69,6 +80,10 @@ public class InputNumberView extends LinearLayout {
     private void initData() {
         mAcetNum.setFilters(new InputFilter[]{new InputFilter.LengthFilter(mDigit)});
         mAcetNum.setText(String.valueOf(mDefaultNum));
+        int number = DataUtils.getIntFormat(DataUtils.getEditDetails(mAcetNum));
+        LogUtils.w("initData--", number + "--" + (number > mMinNum)+"--"+(number < mMaxNum)+"--"+mMaxNum);
+        setSubtractClickable(number > mMinNum);
+        setAddClickable(number < mMaxNum);
     }
 
     private void clickSubtractAddView(boolean isAdd) {
@@ -84,18 +99,52 @@ public class InputNumberView extends LinearLayout {
         }
     }
 
+    public void setClickable(boolean clickable) {
+        setAddClickable(clickable);
+        setSubtractClickable(clickable);
+    }
+
+    private void setAddClickable(boolean clickable) {
+        if (clickable) {
+            mTvAdd.setBackgroundResource(R.drawable.layer_click_right_six_radius_view);
+        } else {
+            mTvAdd.setBackgroundResource(R.drawable.layer_default_right_six_radius_view);
+        }
+        mTvAdd.setEnabled(clickable);
+        if (mAcetNum.isFocused()) {
+            mAcetNum.setSelection(mAcetNum.getText().length());
+        }
+    }
+
+    private void setSubtractClickable(boolean clickable) {
+        if (clickable) {
+            mTvSubtract.setBackgroundResource(R.drawable.layer_click_left_six_radius_view);
+        } else {
+            mTvSubtract.setBackgroundResource(R.drawable.layer_default_left_six_radius_view);
+        }
+        mTvSubtract.setEnabled(clickable);
+        if (mAcetNum.isFocused()) {
+            mAcetNum.setSelection(mAcetNum.getText().length());
+        }
+    }
+
     private void initEvent() {
         mTvSubtract.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickSubtractAddView(false);
+                if (onClickInputClickListener != null) {
+                    onClickInputClickListener.onClickSubtract(v, getNum());
+                }
             }
         });
         mTvAdd.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickSubtractAddView(true);
-
+                if (onClickInputClickListener != null) {
+                    onClickInputClickListener.onClickAdd(v, getNum());
+                }
             }
         });
         mAcetNum.addTextChangedListener(new TextWatcher() {
@@ -107,21 +156,34 @@ public class InputNumberView extends LinearLayout {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 int number = DataUtils.getIntFormat(DataUtils.getEditDetails(mAcetNum));
-                if (number <= 0) {
+              /*  if (number <= 0) {
                     mTvSubtract.setBackgroundResource(R.drawable.layer_default_left_six_radius_view);
                     mTvSubtract.setEnabled(false);
                 } else {
                     mTvSubtract.setBackgroundResource(R.drawable.layer_click_left_six_radius_view);
                     mTvSubtract.setEnabled(true);
+                }*/
+                setSubtractClickable(number > mMinNum);
+                setAddClickable(number < mMaxNum);
+                if (number > mMaxNum) {
+                    mAcetNum.setText(String.valueOf(mMaxNum));
+                    if (mAcetNum.isFocused()) {
+                        mAcetNum.setSelection(mAcetNum.getText().length());
+                    }
                 }
-
-                if (number >= mMaxNum) {
+                if (number < mMinNum) {
+                    mAcetNum.setText(String.valueOf(mMinNum));
+                    if (mAcetNum.isFocused()) {
+                        mAcetNum.setSelection(mAcetNum.getText().length());
+                    }
+                }
+          /*      if (number >= mMaxNum) {
                     mTvAdd.setEnabled(false);
                     mTvAdd.setBackgroundResource(R.drawable.layer_default_right_six_radius_view);
                 } else {
                     mTvAdd.setEnabled(true);
                     mTvAdd.setBackgroundResource(R.drawable.layer_click_right_six_radius_view);
-                }
+                }*/
             }
 
             @Override
@@ -132,12 +194,31 @@ public class InputNumberView extends LinearLayout {
     }
 
     public void setMaxNum(int maxNum) {
-        this.mMaxNum = maxNum;
+        this.mMaxNum = maxNum > DEFAULT_MAX_COUNT || maxNum <= 0 ? DEFAULT_MAX_COUNT : maxNum;
+        int number = DataUtils.getIntFormat(DataUtils.getEditDetails(mAcetNum));
+        setAddClickable(number < mMaxNum);
+    }
+
+    public void setInputNum(int num) {
+        if (num < mMinNum) {
+            num = mMinNum;
+        }
+        if (num > mMaxNum) {
+            num = mMaxNum;
+        }
+        mAcetNum.setText(String.valueOf(num));
+        if (mAcetNum.isFocused()) {
+            mAcetNum.setSelection(DataUtils.getEditDetails(mAcetNum).length());
+        }
     }
 
     public void setDigit(int digitNum) {
         this.mDigit = digitNum;
         mAcetNum.setFilters(new InputFilter[]{new InputFilter.LengthFilter(mDigit)});
+    }
+
+    public int getNum() {
+        return DataUtils.getIntFormat(DataUtils.getEditDetails(mAcetNum));
     }
 
 
@@ -155,5 +236,11 @@ public class InputNumberView extends LinearLayout {
             resultHeight = MeasureSpec.getSize(heightMeasureSpec);
         }
         setMeasuredDimension(resultWidth, resultHeight);
+    }
+
+    public interface OnClickInputClickListener {
+        void onClickSubtract(View view, int num);
+
+        void onClickAdd(View view, int num);
     }
 }

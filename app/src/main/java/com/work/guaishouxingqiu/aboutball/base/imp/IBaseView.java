@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
+import com.work.guaishouxingqiu.aboutball.base.bean.ResultSureOrderDialogBean;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameDataResultBean;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultRedPointInfoBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
@@ -83,4 +84,5 @@ public interface IBaseView {
     void resultSettingPasswordSucceed(String token);
 
     void resultCanUserVenueList(List<ResultVenueData> data);
+    void resultSureOrderDialog(BaseBean<ResultSureOrderDialogBean> bean);
 }
