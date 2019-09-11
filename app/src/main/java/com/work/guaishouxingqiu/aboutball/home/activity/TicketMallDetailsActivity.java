@@ -227,6 +227,8 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
         if (DataUtils.isResultSure(bean)) {
             if (mSureOrderDialog == null) {
                 mSureOrderDialog = new SureOrderDialog(this, bean.result);
+            }else {
+                mSureOrderDialog.notifyData(bean.result);
             }
             if (!mSureOrderDialog.isShowing()) {
                 mSureOrderDialog.show();

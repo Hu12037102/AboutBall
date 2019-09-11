@@ -6,6 +6,8 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.my.contract.SureOrderContract;
+import com.work.guaishouxingqiu.aboutball.my.presenter.SureOrderPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 
 /**
@@ -15,7 +17,7 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
  * 描述: 确认订单Activity
  */
 @Route(path = ARouterConfig.Path.ACTIVITY_SURE_ORDER)
-public class SureOrderActivity extends BaseActivity {
+public class SureOrderActivity extends BaseActivity<SureOrderPresenter> implements SureOrderContract.View {
     @Override
     protected int getLayoutId() {
         return R.layout.activity_sure_order;
@@ -37,7 +39,7 @@ public class SureOrderActivity extends BaseActivity {
     }
 
     @Override
-    protected BasePresenter createPresenter() {
-        return null;
+    protected SureOrderPresenter createPresenter() {
+        return new SureOrderPresenter(this);
     }
 }

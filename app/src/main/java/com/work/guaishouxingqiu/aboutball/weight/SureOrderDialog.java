@@ -37,9 +37,7 @@ public class SureOrderDialog extends BaseDialog {
     private ResultSureOrderDialogBean mDialogBean;
     private TextView mTvMoney;
     private LinearLayout mLlData;
-
-    private final List<List<ResultSureOrderDialogBean.SpecificationChildBean>> mSpecificationChildData;
-
+    private List<SureOrderDialog.Adapter> mAdapterData;
     public void setOnSureOrderClickListener(OnSureOrderClickListener onSureOrderClickListener) {
         this.onSureOrderClickListener = onSureOrderClickListener;
     }
@@ -50,7 +48,7 @@ public class SureOrderDialog extends BaseDialog {
     public SureOrderDialog(Context context, ResultSureOrderDialogBean bean) {
         super(context);
         this.mDialogBean = bean;
-        mSpecificationChildData = new ArrayList<>();
+        mAdapterData = new ArrayList<>();
         initLoadData();
     }
 
@@ -65,11 +63,10 @@ public class SureOrderDialog extends BaseDialog {
         mInvCount.setMaxNum(getCheckCount());
         mLlData.removeAllViews();
         mLlData.removeAllViewsInLayout();
-        mSpecificationChildData.clear();
+        mAdapterData.clear();
         if (mDialogBean.specificationVOList != null && mDialogBean.specificationVOList.size() > 0) {
             for (int i = 0; i < mDialogBean.specificationVOList.size(); i++) {
                 ResultSureOrderDialogBean.SpecificationBean bean = mDialogBean.specificationVOList.get(i);
-                mSpecificationChildData.add(i, bean.specificationValueVOList);
                 View childView = LayoutInflater.from(getContext()).inflate(R.layout.item_dialog_sure_order_view, mLlData, false);
                 mLlData.addView(childView);
                 View inflateChildView = mLlData.getChildAt(i);
@@ -77,32 +74,26 @@ public class SureOrderDialog extends BaseDialog {
                 UIUtils.setText(tvTitle, bean.title);
                 RecyclerView rvData = inflateChildView.findViewById(R.id.rv_data);
                 rvData.setLayoutManager(new GridLayoutManager(getContext(), 3));
-                SureOrderDialog.Adapter adapter = new SureOrderDialog.Adapter(getContext(), mSpecificationChildData.get(i)
+                SureOrderDialog.Adapter adapter = new SureOrderDialog.Adapter(getContext(),bean.specificationValueVOList// mSpecificationChildData.get(i)
                         , bean.isMultipleChoices, i != mDialogBean.specificationVOList.size() - 1);
+                mAdapterData.add(adapter);
                 rvData.setAdapter(adapter);
                 adapter.setOnItemClickListener(new OnItemClickListener() {
                     @Override
                     public void onClickItem(@NonNull View view, int position) {
                         LogUtils.w("SureOrderDialog--", "我被点击了" + getAllValues());
                         if (onSureOrderClickListener != null) {
-                            onSureOrderClickListener.onClickItemNotify(view, position, getAllValues(), mInvCount.getNum());
+                            onSureOrderClickListener.onClickItemNotify(view, position, getValues(mAdapterData.indexOf(adapter)), mInvCount.getNum());
                         }
                         mInvCount.setInputNum(1);
                         UIUtils.setText(mTvMoney, DataUtils.getMoneyFormat(mInvCount.getNum() * DataUtils.getDoubleFormat(mDialogBean.price)));
                     }
                 });
-            /*    if (mAdapterList.size() == 0) {
-                    SureOrderDialog.Adapter adapter = new SureOrderDialog.Adapter(getContext(), mSpecificationChildData.get(i), bean.isMultipleChoices);
-                    rvData.setAdapter(adapter);
-                    mAdapterList.add(adapter);
-                } else {
-                    mAdapterList.get(i).notifyDataSetChanged();
-                }*/
             }
         }
     }
 
-    private void notifyData(ResultSureOrderDialogBean bean) {
+    public void notifyData(ResultSureOrderDialogBean bean) {
         this.mDialogBean = bean;
         initLoadData();
     }
@@ -144,6 +135,19 @@ public class SureOrderDialog extends BaseDialog {
         }
         if (!DataUtils.isEmpty(values) && values.endsWith(",")) {
             values = values.substring(0, values.length() - 1);
+        }
+        return values;
+    }
+
+    private String getValues(int index) {
+        String values = "";
+        if (mAdapterData.size() > 0 && mAdapterData.size() > index) {
+            for (int i = 0; i <= index; i++) {
+                values = values.concat(mAdapterData.get(i).getValuesContent()).concat(",");
+            }
+            if (!DataUtils.isEmpty(values) && values.endsWith(",")) {
+                values = values.substring(0, values.length() - 1);
+            }
         }
         return values;
     }
@@ -208,6 +212,8 @@ public class SureOrderDialog extends BaseDialog {
             this.mIsIndexChang = isIndexChang;
         }
 
+
+
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -238,6 +244,7 @@ public class SureOrderDialog extends BaseDialog {
 
         }
 
+
         private String getValuesContent() {
             String values = "";
             for (ResultSureOrderDialogBean.SpecificationChildBean bean : mData) {
@@ -258,8 +265,10 @@ public class SureOrderDialog extends BaseDialog {
             return checkMaxCount;
         }
 
+
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        //    holder.setIsRecyclable(false);
             ResultSureOrderDialogBean.SpecificationChildBean bean = mData.get(position);
             if (bean.isChecked == 1) {
                 holder.mTvContent.setBackgroundResource(R.drawable.shape_click_button);
@@ -269,9 +278,13 @@ public class SureOrderDialog extends BaseDialog {
                 UIUtils.setTextColor(holder.mTvContent, R.color.color_4);
             }
             if (bean.isInvalid == 0) {
-                holder.mTvContent.setEnabled(true);
+                UIUtils.setTextColor(holder.mTvContent, R.color.color_4);
+                holder.itemView.setEnabled(true);
+
             } else {
-                holder.mTvContent.setEnabled(false);
+                holder.mTvContent.setBackgroundResource(R.drawable.shape_default_fbfafa_button);
+                UIUtils.setTextColor(holder.mTvContent, R.color.colorFFA6A6A6);
+                holder.itemView.setEnabled(false);
             }
             UIUtils.setText(holder.mTvContent, bean.name);
             holder.itemView.setOnClickListener(new View.OnClickListener() {

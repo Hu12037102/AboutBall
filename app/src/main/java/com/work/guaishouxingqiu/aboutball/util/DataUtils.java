@@ -191,6 +191,9 @@ public class DataUtils {
     }
 
     public static boolean isResultSure(@NonNull BaseBean baseBean) {
+        if (baseBean == null) {
+            return false;
+        }
         return IApi.Code.SUCCEED == baseBean.code && baseBean.result != null;
     }
 
