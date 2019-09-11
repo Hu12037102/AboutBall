@@ -22,6 +22,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.base.bean.ResultSureOrderDialogBean;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
 import com.work.guaishouxingqiu.aboutball.community.activity.CommunityDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.community.activity.MyDynamicActivity;
@@ -59,6 +60,7 @@ import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.LoadingView;
 import com.work.guaishouxingqiu.aboutball.weight.PayDialog;
+import com.work.guaishouxingqiu.aboutball.weight.SureOrderDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 import com.work.guaishouxingqiu.aboutball.weight.UpdateApkDialog;
 
@@ -89,6 +91,7 @@ public class ViewModel {
     private HintDialog mCancelOrderDialog;
     private UpdateApkDialog mUpdateDialog;
     private HintDialog mCreateDialog;
+    private SureOrderDialog mSureOrderDialog;
 
     static ViewModel createViewModel(Activity activity) {
         return new ViewModel(activity);
@@ -166,7 +169,7 @@ public class ViewModel {
     public void showUpdateDialog(Context context, ResultUpdateApkBean updateBean) {
         // String content = UIUtils.getString(R.string.update_content);
         if (mUpdateDialog == null) {
-            mUpdateDialog = new UpdateApkDialog(context,updateBean );
+            mUpdateDialog = new UpdateApkDialog(context, updateBean);
         }
         if (!mUpdateDialog.isShowing()) {
             mUpdateDialog.show();
@@ -333,6 +336,18 @@ public class ViewModel {
     public ShareWebBean getCommunityShare(ResultCommunityDataBean bean) {
         String shareUrl = IApiService.H5.DYNAMIC_DETAILS + "?" + ARouterConfig.Key.SHARE_ID + "=" + bean.tweetId + "&" + ARouterConfig.Key.SHARE_TYPE + "=" + IApiService.TypeId.DYNAMIC_DETAILS;
         return getShareBean(UIUtils.getString(R.string.community_title), bean.tweetContent, shareUrl);
+    }
+
+    public void showSureOrderDialog(ResultSureOrderDialogBean bean, SureOrderDialog.OnSureOrderClickListener listener) {
+        if (mSureOrderDialog == null) {
+            mSureOrderDialog = new SureOrderDialog(mSoftActivity.get(), bean);
+        } else {
+            mSureOrderDialog.notifyData(bean);
+        }
+        if (!mSoftActivity.get().isFinishing() && !mSureOrderDialog.isShowing()) {
+            mSureOrderDialog.show();
+        }
+        mSureOrderDialog.setOnSureOrderClickListener(listener);
     }
 
     /**

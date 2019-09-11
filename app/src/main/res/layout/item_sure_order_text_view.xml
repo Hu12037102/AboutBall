@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:text="场馆位置：江西省吉安市青原区麻布村"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/size_15dp"
+    android:orientation="vertical"
+    android:textColor="@color/color_4"/>

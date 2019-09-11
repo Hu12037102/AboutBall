@@ -1,7 +1,10 @@
 package com.work.guaishouxingqiu.aboutball.my.contract;
 
+import androidx.annotation.NonNull;
+
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultConfirmOrderBean;
 
 /**
  * 作者: 胡庆岭
@@ -10,6 +13,10 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
  * 描述:确认订单契约
  */
 public interface SureOrderContract {
-    interface View extends IBaseView{}
-    interface Presenter extends IBasePresenter{}
+    interface View extends IBaseView{
+        void resultConfirmOrder(@NonNull ResultConfirmOrderBean bean);
+    }
+    interface Presenter extends IBasePresenter{
+        void loadConfirmOrder(long spuId,String params,int num);
+    }
 }

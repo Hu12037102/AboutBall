@@ -1,5 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.home.activity;
 
+import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
@@ -31,6 +32,7 @@ import com.work.guaishouxingqiu.aboutball.home.contract.TicketMallDetailsContrac
 import com.work.guaishouxingqiu.aboutball.home.presenter.TicketMallDetailsPresenter;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
@@ -225,7 +227,7 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
     @Override
     public void resultSureOrderDialog(BaseBean<ResultSureOrderDialogBean> bean) {
         if (DataUtils.isResultSure(bean)) {
-            if (mSureOrderDialog == null) {
+           /* if (mSureOrderDialog == null) {
                 mSureOrderDialog = new SureOrderDialog(this, bean.result);
             }else {
                 mSureOrderDialog.notifyData(bean.result);
@@ -241,6 +243,24 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
 
                 @Override
                 public void onClickItemNotify(View view, int position, String values, int num) {
+                    mRequestDialogBean.params = values;
+                    mRequestDialogBean.num = num;
+                    mPresenter.getSureOrderDialog(mRequestDialogBean);
+                }
+            });*/
+            mViewModel.showSureOrderDialog(bean.result, new SureOrderDialog.OnSureOrderClickListener() {
+                @Override
+                public void onClickSureBuy(Dialog dialog, View view, String allValues, int num) {
+                    RequestSureOrderBean requestOrderBean = new RequestSureOrderBean();
+                    requestOrderBean.spuId = mIntentBean.spuId;
+                    requestOrderBean.num = num;
+                    requestOrderBean.params = bean.result.orderParam;
+                    ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_SURE_ORDER, ARouterConfig.Key.PARCELABLE, requestOrderBean);
+                    dialog.dismiss();
+                }
+
+                @Override
+                public void onClickItemNotify(Dialog dialog, View view, int position, String values, int num) {
                     mRequestDialogBean.params = values;
                     mRequestDialogBean.num = num;
                     mPresenter.getSureOrderDialog(mRequestDialogBean);

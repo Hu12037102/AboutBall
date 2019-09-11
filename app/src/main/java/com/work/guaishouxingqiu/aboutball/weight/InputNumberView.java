@@ -86,7 +86,7 @@ public class InputNumberView extends LinearLayout {
         setAddClickable(number < mMaxNum);
     }
 
-    private void clickSubtractAddView(boolean isAdd) {
+    public void clickSubtractAddView(boolean isAdd) {
         int number;
         if (isAdd) {
             number = DataUtils.getIntFormat(DataUtils.getEditDetails(mAcetNum)) + 1;
@@ -104,7 +104,7 @@ public class InputNumberView extends LinearLayout {
         setSubtractClickable(clickable);
     }
 
-    private void setAddClickable(boolean clickable) {
+    public void setAddClickable(boolean clickable) {
         if (clickable) {
             mTvAdd.setBackgroundResource(R.drawable.layer_click_right_six_radius_view);
         } else {

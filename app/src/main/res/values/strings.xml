@@ -662,4 +662,6 @@
     <string name="commit_order">提交订单</string>
     <string name="sure_buy">确认购买</string>
     <string name="buy_count">购买数量</string>
+    <string name="create_order_fail">创建订单失败</string>
+    <string name="sum_price_s">总价：%s</string>
 </resources>

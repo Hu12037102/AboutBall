@@ -1,5 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.weight;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,7 +84,7 @@ public class SureOrderDialog extends BaseDialog {
                     public void onClickItem(@NonNull View view, int position) {
                         LogUtils.w("SureOrderDialog--", "我被点击了" + getAllValues());
                         if (onSureOrderClickListener != null) {
-                            onSureOrderClickListener.onClickItemNotify(view, position, getValues(mAdapterData.indexOf(adapter)), mInvCount.getNum());
+                            onSureOrderClickListener.onClickItemNotify(SureOrderDialog.this,view, position, getValues(mAdapterData.indexOf(adapter)), mInvCount.getNum());
                         }
                         mInvCount.setInputNum(1);
                         UIUtils.setText(mTvMoney, DataUtils.getMoneyFormat(mInvCount.getNum() * DataUtils.getDoubleFormat(mDialogBean.price)));
@@ -103,7 +104,7 @@ public class SureOrderDialog extends BaseDialog {
         mIvClose.setOnClickListener(v -> dismiss());
         mTvSures.setOnClickListener(v -> {
             if (onSureOrderClickListener != null) {
-                onSureOrderClickListener.onClickSureBuy(v, getAllValues(), mInvCount.getNum());
+                onSureOrderClickListener.onClickSureBuy(SureOrderDialog.this,v, getAllValues(), mInvCount.getNum());
             }
         });
         mInvCount.setOnClickInputClickListener(new InputNumberView.OnClickInputClickListener() {
@@ -332,9 +333,9 @@ public class SureOrderDialog extends BaseDialog {
     }
 
     public interface OnSureOrderClickListener {
-        void onClickSureBuy(View view, String allValues, int num);
+        void onClickSureBuy(Dialog dialog,View view, String allValues, int num);
 
-        void onClickItemNotify(View view, int position, String values, int num);
+        void onClickItemNotify(Dialog dialog,View view, int position, String values, int num);
     }
 
 }
