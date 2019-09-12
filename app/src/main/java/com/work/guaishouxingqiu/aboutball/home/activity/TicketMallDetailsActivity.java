@@ -1,6 +1,8 @@
 package com.work.guaishouxingqiu.aboutball.home.activity;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
@@ -34,7 +36,6 @@ import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
-import com.work.guaishouxingqiu.aboutball.util.DateUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseWebView;
@@ -227,27 +228,6 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
     @Override
     public void resultSureOrderDialog(BaseBean<ResultSureOrderDialogBean> bean) {
         if (DataUtils.isResultSure(bean)) {
-           /* if (mSureOrderDialog == null) {
-                mSureOrderDialog = new SureOrderDialog(this, bean.result);
-            }else {
-                mSureOrderDialog.notifyData(bean.result);
-            }
-            if (!mSureOrderDialog.isShowing()) {
-                mSureOrderDialog.show();
-            }
-            mSureOrderDialog.setOnSureOrderClickListener(new SureOrderDialog.OnSureOrderClickListener() {
-                @Override
-                public void onClickSureBuy(View view, String allValues, int num) {
-
-                }
-
-                @Override
-                public void onClickItemNotify(View view, int position, String values, int num) {
-                    mRequestDialogBean.params = values;
-                    mRequestDialogBean.num = num;
-                    mPresenter.getSureOrderDialog(mRequestDialogBean);
-                }
-            });*/
             mViewModel.showSureOrderDialog(bean.result, new SureOrderDialog.OnSureOrderClickListener() {
                 @Override
                 public void onClickSureBuy(Dialog dialog, View view, String allValues, int num) {
@@ -255,7 +235,8 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
                     requestOrderBean.spuId = mIntentBean.spuId;
                     requestOrderBean.num = num;
                     requestOrderBean.params = bean.result.orderParam;
-                    ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_SURE_ORDER, ARouterConfig.Key.PARCELABLE, requestOrderBean);
+                    ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_SURE_ORDER, TicketMallDetailsActivity.this,
+                            ARouterConfig.Key.PARCELABLE, requestOrderBean);
                     dialog.dismiss();
                 }
 
@@ -315,5 +296,11 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
         UIUtils.setText(mItemStandard.mTvRight, bean.specifications);
     }
 
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && requestCode == ARouterIntent.REQUEST_CODE) {
+            mViewModel.clickBackForResult();
+        }
+    }
 }

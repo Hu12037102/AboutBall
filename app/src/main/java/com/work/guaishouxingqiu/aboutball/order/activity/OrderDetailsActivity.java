@@ -1,5 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.order.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,7 @@ import com.work.guaishouxingqiu.aboutball.order.bean.ResultOrderDetailsBean;
 import com.work.guaishouxingqiu.aboutball.order.contract.OrderDetailsContract;
 import com.work.guaishouxingqiu.aboutball.order.presenter.OrderDetailsPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
@@ -190,6 +193,12 @@ public class OrderDetailsActivity extends BaseActivity<OrderDetailsPresenter> im
             }
         }
     }
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && requestCode == ARouterIntent.REQUEST_CODE) {
+            mViewModel.clickBackForResult();
+        }
+    }
 
 }

@@ -1,5 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.my.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.view.LayoutInflater;
@@ -98,6 +100,7 @@ public class SureOrderActivity extends BaseActivity<SureOrderPresenter> implemen
                 setPrice(mResultBean.unitPrice * num);
             }
         });
+        mTitleView.setOnBackViewClickListener(view -> mViewModel.clickBackForResult());
     }
 
     private void setPrice(double priceNumber) {
@@ -146,7 +149,19 @@ public class SureOrderActivity extends BaseActivity<SureOrderPresenter> implemen
     public void onViewClicked() {
         mIntentBean.num = mInvCount.getNum();
         mIntentBean.params = mResultBean.params;
-        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ORDER_DETAILS,ARouterConfig.Key.PARCELABLE,mIntentBean);
-        finish();
+        ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_ORDER_DETAILS, this, ARouterConfig.Key.PARCELABLE, mIntentBean);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && requestCode == ARouterIntent.REQUEST_CODE) {
+            mViewModel.clickBackForResult();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        mViewModel.clickBackForResult();
     }
 }
