@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:layout_marginBottom="@dimen/size_10dp">
+
+    <TextView
+        android:id="@+id/tv_key"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorFFA6A6A6"
+        android:textSize="@dimen/size_14sp"
+        tools:text="比赛时间" />
+
+    <TextView
+        android:id="@+id/tv_values"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_4"
+        android:textSize="@dimen/size_14sp"
+        tools:text="比赛时间" />
+</LinearLayout>

@@ -92,6 +92,7 @@ public class ViewModel {
     private UpdateApkDialog mUpdateDialog;
     private HintDialog mCreateDialog;
     private SureOrderDialog mSureOrderDialog;
+    private PayDialog mPayDialog;
 
     static ViewModel createViewModel(Activity activity) {
         return new ViewModel(activity);
@@ -399,9 +400,14 @@ public class ViewModel {
     }
 
     public void showPayDialog(@NonNull String money, @NonNull PayDialog.OnPayDialogClickListener listener) {
-        PayDialog payDialog = new PayDialog(mSoftActivity.get())
-                .setMoney(money);
-        payDialog.setOnPayDialogClickListener(listener);
+        if (mPayDialog == null) {
+            mPayDialog = new PayDialog(mSoftActivity.get());
+        }
+        mPayDialog.setMoney(money);
+        if (!mPayDialog.isShowing() && !mSoftActivity.get().isFinishing()) {
+            mPayDialog.show();
+        }
+        mPayDialog.setOnPayDialogClickListener(listener);
 
     }
 
@@ -836,4 +842,15 @@ public class ViewModel {
         }
         return 0;
     }
+   /* private void showPayDialog(double price,@NonNull PayDialog.OnPayDialogClickListener listener){
+        if (mPayDialog == null) {
+            mPayDialog = new PayDialog(mSoftActivity.get())
+                    .setMoney(DataUtils.getMoneyFormat(price));
+        }
+
+        if (!mPayDialog.isShowing()) {
+            mPayDialog.show();
+        }
+        mPayDialog.setOnPayDialogClickListener(listener);
+    }*/
 }

@@ -18,6 +18,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultConfirmOrderBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.SureOrderContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.SureOrderPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
@@ -124,6 +125,7 @@ public class SureOrderActivity extends BaseActivity<SureOrderPresenter> implemen
         mTvCommit.setBackgroundResource(R.drawable.shape_click_button);
         UIUtils.setText(mTvName, bean.title);
         mInvCount.setInputNum(bean.num);
+        mInvCount.setMaxNum(bean.maxMum);
         //UIUtils.setText(mTvMoney, UIUtils.getString(R.string.sum_price_s, DataUtils.getMoneyFormat(bean.price)));
         setPrice(DataUtils.getDoubleFormat(bean.price));
         if (bean.paramList != null && bean.paramList.size() > 0) {
@@ -142,5 +144,9 @@ public class SureOrderActivity extends BaseActivity<SureOrderPresenter> implemen
 
     @OnClick(R.id.tv_commit)
     public void onViewClicked() {
+        mIntentBean.num = mInvCount.getNum();
+        mIntentBean.params = mResultBean.params;
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ORDER_DETAILS,ARouterConfig.Key.PARCELABLE,mIntentBean);
+        finish();
     }
 }

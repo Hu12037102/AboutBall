@@ -83,7 +83,8 @@ public interface ARouterConfig {
         String ACTIVITY_TICKET_MALL = "/activity/ticket_mall";
         String ACTIVITY_TICKET_MALL_DETAILS = "/activity/ticket/mall/details";
         String ACTIVITY_MY_TICKETS = "/activity/my/tickets";
-        String ACTIVITY_SURE_ORDER="/activity/sure/order";
+        String ACTIVITY_SURE_ORDER = "/activity/sure/order";
+        String ACTIVITY_ORDER_DETAILS = "/activity/order/details";
 
 
         String FRAGMENT_GAME = "/fragment/game";

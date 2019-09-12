@@ -418,6 +418,9 @@
         <activity
             android:name=".my.activity.SureOrderActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".order.activity.OrderDetailsActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 

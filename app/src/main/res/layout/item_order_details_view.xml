@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/default_margin"
+    android:layout_marginTop="@dimen/default_margin"
+    android:layout_marginRight="@dimen/default_margin"
+    android:orientation="vertical">
+
+    <View style="@style/HorizontalLine"
+        android:layout_marginBottom="@dimen/default_margin"/>
+
+    <TextView
+        android:id="@+id/tv_content"
+        style="@style/SingLineTextView"
+        android:layout_marginBottom="@dimen/size_15dp"
+        android:textColor="@color/color_4"
+        android:textSize="@dimen/size_17sp"
+        android:textStyle="bold"
+        tools:text="订单内容" />
+
+    <LinearLayout
+        android:id="@+id/ll_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
+
+
+</LinearLayout>

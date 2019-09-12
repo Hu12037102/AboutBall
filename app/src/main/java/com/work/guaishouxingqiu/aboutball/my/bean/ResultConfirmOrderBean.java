@@ -17,6 +17,7 @@ public class ResultConfirmOrderBean {
     public int num;
     public String phoneNumber;
     public List<Param> paramList;
+    public int maxMum;
     public static class Param{
         public String name;
         public String value;

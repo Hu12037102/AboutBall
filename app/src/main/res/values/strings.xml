@@ -666,4 +666,9 @@
     <string name="create_order_fail">创建订单失败</string>
     <string name="sum_price_s">总价：%s</string>
     <string name="click_go_in_code">点击查看二维码进场</string>
+    <string name="order_pay">订单支付</string>
+    <string name="how_money_please_pay">价格：%s&#160;&#160;请支付</string>
+    <string name="pay_order_hint_back_body">您的订单尚未支付，确定要离开当前页面吗？</string>
+    <string name="order_ten_minute_cancel">订单在%s内自动取消，请及时支付</string>
+    <string name="default_minute_values_cancel">10分钟</string>
 </resources>
