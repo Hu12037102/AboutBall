@@ -185,6 +185,7 @@ public interface IApiService {
     String GET_MY_FANS_DATA = "api/tweet/getMyFansList";
     String POST_EDIT_ABOUT_BALL="api/agreeBall/editAgreeBall";
     String GET_USER_CONFIRM_ORDER="api/mall/userSpecificationsConfirm";
+    String GET_MY_TICKETS_LIST="api/ticket/getCommonTicketList";
 
     interface H5 {
         // String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";

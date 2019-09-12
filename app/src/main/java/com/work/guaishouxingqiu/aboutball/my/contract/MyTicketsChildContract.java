@@ -2,6 +2,9 @@ package com.work.guaishouxingqiu.aboutball.my.contract;
 
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyTicketsBean;
+
+import java.util.List;
 
 /**
  * 作者: 胡庆岭
@@ -11,8 +14,10 @@ import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
  */
 public interface MyTicketsChildContract {
     interface View extends IBaseView {
+        void resultMyTicketList(List<ResultMyTicketsBean> data);
     }
 
     interface Presenter extends IBasePresenter {
+        void loadMyTicketsList(int exchange);
     }
 }

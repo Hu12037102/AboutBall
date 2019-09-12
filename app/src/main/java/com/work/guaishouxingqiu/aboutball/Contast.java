@@ -33,6 +33,7 @@ public interface Contast {
     String LATITUDE = "latitude";
     String PAGE_NUM = "pageNum";
     String PAGE_SIZE = "pageSize";
+    String EXCHANGE="exchange";
     String OFFICIAL = "official";
     String DATE = "date";
     String TYPE_ID = "typeId";

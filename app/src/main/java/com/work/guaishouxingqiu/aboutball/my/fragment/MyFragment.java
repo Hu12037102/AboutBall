@@ -77,6 +77,8 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
     TextView mTvMessage;
     @BindView(R.id.iv_red_point)
     ImageView mIvRedPoint;
+    @BindView(R.id.item_tickets)
+    ItemView mItemTickets;
     private View view;
     private Integer mMyRefereeStatus;
     private TextView mHeadTvFocusFans;
@@ -184,6 +186,12 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
                 } else {
                     mViewModel.showLoginDialog(MyFragment.this);
                 }
+            }
+        });
+        mItemTickets.setOnItemClickListener(new ItemView.OnItemClickListener() {
+            @Override
+            public void onClickItem(View view) {
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_TICKETS);
             }
         });
     }

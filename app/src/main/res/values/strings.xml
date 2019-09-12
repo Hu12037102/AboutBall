@@ -222,6 +222,7 @@
     <string name="please_selector_main_location" translatable="false">请选择主位置</string>
     <string name="please_selector_substitution_location" translatable="false">请选择替补位置</string>
     <string name="not_find_ball_team_id" translatable="false">没有找到球队Id</string>
+    <string name="not_find_this_tickets">没有找到该门票</string>
     <string name="address_data" translatable="false">详细地址</string>
     <string name="please_input_address_data" translatable="false">请填写详细地址</string>
     <string name="please_inout_team_name" translatable="false">请输入队名</string>
@@ -664,4 +665,5 @@
     <string name="buy_count">购买数量</string>
     <string name="create_order_fail">创建订单失败</string>
     <string name="sum_price_s">总价：%s</string>
+    <string name="click_go_in_code">点击查看二维码进场</string>
 </resources>

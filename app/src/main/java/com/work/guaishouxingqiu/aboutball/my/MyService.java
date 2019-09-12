@@ -34,6 +34,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyAddress;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyBallBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyGameRecordBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyOrderBean;
+import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyTicketsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultPrizeBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefereeLevelBean;
@@ -253,4 +254,9 @@ public interface MyService {
     Observable<BaseBean<ResultConfirmOrderBean>> getUserConfirmOrder(@Query(Contast.SPU_ID) long spuId,
                                                                      @Query(Contast.PARAMS) String params,
                                                                      @Query(Contast.NUM) int num);
+
+    @GET(IApiService.GET_MY_TICKETS_LIST)
+    Observable<BaseBean<List<ResultMyTicketsBean>>> loadMyTicketsList(@Query(Contast.PAGE_NUM) int pageNum,
+                                                                      @Query(Contast.PAGE_SIZE) int pageSize,
+                                                                      @Query(Contast.EXCHANGE) int exchange);
 }
