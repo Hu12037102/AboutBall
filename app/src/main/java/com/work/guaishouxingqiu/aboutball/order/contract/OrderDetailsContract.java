@@ -6,6 +6,7 @@ import com.work.guaishouxingqiu.aboutball.base.bean.RequestSureOrderBean;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
 import com.work.guaishouxingqiu.aboutball.order.bean.ResultOrderDetailsBean;
+import com.work.guaishouxingqiu.aboutball.venue.contract.BaseOrderContrast;
 
 /**
  * 作者: 胡庆岭
@@ -14,11 +15,11 @@ import com.work.guaishouxingqiu.aboutball.order.bean.ResultOrderDetailsBean;
  * 描述:订单详情契约
  */
 public interface OrderDetailsContract {
-    interface View extends IBaseView {
+    interface View extends BaseOrderContrast.View {
         void resultOrderDetails(@NonNull ResultOrderDetailsBean bean);
     }
 
-    interface Presenter extends IBasePresenter {
+    interface Presenter extends BaseOrderContrast.Presenter {
         void loadOrderDetails(RequestSureOrderBean bean);
     }
 }

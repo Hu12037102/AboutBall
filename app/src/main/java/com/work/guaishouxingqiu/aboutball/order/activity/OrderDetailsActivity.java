@@ -19,6 +19,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.base.bean.RequestSureOrderBean;
+import com.work.guaishouxingqiu.aboutball.commonality.activity.BasePayActivity;
 import com.work.guaishouxingqiu.aboutball.order.bean.ResultOrderDetailsBean;
 import com.work.guaishouxingqiu.aboutball.order.contract.OrderDetailsContract;
 import com.work.guaishouxingqiu.aboutball.order.presenter.OrderDetailsPresenter;
@@ -44,7 +45,7 @@ import butterknife.OnClick;
  * 描述:  订单详情Activity
  */
 @Route(path = ARouterConfig.Path.ACTIVITY_ORDER_DETAILS)
-public class OrderDetailsActivity extends BaseActivity<OrderDetailsPresenter> implements OrderDetailsContract.View {
+public class OrderDetailsActivity extends BasePayActivity<OrderDetailsPresenter> implements OrderDetailsContract.View {
     @BindView(R.id.title_view)
     TitleView mTitleView;
     @BindView(R.id.tv_name)
@@ -201,4 +202,8 @@ public class OrderDetailsActivity extends BaseActivity<OrderDetailsPresenter> im
         }
     }
 
+    @Override
+    public long getOrderId() {
+        return mResultBean.id;
+    }
 }

@@ -10,6 +10,7 @@ import com.work.guaishouxingqiu.aboutball.order.bean.ResultOrderDetailsBean;
 import com.work.guaishouxingqiu.aboutball.order.contract.OrderDetailsContract;
 import com.work.guaishouxingqiu.aboutball.order.model.OrderDetailsModel;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
+import com.work.guaishouxingqiu.aboutball.venue.presenter.BaseOrderPresenter;
 
 /**
  * 作者: 胡庆岭
@@ -17,7 +18,7 @@ import com.work.guaishouxingqiu.aboutball.util.DataUtils;
  * 更新时间: 2019/9/12 14:03
  * 描述:订单详情P
  */
-public class OrderDetailsPresenter extends BasePresenter<OrderDetailsContract.View, OrderDetailsModel>
+public class OrderDetailsPresenter extends BaseOrderPresenter<OrderDetailsContract.View, OrderDetailsModel>
         implements OrderDetailsContract.Presenter {
     public OrderDetailsPresenter(@NonNull OrderDetailsContract.View view) {
         super(view);
