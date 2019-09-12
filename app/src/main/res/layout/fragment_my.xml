@@ -183,7 +183,7 @@
             app:show_top_line="true"
             app:title_data="@string/my_tickets"
             app:title_drawable_padding="@dimen/item_drawable_padding"
-            app:title_left_icon="@mipmap/icon_item_my_order"
+            app:title_left_icon="@mipmap/icon_my_tickets"
             app:top_line_margin_left="@dimen/default_margin" />
 
         <com.example.item.weight.ItemView

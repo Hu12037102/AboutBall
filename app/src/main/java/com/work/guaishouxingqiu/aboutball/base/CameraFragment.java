@@ -72,7 +72,7 @@ public abstract class CameraFragment<P extends BasePresenter> extends BaseFragme
                     if (result != null) {
                         UIUtils.parseScanCode(result);
                     }
-                    LogUtils.w("onActivityResult--", result);
+                    LogUtils.w("onActivityResult--", result);//15681673146651413
                     //Toasts.with().showToast(result);
                 } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
                     Toasts.with().showToast("解析失败！");

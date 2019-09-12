@@ -1,13 +1,20 @@
 package com.work.guaishouxingqiu.aboutball.my.fragment;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
+import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
 import com.work.guaishouxingqiu.aboutball.my.activity.MyTicketsAdapter;
@@ -16,6 +23,7 @@ import com.work.guaishouxingqiu.aboutball.my.contract.MyTicketsChildContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.MyTicketsChildPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
+import com.work.guaishouxingqiu.aboutball.weight.QCodeDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,6 +111,34 @@ public class MyTicketsFragment extends DelayedFragment<MyTicketsChildPresenter> 
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 loadData(true);
+            }
+        });
+        mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onNotNetClick(View view) {
+                mSrlRefresh.autoRefresh();
+            }
+
+            @Override
+            public void onNotDataClick(View view) {
+                mSrlRefresh.autoRefresh();
+            }
+
+            @Override
+            public void onItemClick(View view, int position) {
+               /* String contentCode = mData.get(position).code;
+                Bitmap bitmap = CodeUtils.createImage(contentCode, 400, 400, null);
+                QCodeDialog qCodeDialog = new QCodeDialog(mContext).setBitmap(bitmap);
+                qCodeDialog.show();*/
+            }
+        });
+        mAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onClickItem(@NonNull View view, int position) {
+                String contentCode = mData.get(position).code;
+                Bitmap bitmap = CodeUtils.createImage(contentCode, 400, 400, null);
+                QCodeDialog qCodeDialog = new QCodeDialog(mContext).setBitmap(bitmap);
+                qCodeDialog.show();
             }
         });
     }

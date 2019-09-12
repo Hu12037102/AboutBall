@@ -11,8 +11,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
+import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyTicketsBean;
+import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
@@ -27,6 +29,11 @@ import java.util.List;
 public class MyTicketsAdapter extends BaseRecyclerAdapter<MyTicketsAdapter.ViewHolder, List<ResultMyTicketsBean>> {
     private boolean mHasMore = true;
 
+    public void setOnItemClickListener(com.work.guaishouxingqiu.aboutball.OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    private com.work.guaishouxingqiu.aboutball.OnItemClickListener onItemClickListener;
     public MyTicketsAdapter(@NonNull List<ResultMyTicketsBean> data) {
         super(data);
     }
@@ -42,12 +49,11 @@ public class MyTicketsAdapter extends BaseRecyclerAdapter<MyTicketsAdapter.ViewH
         ResultMyTicketsBean bean = mData.get(i);
         UIUtils.setText(viewHolder.mTvTitle, bean.ticketName);
         UIUtils.setText(viewHolder.mTvTime, bean.segment1);
+        UIUtils.setText(viewHolder.mTvHint, bean.segment2);
         if (DataUtils.isEmpty(bean.code)) {
-            UIUtils.setText(viewHolder.mTvHint, R.string.click_go_in_code);
-            viewHolder.itemView.setEnabled(false);
+            viewHolder.mClRoot.setEnabled(false);
         } else {
-            UIUtils.setText(viewHolder.mTvHint, bean.segment2);
-            viewHolder.itemView.setEnabled(true);
+            viewHolder.mClRoot.setEnabled(true);
         }
         UIUtils.setText(viewHolder.mTvCount, bean.num + "张");
         if (!mHasMore && i == mData.size() - 1) {
@@ -69,6 +75,12 @@ public class MyTicketsAdapter extends BaseRecyclerAdapter<MyTicketsAdapter.ViewH
             default:
                 break;
         }
+        viewHolder.mClRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickListener.onClickItem(v, i);
+            }
+        });
 
     }
 
@@ -103,4 +115,5 @@ public class MyTicketsAdapter extends BaseRecyclerAdapter<MyTicketsAdapter.ViewH
 
         }
     }
+
 }
