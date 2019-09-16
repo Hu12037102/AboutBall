@@ -99,6 +99,11 @@ public class SureOrderActivity extends BaseActivity<SureOrderPresenter> implemen
             public void onClickAdd(View view, int num) {
                 setPrice(mResultBean.unitPrice * num);
             }
+
+            @Override
+            public void onInputChang(View view, int num) {
+                setPrice(mResultBean.unitPrice * num);
+            }
         });
         mTitleView.setOnBackViewClickListener(view -> mViewModel.clickBackForResult());
     }

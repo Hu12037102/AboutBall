@@ -81,7 +81,7 @@ public class InputNumberView extends LinearLayout {
         mAcetNum.setFilters(new InputFilter[]{new InputFilter.LengthFilter(mDigit)});
         mAcetNum.setText(String.valueOf(mDefaultNum));
         int number = DataUtils.getIntFormat(DataUtils.getEditDetails(mAcetNum));
-        LogUtils.w("initData--", number + "--" + (number > mMinNum)+"--"+(number < mMaxNum)+"--"+mMaxNum);
+        LogUtils.w("initData--", number + "--" + (number > mMinNum) + "--" + (number < mMaxNum) + "--" + mMaxNum);
         setSubtractClickable(number > mMinNum);
         setAddClickable(number < mMaxNum);
     }
@@ -156,13 +156,6 @@ public class InputNumberView extends LinearLayout {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 int number = DataUtils.getIntFormat(DataUtils.getEditDetails(mAcetNum));
-              /*  if (number <= 0) {
-                    mTvSubtract.setBackgroundResource(R.drawable.layer_default_left_six_radius_view);
-                    mTvSubtract.setEnabled(false);
-                } else {
-                    mTvSubtract.setBackgroundResource(R.drawable.layer_click_left_six_radius_view);
-                    mTvSubtract.setEnabled(true);
-                }*/
                 setSubtractClickable(number > mMinNum);
                 setAddClickable(number < mMaxNum);
                 if (number > mMaxNum) {
@@ -177,13 +170,9 @@ public class InputNumberView extends LinearLayout {
                         mAcetNum.setSelection(mAcetNum.getText().length());
                     }
                 }
-          /*      if (number >= mMaxNum) {
-                    mTvAdd.setEnabled(false);
-                    mTvAdd.setBackgroundResource(R.drawable.layer_default_right_six_radius_view);
-                } else {
-                    mTvAdd.setEnabled(true);
-                    mTvAdd.setBackgroundResource(R.drawable.layer_click_right_six_radius_view);
-                }*/
+                if (onClickInputClickListener!= null){
+                    onClickInputClickListener.onInputChang(mAcetNum,DataUtils.getIntFormat(DataUtils.getEditDetails(mAcetNum)));
+                }
             }
 
             @Override
@@ -242,5 +231,7 @@ public class InputNumberView extends LinearLayout {
         void onClickSubtract(View view, int num);
 
         void onClickAdd(View view, int num);
+
+        void onInputChang(View view, int num);
     }
 }

@@ -39,6 +39,7 @@ public class SureOrderDialog extends BaseDialog {
     private TextView mTvMoney;
     private LinearLayout mLlData;
     private List<SureOrderDialog.Adapter> mAdapterData;
+
     public void setOnSureOrderClickListener(OnSureOrderClickListener onSureOrderClickListener) {
         this.onSureOrderClickListener = onSureOrderClickListener;
     }
@@ -75,7 +76,7 @@ public class SureOrderDialog extends BaseDialog {
                 UIUtils.setText(tvTitle, bean.title);
                 RecyclerView rvData = inflateChildView.findViewById(R.id.rv_data);
                 rvData.setLayoutManager(new GridLayoutManager(getContext(), 3));
-                SureOrderDialog.Adapter adapter = new SureOrderDialog.Adapter(getContext(),bean.specificationValueVOList// mSpecificationChildData.get(i)
+                SureOrderDialog.Adapter adapter = new SureOrderDialog.Adapter(getContext(), bean.specificationValueVOList// mSpecificationChildData.get(i)
                         , bean.isMultipleChoices, i != mDialogBean.specificationVOList.size() - 1);
                 mAdapterData.add(adapter);
                 rvData.setAdapter(adapter);
@@ -84,7 +85,7 @@ public class SureOrderDialog extends BaseDialog {
                     public void onClickItem(@NonNull View view, int position) {
                         LogUtils.w("SureOrderDialog--", "我被点击了" + getAllValues());
                         if (onSureOrderClickListener != null) {
-                            onSureOrderClickListener.onClickItemNotify(SureOrderDialog.this,view, position, getValues(mAdapterData.indexOf(adapter)), mInvCount.getNum());
+                            onSureOrderClickListener.onClickItemNotify(SureOrderDialog.this, view, position, getValues(mAdapterData.indexOf(adapter)), mInvCount.getNum());
                         }
                         mInvCount.setInputNum(1);
                         UIUtils.setText(mTvMoney, DataUtils.getMoneyFormat(mInvCount.getNum() * DataUtils.getDoubleFormat(mDialogBean.price)));
@@ -104,7 +105,7 @@ public class SureOrderDialog extends BaseDialog {
         mIvClose.setOnClickListener(v -> dismiss());
         mTvSures.setOnClickListener(v -> {
             if (onSureOrderClickListener != null) {
-                onSureOrderClickListener.onClickSureBuy(SureOrderDialog.this,v, getAllValues(), mInvCount.getNum());
+                onSureOrderClickListener.onClickSureBuy(SureOrderDialog.this, v, getAllValues(), mInvCount.getNum());
             }
         });
         mInvCount.setOnClickInputClickListener(new InputNumberView.OnClickInputClickListener() {
@@ -115,6 +116,11 @@ public class SureOrderDialog extends BaseDialog {
 
             @Override
             public void onClickAdd(View view, int num) {
+                UIUtils.setText(mTvMoney, DataUtils.getMoneyFormat(num * DataUtils.getDoubleFormat(mDialogBean.price)));
+            }
+
+            @Override
+            public void onInputChang(View view, int num) {
                 UIUtils.setText(mTvMoney, DataUtils.getMoneyFormat(num * DataUtils.getDoubleFormat(mDialogBean.price)));
             }
         });
@@ -214,7 +220,6 @@ public class SureOrderDialog extends BaseDialog {
         }
 
 
-
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -269,7 +274,7 @@ public class SureOrderDialog extends BaseDialog {
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        //    holder.setIsRecyclable(false);
+            //    holder.setIsRecyclable(false);
             ResultSureOrderDialogBean.SpecificationChildBean bean = mData.get(position);
             if (bean.isChecked == 1) {
                 holder.mTvContent.setBackgroundResource(R.drawable.shape_click_button);
@@ -333,9 +338,9 @@ public class SureOrderDialog extends BaseDialog {
     }
 
     public interface OnSureOrderClickListener {
-        void onClickSureBuy(Dialog dialog,View view, String allValues, int num);
+        void onClickSureBuy(Dialog dialog, View view, String allValues, int num);
 
-        void onClickItemNotify(Dialog dialog,View view, int position, String values, int num);
+        void onClickItemNotify(Dialog dialog, View view, int position, String values, int num);
     }
 
 }
