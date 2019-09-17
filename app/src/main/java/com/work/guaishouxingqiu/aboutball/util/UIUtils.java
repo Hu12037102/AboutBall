@@ -340,8 +340,9 @@ public class UIUtils {
     public static void setText(@NonNull TextView textView, String content) {
         textView.setText(DataUtils.isEmpty(content) ? "" : content);
     }
+
     public static void setTextColor(@NonNull TextView textView, @ColorRes int colorRes) {
-        textView.setTextColor(ContextCompat.getColor(textView.getContext(),colorRes));
+        textView.setTextColor(ContextCompat.getColor(textView.getContext(), colorRes));
     }
 
     public static void setText(@NonNull TextView textView, @StringRes int resContent) {
@@ -355,8 +356,9 @@ public class UIUtils {
     public static void setText(@NonNull TextView textView, String content, @StringRes int resContent) {
         textView.setText(DataUtils.isEmpty(content) ? UIUtils.getString(resContent) : content);
     }
+
     public static void setTextShirtColor(@NonNull TextView textView, String content, @StringRes int resContent) {
-        textView.setText(DataUtils.isEmpty(content) ? UIUtils.getString(resContent) : content.contains("色")?content:content+"色");
+        textView.setText(DataUtils.isEmpty(content) ? UIUtils.getString(resContent) : content.contains("色") ? content : content + "色");
     }
 
     public static void setOrderDetailsItemSpan(@NonNull TextView textView, String host, String body) {
@@ -425,5 +427,13 @@ public class UIUtils {
     public static void setCommunityCount(TextView textView, int count) {
         UIUtils.setText(textView, count > CommunityDataAdapter.MAX_COMMUNITY_COUNT ? CommunityDataAdapter.MAX_COMMUNITY_CONTENT :
                 count > 0 ? String.valueOf(count) : "");
+    }
+
+    public static void editTextFouse(@NonNull EditText editText) {
+        EditText et = DataUtils.checkData(editText);
+        et.setFocusable(true);
+        et.setFocusableInTouchMode(true);
+        et.requestFocus();
+        et.requestLayout();
     }
 }

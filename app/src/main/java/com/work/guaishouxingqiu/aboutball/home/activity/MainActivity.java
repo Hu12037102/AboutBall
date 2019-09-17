@@ -20,6 +20,7 @@ import com.work.guaishouxingqiu.aboutball.home.fragment.HomeFragment;
 import com.work.guaishouxingqiu.aboutball.home.presenter.MainPresenter;
 import com.work.guaishouxingqiu.aboutball.my.fragment.MyFragment;
 import com.work.guaishouxingqiu.aboutball.other.DownloadApkHelp;
+import com.work.guaishouxingqiu.aboutball.other.EmojiManger;
 import com.work.guaishouxingqiu.aboutball.other.SellingPointsEvent;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;

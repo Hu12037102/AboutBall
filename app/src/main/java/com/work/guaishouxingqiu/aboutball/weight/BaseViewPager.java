@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 
 import com.work.guaishouxingqiu.aboutball.R;
 
@@ -64,7 +65,5 @@ public class BaseViewPager extends ViewPager {
             return !isScroll;
         }
     }
-
-
 
 }

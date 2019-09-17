@@ -87,7 +87,6 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
     private long mNewsId;
     private NewsMessageAdapter mAdapter;
     private List<ResultNewsMessageBean> mData;
-    private InputMessageDialog mSendMessageDialog;
     private BaseWebView mWebView;
     private View mHeadView;
     private TextView mTvTitle;
@@ -196,18 +195,15 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
                 break;
             case R.id.tv_input_message:
                 DataUtils.addSellingPoint(this, SellingPointsEvent.Key.A010201);
-                if (mSendMessageDialog == null) {
-                    mSendMessageDialog = new InputMessageDialog(this);
-                    mSendMessageDialog.setOnInputMessageListener(text -> {
+
+                InputMessageDialog sendMessageDialog = new InputMessageDialog(this);
+                    sendMessageDialog.setOnInputMessageListener(text -> {
                         RequestSendMessageBean bean = new RequestSendMessageBean();
                         bean.newsId = mNewsId;
                         bean.commentContent = text;
                         mPresenter.sendNewsMessage(bean);
                     });
-                }
-                if (!mSendMessageDialog.isShowing()) {
-                    mSendMessageDialog.show();
-                }
+                sendMessageDialog.show();
                 break;
         }
     }
@@ -391,9 +387,6 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
     @Override
     public void resultSendNewsMessage() {
         mPresenter.isRefresh = true;
-        if (mSendMessageDialog != null) {
-            mSendMessageDialog.clearEditData();
-        }
         mPresenter.loadMessage(mNewsId);
 
     }

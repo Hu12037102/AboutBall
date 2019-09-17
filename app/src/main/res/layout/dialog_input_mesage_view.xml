@@ -1,46 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorTheme"
-    android:paddingBottom="@dimen/size_10dp"
-    android:paddingLeft="@dimen/default_margin"
-    android:paddingRight="@dimen/default_margin"
-    android:paddingTop="@dimen/size_10dp">
+    android:paddingTop="@dimen/size_15dp">
+
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/aet_message"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_70dp"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
+        android:background="@drawable/shape_send_message_six_radius_view"
+        android:gravity="top|left"
+        android:hint="@string/send_comment"
+        android:lineSpacingExtra="@dimen/size_5dp"
+        android:paddingLeft="@dimen/size_20dp"
+        android:paddingTop="@dimen/size_15dp"
+        android:paddingRight="@dimen/size_20dp"
+        android:paddingBottom="@dimen/size_15dp"
+        android:textColor="@color/color_4"
+        android:textColorHint="@color/colorFFA6A6A6"
+        android:textSize="@dimen/size_14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
 
     <TextView
         android:id="@+id/tv_commit"
         android:layout_width="75dp"
         android:layout_height="@dimen/size_30dp"
-        android:background="@drawable/shape_message_commit_view"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
+        android:background="@drawable/shape_default_button"
         android:gravity="center"
         android:text="@string/commit"
-        android:textColor="@color/color_2"
+        android:textColor="@color/colorWhite"
         android:textSize="@dimen/size_16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/cb_emoji"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/cb_emoji"
+        android:enabled="false"
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/aet_message"
-        android:layout_width="0dp"
+        />
+
+
+    <CheckBox
+        android:id="@+id/cb_emoji"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/size_20dp"
-        android:background="@drawable/shape_send_message_view"
-        android:gravity="center_vertical"
-        android:hint="@string/send_comment"
-        android:minHeight="@dimen/size_30dp"
-        android:paddingLeft="@dimen/size_20dp"
-        android:paddingRight="@dimen/size_20dp"
-        android:paddingTop="@dimen/size_5dp"
-        android:paddingBottom="@dimen/size_5dp"
-        android:textColor="@color/color_4"
-        android:textColorHint="@color/colorFFA6A6A6"
-        android:textSize="@dimen/size_14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingLeft="@dimen/default_margin"
+        android:paddingTop="@dimen/size_15dp"
+        android:paddingRight="@dimen/default_margin"
+        android:paddingBottom="@dimen/size_15dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/tv_commit"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/aet_message"
+        android:contentDescription="@null"
+        android:button="@null"
+        android:drawableLeft="@mipmap/icon_emoji"
+        android:drawableStart="@mipmap/icon_emoji"
+        android:checked="false"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_emoji_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/cb_emoji"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:visibility="visible"
+        android:background="@color/colorWhite">
+
+        <com.work.guaishouxingqiu.aboutball.weight.WarpViewPager
+            android:id="@+id/bvp_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="@dimen/default_margin"
+             />
+
+        <RadioGroup
+            android:id="@+id/rg_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_margin"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
