@@ -464,7 +464,9 @@ public class UIUtils {
         return Math.abs(fontMetricsInt.leading) + Math.abs(fontMetricsInt.ascent) + Math.abs(fontMetricsInt.descent);
     }
 
-    /**表情图文显示
+    /**
+     * 表情图文显示
+     *
      * @param textView
      * @param content
      */
@@ -474,27 +476,51 @@ public class UIUtils {
         for (int i = 0; i < data.size(); i++) {
             String dataContent = data.get(i);
             List<Integer> emojiIndexData = DataUtils.getContainsIndexs(content, dataContent);
-            for (int j = 0;j < emojiIndexData.size();j++){
+            for (int j = 0; j < emojiIndexData.size(); j++) {
                 EmojiBean bean = EmojiManger.get().getEmoji(dataContent);
                 spannableString = SpanUtils.getTextDrawable(bean.drawableResId, emojiIndexData.get(j), emojiIndexData.get(j) + dataContent.length(), spannableString, getTextWidth(textView), getTextWidth(textView));
             }
         }
         UIUtils.setText(textView, spannableString);
     }
+
     public static SpannableString getEmojiSpannable(@NonNull TextView textView, String content) {
         List<String> data = EmojiManger.get().getEmojiKeyData();
         SpannableString spannableString = new SpannableString(content);
         for (int i = 0; i < data.size(); i++) {
             String dataContent = data.get(i);
             List<Integer> emojiIndexData = DataUtils.getContainsIndexs(content, dataContent);
-            for (int j = 0;j < emojiIndexData.size();j++){
+            for (int j = 0; j < emojiIndexData.size(); j++) {
                 EmojiBean bean = EmojiManger.get().getEmoji(dataContent);
                 spannableString = SpanUtils.getTextDrawable(bean.drawableResId, emojiIndexData.get(j), emojiIndexData.get(j) + dataContent.length(), spannableString, getTextWidth(textView), getTextWidth(textView));
             }
         }
-       return spannableString;
+        return spannableString;
     }
 
+    /**
+     * 删除字符串（包含表情）
+     *
+     * @param editText
+     */
+    public static void deleteEdit(@NonNull EditText editText) {
+        if (editText == null) {
+            return;
+        }
+        String editContent = DataUtils.getEditDetails(editText);
+        if (DataUtils.isEmpty(editContent)) {
+            return;
+        }
+        Editable editable = editText.getText();
+        List<String> data = EmojiManger.get().getEmojiKeyData();
+        for (String dataContent : data) {
+            if (editContent.contains(dataContent) && editContent.endsWith(dataContent)) {
+                editable.delete(editable.length() - dataContent.length(), editable.length());
+                return;
+            }
+        }
+        editable.delete(editable.length() - 1, editable.length());
+    }
 
 
 }

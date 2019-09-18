@@ -29,6 +29,7 @@ public final class EmojiManger {
     private static SoftReference<ArrayMap<String, EmojiBean>> mSoftMap;
     private static EmojiManger mManger;
     private List<String> mEmojiData;
+    private String mEmojiContent;
 
     private EmojiManger() {
         init();
@@ -47,17 +48,18 @@ public final class EmojiManger {
 
     private void init() {
         Context context = UIUtils.getContext();
-        String emojiContent = context.getResources().getString(R.string.emoji_data).trim();
-        mEmojiData = Arrays.asList(emojiContent.split(","));
+        mEmojiContent = context.getResources().getString(R.string.emoji_data).trim();
+        mEmojiData = Arrays.asList(mEmojiContent.split(","));
         ArrayMap<String, EmojiBean> emojiMap = new ArrayMap<>();
         mSoftMap = new SoftReference<>(emojiMap);
         for (int i = 0; i < mEmojiData.size(); i++) {
             int resId = context.getResources().getIdentifier("emoji_" + (i + 1), "drawable", context.getPackageName());
             EmojiBean bean = new EmojiBean(resId, i, mEmojiData.get(i));
             emojiMap.put(mEmojiData.get(i), bean);
-           // Log.w("EmojiManger--", (R.drawable.emoji_1 == resId) + "--" + mEmojiData.size() + "--" + i);
+            // Log.w("EmojiManger--", (R.drawable.emoji_1 == resId) + "--" + mEmojiData.size() + "--" + i);
         }
     }
+
     public List<EmojiBean> getAllDrawable() {
         List<EmojiBean> data = new ArrayList<>();
         Log.w("EmojiManger---", mSoftMap.get() + "--");
@@ -74,11 +76,13 @@ public final class EmojiManger {
     }
 
 
-
     public List<String> getEmojiKeyData() {
         return mEmojiData;
     }
 
+    public String getEmojiKeyContent() {
+        return mEmojiContent;
+    }
 
 
     public EmojiBean getEmoji(@NonNull String key) {

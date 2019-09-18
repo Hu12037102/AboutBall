@@ -22,6 +22,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -73,6 +74,8 @@ public class InputMessageDialog extends BaseDialog {
     private WarpViewPager mBvpContent;
     private RadioGroup mRgParent;
     private EmojiPagerAdapter mPagerAdapter;
+    private ImageView mIvDeleteEmoji;
+    private LinearLayout mLlDeleteEmoji;
 
     public void setOnInputMessageListener(OnInputMessageListener onInputMessageListener) {
         this.onInputMessageListener = onInputMessageListener;
@@ -94,13 +97,19 @@ public class InputMessageDialog extends BaseDialog {
         mClEmojiParent = findViewById(R.id.cl_emoji_parent);
         mBvpContent = findViewById(R.id.bvp_content);
         mRgParent = findViewById(R.id.rg_parent);
+        mIvDeleteEmoji = findViewById(R.id.iv_delete_emoji);
+        mLlDeleteEmoji = findViewById(R.id.ll_delete_emoji);
+        ViewGroup.LayoutParams layoutParams = mLlDeleteEmoji.getLayoutParams();
+        layoutParams.width = ScreenUtils.getScreenWidth(getContext()) / 8;
+        layoutParams.height = ScreenUtils.getScreenWidth(getContext()) / 8;
+        mLlDeleteEmoji.setLayoutParams(layoutParams);
 
     }
 
     @Override
     protected void initData() {
         List<EmojiBean> emojiData = EmojiManger.get().getAllDrawable();
-        LogUtils.w("getCount---", emojiData.size()+"--");
+        LogUtils.w("getCount---", emojiData.size() + "--");
         mPagerAdapter = new EmojiPagerAdapter(getContext(), emojiData);
         mBvpContent.setAdapter(mPagerAdapter);
         for (int i = 0; i < mPagerAdapter.getCount(); i++) {
@@ -137,6 +146,16 @@ public class InputMessageDialog extends BaseDialog {
             } else if (onInputMessageListener != null) {
                 onInputMessageListener.onResultMessage(DataUtils.checkData(mAcetMessage.getText()).toString());
                 dismiss();
+            }
+        });
+        mLlDeleteEmoji.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              /*  if (!DataUtils.isEmpty(DataUtils.getEditDetails(mAcetMessage))) {
+                    Editable editable = mAcetMessage.getText();
+                    editable.delete(editable.length() - 1, editable.length());
+                }*/
+                UIUtils.deleteEdit(mAcetMessage);
             }
         });
         mAcetMessage.setOnClickListener(new View.OnClickListener() {
@@ -193,11 +212,12 @@ public class InputMessageDialog extends BaseDialog {
         mBvpContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+                //  mLlDeleteEmoji.setVisibility(View.GONE);
             }
 
             @Override
             public void onPageSelected(int position) {
+                //  mLlDeleteEmoji.setVisibility(View.VISIBLE);
                 RadioButton radioButton = (RadioButton) mRgParent.getChildAt(position);
                 radioButton.setChecked(true);
             }
@@ -209,7 +229,7 @@ public class InputMessageDialog extends BaseDialog {
         });
         mPagerAdapter.setOnEmojiInputListener(new EmojiPagerAdapter.OnEmojiInputListener() {
             @Override
-            public void onEmojiInput(View view,@NonNull EmojiBean emojiBean) {
+            public void onEmojiInput(View view, @NonNull EmojiBean emojiBean) {
                 UIUtils.addEmojiText(mAcetMessage, emojiBean.drawableResId, emojiBean.key);
                 if (mAcetMessage.isFocusable()) {
                     mAcetMessage.setSelection(DataUtils.getTextLength(mAcetMessage));
@@ -268,7 +288,7 @@ public class InputMessageDialog extends BaseDialog {
 
         private OnEmojiInputListener onEmojiInputListener;
 
-        private static final int PAGE_MAX = 40;
+        private static final int PAGE_MAX = 39;
 
         public EmojiPagerAdapter(@NonNull Context context, @NonNull List<EmojiBean> data) {
             this.mContext = context;
@@ -277,7 +297,7 @@ public class InputMessageDialog extends BaseDialog {
 
         @Override
         public int getCount() {
-            LogUtils.w("getCount--", mData.size() % PAGE_MAX + "--" + mData.size() / PAGE_MAX + "--" + mData.size());
+            // LogUtils.w("getCount--", mData.size() % PAGE_MAX + "--" + mData.size() / PAGE_MAX + "--" + mData.size());
             return mData == null ? 0 : mData.size() % PAGE_MAX == 0 ? mData.size() / PAGE_MAX : mData.size() / PAGE_MAX + 1;
         }
 
