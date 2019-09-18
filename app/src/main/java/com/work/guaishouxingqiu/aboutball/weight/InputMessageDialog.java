@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +22,14 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.item.util.ScreenUtils;
+import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.base.bean.EmojiBean;
 import com.work.guaishouxingqiu.aboutball.other.EmojiManger;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
@@ -64,8 +70,9 @@ public class InputMessageDialog extends BaseDialog {
     });
     private CheckBox mCbEmoji;
     private ConstraintLayout mClEmojiParent;
-    private BaseViewPager mBvpContent;
+    private WarpViewPager mBvpContent;
     private RadioGroup mRgParent;
+    private EmojiPagerAdapter mPagerAdapter;
 
     public void setOnInputMessageListener(OnInputMessageListener onInputMessageListener) {
         this.onInputMessageListener = onInputMessageListener;
@@ -92,14 +99,44 @@ public class InputMessageDialog extends BaseDialog {
 
     @Override
     protected void initData() {
-        List<Integer> emojiData = EmojiManger.get().getAllDrawable();
-        EmojiPagerAdapter mPagerAdapter = new EmojiPagerAdapter(getContext(), emojiData);
+        List<EmojiBean> emojiData = EmojiManger.get().getAllDrawable();
+        LogUtils.w("getCount---", emojiData.size()+"--");
+        mPagerAdapter = new EmojiPagerAdapter(getContext(), emojiData);
         mBvpContent.setAdapter(mPagerAdapter);
-        ViewGroup.LayoutParams layoutParams =  mBvpContent.getLayoutParams();
-        layoutParams.width = ViewPager.LayoutParams.MATCH_PARENT;
-        layoutParams.height = ViewPager.LayoutParams.WRAP_CONTENT;
-        mBvpContent.setLayoutParams(layoutParams);
+         /* ViewGroup.LayoutParams pagerParams = mBvpContent.getLayoutParams();
+        pagerParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        pagerParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        mBvpContent.setLayoutParams(pagerParams);
+      mBvpContent.post(new Runnable() {
+            @Override
+            public void run() {
+                LogUtils.w("mBvpContent--", mBvpContent.getMeasuredHeight() + "--");
+            }
+        });*/
+        for (int i = 0; i < mPagerAdapter.getCount(); i++) {
+            RadioButton radioButton = new RadioButton(getContext());
+            radioButton.setId(i);
+            if (i == 0) {
+                radioButton.setChecked(true);
+            }
+            radioButton.setButtonDrawable(R.drawable.selector_emoji_check_view);
 
+            mRgParent.addView(radioButton, i);
+            ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) radioButton.getLayoutParams();
+            layoutParams.rightMargin = ScreenUtils.dp2px(getContext(), 8);
+            radioButton.setLayoutParams(layoutParams);
+        }
+
+
+    }
+
+    private void setCommitEnable(boolean isClickable) {
+        if (isClickable) {
+            mTvCommit.setBackgroundResource(R.drawable.shape_click_button);
+        } else {
+            mTvCommit.setBackgroundResource(R.drawable.shape_default_button);
+        }
+        mTvCommit.setEnabled(isClickable);
     }
 
     @Override
@@ -115,10 +152,26 @@ public class InputMessageDialog extends BaseDialog {
         mAcetMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UIUtils.editTextFouse(mAcetMessage);
                 mClEmojiParent.setVisibility(View.GONE);
                 mCbEmoji.setChecked(false);
                 mCbEmoji.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_emoji, 0, 0, 0);
+                mHandler.sendEmptyMessageDelayed(100, 1000);
+            }
+        });
+        mAcetMessage.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                setCommitEnable(!DataUtils.isEmpty(DataUtils.getEditDetails(mAcetMessage)));
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
         mCbEmoji.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -134,6 +187,46 @@ public class InputMessageDialog extends BaseDialog {
                 hideSoft(mCbEmoji);
             }
         });
+        mRgParent.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                for (int i = 0; i < group.getChildCount(); i++) {
+                    RadioButton radioButton = (RadioButton) group.getChildAt(i);
+                    if (radioButton.isChecked()) {
+                        mBvpContent.setCurrentItem(i, true);
+                    }
+                }
+
+
+            }
+        });
+        mBvpContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                RadioButton radioButton = (RadioButton) mRgParent.getChildAt(position);
+                radioButton.setChecked(true);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        mPagerAdapter.setOnEmojiInputListener(new EmojiPagerAdapter.OnEmojiInputListener() {
+            @Override
+            public void onEmojiInput(View view, EmojiBean emojiBean) {
+                UIUtils.addEmojiText(mAcetMessage, emojiBean.drawableResId, emojiBean.key);
+                if (mAcetMessage.isFocusable()) {
+                    mAcetMessage.setSelection(DataUtils.getTextLength(mAcetMessage));
+                }
+            }
+        });
+
     }
 
     @Override
@@ -176,11 +269,18 @@ public class InputMessageDialog extends BaseDialog {
     }
 
     public static class EmojiPagerAdapter extends PagerAdapter {
-        private List<Integer> mData;
+        private List<EmojiBean> mData;
         private Context mContext;
+
+        public void setOnEmojiInputListener(OnEmojiInputListener onEmojiInputListener) {
+            this.onEmojiInputListener = onEmojiInputListener;
+        }
+
+        private OnEmojiInputListener onEmojiInputListener;
+
         private static final int PAGE_MAX = 40;
 
-        public EmojiPagerAdapter(@NonNull Context context, @NonNull List<Integer> data) {
+        public EmojiPagerAdapter(@NonNull Context context, @NonNull List<EmojiBean> data) {
             this.mContext = context;
             this.mData = data;
         }
@@ -211,20 +311,34 @@ public class InputMessageDialog extends BaseDialog {
             layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
             layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
             recyclerView.setLayoutParams(layoutParams);
-            List<Integer> rvData = new ArrayList<>(PAGE_MAX);
-            rvData.addAll(mData.subList(position * PAGE_MAX, (position + 1) * PAGE_MAX > mData.size() ? mData.size() : (position + 1) * PAGE_MAX ));
+            List<EmojiBean> rvData = new ArrayList<>(PAGE_MAX);
+            rvData.addAll(mData.subList(position * PAGE_MAX, (position + 1) * PAGE_MAX > mData.size() ? mData.size() : (position + 1) * PAGE_MAX));
             EmojiAdapter adapter = new EmojiAdapter(mContext, rvData);
             recyclerView.setAdapter(adapter);
+            adapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onClickItem(@NonNull View view, int position) {
+                    if (onEmojiInputListener != null) {
+                        onEmojiInputListener.onEmojiInput(view, mData.get(position));
+                    }
+                }
+            });
             return recyclerView;
 
         }
 
 
         public static class EmojiAdapter extends RecyclerView.Adapter<EmojiAdapter.ViewHolder> {
-            private List<Integer> mData;
+            private List<EmojiBean> mData;
             private Context mContext;
 
-            public EmojiAdapter(@NonNull Context context, @NonNull List<Integer> data) {
+            public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+                this.onItemClickListener = onItemClickListener;
+            }
+
+            private OnItemClickListener onItemClickListener;
+
+            public EmojiAdapter(@NonNull Context context, @NonNull List<EmojiBean> data) {
                 this.mContext = context;
                 this.mData = data;
             }
@@ -237,7 +351,15 @@ public class InputMessageDialog extends BaseDialog {
 
             @Override
             public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-                holder.mIvEmoji.setImageResource(mData.get(position));
+                holder.mIvEmoji.setImageResource(mData.get(position).drawableResId);
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onItemClickListener != null) {
+                            onItemClickListener.onClickItem(v, position);
+                        }
+                    }
+                });
             }
 
             @Override
@@ -258,6 +380,10 @@ public class InputMessageDialog extends BaseDialog {
                     itemView.setLayoutParams(layoutParams);
                 }
             }
+        }
+
+        public interface OnEmojiInputListener {
+            void onEmojiInput(View view, @NonNull EmojiBean emojiBean);
         }
     }
 

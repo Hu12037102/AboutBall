@@ -3,12 +3,14 @@ package com.work.guaishouxingqiu.aboutball.util;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
@@ -18,6 +20,7 @@ import androidx.core.content.ContextCompat;
 
 import android.text.Editable;
 import android.text.SpannableString;
+import android.text.TextPaint;
 import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -31,7 +34,9 @@ import android.widget.TextView;
 import com.example.item.util.ScreenUtils;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
+import com.work.guaishouxingqiu.aboutball.base.bean.EmojiBean;
 import com.work.guaishouxingqiu.aboutball.community.adapter.CommunityDataAdapter;
+import com.work.guaishouxingqiu.aboutball.other.EmojiManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
@@ -40,6 +45,8 @@ import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 作者: 胡庆岭
@@ -436,4 +443,61 @@ public class UIUtils {
         et.requestFocus();
         et.requestLayout();
     }
+
+    public static void addEmojiText(@NonNull TextView text, @DrawableRes int drawableRes, @NonNull String key) {
+        if (DataUtils.isEmpty(key)) {
+            key = "  ";
+        }
+        // UIUtils.setText(text, SpanUtils.getTextDrawable(drawableRes, DataUtils.getTextLength(text), content.length() + 1, content));
+        TextPaint textPaint = text.getPaint();
+        Rect rect = new Rect();
+        textPaint.getTextBounds(key, 0, key.length(), rect);
+        Paint.FontMetricsInt fontMetricsInt = textPaint.getFontMetricsInt();
+        int textHeight = Math.abs(fontMetricsInt.leading) + Math.abs(fontMetricsInt.ascent) + Math.abs(fontMetricsInt.descent);
+        //  int textHeight = rect.height();
+        text.append(SpanUtils.getTextDrawable(drawableRes, 0, key.length(), key, textHeight, textHeight));
+    }
+
+    public static int getTextWidth(@NonNull TextView textView) {
+        TextPaint textPaint = textView.getPaint();
+        Paint.FontMetricsInt fontMetricsInt = textPaint.getFontMetricsInt();
+        return Math.abs(fontMetricsInt.leading) + Math.abs(fontMetricsInt.ascent) + Math.abs(fontMetricsInt.descent);
+    }
+
+    public static void setEmojiText(@NonNull TextView textView, String content) {
+        List<String> data = EmojiManger.get().getEmojiKeyData();
+        SpannableString spannableString = new SpannableString(content);
+        for (int i = 0; i < data.size(); i++) {
+            String dataContent = data.get(i);
+            List<Integer> emojiIndexData = getContainsIndexs(content, dataContent);
+            for (int j = 0;j < emojiIndexData.size();j++){
+                EmojiBean bean = EmojiManger.get().getEmoji(dataContent);
+                spannableString = SpanUtils.getTextDrawable(bean.drawableResId, emojiIndexData.get(j), emojiIndexData.get(j) + dataContent.length(), spannableString, getTextWidth(textView), getTextWidth(textView));
+            }
+        }
+        UIUtils.setText(textView, spannableString);
+    }
+
+    /**
+     * 获取表情文字在文本中对应所有的下标
+     * @param content
+     * @param key
+     * @return
+     */
+    private static List<Integer> getContainsIndexs(String content, String key) {
+        List<Integer> data = new ArrayList<>();
+        StringBuffer sb = new StringBuffer(content);
+
+        String replaceContent = "";
+        for (int i = 0; i < key.length(); i++) {
+            replaceContent = replaceContent + "-";
+        }
+        while (sb.toString().contains(key)) {
+            int index = sb.indexOf(key);
+            data.add(index);
+            sb = sb.replace(index, index + key.length(), replaceContent);
+        }
+        return data;
+    }
+
 }

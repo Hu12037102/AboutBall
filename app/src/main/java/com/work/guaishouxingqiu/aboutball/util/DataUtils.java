@@ -64,6 +64,11 @@ public class DataUtils {
         return (data == null || data.size() == 0);
     }
 
+    public static int getTextLength(@NonNull TextView textView) {
+        if (textView == null)
+            return 0;
+        return DataUtils.getTextTrimLength(textView.getText());
+    }
 
     /**
      * 判断数据是存在
@@ -86,7 +91,7 @@ public class DataUtils {
     }
 
 
-    public static int getTextTrimLength(@NonNull String data) {
+    public static int getTextTrimLength(@NonNull CharSequence data) {
         if (!TextUtils.isEmpty(data)) {
             return TextUtils.getTrimmedLength(data);
         }

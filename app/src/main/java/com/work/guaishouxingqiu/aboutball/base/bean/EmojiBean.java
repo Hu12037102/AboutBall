@@ -9,13 +9,18 @@ import androidx.annotation.DrawableRes;
  * 描述:表情符号bean
  */
 public class EmojiBean {
-    public EmojiBean(@DrawableRes Integer drawableResId) {
+
+    public EmojiBean(@DrawableRes Integer drawableResId, int index,String key) {
         this.drawableResId = drawableResId;
+        this.index = index;
+        this.key = key;
     }
 
     public EmojiBean() {
     }
 
     public Integer drawableResId;
+    public int index;
+    public String key;
 
 }

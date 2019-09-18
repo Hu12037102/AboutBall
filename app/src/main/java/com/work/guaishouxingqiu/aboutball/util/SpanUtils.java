@@ -6,10 +6,12 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+
 import android.text.SpannableString;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
@@ -31,6 +33,7 @@ import com.work.guaishouxingqiu.aboutball.R;
  */
 public class SpanUtils {
     public static final int ALIGN_FONTCENTER = -2;
+
     /**
      * 设置textView中部分字体颜色
      *
@@ -59,21 +62,33 @@ public class SpanUtils {
         ss.setSpan(foregroundColorSpan, start, end, SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
         return ss;
     }
-    public static SpannableString getTopText(@ColorRes int textColor,int start,int end,@NonNull String data){
+
+    public static SpannableString getTopText(@ColorRes int textColor, int start, int end, @NonNull String data) {
         SpannableString ss = new SpannableString(data);
         ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(ContextCompat.getColor(UIUtils.getContext(), textColor));
         ss.setSpan(foregroundColorSpan, start, end, SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
         BackgroundColorSpan backgroundColorSpan = new BackgroundColorSpan(R.drawable.shape_stick_view);
-        ss.setSpan(backgroundColorSpan,start, end,SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
+        ss.setSpan(backgroundColorSpan, start, end, SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
         return ss;
     }
-    public static SpannableString getTextDrawable( @DrawableRes int drawableRes, int start, int end, @NonNull CharSequence content){
+
+    public static SpannableString getTextDrawable(@DrawableRes int drawableRes, int start, int end, @NonNull CharSequence content) {
 
         SpannableString ss = new SpannableString(content);
-       // TextAppearanceSpan textAppearanceSpan = new TextAppearanceSpan(UIUtils.getContext(), android.R.style.TextAppearance_Material);
-        CenterImageSpan imageSpan = new CenterImageSpan(UIUtils.getContext(),drawableRes, ALIGN_FONTCENTER);
-       // ss.setSpan(textAppearanceSpan,start,content.length(),SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
-        ss.setSpan(imageSpan,start,end, SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
+        // TextAppearanceSpan textAppearanceSpan = new TextAppearanceSpan(UIUtils.getContext(), android.R.style.TextAppearance_Material);
+        CenterImageSpan imageSpan = new CenterImageSpan(UIUtils.getContext(), drawableRes, ALIGN_FONTCENTER);
+        // ss.setSpan(textAppearanceSpan,start,content.length(),SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
+        ss.setSpan(imageSpan, start, end, SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
+        return ss;
+    }
+
+    public static SpannableString getTextDrawable(@DrawableRes int drawableRes, int start, int end, @NonNull CharSequence content, int drawableWidth, int drawableHeight) {
+
+        SpannableString ss = new SpannableString(content);
+        // TextAppearanceSpan textAppearanceSpan = new TextAppearanceSpan(UIUtils.getContext(), android.R.style.TextAppearance_Material);
+        CenterImageSpan imageSpan = new CenterImageSpan(UIUtils.getContext(), drawableRes, ALIGN_FONTCENTER, drawableWidth, drawableHeight);
+        // ss.setSpan(textAppearanceSpan,start,content.length(),SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
+        ss.setSpan(imageSpan, start, end, SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
         return ss;
     }
 
@@ -86,10 +101,10 @@ public class SpanUtils {
      * @param end
      * @param onClickTextListener
      */
-    public static SpannableString getClickText(@NonNull TextView textView,CharSequence content, @ColorRes int clickTextColor, int start, int end, @NonNull OnClickTextListener onClickTextListener) {
+    public static SpannableString getClickText(@NonNull TextView textView, CharSequence content, @ColorRes int clickTextColor, int start, int end, @NonNull OnClickTextListener onClickTextListener) {
         SpannableString ss = new SpannableString(content);
-        ss.setSpan(new ClickText(onClickTextListener), start, end, SpannableString.SPAN_INCLUSIVE_INCLUSIVE );
-        ss.setSpan(new ForegroundColorSpan(ContextCompat.getColor(textView.getContext(), clickTextColor)), start, end, SpannableString.SPAN_INCLUSIVE_INCLUSIVE );
+        ss.setSpan(new ClickText(onClickTextListener), start, end, SpannableString.SPAN_INCLUSIVE_INCLUSIVE);
+        ss.setSpan(new ForegroundColorSpan(ContextCompat.getColor(textView.getContext(), clickTextColor)), start, end, SpannableString.SPAN_INCLUSIVE_INCLUSIVE);
         //不设置 没有点击事件
         textView.setMovementMethod(LinkMovementMethod.getInstance());
         //设置点击背景是透明色
@@ -122,7 +137,9 @@ public class SpanUtils {
     public interface OnClickTextListener {
         void onClick(View view);
     }
-    static class CenterImageSpan extends ImageSpan{
+
+    static class CenterImageSpan extends ImageSpan {
+        private int mDrawableWidth, mDrawableHeight;
 
         public CenterImageSpan(Context context, int resourceId) {
             super(context, resourceId);
@@ -130,6 +147,12 @@ public class SpanUtils {
 
         public CenterImageSpan(Context context, int resourceId, int verticalAlignment) {
             super(context, resourceId, verticalAlignment);
+        }
+
+        public CenterImageSpan(Context context, int resourceId, int verticalAlignment, int drawableWidth, int drawableHeight) {
+            super(context, resourceId, verticalAlignment);
+            this.mDrawableWidth = drawableWidth;
+            this.mDrawableHeight = drawableHeight;
         }
 
         @Override
@@ -159,6 +182,7 @@ public class SpanUtils {
             drawable.draw(canvas);
             canvas.restore();
         }
+
         @Override
         public int getSize(Paint paint, CharSequence text, int start, int end, Paint.FontMetricsInt fm) {
             Drawable d = getDrawable();
@@ -177,6 +201,15 @@ public class SpanUtils {
                 fm.descent = top;
             }
             return rect.right;
+        }
+
+        @Override
+        public Drawable getDrawable() {
+            Drawable drawable = super.getDrawable();
+            if (mDrawableHeight > 0 && mDrawableWidth > 0) {
+                drawable.setBounds(0, 0, mDrawableWidth, mDrawableHeight);
+            }
+            return drawable;
         }
 
     }

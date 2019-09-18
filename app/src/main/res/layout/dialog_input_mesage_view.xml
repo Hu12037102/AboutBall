@@ -11,7 +11,7 @@
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/aet_message"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/size_70dp"
+        android:layout_height="@dimen/size_80dp"
         android:layout_marginLeft="@dimen/default_margin"
         android:layout_marginRight="@dimen/default_margin"
         android:background="@drawable/shape_send_message_six_radius_view"
@@ -73,7 +73,7 @@
         app:layout_constraintTop_toBottomOf="@id/cb_emoji"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:visibility="visible"
+        android:visibility="gone"
         android:background="@color/colorWhite">
 
         <com.work.guaishouxingqiu.aboutball.weight.WarpViewPager
@@ -89,9 +89,11 @@
         <RadioGroup
             android:id="@+id/rg_parent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginBottom="@dimen/default_margin"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            android:orientation="horizontal"
+            android:gravity="center"
+           app:layout_constraintTop_toBottomOf="@id/bvp_content" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

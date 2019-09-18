@@ -11,6 +11,7 @@ import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultNewsMessageBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
+import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import java.util.List;
 
@@ -34,7 +35,8 @@ public class NewsMessageAdapter extends BaseRecyclerAdapter<NewsMessageAdapter.V
         GlideManger.get().loadImage(viewHolder.itemView.getContext(), bean.imageUrl, viewHolder.mCivHead);
         viewHolder.mTvName.setText(bean.nickName);
         viewHolder.mTvTime.setText(bean.commentTime);
-        viewHolder.mTvContent.setText(bean.commentContent);
+        //viewHolder.mTvContent.setText(bean.commentContent);
+        UIUtils.setEmojiText( viewHolder.mTvContent,bean.commentContent);
 
     }
 

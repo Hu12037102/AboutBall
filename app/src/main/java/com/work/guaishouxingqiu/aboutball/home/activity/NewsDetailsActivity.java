@@ -95,6 +95,7 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
     private boolean mIsVideoViewFocus;
     private Handler mVideoHandler;
     private boolean mVideoPrepared;//是否准备就绪
+    private InputMessageDialog mSendMessageDialog;
 
     @Override
     protected int getLayoutId() {
@@ -196,14 +197,14 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
             case R.id.tv_input_message:
                 DataUtils.addSellingPoint(this, SellingPointsEvent.Key.A010201);
 
-                InputMessageDialog sendMessageDialog = new InputMessageDialog(this);
-                    sendMessageDialog.setOnInputMessageListener(text -> {
-                        RequestSendMessageBean bean = new RequestSendMessageBean();
-                        bean.newsId = mNewsId;
-                        bean.commentContent = text;
-                        mPresenter.sendNewsMessage(bean);
-                    });
-                sendMessageDialog.show();
+                mSendMessageDialog = new InputMessageDialog(this);
+                mSendMessageDialog.setOnInputMessageListener(text -> {
+                    RequestSendMessageBean bean = new RequestSendMessageBean();
+                    bean.newsId = mNewsId;
+                    bean.commentContent = text;
+                    mPresenter.sendNewsMessage(bean);
+                });
+                mSendMessageDialog.show();
                 break;
         }
     }
@@ -388,6 +389,9 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
     public void resultSendNewsMessage() {
         mPresenter.isRefresh = true;
         mPresenter.loadMessage(mNewsId);
+        if (mSendMessageDialog != null && mSendMessageDialog.isShowing()) {
+            mSendMessageDialog.dismiss();
+        }
 
     }
 
