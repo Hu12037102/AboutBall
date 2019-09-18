@@ -103,16 +103,6 @@ public class InputMessageDialog extends BaseDialog {
         LogUtils.w("getCount---", emojiData.size()+"--");
         mPagerAdapter = new EmojiPagerAdapter(getContext(), emojiData);
         mBvpContent.setAdapter(mPagerAdapter);
-         /* ViewGroup.LayoutParams pagerParams = mBvpContent.getLayoutParams();
-        pagerParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        pagerParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        mBvpContent.setLayoutParams(pagerParams);
-      mBvpContent.post(new Runnable() {
-            @Override
-            public void run() {
-                LogUtils.w("mBvpContent--", mBvpContent.getMeasuredHeight() + "--");
-            }
-        });*/
         for (int i = 0; i < mPagerAdapter.getCount(); i++) {
             RadioButton radioButton = new RadioButton(getContext());
             radioButton.setId(i);
@@ -219,7 +209,7 @@ public class InputMessageDialog extends BaseDialog {
         });
         mPagerAdapter.setOnEmojiInputListener(new EmojiPagerAdapter.OnEmojiInputListener() {
             @Override
-            public void onEmojiInput(View view, EmojiBean emojiBean) {
+            public void onEmojiInput(View view,@NonNull EmojiBean emojiBean) {
                 UIUtils.addEmojiText(mAcetMessage, emojiBean.drawableResId, emojiBean.key);
                 if (mAcetMessage.isFocusable()) {
                     mAcetMessage.setSelection(DataUtils.getTextLength(mAcetMessage));

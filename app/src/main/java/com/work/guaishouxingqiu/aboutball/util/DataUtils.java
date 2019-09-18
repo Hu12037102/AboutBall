@@ -541,4 +541,25 @@ public class DataUtils {
     public static void addSellingPoint(Context context, String key) {
         TencentBuriedPoint.defaultBuriedPoint(context, key);
     }
+    /**
+     * 获取表情文字在文本中对应所有的下标
+     * @param content
+     * @param key
+     * @return
+     */
+    public static List<Integer> getContainsIndexs(String content, String key) {
+        List<Integer> data = new ArrayList<>();
+        StringBuffer sb = new StringBuffer(content);
+
+        String replaceContent = "";
+        for (int i = 0; i < key.length(); i++) {
+            replaceContent = replaceContent + "-";
+        }
+        while (sb.toString().contains(key)) {
+            int index = sb.indexOf(key);
+            data.add(index);
+            sb = sb.replace(index, index + key.length(), replaceContent);
+        }
+        return data;
+    }
 }

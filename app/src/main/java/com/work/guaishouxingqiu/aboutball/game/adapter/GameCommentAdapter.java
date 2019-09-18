@@ -13,6 +13,7 @@ import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.game.bean.ResultGameCommentBean;
 import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
+import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import java.util.List;
 
@@ -36,7 +37,9 @@ public class GameCommentAdapter extends BaseRecyclerAdapter<GameCommentAdapter.V
         ResultGameCommentBean bean = mData.get(i);
         if (bean.nickName != null) {
             String data = bean.nickName.concat(": ").concat(bean.commentContent);
-            viewHolder.mTvContent.setText(SpanUtils.getTextColor(R.color.colorFFA6A6A6, 0, bean.nickName.length() + 1, data));
+          //  viewHolder.mTvContent.setText(SpanUtils.getTextColor(R.color.colorFFA6A6A6, 0, bean.nickName.length() + 1, data));
+            UIUtils.setText(viewHolder.mTvContent,SpanUtils.getTextColor(R.color.colorFFA6A6A6, 0, bean.nickName.length() + 1,
+                    UIUtils.getEmojiSpannable(viewHolder.mTvContent,data)));
         }
         ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) viewHolder.mTvContent.getLayoutParams();
         if (i == 0) {

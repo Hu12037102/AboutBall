@@ -55,14 +55,9 @@ public final class EmojiManger {
             int resId = context.getResources().getIdentifier("emoji_" + (i + 1), "drawable", context.getPackageName());
             EmojiBean bean = new EmojiBean(resId, i, mEmojiData.get(i));
             emojiMap.put(mEmojiData.get(i), bean);
-            Log.w("EmojiManger--", (R.drawable.emoji_1 == resId) + "--" + mEmojiData.size() + "--" + i);
+           // Log.w("EmojiManger--", (R.drawable.emoji_1 == resId) + "--" + mEmojiData.size() + "--" + i);
         }
     }
-
-    public List<String> getEmojiKeyData() {
-        return mEmojiData;
-    }
-
     public List<EmojiBean> getAllDrawable() {
         List<EmojiBean> data = new ArrayList<>();
         Log.w("EmojiManger---", mSoftMap.get() + "--");
@@ -77,6 +72,14 @@ public final class EmojiManger {
         }
         return data;
     }
+
+
+
+    public List<String> getEmojiKeyData() {
+        return mEmojiData;
+    }
+
+
 
     public EmojiBean getEmoji(@NonNull String key) {
         if (mSoftMap == null || mSoftMap.get() == null) {

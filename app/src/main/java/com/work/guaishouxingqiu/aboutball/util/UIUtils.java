@@ -464,12 +464,16 @@ public class UIUtils {
         return Math.abs(fontMetricsInt.leading) + Math.abs(fontMetricsInt.ascent) + Math.abs(fontMetricsInt.descent);
     }
 
+    /**表情图文显示
+     * @param textView
+     * @param content
+     */
     public static void setEmojiText(@NonNull TextView textView, String content) {
         List<String> data = EmojiManger.get().getEmojiKeyData();
         SpannableString spannableString = new SpannableString(content);
         for (int i = 0; i < data.size(); i++) {
             String dataContent = data.get(i);
-            List<Integer> emojiIndexData = getContainsIndexs(content, dataContent);
+            List<Integer> emojiIndexData = DataUtils.getContainsIndexs(content, dataContent);
             for (int j = 0;j < emojiIndexData.size();j++){
                 EmojiBean bean = EmojiManger.get().getEmoji(dataContent);
                 spannableString = SpanUtils.getTextDrawable(bean.drawableResId, emojiIndexData.get(j), emojiIndexData.get(j) + dataContent.length(), spannableString, getTextWidth(textView), getTextWidth(textView));
@@ -477,27 +481,20 @@ public class UIUtils {
         }
         UIUtils.setText(textView, spannableString);
     }
-
-    /**
-     * 获取表情文字在文本中对应所有的下标
-     * @param content
-     * @param key
-     * @return
-     */
-    private static List<Integer> getContainsIndexs(String content, String key) {
-        List<Integer> data = new ArrayList<>();
-        StringBuffer sb = new StringBuffer(content);
-
-        String replaceContent = "";
-        for (int i = 0; i < key.length(); i++) {
-            replaceContent = replaceContent + "-";
+    public static SpannableString getEmojiSpannable(@NonNull TextView textView, String content) {
+        List<String> data = EmojiManger.get().getEmojiKeyData();
+        SpannableString spannableString = new SpannableString(content);
+        for (int i = 0; i < data.size(); i++) {
+            String dataContent = data.get(i);
+            List<Integer> emojiIndexData = DataUtils.getContainsIndexs(content, dataContent);
+            for (int j = 0;j < emojiIndexData.size();j++){
+                EmojiBean bean = EmojiManger.get().getEmoji(dataContent);
+                spannableString = SpanUtils.getTextDrawable(bean.drawableResId, emojiIndexData.get(j), emojiIndexData.get(j) + dataContent.length(), spannableString, getTextWidth(textView), getTextWidth(textView));
+            }
         }
-        while (sb.toString().contains(key)) {
-            int index = sb.indexOf(key);
-            data.add(index);
-            sb = sb.replace(index, index + key.length(), replaceContent);
-        }
-        return data;
+       return spannableString;
     }
+
+
 
 }
