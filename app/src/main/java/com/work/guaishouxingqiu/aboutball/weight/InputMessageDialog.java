@@ -213,18 +213,23 @@ public class InputMessageDialog extends BaseDialog {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 //  mLlDeleteEmoji.setVisibility(View.GONE);
+                LogUtils.w("addOnPageChangeListener-", position + "--" + positionOffset + "--" + positionOffsetPixels);
             }
 
             @Override
             public void onPageSelected(int position) {
-                //  mLlDeleteEmoji.setVisibility(View.VISIBLE);
                 RadioButton radioButton = (RadioButton) mRgParent.getChildAt(position);
                 radioButton.setChecked(true);
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
+                if (state == 0){
+                    mLlDeleteEmoji.setVisibility(View.VISIBLE);
+                }else {
+                    mLlDeleteEmoji.setVisibility(View.GONE);
+                }
+                LogUtils.w("addOnPageChangeListener---", state + "--");
             }
         });
         mPagerAdapter.setOnEmojiInputListener(new EmojiPagerAdapter.OnEmojiInputListener() {

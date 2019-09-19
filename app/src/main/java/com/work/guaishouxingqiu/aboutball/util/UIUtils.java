@@ -514,12 +514,18 @@ public class UIUtils {
         Editable editable = editText.getText();
         List<String> data = EmojiManger.get().getEmojiKeyData();
         for (String dataContent : data) {
-            if (editContent.contains(dataContent) && editContent.endsWith(dataContent)) {
+            if (editContent.endsWith(dataContent) || editContent.equals(dataContent)) {
                 editable.delete(editable.length() - dataContent.length(), editable.length());
                 return;
             }
         }
-        editable.delete(editable.length() - 1, editable.length());
+        if (DataUtils.containsEmoji(editContent.substring(editable.length() - 1, editable.length()))
+                && editContent.length() >= 2) {
+            editable.delete(editable.length() - 2, editable.length());
+        } else {
+            editable.delete(editable.length() - 1, editable.length());
+        }
+
     }
 
 
