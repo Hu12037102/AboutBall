@@ -23,6 +23,7 @@ import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.bean.ResultSureOrderDialogBean;
+import com.work.guaishouxingqiu.aboutball.commonality.activity.WebUrlActivity;
 import com.work.guaishouxingqiu.aboutball.commonality.bean.ShareWebBean;
 import com.work.guaishouxingqiu.aboutball.community.activity.CommunityDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.community.activity.MyDynamicActivity;
@@ -274,6 +275,28 @@ public class ViewModel {
             ARouterIntent.startActivityForResult(fragment, LoginActivity.class, LoginActivity.REQUEST_CODE_LOGIN);
             mNotLoginDialog.dismiss();
         });
+    }
+
+    public void checkOutLogin(@Nullable Fragment fragment) {
+        if (!UserManger.get().isLogin()) {
+            if (fragment == null) {
+                showLoginDialog();
+            } else {
+                showLoginDialog(fragment);
+            }
+        }
+    }
+
+    public boolean isCheckOutLogin(@Nullable Fragment fragment) {
+        boolean isLogin = UserManger.get().isLogin();
+        if (!isLogin) {
+            if (fragment == null) {
+                showLoginDialog();
+            } else {
+                showLoginDialog(fragment);
+            }
+        }
+        return isLogin;
     }
 
     public void startActivityToOrderPay(long orderId, int flag) {
@@ -841,6 +864,14 @@ public class ViewModel {
             }
         }
         return 0;
+    }
+
+    public void startWebUrlActivityForResult(@Nullable Fragment fragment, String url) {
+        if (fragment == null) {
+            ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_WEB_URL, mSoftActivity.get(), WebUrlActivity.REQUEST_CODE, ARouterConfig.Key.WEB_URL, url);
+        } else {
+            ARouterIntent.startActivityForResult(fragment, WebUrlActivity.class, ARouterConfig.Key.WEB_URL, url, WebUrlActivity.REQUEST_CODE);
+        }
     }
    /* private void showPayDialog(double price,@NonNull PayDialog.OnPayDialogClickListener listener){
         if (mPayDialog == null) {

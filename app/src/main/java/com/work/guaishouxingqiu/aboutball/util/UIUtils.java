@@ -519,7 +519,7 @@ public class UIUtils {
                 return;
             }
         }
-        if (DataUtils.containsEmoji(editContent.substring(editable.length() - 1, editable.length()))
+        if (DataUtils.containsEmoji(editContent.substring(editContent.length() - 1))
                 && editContent.length() >= 2) {
             editable.delete(editable.length() - 2, editable.length());
         } else {

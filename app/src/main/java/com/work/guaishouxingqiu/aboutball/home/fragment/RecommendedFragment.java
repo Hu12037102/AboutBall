@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -33,6 +34,7 @@ import com.work.guaishouxingqiu.aboutball.home.bean.ResultRecommendDataBean;
 import com.work.guaishouxingqiu.aboutball.home.contract.RecommendedContract;
 import com.work.guaishouxingqiu.aboutball.home.presenter.RecommendedPresenter;
 import com.work.guaishouxingqiu.aboutball.other.SellingPointsEvent;
+import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
@@ -64,6 +66,8 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
     RecyclerView mRvRecommend;
     @BindView(R.id.srl_recommend)
     SmartRefreshLayout mSrlRecommend;
+    @BindView(R.id.iv_activities)
+    ImageView mIvActivities;
     public RecommendedAdapter mRecommendAdapter;
     private List<ResultNewsBean> mRecommendData;
     private View mInflateHead;
@@ -225,6 +229,14 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
 
             }
         });
+        mIvActivities.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mViewModel.isCheckOutLogin(RecommendedFragment.this)){
+                    mViewModel.startWebUrlActivityForResult(RecommendedFragment.this,mResultHeadBean.activity.activityUrl);
+                }
+            }
+        });
 
     }
 
@@ -305,6 +317,11 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
                     LogUtils.w("mHeadGameAdapter--", bean.result.match.get(position).matchId + "---");
                     ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_GAME_DETAILS, ARouterConfig.Key.GAME_ID, (int) bean.result.match.get(position).matchId);
                 });
+            }
+            if (bean.result.activity!=null && bean.result.activity.status ==0){
+                mIvActivities.setVisibility(View.VISIBLE);
+            }else {
+                mIvActivities.setVisibility(View.GONE);
             }
         }
         mPresenter.loadData(mTypeId);

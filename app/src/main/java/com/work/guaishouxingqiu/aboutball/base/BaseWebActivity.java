@@ -1,7 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.base;
 
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
+import androidx.annotation.NonNull;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,9 @@ import com.example.item.util.ScreenUtils;
 import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.commonality.activity.LoginOrShareActivity;
 import com.work.guaishouxingqiu.aboutball.commonality.presenter.LoginOrSharePresenter;
+import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.other.WebHelp;
+import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 
@@ -33,13 +34,14 @@ public abstract class BaseWebActivity<P extends LoginOrSharePresenter> extends L
     private WebView mWebView;
     private ProgressBar mPbLoading;
     private TitleView mTitleView;
-
+    protected String mWebUrl;
 
     @Override
     protected void initView() {
         initWebView();
         mPbLoading = getProgressBar();
         mTitleView = getTitleView();
+        mWebUrl = mIntent.getStringExtra(ARouterConfig.Key.WEB_URL);
     }
 
     protected void initWebView() {
@@ -104,6 +106,16 @@ public abstract class BaseWebActivity<P extends LoginOrSharePresenter> extends L
         //视频宽度自适应
         content = content.replace("<video", "<video style=max-width:100%;height:auto");
         mWebView.loadDataWithBaseURL(null, content, "text/html", "utf-8", null);
+    }
+
+    protected void loadUrl(@NonNull String url) {
+        mWebView.loadUrl(DataUtils.checkData(url));
+    }
+
+    protected void loadAddTokenUrl(@NonNull String url) {
+        url = DataUtils.checkData(url) + (UserManger.get().isLogin() ?
+                "?token=" + UserManger.get().getToken() : "");
+        mWebView.loadUrl(url);
     }
 
 

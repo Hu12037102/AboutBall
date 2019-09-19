@@ -77,6 +77,9 @@ public class ARouterIntent {
     public static void startActivityForResult(@NonNull String path, @NonNull Activity activity, int requestCode, @NonNull String key, boolean values) {
         ARouter.getInstance().build(path).withBoolean(key, values).navigation(activity, requestCode);
     }
+    public static void startActivityForResult(@NonNull String path, @NonNull Activity activity, int requestCode, @NonNull String key, String values) {
+        ARouter.getInstance().build(path).withString(key, values).navigation(activity, requestCode);
+    }
 
     public static void startActivityForResult(@NonNull String path, @NonNull Activity activity, int requestCode, @NonNull String key, int values) {
         ARouter.getInstance().build(path).withInt(key, values).navigation(activity, requestCode);
@@ -152,6 +155,11 @@ public class ARouterIntent {
         Intent intent = new Intent(fragment.getContext(), clazz);
         intent.putExtra(key, parcelable);
         fragment.startActivityForResult(intent, REQUEST_CODE);
+    }
+    public static void startActivityForResult(@NonNull Fragment fragment, Class clazz, String key, String  values,int requestCode) {
+        Intent intent = new Intent(fragment.getContext(), clazz);
+        intent.putExtra(key, values);
+        fragment.startActivityForResult(intent, requestCode);
     }
 
     public static void startActivityForResult(@NonNull Fragment fragment, Class clazz, String key, Parcelable parcelable, int requestCode) {

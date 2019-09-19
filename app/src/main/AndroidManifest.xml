@@ -372,6 +372,9 @@
         <activity
             android:name=".home.activity.TicketMallActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".commonality.activity.WebUrlActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="5c773884b465f59b44000a29"

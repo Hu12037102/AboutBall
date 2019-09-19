@@ -85,6 +85,7 @@ public interface ARouterConfig {
         String ACTIVITY_MY_TICKETS = "/activity/my/tickets";
         String ACTIVITY_SURE_ORDER = "/activity/sure/order";
         String ACTIVITY_ORDER_DETAILS = "/activity/order/details";
+        String ACTIVITY_WEB_URL="/activity/web/url";
 
 
         String FRAGMENT_GAME = "/fragment/game";
@@ -192,6 +193,7 @@ public interface ARouterConfig {
         String HAS_CAMERA_MEDIA = "hasImage";
         String ATTENTION_AND_FANS = "attentionAndFans";
         String USER_ID = "userId";
+        String WEB_URL="webUrl";
     }
 
 }

@@ -11,10 +11,11 @@ import java.util.List;
 public class ResultRecommendDataBean {
     public List<Banner> banner;
     public List<Match> match;
-    public List<Stadium>stadium;
+    public List<Stadium> stadium;
     public List<AgreeBallMatch> agreeBallMatch;
+    public Activity activity;
 
-    public static class  Banner{
+    public static class Banner {
         public long newsId;
         public String title;
         public String coverUrl;
@@ -22,11 +23,12 @@ public class ResultRecommendDataBean {
         public String onTop;
         public String commentCount;
     }
-    public static class Match{
+
+    public static class Match {
         public String matchName;
         public String gameName;
         public int matchId;
-        public  int  typeId;
+        public int typeId;
         public String hostName;
         public String hostLogoUrl;
         public int hostScore;
@@ -41,13 +43,15 @@ public class ResultRecommendDataBean {
         public String livePhoto;
         public String liveType;
     }
-    public static class Stadium{
+
+    public static class Stadium {
         public int stadiumId;
         public String stadiumName;
         public String distance;
         public String photoUrl;
     }
-    public static class AgreeBallMatch{
+
+    public static class AgreeBallMatch {
         public long agreeId;
         public String stadiumName;
         public String startTime;
@@ -57,5 +61,10 @@ public class ResultRecommendDataBean {
         public String hostTeamName;
         public int hasOpponent;
         public int hasReferee;
+    }
+
+    public static class Activity {
+        public String activityUrl;
+        public int status;//0:隐藏；1：显示
     }
 }
