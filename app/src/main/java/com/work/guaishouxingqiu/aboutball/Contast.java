@@ -8,9 +8,10 @@ package com.work.guaishouxingqiu.aboutball;
  */
 public interface Contast {
 
-    interface Channel{
-        String MY_STORE="mystore";
+    interface Channel {
+        String MY_STORE = "mystore";
     }
+
     String SPLIT_IMAGE = ",";
     //手机号码验证正则
     // public static final String REGEX_PHONE_NUMBER = "^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\\\D])|(18[0,5-9]))\\\\d{8}$";
@@ -33,7 +34,7 @@ public interface Contast {
     String LATITUDE = "latitude";
     String PAGE_NUM = "pageNum";
     String PAGE_SIZE = "pageSize";
-    String EXCHANGE="exchange";
+    String EXCHANGE = "exchange";
     String OFFICIAL = "official";
     String DATE = "date";
     String TYPE_ID = "typeId";
@@ -50,13 +51,14 @@ public interface Contast {
     String VERSION = "version";
     String ANDROID = "android";
     String KEYWORD = "keyword";
-    String SKU_ID="spuId";
-    String SPU_ID="spuId";
-    String PARAMS="params";
-    String NUM="num";
-    String SPU_CATEGORY_ID="spuCategoryId";
+    String SKU_ID = "spuId";
+    String SPU_ID = "spuId";
+    String PARAMS = "params";
+    String NUM = "num";
+    String SPU_CATEGORY_ID = "spuCategoryId";
     String ACTION_ID = "actionId";
     String STATS = "state";
+    String STATUS = "status";
     String STADIUM_ID = "stadiumId";
     String AREA_ID = "areaId";
     String ORDER_ID = "orderId";
@@ -152,8 +154,8 @@ public interface Contast {
         String WEI_CHAT_BUSINESS_ID = "1524077161";//微信支付商户ID
         String Bugtag_ID = "96481d2c6099fa3e827b8c04d036d566";
         String UMENG_ID = "5c773884b465f59b44000a29";
-        String TENCENT_SELLING_POINTS_ID="3104087912";
-        String TENCENT_SELLING_POINTS_KEY="A5EG8UD35GVB";
+        String TENCENT_SELLING_POINTS_ID = "3104087912";
+        String TENCENT_SELLING_POINTS_KEY = "A5EG8UD35GVB";
         //String TENCENT_SELLING_POINTS_KEY="AGV52KUZ87BK";
 
     }
@@ -238,6 +240,16 @@ public interface Contast {
         int ABOUT_BALL_ORDER = 1;//约球-创建、编辑约球订单
         int WAIT_NOT_ABOUT_BALL_ORDER = 2;//未完成约球订单约球
 
+    }
+
+    interface MyGoodStatus {
+        int ALL = 0; //全部订单
+        int WAIT_PAY = 1;//待支付
+        int PAYING = 2;//已付款
+        int COMPLETE = 4;//已完成
+        int CANCEL = 5;//已取消
+        int REFUNDING = 8;//退款中
+        int REFUNDED = 9;//已退款
     }
 
 }

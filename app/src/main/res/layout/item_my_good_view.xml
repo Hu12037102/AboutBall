@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_5dp"
+        android:background="@color/colorDefaultLayout" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_details"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_120dp"
+        android:background="?android:selectableItemBackground">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/riv_content"
+            android:layout_width="106dp"
+            android:layout_height="@dimen/size_80dp"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_corner_radius="@dimen/size_6dp"
+            tools:src="@mipmap/icon_default_banner" />
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/default_margin"
+            android:textColor="@color/color_2"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/riv_content"
+            tools:text="待付款" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginRight="@dimen/default_margin"
+            android:lineSpacingExtra="@dimen/size_5dp"
+            android:maxLines="2"
+            android:textColor="@color/color_4"
+            app:layout_constraintLeft_toRightOf="@id/riv_content"
+            app:layout_constraintRight_toLeftOf="@id/tv_status"
+            app:layout_constraintTop_toTopOf="@id/riv_content"
+            tools:text="五华县田家炳中学运动会" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        style="@style/HorizontalLine" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_45dp"
+        android:gravity="center_vertical|right"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_operation"
+            android:layout_width="@dimen/size_90dp"
+            android:layout_height="@dimen/size_25dp"
+            android:layout_marginRight="@dimen/default_margin"
+            android:background="@drawable/shape_black_line_view"
+            android:gravity="center"
+            tools:text="申请退款" />
+    </LinearLayout>
+
+    <include
+        android:id="@+id/include_foot"
+        layout="@layout/item_not_more"
+        android:visibility="gone" />
+
+</LinearLayout>

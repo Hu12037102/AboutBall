@@ -16,6 +16,10 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.item.util.ScreenUtils;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.tencent.stat.StatService;
 import com.umeng.analytics.MobclickAgent;
 import com.work.guaishouxingqiu.aboutball.Contast;
@@ -75,6 +79,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends LocationActi
     private LoadingView mLoadingView;
     protected Intent mIntent;
     protected boolean mIsCompressVideoing;
+    private SmartRefreshLayout mRefreshLayout;
 
 
     @Override
@@ -153,6 +158,46 @@ public abstract class BaseActivity<P extends BasePresenter> extends LocationActi
         initView();
         initData();
         initEvent();
+        initOther();
+    }
+
+    protected void initOther() {
+        mRefreshLayout = getRefreshLayout();
+        if (mRefreshLayout != null) {
+            mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+                @Override
+                public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                    loadRefreshData(true);
+                }
+            });
+            mRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+                @Override
+                public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                    loadRefreshData(false);
+                }
+
+                @Override
+                public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                    loadRefreshData(true);
+                }
+            });
+        }
+
+    }
+
+    protected void loadRefreshData(boolean isRefresh) {
+        mPresenter.isRefresh = isRefresh;
+        if (mRefreshLayout != null) {
+            if (isRefresh) {
+                mRefreshLayout.finishRefresh();
+            } else {
+                mRefreshLayout.finishLoadMore();
+            }
+        }
+    }
+
+    protected SmartRefreshLayout getRefreshLayout() {
+        return mRefreshLayout;
     }
 
     protected abstract int getLayoutId();

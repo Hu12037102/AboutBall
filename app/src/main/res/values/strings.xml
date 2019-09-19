@@ -410,6 +410,7 @@
     <string name="order_item_address_host" translatable="false">预定场地：</string>
     <string name="order_item_price_host" translatable="false">总价：</string>
     <string name="order_item_pay_time_host" translatable="false">支付剩余时间：</string>
+    <string name="wait_pay" translatable="false">待支付</string>
     <string name="s_s" translatable="false">%s%s</string>
     <string name="go_pay" translatable="false">去支付</string>
     <string name="sure_user" translatable="false">确认使用</string>

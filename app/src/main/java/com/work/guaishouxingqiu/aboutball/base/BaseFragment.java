@@ -11,6 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.work.guaishouxingqiu.aboutball.base.bean.OSSToken;
 import com.work.guaishouxingqiu.aboutball.base.bean.ResultSureOrderDialogBean;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
@@ -53,6 +57,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
     protected Bundle mBundle;
     protected Context mContext;
     protected ViewModel mViewModel;
+    private SmartRefreshLayout mRefreshLayout;
 
     protected abstract int getLayoutId();
 
@@ -106,6 +111,35 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
         initView();
         initData();
         initEvent();
+        initOther();
+    }
+
+    protected void initOther() {
+        mRefreshLayout = getRefreshLayout();
+        if (mRefreshLayout != null) {
+            mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+                @Override
+                public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                    loadRefreshData(true);
+                }
+            });
+            mRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+                @Override
+                public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                    loadRefreshData(false);
+                }
+
+                @Override
+                public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                    loadRefreshData(true);
+                }
+            });
+        }
+
+    }
+
+    protected SmartRefreshLayout getRefreshLayout() {
+        return mRefreshLayout;
     }
 
     @Override
@@ -127,6 +161,18 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
     public void showToast(@NonNull String text) {
         Toasts.with().showToast(text);
     }
+
+    protected void loadRefreshData(boolean isRefresh) {
+        mPresenter.isRefresh = isRefresh;
+        if (mRefreshLayout != null) {
+            if (isRefresh) {
+                mRefreshLayout.finishRefresh();
+            } else {
+                mRefreshLayout.finishLoadMore();
+            }
+        }
+    }
+
 
     @Override
     public void onDestroyView() {
@@ -253,18 +299,22 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
     public void resultCreateBallOrderId(String orderId) {
 
     }
+
     @Override
     public void resultNotBookData(List<ResultNotBookBean> data) {
 
     }
+
     @Override
     public void resultSettingPasswordSucceed(String token) {
 
     }
+
     @Override
     public void resultCanUserVenueList(List<ResultVenueData> data) {
 
     }
+
     @Override
     public void resultSureOrderDialog(BaseBean<ResultSureOrderDialogBean> bean) {
 

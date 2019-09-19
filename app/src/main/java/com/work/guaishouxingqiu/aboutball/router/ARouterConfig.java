@@ -86,7 +86,8 @@ public interface ARouterConfig {
         String ACTIVITY_SURE_ORDER = "/activity/sure/order";
         String ACTIVITY_ORDER_DETAILS = "/activity/order/details";
         String ACTIVITY_WEB_URL="/activity/web/url";
-
+        String ACTIVITY_MY_GOOD ="/my/good/activity";
+        String FRAGMENT_MY_GOOD="/my/good/fragment";
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";
@@ -194,6 +195,7 @@ public interface ARouterConfig {
         String ATTENTION_AND_FANS = "attentionAndFans";
         String USER_ID = "userId";
         String WEB_URL="webUrl";
+        String GOOD_STATUS="goodStatus";
     }
 
 }

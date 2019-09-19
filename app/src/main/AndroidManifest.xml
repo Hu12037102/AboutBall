@@ -424,6 +424,9 @@
         <activity
             android:name=".order.activity.OrderDetailsActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".order.activity.MyGoodActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 

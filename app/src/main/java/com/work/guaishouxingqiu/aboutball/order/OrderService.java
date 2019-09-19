@@ -4,7 +4,10 @@ import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.bean.RequestSureOrderBean;
+import com.work.guaishouxingqiu.aboutball.order.bean.ResultMyGoodBean;
 import com.work.guaishouxingqiu.aboutball.order.bean.ResultOrderDetailsBean;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -23,4 +26,9 @@ public interface OrderService {
     Observable<BaseBean<ResultOrderDetailsBean>> loadOrderDetails(@Query(Contast.SPU_ID) long souId,
                                                                   @Query(Contast.PARAMS) String params,
                                                                   @Query(Contast.NUM) int num);
+
+    @GET(IApiService.GET_MY_GOOD_LIST)
+    Observable<BaseBean<List<ResultMyGoodBean>>> loadMyGoodList(@Query(Contast.PAGE_NUM) int num,
+                                                                @Query(Contast.PAGE_SIZE) int pagerSize,
+                                                                @Query(Contast.STATUS) int status);
 }

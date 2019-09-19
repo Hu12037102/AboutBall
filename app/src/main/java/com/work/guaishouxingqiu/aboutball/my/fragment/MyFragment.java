@@ -142,7 +142,8 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
             public void onClickItem(View view) {
                 //Toasts.with().showToast(R.string.pleases_next_open);
                 DataUtils.addSellingPoint(mContext, SellingPointsEvent.Key.A0503);
-                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_ORDER);
+               // ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_ORDER);
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_GOOD);
             }
         });
         mItemTeam.setOnItemClickListener(new ItemView.OnItemClickListener() {

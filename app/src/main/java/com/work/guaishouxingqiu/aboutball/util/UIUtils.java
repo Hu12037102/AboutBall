@@ -364,6 +364,48 @@ public class UIUtils {
         textView.setText(DataUtils.isEmpty(content) ? UIUtils.getString(resContent) : content);
     }
 
+    public static void setGoodStatusText(@NonNull TextView textView,TextView operationTextView, int status) {
+        UIUtils.setTextColor(textView,R.color.color_2);
+       ViewGroup viewGroup = (ViewGroup) operationTextView.getParent();
+        viewGroup.setVisibility(View.GONE);
+        switch (status) {
+            //待支付
+            case Contast.MyGoodStatus.WAIT_PAY:
+                UIUtils.setText(textView,R.string.wait_pay);
+                UIUtils.setText(operationTextView,R.string.go_pay);
+                viewGroup.setVisibility(View.VISIBLE);
+                break;
+            //已付款
+            case Contast.MyGoodStatus.PAYING:
+                UIUtils.setText(textView,"已付款");
+                UIUtils.setText(operationTextView,R.string.application_for_drawback);
+                viewGroup.setVisibility(View.VISIBLE);
+                break;
+            //已完成
+            case Contast.MyGoodStatus.COMPLETE:
+                UIUtils.setText(textView,"已完成");
+                break;
+            //已取消
+            case Contast.MyGoodStatus.CANCEL:
+                UIUtils.setTextColor(textView,R.color.colorFFA6A6A6);
+                UIUtils.setText(textView,"已取消");
+                break;
+            //退款中
+            case Contast.MyGoodStatus.REFUNDING:
+                UIUtils.setText(textView,"退款中");
+                UIUtils.setText(operationTextView,R.string.refund_schedule);
+                viewGroup.setVisibility(View.VISIBLE);
+                break;
+            //已退款
+            case Contast.MyGoodStatus.REFUNDED:
+                UIUtils.setText(textView,"已退款");
+                break;
+            default:
+                UIUtils.setText(textView,"--");
+                break;
+        }
+    }
+
     public static void setTextShirtColor(@NonNull TextView textView, String content, @StringRes int resContent) {
         textView.setText(DataUtils.isEmpty(content) ? UIUtils.getString(resContent) : content.contains("色") ? content : content + "色");
     }
