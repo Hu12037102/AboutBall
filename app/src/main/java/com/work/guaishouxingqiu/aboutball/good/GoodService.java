@@ -1,18 +1,17 @@
-package com.work.guaishouxingqiu.aboutball.order;
+package com.work.guaishouxingqiu.aboutball.good;
 
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.IApiService;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
-import com.work.guaishouxingqiu.aboutball.base.bean.RequestSureOrderBean;
-import com.work.guaishouxingqiu.aboutball.order.bean.ResultMyGoodBean;
-import com.work.guaishouxingqiu.aboutball.order.bean.ResultOrderDetailsBean;
+import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
+import com.work.guaishouxingqiu.aboutball.good.bean.ResultGoodRefundDetailsBean;
+import com.work.guaishouxingqiu.aboutball.good.bean.ResultMyGoodBean;
+import com.work.guaishouxingqiu.aboutball.good.bean.ResultOrderDetailsBean;
 
 import java.util.List;
 
 import io.reactivex.Observable;
-import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -21,7 +20,7 @@ import retrofit2.http.Query;
  * 更新时间: 2019/9/12 13:58
  * 描述:
  */
-public interface OrderService {
+public interface GoodService {
     @GET(IApiService.POST_ORDER_DETAILS)
     Observable<BaseBean<ResultOrderDetailsBean>> loadOrderDetails(@Query(Contast.SPU_ID) long souId,
                                                                   @Query(Contast.PARAMS) String params,
@@ -34,4 +33,11 @@ public interface OrderService {
 
     @GET(IApiService.GET_MY_GOOD_DETAILS)
     Observable<BaseBean<ResultOrderDetailsBean>> loadGoodDetails(@Query(Contast.ORDER_ID) long orderId);
+
+    @GET(IApiService.GET_GOOD_REFUND_DETAILS)
+    Observable<BaseBean<ResultGoodRefundDetailsBean>> loadGoodRefundDetail(@Query(Contast.ORDER_ID) long orderId);
+
+    @GET(IApiService.GET_APPLY_REFUND)
+    Observable<BaseBean<BaseDataBean<String>>> applyGoodRefund(@Query(Contast.ORDER_ID) long orderId,
+                                                               @Query(Contast.REASON) String reason);
 }

@@ -1,4 +1,4 @@
-package com.work.guaishouxingqiu.aboutball.order.presenter;
+package com.work.guaishouxingqiu.aboutball.good.presenter;
 
 import androidx.annotation.NonNull;
 
@@ -6,9 +6,9 @@ import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
-import com.work.guaishouxingqiu.aboutball.order.bean.ResultMyGoodBean;
-import com.work.guaishouxingqiu.aboutball.order.contract.MyGoodContract;
-import com.work.guaishouxingqiu.aboutball.order.model.MyGoodModel;
+import com.work.guaishouxingqiu.aboutball.good.bean.ResultMyGoodBean;
+import com.work.guaishouxingqiu.aboutball.good.contract.MyGoodContract;
+import com.work.guaishouxingqiu.aboutball.good.model.MyGoodModel;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 
 import java.util.List;

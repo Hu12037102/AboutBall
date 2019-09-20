@@ -1,4 +1,4 @@
-package com.work.guaishouxingqiu.aboutball.order.adapter;
+package com.work.guaishouxingqiu.aboutball.good.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,11 +8,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.order.bean.ResultMyGoodBean;
+import com.work.guaishouxingqiu.aboutball.good.bean.ResultMyGoodBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 

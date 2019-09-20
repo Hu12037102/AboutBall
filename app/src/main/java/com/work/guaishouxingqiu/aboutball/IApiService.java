@@ -162,7 +162,7 @@ public interface IApiService {
     String GET_MY_ABOUT_BALL = "api/agreeBall/MyAgreeBall";
     String GET_REFUND_CAUSE = "api/order/getOrderRefundReason";
     String POST_REFUND_ORDER = "api/order/refundOrder";
-    String GET_CHECK_REFUND = "api/order/weChatRefundQuery";
+    String GET_CHECK_REFUND = "api/transaction/getRefundProgress";
     String GET_REFEREE_EVALUATION = "api/referee/getRefereeComment";
     String GET_TEAM_EVALUATION = "api/myTeam/getTeamComment";
     String POST_EVALUATE_OPPONENT = "api/myTeam/commentOpponent";
@@ -189,6 +189,8 @@ public interface IApiService {
     String POST_ORDER_DETAILS="api/transaction/CommonCreateOrder";
     String GET_MY_GOOD_LIST="api/transaction/getCommonUserOrderList";
     String GET_MY_GOOD_DETAILS="api/transaction/getOrderDetail";
+    String GET_GOOD_REFUND_DETAILS="api/transaction/getApprovalRefundInfo";
+    String GET_APPLY_REFUND="api/transaction/confirmApprovalRefund";
 
     interface H5 {
         // String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";

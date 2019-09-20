@@ -62,6 +62,7 @@ public interface Contast {
     String STADIUM_ID = "stadiumId";
     String AREA_ID = "areaId";
     String ORDER_ID = "orderId";
+    String REASON = "reason";
     String TEAM_ID = "teamId";
     String PLAYER_ID = "playerId";
     String ORDER_STATE = "orderState";

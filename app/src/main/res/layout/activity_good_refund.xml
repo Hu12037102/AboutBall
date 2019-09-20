@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.example.item.weight.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        app:back_left_drawable="@mipmap/icon_back"
+        app:back_text_padding_left="@dimen/default_margin"
+        app:back_text_padding_right="@dimen/default_margin"
+        app:center_data="@string/refund_schedule"
+        app:center_text_color="@color/color_4"
+        app:center_text_size="@dimen/size_18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title_show_bottom_line="true"
+        app:back_click_is_finish="false"/>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/srl_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_0dp"
+        app:layout_constraintBottom_toTopOf="@id/ll_bottom"
+        app:layout_constraintTop_toBottomOf="@id/title_view"
+        app:srlEnableLoadMore="false">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_good_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_45dp"
+                    android:background="@color/colorWhite"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/default_margin"
+                    android:paddingRight="@dimen/default_margin"
+                    android:textColor="@color/colorFFA6A6A6"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="订单号：10086" />
+
+                <com.example.item.weight.ItemView
+                    android:id="@+id/item_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_45dp"
+                    android:layout_marginTop="@dimen/size_5dp"
+                    android:background="@color/colorWhite"
+                    app:layout_constraintTop_toBottomOf="@id/tv_good_number"
+                    app:show_bottom_line="true"
+                    app:title_data="@string/good_info"
+                    app:title_text_size="@dimen/size_17sp" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_120dp"
+                    android:background="@color/colorWhite"
+                    app:layout_constraintTop_toBottomOf="@id/item_info">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/riv_content"
+                        android:layout_width="@dimen/size_105dp"
+                        android:layout_height="@dimen/size_80dp"
+                        android:layout_marginLeft="@dimen/default_margin"
+                        android:layout_marginRight="@dimen/default_margin"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:riv_corner_radius="@dimen/size_6dp" />
+
+                    <TextView
+                        android:id="@+id/tv_content"
+                        android:layout_width="@dimen/size_0dp"
+                        android:layout_height="@dimen/size_0dp"
+                        android:layout_marginLeft="@dimen/default_margin"
+                        android:layout_marginRight="@dimen/default_margin"
+                        android:ellipsize="end"
+                        android:maxLines="4"
+                        android:textColor="@color/color_4"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@id/riv_content"
+                        app:layout_constraintLeft_toRightOf="@id/riv_content"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/riv_content"
+                        tools:text="中国女枪大获全胜中国女枪大获全胜中国女枪大获全胜"
+                        android:lineSpacingExtra="@dimen/size_5dp"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.example.item.weight.ItemView
+                    android:id="@+id/item_refund_cause"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_45dp"
+                    android:layout_marginTop="@dimen/size_5dp"
+                    android:background="@color/colorWhite"
+                    app:layout_constraintTop_toBottomOf="@id/cl_content"
+                    app:show_bottom_line="true"
+                    app:title_data="@string/refund_cause"
+                    app:title_text_size="@dimen/size_17sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_cause"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    app:layout_constraintTop_toBottomOf="@id/item_refund_cause" />
+
+                <LinearLayout
+                    android:id="@+id/ll_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:orientation="vertical"
+                    android:padding="@dimen/default_margin"
+                    app:layout_constraintTop_toBottomOf="@id/rv_cause"
+                    android:visibility="gone">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/acet_cause"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size_100dp"
+                        android:background="@drawable/shape_send_message_six_radius_view"
+                        android:gravity="left"
+                        android:hint="@string/please_input_refund_cause"
+                        android:padding="@dimen/size_15dp"
+                        android:textColor="@color/color_4"
+                        android:textColorHint="@color/colorFFA6A6A6"
+                        android:lineSpacingExtra="@dimen/size_5dp"
+                        android:textSize="@dimen/size_14sp" />
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/tv_refund"
+            style="@style/ButtonCenterText"
+            android:layout_marginTop="@dimen/size_5dp"
+            android:layout_marginBottom="@dimen/size_5dp"
+            android:text="@string/sure_refund_cause" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

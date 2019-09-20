@@ -1,8 +1,8 @@
-package com.work.guaishouxingqiu.aboutball.order.contract;
+package com.work.guaishouxingqiu.aboutball.good.contract;
 
 import com.work.guaishouxingqiu.aboutball.base.imp.IBasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.imp.IBaseView;
-import com.work.guaishouxingqiu.aboutball.order.bean.ResultMyGoodBean;
+import com.work.guaishouxingqiu.aboutball.good.bean.ResultMyGoodBean;
 
 import java.util.List;
 

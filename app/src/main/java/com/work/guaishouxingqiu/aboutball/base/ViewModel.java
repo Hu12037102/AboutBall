@@ -4,13 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Parcelable;
@@ -31,6 +29,8 @@ import com.work.guaishouxingqiu.aboutball.community.activity.TopicDynamicsActivi
 import com.work.guaishouxingqiu.aboutball.community.adapter.CommunityDataAdapter;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean;
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultRecommendHotBean;
+import com.work.guaishouxingqiu.aboutball.good.activity.GoodDetailsActivity;
+import com.work.guaishouxingqiu.aboutball.good.activity.GoodRefundActivity;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultRedPointInfoBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.login.activity.LoginActivity;
@@ -45,7 +45,6 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 import com.work.guaishouxingqiu.aboutball.my.fragment.PostEvaluationFragment;
-import com.work.guaishouxingqiu.aboutball.order.activity.OrderDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.other.DownloadApkHelp;
 import com.work.guaishouxingqiu.aboutball.other.SellingPointsEvent;
 import com.work.guaishouxingqiu.aboutball.other.SharedPreferencesHelp;
@@ -54,7 +53,6 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
-import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.activity.WaitPayOrderDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.venue.bean.ResultRefereeBean;
@@ -70,7 +68,6 @@ import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 项  目 :  AboutBall
@@ -879,19 +876,15 @@ public class ViewModel {
         if (fragment == null) {
             ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_ORDER_DETAILS, mSoftActivity.get(),ARouterConfig.Key.ORDER_ID,orderId, requestCode);
         } else {
-            ARouterIntent.startActivityForResult(fragment, OrderDetailsActivity.class,ARouterConfig.Key.ORDER_ID,orderId,requestCode);
+            ARouterIntent.startActivityForResult(fragment, GoodDetailsActivity.class,ARouterConfig.Key.ORDER_ID,orderId,requestCode);
         }
 
     }
-   /* private void showPayDialog(double price,@NonNull PayDialog.OnPayDialogClickListener listener){
-        if (mPayDialog == null) {
-            mPayDialog = new PayDialog(mSoftActivity.get())
-                    .setMoney(DataUtils.getMoneyFormat(price));
-        }
-
-        if (!mPayDialog.isShowing()) {
-            mPayDialog.show();
-        }
-        mPayDialog.setOnPayDialogClickListener(listener);
-    }*/
+ public void startGoodRefundDetailActivityForResult(@NonNull Fragment fragment, int requestCode,long orderId){
+     if (fragment == null) {
+         ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_GOOD_REFUND, mSoftActivity.get(),ARouterConfig.Key.ORDER_ID,orderId, requestCode);
+     } else {
+         ARouterIntent.startActivityForResult(fragment, GoodRefundActivity.class,ARouterConfig.Key.ORDER_ID,orderId,requestCode);
+     }
+ }
 }

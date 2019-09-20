@@ -86,8 +86,10 @@ public interface ARouterConfig {
         String ACTIVITY_SURE_ORDER = "/activity/sure/order";
         String ACTIVITY_ORDER_DETAILS = "/activity/order/details";
         String ACTIVITY_WEB_URL="/activity/web/url";
-        String ACTIVITY_MY_GOOD ="/my/good/activity";
-        String FRAGMENT_MY_GOOD="/my/good/fragment";
+        String ACTIVITY_MY_GOOD ="/activity/my/good";
+        String ACTIVITY_GOOD_REFUND="/activity/good/refund";
+
+
 
         String FRAGMENT_GAME = "/fragment/game";
         String FRAGMENT_GAME_OFFICIAL = "/fragment/game/official";
@@ -128,6 +130,7 @@ public interface ARouterConfig {
         String FRAGMENT_POST_ALL_EVALUATION = "/fragment/post/all/evaluation";
         String FRAGMENT_TICK_MALL = "/fragment/tick/mall";
         String FRAGMENT_MY_TICKETS = "/fragment/my/tickets";
+        String FRAGMENT_MY_GOOD="/fragment/my/good";
 
 
     }

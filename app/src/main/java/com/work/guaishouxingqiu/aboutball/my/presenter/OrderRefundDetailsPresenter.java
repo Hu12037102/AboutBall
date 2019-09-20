@@ -35,11 +35,11 @@ public class OrderRefundDetailsPresenter extends BasePresenter<OrderRefundDetail
 
     @Override
     public void checkRefundDetails(long orderId) {
-        mModel.checkRefundDetails(orderId, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<ResultRefundDetailsBean>>() {
+        mModel.checkRefundDetails(orderId, new BaseObserver<>(true, this, new BaseObserver.Observer<ResultRefundDetailsBean>() {
             @Override
-            public void onNext(BaseBean<BaseDataBean<ResultRefundDetailsBean>> t) {
-                if (DataUtils.baseDataBeanIsSucceed(t) && t.result.result != null) {
-                    mView.resultRefundDetails(t.result.result);
+            public void onNext(BaseBean<ResultRefundDetailsBean> t) {
+                if (DataUtils.isResultSure(t)) {
+                    mView.resultRefundDetails(t.result);
                 }
             }
 

@@ -187,7 +187,7 @@ public interface MyService {
     Observable<BaseBean<BaseDataBean<String>>> refundOrder(@Body RequestRefundBean bean);
 
     @GET(IApiService.GET_CHECK_REFUND)
-    Observable<BaseBean<BaseDataBean<ResultRefundDetailsBean>>> getCheckRefund(@Query(Contast.ORDER_ID) long orderId);
+    Observable<BaseBean<ResultRefundDetailsBean>> getCheckRefund(@Query(Contast.ORDER_ID) long orderId);
 
     @GET(IApiService.GET_REFEREE_EVALUATION)
     Observable<BaseBean<List<ResultInputEvaluationBean>>> getRefereeEvaluation(@Query(Contast.REFEREE_ID) long refereeId);

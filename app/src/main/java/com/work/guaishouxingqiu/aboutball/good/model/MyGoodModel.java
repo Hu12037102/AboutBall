@@ -1,9 +1,9 @@
-package com.work.guaishouxingqiu.aboutball.order.model;
+package com.work.guaishouxingqiu.aboutball.good.model;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseModel;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
-import com.work.guaishouxingqiu.aboutball.order.OrderService;
-import com.work.guaishouxingqiu.aboutball.order.bean.ResultMyGoodBean;
+import com.work.guaishouxingqiu.aboutball.good.GoodService;
+import com.work.guaishouxingqiu.aboutball.good.bean.ResultMyGoodBean;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class MyGoodModel extends BaseModel {
     public void loadMyGoodList(int pageNum, int pageSize, int status, BaseObserver<List<ResultMyGoodBean>> observer) {
-        mRetrofitManger.create(OrderService.class)
+        mRetrofitManger.create(GoodService.class)
                 .loadMyGoodList(pageNum, pageSize, status)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -422,10 +422,13 @@
             android:name=".my.activity.SureOrderActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".order.activity.OrderDetailsActivity"
+            android:name=".good.activity.GoodDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".order.activity.MyGoodActivity"
+            android:name=".good.activity.MyGoodActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".good.activity.GoodRefundActivity"
             android:screenOrientation="portrait" />
     </application>
 

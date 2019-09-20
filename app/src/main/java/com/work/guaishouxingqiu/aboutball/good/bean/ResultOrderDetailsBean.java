@@ -1,4 +1,4 @@
-package com.work.guaishouxingqiu.aboutball.order.bean;
+package com.work.guaishouxingqiu.aboutball.good.bean;
 
 import java.util.List;
 

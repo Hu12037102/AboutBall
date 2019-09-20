@@ -1,4 +1,4 @@
-package com.work.guaishouxingqiu.aboutball.order.activity;
+package com.work.guaishouxingqiu.aboutball.good.activity;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -11,8 +11,7 @@ import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
-import com.work.guaishouxingqiu.aboutball.my.fragment.MyFragment;
-import com.work.guaishouxingqiu.aboutball.order.fragment.MyGoodFragment;
+import com.work.guaishouxingqiu.aboutball.good.fragment.MyGoodFragment;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;

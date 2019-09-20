@@ -1,8 +1,7 @@
-package com.work.guaishouxingqiu.aboutball.order.activity;
+package com.work.guaishouxingqiu.aboutball.good.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,17 +13,13 @@ import androidx.annotation.NonNull;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.TitleView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.umeng.commonsdk.debug.E;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
-import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.base.bean.RequestSureOrderBean;
 import com.work.guaishouxingqiu.aboutball.commonality.activity.BasePayActivity;
-import com.work.guaishouxingqiu.aboutball.order.bean.ResultOrderDetailsBean;
-import com.work.guaishouxingqiu.aboutball.order.contract.OrderDetailsContract;
-import com.work.guaishouxingqiu.aboutball.order.presenter.OrderDetailsPresenter;
+import com.work.guaishouxingqiu.aboutball.good.bean.ResultOrderDetailsBean;
+import com.work.guaishouxingqiu.aboutball.good.contract.GoodDetailsContract;
+import com.work.guaishouxingqiu.aboutball.good.presenter.GoodDetailsPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
@@ -32,12 +27,10 @@ import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
-import com.work.guaishouxingqiu.aboutball.weight.PayDialog;
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -47,7 +40,7 @@ import butterknife.OnClick;
  * 描述:  订单详情Activity
  */
 @Route(path = ARouterConfig.Path.ACTIVITY_ORDER_DETAILS)
-public class OrderDetailsActivity extends BasePayActivity<OrderDetailsPresenter> implements OrderDetailsContract.View {
+public class GoodDetailsActivity extends BasePayActivity<GoodDetailsPresenter> implements GoodDetailsContract.View {
     @BindView(R.id.title_view)
     TitleView mTitleView;
     @BindView(R.id.tv_name)
@@ -69,7 +62,8 @@ public class OrderDetailsActivity extends BasePayActivity<OrderDetailsPresenter>
     private RequestSureOrderBean mIntentBean;
     private ResultOrderDetailsBean mResultBean;
     private HintDialog mHintDialog;
-    private long mOrderId;
+    private long mIntentOrderId;
+    private static final int REQUEST_CODE_REFUND_DETAIL = 895;
 
     //"订单状态：1.待付款，2.已付款，4，已完成，5.已取消 8.退款中 9.已退款",
     @Override
@@ -87,9 +81,9 @@ public class OrderDetailsActivity extends BasePayActivity<OrderDetailsPresenter>
     @Override
     public void initPermission() {
         mIntentBean = mIntent.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
-        mOrderId = mIntent.getLongExtra(ARouterConfig.Key.ORDER_ID, -1);
+        mIntentOrderId = mIntent.getLongExtra(ARouterConfig.Key.ORDER_ID, -1);
 
-        if (mIntentBean == null && mOrderId <= 0) {
+        if (mIntentBean == null && mIntentOrderId <= 0) {
             UIUtils.showToast(R.string.not_find_this_order);
             finish();
             return;
@@ -107,10 +101,11 @@ public class OrderDetailsActivity extends BasePayActivity<OrderDetailsPresenter>
         mSrlRefresh.setOnRefreshListener(refreshLayout -> loadData());
         mTitleView.setOnBackViewClickListener(view -> clickBack());
     }
-    private void clickBack(){
-        if (mResultBean!=null && mResultBean.status == Contast.MyGoodStatus.WAIT_PAY){
+
+    private void clickBack() {
+        if (mResultBean != null && mResultBean.status == Contast.MyGoodStatus.WAIT_PAY) {
             showBackHintDialog();
-        }else {
+        } else {
             mViewModel.clickBackForResult();
         }
     }
@@ -120,7 +115,7 @@ public class OrderDetailsActivity extends BasePayActivity<OrderDetailsPresenter>
         if (mIntentBean != null) {
             mPresenter.loadOrderDetails(mIntentBean);
         } else {
-            mPresenter.loadGoodDetails(mOrderId);
+            mPresenter.loadGoodDetails(mIntentOrderId);
         }
 
     }
@@ -135,7 +130,32 @@ public class OrderDetailsActivity extends BasePayActivity<OrderDetailsPresenter>
                 break;
             case R.id.tv_commit:
                 if (mResultBean != null) {
-                    mViewModel.showPayDialog(DataUtils.getMoneyFormat(mResultBean.amount), view1 -> mPresenter.payWeiChatSing(mResultBean.id));
+                    switch (mResultBean.status) {
+                        //待支付
+                        case Contast.MyGoodStatus.WAIT_PAY:
+                            mViewModel.showPayDialog(DataUtils.getMoneyFormat(mResultBean.amount), view1 -> mPresenter.payWeiChatSing(mResultBean.id));
+                            break;
+                        //已付款
+                        case Contast.MyGoodStatus.PAYING:
+                            mViewModel.startGoodRefundDetailActivityForResult(null, GoodDetailsActivity.REQUEST_CODE_REFUND_DETAIL, mResultBean.id);
+                            break;
+                        //已完成
+                        case Contast.MyGoodStatus.COMPLETE:
+                            break;
+                        //已取消
+                        case Contast.MyGoodStatus.CANCEL:
+                            break;
+                        //退款中
+                        case Contast.MyGoodStatus.REFUNDING:
+                            ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ORDER_REFUND_DETAILS, ARouterConfig.Key.ORDER_ID, mResultBean.id);
+                            break;
+                        //已退款
+                        case Contast.MyGoodStatus.REFUNDED:
+                            break;
+                        default:
+                            break;
+                    }
+
                 }
                 break;
             default:
@@ -176,8 +196,8 @@ public class OrderDetailsActivity extends BasePayActivity<OrderDetailsPresenter>
     }
 
     @Override
-    protected OrderDetailsPresenter createPresenter() {
-        return new OrderDetailsPresenter(this);
+    protected GoodDetailsPresenter createPresenter() {
+        return new GoodDetailsPresenter(this);
     }
 
     @Override
@@ -200,7 +220,7 @@ public class OrderDetailsActivity extends BasePayActivity<OrderDetailsPresenter>
             //已付款
             case Contast.MyGoodStatus.PAYING:
                 mLlBottom.setVisibility(View.VISIBLE);
-                UIUtils.setText(mTvCommit,R.string.application_for_drawback);
+                UIUtils.setText(mTvCommit, R.string.application_for_drawback);
                 break;
             //已完成
             case Contast.MyGoodStatus.COMPLETE:
@@ -211,7 +231,7 @@ public class OrderDetailsActivity extends BasePayActivity<OrderDetailsPresenter>
             //退款中
             case Contast.MyGoodStatus.REFUNDING:
                 mLlBottom.setVisibility(View.VISIBLE);
-                UIUtils.setText(mTvCommit,R.string.refund_schedule);
+                UIUtils.setText(mTvCommit, R.string.refund_schedule);
                 break;
             //已退款
             case Contast.MyGoodStatus.REFUNDED:
@@ -248,9 +268,17 @@ public class OrderDetailsActivity extends BasePayActivity<OrderDetailsPresenter>
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK && requestCode == ARouterIntent.REQUEST_CODE) {
-            mViewModel.clickBackForResult();
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case ARouterIntent.REQUEST_CODE:
+                    mViewModel.clickBackForResult();
+                    break;
+                case REQUEST_CODE_REFUND_DETAIL:
+                    mSrlRefresh.autoRefresh();
+                    break;
+            }
         }
+
     }
 
     @Override

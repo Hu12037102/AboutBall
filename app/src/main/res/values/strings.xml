@@ -672,6 +672,8 @@
     <string name="pay_order_hint_back_body">您的订单尚未支付，确定要离开当前页面吗？</string>
     <string name="order_ten_minute_cancel">订单在%s内自动取消，请及时支付</string>
     <string name="default_minute_values_cancel">10分钟</string>
+    <string name="good_info">商品信息：</string>
+    <string name="please_input_refund_cause">请输入退款理由</string>
     <string name="emoji_data" translatable="false">
         [啊],[爱慕],[爱你],[白眼],[闭眼],[闭眼笑],
         [闭嘴],[不敢看],[不高兴],[不舒服],[馋嘴],[吃惊],
@@ -688,5 +690,8 @@
         [哇啊],[微笑],[委屈],[无表情],[无语],[想吐],
         [笑],[笑哭],[笑一下],[斜眼看],[斜眼笑],[星星],
         [嘘],[糟糕],[眨眼],[炸脑子],[皱眉]</string>
+    <string name="sure_refund_cause">确认申请退款</string>
+    <string name="order_no">订单号：%s</string>
+    <string name="other">其它</string>
 
 </resources>

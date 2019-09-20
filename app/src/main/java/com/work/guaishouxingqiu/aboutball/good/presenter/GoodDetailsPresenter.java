@@ -1,14 +1,13 @@
-package com.work.guaishouxingqiu.aboutball.order.presenter;
+package com.work.guaishouxingqiu.aboutball.good.presenter;
 
 import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
-import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.base.bean.RequestSureOrderBean;
-import com.work.guaishouxingqiu.aboutball.order.bean.ResultOrderDetailsBean;
-import com.work.guaishouxingqiu.aboutball.order.contract.OrderDetailsContract;
-import com.work.guaishouxingqiu.aboutball.order.model.OrderDetailsModel;
+import com.work.guaishouxingqiu.aboutball.good.bean.ResultOrderDetailsBean;
+import com.work.guaishouxingqiu.aboutball.good.contract.GoodDetailsContract;
+import com.work.guaishouxingqiu.aboutball.good.model.GoodDetailsModel;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.venue.presenter.BaseOrderPresenter;
 
@@ -18,15 +17,15 @@ import com.work.guaishouxingqiu.aboutball.venue.presenter.BaseOrderPresenter;
  * 更新时间: 2019/9/12 14:03
  * 描述:订单详情P
  */
-public class OrderDetailsPresenter extends BaseOrderPresenter<OrderDetailsContract.View, OrderDetailsModel>
-        implements OrderDetailsContract.Presenter {
-    public OrderDetailsPresenter(@NonNull OrderDetailsContract.View view) {
+public class GoodDetailsPresenter extends BaseOrderPresenter<GoodDetailsContract.View, GoodDetailsModel>
+        implements GoodDetailsContract.Presenter {
+    public GoodDetailsPresenter(@NonNull GoodDetailsContract.View view) {
         super(view);
     }
 
     @Override
-    protected OrderDetailsModel createModel() {
-        return new OrderDetailsModel();
+    protected GoodDetailsModel createModel() {
+        return new GoodDetailsModel();
     }
 
     @Override

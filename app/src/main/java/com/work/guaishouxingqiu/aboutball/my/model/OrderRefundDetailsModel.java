@@ -17,7 +17,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class OrderRefundDetailsModel extends BaseModel{
 
-    public void checkRefundDetails(long orderId, BaseObserver<BaseDataBean<ResultRefundDetailsBean>> observer) {
+    public void checkRefundDetails(long orderId, BaseObserver<ResultRefundDetailsBean> observer) {
         mRetrofitManger.create(MyService.class)
                 .getCheckRefund(orderId)
                 .subscribeOn(Schedulers.io())

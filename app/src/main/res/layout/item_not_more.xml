@@ -5,8 +5,7 @@
     android:gravity="center"
     android:orientation="horizontal"
     android:paddingLeft="@dimen/default_margin"
-    android:paddingRight="@dimen/default_margin"
-    android:background="@color/colorDefaultLayout">
+    android:paddingRight="@dimen/default_margin">
 
     <View
         style="@style/HorizontalLine"
