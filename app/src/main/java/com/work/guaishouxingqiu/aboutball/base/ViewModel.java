@@ -45,6 +45,7 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultBallDetailsBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultUpdateApkBean;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultWeiChatSingBean;
 import com.work.guaishouxingqiu.aboutball.my.fragment.PostEvaluationFragment;
+import com.work.guaishouxingqiu.aboutball.order.activity.OrderDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.other.DownloadApkHelp;
 import com.work.guaishouxingqiu.aboutball.other.SellingPointsEvent;
 import com.work.guaishouxingqiu.aboutball.other.SharedPreferencesHelp;
@@ -872,6 +873,15 @@ public class ViewModel {
         } else {
             ARouterIntent.startActivityForResult(fragment, WebUrlActivity.class, ARouterConfig.Key.WEB_URL, url, WebUrlActivity.REQUEST_CODE);
         }
+    }
+
+    public void startGoodDetailsActivityForResult(@NonNull Fragment fragment, int requestCode,long orderId) {
+        if (fragment == null) {
+            ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_ORDER_DETAILS, mSoftActivity.get(),ARouterConfig.Key.ORDER_ID,orderId, requestCode);
+        } else {
+            ARouterIntent.startActivityForResult(fragment, OrderDetailsActivity.class,ARouterConfig.Key.ORDER_ID,orderId,requestCode);
+        }
+
     }
    /* private void showPayDialog(double price,@NonNull PayDialog.OnPayDialogClickListener listener){
         if (mPayDialog == null) {

@@ -31,4 +31,7 @@ public interface OrderService {
     Observable<BaseBean<List<ResultMyGoodBean>>> loadMyGoodList(@Query(Contast.PAGE_NUM) int num,
                                                                 @Query(Contast.PAGE_SIZE) int pagerSize,
                                                                 @Query(Contast.STATUS) int status);
+
+    @GET(IApiService.GET_MY_GOOD_DETAILS)
+    Observable<BaseBean<ResultOrderDetailsBean>> loadGoodDetails(@Query(Contast.ORDER_ID) long orderId);
 }

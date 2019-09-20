@@ -37,6 +37,7 @@ public class MyGoodActivity extends BaseActivity {
     BaseViewPager mBvpContent;
     @BindView(R.id.title_view)
     TitleView mTitleView;
+    public static final int REQUEST_CODE_TO_GOOD_DETAILS = 1259;
 
     @Override
     protected int getLayoutId() {

@@ -16,6 +16,8 @@ import com.example.item.weight.TitleView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.umeng.commonsdk.debug.E;
+import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.base.bean.RequestSureOrderBean;
@@ -62,10 +64,14 @@ public class OrderDetailsActivity extends BasePayActivity<OrderDetailsPresenter>
     TextView mTvHint;
     @BindView(R.id.tv_commit)
     TextView mTvCommit;
+    @BindView(R.id.ll_bottom)
+    LinearLayout mLlBottom;
     private RequestSureOrderBean mIntentBean;
     private ResultOrderDetailsBean mResultBean;
     private HintDialog mHintDialog;
+    private long mOrderId;
 
+    //"订单状态：1.待付款，2.已付款，4，已完成，5.已取消 8.退款中 9.已退款",
     @Override
     protected int getLayoutId() {
         return R.layout.activity_order_details;
@@ -73,6 +79,7 @@ public class OrderDetailsActivity extends BasePayActivity<OrderDetailsPresenter>
 
     @Override
     protected void initView() {
+        mLlBottom.setVisibility(View.GONE);
         mIvAddress.setVisibility(View.GONE);
         mSrlRefresh.autoRefresh();
     }
@@ -80,7 +87,9 @@ public class OrderDetailsActivity extends BasePayActivity<OrderDetailsPresenter>
     @Override
     public void initPermission() {
         mIntentBean = mIntent.getParcelableExtra(ARouterConfig.Key.PARCELABLE);
-        if (mIntentBean == null) {
+        mOrderId = mIntent.getLongExtra(ARouterConfig.Key.ORDER_ID, -1);
+
+        if (mIntentBean == null && mOrderId <= 0) {
             UIUtils.showToast(R.string.not_find_this_order);
             finish();
             return;
@@ -96,12 +105,24 @@ public class OrderDetailsActivity extends BasePayActivity<OrderDetailsPresenter>
     @Override
     protected void initEvent() {
         mSrlRefresh.setOnRefreshListener(refreshLayout -> loadData());
-        mTitleView.setOnBackViewClickListener(view -> showBackHintDialog());
+        mTitleView.setOnBackViewClickListener(view -> clickBack());
+    }
+    private void clickBack(){
+        if (mResultBean!=null && mResultBean.status == Contast.MyGoodStatus.WAIT_PAY){
+            showBackHintDialog();
+        }else {
+            mViewModel.clickBackForResult();
+        }
     }
 
     private void loadData() {
         mSrlRefresh.finishRefresh();
-        mPresenter.loadOrderDetails(mIntentBean);
+        if (mIntentBean != null) {
+            mPresenter.loadOrderDetails(mIntentBean);
+        } else {
+            mPresenter.loadGoodDetails(mOrderId);
+        }
+
     }
 
     @OnClick({R.id.iv_address, R.id.tv_commit})
@@ -151,7 +172,7 @@ public class OrderDetailsActivity extends BasePayActivity<OrderDetailsPresenter>
 
     @Override
     public void onBackPressed() {
-        showBackHintDialog();
+        clickBack();
     }
 
     @Override
@@ -166,11 +187,40 @@ public class OrderDetailsActivity extends BasePayActivity<OrderDetailsPresenter>
         UIUtils.setText(mTvName, bean.title);
         UIUtils.setText(mTvAddress, bean.subTitle);
         mTvCommit.setEnabled(true);
-        String minuteValues = UIUtils.getString(R.string.default_minute_values_cancel);
-        String minuteContent = UIUtils.getString(R.string.order_ten_minute_cancel, minuteValues);
-        UIUtils.setText(mTvHint, SpanUtils.getTextColor(R.color.color_4, minuteContent.indexOf(minuteValues), minuteContent.indexOf(minuteValues) + minuteValues.length(), minuteContent));
+        switch (bean.status) {
+            //待支付
+            case Contast.MyGoodStatus.WAIT_PAY:
+                mLlBottom.setVisibility(View.VISIBLE);
+                mTvHint.setVisibility(View.VISIBLE);
+                String minuteValues = UIUtils.getString(R.string.default_minute_values_cancel);
+                String minuteContent = UIUtils.getString(R.string.order_ten_minute_cancel, minuteValues);
+                UIUtils.setText(mTvHint, SpanUtils.getTextColor(R.color.color_4, minuteContent.indexOf(minuteValues), minuteContent.indexOf(minuteValues) + minuteValues.length(), minuteContent));
+                UIUtils.setText(mTvCommit, UIUtils.getString(R.string.how_money_please_pay, DataUtils.getMoneyFormat(mResultBean.amount)));
+                break;
+            //已付款
+            case Contast.MyGoodStatus.PAYING:
+                mLlBottom.setVisibility(View.VISIBLE);
+                UIUtils.setText(mTvCommit,R.string.application_for_drawback);
+                break;
+            //已完成
+            case Contast.MyGoodStatus.COMPLETE:
+                break;
+            //已取消
+            case Contast.MyGoodStatus.CANCEL:
+                break;
+            //退款中
+            case Contast.MyGoodStatus.REFUNDING:
+                mLlBottom.setVisibility(View.VISIBLE);
+                UIUtils.setText(mTvCommit,R.string.refund_schedule);
+                break;
+            //已退款
+            case Contast.MyGoodStatus.REFUNDED:
+                break;
+            default:
+                mTvHint.setVisibility(View.GONE);
+                break;
+        }
         mTvCommit.setBackgroundResource(R.drawable.shape_click_button);
-        UIUtils.setText(mTvCommit, UIUtils.getString(R.string.how_money_please_pay, DataUtils.getMoneyFormat(mResultBean.amount)));
         mLlBody.removeAllViews();
         List<ResultOrderDetailsBean.ModuleBean> moduleBeanData = bean.moduleList;
         if (moduleBeanData != null && moduleBeanData.size() > 0) {
@@ -194,6 +244,7 @@ public class OrderDetailsActivity extends BasePayActivity<OrderDetailsPresenter>
             }
         }
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

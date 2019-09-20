@@ -47,6 +47,7 @@
             android:layout_marginRight="@dimen/default_margin"
             android:lineSpacingExtra="@dimen/size_5dp"
             android:maxLines="2"
+            android:ellipsize="end"
             android:textColor="@color/color_4"
             app:layout_constraintLeft_toRightOf="@id/riv_content"
             app:layout_constraintRight_toLeftOf="@id/tv_status"

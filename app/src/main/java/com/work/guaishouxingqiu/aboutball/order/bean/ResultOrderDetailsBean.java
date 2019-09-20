@@ -17,6 +17,8 @@ public class ResultOrderDetailsBean {
     public double amount;
     public List<ModuleBean> moduleList;
     public String locationName;
+    public String createTime;
+    public int status;
 
     public static class ModuleBean {
         public String label;

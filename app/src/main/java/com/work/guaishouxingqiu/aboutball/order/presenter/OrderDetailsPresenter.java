@@ -50,4 +50,23 @@ public class OrderDetailsPresenter extends BaseOrderPresenter<OrderDetailsContra
             }
         }));
     }
+
+    @Override
+    public void loadGoodDetails(long orderId) {
+        mModel.loadGoodDetails(orderId, new BaseObserver<>(true, this, new BaseObserver.Observer<ResultOrderDetailsBean>() {
+            @Override
+            public void onNext(BaseBean<ResultOrderDetailsBean> t) {
+                if (DataUtils.isResultSure(t)) {
+                    mView.resultOrderDetails(t.result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
+
+
 }

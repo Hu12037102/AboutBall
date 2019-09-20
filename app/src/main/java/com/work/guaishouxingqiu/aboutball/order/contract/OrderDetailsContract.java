@@ -21,5 +21,6 @@ public interface OrderDetailsContract {
 
     interface Presenter extends BaseOrderContrast.Presenter {
         void loadOrderDetails(RequestSureOrderBean bean);
+        void loadGoodDetails(long orderId);
     }
 }

@@ -10,6 +10,7 @@ import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
+import com.work.guaishouxingqiu.aboutball.order.activity.MyGoodActivity;
 import com.work.guaishouxingqiu.aboutball.order.adapter.MyGoodAdapter;
 import com.work.guaishouxingqiu.aboutball.order.bean.ResultMyGoodBean;
 import com.work.guaishouxingqiu.aboutball.order.contract.MyGoodContract;
@@ -37,6 +38,7 @@ public class MyGoodFragment extends DelayedFragment<MyGoodPresenter> implements 
     private MyGoodAdapter mAdapter;
     private List<ResultMyGoodBean> mData;
     private int mStatus;
+    public static final int REQUEST_CODE_TO_GOOD_DETAILS = 1259;
 
     @Override
     protected void initPermission() {
@@ -118,7 +120,7 @@ public class MyGoodFragment extends DelayedFragment<MyGoodPresenter> implements 
         mAdapter.setOnClickMyGoodListener(new MyGoodAdapter.OnClickMyGoodListener() {
             @Override
             public void onClickDetails(View view, int position) {
-
+               mViewModel.startGoodDetailsActivityForResult(MyGoodFragment.this, MyGoodFragment.REQUEST_CODE_TO_GOOD_DETAILS,mData.get(position).orderId);
             }
 
             @Override
@@ -150,4 +152,5 @@ public class MyGoodFragment extends DelayedFragment<MyGoodPresenter> implements 
         mAdapter.notifyData(data.size() == mPresenter.mPageSize);
 
     }
+
 }

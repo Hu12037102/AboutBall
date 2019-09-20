@@ -188,6 +188,7 @@ public interface IApiService {
     String GET_MY_TICKETS_LIST="api/ticket/getCommonTicketList";
     String POST_ORDER_DETAILS="api/transaction/CommonCreateOrder";
     String GET_MY_GOOD_LIST="api/transaction/getCommonUserOrderList";
+    String GET_MY_GOOD_DETAILS="api/transaction/getOrderDetail";
 
     interface H5 {
         // String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";

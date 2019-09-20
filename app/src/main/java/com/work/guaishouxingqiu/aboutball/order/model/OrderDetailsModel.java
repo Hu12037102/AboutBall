@@ -24,4 +24,12 @@ public class OrderDetailsModel extends BaseOrderModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
+    public void loadGoodDetails(long orderId, BaseObserver<ResultOrderDetailsBean> observer) {
+        mRetrofitManger.create(OrderService.class)
+                .loadGoodDetails(orderId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
 }
