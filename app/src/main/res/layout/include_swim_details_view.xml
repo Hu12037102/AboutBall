@@ -27,12 +27,15 @@
         android:layout_height="@dimen/size_50dp"
         app:show_bottom_line="true"
         app:title_data="@string/graphic_introduction"
-        app:title_text_size="@dimen/size_17sp" />
+        app:title_text_size="@dimen/size_17sp"
+        app:left_text_is_bold="true"/>
 
     <com.work.guaishouxingqiu.aboutball.weight.BaseWebView
         android:id="@+id/bwv_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/size_15dp"
+        android:layout_marginRight="@dimen/size_15dp"/>
 
     <View
         android:layout_width="match_parent"

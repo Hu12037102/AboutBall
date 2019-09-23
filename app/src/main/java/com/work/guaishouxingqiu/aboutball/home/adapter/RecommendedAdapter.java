@@ -414,7 +414,7 @@ public class RecommendedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
         @Override
         public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
             ResultRecommendDataBean.Stadium bean = mData.get(i);
-            GlideManger.get().loadDefaultImage(viewHolder.itemView.getContext(), bean.photoUrl, viewHolder.mRivVenue);
+            GlideManger.get().loadImage(viewHolder.itemView.getContext(), bean.photoUrl, R.mipmap.icon_default_booking, R.mipmap.icon_default_booking,viewHolder.mRivVenue);
             viewHolder.mTvContent.setText(bean.stadiumName);
             viewHolder.mTvLong.setText("距离：" + bean.distance + "km");
 

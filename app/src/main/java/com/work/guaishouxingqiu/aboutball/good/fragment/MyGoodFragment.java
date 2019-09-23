@@ -44,7 +44,7 @@ public class MyGoodFragment extends DelayedFragment<MyGoodPresenter> implements 
     private List<ResultMyGoodBean> mData;
     private int mStatus;
     public static final int REQUEST_CODE_TO_GOOD_DETAILS = 1259;
-    private static final int REQUEST_CODE_REFUND_DETAIL=1258;
+    private static final int REQUEST_CODE_REFUND_DETAIL = 1258;
 
     @Override
     protected void initPermission() {
@@ -131,7 +131,7 @@ public class MyGoodFragment extends DelayedFragment<MyGoodPresenter> implements 
 
             @Override
             public void onClickOperation(View view, int position) {
-                ResultMyGoodBean bean =  mData.get(position);
+                ResultMyGoodBean bean = mData.get(position);
                 switch (mData.get(position).status) {
                     //待支付
                     case Contast.MyGoodStatus.WAIT_PAY:
@@ -140,7 +140,7 @@ public class MyGoodFragment extends DelayedFragment<MyGoodPresenter> implements 
                         break;
                     //已付款
                     case Contast.MyGoodStatus.PAYING:
-                        mViewModel.startGoodRefundDetailActivityForResult(null, MyGoodFragment.REQUEST_CODE_REFUND_DETAIL, bean.orderId);
+                        mViewModel.startGoodRefundDetailActivityForResult(MyGoodFragment.this, MyGoodFragment.REQUEST_CODE_REFUND_DETAIL, bean.orderId);
                         break;
                     //已完成
                     case Contast.MyGoodStatus.COMPLETE:
@@ -150,7 +150,7 @@ public class MyGoodFragment extends DelayedFragment<MyGoodPresenter> implements 
                         break;
                     //退款中
                     case Contast.MyGoodStatus.REFUNDING:
-                        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ORDER_REFUND_DETAILS, ARouterConfig.Key.ORDER_ID, bean.orderId,ARouterConfig.Key.ORDER_FLAG,1);
+                        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ORDER_REFUND_DETAILS, ARouterConfig.Key.ORDER_ID, bean.orderId, ARouterConfig.Key.ORDER_FLAG, 1);
                         break;
                     //已退款
                     case Contast.MyGoodStatus.REFUNDED:
@@ -188,8 +188,16 @@ public class MyGoodFragment extends DelayedFragment<MyGoodPresenter> implements 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK && requestCode == MyGoodFragment.REQUEST_CODE_TO_GOOD_DETAILS) {
-            mSrlRefresh.autoRefresh();
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case MyGoodFragment.REQUEST_CODE_REFUND_DETAIL:
+                case MyGoodFragment.REQUEST_CODE_TO_GOOD_DETAILS:
+                    mSrlRefresh.autoRefresh();
+                    break;
+                default:
+                    break;
+            }
+
         }
     }
 }

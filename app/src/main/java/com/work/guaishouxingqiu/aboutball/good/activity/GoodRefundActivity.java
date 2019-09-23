@@ -120,21 +120,31 @@ public class GoodRefundActivity extends BaseActivity<GoodRefundPresenter> implem
 
     @OnClick(R.id.tv_refund)
     public void onClickView(View view) {
-        if (mCauseAdapter != null) {
+        if (mCauseAdapter != null && mCauseAdapter.getItemCount() > 0) {
             if (mCauseAdapter.getCheckPosition() == -1) {
                 UIUtils.showToast(R.string.please_selector_refund_causes);
                 return;
             }
-            if (mCauseAdapter.getCheckPosition() == mCauseAdapter.getItemCount() - 1
-                    && DataUtils.isEmpty(DataUtils.getEditDetails(mAcetCause))) {
+            if (mCauseAdapter.getCheckPosition() == mCauseAdapter.getItemCount() - 1) {
+                if (DataUtils.isEmpty(DataUtils.getEditDetails(mAcetCause))) {
+                    UIUtils.showToast(R.string.please_input_refund_cause);
+                    return;
+                } else {
+                    mRequestReason = DataUtils.getTextViewContent(mAcetCause);
+                }
+            } else {
+                mRequestReason = mCauseData.get(mCauseAdapter.getCheckPosition());
+            }
+        } else {
+            if (DataUtils.isEmpty(DataUtils.getEditDetails(mAcetCause))) {
                 UIUtils.showToast(R.string.please_input_refund_cause);
                 return;
             } else {
                 mRequestReason = DataUtils.getTextViewContent(mAcetCause);
             }
-            if (!DataUtils.isEmpty(mRequestReason)) {
-                mPresenter.applyRefund(mOrderId, mRequestReason);
-            }
+        }
+        if (!DataUtils.isEmpty(mRequestReason)) {
+            mPresenter.applyRefund(mOrderId, mRequestReason);
         }
     }
 

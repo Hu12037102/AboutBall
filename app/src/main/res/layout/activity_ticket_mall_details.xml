@@ -289,7 +289,8 @@
                             app:layout_constraintTop_toBottomOf="@id/vs_swim_content"
                             app:show_bottom_line="true"
                             app:title_data="@string/the_ticket_information"
-                            app:title_text_size="@dimen/size_17sp" />
+                            app:title_text_size="@dimen/size_17sp"
+                            app:left_text_is_bold="true"/>
 
                         <TextView
                             android:id="@+id/tv_information"

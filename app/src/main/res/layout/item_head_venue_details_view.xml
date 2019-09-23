@@ -57,6 +57,7 @@
                 android:paddingLeft="@dimen/default_margin"
                 android:paddingRight="@dimen/default_margin"
                 android:text="@string/image_text_details"
+                android:textStyle="bold"
                 android:textColor="@color/color_4"
                 android:textSize="@dimen/size_17sp" />
 
@@ -163,7 +164,8 @@
 
             <TextView
                 style="@style/ItemSingTextView"
-                android:text="@string/user_evaluation" />
+                android:text="@string/user_evaluation"
+                android:textStyle="bold"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_evaluation"

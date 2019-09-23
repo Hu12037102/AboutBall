@@ -41,9 +41,9 @@ public class VenueListAdapter extends BaseRecyclerAdapter<VenueListAdapter.ViewH
         ResultVenueData bean = mData.get(i);
         viewHolder.mTvName.setText(bean.stadiumName);
         if (DataUtils.getImageUrlData(bean.photoUrl).size() > 0) {
-            GlideManger.get().loadBannerImage(mContext, DataUtils.getImageUrlData(bean.photoUrl).get(0), viewHolder.mRivData);
+            GlideManger.get().loadImage(mContext, DataUtils.getImageUrlData(bean.photoUrl).get(0),R.mipmap.icon_default_booking,R.mipmap.icon_default_booking, viewHolder.mRivData);
         } else {
-            GlideManger.get().loadBannerImage(mContext, bean.photoUrl, viewHolder.mRivData);
+            GlideManger.get().loadImage(mContext, bean.photoUrl, R.mipmap.icon_default_booking,R.mipmap.icon_default_booking,viewHolder.mRivData);
         }
         viewHolder.mTvGrade.setText(String.valueOf(bean.grade).concat("分"));
         viewHolder.mRbGrade.setRating(bean.grade);

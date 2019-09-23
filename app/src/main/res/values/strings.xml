@@ -202,7 +202,7 @@
     <string name="m" translatable="false">%sM</string>
     <string name="clear_cache_complete" translatable="false">清理缓存完成</string>
     <string name="complete" translatable="false">完成</string>
-    <string name="from_data" translatable="false">来源：%s%s</string>
+    <string name="from_data" translatable="false">来源：%s&#160;&#160;%s</string>
     <string name="not_message" translatable="false">暂无评论</string>
     <string name="your_sure_login_out" translatable="false">您确定退出登录？</string>
     <string name="line_video_error" translatable="false">直播获取异常！</string>

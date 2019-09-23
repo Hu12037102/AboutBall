@@ -107,6 +107,8 @@ public class ItemView extends RelativeLayout {
             mBottomLine.setVisibility(typedArray.getBoolean(R.styleable.ItemView_show_bottom_line, false) ? VISIBLE : GONE);
             setLineHeight(mBottomLine, typedArray.getDimensionPixelSize(R.styleable.ItemView_bottom_line_height, ScreenUtils.dp2px(getContext(), 0.5f)));
             mBottomLine.setBackgroundColor(typedArray.getColor(R.styleable.ItemView_bottom_line_color, ContextCompat.getColor(getContext(), R.color.colorFFEFEFEF)));
+           mTvLeft.getPaint().setFakeBoldText(typedArray.getBoolean(R.styleable.ItemView_left_text_is_bold,false));
+           mTvRight.getPaint().setFakeBoldText(typedArray.getBoolean(R.styleable.ItemView_right_text_is_bold,false));
             typedArray.recycle();
 
         }

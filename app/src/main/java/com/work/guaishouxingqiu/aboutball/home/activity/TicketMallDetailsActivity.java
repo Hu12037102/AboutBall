@@ -37,6 +37,7 @@ import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
+import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseWebView;
 import com.work.guaishouxingqiu.aboutball.weight.SureOrderDialog;
@@ -98,7 +99,6 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
     @BindView(R.id.bwv_content)
     BaseWebView mBwvContent;
     private RequestSureOrderBean mRequestDialogBean;
-    private SureOrderDialog mSureOrderDialog;
 
 
     @Override
@@ -271,7 +271,9 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
         UIUtils.setText(mTvGuestName, bean.guestTeamName);
         GlideManger.get().loadLogoImage(this, bean.hostLogoUrl, mCivHostLogo);
         GlideManger.get().loadLogoImage(this, bean.guestLogoUrl, mCivGuestLogo);
-        UIUtils.setText(mTvResidue, UIUtils.getString(R.string.current_vote_surplus, bean.num));
+        String numContent = UIUtils.getString(R.string.current_vote_surplus, bean.num);
+        UIUtils.setText(mTvResidue, SpanUtils.getTextColor(R.color.color_2, numContent.indexOf(bean.num),
+                numContent.indexOf(bean.num) + bean.num.length(), numContent));
     }
 
     /**

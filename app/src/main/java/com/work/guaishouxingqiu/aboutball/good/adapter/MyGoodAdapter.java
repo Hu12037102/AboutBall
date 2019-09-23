@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.good.bean.ResultMyGoodBean;
 import com.work.guaishouxingqiu.aboutball.other.GlideManger;
@@ -57,6 +58,13 @@ public class MyGoodAdapter extends BaseRecyclerAdapter<MyGoodAdapter.ViewHolder,
                 onClickMyGoodListener.onClickOperation(v, i);
             }
         });
+        if(bean.status == Contast.MyGoodStatus.WAIT_PAY){
+            viewHolder.mTvOperation.setBackgroundResource(R.drawable.shape_stroke_color_2_view);
+            UIUtils.setTextColor(viewHolder.mTvOperation,R.color.color_2);
+        }else {
+            viewHolder.mTvOperation.setBackgroundResource(R.drawable.shape_black_line_view);
+            UIUtils.setTextColor(viewHolder.mTvOperation,R.color.color_4);
+        }
     }
 
     @Override

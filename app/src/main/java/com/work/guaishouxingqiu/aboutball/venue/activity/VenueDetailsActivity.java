@@ -288,9 +288,11 @@ public class VenueDetailsActivity extends BaseActivity<VenueDetailsPresenter> im
         this.mDetailsBean = bean;
         mTitleView.mTvCenter.setText(bean.stadiumName);
         if (DataUtils.getImageUrlData(bean.photoUrl).size() > 0) {
-            GlideManger.get().loadBannerImage(this, DataUtils.getImageUrlData(bean.photoUrl).get(0), mIvBanner);
+            GlideManger.get().loadImage(this, DataUtils.getImageUrlData(bean.photoUrl).get(0), R.mipmap.icon_default_booking,R.mipmap.icon_default_booking, mIvBanner);
+
         } else {
-            GlideManger.get().loadBannerImage(this, bean.photoUrl, mIvBanner);
+          //  GlideManger.get().loadBannerImage(this, bean.photoUrl, mIvBanner);
+            GlideManger.get().loadImage(this, bean.photoUrl, R.mipmap.icon_default_booking,R.mipmap.icon_default_booking,mIvBanner);
         }
         mTvName.setText(bean.stadiumName);
         mRbGrade.setRating(Float.valueOf(bean.grade));

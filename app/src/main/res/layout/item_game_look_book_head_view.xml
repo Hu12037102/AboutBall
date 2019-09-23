@@ -42,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_55dp"
             android:ellipsize="end"
-            android:gravity="center"
+            android:gravity="center_vertical|left"
             android:maxLines="2"
             android:paddingLeft="@dimen/size_10dp"
             android:paddingRight="@dimen/size_10dp"

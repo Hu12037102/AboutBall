@@ -49,6 +49,7 @@ public class MyOrderActivity extends BaseActivity<MyOrderPresenter> implements M
 
     @Override
     protected void initView() {
+        mTitleView.mTvCenter.setText("我的订场");
         List<String> tabData = Arrays.asList(getResources().getStringArray(R.array.order_status_array));
         mFragmentData = new ArrayList<>();
         int orderStatus;

@@ -37,7 +37,8 @@
         app:show_bottom_line="true"
         app:title_data="@string/plaza"
         app:title_text_color="@color/color_4"
-        app:title_text_size="@dimen/size_17sp" />
+        app:title_text_size="@dimen/size_17sp"
+        app:left_text_is_bold="true"/>
 
 
 </LinearLayout>
