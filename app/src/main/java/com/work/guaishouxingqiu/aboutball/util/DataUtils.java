@@ -553,7 +553,7 @@ public class DataUtils {
 
         String replaceContent = "";
         for (int i = 0; i < key.length(); i++) {
-            replaceContent = replaceContent + "-";
+            replaceContent = replaceContent.concat("-");
         }
         while (sb.toString().contains(key)) {
             int index = sb.indexOf(key);

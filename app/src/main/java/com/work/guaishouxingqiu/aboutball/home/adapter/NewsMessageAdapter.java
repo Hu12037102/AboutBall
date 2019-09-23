@@ -36,7 +36,7 @@ public class NewsMessageAdapter extends BaseRecyclerAdapter<NewsMessageAdapter.V
         viewHolder.mTvName.setText(bean.nickName);
         viewHolder.mTvTime.setText(bean.commentTime);
         //viewHolder.mTvContent.setText(bean.commentContent);
-        UIUtils.setEmojiText( viewHolder.mTvContent,bean.commentContent);
+        UIUtils.setEmojiText( viewHolder.mTvContent,bean.commentContent.trim());
 
     }
 

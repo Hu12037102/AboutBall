@@ -135,7 +135,8 @@ public class MyGoodFragment extends DelayedFragment<MyGoodPresenter> implements 
                 switch (mData.get(position).status) {
                     //待支付
                     case Contast.MyGoodStatus.WAIT_PAY:
-                      //  mViewModel.showPayDialog(DataUtils.getMoneyFormat(bean.amount), view1 -> mPresenter.payWeiChatSing(mResultBean.id));
+                        mViewModel.startGoodDetailsActivityForResult(MyGoodFragment.this, MyGoodFragment.REQUEST_CODE_TO_GOOD_DETAILS, mData.get(position).orderId);
+                        //  mViewModel.showPayDialog(DataUtils.getMoneyFormat(bean.amount), view1 -> mPresenter.payWeiChatSing(mResultBean.id));
                         break;
                     //已付款
                     case Contast.MyGoodStatus.PAYING:

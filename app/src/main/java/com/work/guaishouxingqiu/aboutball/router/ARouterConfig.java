@@ -88,6 +88,7 @@ public interface ARouterConfig {
         String ACTIVITY_WEB_URL="/activity/web/url";
         String ACTIVITY_MY_GOOD ="/activity/my/good";
         String ACTIVITY_GOOD_REFUND="/activity/good/refund";
+        String ACTIVITY_GOOD_PAY_SUCCEED="/activity/good/pay/succeed";
 
 
 

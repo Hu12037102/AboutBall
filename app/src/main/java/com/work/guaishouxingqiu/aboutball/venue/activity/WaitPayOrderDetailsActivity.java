@@ -110,8 +110,6 @@ public class WaitPayOrderDetailsActivity extends BasePayActivity<WaitPayOrderDet
                 mTvTopHint.setText(R.string.please_add_up_to_order);
                 break;
             case Contast.PayOrderFlag.PAY_LAUNCHER_ORDER:
-                mLlTop.setVisibility(View.VISIBLE);
-                break;
             case Contast.PayOrderFlag.PAY_WAIT_ORDER:
                 mLlTop.setVisibility(View.VISIBLE);
                 break;

@@ -32,6 +32,9 @@ public abstract class BasePayActivity<P extends BaseOrderPresenter> extends Base
         unRegisterEventBus();
         super.onDestroy();
     }
+    public String getActivityPath(){
+        return ARouterConfig.Path.ACTIVITY_PAY_SUCCEED;
+    }
 
     @Subscribe
     public void resultWeiChatPay(BaseResp baseResp) {
@@ -39,7 +42,7 @@ public abstract class BasePayActivity<P extends BaseOrderPresenter> extends Base
             //成功
             case 0:
                 UIUtils.showToast(R.string.succeed_pay);
-                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_PAY_SUCCEED, ARouterConfig.Key.ORDER_ID, getOrderId());
+                ARouterIntent.startActivity(getActivityPath(), ARouterConfig.Key.ORDER_ID, getOrderId());
                 setResult(Activity.RESULT_OK);
                 finish();
                 break;

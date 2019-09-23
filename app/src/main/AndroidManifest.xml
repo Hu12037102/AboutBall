@@ -430,6 +430,8 @@
         <activity
             android:name=".good.activity.GoodRefundActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".good.activity.GoodPaySucceedActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 

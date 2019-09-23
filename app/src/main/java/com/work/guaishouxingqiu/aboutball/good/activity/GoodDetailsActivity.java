@@ -285,4 +285,9 @@ public class GoodDetailsActivity extends BasePayActivity<GoodDetailsPresenter> i
     public long getOrderId() {
         return mResultBean.id;
     }
+
+    @Override
+    public String getActivityPath() {
+        return ARouterConfig.Path.ACTIVITY_GOOD_PAY_SUCCEED;
+    }
 }
