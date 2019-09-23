@@ -226,7 +226,7 @@ public class NewsDetailsActivity extends BaseWebActivity<NewDetailsPresenter> im
         loadEditData(dataBean.content);
         mContentBean = dataBean;
         mTvTitle.setText(dataBean.title);
-        mTvFrom.setText(UIUtils.getString(R.string.from_data, dataBean.source, dataBean.releaseTime));
+        mTvFrom.setText(UIUtils.getString(R.string.from_data, dataBean.source, DateUtils.getNextCountData(dataBean.releaseTime, 0)));
         // mTitleView.mTvCenter.setText(dataBean.title);
 
     }

@@ -16,7 +16,7 @@ public interface OrderRefundDetailsContract {
     }
 
     interface Presenter extends IBasePresenter {
-        void checkRefundDetails(long orderId);
+        void checkRefundDetails(long orderId,int flag);
 
     }
 }

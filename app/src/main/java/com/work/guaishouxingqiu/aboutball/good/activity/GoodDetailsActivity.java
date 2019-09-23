@@ -147,7 +147,9 @@ public class GoodDetailsActivity extends BasePayActivity<GoodDetailsPresenter> i
                             break;
                         //退款中
                         case Contast.MyGoodStatus.REFUNDING:
-                            ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ORDER_REFUND_DETAILS, ARouterConfig.Key.ORDER_ID, mResultBean.id);
+                            //  ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ORDER_REFUND_DETAILS, ARouterConfig.Key.ORDER_ID, mResultBean.id);
+                            ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ORDER_REFUND_DETAILS, ARouterConfig.Key.ORDER_ID, mResultBean.id, ARouterConfig.Key.ORDER_FLAG, 1);
+
                             break;
                         //已退款
                         case Contast.MyGoodStatus.REFUNDED:

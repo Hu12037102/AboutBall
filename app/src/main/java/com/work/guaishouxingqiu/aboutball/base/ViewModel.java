@@ -91,6 +91,7 @@ public class ViewModel {
     private UpdateApkDialog mUpdateDialog;
     private HintDialog mCreateDialog;
     private PayDialog mPayDialog;
+    private SureOrderDialog mSureOrderDialog;
 
     static ViewModel createViewModel(Activity activity) {
         return new ViewModel(activity);
@@ -360,7 +361,12 @@ public class ViewModel {
     }
 
     public void showSureOrderDialog(ResultSureOrderDialogBean bean, SureOrderDialog.OnSureOrderClickListener listener) {
-        SureOrderDialog mSureOrderDialog = new SureOrderDialog(mSoftActivity.get(), bean);
+        if (mSureOrderDialog== null){
+            mSureOrderDialog = new SureOrderDialog(mSoftActivity.get(), bean);
+        }else {
+            mSureOrderDialog.notifyData(bean);
+        }
+
         if (!mSoftActivity.get().isFinishing() && !mSureOrderDialog.isShowing()) {
             mSureOrderDialog.show();
         }

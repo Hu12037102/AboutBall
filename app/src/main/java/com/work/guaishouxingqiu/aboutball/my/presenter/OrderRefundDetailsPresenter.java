@@ -3,7 +3,6 @@ package com.work.guaishouxingqiu.aboutball.my.presenter;
 import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
-import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultRefundDetailsBean;
@@ -34,19 +33,35 @@ public class OrderRefundDetailsPresenter extends BasePresenter<OrderRefundDetail
     }
 
     @Override
-    public void checkRefundDetails(long orderId) {
-        mModel.checkRefundDetails(orderId, new BaseObserver<>(true, this, new BaseObserver.Observer<ResultRefundDetailsBean>() {
-            @Override
-            public void onNext(BaseBean<ResultRefundDetailsBean> t) {
-                if (DataUtils.isResultSure(t)) {
-                    mView.resultRefundDetails(t.result);
+    public void checkRefundDetails(long orderId, int flag) {
+        if (flag == 1) {
+            mModel.checkGoodRefundDetails(orderId, new BaseObserver<>(true, this, new BaseObserver.Observer<ResultRefundDetailsBean>() {
+                @Override
+                public void onNext(BaseBean<ResultRefundDetailsBean> t) {
+                    if (DataUtils.isResultSure(t)) {
+                        mView.resultRefundDetails(t.result);
+                    }
                 }
-            }
 
-            @Override
-            public void onError(Throwable e) {
+                @Override
+                public void onError(Throwable e) {
 
-            }
-        }));
+                }
+            }));
+        } else {
+            mModel.checkOrderRefundDetails(orderId, new BaseObserver<>(true, this, new BaseObserver.Observer<ResultRefundDetailsBean>() {
+                @Override
+                public void onNext(BaseBean<ResultRefundDetailsBean> t) {
+                    if (DataUtils.isResultSure(t)) {
+                        mView.resultRefundDetails(t.result);
+                    }
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+            }));
+        }
     }
 }

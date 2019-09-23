@@ -1,6 +1,5 @@
 package com.work.guaishouxingqiu.aboutball.my.model;
 
-import com.work.guaishouxingqiu.aboutball.base.BaseDataBean;
 import com.work.guaishouxingqiu.aboutball.base.BaseModel;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.my.MyService;
@@ -17,11 +16,19 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class OrderRefundDetailsModel extends BaseModel{
 
-    public void checkRefundDetails(long orderId, BaseObserver<ResultRefundDetailsBean> observer) {
+    public void checkGoodRefundDetails(long orderId, BaseObserver<ResultRefundDetailsBean> observer) {
         mRetrofitManger.create(MyService.class)
-                .getCheckRefund(orderId)
+                .getGoodCheckRefund(orderId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
+    public void checkOrderRefundDetails(long orderId, BaseObserver<ResultRefundDetailsBean> observer) {
+        mRetrofitManger.create(MyService.class)
+                .getOrderCheckRefund(orderId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
 }

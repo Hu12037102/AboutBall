@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.my.activity;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -55,7 +56,8 @@ public class OrderRefundDetailsActivity extends BaseActivity<OrderRefundDetailsP
 
     @Override
     protected void initView() {
-      long orderId = mIntent.getLongExtra(ARouterConfig.Key.ORDER_ID,-1);
+        long orderId = mIntent.getLongExtra(ARouterConfig.Key.ORDER_ID, -1);
+        int flag = mIntent.getIntExtra(ARouterConfig.Key.ORDER_FLAG, 0);
         if (orderId == -1) {
             UIUtils.showToast(R.string.not_find_this_order);
             finish();
@@ -64,8 +66,7 @@ public class OrderRefundDetailsActivity extends BaseActivity<OrderRefundDetailsP
         mRvSchedule.setLayoutManager(new LinearLayoutManager(this));
 
 
-
-        mPresenter.checkRefundDetails(orderId);
+        mPresenter.checkRefundDetails(orderId,flag);
     }
 
     @Override

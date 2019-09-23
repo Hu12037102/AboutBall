@@ -163,7 +163,8 @@ public interface IApiService {
     String GET_MY_ABOUT_BALL = "api/agreeBall/MyAgreeBall";
     String GET_REFUND_CAUSE = "api/order/getOrderRefundReason";
     String POST_REFUND_ORDER = "api/order/refundOrder";
-    String GET_CHECK_REFUND = "api/transaction/getRefundProgress";
+    String GET_GOOD_CHECK_REFUND = "api/transaction/getRefundProgress";
+    String GET_ORDER_CHECK_REFUND = "api/order/weChatRefundQuery";
     String GET_REFEREE_EVALUATION = "api/referee/getRefereeComment";
     String GET_TEAM_EVALUATION = "api/myTeam/getTeamComment";
     String POST_EVALUATE_OPPONENT = "api/myTeam/commentOpponent";

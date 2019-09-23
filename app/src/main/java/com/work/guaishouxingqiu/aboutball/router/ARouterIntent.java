@@ -37,6 +37,9 @@ public class ARouterIntent {
     public static void startActivity(@NonNull String path, @NonNull String key, long values) {
         ARouter.getInstance().build(path).withLong(key, values).navigation();
     }
+    public static void startActivity(@NonNull String path, @NonNull String key1, long values1,String key2,int values2) {
+        ARouter.getInstance().build(path).withLong(key1, values1).withInt(key2,values2).navigation();
+    }
 
     public static void startActivity(@NonNull String path, @NonNull String key, long values, String stringKey, String stringValues) {
         ARouter.getInstance().build(path).withLong(key, values).withString(stringKey, stringValues).navigation();
