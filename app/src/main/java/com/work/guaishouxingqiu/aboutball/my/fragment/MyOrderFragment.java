@@ -173,7 +173,8 @@ public class MyOrderFragment extends BasePayFragment<MyOrderFragmentPresenter> i
                     //待付款
                     case Contast.OrderStatus.WAIT_PAY:
                         mPayOrderId = bean.orderId;
-                        clickPay(bean.totalPrice, bean.orderId);
+                       // clickPay(bean.totalPrice, bean.orderId);
+                        mViewModel.startActivityForResultToOrderPay(bean.orderId, Contast.PayOrderFlag.PAY_MY_ORDER, MyOrderFragment.this, Contast.OrderStatus.WAIT_PAY);
                         break;
                     //已取消
                     case Contast.OrderStatus.CANCELED:
