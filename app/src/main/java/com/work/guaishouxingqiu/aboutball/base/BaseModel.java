@@ -93,7 +93,13 @@ public class BaseModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
-
+    }
+    public void payTicketsWeiChatSing(long orderId, BaseObserver<BaseDataBean<ResultWeiChatSingBean>> observer) {
+        mRetrofitManger.create(MyService.class)
+                .payTicketsWeiChatSing(orderId, "APP")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
     }
 
     public void loadRefundCauseList(BaseObserver<List<ResultRefundCauseBean>> observer) {

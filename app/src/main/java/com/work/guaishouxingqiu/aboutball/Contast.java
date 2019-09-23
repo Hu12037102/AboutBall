@@ -253,4 +253,9 @@ public interface Contast {
         int REFUNDED = 9;//已退款
     }
 
+    interface WeiChatStatus {
+        int BOOKING = 1;//场馆支付
+        int TICKETS = 2;//票务支持
+    }
+
 }

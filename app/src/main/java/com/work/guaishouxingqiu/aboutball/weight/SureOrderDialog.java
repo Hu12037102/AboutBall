@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -62,7 +63,7 @@ public class SureOrderDialog extends BaseDialog {
             return;
         }
         UIUtils.setText(mTvMoney, DataUtils.getMoneyFormat(mDialogBean.price));
-        mInvCount.setMaxNum(getCheckCount());
+        mInvCount.setMaxNum(mDialogBean.maxNum);
         mLlData.removeAllViews();
         mLlData.removeAllViewsInLayout();
         mAdapterData.clear();
@@ -274,7 +275,6 @@ public class SureOrderDialog extends BaseDialog {
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            //    holder.setIsRecyclable(false);
             ResultSureOrderDialogBean.SpecificationChildBean bean = mData.get(position);
             if (bean.isChecked == 1) {
                 holder.mTvContent.setBackgroundResource(R.drawable.shape_click_button);
@@ -284,9 +284,7 @@ public class SureOrderDialog extends BaseDialog {
                 UIUtils.setTextColor(holder.mTvContent, R.color.color_4);
             }
             if (bean.isInvalid == 0) {
-                UIUtils.setTextColor(holder.mTvContent, R.color.color_4);
                 holder.itemView.setEnabled(true);
-
             } else {
                 holder.mTvContent.setBackgroundResource(R.drawable.shape_default_fbfafa_button);
                 UIUtils.setTextColor(holder.mTvContent, R.color.colorFFA6A6A6);

@@ -180,6 +180,9 @@ public interface MyService {
     @GET(IApiService.GET_PAY_WEI_CHAT_SING)
     Observable<BaseBean<BaseDataBean<ResultWeiChatSingBean>>> payWeiChatSing(@Query(Contast.ORDER_ID) long orderId, @Query(Contast.TRADE_TYPE) String tradeType);
 
+    @GET(IApiService.GET_PAY_TIAKETS_WEI_CHAT_SING)
+    Observable<BaseBean<BaseDataBean<ResultWeiChatSingBean>>> payTicketsWeiChatSing(@Query(Contast.ORDER_ID) long orderId, @Query(Contast.TRADE_TYPE) String tradeType);
+
     @GET(IApiService.GET_REFUND_CAUSE)
     Observable<BaseBean<List<ResultRefundCauseBean>>> getRefundCause();
 

@@ -164,7 +164,7 @@ public class InputMessageDialog extends BaseDialog {
                 mClEmojiParent.setVisibility(View.GONE);
                 mCbEmoji.setChecked(false);
                 mCbEmoji.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_emoji, 0, 0, 0);
-                mHandler.sendEmptyMessageDelayed(100, 1000);
+              //  mHandler.sendEmptyMessageDelayed(WHAT, 100);
             }
         });
         mAcetMessage.addTextChangedListener(new TextWatcher() {
@@ -189,11 +189,13 @@ public class InputMessageDialog extends BaseDialog {
                 if (isChecked) {
                     mCbEmoji.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_soft, 0, 0, 0);
                     mClEmojiParent.setVisibility(View.VISIBLE);
+                    hideSoft(mCbEmoji);
                 } else {
                     mCbEmoji.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_emoji, 0, 0, 0);
                     mClEmojiParent.setVisibility(View.GONE);
+                    showSoft();
                 }
-                hideSoft(mCbEmoji);
+
             }
         });
         mRgParent.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -267,6 +269,11 @@ public class InputMessageDialog extends BaseDialog {
 
         }
     }
+    private void showSoft(){
+        if(mHandler!=null){
+            mHandler.sendEmptyMessageDelayed(WHAT,100);
+        }
+    }
 
     @Override
     public void onDetachedFromWindow() {
@@ -334,7 +341,7 @@ public class InputMessageDialog extends BaseDialog {
                 @Override
                 public void onClickItem(@NonNull View view, int position) {
                     if (onEmojiInputListener != null) {
-                        onEmojiInputListener.onEmojiInput(view, mData.get(position));
+                        onEmojiInputListener.onEmojiInput(view, rvData.get(position));
                     }
                 }
             });

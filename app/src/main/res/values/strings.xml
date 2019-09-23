@@ -51,6 +51,7 @@
     <string name="you_sure_give_up_to_submit" translatable="false">您确定放弃提交意见反馈</string>
     <string name="selector_ball_clothing_color" translatable="false">选择球衣颜色</string>
     <string name="setting" translatable="false">设置</string>
+    <string name="my_booking">我的订场</string>
     <string name="click_login_or_register" translatable="false">点击登录/注册</string>
     <string name="password_login" translatable="false">密码登录</string>
     <string name="welcome_back" translatable="false">欢迎回来</string>

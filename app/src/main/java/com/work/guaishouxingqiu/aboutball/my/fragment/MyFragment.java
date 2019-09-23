@@ -79,6 +79,8 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
     ImageView mIvRedPoint;
     @BindView(R.id.item_tickets)
     ItemView mItemTickets;
+    @BindView(R.id.item_booking)
+    ItemView mItemBooking;
     private View view;
     private Integer mMyRefereeStatus;
     private TextView mHeadTvFocusFans;
@@ -149,7 +151,7 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
         mItemTeam.setOnItemClickListener(new ItemView.OnItemClickListener() {
             @Override
             public void onClickItem(View view) {
-                DataUtils.addSellingPoint(mContext, SellingPointsEvent.Key.A0504);
+                //DataUtils.addSellingPoint(mContext, SellingPointsEvent.Key.A0504);
                 ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_BALL_TEAM);
                 //  Toasts.with().showToast(R.string.pleases_next_open);
             }
@@ -193,6 +195,13 @@ public class MyFragment extends LoginOrShareFragment<MyPresenter> implements MyC
             @Override
             public void onClickItem(View view) {
                 ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_TICKETS);
+            }
+        });
+        mItemBooking.setOnItemClickListener(new ItemView.OnItemClickListener() {
+            @Override
+            public void onClickItem(View view) {
+                DataUtils.addSellingPoint(mContext, SellingPointsEvent.Key.A0503);
+                 ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_ORDER);
             }
         });
     }

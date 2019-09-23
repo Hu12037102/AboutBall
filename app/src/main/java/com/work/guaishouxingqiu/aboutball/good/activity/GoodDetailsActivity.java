@@ -133,7 +133,7 @@ public class GoodDetailsActivity extends BasePayActivity<GoodDetailsPresenter> i
                     switch (mResultBean.status) {
                         //待支付
                         case Contast.MyGoodStatus.WAIT_PAY:
-                            mViewModel.showPayDialog(DataUtils.getMoneyFormat(mResultBean.amount), view1 -> mPresenter.payWeiChatSing(mResultBean.id));
+                            mViewModel.showPayDialog(DataUtils.getMoneyFormat(mResultBean.amount), view1 -> mPresenter.payTicketsWeiChatSing(mResultBean.id));
                             break;
                         //已付款
                         case Contast.MyGoodStatus.PAYING:

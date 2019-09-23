@@ -158,7 +158,8 @@ public interface IApiService {
     String POST_EVALUATE_ORDER = "api/order/commentOrder";
     String GET_ABOUT_BALL_DETAILS = "api/agreeBall/getAgreeBallDetail";
     String GET_PLAY_REFEREE = "api/referee/serveAsReferee";
-    String GET_PAY_WEI_CHAT_SING = "api/pay/weChatPay";
+    String GET_PAY_WEI_CHAT_SING = "api/order/weChatPay";
+    String GET_PAY_TIAKETS_WEI_CHAT_SING = "api/pay/weChatPay";
     String GET_MY_ABOUT_BALL = "api/agreeBall/MyAgreeBall";
     String GET_REFUND_CAUSE = "api/order/getOrderRefundReason";
     String POST_REFUND_ORDER = "api/order/refundOrder";

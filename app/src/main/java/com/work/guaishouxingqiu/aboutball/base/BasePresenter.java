@@ -183,6 +183,22 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
         }, false));
     }
 
+    public void payTicketsWeiChatSing(long orderId) {
+        mModel.payTicketsWeiChatSing(orderId, new BaseObserver<>(true, this, new BaseObserver.Observer<BaseDataBean<ResultWeiChatSingBean>>() {
+            @Override
+            public void onNext(BaseBean<BaseDataBean<ResultWeiChatSingBean>> t) {
+                if (DataUtils.baseDataBeanIsSucceed(t) && t.result.result != null) {
+                    mView.resultWeiChatSing(t.result.result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }, false));
+    }
+
     public void loadRefundCauseList() {
         SharedPreferencesHelp sp = new SharedPreferencesHelp();
         String refundJson = sp.getString(SharedPreferencesHelp.KEY_REFUND_CAUSE_LIST);

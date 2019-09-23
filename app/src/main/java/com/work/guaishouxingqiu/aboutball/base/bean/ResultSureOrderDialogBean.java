@@ -13,6 +13,7 @@ public class ResultSureOrderDialogBean {
     public List<SpecificationBean> specificationVOList;
     public int num;
     public String orderParam;
+    public int maxNum;
 
 
     public class SpecificationBean {
