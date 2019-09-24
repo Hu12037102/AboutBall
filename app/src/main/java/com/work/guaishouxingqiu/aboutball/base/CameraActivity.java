@@ -4,20 +4,27 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 
+import com.uuzuche.lib_zxing.activity.CaptureActivity;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.community.activity.CameraVideoActivity;
 import com.work.guaishouxingqiu.aboutball.media.MediaSelector;
 import com.work.guaishouxingqiu.aboutball.media.bean.MediaSelectorFile;
+import com.work.guaishouxingqiu.aboutball.other.SellingPointsEvent;
 import com.work.guaishouxingqiu.aboutball.permission.PermissionActivity;
 import com.work.guaishouxingqiu.aboutball.permission.imp.OnPermissionsResult;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
+import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.FileUtils;
+import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
+import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 import com.work.guaishouxingqiu.aboutball.weight.PhotoDialog;
 import com.work.guaishouxingqiu.aboutball.weight.Toasts;
 import com.yalantis.ucrop.UCrop;
@@ -41,6 +48,39 @@ public abstract class CameraActivity<P extends BasePresenter> extends Permission
     private static final int REQUEST_CODE_VIDEO_CAMERA = 1750;
     private File mCameraFile;
     private MediaSelector.MediaOptions mMediaOptions;
+    private static final int REQUEST_CODE_OPEN_SCAN_CODE=1578;//打开二维码
+
+
+
+
+    protected void openScanCode() {
+        DataUtils.addSellingPoint(this, SellingPointsEvent.Key.A0109);
+        requestPermission(new OnPermissionsResult() {
+            @Override
+            public void onAllow(List<String> allowPermissions) {
+                startActivityForResult(new Intent(CameraActivity.this, CaptureActivity.class), CameraActivity.REQUEST_CODE_OPEN_SCAN_CODE);
+            }
+
+            @Override
+            public void onNoAllow(List<String> noAllowPermissions) {
+                HintDialog hintDialog = new HintDialog.Builder(CameraActivity.this)
+                        .setTitle(R.string.hint)
+                        .setBody(R.string.camera_is_must_permission)
+                        .setSure(R.string.sure).builder();
+                hintDialog.show();
+                hintDialog.setOnItemClickListener(view -> {
+                    hintDialog.dismiss();
+                    openScanCode();
+                });
+            }
+
+            @Override
+            public void onForbid(List<String> noForbidPermissions) {
+                showForbidPermissionDialog();
+            }
+        }, Manifest.permission.CAMERA);
+
+    }
 
     private void openCamera() {
 
@@ -207,6 +247,24 @@ public abstract class CameraActivity<P extends BasePresenter> extends Permission
             }
             String filePath = data.getStringExtra(ARouterConfig.Key.CAMERA_VIDEO_PATH);
             resultCameraVideoResult(filePath, data.getBooleanExtra(ARouterConfig.Key.IS_CAMERA_VIDEO, false));
+        }else if (resultCode == Activity.RESULT_OK && requestCode == CameraActivity.REQUEST_CODE_OPEN_SCAN_CODE){
+            if (data == null) {
+                return;
+            }
+            Bundle bundle = data.getExtras();
+            if (bundle == null) {
+                return;
+            }
+            if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
+                String result = bundle.getString(CodeUtils.RESULT_STRING);
+                if (result != null) {
+                    UIUtils.parseScanCode(result);
+                }
+                LogUtils.w("onActivityResult--", result);//15681673146651413
+                //Toasts.with().showToast(result);
+            } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
+                Toasts.with().showToast("解析失败！");
+            }
         }
 
     }

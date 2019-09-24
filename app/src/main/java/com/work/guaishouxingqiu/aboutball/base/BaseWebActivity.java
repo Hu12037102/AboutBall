@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -56,32 +57,39 @@ public abstract class BaseWebActivity<P extends LoginOrSharePresenter> extends L
     @Override
     protected void initEvent() {
         mWebView.setWebChromeClient(new WebChromeClient() {
-            @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-                super.onProgressChanged(view, newProgress);
-                if (mPbLoading != null) {
-                    mPbLoading.setProgress(newProgress);
-                    if (newProgress == 100) {
-                        mPbLoading.setVisibility(View.GONE);
-                    }
-                    LogUtils.w("onReceivedTitle--", newProgress + "--");
-                }
-            }
+                                        @Override
+                                        public void onProgressChanged(WebView view, int newProgress) {
+                                            super.onProgressChanged(view, newProgress);
+                                            if (mPbLoading != null) {
+                                                mPbLoading.setProgress(newProgress);
+                                                if (newProgress == 100) {
+                                                    mPbLoading.setVisibility(View.GONE);
+                                                }
+                                                LogUtils.w("onReceivedTitle--", newProgress + "--");
+                                            }
+                                        }
 
-            @Override
-            public void onReceivedTitle(WebView view, String title) {
-                super.onReceivedTitle(view, title);
-                if (mTitleView != null) {
-                    mTitleView.mTvCenter.setText(title);
-                }
-                LogUtils.w("onReceivedTitle--", title);
-            }
-        });
+                                        @Override
+                                        public void onReceivedTitle(WebView view, String title) {
+                                            super.onReceivedTitle(view, title);
+                                            if (mTitleView != null) {
+                                                mTitleView.mTvCenter.setText(title);
+                                            }
+                                            LogUtils.w("onReceivedTitle--", title);
+                                        }
+
+                                        @Override
+                                        public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+                                            return BaseWebActivity.this.onJsAlertDialog();
+                                        }
+                                    }
+
+        );
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-
+                BaseWebActivity.this.onPageFinished(view,url);
                 LogUtils.w("WebViewClient--", url);
             }
 
@@ -94,6 +102,10 @@ public abstract class BaseWebActivity<P extends LoginOrSharePresenter> extends L
 
     }
 
+    protected boolean onJsAlertDialog() {
+        return false;
+    }
+    protected void onPageFinished(WebView view, String url) {}
 
     /**
      * 加载富文本

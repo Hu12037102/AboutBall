@@ -17,7 +17,8 @@
         app:sure_text_color="@color/color_4"
         app:sure_text_padding_left="@dimen/default_margin"
         app:sure_text_padding_right="@dimen/default_margin"
-        app:sure_text_size="@dimen/size_14sp" />
+        app:sure_text_size="@dimen/size_14sp"
+        app:back_click_is_finish="false"/>
 
     <ImageView
         android:id="@+id/iv_content"

@@ -3,13 +3,16 @@ package com.example.item.weight;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
+
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -107,8 +110,10 @@ public class ItemView extends RelativeLayout {
             mBottomLine.setVisibility(typedArray.getBoolean(R.styleable.ItemView_show_bottom_line, false) ? VISIBLE : GONE);
             setLineHeight(mBottomLine, typedArray.getDimensionPixelSize(R.styleable.ItemView_bottom_line_height, ScreenUtils.dp2px(getContext(), 0.5f)));
             mBottomLine.setBackgroundColor(typedArray.getColor(R.styleable.ItemView_bottom_line_color, ContextCompat.getColor(getContext(), R.color.colorFFEFEFEF)));
-           mTvLeft.getPaint().setFakeBoldText(typedArray.getBoolean(R.styleable.ItemView_left_text_is_bold,false));
-           mTvRight.getPaint().setFakeBoldText(typedArray.getBoolean(R.styleable.ItemView_right_text_is_bold,false));
+            mTvLeft.getPaint().setFakeBoldText(typedArray.getBoolean(R.styleable.ItemView_left_text_is_bold, false));
+            mTvRight.getPaint().setFakeBoldText(typedArray.getBoolean(R.styleable.ItemView_right_text_is_bold, false));
+            boolean isShowLeft = typedArray.getBoolean(R.styleable.ItemView_content_show_left, false);
+            mTvRight.setGravity(isShowLeft ? (Gravity.LEFT | Gravity.CENTER_VERTICAL) : (Gravity.RIGHT | Gravity.CENTER_VERTICAL));
             typedArray.recycle();
 
         }

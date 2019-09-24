@@ -29,7 +29,7 @@ public class WebHelp {
         webSettings.setSupportZoom(false);
         webSettings.setBuiltInZoomControls(false);
         webSettings.setDisplayZoomControls(false);
-        webSettings.setAppCacheEnabled(true);//开启 Application Caches 功能
+        webSettings.setAppCacheEnabled(false);//开启 Application Caches 功能
         webSettings.setAppCachePath(FileUtils.getNetCacheFile().getAbsolutePath());
         if (NetWorkUtils.isNetCanUse()) {
             webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
@@ -43,7 +43,7 @@ public class WebHelp {
         webSettings.setDatabaseEnabled(true);   //开启 database storage API 功能
 
         //硬件加速
-      // webSettings.setPluginState(WebSettings.PluginState.ON_DEMAND);
+       webSettings.setPluginState(WebSettings.PluginState.ON_DEMAND);
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         webSettings.setUseWideViewPort(false); // 关键点
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {

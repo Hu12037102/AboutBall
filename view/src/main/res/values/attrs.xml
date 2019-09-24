@@ -65,6 +65,7 @@
         <attr name="bottom_line_margin_bottom" format="dimension" />
         <attr name="left_text_is_bold" format="boolean" />
         <attr name="right_text_is_bold" format="boolean" />
+        <attr name="content_show_left" format="boolean"/>
     </declare-styleable>
 
 

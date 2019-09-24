@@ -15,12 +15,14 @@ import com.work.guaishouxingqiu.aboutball.commonality.activity.LoginOrShareActiv
 import com.work.guaishouxingqiu.aboutball.media.IntentData;
 import com.work.guaishouxingqiu.aboutball.my.contract.PaySucceedContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.PaySucceedPresenter;
+import com.work.guaishouxingqiu.aboutball.other.ActivityManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
 import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.venue.activity.CreateBallActivity;
+import com.work.guaishouxingqiu.aboutball.venue.activity.VenueBookingActivity;
 import com.work.guaishouxingqiu.aboutball.venue.activity.VenueDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 
@@ -84,7 +86,7 @@ public class PaySucceedActivity extends LoginOrShareActivity<PaySucceedPresenter
         mTitleView.setOnTitleViewClickListener(new TitleView.OnTitleViewClickListener() {
             @Override
             public void onBackClick(@NonNull View view) {
-
+                clickBack();
             }
 
             @Override
@@ -103,9 +105,17 @@ public class PaySucceedActivity extends LoginOrShareActivity<PaySucceedPresenter
 
     @OnClick(R.id.tv_click)
     public void onViewClicked() {
+        clickBack();
+    }
+    private void clickBack(){
+        ActivityManger.get().removeActivity(VenueBookingActivity.class);
         finish();
     }
 
+    @Override
+    public void onBackPressed() {
+        clickBack();
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true, priority = 100)
     public void sendCreateBallMessage(PaySucceedActivity.Type type) {

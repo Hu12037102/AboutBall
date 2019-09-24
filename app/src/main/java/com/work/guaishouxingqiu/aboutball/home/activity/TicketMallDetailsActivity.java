@@ -302,7 +302,8 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && requestCode == ARouterIntent.REQUEST_CODE) {
-            mViewModel.clickBackForResult();
+          //  mViewModel.clickBackForResult();
+            mSrlRefresh.autoRefresh();
         }
     }
 }

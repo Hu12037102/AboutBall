@@ -180,79 +180,82 @@ public class GameDataFragment extends DelayedFragment<GameDataPresenter> impleme
 
     @Override
     public void resultHeadGameDetails(ResultGameDataInfoBean bean) {
+        if (bean == null) {
+            return;
+        }
         mHeadData.clear();
         ResultGameDetailsBean.Bean detailsBallPossessionBean = new ResultGameDetailsBean.Bean();
         detailsBallPossessionBean.statsName = UIUtils.getString(R.string.ball_possession);
-        detailsBallPossessionBean.hostValue = bean == null ? 0 : bean.host.ballPossession;
-        detailsBallPossessionBean.guestValue = bean == null ? 0 : bean.guest.ballPossession;
+        detailsBallPossessionBean.hostValue = bean.host == null ? 0 : bean.host.ballPossession;
+        detailsBallPossessionBean.guestValue = bean.guest == null ? 0 : bean.guest.ballPossession;
         detailsBallPossessionBean.dataType = 0;
         mHeadData.add(detailsBallPossessionBean);
 
         ResultGameDetailsBean.Bean goalBean = new ResultGameDetailsBean.Bean();
         goalBean.statsName = UIUtils.getString(R.string.goal);
-        goalBean.hostValue = bean == null ? 0 : bean.host.goal;
-        goalBean.guestValue = bean == null ? 0 : bean.guest.goal;
+        goalBean.hostValue = bean.host == null ? 0 : bean.host.goal;
+        goalBean.guestValue = bean.guest == null ? 0 : bean.guest.goal;
         mHeadData.add(goalBean);
 
         ResultGameDetailsBean.Bean detailsPassingCompletionBean = new ResultGameDetailsBean.Bean();
         detailsPassingCompletionBean.statsName = UIUtils.getString(R.string.passing_completion);
-        detailsPassingCompletionBean.hostValue = bean == null ? 0 : bean.host.passingCompletion;
-        detailsPassingCompletionBean.guestValue = bean == null ? 0 : bean.host.passingCompletion;
+        detailsPassingCompletionBean.hostValue = bean.host == null ? 0 : bean.host.passingCompletion;
+        detailsPassingCompletionBean.guestValue = bean.guest == null ? 0 : bean.guest.passingCompletion;
         detailsPassingCompletionBean.dataType = 0;
         mHeadData.add(detailsPassingCompletionBean);
 
         ResultGameDetailsBean.Bean detailsShootBean = new ResultGameDetailsBean.Bean();
         detailsShootBean.statsName = UIUtils.getString(R.string.shoot);
-        detailsShootBean.hostValue = bean == null ? 0 : bean.host.shoot;
-        detailsShootBean.guestValue = bean == null ? 0 : bean.guest.shoot;
+        detailsShootBean.hostValue = bean.host == null ? 0 : bean.host.shoot;
+        detailsShootBean.guestValue = bean.guest == null ? 0 : bean.guest.shoot;
         mHeadData.add(detailsShootBean);
 
         ResultGameDetailsBean.Bean detailsShootOnTargetBean = new ResultGameDetailsBean.Bean();
         detailsShootOnTargetBean.statsName = UIUtils.getString(R.string.shoot_on_target);
-        detailsShootOnTargetBean.hostValue = bean == null ? 0 : bean.host.shootOnTarget;
-        detailsShootOnTargetBean.guestValue = bean == null ? 0 : bean.guest.shootOnTarget;
+        detailsShootOnTargetBean.hostValue = bean.host == null ? 0 : bean.host.shootOnTarget;
+        detailsShootOnTargetBean.guestValue = bean.guest == null ? 0 : bean.guest.shootOnTarget;
         mHeadData.add(detailsShootOnTargetBean);
 
         ResultGameDetailsBean.Bean detailsAttackBean = new ResultGameDetailsBean.Bean();
         detailsAttackBean.statsName = UIUtils.getString(R.string.attack);
-        detailsAttackBean.hostValue = bean == null ? 0 : bean.host.attack;
-        detailsAttackBean.guestValue = bean == null ? 0 : bean.guest.attack;
+        detailsAttackBean.hostValue = bean.host == null ? 0 : bean.host.attack;
+        detailsAttackBean.guestValue = bean.guest == null ? 0 : bean.guest.attack;
         mHeadData.add(detailsAttackBean);
 
         ResultGameDetailsBean.Bean detailsDangerAttackBean = new ResultGameDetailsBean.Bean();
         detailsDangerAttackBean.statsName = UIUtils.getString(R.string.danger_attack);
-        detailsDangerAttackBean.hostValue = bean == null ? 0 : bean.host.dangerAttack;
-        detailsDangerAttackBean.guestValue = bean == null ? 0 : bean.guest.dangerAttack;
+        detailsDangerAttackBean.hostValue = bean.host == null ? 0 : bean.host.dangerAttack;
+        detailsDangerAttackBean.guestValue = bean.guest == null ? 0 : bean.guest.dangerAttack;
         mHeadData.add(detailsDangerAttackBean);
 
         ResultGameDetailsBean.Bean detailsFreeKickBean = new ResultGameDetailsBean.Bean();
         detailsFreeKickBean.statsName = UIUtils.getString(R.string.free_kick);
-        detailsFreeKickBean.hostValue = bean == null ? 0 : bean.host.freeKick;
-        detailsFreeKickBean.guestValue = bean == null ? 0 : bean.guest.freeKick;
+        detailsFreeKickBean.hostValue = bean.host == null ? 0 : bean.host.freeKick;
+        detailsFreeKickBean.guestValue = bean.guest == null ? 0 : bean.guest.freeKick;
         mHeadData.add(detailsFreeKickBean);
 
         ResultGameDetailsBean.Bean detailsOffsideBean = new ResultGameDetailsBean.Bean();
         detailsOffsideBean.statsName = UIUtils.getString(R.string.offside);
-        detailsOffsideBean.hostValue = bean == null ? 0 : bean.host.offside;
-        detailsOffsideBean.guestValue = bean == null ? 0 : bean.guest.offside;
+        detailsOffsideBean.hostValue = bean.host == null ? 0 : bean.host.offside;
+        detailsOffsideBean.guestValue = bean.guest == null ? 0 : bean.guest.offside;
         mHeadData.add(detailsOffsideBean);
 
         ResultGameDetailsBean.Bean detailsFoulBean = new ResultGameDetailsBean.Bean();
         detailsFoulBean.statsName = UIUtils.getString(R.string.foul);
-        detailsFoulBean.hostValue = bean == null ? 0 : bean.host.foul;
-        detailsFoulBean.guestValue = bean == null ? 0 : bean.guest.foul;
+        detailsFoulBean.hostValue = bean.host == null ? 0 : bean.host.foul;
+        detailsFoulBean.guestValue = bean.guest == null ? 0 : bean.guest.foul;
         mHeadData.add(detailsFoulBean);
 
         ResultGameDetailsBean.Bean yellowCardBean = new ResultGameDetailsBean.Bean();
         yellowCardBean.statsName = UIUtils.getString(R.string.yellow_card);
-        yellowCardBean.hostValue = bean == null ? 0 : bean.host.yellowCard;
-        yellowCardBean.guestValue = bean == null ? 0 : bean.guest.yellowCard;
+        yellowCardBean.hostValue = bean.host == null ? 0 : bean.host.yellowCard;
+        yellowCardBean.guestValue = bean.guest == null ? 0 : bean.guest.yellowCard;
         mHeadData.add(yellowCardBean);
 
         ResultGameDetailsBean.Bean redCardBean = new ResultGameDetailsBean.Bean();
         redCardBean.statsName = UIUtils.getString(R.string.red_card);
-        redCardBean.hostValue = bean == null ? 0 : bean.host.redCard;
-        redCardBean.guestValue = bean == null ? 0 : bean.guest.redCard;
+        redCardBean.hostValue = bean.host == null ? 0 : bean.host.redCard;
+        redCardBean.guestValue = bean.guest == null ? 0 : bean.guest.redCard;
         mHeadData.add(redCardBean);
 
         /*ResultGameDetailsBean.Bean detailsCornerKickBean = new ResultGameDetailsBean.Bean();

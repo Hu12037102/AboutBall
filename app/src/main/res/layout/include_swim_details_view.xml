@@ -11,10 +11,11 @@
         android:id="@+id/item_standard"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_50dp"
+        app:content_drawable_padding="@dimen/size_10dp"
         app:content_right_icon="@mipmap/icon_item_right"
+        app:content_show_left="true"
         app:title_data="@string/standards"
-        app:title_text_color="@color/colorFFA6A6A6"
-        app:content_drawable_padding="@dimen/size_10dp"/>
+        app:title_text_color="@color/colorFFA6A6A6" />
 
     <View
         android:layout_width="match_parent"
@@ -25,17 +26,17 @@
     <com.example.item.weight.ItemView
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_50dp"
+        app:left_text_is_bold="true"
         app:show_bottom_line="true"
         app:title_data="@string/graphic_introduction"
-        app:title_text_size="@dimen/size_17sp"
-        app:left_text_is_bold="true"/>
+        app:title_text_size="@dimen/size_17sp" />
 
     <com.work.guaishouxingqiu.aboutball.weight.BaseWebView
         android:id="@+id/bwv_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/size_15dp"
-        android:layout_marginRight="@dimen/size_15dp"/>
+        android:layout_marginRight="@dimen/size_15dp" />
 
     <View
         android:layout_width="match_parent"

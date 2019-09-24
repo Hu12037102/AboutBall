@@ -12,7 +12,11 @@ import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
+import com.work.guaishouxingqiu.aboutball.home.activity.TicketMallActivity;
+import com.work.guaishouxingqiu.aboutball.home.activity.TicketMallDetailsActivity;
+import com.work.guaishouxingqiu.aboutball.other.ActivityManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
+import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 
 import butterknife.BindView;
@@ -56,7 +60,7 @@ public class GoodPaySucceedActivity extends BaseActivity {
 
     @Override
     protected void initEvent() {
-        mTitleView.setOnBackViewClickListener(view -> mViewModel.clickBackForResult());
+        mTitleView.setOnBackViewClickListener(view -> clickBack());
     }
 
     @Override
@@ -67,11 +71,20 @@ public class GoodPaySucceedActivity extends BaseActivity {
 
     @OnClick(R.id.tv_click)
     public void onViewClicked() {
+        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_MY_TICKETS);
+        clickBack();
+        ActivityManger.get().removeActivity(TicketMallDetailsActivity.class);
+        ActivityManger.get().removeActivity(TicketMallActivity.class);
+
+    }
+
+    private void clickBack() {
         mViewModel.clickBackForResult();
+       // ActivityManger.get().removeActivity(TicketMallActivity.class);
     }
 
     @Override
     public void onBackPressed() {
-        mViewModel.clickBackForResult();
+        clickBack();
     }
 }
