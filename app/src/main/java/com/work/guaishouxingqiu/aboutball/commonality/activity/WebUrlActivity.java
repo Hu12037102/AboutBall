@@ -139,9 +139,9 @@ public class WebUrlActivity extends BaseWebActivity<WebUrlPresenter> implements 
 
     public  class AndroidToJs {
         @JavascriptInterface
-        public void ScanCode(String msg) {
-                openScanCode();
-            LogUtils.w("AndroidToJs--","JS调用了Android的hello方法"+"--"+msg);
+        public void ScanCode() {
+            openScanCode();
+            LogUtils.w("AndroidToJs--","JS调用了Android的hello方法"+"--");
         }
 
     }
