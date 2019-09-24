@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -15,10 +16,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.widget.NestedScrollView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.util.ScreenUtils;
 import com.example.item.weight.ItemView;
+import com.example.item.weight.TitleView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
@@ -98,6 +101,15 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
     ItemView mItemStandard;
     @BindView(R.id.bwv_content)
     BaseWebView mBwvContent;
+    @BindView(R.id.nsv_parent)
+    NestedScrollView mNsvParent;
+    @BindView(R.id.tv_title)
+    TextView mTvTitle;
+    @BindView(R.id.cl_title)
+    ConstraintLayout mClTitle;
+    @BindView(R.id.title_line)
+    View mTitleLine;
+    private int mIvContentHeight;
     private RequestSureOrderBean mRequestDialogBean;
 
 
@@ -106,17 +118,36 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
         return R.layout.activity_ticket_mall_details;
     }
 
+    private void addStatusFlag() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //需要设置这个flag contentView才能延伸到状态栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            //状态栏覆盖在contentView上面，设置透明使contentView的背景透出来
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        } else {
+            //让contentView延伸到状态栏并且设置状态栏颜色透明
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+    }
+
     @Override
     protected void initStatusColor() {
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();
             int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_VISIBLE;
             decorView.setSystemUiVisibility(option);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
+        super.initStatusColor();
+
+        //  addStatusFlag();
         LogUtils.w("initStatusColor--", ScreenUtils.getStatuWindowsHeight(this) + "--");
         mIvBack.setPadding(ScreenUtils.dp2px(this, 20), ScreenUtils.getStatuWindowsHeight(this) / 2 + ScreenUtils.dp2px(this, 20),
+                ScreenUtils.dp2px(this, 20), ScreenUtils.dp2px(this, 20));
+        mTvTitle.setPadding(ScreenUtils.dp2px(this, 20), ScreenUtils.getStatuWindowsHeight(this) / 2 + ScreenUtils.dp2px(this, 20),
                 ScreenUtils.dp2px(this, 20), ScreenUtils.dp2px(this, 20));
       /*  mIvTicketsObscuration.setPadding(0, ScreenUtils.getStatuWindowsHeight(this) + ScreenUtils.dp2px(this, 20),
                 0, 0);*/
@@ -142,6 +173,7 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
 
     @Override
     protected void initView() {
+        mTvTitle.setAlpha(0);
         mTvCommit.setText(R.string.now_buy);
         mTvConstMoney.getPaint().setAntiAlias(true);
         mTvConstMoney.getPaint().setDither(true);
@@ -182,6 +214,32 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
             @Override
             public void onClick(View v) {
                 showBuyTicketDialog();
+            }
+        });
+        mNsvParent.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+
+
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (mIvContentHeight <= 0) {
+                    mIvContentHeight = mIvContent.getMeasuredHeight() - mClTitle.getMeasuredHeight();
+                }
+                mTvTitle.setAlpha((float) scrollY >= mIvContentHeight ? mIvContentHeight : scrollY / (float) mIvContentHeight);
+                if (scrollY >= mIvContentHeight) {
+                    //  mSrlRefresh.setFitsSystemWindows(true);
+                    mClTitle.setBackgroundResource(R.color.colorWhite);
+                    mIvBack.setImageResource(R.mipmap.icon_back);
+                    mTitleLine.setAlpha(1);
+                } else {
+                    // mSrlRefresh.setFitsSystemWindows(false);
+                    mClTitle.setBackgroundResource(R.color.transparent);
+                    mIvBack.setImageResource(R.mipmap.icon_back_white);
+                    mTitleLine.setAlpha(0);
+                }
+
+                LogUtils.w("onScrollChange--", scrollX + "--" + scrollY + "--" + oldScrollX + "--" + oldScrollY
+                        + "--" + mIvContent.getHeight());
+
             }
         });
     }
@@ -302,7 +360,7 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && requestCode == ARouterIntent.REQUEST_CODE) {
-          //  mViewModel.clickBackForResult();
+            //  mViewModel.clickBackForResult();
             mSrlRefresh.autoRefresh();
         }
     }

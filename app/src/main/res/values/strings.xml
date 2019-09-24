@@ -681,5 +681,6 @@
     <string name="other">其它</string>
     <string name="you_pay_succeed_please_my_tickets_read">您已经完成支付，可以在“我的门票”查看信息</string>
     <string name="back_my_ticket">返回我的门票</string>
+    <string name="tickets_details">票务详情</string>
 
 </resources>
