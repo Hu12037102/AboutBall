@@ -2,9 +2,11 @@ package com.work.guaishouxingqiu.aboutball.base;
 
 import androidx.annotation.NonNull;
 
+import android.net.http.SslError;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.JsResult;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -97,6 +99,12 @@ public abstract class BaseWebActivity<P extends LoginOrSharePresenter> extends L
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
                 return true;
+            }
+
+            @Override
+            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+               // super.onReceivedSslError(view, handler, error);
+                handler.proceed();
             }
         });
 
