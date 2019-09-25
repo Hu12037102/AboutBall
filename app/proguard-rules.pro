@@ -132,8 +132,10 @@ static final long serialVersionUID;
 -keep public class * extends android.app.Fragment
 #保留所有的bean
 -keep public class com.work.guaishouxingqiu.aboutball.base.**{*;}
+-keep public class com.work.guaishouxingqiu.aboutball.commonality.bean.**{*;}
 -keep public class com.work.guaishouxingqiu.aboutball.community.bean.**{*;}
 -keep public class com.work.guaishouxingqiu.aboutball.game.bean.**{*;}
+-keep public class com.work.guaishouxingqiu.aboutball.good.bean.**{*;}
 -keep public class com.work.guaishouxingqiu.aboutball.home.bean.**{*;}
 -keep public class com.work.guaishouxingqiu.aboutball.login.bean.**{*;}
 -keep public class com.work.guaishouxingqiu.aboutball.media.bean.**{*;}

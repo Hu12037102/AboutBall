@@ -5,12 +5,15 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.os.Build;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -22,6 +25,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.util.ScreenUtils;
 import com.example.item.weight.ItemView;
 import com.example.item.weight.TitleView;
+import com.google.android.material.tabs.TabLayout;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
@@ -44,6 +48,9 @@ import com.work.guaishouxingqiu.aboutball.util.SpanUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 import com.work.guaishouxingqiu.aboutball.weight.BaseWebView;
 import com.work.guaishouxingqiu.aboutball.weight.SureOrderDialog;
+
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -109,9 +116,17 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
     ConstraintLayout mClTitle;
     @BindView(R.id.title_line)
     View mTitleLine;
+    @BindView(R.id.tb_title)
+    TabLayout mTabTitle;
+    @BindView(R.id.ll_tab)
+    LinearLayout mLlTab;
+    @BindView(R.id.item_image_text)
+    ItemView mItemImageText;
+    @BindView(R.id.iv_black_back)
+    ImageView mIvBlackBack;
     private int mIvContentHeight;
     private RequestSureOrderBean mRequestDialogBean;
-
+    private int mItemScrollY;
 
     @Override
     protected int getLayoutId() {
@@ -149,6 +164,8 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
                 ScreenUtils.dp2px(this, 20), ScreenUtils.dp2px(this, 20));
         mTvTitle.setPadding(ScreenUtils.dp2px(this, 20), ScreenUtils.getStatuWindowsHeight(this) / 2 + ScreenUtils.dp2px(this, 20),
                 ScreenUtils.dp2px(this, 20), ScreenUtils.dp2px(this, 20));
+        mIvBlackBack.setPadding(ScreenUtils.dp2px(this, 20), ScreenUtils.getStatuWindowsHeight(this) / 2 + ScreenUtils.dp2px(this, 20),
+                ScreenUtils.dp2px(this, 20), ScreenUtils.dp2px(this, 20));
       /*  mIvTicketsObscuration.setPadding(0, ScreenUtils.getStatuWindowsHeight(this) + ScreenUtils.dp2px(this, 20),
                 0, 0);*/
         ViewGroup.LayoutParams layoutParams = mIvTicketsObscuration.getLayoutParams();
@@ -178,10 +195,19 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
         mTvConstMoney.getPaint().setAntiAlias(true);
         mTvConstMoney.getPaint().setDither(true);
         mTvConstMoney.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-
+        initTabView();
         super.initView();
         mSrlRefresh.autoRefresh();
         // mInflateDoorView.setVisibility(View.INVISIBLE);
+    }
+
+    private void initTabView() {
+        List<String> tabData = Arrays.asList(getResources().getStringArray(R.array.tickets_details_tab_array));
+        for (int i = 0; i < tabData.size(); i++) {
+            UIUtils.setBaseCustomTabLayout(mTabTitle, tabData.get(i), i == 0, 45, 18);
+        }
+
+
     }
 
 
@@ -225,20 +251,69 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
                     mIvContentHeight = mIvContent.getMeasuredHeight() - mClTitle.getMeasuredHeight();
                 }
                 mTvTitle.setAlpha((float) scrollY >= mIvContentHeight ? mIvContentHeight : scrollY / (float) mIvContentHeight);
-                if (scrollY >= mIvContentHeight) {
+             /*   if (scrollY >= mIvContentHeight) {
                     //  mSrlRefresh.setFitsSystemWindows(true);
-                    mClTitle.setBackgroundResource(R.color.colorWhite);
+                    // mClTitle.setBackgroundResource(R.color.colorWhite);
                     mIvBack.setImageResource(R.mipmap.icon_back);
-                    mTitleLine.setAlpha(1);
+                    // mTitleLine.setAlpha(1);
+                    // mLlTab.setAlpha(1);
                 } else {
                     // mSrlRefresh.setFitsSystemWindows(false);
-                    mClTitle.setBackgroundResource(R.color.transparent);
+                    //  mClTitle.setBackgroundResource(R.color.transparent);
                     mIvBack.setImageResource(R.mipmap.icon_back_white);
-                    mTitleLine.setAlpha(0);
+                    // mTitleLine.setAlpha(0);
+                    //  mLlTab.setAlpha(0);
+                }*/
+                int[] itemLocations = new int[2];
+                mItemImageText.getLocationOnScreen(itemLocations);
+                if (itemLocations[1] - mClTitle.getMeasuredHeight() - ScreenUtils.getStatuWindowsHeight(TicketMallDetailsActivity.this) <= 0) {
+                    mLlTab.setAlpha(1);
+                } else {
+                    mLlTab.setAlpha(0);
+                }
+                mClTitle.setAlpha((float) scrollY >= mIvContentHeight ? mIvContentHeight : scrollY / (float) mIvContentHeight);
+                mIvBlackBack.setAlpha(1 - ((float) scrollY >= (float)mIvContentHeight ?(float) mIvContentHeight : (float)scrollY / (float) mIvContentHeight));
+
+                mItemScrollY = 0;
+                if (itemLocations[1] > 0) {
+                    mItemScrollY = itemLocations[1] + scrollY - mClTitle.getMeasuredHeight() - ScreenUtils.getStatuWindowsHeight(TicketMallDetailsActivity.this);
+                } else {
+                    mItemScrollY = scrollY - Math.abs(itemLocations[1]) - mClTitle.getMeasuredHeight() - ScreenUtils.getStatuWindowsHeight(TicketMallDetailsActivity.this);
                 }
 
-                LogUtils.w("onScrollChange--", scrollX + "--" + scrollY + "--" + oldScrollX + "--" + oldScrollY
-                        + "--" + mIvContent.getHeight());
+                /*LogUtils.w("onScrollChange--", *//*scrollX + "--" + scrollY + "--" + oldScrollX + "--" + oldScrollY
+                            + "--" + mIvContent.getHeight() + "--" + mItemImageText.getY() + "--" + mItemImageText.getTop() + "--" + mItemImageText.getHeight() + "--" +
+                            mItemLocations[0] + "--" + mItemLocations[1]*//* scrollY + "--" + itemLocations[1] + "--" + mItemScrollY);*/
+
+
+            }
+        });
+
+        mTabTitle.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+                if (tab.getPosition() == 0) {
+                    mNsvParent.smoothScrollTo(0, mItemScrollY);
+                } else {
+                    int scrollY = 0;
+                    for (int i = 0; i < mNsvParent.getChildCount(); i++) {
+                        scrollY += mNsvParent.getChildAt(i).getMeasuredHeight();
+                    }
+                    mNsvParent.smoothScrollTo(0, scrollY);
+                }
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
 
             }
         });
@@ -262,6 +337,7 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
             mPresenter.loadDoorTicketDetails(mIntentBean.spuId);
         }
     }
+
 
     @Override
     public void onBackPressed() {
@@ -343,6 +419,7 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
     public void resultDoorTicketDetails(@NonNull ResultDoorTicketDetailsBean bean) {
         mVsSwimContent.setVisibility(View.VISIBLE);
         mIncludeBottom.setVisibility(View.VISIBLE);
+        mLlTab.setVisibility(View.VISIBLE);
         mTvCount.setVisibility(View.VISIBLE);
         mClGame.setVisibility(View.GONE);
         mTvResidue.setVisibility(View.GONE);

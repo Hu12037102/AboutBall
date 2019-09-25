@@ -329,10 +329,11 @@
             android:id="@+id/cl_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/transparent"
+            android:background="@color/colorWhite"
             android:fitsSystemWindows="false"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:alpha="0">
 
 
             <ImageView
@@ -340,10 +341,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@null"
-                android:src="@mipmap/icon_back_white"
+                android:src="@mipmap/icon_back"
                 android:visibility="visible"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
 
             <TextView
@@ -355,15 +357,42 @@
                 android:textSize="@dimen/size_18sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/iv_black_back"
+            android:contentDescription="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@mipmap/icon_back_white"
+            />
+
+        <LinearLayout
+            android:id="@+id/ll_tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_title"
+            android:background="@color/colorWhite"
+            android:alpha="0"
+            android:visibility="gone">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tb_title"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_50dp"
+                app:tabGravity="center"
+                app:tabIndicatorHeight="@dimen/size_0dp"
+                android:layout_gravity="center_horizontal"/>
             <View
                 android:id="@+id/title_line"
                 style="@style/HorizontalLine"
-                android:alpha="0"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+                />
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.scwang.smartrefresh.layout.SmartRefreshLayout>

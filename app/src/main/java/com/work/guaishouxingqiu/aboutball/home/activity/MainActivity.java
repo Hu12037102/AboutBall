@@ -149,8 +149,10 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
 
     @Override
     public void resultRedPointData(List<ResultRedPointInfoBean> data) {
-        mTabData.get(mTabData.size() - 1).showRedPoint = mViewModel.isShowRedPoint();
-        mTabAdapter.notifyDataSetChanged();
+        if (mTabData.size() > 0) {
+            mTabData.get(mTabData.size() - 1).showRedPoint = mViewModel.isShowRedPoint();
+            mTabAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

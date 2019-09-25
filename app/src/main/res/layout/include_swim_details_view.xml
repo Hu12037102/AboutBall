@@ -24,6 +24,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_address" />
 
     <com.example.item.weight.ItemView
+        android:id="@+id/item_image_text"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_50dp"
         app:left_text_is_bold="true"

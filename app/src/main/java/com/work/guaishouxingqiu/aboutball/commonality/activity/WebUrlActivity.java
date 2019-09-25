@@ -112,14 +112,22 @@ public class WebUrlActivity extends BaseWebActivity<WebUrlPresenter> implements 
 
     @Override
     protected boolean onJsAlertDialog() {
-       // openScanCode();
+        // openScanCode();
         return false;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onPageFinished(WebView view, String url) {
-       // super.onPageFinished(view, url);
-        //mWvData.loadUrl("javascript:openScanCode()");
+        // super.onPageFinished(view, url);
+        //   mWvData.loadUrl("javascript:openScanCode()");
+        mWvData.evaluateJavascript("javascript:openScanCode()", new ValueCallback<String>() {
+            @Override
+            public void onReceiveValue(String value) {
+            LogUtils.w("onReceiveValue--",value);
+
+            }
+        });
     }
 
     @Override
@@ -137,11 +145,13 @@ public class WebUrlActivity extends BaseWebActivity<WebUrlPresenter> implements 
         return true;
     }
 
-    public  class AndroidToJs {
+    public class AndroidToJs {
+
+
         @JavascriptInterface
-        public void ScanCode() {
+        public void ScanCode(String msg) {
             openScanCode();
-            LogUtils.w("AndroidToJs--","JS调用了Android的hello方法"+"--");
+            LogUtils.w("AndroidToJs--", "JS调用了Android的hello方法" + "--");
         }
 
     }
