@@ -121,13 +121,13 @@ public class WebUrlActivity extends BaseWebActivity<WebUrlPresenter> implements 
     public void onPageFinished(WebView view, String url) {
         // super.onPageFinished(view, url);
         //   mWvData.loadUrl("javascript:openScanCode()");
-        mWvData.evaluateJavascript("javascript:openScanCode()", new ValueCallback<String>() {
+    /*    mWvData.evaluateJavascript("javascript:openScanCode()", new ValueCallback<String>() {
             @Override
             public void onReceiveValue(String value) {
             LogUtils.w("onReceiveValue--",value);
 
             }
-        });
+        });*/
     }
 
     @Override

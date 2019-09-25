@@ -99,7 +99,7 @@ public class TopicDynamicsActivity extends BaseActivity {
     private void initTab() {
         List<String> tabData = Arrays.asList(getResources().getStringArray(R.array.topic_dynamics_tab_array));
         for (int i = 0; i < tabData.size(); i++) {
-            UIUtils.setBaseCustomTabLayout(mTabContent, tabData.get(i), i == 0, 45);
+            UIUtils.setBaseCustomTabLayout(mTabContent, tabData.get(i), i == 0, 45,18);
         }
     }
 
