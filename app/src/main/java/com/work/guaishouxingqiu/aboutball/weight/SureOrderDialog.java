@@ -40,6 +40,7 @@ public class SureOrderDialog extends BaseDialog {
     private TextView mTvMoney;
     private LinearLayout mLlData;
     private List<SureOrderDialog.Adapter> mAdapterData;
+    private double mUnitPrice;
 
     public void setOnSureOrderClickListener(OnSureOrderClickListener onSureOrderClickListener) {
         this.onSureOrderClickListener = onSureOrderClickListener;
@@ -62,6 +63,7 @@ public class SureOrderDialog extends BaseDialog {
             UIUtils.showToast("没有获取到订单参数，请重试！");
             return;
         }
+        mUnitPrice = DataUtils.getDoubleFormat(mDialogBean.price) / (double) mDialogBean.num;
         UIUtils.setText(mTvMoney, DataUtils.getMoneyFormat(mDialogBean.price));
         mInvCount.setInputNum(1);
         mInvCount.setMaxNum(mDialogBean.maxNum);
@@ -90,7 +92,7 @@ public class SureOrderDialog extends BaseDialog {
                             onSureOrderClickListener.onClickItemNotify(SureOrderDialog.this, view, position, getValues(mAdapterData.indexOf(adapter)), mInvCount.getNum());
                         }
                         mInvCount.setInputNum(1);
-                        UIUtils.setText(mTvMoney, DataUtils.getMoneyFormat(mInvCount.getNum() * DataUtils.getDoubleFormat(mDialogBean.price)));
+                        UIUtils.setText(mTvMoney, DataUtils.getMoneyFormat(mInvCount.getNum() * mUnitPrice));
                     }
                 });
             }
@@ -113,17 +115,17 @@ public class SureOrderDialog extends BaseDialog {
         mInvCount.setOnClickInputClickListener(new InputNumberView.OnClickInputClickListener() {
             @Override
             public void onClickSubtract(View view, int num) {
-                UIUtils.setText(mTvMoney, DataUtils.getMoneyFormat(num * DataUtils.getDoubleFormat(mDialogBean.price)));
+                UIUtils.setText(mTvMoney, DataUtils.getMoneyFormat(num * mUnitPrice));
             }
 
             @Override
             public void onClickAdd(View view, int num) {
-                UIUtils.setText(mTvMoney, DataUtils.getMoneyFormat(num * DataUtils.getDoubleFormat(mDialogBean.price)));
+                UIUtils.setText(mTvMoney, DataUtils.getMoneyFormat(num * mUnitPrice));
             }
 
             @Override
             public void onInputChang(View view, int num) {
-                UIUtils.setText(mTvMoney, DataUtils.getMoneyFormat(num * DataUtils.getDoubleFormat(mDialogBean.price)));
+                UIUtils.setText(mTvMoney, DataUtils.getMoneyFormat(num * mUnitPrice));
             }
         });
     }
