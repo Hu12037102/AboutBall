@@ -2,6 +2,8 @@ package com.work.guaishouxingqiu.aboutball.weight;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Rect;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +45,12 @@ public class SureOrderDialog extends BaseDialog {
     private double mUnitPrice;
     private boolean mIsClickItem;
     private int mDefaultInputNum = 1;
+
+    public void setOnSoftKeyChangeListener(OnSoftKeyChangeListener onSoftKeyChangeListener) {
+        this.onSoftKeyChangeListener = onSoftKeyChangeListener;
+    }
+
+    private OnSoftKeyChangeListener onSoftKeyChangeListener;
 
     public void setOnSureOrderClickListener(OnSureOrderClickListener onSureOrderClickListener) {
         this.onSureOrderClickListener = onSureOrderClickListener;
@@ -209,6 +217,20 @@ public class SureOrderDialog extends BaseDialog {
         mInvCount = findViewById(R.id.inv_count);
         mTvMoney = findViewById(R.id.tv_money_count);
         mLlData = findViewById(R.id.ll_data);
+        ViewGroup rootView = (ViewGroup) DataUtils.checkData(getWindow()).getDecorView().getRootView();
+        rootView.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+            Rect rect = new Rect();
+            rootView.getWindowVisibleDisplayFrame(rect);
+            if (getContext().getResources().getDisplayMetrics().heightPixels == rect.bottom){
+                mInvCount.setInputZreoNum();
+            }
+
+            if (onSoftKeyChangeListener != null) {
+                onSoftKeyChangeListener.onKeyChange(getContext().getResources().getDisplayMetrics().heightPixels != rect.bottom);
+            }
+            LogUtils.w("onLayoutChange---", left + "--" + top + "--" + right + "--" + bottom
+                    + "--" + rect.left + "--" + rect.top + "--" + rect.right + "--" + rect.bottom + "--" + getContext().getResources().getDisplayMetrics().heightPixels);
+        });
 
     }
 
@@ -351,6 +373,10 @@ public class SureOrderDialog extends BaseDialog {
         void onClickSureBuy(Dialog dialog, View view, String allValues, int num);
 
         void onClickItemNotify(Dialog dialog, View view, int position, String values, int num);
+    }
+
+    public interface OnSoftKeyChangeListener {
+        void onKeyChange(boolean isShowSoftKey);
     }
 
 }

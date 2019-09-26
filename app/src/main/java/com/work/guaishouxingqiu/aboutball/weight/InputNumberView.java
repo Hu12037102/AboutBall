@@ -199,6 +199,12 @@ public class InputNumberView extends LinearLayout {
         return (DataUtils.getIntFormat(DataUtils.getEditDetails(mAcetNum)) == 0 || DataUtils.getIntFormat(DataUtils.getEditDetails(mAcetNum)) == -1);
     }
 
+    public void setInputZreoNum(){
+       if (isZero()){
+           setInputNum(1);
+       }
+    }
+
 
     public void setMaxNum(int maxNum) {
         this.mMaxNum = maxNum > DEFAULT_MAX_COUNT || maxNum < 0 ? DEFAULT_MAX_COUNT : maxNum;
