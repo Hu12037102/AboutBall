@@ -224,6 +224,7 @@
     <string name="please_selector_substitution_location" translatable="false">请选择替补位置</string>
     <string name="not_find_ball_team_id" translatable="false">没有找到球队Id</string>
     <string name="not_find_this_tickets">没有找到该门票</string>
+    <string name="not_more_this_tickets">没有预售的门票了</string>
     <string name="address_data" translatable="false">详细地址</string>
     <string name="please_input_address_data" translatable="false">请填写详细地址</string>
     <string name="please_inout_team_name" translatable="false">请输入队名</string>

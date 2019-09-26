@@ -133,20 +133,6 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
         return R.layout.activity_ticket_mall_details;
     }
 
-    private void addStatusFlag() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            //需要设置这个flag contentView才能延伸到状态栏
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            //状态栏覆盖在contentView上面，设置透明使contentView的背景透出来
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
-        } else {
-            //让contentView延伸到状态栏并且设置状态栏颜色透明
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
-    }
-
     @Override
     protected void initStatusColor() {
         if (Build.VERSION.SDK_INT >= 21) {
@@ -158,7 +144,6 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
         }
         super.initStatusColor();
 
-        //  addStatusFlag();
         LogUtils.w("initStatusColor--", ScreenUtils.getStatuWindowsHeight(this) + "--");
         mIvBack.setPadding(ScreenUtils.dp2px(this, 20), ScreenUtils.getStatuWindowsHeight(this) / 2 + ScreenUtils.dp2px(this, 20),
                 ScreenUtils.dp2px(this, 20), ScreenUtils.dp2px(this, 20));
@@ -267,9 +252,9 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
                 int[] itemLocations = new int[2];
                 mItemImageText.getLocationOnScreen(itemLocations);
                 if (itemLocations[1] - mClTitle.getMeasuredHeight() - ScreenUtils.getStatuWindowsHeight(TicketMallDetailsActivity.this) <= 0) {
-                    mLlTab.setAlpha(1);
+                    mLlTab.setVisibility(View.VISIBLE);
                 } else {
-                    mLlTab.setAlpha(0);
+                    mLlTab.setVisibility(View.GONE);
                 }
                 mClTitle.setAlpha((float) scrollY >= mIvContentHeight ? mIvContentHeight : scrollY / (float) mIvContentHeight);
                 mIvBlackBack.setAlpha(1 - ((float) scrollY >= (float)mIvContentHeight ?(float) mIvContentHeight : (float)scrollY / (float) mIvContentHeight));
@@ -419,7 +404,6 @@ public class TicketMallDetailsActivity extends BaseWebActivity<TicketMallDetails
     public void resultDoorTicketDetails(@NonNull ResultDoorTicketDetailsBean bean) {
         mVsSwimContent.setVisibility(View.VISIBLE);
         mIncludeBottom.setVisibility(View.VISIBLE);
-        mLlTab.setVisibility(View.VISIBLE);
         mTvCount.setVisibility(View.VISIBLE);
         mClGame.setVisibility(View.GONE);
         mTvResidue.setVisibility(View.GONE);

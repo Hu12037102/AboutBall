@@ -379,7 +379,6 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cl_title"
             android:background="@color/colorWhite"
-            android:alpha="0"
             android:visibility="gone">
 
             <com.google.android.material.tabs.TabLayout

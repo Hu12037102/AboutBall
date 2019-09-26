@@ -64,9 +64,9 @@ public class SureOrderDialog extends BaseDialog {
             return;
         }
         mUnitPrice = DataUtils.getDoubleFormat(mDialogBean.price) / (double) mDialogBean.num;
-        UIUtils.setText(mTvMoney, DataUtils.getMoneyFormat(mDialogBean.price));
-        mInvCount.setInputNum(1);
+         UIUtils.setText(mTvMoney, DataUtils.getMoneyFormat(mDialogBean.price));
         mInvCount.setMaxNum(mDialogBean.maxNum);
+        mInvCount.setInputNum(mDialogBean.num);
         mLlData.removeAllViews();
         mLlData.removeAllViewsInLayout();
         mAdapterData.clear();

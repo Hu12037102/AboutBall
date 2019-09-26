@@ -361,6 +361,10 @@ public class ViewModel {
     }
 
     public void showSureOrderDialog(ResultSureOrderDialogBean bean, SureOrderDialog.OnSureOrderClickListener listener) {
+        if(bean == null){
+            UIUtils.showToast(R.string.not_more_this_tickets);
+            return;
+        }
         if (mSureOrderDialog== null){
             mSureOrderDialog = new SureOrderDialog(mSoftActivity.get(), bean);
         }else {

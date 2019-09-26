@@ -158,21 +158,24 @@ public class InputNumberView extends LinearLayout {
                 int number = DataUtils.getIntFormat(DataUtils.getEditDetails(mAcetNum));
                 setSubtractClickable(number > mMinNum);
                 setAddClickable(number < mMaxNum);
+                LogUtils.w("onTextChanged--",mMaxNum+"--"+mMinNum+"--"+number);
                 if (number > mMaxNum) {
                     mAcetNum.setText(String.valueOf(mMaxNum));
                     if (mAcetNum.isFocused()) {
                         mAcetNum.setSelection(mAcetNum.getText().length());
                     }
                 }
-                if (number < mMinNum) {
+                /* number = DataUtils.getIntFormat(DataUtils.getEditDetails(mAcetNum));
+               if (number < mMinNum) {
                     mAcetNum.setText(String.valueOf(mMinNum));
                     if (mAcetNum.isFocused()) {
                         mAcetNum.setSelection(mAcetNum.getText().length());
                     }
-                }
+                }*/
                 if (onClickInputClickListener!= null){
-                    onClickInputClickListener.onInputChang(mAcetNum,DataUtils.getIntFormat(DataUtils.getEditDetails(mAcetNum)));
+                    onClickInputClickListener.onInputChang(mAcetNum,DataUtils.getIntFormat(DataUtils.getEditDetails(mAcetNum),0));
                 }
+              //  mAcetNum.removeTextChangedListener(this);
             }
 
             @Override
@@ -183,7 +186,7 @@ public class InputNumberView extends LinearLayout {
     }
 
     public void setMaxNum(int maxNum) {
-        this.mMaxNum = maxNum > DEFAULT_MAX_COUNT || maxNum <= 0 ? DEFAULT_MAX_COUNT : maxNum;
+        this.mMaxNum = maxNum > DEFAULT_MAX_COUNT || maxNum < 0 ? DEFAULT_MAX_COUNT : maxNum;
         int number = DataUtils.getIntFormat(DataUtils.getEditDetails(mAcetNum));
         setAddClickable(number < mMaxNum);
     }

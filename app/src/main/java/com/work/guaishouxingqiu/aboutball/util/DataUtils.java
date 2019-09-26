@@ -365,10 +365,17 @@ public class DataUtils {
     }
 
     public static double getDoubleFormat(String number) {
-        double result;
+        double result = 0;
+        if (DataUtils.isEmpty(number)) {
+            return result;
+        }
         try {
-            result = Double.valueOf(number);
-        } catch (NumberFormatException e) {
+            NumberFormat nf = NumberFormat.getNumberInstance();
+            nf.setMaximumFractionDigits(2);
+            nf.setMinimumFractionDigits(2);
+            nf.setGroupingUsed(false);
+            result = nf.parse(number).doubleValue();
+        } catch (Exception e) {
             e.printStackTrace();
             result = 0;
         }
@@ -395,7 +402,7 @@ public class DataUtils {
             nf.setMinimumFractionDigits(2);
             nf.setGroupingUsed(false);
             result = nf.format(number);
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return result;
@@ -403,6 +410,19 @@ public class DataUtils {
 
     public static int getIntFormat(@NonNull String numberFormat) {
         int result = -1;
+        if (DataUtils.isEmpty(numberFormat)) {
+            return result;
+        }
+        try {
+            result = Integer.valueOf(numberFormat);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return result;
+        }
+        return result;
+    }
+    public static int getIntFormat(@NonNull String numberFormat,int defaultInt) {
+        int result = defaultInt;
         if (DataUtils.isEmpty(numberFormat)) {
             return result;
         }
@@ -541,8 +561,10 @@ public class DataUtils {
     public static void addSellingPoint(Context context, String key) {
         TencentBuriedPoint.defaultBuriedPoint(context, key);
     }
+
     /**
      * 获取表情文字在文本中对应所有的下标
+     *
      * @param content
      * @param key
      * @return
@@ -565,6 +587,7 @@ public class DataUtils {
 
     /**
      * 判断字符是不是表情
+     *
      * @param codePoint
      * @return
      */
@@ -577,11 +600,12 @@ public class DataUtils {
 
     /**
      * 字符串是否含有表情
+     *
      * @param source
      * @return
      */
-    public static boolean containsEmoji(@NonNull  String source) {
-        if(DataUtils.isEmpty(source)){
+    public static boolean containsEmoji(@NonNull String source) {
+        if (DataUtils.isEmpty(source)) {
             return false;
         }
         int len = source.length();
@@ -593,8 +617,6 @@ public class DataUtils {
         }
         return false;
     }
-
-
 
 
 }
