@@ -89,7 +89,7 @@ public abstract class BaseWebActivity<P extends LoginOrSharePresenter> extends L
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                BaseWebActivity.this.onPageFinished(view,url);
+                BaseWebActivity.this.onPageFinished(view, url);
                 LogUtils.w("WebViewClient--", url);
             }
 
@@ -105,7 +105,9 @@ public abstract class BaseWebActivity<P extends LoginOrSharePresenter> extends L
     protected boolean onJsAlertDialog() {
         return false;
     }
-    protected void onPageFinished(WebView view, String url) {}
+
+    protected void onPageFinished(WebView view, String url) {
+    }
 
     /**
      * 加载富文本
@@ -125,9 +127,12 @@ public abstract class BaseWebActivity<P extends LoginOrSharePresenter> extends L
     }
 
     protected void loadAddTokenUrl(@NonNull String url) {
-        url = DataUtils.checkData(url) + (UserManger.get().isLogin() ?
+        mWebView.loadUrl(getTokenUrl(url));
+    }
+
+    protected String getTokenUrl(@NonNull String url) {
+        return DataUtils.checkData(url) + (UserManger.get().isLogin() ?
                 "?token=" + UserManger.get().getToken() : "");
-        mWebView.loadUrl(url);
     }
 
 

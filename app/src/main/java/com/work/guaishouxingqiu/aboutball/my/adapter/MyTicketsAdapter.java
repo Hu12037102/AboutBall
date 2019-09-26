@@ -1,4 +1,4 @@
-package com.work.guaishouxingqiu.aboutball.my.activity;
+package com.work.guaishouxingqiu.aboutball.my.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +11,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.huxiaobai.adapter.BaseRecyclerAdapter;
-import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyTicketsBean;
-import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
 

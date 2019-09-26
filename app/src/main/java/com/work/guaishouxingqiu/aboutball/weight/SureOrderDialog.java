@@ -41,6 +41,8 @@ public class SureOrderDialog extends BaseDialog {
     private LinearLayout mLlData;
     private List<SureOrderDialog.Adapter> mAdapterData;
     private double mUnitPrice;
+    private boolean mIsClickItem;
+    private int mDefaultInputNum = 1;
 
     public void setOnSureOrderClickListener(OnSureOrderClickListener onSureOrderClickListener) {
         this.onSureOrderClickListener = onSureOrderClickListener;
@@ -64,7 +66,7 @@ public class SureOrderDialog extends BaseDialog {
             return;
         }
         mUnitPrice = DataUtils.getDoubleFormat(mDialogBean.price) / (double) mDialogBean.num;
-         UIUtils.setText(mTvMoney, DataUtils.getMoneyFormat(mDialogBean.price));
+        UIUtils.setText(mTvMoney, DataUtils.getMoneyFormat(mDialogBean.price));
         mInvCount.setMaxNum(mDialogBean.maxNum);
         mInvCount.setInputNum(mDialogBean.num);
         mLlData.removeAllViews();
@@ -88,11 +90,12 @@ public class SureOrderDialog extends BaseDialog {
                     @Override
                     public void onClickItem(@NonNull View view, int position) {
                         LogUtils.w("SureOrderDialog--", "我被点击了" + getAllValues());
+                        mIsClickItem = true;
+                        mInvCount.setInputNum(mDefaultInputNum);
+                        //  UIUtils.setText(mTvMoney, DataUtils.getMoneyFormat(mInvCount.getNum() * mUnitPrice));
                         if (onSureOrderClickListener != null) {
                             onSureOrderClickListener.onClickItemNotify(SureOrderDialog.this, view, position, getValues(mAdapterData.indexOf(adapter)), mInvCount.getNum());
                         }
-                        mInvCount.setInputNum(1);
-                        UIUtils.setText(mTvMoney, DataUtils.getMoneyFormat(mInvCount.getNum() * mUnitPrice));
                     }
                 });
             }
@@ -108,6 +111,9 @@ public class SureOrderDialog extends BaseDialog {
     protected void initEvent() {
         mIvClose.setOnClickListener(v -> dismiss());
         mTvSures.setOnClickListener(v -> {
+            if (mInvCount.isZero()) {
+                mInvCount.setInputNum(mDefaultInputNum);
+            }
             if (onSureOrderClickListener != null) {
                 onSureOrderClickListener.onClickSureBuy(SureOrderDialog.this, v, getAllValues(), mInvCount.getNum());
             }
@@ -125,7 +131,10 @@ public class SureOrderDialog extends BaseDialog {
 
             @Override
             public void onInputChang(View view, int num) {
-                UIUtils.setText(mTvMoney, DataUtils.getMoneyFormat(num * mUnitPrice));
+                if (!mIsClickItem) {
+                    UIUtils.setText(mTvMoney, DataUtils.getMoneyFormat(num * mUnitPrice));
+                }
+                mIsClickItem = false;
             }
         });
     }

@@ -1,15 +1,18 @@
 package com.work.guaishouxingqiu.aboutball.weight;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -158,7 +161,7 @@ public class InputNumberView extends LinearLayout {
                 int number = DataUtils.getIntFormat(DataUtils.getEditDetails(mAcetNum));
                 setSubtractClickable(number > mMinNum);
                 setAddClickable(number < mMaxNum);
-                LogUtils.w("onTextChanged--",mMaxNum+"--"+mMinNum+"--"+number);
+                LogUtils.w("onTextChanged--", mMaxNum + "--" + mMinNum + "--" + number);
                 if (number > mMaxNum) {
                     mAcetNum.setText(String.valueOf(mMaxNum));
                     if (mAcetNum.isFocused()) {
@@ -172,10 +175,10 @@ public class InputNumberView extends LinearLayout {
                         mAcetNum.setSelection(mAcetNum.getText().length());
                     }
                 }*/
-                if (onClickInputClickListener!= null){
-                    onClickInputClickListener.onInputChang(mAcetNum,DataUtils.getIntFormat(DataUtils.getEditDetails(mAcetNum),0));
+                if (onClickInputClickListener != null) {
+                    onClickInputClickListener.onInputChang(mAcetNum, DataUtils.getIntFormat(DataUtils.getEditDetails(mAcetNum), 0));
                 }
-              //  mAcetNum.removeTextChangedListener(this);
+                //  mAcetNum.removeTextChangedListener(this);
             }
 
             @Override
@@ -183,7 +186,19 @@ public class InputNumberView extends LinearLayout {
 
             }
         });
+        mAcetNum.setOnKeyListener((v, keyCode, event) -> {
+            LogUtils.w("setOnKeyListener--", event.getAction() + "--" + keyCode);
+            if (KeyEvent.KEYCODE_BACK == keyCode && event.getAction() == KeyEvent.ACTION_UP && isZero()) {
+                setInputNum(1);
+            }
+            return false;
+        });
     }
+
+    public boolean isZero() {
+        return (DataUtils.getIntFormat(DataUtils.getEditDetails(mAcetNum)) == 0 || DataUtils.getIntFormat(DataUtils.getEditDetails(mAcetNum)) == -1);
+    }
+
 
     public void setMaxNum(int maxNum) {
         this.mMaxNum = maxNum > DEFAULT_MAX_COUNT || maxNum < 0 ? DEFAULT_MAX_COUNT : maxNum;

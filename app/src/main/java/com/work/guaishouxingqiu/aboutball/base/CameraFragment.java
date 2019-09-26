@@ -3,6 +3,7 @@ package com.work.guaishouxingqiu.aboutball.base;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
@@ -71,7 +72,9 @@ public abstract class CameraFragment<P extends BasePresenter> extends BaseFragme
                     String result = bundle.getString(CodeUtils.RESULT_STRING);
                     if (result != null) {
                         UIUtils.parseScanCode(result);
+                        resultScanCode(result);
                     }
+
                     LogUtils.w("onActivityResult--", result);//15681673146651413
                     //Toasts.with().showToast(result);
                 } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
@@ -81,5 +84,7 @@ public abstract class CameraFragment<P extends BasePresenter> extends BaseFragme
         }
     }
 
+    protected void resultScanCode(String scanCode) {
+    }
 
 }
