@@ -68,7 +68,7 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
     @BindView(R.id.iv_bottom)
     ImageView ivBottom;
     private TeamBallInviteDialog mTeamInviteDialog;
-    private boolean mIsHasBanner= true;
+    private boolean mIsHasBanner= false;
     private Handler mSkipHandler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
         @Override
         public boolean handleMessage(Message message) {
@@ -146,13 +146,8 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
             mSkipHandler.sendEmptyMessageDelayed(HAS_BANNER_WHAT, 1000);
         } else {
             mTvSkip.setVisibility(View.GONE);
-            mIvContent.setImageDrawable(ContextCompat.getDrawable(this,R.mipmap.icon_default_welcome));
-            mIvContent.post(new Runnable() {
-                @Override
-                public void run() {
-                    mSkipHandler.sendEmptyMessageDelayed(NO_BANNER_WHAT, 1000);
-                }
-            });
+            mIvContent.setImageDrawable(null);
+            mIvContent.post(() -> mSkipHandler.sendEmptyMessageDelayed(NO_BANNER_WHAT, 500));
 
         }
 
