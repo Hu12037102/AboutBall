@@ -116,6 +116,8 @@ public abstract class BaseWebActivity<P extends LoginOrSharePresenter> extends L
      */
     protected void loadEditData(String content) {
         //  content = getNewData(content);
+        content = content.trim();
+
         content = content.replace("<img", "<img style=max-width:100%;height:auto");
         //视频宽度自适应
         content = content.replace("<video", "<video style=max-width:100%;height:auto");
