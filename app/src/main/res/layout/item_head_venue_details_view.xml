@@ -202,7 +202,8 @@
 
     <TextView
         style="@style/ItemSingTextView"
-        android:text="@string/about_recommend" />
+        android:text="@string/about_recommend"
+        android:textStyle="bold"/>
 
     <View style="@style/HorizontalLine" />
 
