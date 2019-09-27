@@ -193,7 +193,7 @@ public interface IApiService {
     String GET_MY_GOOD_DETAILS="api/transaction/getOrderDetail";
     String GET_GOOD_REFUND_DETAILS="api/transaction/getApprovalRefundInfo";
     String GET_APPLY_REFUND="api/transaction/confirmApprovalRefund";
-
+    String GET_CHECK_OUT_GOOD_STATUS="api/transaction/userCreateOrderBeforeCheckStore";
     interface H5 {
         // String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";
         //用户协议

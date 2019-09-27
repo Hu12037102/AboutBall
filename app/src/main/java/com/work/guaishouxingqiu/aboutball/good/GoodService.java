@@ -40,4 +40,9 @@ public interface GoodService {
     @GET(IApiService.GET_APPLY_REFUND)
     Observable<BaseBean<BaseDataBean<String>>> applyGoodRefund(@Query(Contast.ORDER_ID) long orderId,
                                                                @Query(Contast.REASON) String reason);
+
+    @GET(IApiService.GET_CHECK_OUT_GOOD_STATUS)
+    Observable<BaseBean<String>> checkOutGoodStatus(@Query(Contast.SPU_ID) long souId,
+                                                    @Query(Contast.PARAMS) String params,
+                                                    @Query(Contast.NUM) int num);
 }

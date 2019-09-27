@@ -150,11 +150,17 @@ public class SureOrderActivity extends BaseActivity<SureOrderPresenter> implemen
 
     }
 
+    @Override
+    public void resultCheckOutOrderStatus() {
+        ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_ORDER_DETAILS, this, ARouterConfig.Key.PARCELABLE, mIntentBean);
+    }
+
     @OnClick(R.id.tv_commit)
     public void onViewClicked() {
         mIntentBean.num = mInvCount.getNum();
         mIntentBean.params = mResultBean.params;
-        ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_ORDER_DETAILS, this, ARouterConfig.Key.PARCELABLE, mIntentBean);
+        mPresenter.checkOutGoodStatus(mIntentBean.spuId, mIntentBean.params, mIntentBean.num);
+
     }
 
     @Override

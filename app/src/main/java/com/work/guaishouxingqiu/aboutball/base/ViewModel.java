@@ -92,6 +92,7 @@ public class ViewModel {
     private HintDialog mCreateDialog;
     private PayDialog mPayDialog;
     private SureOrderDialog mSureOrderDialog;
+    private HintDialog mInputKeyDialog;
 
     static ViewModel createViewModel(Activity activity) {
         return new ViewModel(activity);
@@ -161,9 +162,31 @@ public class ViewModel {
             case IApi.Code.USER_NOT_LOGIN:
                 showLoginDialog();
                 break;
+            case IApi.Code.INPUT_KEY_ERROR:
+                showInputKeyDialog(baseBean.message);
+                break;
             default:
                 break;
         }
+    }
+
+    private void showInputKeyDialog(String message) {
+        if (mInputKeyDialog == null) {
+            mInputKeyDialog = new HintDialog.Builder(mSoftActivity.get())
+                    .setTitle(R.string.hint)
+                    .setBody(message)
+                    .setSure(R.string.sure)
+                    .builder();
+        }
+        if (!mInputKeyDialog.isShowing() && !mSoftActivity.get().isFinishing()) {
+            mInputKeyDialog.show();
+        }
+        mInputKeyDialog.setOnItemClickListener(new HintDialog.OnItemClickListener() {
+            @Override
+            public void onClickSure(@NonNull View view) {
+                mInputKeyDialog.dismiss();
+            }
+        });
     }
 
     public void showUpdateDialog(Context context, ResultUpdateApkBean updateBean) {
@@ -361,13 +384,13 @@ public class ViewModel {
     }
 
     public void showSureOrderDialog(ResultSureOrderDialogBean bean, SureOrderDialog.OnSureOrderClickListener listener) {
-        if(bean == null){
+        if (bean == null) {
             UIUtils.showToast(R.string.not_more_this_tickets);
             return;
         }
-        if (mSureOrderDialog== null){
+        if (mSureOrderDialog == null) {
             mSureOrderDialog = new SureOrderDialog(mSoftActivity.get(), bean);
-        }else {
+        } else {
             mSureOrderDialog.notifyData(bean);
         }
 
@@ -877,19 +900,20 @@ public class ViewModel {
         }
     }
 
-    public void startGoodDetailsActivityForResult(@NonNull Fragment fragment, int requestCode,long orderId) {
+    public void startGoodDetailsActivityForResult(@NonNull Fragment fragment, int requestCode, long orderId) {
         if (fragment == null) {
-            ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_ORDER_DETAILS, mSoftActivity.get(),ARouterConfig.Key.ORDER_ID,orderId, requestCode);
+            ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_ORDER_DETAILS, mSoftActivity.get(), ARouterConfig.Key.ORDER_ID, orderId, requestCode);
         } else {
-            ARouterIntent.startActivityForResult(fragment, GoodDetailsActivity.class,ARouterConfig.Key.ORDER_ID,orderId,requestCode);
+            ARouterIntent.startActivityForResult(fragment, GoodDetailsActivity.class, ARouterConfig.Key.ORDER_ID, orderId, requestCode);
         }
 
     }
- public void startGoodRefundDetailActivityForResult(@NonNull Fragment fragment, int requestCode,long orderId){
-     if (fragment == null) {
-         ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_GOOD_REFUND, mSoftActivity.get(),ARouterConfig.Key.ORDER_ID,orderId, requestCode);
-     } else {
-         ARouterIntent.startActivityForResult(fragment, GoodRefundActivity.class,ARouterConfig.Key.ORDER_ID,orderId,requestCode);
-     }
- }
+
+    public void startGoodRefundDetailActivityForResult(@NonNull Fragment fragment, int requestCode, long orderId) {
+        if (fragment == null) {
+            ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_GOOD_REFUND, mSoftActivity.get(), ARouterConfig.Key.ORDER_ID, orderId, requestCode);
+        } else {
+            ARouterIntent.startActivityForResult(fragment, GoodRefundActivity.class, ARouterConfig.Key.ORDER_ID, orderId, requestCode);
+        }
+    }
 }

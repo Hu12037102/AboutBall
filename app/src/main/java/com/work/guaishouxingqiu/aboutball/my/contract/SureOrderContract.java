@@ -13,10 +13,15 @@ import com.work.guaishouxingqiu.aboutball.my.bean.ResultConfirmOrderBean;
  * 描述:确认订单契约
  */
 public interface SureOrderContract {
-    interface View extends IBaseView{
+    interface View extends IBaseView {
         void resultConfirmOrder(@NonNull ResultConfirmOrderBean bean);
+
+        void resultCheckOutOrderStatus();
     }
-    interface Presenter extends IBasePresenter{
-        void loadConfirmOrder(long spuId,String params,int num);
+
+    interface Presenter extends IBasePresenter {
+        void loadConfirmOrder(long spuId, String params, int num);
+
+        void checkOutGoodStatus(long spuId, String params, int num);
     }
 }
