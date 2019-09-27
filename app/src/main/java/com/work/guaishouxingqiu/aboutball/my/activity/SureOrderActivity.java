@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.my.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.view.LayoutInflater;
@@ -106,7 +107,18 @@ public class SureOrderActivity extends BaseActivity<SureOrderPresenter> implemen
             }
         });
         mTitleView.setOnBackViewClickListener(view -> mViewModel.clickBackForResult());
+        getWindow().getDecorView().getRootView().addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                Rect rect = new Rect();
+                getWindow().getDecorView().getRootView().getWindowVisibleDisplayFrame(rect);
+                if (getResources().getDisplayMetrics().heightPixels == rect.bottom) {
+                    mInvCount.setInputZreoNum();
+                }
+            }
+        });
     }
+
 
     private void setPrice(double priceNumber) {
         String price = DataUtils.getMoneyFormat(priceNumber);

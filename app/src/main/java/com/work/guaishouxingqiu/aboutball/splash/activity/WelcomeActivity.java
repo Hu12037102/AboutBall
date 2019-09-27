@@ -3,14 +3,12 @@ package com.work.guaishouxingqiu.aboutball.splash.activity;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -68,7 +66,7 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
     @BindView(R.id.iv_bottom)
     ImageView ivBottom;
     private TeamBallInviteDialog mTeamInviteDialog;
-    private boolean mIsHasBanner= false;
+    private static final boolean IS_HAS_BANNER = false;
     private Handler mSkipHandler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
         @Override
         public boolean handleMessage(Message message) {
@@ -140,7 +138,7 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
         TencentBuriedPoint.init(this);
         //去除零时token
         UserManger.get().removeTemporaryToken();
-        if (mIsHasBanner) {
+        if (IS_HAS_BANNER) {
             mTvSkip.setVisibility(View.VISIBLE);
             mTvSkip.setText(UIUtils.getString(R.string.skip_s_second, mTimeLength));
             mSkipHandler.sendEmptyMessageDelayed(HAS_BANNER_WHAT, 1000);
