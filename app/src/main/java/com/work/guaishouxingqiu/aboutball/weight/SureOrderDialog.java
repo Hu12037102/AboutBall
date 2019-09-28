@@ -2,6 +2,8 @@ package com.work.guaishouxingqiu.aboutball.weight;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Rect;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +43,14 @@ public class SureOrderDialog extends BaseDialog {
     private LinearLayout mLlData;
     private List<SureOrderDialog.Adapter> mAdapterData;
     private double mUnitPrice;
+    private boolean mIsClickItem;
+    private int mDefaultInputNum = 1;
+
+    public void setOnSoftKeyChangeListener(OnSoftKeyChangeListener onSoftKeyChangeListener) {
+        this.onSoftKeyChangeListener = onSoftKeyChangeListener;
+    }
+
+    private OnSoftKeyChangeListener onSoftKeyChangeListener;
 
     public void setOnSureOrderClickListener(OnSureOrderClickListener onSureOrderClickListener) {
         this.onSureOrderClickListener = onSureOrderClickListener;
@@ -65,8 +75,8 @@ public class SureOrderDialog extends BaseDialog {
         }
         mUnitPrice = DataUtils.getDoubleFormat(mDialogBean.price) / (double) mDialogBean.num;
         UIUtils.setText(mTvMoney, DataUtils.getMoneyFormat(mDialogBean.price));
-        mInvCount.setInputNum(1);
         mInvCount.setMaxNum(mDialogBean.maxNum);
+        mInvCount.setInputNum(mDialogBean.num);
         mLlData.removeAllViews();
         mLlData.removeAllViewsInLayout();
         mAdapterData.clear();
@@ -88,11 +98,12 @@ public class SureOrderDialog extends BaseDialog {
                     @Override
                     public void onClickItem(@NonNull View view, int position) {
                         LogUtils.w("SureOrderDialog--", "我被点击了" + getAllValues());
+                        mIsClickItem = true;
+                        mInvCount.setInputNum(mDefaultInputNum);
+                        //  UIUtils.setText(mTvMoney, DataUtils.getMoneyFormat(mInvCount.getNum() * mUnitPrice));
                         if (onSureOrderClickListener != null) {
                             onSureOrderClickListener.onClickItemNotify(SureOrderDialog.this, view, position, getValues(mAdapterData.indexOf(adapter)), mInvCount.getNum());
                         }
-                        mInvCount.setInputNum(1);
-                        UIUtils.setText(mTvMoney, DataUtils.getMoneyFormat(mInvCount.getNum() * mUnitPrice));
                     }
                 });
             }
@@ -108,6 +119,9 @@ public class SureOrderDialog extends BaseDialog {
     protected void initEvent() {
         mIvClose.setOnClickListener(v -> dismiss());
         mTvSures.setOnClickListener(v -> {
+            if (mInvCount.isZero()) {
+                mInvCount.setInputNum(mDefaultInputNum);
+            }
             if (onSureOrderClickListener != null) {
                 onSureOrderClickListener.onClickSureBuy(SureOrderDialog.this, v, getAllValues(), mInvCount.getNum());
             }
@@ -125,7 +139,10 @@ public class SureOrderDialog extends BaseDialog {
 
             @Override
             public void onInputChang(View view, int num) {
-                UIUtils.setText(mTvMoney, DataUtils.getMoneyFormat(num * mUnitPrice));
+                if (!mIsClickItem) {
+                    UIUtils.setText(mTvMoney, DataUtils.getMoneyFormat(num * mUnitPrice));
+                }
+                mIsClickItem = false;
             }
         });
     }
@@ -200,6 +217,20 @@ public class SureOrderDialog extends BaseDialog {
         mInvCount = findViewById(R.id.inv_count);
         mTvMoney = findViewById(R.id.tv_money_count);
         mLlData = findViewById(R.id.ll_data);
+        ViewGroup rootView = (ViewGroup) DataUtils.checkData(getWindow()).getDecorView().getRootView();
+        rootView.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+            Rect rect = new Rect();
+            rootView.getWindowVisibleDisplayFrame(rect);
+            if (getContext().getResources().getDisplayMetrics().heightPixels == rect.bottom){
+                mInvCount.setInputZreoNum();
+            }
+
+            if (onSoftKeyChangeListener != null) {
+                onSoftKeyChangeListener.onKeyChange(getContext().getResources().getDisplayMetrics().heightPixels != rect.bottom);
+            }
+            LogUtils.w("onLayoutChange---", left + "--" + top + "--" + right + "--" + bottom
+                    + "--" + rect.left + "--" + rect.top + "--" + rect.right + "--" + rect.bottom + "--" + getContext().getResources().getDisplayMetrics().heightPixels);
+        });
 
     }
 
@@ -342,6 +373,10 @@ public class SureOrderDialog extends BaseDialog {
         void onClickSureBuy(Dialog dialog, View view, String allValues, int num);
 
         void onClickItemNotify(Dialog dialog, View view, int position, String values, int num);
+    }
+
+    public interface OnSoftKeyChangeListener {
+        void onKeyChange(boolean isShowSoftKey);
     }
 
 }

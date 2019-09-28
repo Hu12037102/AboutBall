@@ -1,7 +1,6 @@
 package com.work.guaishouxingqiu.aboutball.my.fragment;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -17,7 +16,7 @@ import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.work.guaishouxingqiu.aboutball.OnItemClickListener;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
-import com.work.guaishouxingqiu.aboutball.my.activity.MyTicketsAdapter;
+import com.work.guaishouxingqiu.aboutball.my.adapter.MyTicketsAdapter;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultMyTicketsBean;
 import com.work.guaishouxingqiu.aboutball.my.contract.MyTicketsChildContract;
 import com.work.guaishouxingqiu.aboutball.my.presenter.MyTicketsChildPresenter;

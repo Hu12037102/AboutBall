@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.my.model;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseModel;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
+import com.work.guaishouxingqiu.aboutball.good.GoodService;
 import com.work.guaishouxingqiu.aboutball.my.MyService;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultConfirmOrderBean;
 
@@ -18,6 +19,13 @@ public class SureOrderModel extends BaseModel {
     public void loadConfirmOrder(long spuId, String params, int num, BaseObserver<ResultConfirmOrderBean> observer){
         mRetrofitManger.create(MyService.class)
                 .getUserConfirmOrder(spuId,params,num)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void checkOutGoodStatus(long spuId, String params, int num,BaseObserver<String> observer){
+        mRetrofitManger.create(GoodService.class)
+                .checkOutGoodStatus(spuId,params,num)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

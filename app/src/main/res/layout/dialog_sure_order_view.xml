@@ -15,8 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         tools:text="确定购买"
-        android:focusable="true"
-        android:focusableInTouchMode="true"/>
+        />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_root"

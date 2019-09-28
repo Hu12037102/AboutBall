@@ -45,6 +45,7 @@ public class GameDataFragment extends DelayedFragment<GameDataPresenter> impleme
     RecyclerView mRvResult;
     @BindView(R.id.srl_refresh)
     SmartRefreshLayout mSrlRefresh;
+    TextView mHeadTvMatchResult;
     private ResultGameSimpleBean mBean;
     private List<ResultGameDetailsBean.Bean> mHeadData;
     private GameHeadDataAdapter mHeadAdapter;
@@ -69,6 +70,7 @@ public class GameDataFragment extends DelayedFragment<GameDataPresenter> impleme
         CircleImageView cIvRight = mHeadView.findViewById(R.id.civ_right);
         GlideManger.get().loadImage(getContext(), mBean.guestLogoUrl, cIvRight);
         mHeadTvStart = mHeadView.findViewById(R.id.tv_start);
+        mHeadTvMatchResult = mHeadView.findViewById(R.id.tv_match_result);
         mHeadView.setVisibility(View.VISIBLE);
         mHeadRvData = mHeadView.findViewById(R.id.rv_data);
         LinearLayout llHeadTop = mHeadView.findViewById(R.id.ll_head_top);
@@ -273,5 +275,11 @@ public class GameDataFragment extends DelayedFragment<GameDataPresenter> impleme
         mHeadTvStart.setVisibility(mData.size() == 0 ? View.GONE : View.VISIBLE);
         mHeadAdapter.notifyDataSetChanged();
         mResultAdapter.notifyDataSetChanged();
+        if (mData.size() == 0){
+            mHeadTvMatchResult.setVisibility(View.GONE);
+        }else {
+            mHeadTvMatchResult.setVisibility(View.VISIBLE);
+        }
+
     }
 }

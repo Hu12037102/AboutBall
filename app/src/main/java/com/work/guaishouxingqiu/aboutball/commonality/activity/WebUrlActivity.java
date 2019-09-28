@@ -1,6 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.commonality.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.webkit.JavascriptInterface;
@@ -145,6 +146,13 @@ public class WebUrlActivity extends BaseWebActivity<WebUrlPresenter> implements 
         return true;
     }
 
+    @Override
+    protected void resultScanCode(String scanCode) {
+        String url = getTokenUrl(mWebUrl) + "&code=" + scanCode + "&longitude=" + getSPLongitude() + "&latitude=" + getSPLatitude();
+        LogUtils.w("resultScanCode--", url);
+        loadUrl(url);
+    }
+
     public class AndroidToJs {
 
 
@@ -155,5 +163,6 @@ public class WebUrlActivity extends BaseWebActivity<WebUrlPresenter> implements 
         }
 
     }
+
 
 }

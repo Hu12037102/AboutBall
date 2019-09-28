@@ -3,7 +3,6 @@ package com.work.guaishouxingqiu.aboutball.my.presenter;
 import androidx.annotation.NonNull;
 
 import com.work.guaishouxingqiu.aboutball.base.BaseBean;
-import com.work.guaishouxingqiu.aboutball.base.BaseModel;
 import com.work.guaishouxingqiu.aboutball.base.BaseObserver;
 import com.work.guaishouxingqiu.aboutball.base.BasePresenter;
 import com.work.guaishouxingqiu.aboutball.my.bean.ResultConfirmOrderBean;
@@ -32,12 +31,13 @@ public class SureOrderPresenter extends BasePresenter<SureOrderContract.View, Su
     public void start() {
 
     }
+
     @Override
-    public void loadConfirmOrder(long spuId,String params,int num){
-        mModel.loadConfirmOrder(spuId,params,num,new BaseObserver<>(true, this, new BaseObserver.Observer<ResultConfirmOrderBean>() {
+    public void loadConfirmOrder(long spuId, String params, int num) {
+        mModel.loadConfirmOrder(spuId, params, num, new BaseObserver<>(true, this, new BaseObserver.Observer<ResultConfirmOrderBean>() {
             @Override
             public void onNext(BaseBean<ResultConfirmOrderBean> t) {
-                if (DataUtils.isResultSure(t)){
+                if (DataUtils.isResultSure(t)) {
                     mView.resultConfirmOrder(t.result);
                 }
             }
@@ -47,5 +47,22 @@ public class SureOrderPresenter extends BasePresenter<SureOrderContract.View, Su
 
             }
         }));
+    }
+
+    @Override
+    public void checkOutGoodStatus(long spuId, String params, int num) {
+        mModel.checkOutGoodStatus(spuId, params, num, new BaseObserver<>(true, this, new BaseObserver.Observer<String>() {
+            @Override
+            public void onNext(BaseBean<String> t) {
+                if (DataUtils.isResultSure(t)) {
+                    mView.resultCheckOutOrderStatus();
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        },false));
     }
 }

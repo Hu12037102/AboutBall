@@ -27,8 +27,8 @@ public class WebHelp {
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setSupportZoom(false);
-        webSettings.setBuiltInZoomControls(false);
-        webSettings.setDisplayZoomControls(false);
+        webSettings.setBuiltInZoomControls(true);
+        webSettings.setDisplayZoomControls(true);
         webSettings.setAppCacheEnabled(true);//开启 Application Caches 功能
         webSettings.setAppCachePath(FileUtils.getNetCacheFile().getAbsolutePath());
         if (NetWorkUtils.isNetCanUse()) {
@@ -50,10 +50,8 @@ public class WebHelp {
             webSettings.setMediaPlaybackRequiresUserGesture(true);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-           webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-           // webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
+            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         }
-       // webSettings.setBlockNetworkImage(false);
 
 
     }

@@ -259,7 +259,9 @@ public abstract class CameraActivity<P extends BasePresenter> extends Permission
                 String result = bundle.getString(CodeUtils.RESULT_STRING);
                 if (result != null) {
                     UIUtils.parseScanCode(result);
+                    resultScanCode(result);
                 }
+
                 LogUtils.w("onActivityResult--", result);//15681673146651413
                 //Toasts.with().showToast(result);
             } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
@@ -269,7 +271,7 @@ public abstract class CameraActivity<P extends BasePresenter> extends Permission
 
     }
 
-
+    protected void resultScanCode(String scanCode){}
     protected void resultAlbumResult(List<MediaSelectorFile> data) {
     }
 
