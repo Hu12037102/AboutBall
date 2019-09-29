@@ -684,4 +684,7 @@
     <string name="back_my_ticket">返回我的门票</string>
     <string name="tickets_details">票务详情</string>
     <string name="unable_to_obtain_location_information">无法获取位置信息，请给予获取位置信息权限</string>
+    <string name="order_is_pay">订单已支付</string>
+    <string name="order_is_refund">订单已退款</string>
+    <string name="order_error">订单异常</string>
 </resources>

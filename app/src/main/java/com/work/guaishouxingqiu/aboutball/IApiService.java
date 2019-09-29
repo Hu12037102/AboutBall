@@ -34,9 +34,9 @@ public interface IApiService {
     String GET_NEWS_MESSAGE_CONTENT_LIST = "api/news/getNewsComment";
     String POST_SEND_NEWS_MESSAGE_CONTENT = "api/news/newsCommented";
     String GET_SEARCH_NEWS_DATA = "api/news/searchNews";
-    String GET_TICKET_MALL_LIST ="api/mall/getTicketSpuList";
-    String GET_GAME_TICKET_DETAILS="api/mall/getMatchTicketSpuDetail";
-    String GET_DOOR_TICKET_DETAILS="api/mall/getSwimTicketSkuDetail";
+    String GET_TICKET_MALL_LIST = "api/mall/getTicketSpuList";
+    String GET_GAME_TICKET_DETAILS = "api/mall/getMatchTicketSpuDetail";
+    String GET_DOOR_TICKET_DETAILS = "api/mall/getSwimTicketSkuDetail";
 
     //赛事-列表
     String GAME_LIST = "api/match/getMatchList";
@@ -108,11 +108,11 @@ public interface IApiService {
     String GET_DYNAMIC_NOTIFICATION_LIST = "api/notice/getSocialNoticeList";
     String GET_SYSTEM_NOTIFICATION_LIST = "api/notice/getSysTemNoticeList";
     String GET_CLEAR_RED_POINT = "api/notice/saveNoticeCenterReadByType";
-    String GET_SETTING_PASSWORD="api/accountManagement/settingPassword";
-    String GET_CAN_USER_STADIUM_LIST="api/stadium/getStadiumListForAgree";
-    String GET_NEWS_SELLING_POINTS="api/news/saveNewsShareCount";
-    String GET_SURE_ORDER_DIALOG="api/mall/userChoseSpuSpecifications";
-
+    String GET_SETTING_PASSWORD = "api/accountManagement/settingPassword";
+    String GET_CAN_USER_STADIUM_LIST = "api/stadium/getStadiumListForAgree";
+    String GET_NEWS_SELLING_POINTS = "api/news/saveNewsShareCount";
+    String GET_SURE_ORDER_DIALOG = "api/mall/userChoseSpuSpecifications";
+    String GET_CHECK_OUT_ORDER_STATUS = "api/transaction/getCurrentOrderStatus";
     //获取微信登录token
     String GET_WEICHAT_TOKEN = "sns/oauth2/access_token";
     //获取登录成功微信用户信息
@@ -135,7 +135,7 @@ public interface IApiService {
     String GET_MY_BALL_TEAM = "api/myTeam/getMyTeam";
     String POST_LAUNCHER_BALL = "api/agreeBall/initiateAgreeBall";
     String GET_OSS_TOKEN = "api/commons/static/ossCredentials";
-    String GET_NOT_BOOK="api/agreeBall/agreeBallWithoutCalendar";
+    String GET_NOT_BOOK = "api/agreeBall/agreeBallWithoutCalendar";
 
     String POST_MANAGE_TEAM = "api/myTeam/createTeam";
     String GET_BALL_TEAM_DETAILS = "api/myTeam/getTeamInfo";
@@ -185,15 +185,16 @@ public interface IApiService {
     String GET_VERSION_HISTORY_DETAILS = "api/commons/getVersionExplain";
     String GET_MY_ATTENTION_DATA = "api/tweet/getMyFollowList";
     String GET_MY_FANS_DATA = "api/tweet/getMyFansList";
-    String POST_EDIT_ABOUT_BALL="api/agreeBall/editAgreeBall";
-    String GET_USER_CONFIRM_ORDER="api/mall/userSpecificationsConfirm";
-    String GET_MY_TICKETS_LIST="api/ticket/getCommonTicketList";
-    String POST_ORDER_DETAILS="api/transaction/CommonCreateOrder";
-    String GET_MY_GOOD_LIST="api/transaction/getCommonUserOrderList";
-    String GET_MY_GOOD_DETAILS="api/transaction/getOrderDetail";
-    String GET_GOOD_REFUND_DETAILS="api/transaction/getApprovalRefundInfo";
-    String GET_APPLY_REFUND="api/transaction/confirmApprovalRefund";
-    String GET_CHECK_OUT_GOOD_STATUS="api/transaction/userCreateOrderBeforeCheckStore";
+    String POST_EDIT_ABOUT_BALL = "api/agreeBall/editAgreeBall";
+    String GET_USER_CONFIRM_ORDER = "api/mall/userSpecificationsConfirm";
+    String GET_MY_TICKETS_LIST = "api/ticket/getCommonTicketList";
+    String POST_ORDER_DETAILS = "api/transaction/CommonCreateOrder";
+    String GET_MY_GOOD_LIST = "api/transaction/getCommonUserOrderList";
+    String GET_MY_GOOD_DETAILS = "api/transaction/getOrderDetail";
+    String GET_GOOD_REFUND_DETAILS = "api/transaction/getApprovalRefundInfo";
+    String GET_APPLY_REFUND = "api/transaction/confirmApprovalRefund";
+    String GET_CHECK_OUT_GOOD_STATUS = "api/transaction/userCreateOrderBeforeCheckStore";
+
     interface H5 {
         // String USER_AGREEMENT = "https://ifi.bmece.com/getAgreement";
         //用户协议

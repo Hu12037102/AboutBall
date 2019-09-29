@@ -657,4 +657,19 @@ public abstract class BasePresenter<V extends IBaseView, M extends BaseModel> im
             }
         }));
     }
+    public void getCheckOutOrderStatus(long orderId){
+        mModel.getCheckOutOrderStatus(orderId,new BaseObserver<>(true, this, new BaseObserver.Observer<Integer>() {
+            @Override
+            public void onNext(BaseBean<Integer> t) {
+                if (DataUtils.isResultSure(t)){
+                    mView.resultGoodStatus(t.result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        }));
+    }
 }

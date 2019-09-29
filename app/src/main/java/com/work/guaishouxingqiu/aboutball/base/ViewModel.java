@@ -1,6 +1,7 @@
 package com.work.guaishouxingqiu.aboutball.base;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -31,6 +32,7 @@ import com.work.guaishouxingqiu.aboutball.community.bean.ResultCommunityDataBean
 import com.work.guaishouxingqiu.aboutball.community.bean.ResultRecommendHotBean;
 import com.work.guaishouxingqiu.aboutball.good.activity.GoodDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.good.activity.GoodRefundActivity;
+import com.work.guaishouxingqiu.aboutball.good.fragment.MyGoodFragment;
 import com.work.guaishouxingqiu.aboutball.home.bean.ResultRedPointInfoBean;
 import com.work.guaishouxingqiu.aboutball.http.IApi;
 import com.work.guaishouxingqiu.aboutball.login.activity.LoginActivity;
@@ -900,7 +902,7 @@ public class ViewModel {
         }
     }
 
-    public void startGoodDetailsActivityForResult(@NonNull Fragment fragment, int requestCode, long orderId) {
+    public void startGoodDetailsActivityForResult(@Nullable Fragment fragment, int requestCode, long orderId) {
         if (fragment == null) {
             ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_ORDER_DETAILS, mSoftActivity.get(), ARouterConfig.Key.ORDER_ID, orderId, requestCode);
         } else {
@@ -909,11 +911,56 @@ public class ViewModel {
 
     }
 
-    public void startGoodRefundDetailActivityForResult(@NonNull Fragment fragment, int requestCode, long orderId) {
+    public void startGoodRefundDetailActivityForResult(@Nullable Fragment fragment, int requestCode, long orderId) {
         if (fragment == null) {
             ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_GOOD_REFUND, mSoftActivity.get(), ARouterConfig.Key.ORDER_ID, orderId, requestCode);
         } else {
             ARouterIntent.startActivityForResult(fragment, GoodRefundActivity.class, ARouterConfig.Key.ORDER_ID, orderId, requestCode);
         }
+    }
+
+    public void showGoodStatusErrorDialog(int status, final HintDialog.OnItemClickListener onItemClickListener) {
+        String body = UIUtils.getString(R.string.order_error);
+        switch (status) {
+            //待支付
+            case Contast.MyGoodStatus.WAIT_PAY:
+
+                break;
+            //已付款
+            case Contast.MyGoodStatus.PAYING:
+                body = UIUtils.getString(R.string.order_is_pay);
+
+                break;
+            //已完成
+            case Contast.MyGoodStatus.COMPLETE:
+                break;
+            //已取消
+            case Contast.MyGoodStatus.CANCEL:
+                break;
+            //退款中
+            case Contast.MyGoodStatus.REFUNDING:
+                body = UIUtils.getString(R.string.order_is_refund);
+                break;
+            //已退款
+            case Contast.MyGoodStatus.REFUNDED:
+                break;
+            default:
+                break;
+        }
+        HintDialog hintDialog = new HintDialog.Builder(mSoftActivity.get())
+                .setTitle(R.string.hint)
+                .setBody(body)
+                .setSure(R.string.sure)
+                .builder();
+        hintDialog.show();
+        hintDialog.setOnItemClickListener(new HintDialog.OnItemClickListener() {
+            @Override
+            public void onClickSure(@NonNull View view) {
+                if (onItemClickListener!=null){
+                    onItemClickListener.onClickSure(view);
+                }
+                hintDialog.dismiss();
+            }
+        });
     }
 }

@@ -420,4 +420,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends LocationActi
     public void resultSureOrderDialog(BaseBean<ResultSureOrderDialogBean> bean) {
 
     }
+
+    @Override
+    public void resultGoodStatus(int goodStatus) {
+
+    }
 }

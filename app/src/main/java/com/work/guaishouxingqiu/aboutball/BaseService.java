@@ -104,4 +104,7 @@ public interface BaseService {
                                                                        @Query(Contast.PARAMS) String params,
                                                                        @Query(Contast.NUM) int num);
 
+    @GET(IApiService.GET_CHECK_OUT_ORDER_STATUS)
+    Observable<BaseBean<Integer>> getCheckOutOrderStatus(@Query(Contast.ORDER_ID) long orderId);
+
 }
