@@ -138,20 +138,26 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
         TencentBuriedPoint.init(this);
         //去除零时token
         UserManger.get().removeTemporaryToken();
+        initOpenAgreement();
+
+
+        //initOpenAgreement();
+
+
+    }
+
+    private void openActivity() {
         if (IS_HAS_BANNER) {
             mTvSkip.setVisibility(View.VISIBLE);
             mTvSkip.setText(UIUtils.getString(R.string.skip_s_second, mTimeLength));
             mSkipHandler.sendEmptyMessageDelayed(HAS_BANNER_WHAT, 1000);
+            mIvContent.setImageResource(R.mipmap.icon_default_welcome);
         } else {
             mTvSkip.setVisibility(View.GONE);
             mIvContent.setImageDrawable(null);
             mIvContent.post(() -> mSkipHandler.sendEmptyMessageDelayed(NO_BANNER_WHAT, 500));
 
         }
-
-        initOpenAgreement();
-
-
     }
 
     private void initOpenAgreement() {
@@ -182,15 +188,13 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
                         finish();
                         break;
                     default:
-                        removeAllMessage();
-                        skipActivity();
+                        openActivity();
                         break;
                 }
             }
-        } /*else {
-            removeAllMessage();
-            skipActivity();
-        }*/
+        } else {
+            openActivity();
+        }
     }
 
     private void removeAllMessage() {
@@ -269,7 +273,6 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
     public void onViewClicked() {
         skipActivity();
     }
-
 
 
     @Override

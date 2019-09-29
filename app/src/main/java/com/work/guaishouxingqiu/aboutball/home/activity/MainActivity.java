@@ -91,7 +91,7 @@ public class MainActivity extends PermissionActivity<MainPresenter> implements M
     }
 
     @Override
-    public void locationResult(double longitude, double latitude, String city) {
+    public void locationResult(double longitude, double latitude, String city,boolean isOpenGps) {
         mPresenter.loadMainTab();
     }
 

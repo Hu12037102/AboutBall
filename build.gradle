@@ -9,7 +9,7 @@ buildscript {
         maven { url 'https://dl.bintray.com/umsdk/release' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.2'
+        classpath 'com.android.tools.build:gradle:3.5.0'
         classpath 'com.bugtags.library:bugtags-gradle:2.1.5'
         classpath 'com.jakewharton:butterknife-gradle-plugin:10.1.0'
         //美团多渠道打包
