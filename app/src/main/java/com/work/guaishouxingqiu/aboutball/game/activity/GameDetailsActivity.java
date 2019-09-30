@@ -800,6 +800,8 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
 
                     mClHeadDetails.setVisibility(View.VISIBLE);
                     mHeadLiveParent.setVisibility(View.GONE);
+                    mIvBack.setVisibility(View.VISIBLE);
+                    mIvTitleShare.setVisibility(View.VISIBLE);
                 }
             });
 
