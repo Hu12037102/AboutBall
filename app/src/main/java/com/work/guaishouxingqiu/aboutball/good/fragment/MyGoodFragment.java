@@ -15,11 +15,13 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
+import com.work.guaishouxingqiu.aboutball.game.activity.GameScheduleActivity;
 import com.work.guaishouxingqiu.aboutball.good.activity.GoodDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.good.adapter.MyGoodAdapter;
 import com.work.guaishouxingqiu.aboutball.good.bean.ResultMyGoodBean;
 import com.work.guaishouxingqiu.aboutball.good.contract.MyGoodContract;
 import com.work.guaishouxingqiu.aboutball.good.presenter.MyGoodPresenter;
+import com.work.guaishouxingqiu.aboutball.my.activity.OrderRefundDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
@@ -48,6 +50,7 @@ public class MyGoodFragment extends DelayedFragment<MyGoodPresenter> implements 
     private int mStatus;
     public static final int REQUEST_CODE_TO_GOOD_DETAILS = 1259;
     private static final int REQUEST_CODE_REFUND_DETAIL = 1258;
+    private static final int REQUEST_CODE_REFUND_SCHEDULE = 1260;
     private int mClickOperationPosition = -1;
 
     @Override
@@ -173,6 +176,7 @@ public class MyGoodFragment extends DelayedFragment<MyGoodPresenter> implements 
             switch (requestCode) {
                 case MyGoodFragment.REQUEST_CODE_REFUND_DETAIL:
                 case MyGoodFragment.REQUEST_CODE_TO_GOOD_DETAILS:
+                case MyGoodFragment.REQUEST_CODE_REFUND_SCHEDULE:
                     mSrlRefresh.autoRefresh();
                     break;
                 default:
@@ -202,7 +206,7 @@ public class MyGoodFragment extends DelayedFragment<MyGoodPresenter> implements 
                 break;
             //退款中
             case Contast.MyGoodStatus.REFUNDING:
-                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ORDER_REFUND_DETAILS, ARouterConfig.Key.ORDER_ID, bean.orderId, ARouterConfig.Key.ORDER_FLAG, 1);
+                ARouterIntent.startActivityForResult(this, OrderRefundDetailsActivity.class, ARouterConfig.Key.ORDER_ID, bean.orderId, ARouterConfig.Key.ORDER_FLAG, 1, MyGoodFragment.REQUEST_CODE_REFUND_SCHEDULE);
                 break;
             //已退款
             case Contast.MyGoodStatus.REFUNDED:

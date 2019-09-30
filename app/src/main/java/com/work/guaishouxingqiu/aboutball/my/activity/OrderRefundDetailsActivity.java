@@ -1,11 +1,14 @@
 package com.work.guaishouxingqiu.aboutball.my.activity;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.View;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.example.item.weight.TitleView;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.BaseActivity;
 import com.work.guaishouxingqiu.aboutball.my.adapter.OrderRefundDetailsAdapter;
@@ -45,6 +48,8 @@ public class OrderRefundDetailsActivity extends BaseActivity<OrderRefundDetailsP
     TextView mTvRefundCause;
     @BindView(R.id.tv_practical_prices)
     TextView mTvPracticalPrices;
+    @BindView(R.id.title_view)
+    TitleView mTitleView;
     private List<ResultRefundDetailsBean.RefundDetailList> mData;
     private OrderRefundDetailsAdapter mAdapter;
 
@@ -78,7 +83,7 @@ public class OrderRefundDetailsActivity extends BaseActivity<OrderRefundDetailsP
 
     @Override
     protected void initEvent() {
-
+        mTitleView.setOnBackViewClickListener(view -> mViewModel.clickBackForResult());
     }
 
     @Override
@@ -104,4 +109,8 @@ public class OrderRefundDetailsActivity extends BaseActivity<OrderRefundDetailsP
         }
     }
 
+    @Override
+    public void onBackPressed() {
+      mViewModel.clickBackForResult();
+    }
 }

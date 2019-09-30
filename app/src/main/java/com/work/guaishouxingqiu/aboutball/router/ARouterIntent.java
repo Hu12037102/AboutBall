@@ -99,6 +99,15 @@ public class ARouterIntent {
     public static void startActivityForResult(@NonNull String path, @NonNull Activity activity, String key, long values, int requestCode) {
         ARouter.getInstance().build(path).withLong(key, values).navigation(activity, requestCode);
     }
+    public static void startActivityForResult(@NonNull String path, @NonNull Activity activity, String key1, long values1, String key2,int values2,int requestCode) {
+        ARouter.getInstance().build(path).withLong(key1, values1).withInt(key2,values2).navigation(activity, requestCode);
+    }
+    public static void startActivityForResult(@NonNull Fragment fragment, @NonNull Class clazz, String key1, long values1, String key2,int values2,int requestCode) {
+        Intent intent = new Intent(fragment.getContext(), clazz);
+        intent.putExtra(key1, values1);
+        intent.putExtra(key2, values2);
+        fragment.startActivityForResult(intent, requestCode);
+    }
 
     public static void startActivityForResult(@NonNull String path, @NonNull Activity activity) {
         ARouter.getInstance().build(path).navigation(activity, REQUEST_CODE);
