@@ -430,7 +430,7 @@ public class VenueBookingActivity extends BaseActivity<VenueBookingPresenter> im
                                 if (mBookAdapter.getCheckData().size() > 0) {
                                     mTvBottomLeft.setText(UIUtils.getString(R.string.money_make_booking, (DataUtils.getMoneyFormats(mBookData.get(position).price) * mBookAdapter.getCheckData().size())));
                                     mLlBottom.setVisibility(View.VISIBLE);
-                                    mTvBottomRight.setText(UIUtils.getString(R.string.s_post_about_ball, DataUtils.getMoneyFormats(mBookData.get(position).price / 2f)));
+                                    mTvBottomRight.setText(UIUtils.getString(R.string.s_post_about_ball, DataUtils.getMoneyFormats(mBookData.get(position).price )));
                                     if (mBookAdapter.getCheckData().size() > 1) {
                                         mTvBottomRight.setEnabled(false);
                                         mTvBottomRight.setBackgroundResource(R.drawable.shape_default_button);

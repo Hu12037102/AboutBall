@@ -319,4 +319,8 @@ public abstract class BaseFragment<P extends BasePresenter> extends PermissionFr
     public void resultSureOrderDialog(BaseBean<ResultSureOrderDialogBean> bean) {
 
     }
+    @Override
+    public void resultGoodStatus(int goodStatus) {
+
+    }
 }

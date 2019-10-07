@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.JsResult;
 import android.webkit.ValueCallback;
@@ -12,6 +13,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -25,6 +27,8 @@ import com.work.guaishouxingqiu.aboutball.other.UserManger;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.LogUtils;
+import com.work.guaishouxingqiu.aboutball.weight.BaseDialog;
+import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +48,7 @@ public class WebUrlActivity extends BaseWebActivity<WebUrlPresenter> implements 
     ProgressBar mPbLoading;
     @BindView(R.id.wv_data)
     WebView mWvData;
+    private HintDialog mLocationDialog;
 
     @Override
     protected WebView getWebView() {
@@ -158,11 +163,47 @@ public class WebUrlActivity extends BaseWebActivity<WebUrlPresenter> implements 
 
         @JavascriptInterface
         public void ScanCode(String msg) {
-            openScanCode();
+            requestLocation();
+
             LogUtils.w("AndroidToJs--", "JS调用了Android的hello方法" + "--");
         }
 
     }
 
+    @Override
+    public void locationResult(double longitude, double latitude, String city, boolean isOpenGps) {
+        super.locationResult(longitude, latitude, city, isOpenGps);
+        if (isOpenGps) {
+            openScanCode();
+        }
 
+    }
+
+    private void showNotSureLocationDialog() {
+        if (mLocationDialog == null) {
+            mLocationDialog = new HintDialog.Builder(this)
+                    .setTitle(R.string.hint)
+                    .setBody(R.string.unable_to_obtain_location_information)
+                    .setSures(R.string.setting)
+                    .setCancel(R.string.cancel)
+                    .setShowSingButton(false)
+                    .builder();
+        }
+        if (!mLocationDialog.isShowing() && !isFinishing()) {
+            mLocationDialog.show();
+        }
+        mLocationDialog.setOnItemClickSureAndCancelListener(new BaseDialog.OnItemClickSureAndCancelListener() {
+            @Override
+            public void onClickSure(@NonNull View view) {
+                mLocationDialog.dismiss();
+                requestLocation();
+            }
+
+            @Override
+            public void onClickCancel(@NonNull View view) {
+                mLocationDialog.dismiss();
+                clickBackForResult();
+            }
+        });
+    }
 }

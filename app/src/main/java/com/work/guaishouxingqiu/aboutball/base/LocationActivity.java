@@ -3,9 +3,11 @@ package com.work.guaishouxingqiu.aboutball.base;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.View;
 
 import com.tencent.map.geolocation.TencentLocation;
@@ -31,8 +33,8 @@ public abstract class LocationActivity extends AppCompatActivity implements Tenc
 
     private TencentLocationRequest mRequestLocation;
     private TencentLocationManager mManager;
-    private HintDialog mOpenGPSDialog;
     public ViewModel mViewModel;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,7 +98,7 @@ public abstract class LocationActivity extends AppCompatActivity implements Tenc
             sp.putObject(SharedPreferencesHelp.KEY.LOCATION_LATITUDE, String.valueOf(tencentLocation.getLatitude()));
             sp.putObject(SharedPreferencesHelp.KEY.LOCATION_CITY, tencentLocation.getCity());
         }
-        locationResult(getSPLongitude(), getSPLatitude(), getSPCityName());
+        locationResult(getSPLongitude(), getSPLatitude(), getSPCityName(), true);
     }
 
 
@@ -131,39 +133,37 @@ public abstract class LocationActivity extends AppCompatActivity implements Tenc
         }
     }
 
-    public void locationResult(double longitude, double latitude, String city) {
+    public void locationResult(double longitude, double latitude, String city, boolean isOpenGPS) {
 
     }
 
 
     private void showOpenGPSDialog() {
-        if (mOpenGPSDialog == null) {
-            mOpenGPSDialog = new HintDialog.Builder(this)
-                    .setTitle(R.string.hint)
-                    .setBody(R.string.gprs_not_open)
-                    .setShowSingButton(false)
-                    .setSures(R.string.go_open)
-                    .builder();
-        }
-        mOpenGPSDialog.setCanceledOnTouchOutside(false);
-        mOpenGPSDialog.setCancelable(false);
-        if (!mOpenGPSDialog.isShowing()) {
-            mOpenGPSDialog.show();
-        }
-        mOpenGPSDialog.setOnItemClickSureAndCancelListener(new BaseDialog.OnItemClickSureAndCancelListener() {
+
+        HintDialog openGPSDialog = new HintDialog.Builder(this)
+                .setTitle(R.string.hint)
+                .setBody(R.string.gprs_not_open)
+                .setShowSingButton(false)
+                .setCancel(R.string.cancel)
+                .setSures(R.string.go_open)
+                .builder();
+        openGPSDialog.setCanceledOnTouchOutside(false);
+        openGPSDialog.setCancelable(false);
+        openGPSDialog.setOnItemClickSureAndCancelListener(new BaseDialog.OnItemClickSureAndCancelListener() {
             @Override
             public void onClickSure(@NonNull View view) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 startActivityForResult(intent, Contast.REQUEST_CODE);
+                openGPSDialog.dismiss();
             }
 
             @Override
             public void onClickCancel(@NonNull View view) {
-                mOpenGPSDialog.dismiss();
-                locationResult(getSPLongitude(), getSPLatitude(), getSPCityName());
+                locationResult(getSPLongitude(), getSPLatitude(), getSPCityName(), false);
+                openGPSDialog.dismiss();
             }
         });
-
+        openGPSDialog.show();
     }
 
     @Override

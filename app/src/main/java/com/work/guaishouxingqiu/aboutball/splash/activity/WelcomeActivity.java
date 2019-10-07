@@ -138,20 +138,26 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
         TencentBuriedPoint.init(this);
         //去除零时token
         UserManger.get().removeTemporaryToken();
+        initOpenAgreement();
+
+
+        //initOpenAgreement();
+
+
+    }
+
+    private void openActivity() {
         if (IS_HAS_BANNER) {
             mTvSkip.setVisibility(View.VISIBLE);
             mTvSkip.setText(UIUtils.getString(R.string.skip_s_second, mTimeLength));
             mSkipHandler.sendEmptyMessageDelayed(HAS_BANNER_WHAT, 1000);
+            mIvContent.setImageResource(R.mipmap.icon_default_welcome);
         } else {
             mTvSkip.setVisibility(View.GONE);
             mIvContent.setImageDrawable(null);
             mIvContent.post(() -> mSkipHandler.sendEmptyMessageDelayed(NO_BANNER_WHAT, 500));
 
         }
-
-        initOpenAgreement();
-
-
     }
 
     private void initOpenAgreement() {
@@ -159,38 +165,37 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
         if (uri != null) {
             LogUtils.w("initOpenAgreement--", uri.toString());
             String data = uri.toString();
-            if (DataUtils.isEmpty(data) || !DataUtils.hasDigit(data)) {
-                return;
-            }
-            String typeId = uri.getQueryParameter(ARouterConfig.Key.SHARE_TYPE);
-            String shareId = uri.getQueryParameter(ARouterConfig.Key.SHARE_ID);
-            if (typeId != null && shareId != null) {
-                switch (Integer.valueOf(typeId)) {
-                    case IApiService.TypeId.OPEN_BALL_INVITE:
-                        removeAllMessage();
-                        mTeamId = Long.valueOf(shareId);
-                        if (UserManger.get().isLogin()) {
-                            mPresenter.loadTeamDetails(mTeamId);
-                        } else {
-                            mViewModel.showLoginDialog();
-                        }
-                        break;
-                    case IApiService.TypeId.OPEN_GAME_DETAILS_VIDEO:
-                        removeAllMessage();
-                        int matchId = Integer.valueOf(shareId);
-                        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_GAME_DETAILS, ARouterConfig.Key.GAME_ID, matchId);
-                        finish();
-                        break;
-                    default:
-                        removeAllMessage();
-                        skipActivity();
-                        break;
+            if (!DataUtils.isEmpty(data) && DataUtils.hasDigit(data)) {
+                String typeId = uri.getQueryParameter(ARouterConfig.Key.SHARE_TYPE);
+                String shareId = uri.getQueryParameter(ARouterConfig.Key.SHARE_ID);
+                if (typeId != null && shareId != null) {
+                    switch (Integer.valueOf(typeId)) {
+                        case IApiService.TypeId.OPEN_BALL_INVITE:
+                            removeAllMessage();
+                            mTeamId = Long.valueOf(shareId);
+                            if (UserManger.get().isLogin()) {
+                                mPresenter.loadTeamDetails(mTeamId);
+                            } else {
+                                mViewModel.showLoginDialog();
+                            }
+                            break;
+                        case IApiService.TypeId.OPEN_GAME_DETAILS_VIDEO:
+                            removeAllMessage();
+                            int matchId = Integer.valueOf(shareId);
+                            ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_GAME_DETAILS, ARouterConfig.Key.GAME_ID, matchId);
+                            finish();
+                            break;
+                        default:
+                            openActivity();
+                            break;
+                    }
                 }
+            } else {
+                openActivity();
             }
-        } /*else {
-            removeAllMessage();
-            skipActivity();
-        }*/
+        } else {
+            openActivity();
+        }
     }
 
     private void removeAllMessage() {
@@ -269,7 +274,6 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
     public void onViewClicked() {
         skipActivity();
     }
-
 
 
     @Override

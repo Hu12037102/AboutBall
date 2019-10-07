@@ -280,6 +280,7 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
 
     private void initCollectionVideo(ResultGameSimpleBean bean, String videoUrl) {
 
+        mClHeadDetails.setVisibility(View.GONE);
         mDataBean.liveAddress = videoUrl;
         isLive = false;
         if (mVideoPlay != null) {
@@ -288,6 +289,7 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
                 mVideoPlay.stop();
                 //   mVideoPlay.release();
             }
+            mHeadLiveParent.setVisibility(View.VISIBLE);
             AliyunLocalSource.AliyunLocalSourceBuilder builder = new AliyunLocalSource.AliyunLocalSourceBuilder();
             builder.setSource(bean.liveAddress);
             builder.setCoverPath(bean.liveAddress);
@@ -795,6 +797,11 @@ public class GameDetailsActivity extends LoginOrShareActivity<GameDetailsPresent
                     //设置到缓存进度
                     mSbVideo.setSecondaryProgress(mVideoPlay.getBufferingPosition());
                     mTvPlayTime.setText(GameDetailsActivity.RESET_TIME_LENGTH);
+
+                    mClHeadDetails.setVisibility(View.VISIBLE);
+                    mHeadLiveParent.setVisibility(View.GONE);
+                    mIvBack.setVisibility(View.VISIBLE);
+                    mIvTitleShare.setVisibility(View.VISIBLE);
                 }
             });
 

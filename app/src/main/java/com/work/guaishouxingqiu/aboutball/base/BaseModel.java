@@ -306,4 +306,11 @@ public class BaseModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
+    public void getCheckOutOrderStatus(long orderId,BaseObserver<Integer> observer){
+        mRetrofitManger.create(BaseService.class)
+                .getCheckOutOrderStatus(orderId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
 }

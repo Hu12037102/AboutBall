@@ -1,9 +1,11 @@
 package com.work.guaishouxingqiu.aboutball.good.fragment;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,15 +15,18 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.DelayedFragment;
+import com.work.guaishouxingqiu.aboutball.game.activity.GameScheduleActivity;
 import com.work.guaishouxingqiu.aboutball.good.activity.GoodDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.good.adapter.MyGoodAdapter;
 import com.work.guaishouxingqiu.aboutball.good.bean.ResultMyGoodBean;
 import com.work.guaishouxingqiu.aboutball.good.contract.MyGoodContract;
 import com.work.guaishouxingqiu.aboutball.good.presenter.MyGoodPresenter;
+import com.work.guaishouxingqiu.aboutball.my.activity.OrderRefundDetailsActivity;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
 import com.work.guaishouxingqiu.aboutball.util.DataUtils;
 import com.work.guaishouxingqiu.aboutball.util.UIUtils;
+import com.work.guaishouxingqiu.aboutball.weight.HintDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +50,8 @@ public class MyGoodFragment extends DelayedFragment<MyGoodPresenter> implements 
     private int mStatus;
     public static final int REQUEST_CODE_TO_GOOD_DETAILS = 1259;
     private static final int REQUEST_CODE_REFUND_DETAIL = 1258;
+    private static final int REQUEST_CODE_REFUND_SCHEDULE = 1260;
+    private int mClickOperationPosition = -1;
 
     @Override
     protected void initPermission() {
@@ -132,32 +139,9 @@ public class MyGoodFragment extends DelayedFragment<MyGoodPresenter> implements 
             @Override
             public void onClickOperation(View view, int position) {
                 ResultMyGoodBean bean = mData.get(position);
-                switch (mData.get(position).status) {
-                    //待支付
-                    case Contast.MyGoodStatus.WAIT_PAY:
-                        mViewModel.startGoodDetailsActivityForResult(MyGoodFragment.this, MyGoodFragment.REQUEST_CODE_TO_GOOD_DETAILS, mData.get(position).orderId);
-                        //  mViewModel.showPayDialog(DataUtils.getMoneyFormat(bean.amount), view1 -> mPresenter.payWeiChatSing(mResultBean.id));
-                        break;
-                    //已付款
-                    case Contast.MyGoodStatus.PAYING:
-                        mViewModel.startGoodRefundDetailActivityForResult(MyGoodFragment.this, MyGoodFragment.REQUEST_CODE_REFUND_DETAIL, bean.orderId);
-                        break;
-                    //已完成
-                    case Contast.MyGoodStatus.COMPLETE:
-                        break;
-                    //已取消
-                    case Contast.MyGoodStatus.CANCEL:
-                        break;
-                    //退款中
-                    case Contast.MyGoodStatus.REFUNDING:
-                        ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ORDER_REFUND_DETAILS, ARouterConfig.Key.ORDER_ID, bean.orderId, ARouterConfig.Key.ORDER_FLAG, 1);
-                        break;
-                    //已退款
-                    case Contast.MyGoodStatus.REFUNDED:
-                        break;
-                    default:
-                        break;
-                }
+                mClickOperationPosition = position;
+                mPresenter.getCheckOutOrderStatus(bean.orderId);
+
             }
         });
     }
@@ -192,12 +176,55 @@ public class MyGoodFragment extends DelayedFragment<MyGoodPresenter> implements 
             switch (requestCode) {
                 case MyGoodFragment.REQUEST_CODE_REFUND_DETAIL:
                 case MyGoodFragment.REQUEST_CODE_TO_GOOD_DETAILS:
+                case MyGoodFragment.REQUEST_CODE_REFUND_SCHEDULE:
                     mSrlRefresh.autoRefresh();
                     break;
                 default:
                     break;
             }
 
+        }
+    }
+
+    private void startGoodDetailsActivity(int newStatus) {
+        ResultMyGoodBean bean = mData.get(mClickOperationPosition);
+        switch (newStatus) {
+            //待支付
+            case Contast.MyGoodStatus.WAIT_PAY:
+                mViewModel.startGoodDetailsActivityForResult(MyGoodFragment.this, MyGoodFragment.REQUEST_CODE_TO_GOOD_DETAILS, bean.orderId);
+                //  mViewModel.showPayDialog(DataUtils.getMoneyFormat(bean.amount), view1 -> mPresenter.payWeiChatSing(mResultBean.id));
+                break;
+            //已付款
+            case Contast.MyGoodStatus.PAYING:
+                mViewModel.startGoodRefundDetailActivityForResult(MyGoodFragment.this, MyGoodFragment.REQUEST_CODE_REFUND_DETAIL, bean.orderId);
+                break;
+            //已完成
+            case Contast.MyGoodStatus.COMPLETE:
+                break;
+            //已取消
+            case Contast.MyGoodStatus.CANCEL:
+                break;
+            //退款中
+            case Contast.MyGoodStatus.REFUNDING:
+                ARouterIntent.startActivityForResult(this, OrderRefundDetailsActivity.class, ARouterConfig.Key.ORDER_ID, bean.orderId, ARouterConfig.Key.ORDER_FLAG, 1, MyGoodFragment.REQUEST_CODE_REFUND_SCHEDULE);
+                break;
+            //已退款
+            case Contast.MyGoodStatus.REFUNDED:
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void resultGoodStatus(int goodStatus) {
+        ResultMyGoodBean bean = mData.get(mClickOperationPosition);
+        if (goodStatus == bean.status) {
+            startGoodDetailsActivity(goodStatus);
+        } else {
+            mViewModel.showGoodStatusErrorDialog(goodStatus, view -> {
+                startGoodDetailsActivity(goodStatus);
+            });
         }
     }
 }

@@ -124,10 +124,12 @@ public class GameLookBackFragment extends BaseFragment<GameLookBackPresenter> im
         mHeadAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onClickItem(@NonNull View view, int position) {
+                mVideoPath = mHeadData.get(position).videoUrl;
                 DataUtils.addSellingPoint(getContext(), SellingPointsEvent.Key.A0207);
                 if (onClickLookBackListener != null) {
                     onClickLookBackListener.clickCollection(mHeadData.get(position).videoUrl);
                 }
+
             }
         });
         mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
@@ -162,11 +164,16 @@ public class GameLookBackFragment extends BaseFragment<GameLookBackPresenter> im
 
     @Override
     public void resultLiveDetails(ResultGameLiveDetailsBean bean) {
+
         if (mHeadData.size() > 0) {
             mHeadData.clear();
         }
+
         if (bean.matchVideoList != null && bean.matchVideoList.size() > 0) {
             mHeadData.addAll(bean.matchVideoList);
+            if (mVideoPath == null) {
+                mVideoPath = bean.matchVideoList.get(0).videoUrl;
+            }
         }
         if (mHeadData.size() > 0 && onClickLookBackListener != null) {
             mHeadData.get(0).isCheck = true;
@@ -182,9 +189,9 @@ public class GameLookBackFragment extends BaseFragment<GameLookBackPresenter> im
         }
         mHeadAdapter.notifyDataSetChanged();
 
-        if (mHeadData.size() <= 0){
+        if (mHeadData.size() <= 0) {
             mRvHead.setVisibility(View.GONE);
-        }else {
+        } else {
             mRvHead.setVisibility(View.VISIBLE);
         }
     }

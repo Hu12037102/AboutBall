@@ -17,8 +17,10 @@ import com.work.guaishouxingqiu.aboutball.Contast;
 import com.work.guaishouxingqiu.aboutball.R;
 import com.work.guaishouxingqiu.aboutball.base.bean.RequestSureOrderBean;
 import com.work.guaishouxingqiu.aboutball.commonality.activity.BasePayActivity;
+import com.work.guaishouxingqiu.aboutball.good.bean.ResultMyGoodBean;
 import com.work.guaishouxingqiu.aboutball.good.bean.ResultOrderDetailsBean;
 import com.work.guaishouxingqiu.aboutball.good.contract.GoodDetailsContract;
+import com.work.guaishouxingqiu.aboutball.good.fragment.MyGoodFragment;
 import com.work.guaishouxingqiu.aboutball.good.presenter.GoodDetailsPresenter;
 import com.work.guaishouxingqiu.aboutball.router.ARouterConfig;
 import com.work.guaishouxingqiu.aboutball.router.ARouterIntent;
@@ -129,35 +131,9 @@ public class GoodDetailsActivity extends BasePayActivity<GoodDetailsPresenter> i
                 }
                 break;
             case R.id.tv_commit:
+
                 if (mResultBean != null) {
-                    switch (mResultBean.status) {
-                        //待支付
-                        case Contast.MyGoodStatus.WAIT_PAY:
-                            mViewModel.showPayDialog(DataUtils.getMoneyFormat(mResultBean.amount), view1 -> mPresenter.payTicketsWeiChatSing(mResultBean.id));
-                            break;
-                        //已付款
-                        case Contast.MyGoodStatus.PAYING:
-                            mViewModel.startGoodRefundDetailActivityForResult(null, GoodDetailsActivity.REQUEST_CODE_REFUND_DETAIL, mResultBean.id);
-                            break;
-                        //已完成
-                        case Contast.MyGoodStatus.COMPLETE:
-                            break;
-                        //已取消
-                        case Contast.MyGoodStatus.CANCEL:
-                            break;
-                        //退款中
-                        case Contast.MyGoodStatus.REFUNDING:
-                            //  ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ORDER_REFUND_DETAILS, ARouterConfig.Key.ORDER_ID, mResultBean.id);
-                            ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ORDER_REFUND_DETAILS, ARouterConfig.Key.ORDER_ID, mResultBean.id, ARouterConfig.Key.ORDER_FLAG, 1);
-
-                            break;
-                        //已退款
-                        case Contast.MyGoodStatus.REFUNDED:
-                            break;
-                        default:
-                            break;
-                    }
-
+                    mPresenter.getCheckOutOrderStatus(mResultBean.id);
                 }
                 break;
             default:
@@ -190,6 +166,50 @@ public class GoodDetailsActivity extends BasePayActivity<GoodDetailsPresenter> i
             }
         });
 
+    }
+
+    @Override
+    public void resultGoodStatus(int goodStatus) {
+        if (mResultBean!=null){
+            if (goodStatus == mResultBean.status) {
+                startGoodDetailsActivity(goodStatus);
+            } else {
+                mViewModel.showGoodStatusErrorDialog(goodStatus, view -> {
+                    startGoodDetailsActivity(goodStatus);
+                });
+            }
+        }
+
+
+    }
+
+    private void startGoodDetailsActivity(int newStatus) {
+        switch (newStatus) {
+            //待支付
+            case Contast.MyGoodStatus.WAIT_PAY:
+                mViewModel.showPayDialog(DataUtils.getMoneyFormat(mResultBean.amount), view1 -> mPresenter.payTicketsWeiChatSing(mResultBean.id));
+                break;
+            //已付款
+            case Contast.MyGoodStatus.PAYING:
+                mViewModel.startGoodRefundDetailActivityForResult(null, GoodDetailsActivity.REQUEST_CODE_REFUND_DETAIL, mResultBean.id);
+                break;
+            //已完成
+            case Contast.MyGoodStatus.COMPLETE:
+                break;
+            //已取消
+            case Contast.MyGoodStatus.CANCEL:
+                break;
+            //退款中
+            case Contast.MyGoodStatus.REFUNDING:
+                //  ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ORDER_REFUND_DETAILS, ARouterConfig.Key.ORDER_ID, mResultBean.id);
+                ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_ORDER_REFUND_DETAILS, ARouterConfig.Key.ORDER_ID, mResultBean.id, ARouterConfig.Key.ORDER_FLAG, 1);
+                break;
+            //已退款
+            case Contast.MyGoodStatus.REFUNDED:
+                break;
+            default:
+                break;
+        }
     }
 
     @Override

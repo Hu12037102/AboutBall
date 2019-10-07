@@ -85,4 +85,5 @@ public interface IBaseView {
 
     void resultCanUserVenueList(List<ResultVenueData> data);
     void resultSureOrderDialog(BaseBean<ResultSureOrderDialogBean> bean);
+    void resultGoodStatus(int goodStatus);
 }
