@@ -193,6 +193,7 @@ public class AboutBallFragment extends DelayedFragment<AboutBallPresenter> imple
                 }
             }
             mAdapter.notifyDataSetChanged();
+            mSrlData.autoRefresh();
         } else if (requestCode == REQUEST_CODE_CREATE_BALL && resultCode == Activity.RESULT_OK) {
             mSrlData.autoRefresh();
         }

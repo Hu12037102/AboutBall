@@ -318,7 +318,7 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
                     ARouterIntent.startActivity(ARouterConfig.Path.ACTIVITY_GAME_DETAILS, ARouterConfig.Key.GAME_ID, (int) bean.result.match.get(position).matchId);
                 });
             }
-            if (bean.result.activity!=null && bean.result.activity.status ==0){
+            if (bean.result.activity!=null && bean.result.activity.status ==1){
                 mIvActivities.setVisibility(View.VISIBLE);
             }else {
                 mIvActivities.setVisibility(View.GONE);
