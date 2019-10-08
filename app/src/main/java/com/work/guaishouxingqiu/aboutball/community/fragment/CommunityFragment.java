@@ -167,7 +167,7 @@ public class CommunityFragment extends DelayedFragment<CommunityPresenter> imple
         mAttentionFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_COMMUNITY_ATTENTION);
         mRecommendFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_COMMUNITY_RECOMMEND);
         mNewFragment = ARouterIntent.getFragment(ARouterConfig.Path.FRAGMENT_COMMUNITY_NEWS);
-        mFragments = new Fragment[]{mAttentionFragment, mRecommendFragment, mNewFragment};
+        mFragments = new Fragment[]{mAttentionFragment, mNewFragment ,mRecommendFragment};
         FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int i) {

@@ -38,8 +38,8 @@ variant.outputs.all {
     defaultConfig {
 
         multiDexEnabled true
-        applicationId android.applicationId
-        //  applicationId "com.work.guaishouxingqiu.aboutball"
+       // applicationId android.applicationId
+        applicationId "com.work.guaishouxingqiu.aboutball"
         minSdkVersion android.minSdkVersion
         targetSdkVersion android.targetSdkVersion
         versionCode 8
