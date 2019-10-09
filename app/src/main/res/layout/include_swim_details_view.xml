@@ -32,7 +32,7 @@
         app:title_data="@string/graphic_introduction"
         app:title_text_size="@dimen/size_17sp" />
 
-    <com.work.guaishouxingqiu.aboutball.weight.BaseWebView
+    <com.ifeell.app.aboutball.weight.BaseWebView
         android:id="@+id/bwv_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

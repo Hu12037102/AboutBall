@@ -54,7 +54,7 @@
                         android:contentDescription="@null"
                         android:scaleType="centerCrop"/>
 
-                    <com.work.guaishouxingqiu.aboutball.weight.FocusableTextView
+                    <com.ifeell.app.aboutball.weight.FocusableTextView
                         android:id="@+id/tv_content"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/size_50dp"
@@ -104,7 +104,7 @@
             </LinearLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <com.work.guaishouxingqiu.aboutball.weight.BaseViewPager
+        <com.ifeell.app.aboutball.weight.BaseViewPager
             android:id="@+id/bvp_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

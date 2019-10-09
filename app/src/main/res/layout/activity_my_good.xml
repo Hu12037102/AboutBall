@@ -25,7 +25,7 @@
         app:tabIndicatorHeight="@dimen/size_0dp"
         android:layout_gravity="center_horizontal"/>
 
-    <com.work.guaishouxingqiu.aboutball.weight.BaseViewPager
+    <com.ifeell.app.aboutball.weight.BaseViewPager
         android:id="@+id/bvp_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

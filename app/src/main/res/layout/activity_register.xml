@@ -13,7 +13,7 @@
         app:back_text_padding_right="@dimen/default_margin"
         app:back_click_is_finish="false"
         />
-    <com.work.guaishouxingqiu.aboutball.weight.BaseViewPager
+    <com.ifeell.app.aboutball.weight.BaseViewPager
        android:id="@+id/bvp_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
