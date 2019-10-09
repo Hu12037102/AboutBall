@@ -63,12 +63,15 @@ public class MyTicketsAdapter extends BaseRecyclerAdapter<MyTicketsAdapter.ViewH
         switch (bean.status) {
             case 1:
                 viewHolder.mCvRoot.setBackgroundResource(R.mipmap.icon_tickets_usering);
+                viewHolder.mClRoot.setEnabled(true);
                 break;
             case 2:
                 viewHolder.mCvRoot.setBackgroundResource(R.mipmap.icon_tickets_user);
+                viewHolder.mClRoot.setEnabled(true);
                 break;
             case 3:
                 viewHolder.mCvRoot.setBackgroundResource(R.mipmap.icon_tickets_usered);
+                viewHolder.mClRoot.setEnabled(false);
                 break;
             default:
                 break;
