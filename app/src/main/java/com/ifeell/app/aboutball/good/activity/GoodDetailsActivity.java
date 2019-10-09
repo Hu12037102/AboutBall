@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.TitleView;
+import com.ifeell.app.aboutball.util.LogUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.ifeell.app.aboutball.Contast;
 import com.ifeell.app.aboutball.R;
@@ -168,7 +169,7 @@ public class GoodDetailsActivity extends BasePayActivity<GoodDetailsPresenter> i
 
     @Override
     public void resultGoodStatus(int goodStatus) {
-        if (mResultBean!=null){
+        if (mResultBean != null) {
             if (goodStatus == mResultBean.status) {
                 startGoodDetailsActivity(goodStatus);
             } else {
@@ -227,6 +228,8 @@ public class GoodDetailsActivity extends BasePayActivity<GoodDetailsPresenter> i
         UIUtils.setText(mTvName, bean.title);
         UIUtils.setText(mTvAddress, bean.subTitle);
         mTvCommit.setEnabled(true);
+        mTvHint.setVisibility(View.GONE);
+        LogUtils.w("resultOrderDetails--", bean.status + "--");
         switch (bean.status) {
             //待支付
             case Contast.MyGoodStatus.WAIT_PAY:
