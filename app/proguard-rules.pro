@@ -299,6 +299,9 @@ public static final int *;
 #腾讯数据统计
 -keep class com.tencent.stat.*{*;}
 -keep class com.tencent.mid.*{*;}
+#androidx警告
+-keep public class * extends androidx.versionedparcelable.VersionedParcelable.*{*;}
+-keep public class * extends java.lang.annotation.Annotation.*{*;}
 
 
 

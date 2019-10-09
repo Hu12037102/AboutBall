@@ -109,8 +109,18 @@ public class LoginActivity extends LoginOrShareActivity<LoginPresenter> implemen
         inputEditTextStatus(mTietPhone);
         inputEditTextStatus(mTietCode);
         inputEditTextStatus(mTIetPassword);
+        mTitleView.setOnBackViewClickListener(new TitleView.OnBackViewClickListener() {
+            @Override
+            public void onBackClick(@NonNull View view) {
+                mViewModel.clickBackForResult();
+            }
+        });
 
+    }
 
+    @Override
+    public void onBackPressed() {
+        mViewModel.clickBackForResult();
     }
 
     private void inputEditTextStatus(@NonNull EditText editText) {

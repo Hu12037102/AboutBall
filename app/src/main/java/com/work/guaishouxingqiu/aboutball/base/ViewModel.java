@@ -3,6 +3,7 @@ package com.work.guaishouxingqiu.aboutball.base;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -273,6 +274,15 @@ public class ViewModel {
             ARouterIntent.startActivityForResult(ARouterConfig.Path.ACTIVITY_LOGIN, mSoftActivity.get(), LoginActivity.REQUEST_CODE_LOGIN);
             mNotLoginDialog.dismiss();
         });
+    }
+
+    public void showNotCancelLoginDialog() {
+        showLoginDialog();
+        if (mNotLoginDialog!=null){
+            mNotLoginDialog.setCancelable(false);
+            mNotLoginDialog.setCanceledOnTouchOutside(false);
+        }
+
     }
 
     public void showLoginDialog(Fragment fragment) {

@@ -2,6 +2,7 @@ package com.work.guaishouxingqiu.aboutball.splash.activity;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
@@ -176,7 +177,7 @@ public class WelcomeActivity extends PermissionActivity<WelcomePresenter> implem
                             if (UserManger.get().isLogin()) {
                                 mPresenter.loadTeamDetails(mTeamId);
                             } else {
-                                mViewModel.showLoginDialog();
+                                mViewModel.showNotCancelLoginDialog();
                             }
                             break;
                         case IApiService.TypeId.OPEN_GAME_DETAILS_VIDEO:
