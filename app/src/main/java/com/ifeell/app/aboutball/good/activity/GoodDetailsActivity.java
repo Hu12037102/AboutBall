@@ -113,12 +113,13 @@ public class GoodDetailsActivity extends BasePayActivity<GoodDetailsPresenter> i
 
     private void loadData() {
         mSrlRefresh.finishRefresh();
-        if (mIntentBean != null) {
-            mPresenter.loadOrderDetails(mIntentBean);
+        if (mIntentOrderId <= 0) {
+            if (mIntentBean != null) {
+                mPresenter.loadOrderDetails(mIntentBean);
+            }
         } else {
             mPresenter.loadGoodDetails(mIntentOrderId);
         }
-
     }
 
     @OnClick({R.id.iv_address, R.id.tv_commit})
@@ -224,6 +225,7 @@ public class GoodDetailsActivity extends BasePayActivity<GoodDetailsPresenter> i
     @Override
     public void resultOrderDetails(@NonNull ResultOrderDetailsBean bean) {
         mResultBean = bean;
+        mIntentOrderId = bean.id;
         mIvAddress.setVisibility(View.VISIBLE);
         UIUtils.setText(mTvName, bean.title);
         UIUtils.setText(mTvAddress, bean.subTitle);
