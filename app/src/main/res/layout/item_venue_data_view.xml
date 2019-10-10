@@ -12,13 +12,15 @@
         android:layout_height="wrap_content"
        android:paddingTop="@dimen/size_20dp"
         android:paddingRight="@dimen/size_20dp"
-        android:paddingLeft="@dimen/size_20dp">
+        android:paddingLeft="@dimen/size_20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/riv_data"
             android:layout_width="@dimen/size_120dp"
             android:layout_height="@dimen/size_90dp"
-            android:scaleType="center"
+            android:scaleType="centerCrop"
             app:riv_corner_radius="@dimen/size_6dp"
             app:riv_oval="false" />
 
