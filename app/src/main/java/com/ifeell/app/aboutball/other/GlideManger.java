@@ -127,6 +127,7 @@ public class GlideManger {
     public void loadImageDrawable(@NonNull String imagePath, @NonNull CustomTarget<Drawable> target) {
         Glide.with(UIUtils.getContext()).asDrawable().load(imagePath).into(target);
     }
+
     public void loadImageBitmap(@NonNull String imagePath, @NonNull CustomTarget<Bitmap> target) {
         Glide.with(UIUtils.getContext()).asBitmap().load(imagePath).into(target);
     }
@@ -139,7 +140,7 @@ public class GlideManger {
         Glide.with(UIUtils.getContext()).asBitmap().load(imagePath).into(new CustomTarget<Bitmap>() {
             @Override
             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                downloadImage(resource, null);
+                downloadImageTask(resource, null);
             }
 
             @Override
@@ -188,7 +189,7 @@ public class GlideManger {
         return file;
     }
 
-    public void downloadImage(final Bitmap bitmap, @Nullable final String imagePath) {
+    public void downloadImageTask(final Bitmap bitmap, @Nullable final String imagePath) {
         ExecutorService executors = Executors.newSingleThreadExecutor();
         if (executors.isShutdown()) {
             return;

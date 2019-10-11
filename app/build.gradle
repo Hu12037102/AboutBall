@@ -127,8 +127,8 @@ variant.outputs.all {
             // buildConfigField("String", "HOST_URL", '"https://www.ifeell.com.cn/"')
             //  buildConfigField("String", "HOST_URL", '"http://47.106.255.172:8088"')
             shrinkResources false
-            zipAlignEnabled true
-            pseudoLocalesEnabled true
+            zipAlignEnabled false
+            pseudoLocalesEnabled false
         }
     }
     lintOptions {
@@ -215,7 +215,7 @@ dependencies {
     implementation project(':view')
 
     // implementation 'com.github.Hu12037102.ImageCompress:compress:2.0.9'
-    implementation 'com.github.Hu12037102:ImageCompress:2.2.0'
+    implementation 'com.github.Hu12037102:ImageCompress:2.2.2'
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
     implementation 'com.github.yalantis:ucrop:2.2.2'
 

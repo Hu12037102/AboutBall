@@ -295,7 +295,7 @@ public class PreviewActivity extends BaseActivity {
     }
 
     private void compressImage() {
-        if (mOptions.isCompress && !mOptions.isShowVideo && !mOptions.isCrop) {
+        if (mOptions.isCompress && !mOptions.isCrop) {
             final ViewGroup viewGroup = (ViewGroup) getWindow().getDecorView();
             final View inflate = LayoutInflater.from(PreviewActivity.this).inflate(R.layout.item_loading_view, viewGroup, false);
             compressImage(mCheckMediaData, new CompressImageTask.OnImagesResult() {

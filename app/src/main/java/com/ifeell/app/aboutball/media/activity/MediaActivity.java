@@ -189,7 +189,7 @@ public class MediaActivity extends PermissionActivity {
     }
 
     private void compressImage() {
-        if (mOptions.isCompress && !mOptions.isShowVideo) {
+        if (mOptions.isCompress ) {
             final ViewGroup viewGroup = (ViewGroup) getWindow().getDecorView();
             final View inflate = LayoutInflater.from(MediaActivity.this).inflate(R.layout.item_loading_view, viewGroup, false);
             compressImage(mCheckMediaFileData, new CompressImageTask.OnImagesResult() {

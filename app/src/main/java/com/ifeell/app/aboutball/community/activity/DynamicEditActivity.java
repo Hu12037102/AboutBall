@@ -144,8 +144,9 @@ public class DynamicEditActivity extends CameraActivity<DynamicEditPresenter> im
         mImageAdapter.setOnDeleteClickListener(new OnItemClickListener() {
             @Override
             public void onClickItem(@NonNull View view, int position) {
-                LogUtils.w("setOnDeleteClickListener--", position + "--" + mRequestOSSPathData.size());
-                mRequestOSSPathData.remove(position);
+                if (position < mRequestOSSPathData.size()) {
+                    mRequestOSSPathData.remove(position);
+                }
             }
         });
         mAcetContent.setOnClickListener(new View.OnClickListener() {
@@ -290,6 +291,7 @@ public class DynamicEditActivity extends CameraActivity<DynamicEditPresenter> im
 
     @Override
     protected void resultAlbumResult(List<MediaSelectorFile> data) {
+        LogUtils.w("resultAlbumResult--", data.get(0).filePath);
         if (MediaSelectorFile.hasVideo(data)) {
             mRequestOSSPathData.clear();
             mImageAdapter.removeData();

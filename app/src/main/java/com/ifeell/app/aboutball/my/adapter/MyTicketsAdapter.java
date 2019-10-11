@@ -32,6 +32,7 @@ public class MyTicketsAdapter extends BaseRecyclerAdapter<MyTicketsAdapter.ViewH
     }
 
     private com.ifeell.app.aboutball.OnItemClickListener onItemClickListener;
+
     public MyTicketsAdapter(@NonNull List<ResultMyTicketsBean> data) {
         super(data);
     }
@@ -48,34 +49,40 @@ public class MyTicketsAdapter extends BaseRecyclerAdapter<MyTicketsAdapter.ViewH
         UIUtils.setText(viewHolder.mTvTitle, bean.ticketName);
         UIUtils.setText(viewHolder.mTvTime, bean.segment1);
         UIUtils.setText(viewHolder.mTvHint, bean.segment2);
-        if (DataUtils.isEmpty(bean.code)) {
-            viewHolder.mClRoot.setEnabled(false);
-        } else {
-            viewHolder.mClRoot.setEnabled(true);
-        }
+
         UIUtils.setText(viewHolder.mTvCount, bean.num + "张");
         if (!mHasMore && i == mData.size() - 1) {
             viewHolder.includeFoot.setVisibility(View.VISIBLE);
         } else {
             viewHolder.includeFoot.setVisibility(View.GONE);
         }
+        //比赛门票
+        if (bean.ticketType == 1) {
+            viewHolder.mClRoot.setEnabled(false);
+            //游泳门票
+        } else if (bean.ticketType == 2) {
+            if (!DataUtils.isEmpty(bean.code) && bean.status == 1) {
+                viewHolder.mClRoot.setEnabled(true);
+            } else {
+                viewHolder.mClRoot.setEnabled(false);
+            }
+        }
+
         //1.待使用，2.已使用 3.已失效
         switch (bean.status) {
             case 1:
                 viewHolder.mCvRoot.setBackgroundResource(R.mipmap.icon_tickets_usering);
-                viewHolder.mClRoot.setEnabled(true);
                 break;
             case 2:
                 viewHolder.mCvRoot.setBackgroundResource(R.mipmap.icon_tickets_user);
-                viewHolder.mClRoot.setEnabled(false);
                 break;
             case 3:
                 viewHolder.mCvRoot.setBackgroundResource(R.mipmap.icon_tickets_usered);
-                viewHolder.mClRoot.setEnabled(false);
                 break;
             default:
                 break;
         }
+
         viewHolder.mClRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
