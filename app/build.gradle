@@ -36,7 +36,7 @@ variant.outputs.all {
 
 
     defaultConfig {
-
+        resConfigs "zh-rCN"
         multiDexEnabled true
         applicationId android.applicationId
       //  applicationId "com.work.guaishouxingqiu.aboutball"

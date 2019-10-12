@@ -91,7 +91,7 @@ public class GameDataAdapter extends BaseRecyclerAdapter<GameDataAdapter.ViewHol
             textView.setCompoundDrawablePadding(ScreenUtils.dp2px(mContext, 10));
             linearLayout.addView(textView);
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
-            textView.setTextColor(ContextCompat.getColor(mContext, i == 0 ? R.color.color_4 : R.color.colorFFA6A6A6));
+            textView.setTextColor(ContextCompat.getColor(mContext, R.color.color_4 ));
             LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) textView.getLayoutParams();
             layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
             layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -116,10 +116,12 @@ public class GameDataAdapter extends BaseRecyclerAdapter<GameDataAdapter.ViewHol
             case 3:
                 textView.setCompoundDrawablesWithIntrinsicBounds(type == GameDataAdapter.TYPE_GUEST ?
                         R.mipmap.icon_go_up : 0, 0, type == GameDataAdapter.TYPE_HOST ? R.mipmap.icon_go_up : 0, 0);
+                textView.setTextColor(ContextCompat.getColor(mContext, R.color.color_4 ));
                 break;
             case 4:
                 textView.setCompoundDrawablesWithIntrinsicBounds(type == GameDataAdapter.TYPE_GUEST ?
                         R.mipmap.icon_go_down : 0, 0, type == GameDataAdapter.TYPE_HOST ? R.mipmap.icon_go_down : 0, 0);
+                textView.setTextColor(ContextCompat.getColor(mContext, R.color.colorFFA6A6A6 ));
                 break;
             case 5:
                 textView.setCompoundDrawablesWithIntrinsicBounds(type == GameDataAdapter.TYPE_GUEST ?
