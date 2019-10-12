@@ -34,6 +34,11 @@ public class GameDataAdapter extends BaseRecyclerAdapter<GameDataAdapter.ViewHol
     }
 
     @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
     protected void onBindViewDataHolder(@NonNull ViewHolder viewHolder, int i) {
         ResultGameDataResultBean bean = mData.get(i);
         ViewGroup.LayoutParams tvTimeParams = viewHolder.mTvTime.getLayoutParams();

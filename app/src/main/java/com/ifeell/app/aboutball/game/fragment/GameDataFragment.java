@@ -142,7 +142,7 @@ public class GameDataFragment extends DelayedFragment<GameDataPresenter> impleme
         mData = new ArrayList<>();
         mResultAdapter = new GameDataAdapter(mData);
         mResultAdapter.addHeadView(mHeadView);
-
+        mResultAdapter.setHasStableIds(true);
         mRvResult.setAdapter(mResultAdapter);
 
     }
