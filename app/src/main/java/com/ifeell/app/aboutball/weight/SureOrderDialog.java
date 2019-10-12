@@ -71,7 +71,11 @@ public class SureOrderDialog extends BaseDialog {
             UIUtils.showToast("没有获取到订单参数，请重试！");
             return;
         }
-        mUnitPrice = DataUtils.getDoubleFormat(mDialogBean.price) / (double) mDialogBean.num;
+        if (mDialogBean.num == 0) {
+            mUnitPrice = 0;
+        } else {
+            mUnitPrice = DataUtils.getDoubleFormat(mDialogBean.price) / (double) mDialogBean.num;
+        }
         UIUtils.setText(mTvMoney, DataUtils.getMoneyFormat(mDialogBean.price));
         mInvCount.setMaxNum(mDialogBean.maxNum);
         mInvCount.setInputNum(mDialogBean.num);
@@ -219,7 +223,7 @@ public class SureOrderDialog extends BaseDialog {
         rootView.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
             Rect rect = new Rect();
             rootView.getWindowVisibleDisplayFrame(rect);
-            if (getContext().getResources().getDisplayMetrics().heightPixels == rect.bottom){
+            if (getContext().getResources().getDisplayMetrics().heightPixels == rect.bottom) {
                 mInvCount.setInputZreoNum();
             }
 
