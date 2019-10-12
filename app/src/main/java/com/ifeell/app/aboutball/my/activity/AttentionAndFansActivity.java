@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.item.weight.TitleView;
+import com.huxiaobai.adapter.BaseRecyclerAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
@@ -126,6 +127,22 @@ public class AttentionAndFansActivity extends BaseActivity<AttentionAndFansPrese
 
             @Override
             public void onClickHead(View view, int position) {
+                mViewModel.startActivityToUserDynamicForResult(null, mData.get(position).userId, REQUEST_CODE_USER_DYNAMIC);
+            }
+        });
+        mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onNotNetClick(View view) {
+                mSrlLayout.autoRefresh();
+            }
+
+            @Override
+            public void onNotDataClick(View view) {
+                mSrlLayout.autoRefresh();
+            }
+
+            @Override
+            public void onItemClick(View view, int position) {
                 mViewModel.startActivityToUserDynamicForResult(null, mData.get(position).userId, REQUEST_CODE_USER_DYNAMIC);
             }
         });
