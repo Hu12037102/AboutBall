@@ -70,7 +70,7 @@
                 app:layout_constraintTop_toTopOf="@id/tv_grade" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.work.guaishouxingqiu.aboutball.weight.ExpandableTextView
+        <com.ifeell.app.aboutball.weight.ExpandableTextView
             android:id="@+id/rtv_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
                 android:paddingTop="@dimen/size_5dp"
                 android:paddingRight="@dimen/size_10dp"
                 android:paddingBottom="@dimen/size_5dp" />
-        </com.work.guaishouxingqiu.aboutball.weight.ExpandableTextView>
+        </com.ifeell.app.aboutball.weight.ExpandableTextView>
 
         <LinearLayout
             android:id="@+id/ll_images"

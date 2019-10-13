@@ -26,7 +26,7 @@
         app:tabMode="scrollable"
         />
 
-    <com.work.guaishouxingqiu.aboutball.weight.BaseViewPager
+    <com.ifeell.app.aboutball.weight.BaseViewPager
         android:id="@+id/bvp_data"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

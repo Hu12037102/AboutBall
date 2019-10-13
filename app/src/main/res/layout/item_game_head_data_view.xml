@@ -47,7 +47,7 @@
         android:layout_marginTop="@dimen/size_2dp"
         android:orientation="horizontal">
 
-        <com.work.guaishouxingqiu.aboutball.weight.GameDataBar
+        <com.ifeell.app.aboutball.weight.GameDataBar
             android:id="@+id/gdb_left"
             android:layout_width="@dimen/size_0dp"
             android:layout_height="8dp"
@@ -60,7 +60,7 @@
             android:layout_height="@dimen/size_8dp"
             android:background="@color/colorWhite" />
 
-        <com.work.guaishouxingqiu.aboutball.weight.GameDataBar
+        <com.ifeell.app.aboutball.weight.GameDataBar
             android:id="@+id/gdb_right"
             android:layout_width="@dimen/size_0dp"
             android:layout_height="8dp"

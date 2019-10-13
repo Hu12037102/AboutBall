@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.work.guaishouxingqiu.aboutball">
+    package="com.ifeell.app.aboutball">
 
     <uses-feature android:name="android.hardware.Camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -42,7 +42,7 @@
         tools:ignore="ProtectedPermissions" />
 
     <application
-        android:name=".base.BaseApplication"
+        android:name="com.ifeell.app.aboutball.base.BaseApplication"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/app_launcher"
         android:label="@string/app_name"
@@ -69,7 +69,7 @@
 
 
         <activity
-            android:name=".home.activity.MainActivity"
+            android:name="com.ifeell.app.aboutball.home.activity.MainActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
             <!--<intent-filter>
@@ -92,7 +92,7 @@
         </activity>
 
         <activity
-            android:name=".splash.activity.WelcomeActivity"
+            android:name="com.ifeell.app.aboutball.splash.activity.WelcomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/WelcomeTheme">
             <intent-filter>
@@ -122,148 +122,148 @@
 
         </activity>
         <activity
-            android:name=".splash.activity.GuideActivity"
+            android:name="com.ifeell.app.aboutball.splash.activity.GuideActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".login.activity.LoginActivity"
+            android:name="com.ifeell.app.aboutball.login.activity.LoginActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".login.activity.RegisterActivity"
+            android:name="com.ifeell.app.aboutball.login.activity.RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.activity.MyDetailsActivity"
+            android:name="com.ifeell.app.aboutball.my.activity.MyDetailsActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".my.activity.AlterNameActivity"
+            android:name="com.ifeell.app.aboutball.my.activity.AlterNameActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".home.activity.NewsDetailsActivity"
+            android:name="com.ifeell.app.aboutball.home.activity.NewsDetailsActivity"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".game.activity.GameDetailsActivity"
+            android:name="com.ifeell.app.aboutball.game.activity.GameDetailsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".media.activity.MediaActivity"
+            android:name="com.ifeell.app.aboutball.media.activity.MediaActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".media.activity.PreviewActivity"
+            android:name="com.ifeell.app.aboutball.media.activity.PreviewActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".venue.activity.VenueDetailsActivity"
+            android:name="com.ifeell.app.aboutball.venue.activity.VenueDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".game.activity.GamePlayActivity"
+            android:name="com.ifeell.app.aboutball.game.activity.GamePlayActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.activity.SettingActivity"
+            android:name="com.ifeell.app.aboutball.my.activity.SettingActivity"
             android:screenOrientation="portrait" />
         <!-- android:screenOrientation="unspecified" -->
 
         <activity
-            android:name=".wxapi.WXEntryActivity"
+            android:name="com.ifeell.app.aboutball.wxapi.WXEntryActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:taskAffinity="net.sourceforge.simcpux"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
-            android:name=".my.activity.EditMyAddressActivity"
+            android:name="com.ifeell.app.aboutball.my.activity.EditMyAddressActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.activity.MyPrizeActivity"
+            android:name="com.ifeell.app.aboutball.my.activity.MyPrizeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".home.activity.NewsSearchActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".commonality.activity.WebDataActivity"
+            android:name="com.ifeell.app.aboutball.home.activity.NewsSearchActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".my.activity.UserAgreementActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".my.activity.ShareFriendActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".my.activity.UpdatePhoneActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".my.activity.UpdatePasswordActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".venue.activity.VenueBookingActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".venue.activity.WaitPayOrderDetailsActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".venue.activity.LauncherBallActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".my.activity.MyBallTeamActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".my.activity.ManageBallTeamActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".my.activity.BallTeamDetailsActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".my.activity.BallTeamMyDetailsActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".my.activity.AboutWeActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".venue.activity.SelectorBallTeamActivity"
+            android:name="com.ifeell.app.aboutball.commonality.activity.WebDataActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".my.activity.ApplyRefereeActivity"
+            android:name="com.ifeell.app.aboutball.my.activity.UserAgreementActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.ifeell.app.aboutball.my.activity.ShareFriendActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.ifeell.app.aboutball.my.activity.UpdatePhoneActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.ifeell.app.aboutball.my.activity.UpdatePasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.ifeell.app.aboutball.venue.activity.VenueBookingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.ifeell.app.aboutball.venue.activity.WaitPayOrderDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.ifeell.app.aboutball.venue.activity.LauncherBallActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.ifeell.app.aboutball.my.activity.MyBallTeamActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.ifeell.app.aboutball.my.activity.ManageBallTeamActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.ifeell.app.aboutball.my.activity.BallTeamDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.ifeell.app.aboutball.my.activity.BallTeamMyDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.ifeell.app.aboutball.my.activity.AboutWeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.ifeell.app.aboutball.venue.activity.SelectorBallTeamActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".my.activity.ApplyBecomeRefereeActivity"
+            android:name="com.ifeell.app.aboutball.my.activity.ApplyRefereeActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.ifeell.app.aboutball.my.activity.ApplyBecomeRefereeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.activity.RefereeStatusActivity"
+            android:name="com.ifeell.app.aboutball.my.activity.RefereeStatusActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.activity.MyRefereeRecordActivity"
+            android:name="com.ifeell.app.aboutball.my.activity.MyRefereeRecordActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.activity.FeedbackActivity"
+            android:name="com.ifeell.app.aboutball.my.activity.FeedbackActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.activity.MyOrderActivity"
+            android:name="com.ifeell.app.aboutball.my.activity.MyOrderActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.activity.OrderCompleteEvaluateCancelActivity"
+            android:name="com.ifeell.app.aboutball.my.activity.OrderCompleteEvaluateCancelActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.activity.OrderEvaluateActivity"
+            android:name="com.ifeell.app.aboutball.my.activity.OrderEvaluateActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.activity.WaitUserOrderDetailsActivity"
+            android:name="com.ifeell.app.aboutball.my.activity.WaitUserOrderDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".venue.activity.AboutBallDetailsActivity"
+            android:name="com.ifeell.app.aboutball.venue.activity.AboutBallDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".venue.activity.BallTeamDetailsActivity"
+            android:name="com.ifeell.app.aboutball.venue.activity.BallTeamDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".wxapi.WXPayEntryActivity"
+            android:name="com.ifeell.app.aboutball.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:launchMode="singleTop">
@@ -274,106 +274,106 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".venue.activity.InvitationBallActivity"
+            android:name="com.ifeell.app.aboutball.venue.activity.InvitationBallActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.activity.PaySucceedActivity"
+            android:name="com.ifeell.app.aboutball.my.activity.PaySucceedActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".venue.activity.MyAboutBallActivity"
+            android:name="com.ifeell.app.aboutball.venue.activity.MyAboutBallActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.activity.RefundActivity"
+            android:name="com.ifeell.app.aboutball.my.activity.RefundActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.activity.OrderRefundDetailsActivity"
+            android:name="com.ifeell.app.aboutball.my.activity.OrderRefundDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".venue.activity.AboutRuleActivity"
+            android:name="com.ifeell.app.aboutball.venue.activity.AboutRuleActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.activity.InputEvaluationActivity"
+            android:name="com.ifeell.app.aboutball.my.activity.InputEvaluationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.activity.PostEvaluationActivity"
+            android:name="com.ifeell.app.aboutball.my.activity.PostEvaluationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.activity.RefereeDetailsActivity"
+            android:name="com.ifeell.app.aboutball.my.activity.RefereeDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".venue.activity.VenueEvaluateActivity"
+            android:name="com.ifeell.app.aboutball.venue.activity.VenueEvaluateActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.activity.MatchRefereeResultActivity"
+            android:name="com.ifeell.app.aboutball.my.activity.MatchRefereeResultActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.activity.AddBallPeopleRecordActivity"
+            android:name="com.ifeell.app.aboutball.my.activity.AddBallPeopleRecordActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".map.activity.MapActivity"
+            android:name="com.ifeell.app.aboutball.map.activity.MapActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".game.activity.GameScheduleActivity"
+            android:name="com.ifeell.app.aboutball.game.activity.GameScheduleActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".community.activity.CommunityDetailsActivity"
+            android:name="com.ifeell.app.aboutball.community.activity.CommunityDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".community.activity.DynamicEditActivity"
+            android:name="com.ifeell.app.aboutball.community.activity.DynamicEditActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".community.activity.SelectorTopicActivity"
+            android:name="com.ifeell.app.aboutball.community.activity.SelectorTopicActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".community.activity.CommunityReportActivity"
+            android:name="com.ifeell.app.aboutball.community.activity.CommunityReportActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".base.PreviewImageActivity"
+            android:name="com.ifeell.app.aboutball.base.PreviewImageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".community.activity.MyDynamicActivity"
+            android:name="com.ifeell.app.aboutball.community.activity.MyDynamicActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".community.activity.TopicDynamicsActivity"
+            android:name="com.ifeell.app.aboutball.community.activity.TopicDynamicsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".game.activity.GameInfoActivity"
+            android:name="com.ifeell.app.aboutball.game.activity.GameInfoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".game.activity.MatchReviewActivity"
+            android:name="com.ifeell.app.aboutball.game.activity.MatchReviewActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.activity.TeamMatchResultActivity"
+            android:name="com.ifeell.app.aboutball.my.activity.TeamMatchResultActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".venue.activity.MyTeamEvaluateActivity"
+            android:name="com.ifeell.app.aboutball.venue.activity.MyTeamEvaluateActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.activity.VersionHistoryActivity"
+            android:name="com.ifeell.app.aboutball.my.activity.VersionHistoryActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".community.activity.CameraVideoActivity"
+            android:name="com.ifeell.app.aboutball.community.activity.CameraVideoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.activity.AttentionAndFansActivity"
+            android:name="com.ifeell.app.aboutball.my.activity.AttentionAndFansActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.activity.MyMessageActivity"
+            android:name="com.ifeell.app.aboutball.my.activity.MyMessageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.activity.MessageNotificationActivity"
+            android:name="com.ifeell.app.aboutball.my.activity.MessageNotificationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".venue.activity.CreateBallActivity"
+            android:name="com.ifeell.app.aboutball.venue.activity.CreateBallActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".venue.activity.VenueListActivity"
+            android:name="com.ifeell.app.aboutball.venue.activity.VenueListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".home.activity.TicketMallActivity"
+            android:name="com.ifeell.app.aboutball.home.activity.TicketMallActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".commonality.activity.WebUrlActivity"
+            android:name="com.ifeell.app.aboutball.commonality.activity.WebUrlActivity"
             android:screenOrientation="portrait" />
 
         <meta-data
@@ -384,7 +384,7 @@
             android:value="Channel ID" />
         <meta-data
             android:name="TencentMapSDK"
-            android:value="GP2BZ-OGDK3-TUH3G-3MHQD-ZKELK-WMBVE" />
+            android:value="NGQBZ-KAZKP-VIQDS-V6HKM-H3WI3-VFFL4" />
         <meta-data
             android:name="design_width_in_dp"
             android:value="375" />
@@ -393,7 +393,7 @@
             android:value="667" />
 
         <provider
-            android:name=".media.provider.MediaProvider"
+            android:name="com.ifeell.app.aboutball.media.provider.MediaProvider"
             android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -401,7 +401,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_path" />
         </provider>
-        <receiver android:name=".receiver.DownloadMangerReceiver">
+        <receiver android:name="com.ifeell.app.aboutball.receiver.DownloadMangerReceiver">
             <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
                 <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED" />
@@ -413,24 +413,24 @@
             android:required="false" />
 
         <activity
-            android:name=".home.activity.TicketMallDetailsActivity"
+            android:name="com.ifeell.app.aboutball.home.activity.TicketMallDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.activity.MyTicketsActivity"
+            android:name="com.ifeell.app.aboutball.my.activity.MyTicketsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.activity.SureOrderActivity"
+            android:name="com.ifeell.app.aboutball.my.activity.SureOrderActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".good.activity.GoodDetailsActivity"
+            android:name="com.ifeell.app.aboutball.good.activity.GoodDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".good.activity.MyGoodActivity"
+            android:name="com.ifeell.app.aboutball.good.activity.MyGoodActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".good.activity.GoodRefundActivity"
+            android:name="com.ifeell.app.aboutball.good.activity.GoodRefundActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".good.activity.GoodPaySucceedActivity"
+        <activity android:name="com.ifeell.app.aboutball.good.activity.GoodPaySucceedActivity"
             android:screenOrientation="portrait"/>
     </application>
 

@@ -68,7 +68,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <com.work.guaishouxingqiu.aboutball.weight.ExpandableTextView
+            <com.ifeell.app.aboutball.weight.ExpandableTextView
                 android:id="@+id/etv_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
                     android:layout_gravity="right|bottom"
                     android:background="@android:color/transparent"
                     android:padding="16dp" />
-            </com.work.guaishouxingqiu.aboutball.weight.ExpandableTextView>
+            </com.ifeell.app.aboutball.weight.ExpandableTextView>
 
             <View
                 android:id="@+id/line"

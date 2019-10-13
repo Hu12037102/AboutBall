@@ -17,7 +17,7 @@
         android:textSize="@dimen/size_17sp"
         android:textStyle="bold" />
 
-    <com.work.guaishouxingqiu.aboutball.weight.BaseViewPager
+    <com.ifeell.app.aboutball.weight.BaseViewPager
         android:id="@+id/bvp_content"
         android:layout_width="@dimen/size_335dp"
         android:layout_height="@dimen/size_140dp"

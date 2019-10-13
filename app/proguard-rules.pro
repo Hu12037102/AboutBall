@@ -126,22 +126,22 @@ static final long serialVersionUID;
 -keep class com.google.gson.** { *; }
 
 -keep class com.tencent.** { *; }
--keep class com.work.guaishouxingqiu.aboutball.other.**{*;}
--keep class com.work.guaishouxingqiu.aboutball.home.activity.MainActivity{*;}
+-keep class com.ifeell.app.aboutball.other.**{*;}
+-keep class com.ifeell.app.aboutball.home.activity.MainActivity{*;}
 -keep public class * extends android.support.v4.**
 -keep public class * extends android.app.Fragment
 #保留所有的bean
--keep public class com.work.guaishouxingqiu.aboutball.base.**{*;}
--keep public class com.work.guaishouxingqiu.aboutball.commonality.bean.**{*;}
--keep public class com.work.guaishouxingqiu.aboutball.community.bean.**{*;}
--keep public class com.work.guaishouxingqiu.aboutball.game.bean.**{*;}
--keep public class com.work.guaishouxingqiu.aboutball.good.bean.**{*;}
--keep public class com.work.guaishouxingqiu.aboutball.home.bean.**{*;}
--keep public class com.work.guaishouxingqiu.aboutball.login.bean.**{*;}
--keep public class com.work.guaishouxingqiu.aboutball.media.bean.**{*;}
--keep public class com.work.guaishouxingqiu.aboutball.my.bean.**{*;}
--keep public class com.work.guaishouxingqiu.aboutball.venue.bean.**{*;}
--keep public class com.work.guaishouxingqiu.aboutball.OnItemClickListener.{*;}
+-keep public class com.ifeell.app.aboutball.base.**{*;}
+-keep public class com.ifeell.app.aboutball.commonality.bean.**{*;}
+-keep public class com.ifeell.app.aboutball.community.bean.**{*;}
+-keep public class com.ifeell.app.aboutball.game.bean.**{*;}
+-keep public class com.ifeell.app.aboutball.good.bean.**{*;}
+-keep public class com.ifeell.app.aboutball.home.bean.**{*;}
+-keep public class com.ifeell.app.aboutball.login.bean.**{*;}
+-keep public class com.ifeell.app.aboutball.media.bean.**{*;}
+-keep public class com.ifeell.app.aboutball.my.bean.**{*;}
+-keep public class com.ifeell.app.aboutball.venue.bean.**{*;}
+-keep public class com.ifeell.app.aboutball.OnItemClickListener.{*;}
 
 
 #路由器混淆规则
@@ -290,7 +290,7 @@ rx.internal.util.atomic.LinkedQueueNode consumerNode;
     public static **[] values();
     public static ** valueOf(java.lang.String);
 }
--keep public class com.work.guaishouxingqiu.aboutball.R$*{
+-keep public class com.ifeell.app.aboutball.R$*{
 public static final int *;
 }
 -dontwarn io.microshow.rxffmpeg.**
@@ -299,6 +299,9 @@ public static final int *;
 #腾讯数据统计
 -keep class com.tencent.stat.*{*;}
 -keep class com.tencent.mid.*{*;}
+#androidx警告
+-keep public class * extends androidx.versionedparcelable.VersionedParcelable.*{*;}
+-keep public class * extends java.lang.annotation.Annotation.*{*;}
 
 
 

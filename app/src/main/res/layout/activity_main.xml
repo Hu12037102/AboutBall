@@ -16,7 +16,7 @@
         android:layout_above="@id/rv_main_tab"
        />
 
-    <com.work.guaishouxingqiu.aboutball.weight.BaseViewPager
+    <com.ifeell.app.aboutball.weight.BaseViewPager
         android:id="@+id/bvp_content"
         android:layout_above="@id/line"
         android:layout_width="match_parent"

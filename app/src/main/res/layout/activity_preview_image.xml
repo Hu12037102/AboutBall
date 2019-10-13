@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorBlack">
 
-    <com.work.guaishouxingqiu.aboutball.weight.BaseViewPager
+    <com.ifeell.app.aboutball.weight.BaseViewPager
         android:id="@+id/bvp_image"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_0dp"

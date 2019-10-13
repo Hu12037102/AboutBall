@@ -76,7 +76,7 @@
         android:visibility="gone"
         android:background="@color/colorWhite">
 
-        <com.work.guaishouxingqiu.aboutball.weight.WarpViewPager
+        <com.ifeell.app.aboutball.weight.WarpViewPager
             android:id="@+id/bvp_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

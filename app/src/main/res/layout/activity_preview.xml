@@ -7,7 +7,7 @@
     android:clipToPadding="true"
     android:fitsSystemWindows="true">
 
-    <com.work.guaishouxingqiu.aboutball.media.weight.PreviewViewPager
+    <com.ifeell.app.aboutball.media.weight.PreviewViewPager
         android:id="@+id/vp_preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

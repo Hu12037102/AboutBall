@@ -17,7 +17,8 @@
         app:sure_data="@string/password_login"
         app:sure_text_color="@color/color_4"
         app:sure_text_padding_right="@dimen/size_20dp"
-        app:sure_text_size="@dimen/size_16sp" />
+        app:sure_text_size="@dimen/size_16sp"
+        app:back_click_is_finish="false"/>
 
     <TextView
        style="@style/DefaultTitleText"

@@ -28,7 +28,7 @@
         android:textSize="@dimen/size_14sp"
         tools:text="来源：五华印象" />
 
-    <com.work.guaishouxingqiu.aboutball.weight.BaseWebView
+    <com.ifeell.app.aboutball.weight.BaseWebView
         android:id="@+id/bw_web"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
