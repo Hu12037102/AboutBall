@@ -31,6 +31,7 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
+            app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/til_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -86,7 +87,8 @@
             android:background="@drawable/shape_input_default_edit"
             android:orientation="horizontal"
             android:textColorHint="@color/color_4"
-            app:hintTextAppearance="@style/DefaultTextInputLayout">
+            app:hintTextAppearance="@style/DefaultTextInputLayout"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/tit_code"
@@ -155,7 +157,8 @@
             android:background="@drawable/shape_input_default_edit"
             android:orientation="horizontal"
             android:textColorHint="@color/color_4"
-            app:hintTextAppearance="@style/DefaultTextInputLayout">
+            app:hintTextAppearance="@style/DefaultTextInputLayout"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/et_password"
